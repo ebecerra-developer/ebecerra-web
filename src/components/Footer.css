@@ -1,0 +1,19 @@
+.footer {
+  border-top: 1px solid #111;
+  padding: 24px clamp(20px, 5vw, 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-text {
+  color: #333;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.footer-status {
+  color: #00ff88;
+}
