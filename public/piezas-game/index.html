@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Piezas — Tu recuerdo hecho puzzle</title>
+  <meta name="description" content="Sube una foto y conviértela en un puzzle de piezas irregulares. Personal, relajante y sin distracciones. Disponible en Android." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Piezas — Tu recuerdo hecho puzzle" />
+  <meta property="og:description" content="Sube una foto y conviértela en un puzzle de piezas irregulares. Personal, relajante y sin distracciones." />
+  <meta property="og:image" content="./assets/og-image.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Piezas — Tu recuerdo hecho puzzle" />
+  <meta name="twitter:description" content="Sube una foto y conviértela en un puzzle de piezas irregulares." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/logo.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./assets/icon-192.png" />
+
+  <!-- Fuentes — mismas que el juego, cargadas de forma autónoma -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAV
+       ============================================================ -->
+  <nav class="nav" aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#">
+        <img src="./assets/logo.svg" alt="Piezas" class="nav-logo" width="44" height="44" />
+        <span class="nav-name">Piezas</span>
+      </a>
+      <a href="#descargar" class="btn-primary btn-sm">Descargar</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-inner">
+
+      <!-- Contenido textual -->
+      <div class="hero-content">
+        <p class="hero-kicker">El puzzle que siempre quisiste</p>
+        <h1 class="hero-title" id="hero-title">
+          Tus recuerdos,<br />
+          <em>hechos puzzle</em>
+        </h1>
+        <p class="hero-sub">
+          Sube una foto y conviértela en un puzzle de piezas irregulares clásico.
+          Una experiencia personal, relajante y sin distracciones.
+        </p>
+
+        <div class="store-badges" id="descargar">
+          <!-- Google Play -->
+          <a href="https://play.google.com/store/apps/details?id=com.piezasgame.app"
+             class="badge-google"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Descargar en Google Play">
+            <!-- Icono Google Play (diseño 2022+) -->
+            <svg class="badge-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="gp1a" x1="5.97" y1="21.58" x2="18.35" y2="9.2" gradientUnits="userSpaceOnUse"><stop stop-color="#00A0FF"/><stop offset=".01" stop-color="#00A1FF"/><stop offset=".26" stop-color="#00BEFF"/><stop offset=".51" stop-color="#00D2FF"/><stop offset=".76" stop-color="#00DFFF"/><stop offset="1" stop-color="#00E3FF"/></linearGradient>
+                <linearGradient id="gp1b" x1="25.6" y1="14" x2="3.5" y2="14" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE000"/><stop offset=".41" stop-color="#FFBD00"/><stop offset=".78" stop-color="#FFA500"/><stop offset="1" stop-color="#FF6D00"/></linearGradient>
+                <linearGradient id="gp1c" x1="8.35" y1="15.77" x2="1.33" y2="8.75" gradientUnits="userSpaceOnUse"><stop stop-color="#FF3A44"/><stop offset="1" stop-color="#C31162"/></linearGradient>
+                <linearGradient id="gp1d" x1="2.88" y1="22.63" x2="9.22" y2="16.29" gradientUnits="userSpaceOnUse"><stop stop-color="#32A071"/><stop offset=".07" stop-color="#2DA771"/><stop offset=".48" stop-color="#15CF74"/><stop offset="1" stop-color="#06E775"/></linearGradient>
+              </defs>
+              <path d="M3.86 2.27A1.7 1.7 0 0 0 3.5 3.5v21a1.7 1.7 0 0 0 .36 1.23l.06.06 11.77-11.76v-.28L3.92 2.21Z" fill="url(#gp1a)"/>
+              <path d="m19.6 17.82-3.9-3.9V13.6l3.91-3.91.09.05 4.63 2.63c1.32.75 1.32 1.98 0 2.73l-4.63 2.63Z" fill="url(#gp1b)"/>
+              <path d="M19.7 17.77 15.69 14 3.86 25.73a1.53 1.53 0 0 0 1.96.06l13.88-7.98" fill="url(#gp1c)"/>
+              <path d="M19.7 10.23 5.82 2.24A1.53 1.53 0 0 0 3.86 2.3L15.69 14Z" fill="url(#gp1d)"/>
+            </svg>
+            <div class="badge-text">
+              <span class="badge-text-top">Disponible en</span>
+              <span class="badge-text-main">Google Play</span>
+            </div>
+          </a>
+
+          <!-- App Store (próximamente) -->
+          <div class="badge-apple" aria-label="App Store — próximamente">
+            <span class="badge-soon-chip">Próximamente</span>
+            <!-- Icono Apple -->
+            <svg class="badge-icon" width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M20.03 15.26C20.01 12.58 22.22 11.28 22.32 11.22C21.08 9.39 19.12 9.14 18.44 9.12C16.77 8.95 15.16 10.11 14.31 10.11C13.45 10.11 12.14 9.14 10.73 9.17C8.92 9.2 7.22 10.23 6.29 11.84C4.35 15.11 5.77 20 7.63 22.7C8.56 24.02 9.65 25.5 11.07 25.45C12.46 25.39 12.97 24.57 14.64 24.57C16.29 24.57 16.77 25.45 18.22 25.41C19.71 25.39 20.66 24.08 21.56 22.74C22.63 21.21 23.06 19.72 23.08 19.64C23.05 19.63 20.05 18.5 20.03 15.26Z" fill="white"/>
+              <path d="M17.33 7.23C18.09 6.29 18.61 5.01 18.46 3.71C17.37 3.76 16.01 4.47 15.22 5.39C14.52 6.2 13.9 7.53 14.07 8.78C15.28 8.87 16.55 8.16 17.33 7.23Z" fill="white"/>
+            </svg>
+            <div class="badge-text">
+              <span class="badge-text-top">Disponible en</span>
+              <span class="badge-text-main">App Store</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="hero-footnote">
+          Gratis
+          <span>Sin anuncios obligatorios</span>
+          <span>Android · iOS próximamente</span>
+        </p>
+      </div>
+
+      <!-- Mockup del teléfono -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="phone-wrap">
+          <!-- SVG teléfono con ilustración del juego -->
+          <svg viewBox="0 0 280 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de la app Piezas">
+            <!-- Cuerpo del teléfono -->
+            <rect x="2" y="2" width="276" height="556" rx="38" fill="#1a1a1a" />
+            <rect x="8" y="8" width="264" height="544" rx="34" fill="#FAF7F2" />
+
+            <!-- Notch / Dynamic Island -->
+            <rect x="100" y="16" width="80" height="22" rx="11" fill="#1a1a1a" />
+
+            <!-- ===== PANTALLA: HomeScreen simplificada ===== -->
+
+            <!-- Cabecera de la app -->
+            <rect x="8" y="8" width="264" height="88" rx="34" fill="#FAF7F2" />
+            <rect x="8" y="50" width="264" height="46" fill="#FAF7F2" />
+
+            <!-- Logo Piezas en la cabecera — paths reales de Piezas-sueltas.svg, escala 36/843.979 ≈ 0.0427 -->
+            <g transform="translate(20, 56) scale(0.0427)">
+              <path fill-rule="evenodd" clip-rule="evenodd" fill="#CF871B" d="M177.341,0.532c3.376-0.803,10.048-0.562,13.908-0.161c25.806,4.983,44.488,17.711,46.144,41.876c1.405,20.531-20.334,34.875-19.294,52.085c2.627,43.558,100.521,19.811,135.053,17.361c4.076,8.269,5.708,18.982,7.397,29.644c0.278,1.777,0.562,3.552,0.855,5.316c3.323,15.196,3.323,30.629,6.173,46.023c0.249,1.608,0.493,3.241,0.721,4.877c0.895,6.542,1.506,13.101,0.792,19.468c-0.006,2.137-0.083,4.228-0.262,6.237c-0.723,8.038-3.136,14.79-9.889,17.683c-2.895,1.447-5.547,1.447-8.078,0.622c-1.267-0.412-2.503-1.029-3.708-1.773c-11.365-8.494-22.94-16.21-36.777-14.436c-1.478,0.037-2.933,0.088-4.38,0.167c-12.653-1.942-22.299,7.703-33.287,12.923c-0.936,0.656-1.854,1.333-2.744,2.031c-47.223,36.986-20.586,131.093,46.53,123.926c1.692-0.181,3.327-0.492,4.917-0.904c1.594-0.413,3.144-0.928,4.666-1.513c11.639-3.371,21.287-18.803,34.791-11.087c11.818,6.752,8.863,20.888,7.941,34.87c-0.133,1.997-0.215,3.996-0.19,5.979c-0.003,1.646-0.067,3.299-0.177,4.953c-0.107,1.654-0.26,3.315-0.445,4.979c-0.654,3.732-1.179,7.413-1.642,11.069c-0.155,1.217-0.302,2.434-0.445,3.647c-3.112,15.522-5.042,30.955-7.388,45.61c-0.348,1.469-0.732,2.911-1.173,4.315c-0.241,1.334-0.482,2.663-0.731,3.995c-0.493,2.648-1.002,5.287-1.538,7.9c-37.515-1.74-131.562-25.383-136.981,15.431c-2.441,18.394,19.463,37.193,19.294,52.086c-0.667,58.128-100.899,60.372-104.185,1.93c-1.272-22.621,21.767-24.969,19.293-52.086c-3.951-43.325-95.402-18.917-136.982-17.36C8.994,446.013-1.018,409.662,0.084,375.976c0.547-16.694,5.778-39.541,19.294-42.439c19.404-4.161,30.791,15.282,42.444,17.361c70.796,12.622,76.549-102.396,19.293-111.885c-27.05-4.483-38.326,20.455-59.808,17.362c-25.612-3.688-20.128-43.87-19.293-73.304c0.723-8.199,2.049-18.086,3.858-28.936c2.05-13.142,5.402-29.322,9.646-42.44c36.237,1.463,130.415,25.463,136.982-13.503c2.983-17.701-19.6-33.887-19.293-54.013C133.58,19.693,151.9,6.088,177.341,0.532z"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" fill="#F08F4A" d="M419.105,102.953c4.303-0.768,10.016-1.114,13.516-1.708c2.272-0.386,9.194-1.233,10.56-1.284c2.179-0.23,4.385-0.46,6.616-0.68c28.986-2.857,61.258-4.042,66.22,16.408c6.795,28.011-21.228,31.754-17.362,61.729c7.972,61.87,116.948,53.371,109.971-13.502c-1.789-17.128-20.787-25.811-17.366-46.298c3.797-22.721,41.854-21.296,67.526-19.291c27.241,2.13,49.819,9.428,75.245,13.504c0,3.858,0,7.716,0,11.574c0,0.644,0,1.286,0,1.929c-5.874,37.963-28.316,112.068,6.433,134.07c5.465,2.572,13.825,4.663,20.258,0.805c6.429-3.858,17.606-13.602,29.953-16.688c1.023-0.242,2.522-0.513,3.163-0.513c32.215,0.584,44.927,17.776,49.846,45.655c0.965,6.429-0.646,14.468-1.61,21.861c-4.662,22.024-20.858,36.398-42.448,36.652c-17.36,0.206-34.532-20.698-50.16-19.291c-20.975,1.891-26.354,32.165-27.011,52.085c-1.179,35.972,9.781,66.39,11.577,96.454c-22.997,5.378-132.967,35.9-142.771-1.931c-7.187-27.729,24.359-36.772,16.883-63.297c-0.361-1.775-0.875-3.436-1.326-4.942c-6.495-19.228-19.591-31.735-42.505-34.542c-7.897-0.814-15.796-0.845-21.285,0.542c-24.889,4.934-41.698,18.285-44.371,40.511c-2.841,23.601,21.484,38.748,17.362,59.802c-8,40.844-122.327,9.158-142.768,3.857c5.539-34.253,21.117-88.753,8.978-124.134c-0.606-1.769-1.286-3.488-2.031-5.16c-3.091-9.6-10.807-15.387-20.898-18.57c-1.708-0.271-3.43-0.287-5.171-0.099c-15.671,1.702-32.858,19.927-54.194,16.786c-22.71-3.342-30.876-21.612-36.657-50.155c0-1.286,0-2.572,0-3.859c-0.166-29.458,28.186-51.111,55.197-45.301c2.075,0.445,4.146,1.056,6.194,1.836c9.994,4.885,19.64,12.6,32.917,13.249c1.78,0.11,3.472,0.031,5.065-0.224c38.222-6.142,19.877-113.972,10.599-148.962c4.834-1.918,10.778-2.726,16.64-3.614c1.467-0.222,2.928-0.449,4.362-0.701C398.756,106.412,419.105,102.953,419.105,102.953z"/>
+            </g>
+            <text x="64" y="75" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#2C2416">Piezas</text>
+
+            <!-- Línea divisor -->
+            <line x1="8" y1="96" x2="272" y2="96" stroke="#DDD4C0" stroke-width="1" />
+
+            <!-- Tarjeta puzzle del día -->
+            <rect x="20" y="106" width="240" height="130" rx="16" fill="#F0E8D8" />
+            <rect x="20" y="106" width="240" height="130" rx="16" stroke="#DDD4C0" stroke-width="1" />
+
+            <!-- Etiqueta "Puzzle del día" -->
+            <rect x="34" y="118" width="100" height="18" rx="9" fill="#C17B3A" />
+            <text x="84" y="131" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white" text-anchor="middle">PUZZLE DEL DÍA</text>
+
+            <!-- Miniatura puzzle del día (gradient simulando foto) -->
+            <defs>
+              <linearGradient id="photoGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#8B7355" />
+                <stop offset="40%" stop-color="#A0856B" />
+                <stop offset="100%" stop-color="#C17B3A" />
+              </linearGradient>
+              <clipPath id="thumbClip">
+                <rect x="34" y="143" width="140" height="82" rx="10" />
+              </clipPath>
+              <linearGradient id="amberGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#C17B3A" stop-opacity="0" />
+                <stop offset="100%" stop-color="#2C2416" stop-opacity="0.55" />
+              </linearGradient>
+            </defs>
+
+            <rect x="34" y="143" width="140" height="82" rx="10" fill="url(#photoGrad)" />
+            <!-- Piezas superpuestas simulando el puzzle -->
+            <g clip-path="url(#thumbClip)">
+              <!-- Pieza 1 -->
+              <path d="M54 163 Q60 155 70 163 Q75 170 70 175 L54 175 Z" fill="rgba(255,255,255,0.15)" />
+              <!-- Pieza 2 -->
+              <path d="M80 148 Q88 143 94 150 Q98 158 90 163 L80 163 Z" fill="rgba(255,255,255,0.12)" />
+              <!-- Grilla sutil de piezas -->
+              <line x1="34" y1="167" x2="174" y2="167" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+              <line x1="34" y1="185" x2="174" y2="185" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+              <line x1="80" y1="143" x2="80" y2="225" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+              <line x1="120" y1="143" x2="120" y2="225" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+              <line x1="155" y1="143" x2="155" y2="225" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+              <rect x="34" y="143" width="140" height="82" rx="10" fill="url(#amberGrad)" />
+            </g>
+
+            <!-- Info lateral del puzzle del día -->
+            <text x="184" y="156" font-family="Arial, sans-serif" font-size="8" fill="#9C8E7A">DIFICULTAD</text>
+            <text x="184" y="170" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#2C2416">Normal</text>
+            <text x="184" y="188" font-family="Arial, sans-serif" font-size="8" fill="#9C8E7A">PIEZAS</text>
+            <text x="184" y="202" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#C17B3A">36</text>
+
+            <!-- Botón empezar -->
+            <rect x="184" y="211" width="64" height="26" rx="13" fill="#C17B3A" />
+            <text x="216" y="228" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Empezar</text>
+
+            <!-- Sección "Mis puzzles" -->
+            <text x="20" y="256" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#2C2416">Mi colección</text>
+
+            <!-- Grid de thumbnails de puzzles anteriores -->
+            <defs>
+              <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6B8F6B"/><stop offset="100%" stop-color="#3A5F3A"/></linearGradient>
+              <linearGradient id="p2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B6060"/><stop offset="100%" stop-color="#5A3535"/></linearGradient>
+              <linearGradient id="p3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6B7B8B"/><stop offset="100%" stop-color="#3A4A5A"/></linearGradient>
+              <linearGradient id="p4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B7B4A"/><stop offset="100%" stop-color="#5A4A20"/></linearGradient>
+            </defs>
+
+            <!-- Thumbnail 1 - completado -->
+            <rect x="20" y="264" width="74" height="74" rx="10" fill="url(#p1)" />
+            <circle cx="57" cy="285" r="10" fill="rgba(255,255,255,0.2)" />
+            <text x="57" y="310" font-family="Arial, sans-serif" font-size="8" fill="rgba(255,255,255,0.7)" text-anchor="middle">36 piezas</text>
+            <!-- Tick completado -->
+            <circle cx="83" cy="270" r="9" fill="#4CAF50" />
+            <text x="83" y="274" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle">✓</text>
+
+            <!-- Thumbnail 2 -->
+            <rect x="103" y="264" width="74" height="74" rx="10" fill="url(#p2)" />
+            <circle cx="140" cy="285" r="10" fill="rgba(255,255,255,0.2)" />
+            <text x="140" y="310" font-family="Arial, sans-serif" font-size="8" fill="rgba(255,255,255,0.7)" text-anchor="middle">64 piezas</text>
+            <!-- Tick completado -->
+            <circle cx="166" cy="270" r="9" fill="#4CAF50" />
+            <text x="166" y="274" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle">✓</text>
+
+            <!-- Thumbnail 3 - en progreso -->
+            <rect x="186" y="264" width="74" height="74" rx="10" fill="url(#p3)" />
+            <circle cx="223" cy="285" r="10" fill="rgba(255,255,255,0.2)" />
+            <text x="223" y="310" font-family="Arial, sans-serif" font-size="8" fill="rgba(255,255,255,0.7)" text-anchor="middle">132 piezas</text>
+            <!-- Barra de progreso -->
+            <rect x="192" y="325" width="62" height="5" rx="3" fill="rgba(255,255,255,0.2)" />
+            <rect x="192" y="325" width="35" height="5" rx="3" fill="#C17B3A" />
+
+            <!-- Cuadrícula puzzle en progreso en la pantalla -->
+            <rect x="20" y="352" width="240" height="140" rx="12" fill="#EDE5D4" stroke="#DDD4C0" stroke-width="1" />
+
+            <!-- Simulación de puzzle en el tablero -->
+            <defs>
+              <linearGradient id="puzGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#C4956A" />
+                <stop offset="100%" stop-color="#8B6642" />
+              </linearGradient>
+            </defs>
+            <!-- Piezas encajadas (zona completada, más oscura) -->
+            <rect x="28" y="360" width="110" height="80" rx="6" fill="url(#puzGrad)" opacity="0.8" />
+            <!-- Cuadrícula interna -->
+            <line x1="28" y1="387" x2="138" y2="387" stroke="rgba(255,255,255,0.3)" stroke-width="1" />
+            <line x1="28" y1="413" x2="138" y2="413" stroke="rgba(255,255,255,0.3)" stroke-width="1" />
+            <line x1="65" y1="360" x2="65" y2="440" stroke="rgba(255,255,255,0.3)" stroke-width="1" />
+            <line x1="100" y1="360" x2="100" y2="440" stroke="rgba(255,255,255,0.3)" stroke-width="1" />
+
+            <!-- Zona vacía del tablero (piezas pendientes) -->
+            <!-- Pieza suelta 1 -->
+            <path d="M148 368 L168 368 Q165 376 170 382 Q165 388 168 396 L148 396 Q151 388 146 382 Q151 376 148 368Z" fill="#C17B3A" opacity="0.7" />
+            <!-- Pieza suelta 2 -->
+            <path d="M180 375 L200 375 Q197 383 202 389 L200 397 L180 397 Q183 389 178 383 Q183 377 180 375Z" fill="#D4894A" opacity="0.6" />
+            <!-- Pieza suelta 3 -->
+            <path d="M215 360 L235 360 Q232 368 237 374 Q232 380 235 388 L215 388 Q218 380 213 374 Q218 368 215 360Z" fill="#C17B3A" opacity="0.5" />
+            <!-- Pieza suelta 4 -->
+            <path d="M148 408 L168 408 Q165 416 170 422 L168 430 L148 430 Q151 422 146 416 Q151 410 148 408Z" fill="#B06A2E" opacity="0.65" />
+
+            <!-- HUD inferior - barra de progreso -->
+            <rect x="28" y="448" width="224" height="6" rx="3" fill="#DDD4C0" />
+            <rect x="28" y="448" width="100" height="6" rx="3" fill="#C17B3A" />
+            <text x="140" y="468" font-family="Arial, sans-serif" font-size="9" fill="#9C8E7A" text-anchor="middle">18 / 36 piezas</text>
+
+            <!-- Bottom nav -->
+            <rect x="8" y="490" width="264" height="62" fill="#FAF7F2" />
+            <line x1="8" y1="490" x2="272" y2="490" stroke="#DDD4C0" stroke-width="1" />
+
+            <!-- Nav items -->
+            <!-- Inicio (activo) -->
+            <g transform="translate(30, 502)">
+              <rect x="0" y="0" width="36" height="36" rx="10" fill="rgba(193,123,58,0.12)" />
+              <path d="M18 8L6 18H10V28H16V22H20V28H26V18H30L18 8Z" fill="#C17B3A" />
+            </g>
+            <!-- Crear -->
+            <g transform="translate(84, 502)">
+              <path d="M18 8V28M8 18H28" stroke="#9C8E7A" stroke-width="2.5" stroke-linecap="round" />
+            </g>
+            <!-- Diario -->
+            <g transform="translate(130, 502)">
+              <rect x="6" y="8" width="24" height="20" rx="3" stroke="#9C8E7A" stroke-width="2" fill="none" />
+              <line x1="12" y1="6" x2="12" y2="12" stroke="#9C8E7A" stroke-width="2" stroke-linecap="round" />
+              <line x1="24" y1="6" x2="24" y2="12" stroke="#9C8E7A" stroke-width="2" stroke-linecap="round" />
+              <line x1="12" y1="22" x2="24" y2="22" stroke="#9C8E7A" stroke-width="1.5" stroke-linecap="round" />
+            </g>
+            <!-- Colección -->
+            <g transform="translate(180, 502)">
+              <rect x="6" y="8" width="10" height="12" rx="2" stroke="#9C8E7A" stroke-width="2" fill="none" />
+              <rect x="20" y="8" width="10" height="12" rx="2" stroke="#9C8E7A" stroke-width="2" fill="none" />
+              <rect x="13" y="17" width="10" height="12" rx="2" stroke="#9C8E7A" stroke-width="2" fill="none" />
+            </g>
+            <!-- Perfil -->
+            <g transform="translate(228, 502)">
+              <circle cx="18" cy="14" r="6" stroke="#9C8E7A" stroke-width="2" fill="none" />
+              <path d="M6 30C6 24 11 20 18 20C25 20 30 24 30 30" stroke="#9C8E7A" stroke-width="2" stroke-linecap="round" fill="none" />
+            </g>
+
+            <!-- Borde exterior del teléfono (bisel) -->
+            <rect x="2" y="2" width="276" height="556" rx="38" fill="none" stroke="#0a0a0a" stroke-width="4" />
+            <!-- Botón power lateral -->
+            <rect x="275" y="120" width="5" height="50" rx="2.5" fill="#2a2a2a" />
+            <!-- Botones volumen -->
+            <rect x="0" y="110" width="5" height="35" rx="2.5" fill="#2a2a2a" />
+            <rect x="0" y="155" width="5" height="35" rx="2.5" fill="#2a2a2a" />
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURES
+       ============================================================ -->
+  <section class="section section-alt" aria-labelledby="features-title">
+    <div class="container">
+      <p class="section-label">Por qué Piezas</p>
+      <h2 class="section-title" id="features-title">El puzzle que mereces</h2>
+      <p class="section-sub">
+        Diseñado para disfrutar. Sin trucos, sin presión, sin publicidad.
+        Solo tú, tu foto y el placer de encajar cada pieza.
+      </p>
+
+      <div class="features-grid">
+
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="22" height="22" rx="5" stroke="currentColor" stroke-width="2" fill="none"/>
+              <circle cx="9" cy="9" r="2.5" fill="currentColor"/>
+              <path d="M2 17L8 11L13 16L18 11L24 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Tus fotos</h3>
+          <p class="feature-text">
+            Usa las fotos de tu galería — ese viaje, ese cumpleaños, esa cara que más quieres —
+            o elige entre nuestra colección de imágenes de stock.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M13 2L13 8M13 18L13 24M24 13L18 13M8 13L2 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <rect x="8" y="8" width="10" height="10" rx="3" stroke="currentColor" stroke-width="2" fill="none"/>
+              <!-- pieza puzzle -->
+              <path d="M8 11Q10 9 12 11L12 13Q10 15 8 13Z" fill="currentColor" opacity="0.4"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">6 dificultades</h3>
+          <p class="feature-text">
+            Desde 20 piezas para empezar tranquilamente hasta 528 piezas
+            para los más experimentados. Cada puzzle, a tu ritmo.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="13" cy="13" r="11" stroke="currentColor" stroke-width="2"/>
+              <path d="M13 7V13L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Sin interrupciones</h3>
+          <p class="feature-text">
+            Sin anuncios obligatorios, sin notificaciones intrusivas, sin vidas que se agoten.
+            Una experiencia limpia y respetuosa con tu tiempo.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M13 3L15.6 9.8L23 9.8L17.2 14.4L19.8 21.2L13 16.6L6.2 21.2L8.8 14.4L3 9.8L10.4 9.8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Puzzle del día</h3>
+          <p class="feature-text">
+            Cada día un puzzle nuevo compartido. Complétalo y compara
+            tu tiempo con el de otros jugadores.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M13 3C13 3 5 8 5 14.5C5 18.64 8.69 22 13 22C17.31 22 21 18.64 21 14.5C21 8 13 3 13 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+              <path d="M13 22V16M10 13L13 16L16 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Colección personal</h3>
+          <p class="feature-text">
+            Todos tus puzzles guardados. Repasa los que ya completaste
+            o retoma los que dejaste a medias cuando quieras.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="3" y="3" width="9" height="9" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+              <rect x="14" y="3" width="9" height="9" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+              <rect x="3" y="14" width="9" height="9" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+              <rect x="14" y="14" width="9" height="9" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Marcos y logros</h3>
+          <p class="feature-text">
+            Desbloquea marcos decorativos para tus puzzles completados
+            y colecciona logros a medida que juegas más.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CÓMO FUNCIONA
+       ============================================================ -->
+  <section class="section" aria-labelledby="how-title">
+    <div class="container">
+      <p class="section-label">Así de sencillo</p>
+      <h2 class="section-title" id="how-title">En tres pasos</h2>
+      <p class="section-sub">
+        Máximo dos toques para empezar a jugar.
+      </p>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Elige una foto</h3>
+          <p class="step-text">
+            Sube una foto de tu galería o elige una de nuestra colección de imágenes.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Elige la dificultad</h3>
+          <p class="step-text">
+            De 20 a 528 piezas. Tú decides el reto.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3 class="step-title">¡A encajar!</h3>
+          <p class="step-text">
+            Arrastra las piezas hasta el tablero. Cuando encajan, vibran suavemente.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DIFICULTADES
+       ============================================================ -->
+  <section class="section section-alt" aria-labelledby="diffs-title">
+    <div class="container">
+      <p class="section-label">Tu nivel</p>
+      <h2 class="section-title" id="diffs-title">Un reto para cada momento</h2>
+      <p class="section-sub">
+        Desde una tarde relajada hasta un desafío de concentración. Elige tu dificultad.
+      </p>
+
+      <div class="diffs-grid">
+        <div class="diff-card">
+          <div class="diff-pieces">20</div>
+          <div class="diff-name">Fácil</div>
+          <div class="diff-label">Para empezar</div>
+        </div>
+        <div class="diff-card">
+          <div class="diff-pieces">36</div>
+          <div class="diff-name">Normal</div>
+          <div class="diff-label">El clásico</div>
+        </div>
+        <div class="diff-card">
+          <div class="diff-pieces">64</div>
+          <div class="diff-name">Difícil</div>
+          <div class="diff-label">Un buen reto</div>
+        </div>
+        <div class="diff-card">
+          <div class="diff-pieces">132</div>
+          <div class="diff-name">Experto</div>
+          <div class="diff-label">Con zoom y pan</div>
+        </div>
+        <div class="diff-card is-premium">
+          <div class="diff-pieces">256</div>
+          <div class="diff-name">Leyenda</div>
+          <div class="diff-label">Para los valientes</div>
+        </div>
+        <div class="diff-card is-premium">
+          <div class="diff-pieces">528</div>
+          <div class="diff-name">Imposible</div>
+          <div class="diff-label">¿Te atreves?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA FINAL
+       ============================================================ -->
+  <section class="cta" aria-labelledby="cta-title">
+    <div class="container">
+      <p class="section-label" style="color: rgba(255,255,255,0.5);">Descarga gratuita</p>
+      <h2 class="section-title" id="cta-title">
+        Tu próximo puzzle<br />te está esperando
+      </h2>
+      <p class="section-sub">
+        Gratis. Sin anuncios obligatorios. Sin trucos.<br />
+        Solo el placer de hacer puzzles con tus propias fotos.
+      </p>
+
+      <div class="store-badges">
+        <a href="https://play.google.com/store/apps/details?id=com.piezasgame.app"
+           class="badge-google"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Descargar en Google Play">
+          <svg class="badge-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="gp2a" x1="5.97" y1="21.58" x2="18.35" y2="9.2" gradientUnits="userSpaceOnUse"><stop stop-color="#00A0FF"/><stop offset=".01" stop-color="#00A1FF"/><stop offset=".26" stop-color="#00BEFF"/><stop offset=".51" stop-color="#00D2FF"/><stop offset=".76" stop-color="#00DFFF"/><stop offset="1" stop-color="#00E3FF"/></linearGradient>
+              <linearGradient id="gp2b" x1="25.6" y1="14" x2="3.5" y2="14" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE000"/><stop offset=".41" stop-color="#FFBD00"/><stop offset=".78" stop-color="#FFA500"/><stop offset="1" stop-color="#FF6D00"/></linearGradient>
+              <linearGradient id="gp2c" x1="8.35" y1="15.77" x2="1.33" y2="8.75" gradientUnits="userSpaceOnUse"><stop stop-color="#FF3A44"/><stop offset="1" stop-color="#C31162"/></linearGradient>
+              <linearGradient id="gp2d" x1="2.88" y1="22.63" x2="9.22" y2="16.29" gradientUnits="userSpaceOnUse"><stop stop-color="#32A071"/><stop offset=".07" stop-color="#2DA771"/><stop offset=".48" stop-color="#15CF74"/><stop offset="1" stop-color="#06E775"/></linearGradient>
+            </defs>
+            <path d="M3.86 2.27A1.7 1.7 0 0 0 3.5 3.5v21a1.7 1.7 0 0 0 .36 1.23l.06.06 11.77-11.76v-.28L3.92 2.21Z" fill="url(#gp2a)"/>
+            <path d="m19.6 17.82-3.9-3.9V13.6l3.91-3.91.09.05 4.63 2.63c1.32.75 1.32 1.98 0 2.73l-4.63 2.63Z" fill="url(#gp2b)"/>
+            <path d="M19.7 17.77 15.69 14 3.86 25.73a1.53 1.53 0 0 0 1.96.06l13.88-7.98" fill="url(#gp2c)"/>
+            <path d="M19.7 10.23 5.82 2.24A1.53 1.53 0 0 0 3.86 2.3L15.69 14Z" fill="url(#gp2d)"/>
+          </svg>
+          <div class="badge-text">
+            <span class="badge-text-top">Disponible en</span>
+            <span class="badge-text-main">Google Play</span>
+          </div>
+        </a>
+
+        <div class="badge-apple" aria-label="App Store — próximamente">
+          <span class="badge-soon-chip">Próximamente</span>
+          <svg class="badge-icon" width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20.03 15.26C20.01 12.58 22.22 11.28 22.32 11.22C21.08 9.39 19.12 9.14 18.44 9.12C16.77 8.95 15.16 10.11 14.31 10.11C13.45 10.11 12.14 9.14 10.73 9.17C8.92 9.2 7.22 10.23 6.29 11.84C4.35 15.11 5.77 20 7.63 22.7C8.56 24.02 9.65 25.5 11.07 25.45C12.46 25.39 12.97 24.57 14.64 24.57C16.29 24.57 16.77 25.45 18.22 25.41C19.71 25.39 20.66 24.08 21.56 22.74C22.63 21.21 23.06 19.72 23.08 19.64C23.05 19.63 20.05 18.5 20.03 15.26Z" fill="white"/>
+            <path d="M17.33 7.23C18.09 6.29 18.61 5.01 18.46 3.71C17.37 3.76 16.01 4.47 15.22 5.39C14.52 6.2 13.9 7.53 14.07 8.78C15.28 8.87 16.55 8.16 17.33 7.23Z" fill="white"/>
+          </svg>
+          <div class="badge-text">
+            <span class="badge-text-top">Disponible en</span>
+            <span class="badge-text-main">App Store</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="hero-footnote">
+        Gratis · Sin anuncios obligatorios · Android · iOS próximamente
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="./assets/icon.svg" alt="Piezas" width="24" height="24" />
+        <span>© 2026 Piezas · Enrique Becerra</span>
+      </div>
+      <nav class="footer-links" aria-label="Links del footer">
+        <a href="mailto:ebecerra.developer@gmail.com">Contacto</a>
+        <a href="./privacidad.html">Privacidad</a>
+        <a href="./terminos.html">Términos</a>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+</html>

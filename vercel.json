@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    { "source": "/piezas-game", "destination": "/piezas-game/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
