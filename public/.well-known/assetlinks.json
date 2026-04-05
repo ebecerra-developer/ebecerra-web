@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "com.piezasgame.app",
+    "package_name": "es.ebecerra.piezasgame",
     "sha256_cert_fingerprints": [
       "60:77:90:A4:A6:01:5B:EA:BE:35:C6:A4:3A:66:04:CC:BE:5E:AC:37:A7:90:33:86:19:74:69:D6:76:3E:3F:AC"
     ]
