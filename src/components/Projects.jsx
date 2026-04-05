@@ -7,7 +7,7 @@ const projects = [
     title: "Piezas",
     description:
       "Juego de puzzles con tus propias fotos. Sin anuncios, sin trucos. Una experiencia personal y relajante pensada para disfrutar en cualquier momento.",
-    tech: ["Capacitor", "Android Nativo"],
+    tech: ["React", "Capacitor", "Android Nativo"],
     status: "beta",
     statusText: "beta disponible",
     links: [
