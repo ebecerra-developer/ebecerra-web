@@ -8,6 +8,7 @@ Actualmente es un SPA React 19 + Vite con estética dark/hacker, desplegado en V
 **En migración a Next.js 15 App Router + Sanity CMS + Tailwind + i18n ES/EN**, con objetivo de captar clientes de desarrollo web (autónomos y PYMEs), preservando la estética actual como **"geek mode"** togglable.
 
 Plan completo y roadmap: [`docs/plan-migracion-nextjs-sanity.md`](docs/plan-migracion-nextjs-sanity.md).
+Progreso de ejecución: [`docs/progress.md`](docs/progress.md).
 
 ## Stack
 
