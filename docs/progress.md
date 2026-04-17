@@ -6,19 +6,19 @@ Plan de referencia: [`plan-migracion-nextjs-sanity.md`](plan-migracion-nextjs-sa
 
 ## Fase 0 — Preparación (2h)
 
-- [ ] Decidir repo nuevo vs rama (`ebecerra-web-next` recomendado)
-- [ ] Snapshot Lighthouse de ebecerra.es actual como baseline
-- [ ] Crear repo / rama y configurar entorno
+- [x] Decidir repo nuevo vs rama — **rama `migracion-nextjs`** en el mismo repo (Vercel solo despliega `main`)
+- [x] Snapshot Lighthouse de ebecerra.es actual como baseline — scores: Perf **83**, A11y **88**, Best Practices **100**, SEO **91**. Archivos en `docs/lighthouse-baseline.*` y `docs/baseline-screenshot.png`
+- [x] Crear rama y configurar entorno
 
 ## Fase 1 — Scaffold Next.js + Tailwind desplegable (4–6h)
 
-- [ ] `create-next-app` con App Router + TS + Tailwind
-- [ ] Copiar `public/piezas-game/` y `.well-known/` al nuevo proyecto
-- [ ] Configurar `next.config.ts` (redirect `/piezas-game` → `/piezas-game/`)
-- [ ] Layout raíz con fonts (DM Sans, JetBrains Mono vía `next/font`)
-- [ ] Integrar `@vercel/analytics` + `@vercel/speed-insights`
-- [ ] Home placeholder desplegable
-- [ ] Deploy a staging en Vercel (preview URL)
+- [x] `create-next-app` con App Router + TS + Tailwind (Next.js 16.2.4)
+- [x] Copiar `public/piezas-game/` y `.well-known/` al nuevo proyecto
+- [x] Configurar `next.config.ts` (redirect `/piezas-game` → `/piezas-game/`)
+- [x] Layout raíz con fonts (DM Sans, JetBrains Mono vía `next/font`)
+- [x] Integrar `@vercel/analytics` + `@vercel/speed-insights`
+- [x] Home placeholder desplegable — `npm run build` ✓
+- [ ] Deploy a staging en Vercel (preview URL via PR o push a rama)
 - [ ] Validar `/piezas-game/*` y `/.well-known/assetlinks.json` en staging
 
 ## Fase 2 — Port 1:1 con contenido hardcoded (10–14h)

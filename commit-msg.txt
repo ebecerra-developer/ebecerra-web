@@ -1,0 +1,20 @@
+Scaffold Next.js 16 App Router + Tailwind v4 (Fase 1)
+
+Sustituye el stack Vite por Next.js 16.2.4 App Router + TypeScript +
+Tailwind CSS v4. El código Vite legacy se conserva en _legacy/ para
+referencia durante el port de Fase 2.
+
+Cambios:
+- Scaffold completo con next.config.ts, tsconfig.json, postcss, eslint
+- app/layout.tsx: DM Sans + JetBrains Mono vía next/font, @vercel/analytics
+  y @vercel/speed-insights integrados, metadata ES correcta
+- app/page.tsx: home placeholder con branding mínimo
+- next.config.ts: redirect /piezas-game → /piezas-game/ (equivalente al
+  vercel.json anterior)
+- public/: piezas-game/ y .well-known/ preservados intactos
+- .gitignore: añade .next
+- docs/progress.md: Fase 0 y Fase 1 parcialmente completadas
+
+Build limpio: npm run build ✓ (4 páginas estáticas)
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
