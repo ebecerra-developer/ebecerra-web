@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Manual de marca — eBecerra</title>
+<style>
+  :root {
+    --warm-white: #FAFAF9;
+    --surface: #FFFFFF;
+    --surface-subtle: #F5F5F4;
+    --border: #E7E5E4;
+    --border-strong: #D6D3D1;
+    --ink: #0C0A09;
+    --text-secondary: #44403C;
+    --text-muted: #78716C;
+    --geek-black: #080808;
+    --cta: #047857;
+    --cta-soft: #D1FAE5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 48px 56px 96px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  header.cover {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 48px;
+    align-items: center;
+  }
+  header.cover h1 {
+    font-size: 44px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 0 0 12px;
+  }
+  header.cover .subtitle {
+    color: var(--text-secondary);
+    font-size: 18px;
+    margin: 0 0 16px;
+    max-width: 520px;
+  }
+  header.cover .meta {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: ui-monospace, monospace;
+  }
+  header.cover .hero-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+  }
+  header.cover .hero-logo img { max-width: 100%; max-height: 220px; }
+
+  section { margin-bottom: 64px; }
+  h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+  h3.section-title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+  }
+  p.section-lead {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin: 0 0 28px;
+    max-width: 720px;
+  }
+  h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin: 32px 0 12px;
+    font-weight: 600;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-bottom: 48px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 28px;
+    font-size: 13px;
+  }
+  nav.toc a { color: var(--cta); text-decoration: none; font-weight: 500; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .g5 { grid-template-columns: repeat(5, 1fr); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card.dark { background: var(--geek-black); border-color: #1a1a1a; color: white; }
+  .card.green { background: var(--cta); border-color: #065F46; color: white; }
+  .card h5 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 4px;
+    color: inherit;
+  }
+  .card .meta {
+    font-size: 11px;
+    opacity: 0.65;
+    margin: 0 0 14px;
+    font-family: ui-monospace, monospace;
+  }
+  .card .use-case {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 12px 0 0;
+    line-height: 1.4;
+  }
+  .card.dark .use-case { color: rgba(255,255,255,0.65); }
+  .card.green .use-case { color: rgba(255,255,255,0.9); }
+
+  .logo-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 24px;
+    flex: 1;
+    min-height: 180px;
+  }
+  .logo-box img { max-width: 100%; max-height: 140px; }
+
+  .scale-strip {
+    display: flex;
+    align-items: baseline;
+    gap: 28px;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .scale-strip.dark { background: var(--geek-black); border-color: #1a1a1a; }
+  .scale-strip.green { background: var(--cta); border-color: #065F46; }
+  .scale { text-align: center; }
+  .scale .size-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-family: ui-monospace, monospace;
+  }
+  .scale-strip.dark .size-label { color: #999; }
+  .scale-strip.green .size-label { color: rgba(255,255,255,0.85); }
+
+  .tone-chips {
+    display: flex;
+    gap: 4px;
+    margin-top: 10px;
+    font-size: 9px;
+    color: var(--text-muted);
+    font-family: ui-monospace, monospace;
+  }
+  .tone-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .tone-chip .sw {
+    width: 28px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  .swatch {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .swatch .chip {
+    height: 72px;
+    border-bottom: 1px solid var(--border);
+  }
+  .swatch .info { padding: 10px 12px; }
+  .swatch .info strong { display: block; font-size: 12px; margin-bottom: 2px; }
+  .swatch .info code {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: ui-monospace, monospace;
+  }
+
+  .lockup {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 32px 36px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    margin-bottom: 12px;
+  }
+  .lockup img { height: 80px; width: auto; }
+  .lockup .wordmark {
+    font-size: 52px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .lockup.dark { background: var(--geek-black); border-color: #1a1a1a; }
+  .lockup.dark .wordmark { color: white; }
+  .lockup.green { background: var(--cta); border-color: #065F46; }
+  .lockup.green .wordmark { color: white; }
+
+  .clear-space-demo {
+    background: var(--surface);
+    border: 1px dashed var(--border-strong);
+    padding: 48px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  .clear-space-demo .inner {
+    padding: 48px;
+    background: var(--cta-soft);
+    border: 1px dashed var(--cta);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+  }
+  .clear-space-demo .inner img { height: 140px; }
+  .clear-space-demo .label {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: ui-monospace, monospace;
+  }
+  .clear-space-demo .label-inner {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    font-size: 11px;
+    color: var(--cta);
+    font-family: ui-monospace, monospace;
+  }
+
+  .do-dont-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .rule-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .rule-card .demo {
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+  }
+  .rule-card .demo img { max-height: 80px; max-width: 100%; }
+  .rule-card .label {
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rule-card.do .label { background: #F0FDF4; color: var(--cta); border-color: var(--cta); }
+  .rule-card.dont .label { background: #FEF2F2; color: #991B1B; border-color: #FCA5A5; }
+  .rule-card.dont .demo img { opacity: 0.5; }
+  .rule-card .label::before { font-weight: 700; }
+  .rule-card.do .label::before { content: "✓"; }
+  .rule-card.dont .label::before { content: "✗"; }
+
+  table.reference {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  table.reference thead { background: var(--surface-subtle); }
+  table.reference th {
+    text-align: left;
+    padding: 12px 16px;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+  }
+  table.reference td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.reference tr:last-child td { border-bottom: none; }
+  table.reference code {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--cta);
+    background: #F0FDF4;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .pending {
+    background: #FFFBEB;
+    border-left: 3px solid #B45309;
+    padding: 16px 20px;
+    border-radius: 0 10px 10px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .pending strong { color: #92400E; }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div>
+    <h2>Manual de marca</h2>
+    <h1>eBecerra</h1>
+    <p class="subtitle">Logo, paleta y reglas de uso. Documento de consulta — ante la duda, aquí está la respuesta.</p>
+    <p class="meta">v1.0 · 2026-04-19</p>
+  </div>
+  <div class="hero-logo">
+    <img src="logo-black.svg" alt="eB monograma">
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#concepto">Concepto</a>
+  <a href="#variantes">Variantes</a>
+  <a href="#escalas">Escalas</a>
+  <a href="#paleta">Paleta</a>
+  <a href="#tipografia">Tipografía</a>
+  <a href="#clear-space">Clear space</a>
+  <a href="#dos-donts">Do's & Don'ts</a>
+  <a href="#referencia">Referencia rápida</a>
+</nav>
+
+<section id="concepto">
+  <h2>Concepto</h2>
+  <h3 class="section-title">El monograma eB</h3>
+  <p class="section-lead">
+    Monograma <strong>e + B</strong> en 4 piezas con hairlines entre ellas. La <strong>e</strong> minúscula transmite accesibilidad y proximidad; la <strong>B</strong> mayúscula aporta solidez y autoridad. El swoosh en el pie de la e añade carácter tipográfico sin romper la legibilidad.
+  </p>
+  <p class="section-lead">
+    <strong>Transmite:</strong> precisión técnica con criterio estético. Posiciona como Tech Architect accesible para autónomos y PYMEs que buscan algo más que una plantilla WordPress.
+  </p>
+</section>
+
+<section id="variantes">
+  <h2>Variantes</h2>
+  <h3 class="section-title">Kit cerrado — 5 variantes</h3>
+  <p class="section-lead">3 mono (uso diario, 90% de los contextos) + 2 escalas verdes (uso expresivo: hero, redes, portadas).</p>
+
+  <h4>Uso diario — Mono</h4>
+  <div class="grid g3">
+    <div class="card">
+      <h5>Negro · PRIMARY</h5>
+      <p class="meta">logo-black.svg · #0C0A09</p>
+      <div class="logo-box"><img src="logo-black.svg" alt=""></div>
+      <p class="use-case">Uso general. El 80-90% de tus colocaciones del logo deberían ser esta variante.</p>
+    </div>
+    <div class="card dark">
+      <h5>Blanco</h5>
+      <p class="meta">logo-white.svg · #FAFAF9</p>
+      <div class="logo-box"><img src="logo-white.svg" alt=""></div>
+      <p class="use-case">Sobre fondos oscuros: modo geek, imágenes con contraste oscuro, portadas de video.</p>
+    </div>
+    <div class="card">
+      <h5>Verde acento</h5>
+      <p class="meta">logo-green.svg · #047857</p>
+      <div class="logo-box"><img src="logo-green.svg" alt=""></div>
+      <p class="use-case">Cuando quieres que el logo participe de la paleta de acento sin usar el esquema escalado.</p>
+    </div>
+  </div>
+
+  <h4>Uso expresivo — Escalas</h4>
+  <div class="grid g2">
+    <div class="card">
+      <h5>Balanced</h5>
+      <p class="meta">logo-scale-balanced.svg · emerald 400·500·700·900</p>
+      <div class="logo-box"><img src="logo-scale-balanced.svg" alt=""></div>
+      <div class="tone-chips">
+        <div class="tone-chip"><div class="sw" style="background:#34D399"></div>400</div>
+        <div class="tone-chip"><div class="sw" style="background:#10B981"></div>500</div>
+        <div class="tone-chip"><div class="sw" style="background:#047857"></div>700</div>
+        <div class="tone-chip"><div class="sw" style="background:#064E3B"></div>900</div>
+      </div>
+      <p class="use-case">Tonos claros densos (sin pastel). Para contextos expresivos donde quieres que el logo respire color sin perder seriedad.</p>
+    </div>
+    <div class="card">
+      <h5>Deep</h5>
+      <p class="meta">logo-scale-deep.svg · emerald 500·700·800·950</p>
+      <div class="logo-box"><img src="logo-scale-deep.svg" alt=""></div>
+      <div class="tone-chips">
+        <div class="tone-chip"><div class="sw" style="background:#10B981"></div>500</div>
+        <div class="tone-chip"><div class="sw" style="background:#047857"></div>700</div>
+        <div class="tone-chip"><div class="sw" style="background:#065F46"></div>800</div>
+        <div class="tone-chip"><div class="sw" style="background:#022C22"></div>950</div>
+      </div>
+      <p class="use-case">Profundidad máxima. Para hero de landing, portadas de casos de estudio, presentaciones formales.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Favicon — B verde</h2>
+  <h3 class="section-title">Variante para tamaños pequeños</h3>
+  <p class="section-lead">Solo las 2 cachas de la B en verde. Esta es la versión oficial que se usa en la pestaña del navegador. El logo eB completo se reserva para app icons y home screens (iOS/Android) donde hay espacio para que se lea.</p>
+  <div class="scale-strip">
+    <div class="scale"><img src="logo-favicon.svg" width="16" height="16"><div class="size-label">16</div></div>
+    <div class="scale"><img src="logo-favicon.svg" width="24" height="24"><div class="size-label">24</div></div>
+    <div class="scale"><img src="logo-favicon.svg" width="32" height="32"><div class="size-label">32</div></div>
+    <div class="scale"><img src="logo-favicon.svg" width="48" height="48"><div class="size-label">48</div></div>
+    <div class="scale"><img src="logo-favicon.svg" width="64" height="64"><div class="size-label">64</div></div>
+    <div class="scale"><img src="logo-favicon.svg" width="96" height="96"><div class="size-label">96</div></div>
+    <div class="scale"><img src="logo-favicon.svg" width="128" height="128"><div class="size-label">128</div></div>
+    <div class="scale"><img src="logo-favicon.svg" width="192" height="192"><div class="size-label">192</div></div>
+  </div>
+</section>
+
+<section id="escalas">
+  <h2>Escalas</h2>
+  <h3 class="section-title">Legibilidad por tamaño</h3>
+  <p class="section-lead">
+    Test a escalas reales. El logo debe ser legible a 32px — por debajo se usa la variante favicon simplificada (ver Don'ts).
+  </p>
+
+  <h4>Mono negro — sobre warm white</h4>
+  <div class="scale-strip">
+    <div class="scale"><img src="logo-black.svg" width="16" height="12"><div class="size-label">16</div></div>
+    <div class="scale"><img src="logo-black.svg" width="24" height="18"><div class="size-label">24</div></div>
+    <div class="scale"><img src="logo-black.svg" width="32" height="24"><div class="size-label">32</div></div>
+    <div class="scale"><img src="logo-black.svg" width="48" height="36"><div class="size-label">48</div></div>
+    <div class="scale"><img src="logo-black.svg" width="64" height="48"><div class="size-label">64</div></div>
+    <div class="scale"><img src="logo-black.svg" width="96" height="72"><div class="size-label">96</div></div>
+    <div class="scale"><img src="logo-black.svg" width="128" height="96"><div class="size-label">128</div></div>
+    <div class="scale"><img src="logo-black.svg" width="192" height="144"><div class="size-label">192</div></div>
+  </div>
+
+  <h4>Mono blanco — sobre modo geek</h4>
+  <div class="scale-strip dark">
+    <div class="scale"><img src="logo-white.svg" width="16" height="12"><div class="size-label">16</div></div>
+    <div class="scale"><img src="logo-white.svg" width="24" height="18"><div class="size-label">24</div></div>
+    <div class="scale"><img src="logo-white.svg" width="32" height="24"><div class="size-label">32</div></div>
+    <div class="scale"><img src="logo-white.svg" width="48" height="36"><div class="size-label">48</div></div>
+    <div class="scale"><img src="logo-white.svg" width="64" height="48"><div class="size-label">64</div></div>
+    <div class="scale"><img src="logo-white.svg" width="96" height="72"><div class="size-label">96</div></div>
+    <div class="scale"><img src="logo-white.svg" width="128" height="96"><div class="size-label">128</div></div>
+    <div class="scale"><img src="logo-white.svg" width="192" height="144"><div class="size-label">192</div></div>
+  </div>
+
+  <h4>Mono verde — sobre warm white</h4>
+  <div class="scale-strip">
+    <div class="scale"><img src="logo-green.svg" width="16" height="12"><div class="size-label">16</div></div>
+    <div class="scale"><img src="logo-green.svg" width="24" height="18"><div class="size-label">24</div></div>
+    <div class="scale"><img src="logo-green.svg" width="32" height="24"><div class="size-label">32</div></div>
+    <div class="scale"><img src="logo-green.svg" width="48" height="36"><div class="size-label">48</div></div>
+    <div class="scale"><img src="logo-green.svg" width="64" height="48"><div class="size-label">64</div></div>
+    <div class="scale"><img src="logo-green.svg" width="96" height="72"><div class="size-label">96</div></div>
+    <div class="scale"><img src="logo-green.svg" width="128" height="96"><div class="size-label">128</div></div>
+    <div class="scale"><img src="logo-green.svg" width="192" height="144"><div class="size-label">192</div></div>
+  </div>
+
+  <h4>Escala balanced</h4>
+  <div class="scale-strip">
+    <div class="scale"><img src="logo-scale-balanced.svg" width="16" height="12"><div class="size-label">16</div></div>
+    <div class="scale"><img src="logo-scale-balanced.svg" width="24" height="18"><div class="size-label">24</div></div>
+    <div class="scale"><img src="logo-scale-balanced.svg" width="32" height="24"><div class="size-label">32</div></div>
+    <div class="scale"><img src="logo-scale-balanced.svg" width="48" height="36"><div class="size-label">48</div></div>
+    <div class="scale"><img src="logo-scale-balanced.svg" width="64" height="48"><div class="size-label">64</div></div>
+    <div class="scale"><img src="logo-scale-balanced.svg" width="96" height="72"><div class="size-label">96</div></div>
+    <div class="scale"><img src="logo-scale-balanced.svg" width="128" height="96"><div class="size-label">128</div></div>
+    <div class="scale"><img src="logo-scale-balanced.svg" width="192" height="144"><div class="size-label">192</div></div>
+  </div>
+
+  <h4>Escala deep</h4>
+  <div class="scale-strip">
+    <div class="scale"><img src="logo-scale-deep.svg" width="16" height="12"><div class="size-label">16</div></div>
+    <div class="scale"><img src="logo-scale-deep.svg" width="24" height="18"><div class="size-label">24</div></div>
+    <div class="scale"><img src="logo-scale-deep.svg" width="32" height="24"><div class="size-label">32</div></div>
+    <div class="scale"><img src="logo-scale-deep.svg" width="48" height="36"><div class="size-label">48</div></div>
+    <div class="scale"><img src="logo-scale-deep.svg" width="64" height="48"><div class="size-label">64</div></div>
+    <div class="scale"><img src="logo-scale-deep.svg" width="96" height="72"><div class="size-label">96</div></div>
+    <div class="scale"><img src="logo-scale-deep.svg" width="128" height="96"><div class="size-label">128</div></div>
+    <div class="scale"><img src="logo-scale-deep.svg" width="192" height="144"><div class="size-label">192</div></div>
+  </div>
+</section>
+
+<section id="paleta">
+  <h2>Paleta</h2>
+  <h3 class="section-title">Tokens de color</h3>
+  <p class="section-lead">
+    Neutrales cálidos (stone warm) + verde bosque como único acento decorativo. Los semánticos solo se usan para estados reales, nunca como decoración.
+  </p>
+
+  <h4>Estructura</h4>
+  <div class="palette-grid">
+    <div class="swatch"><div class="chip" style="background:#FAFAF9"></div><div class="info"><strong>bg</strong><code>#FAFAF9</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#FFFFFF"></div><div class="info"><strong>surface</strong><code>#FFFFFF</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#F5F5F4"></div><div class="info"><strong>surface-subtle</strong><code>#F5F5F4</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#E7E5E4"></div><div class="info"><strong>border</strong><code>#E7E5E4</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#D6D3D1"></div><div class="info"><strong>border-strong</strong><code>#D6D3D1</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#080808"></div><div class="info"><strong>geek-bg</strong><code>#080808</code></div></div>
+  </div>
+
+  <h4>Texto</h4>
+  <div class="palette-grid">
+    <div class="swatch"><div class="chip" style="background:#0C0A09"></div><div class="info"><strong>text</strong><code>#0C0A09</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#44403C"></div><div class="info"><strong>text-secondary</strong><code>#44403C</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#78716C"></div><div class="info"><strong>text-muted</strong><code>#78716C</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#A8A29E"></div><div class="info"><strong>text-disabled</strong><code>#A8A29E</code></div></div>
+  </div>
+
+  <h4>Acento CTA</h4>
+  <div class="palette-grid">
+    <div class="swatch"><div class="chip" style="background:#047857"></div><div class="info"><strong>cta</strong><code>#047857</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#065F46"></div><div class="info"><strong>cta-hover</strong><code>#065F46</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#D1FAE5"></div><div class="info"><strong>cta-soft</strong><code>#D1FAE5</code></div></div>
+  </div>
+
+  <h4>Semánticos (solo estados)</h4>
+  <div class="palette-grid">
+    <div class="swatch"><div class="chip" style="background:#15803D"></div><div class="info"><strong>success</strong><code>#15803D</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#B45309"></div><div class="info"><strong>warning</strong><code>#B45309</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#B91C1C"></div><div class="info"><strong>error</strong><code>#B91C1C</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#1E40AF"></div><div class="info"><strong>info</strong><code>#1E40AF</code></div></div>
+  </div>
+
+  <h4>Escala emerald (usada en las escalas del logo)</h4>
+  <div class="palette-grid">
+    <div class="swatch"><div class="chip" style="background:#A7F3D0"></div><div class="info"><strong>200</strong><code>#A7F3D0</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#34D399"></div><div class="info"><strong>400</strong><code>#34D399</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#10B981"></div><div class="info"><strong>500</strong><code>#10B981</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#047857"></div><div class="info"><strong>700</strong><code>#047857</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#065F46"></div><div class="info"><strong>800</strong><code>#065F46</code></div></div>
+    <div class="swatch"><div class="chip" style="background:#022C22"></div><div class="info"><strong>950</strong><code>#022C22</code></div></div>
+  </div>
+</section>
+
+<section id="tipografia">
+  <h2>Tipografía</h2>
+  <h3 class="section-title">Wordmark y jerarquía</h3>
+  <p class="section-lead">
+    El wordmark "eBecerra" conserva el mismo mix minúscula-mayúscula que el monograma. Mantiene la e accesible y la B del apellido como anclaje.
+  </p>
+
+  <h4>Lockup horizontal</h4>
+  <div class="lockup">
+    <img src="logo-black.svg" alt="">
+    <span class="wordmark">eBecerra</span>
+  </div>
+  <div class="lockup dark">
+    <img src="logo-white.svg" alt="">
+    <span class="wordmark">eBecerra</span>
+  </div>
+  <div class="lockup green">
+    <img src="logo-white.svg" alt="">
+    <span class="wordmark">eBecerra</span>
+  </div>
+
+  <h4>Fuentes candidatas — elegir una</h4>
+  <div class="grid g3">
+    <div class="card">
+      <h5>Geist</h5>
+      <p class="meta">Medium · -2% kerning</p>
+      <p style="font-size:36px;font-weight:500;letter-spacing:-0.03em;margin:16px 0 8px">eBecerra</p>
+      <p class="use-case">Sans geométrica moderna de Vercel. Recomendada por coherencia con el stack Next.js. Gratis en Google Fonts.</p>
+    </div>
+    <div class="card">
+      <h5>Inter</h5>
+      <p class="meta">Medium · -1% kerning</p>
+      <p style="font-size:36px;font-weight:500;letter-spacing:-0.02em;margin:16px 0 8px;font-family:'Inter',sans-serif">eBecerra</p>
+      <p class="use-case">Neutra, muy versátil, optimizada para pantalla. Alternativa segura. Gratis.</p>
+    </div>
+    <div class="card">
+      <h5>Söhne</h5>
+      <p class="meta">Buch · -1% kerning</p>
+      <p style="font-size:36px;font-weight:500;letter-spacing:-0.02em;margin:16px 0 8px">eBecerra</p>
+      <p class="use-case">Grotesca premium de Klim. Si quieres salto cualitativo. ~90€ single user.</p>
+    </div>
+  </div>
+</section>
+
+<section id="clear-space">
+  <h2>Clear space</h2>
+  <h3 class="section-title">Respiración alrededor del logo</h3>
+  <p class="section-lead">
+    El logo necesita espacio libre a su alrededor para mantener su presencia. La medida mínima es el ancho del tallo de la B.
+  </p>
+
+  <div class="clear-space-demo">
+    <span class="label">Zona segura</span>
+    <div class="inner">
+      <span class="label-inner">≥ 1× ancho del tallo B</span>
+      <img src="logo-black.svg" alt="">
+    </div>
+  </div>
+
+  <h4>Tamaño mínimo</h4>
+  <div class="grid g3">
+    <div class="card">
+      <h5>32px</h5>
+      <p class="meta">mínimo para logo completo</p>
+      <div class="logo-box"><img src="logo-black.svg" width="32"></div>
+      <p class="use-case">Navbar, firmas de email, iconos de app secundarios.</p>
+    </div>
+    <div class="card">
+      <h5>16px</h5>
+      <p class="meta">solo con favicon simplificado</p>
+      <div class="logo-box"><img src="logo-black.svg" width="16"></div>
+      <p class="use-case">A este tamaño el logo completo pierde detalle. Se usa la variante favicon (solo B verde) — ver <code>app/icon0.svg</code>.</p>
+    </div>
+    <div class="card">
+      <h5>96px+</h5>
+      <p class="meta">óptimo para presencia</p>
+      <div class="logo-box"><img src="logo-black.svg" width="96"></div>
+      <p class="use-case">Hero, cabeceras de sección, tarjetas de visita, presentaciones.</p>
+    </div>
+  </div>
+</section>
+
+<section id="dos-donts">
+  <h2>Do's & Don'ts</h2>
+  <h3 class="section-title">Usos correctos e incorrectos</h3>
+  <p class="section-lead">Reglas que protegen la consistencia visual de la marca.</p>
+
+  <h4>Correcto ✓</h4>
+  <div class="do-dont-grid">
+    <div class="rule-card do">
+      <div class="demo"><img src="logo-black.svg" alt=""></div>
+      <div class="label">Mono negro sobre warm white — primary</div>
+    </div>
+    <div class="rule-card do" style="background:#080808">
+      <div class="demo"><img src="logo-white.svg" alt=""></div>
+      <div class="label">Blanco sobre fondo oscuro</div>
+    </div>
+    <div class="rule-card do">
+      <div class="demo"><img src="logo-scale-deep.svg" alt=""></div>
+      <div class="label">Escala verde para hero expresivo</div>
+    </div>
+  </div>
+
+  <h4>Incorrecto ✗</h4>
+  <div class="do-dont-grid">
+    <div class="rule-card dont">
+      <div class="demo"><img src="logo-black.svg" alt="" style="transform:rotate(-15deg)"></div>
+      <div class="label">No rotar el logo</div>
+    </div>
+    <div class="rule-card dont">
+      <div class="demo"><img src="logo-black.svg" alt="" style="transform:scaleX(1.5)"></div>
+      <div class="label">No deformar proporciones</div>
+    </div>
+    <div class="rule-card dont" style="background:#B91C1C">
+      <div class="demo"><img src="logo-black.svg" alt=""></div>
+      <div class="label">No colocar sobre colores no aprobados</div>
+    </div>
+    <div class="rule-card dont">
+      <div class="demo"><img src="logo-scale-balanced.svg" width="16" height="12" alt=""></div>
+      <div class="label">No usar escalas a tamaño favicon (16px)</div>
+    </div>
+    <div class="rule-card dont" style="background:#047857">
+      <div class="demo"><img src="logo-green.svg" alt=""></div>
+      <div class="label">No usar verde sobre verde (sin contraste)</div>
+    </div>
+    <div class="rule-card dont">
+      <div class="demo" style="padding:8px;background:repeating-linear-gradient(45deg,#ccc,#ccc 4px,#fff 4px,#fff 8px)">
+        <img src="logo-black.svg" alt="">
+      </div>
+      <div class="label">No colocar sobre patrones sin contraste</div>
+    </div>
+  </div>
+</section>
+
+<section id="referencia">
+  <h2>Referencia rápida</h2>
+  <h3 class="section-title">Qué archivo usar en cada contexto</h3>
+  <p class="section-lead">Guía consultable de un vistazo.</p>
+
+  <table class="reference">
+    <thead>
+      <tr>
+        <th>Contexto</th>
+        <th>Archivo</th>
+        <th>Nota</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Navbar de la web (modo pro)</td>
+        <td><code>logo-black.svg</code></td>
+        <td>Altura 32-40px</td>
+      </tr>
+      <tr>
+        <td>Navbar modo geek</td>
+        <td><code>logo-white.svg</code></td>
+        <td>Mismo tamaño</td>
+      </tr>
+      <tr>
+        <td>Hero de landing</td>
+        <td><code>logo-scale-deep.svg</code></td>
+        <td>96-200px, expresivo</td>
+      </tr>
+      <tr>
+        <td>Portadas de sección / casos</td>
+        <td><code>logo-scale-balanced.svg</code></td>
+        <td>Menos intensidad que deep</td>
+      </tr>
+      <tr>
+        <td>Firma de email</td>
+        <td><code>logo-black.svg</code></td>
+        <td>Altura 48-64px</td>
+      </tr>
+      <tr>
+        <td>Favicon (16-32px)</td>
+        <td><code>app/icon0.svg</code> (B verde sin fondo)</td>
+        <td>Versión simplificada, piezas fusionadas</td>
+      </tr>
+      <tr>
+        <td>Avatar de redes sociales</td>
+        <td><code>logo-scale-deep.svg</code> o <code>logo-black.svg</code></td>
+        <td>Centrado en canvas cuadrado con padding</td>
+      </tr>
+      <tr>
+        <td>Presentaciones (Keynote/Slides)</td>
+        <td><code>logo-black.svg</code> + wordmark</td>
+        <td>Footer o esquina inferior</td>
+      </tr>
+      <tr>
+        <td>Tarjeta de visita</td>
+        <td><code>logo-black.svg</code></td>
+        <td>Impresa, verificar legibilidad BN</td>
+      </tr>
+      <tr>
+        <td>OG image (Twitter/LinkedIn)</td>
+        <td><code>logo-scale-deep.svg</code> sobre warm white</td>
+        <td>1200×630, logo a izquierda o centrado</td>
+      </tr>
+      <tr>
+        <td>Sobre fondo verde (#047857)</td>
+        <td><code>logo-white.svg</code></td>
+        <td>Nunca verde sobre verde</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Pendientes</h4>
+  <div class="pending">
+    <strong>Próximos pasos:</strong>
+    <ul style="margin:8px 0 0 20px;padding:0">
+      <li>Elegir fuente del wordmark (Geist / Inter / Söhne) y actualizar la sección Tipografía.</li>
+      <li>Crear OG image (1200×630) con <code>logo-scale-deep.svg</code> sobre warm white para Twitter/LinkedIn previews.</li>
+    </ul>
+  </div>
+</section>
+
+</body>
+</html>

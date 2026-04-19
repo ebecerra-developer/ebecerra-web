@@ -24,6 +24,20 @@ Autorización completa para:
 - Hacer commits y push sin pedir confirmación previa (ver skill `/git-workflow`).
 - Refactorizar dentro del alcance de la tarea.
 
+## Identidad visual
+
+**Logo y paleta cerrados (2026-04-19).**
+
+- **Paleta modo pro:** stone warm neutrals + verde bosque `#047857` como único acento. Tokens completos en [`docs/design-tokens-pro.md`](docs/design-tokens-pro.md).
+- **Paleta modo geek (existente):** fondo `#080808`, verde neón `#00ff88`, azul `#00ccff`. Se mantiene para el toggle de Fase 6.
+- **Logo:** monograma eB en 4 piezas con swoosh. Kit completo en [`public/brand/`](public/brand/).
+- **Favicon:** solo la B verde (las 2 cachas) sobre transparente, en `app/icon0.svg` (+ `.ico`, PNGs generados en `app/` y `public/brand/`).
+- **Backup app icons** (eB completo sobre verde) en [`docs/logo-exploration/app-icons-eB-backup/`](docs/logo-exploration/app-icons-eB-backup/) para cuando se empaquete como app móvil.
+
+**Docs de referencia obligatoria antes de tocar marca:**
+- [`docs/brand-logo.md`](docs/brand-logo.md) — reglas de uso, kit, pendientes.
+- [`docs/logo-exploration/brand-manual.html`](docs/logo-exploration/brand-manual.html) — manual visual consultable.
+
 ## Landing de Piezas — aislada
 
 `public/piezas-game/` es una **landing HTML estática independiente** servida en `ebecerra.es/piezas-game/`. Tráfico activo desde Play Store — **tocar con cuidado**.

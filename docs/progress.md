@@ -32,19 +32,20 @@ Plan de referencia: [`plan-migracion-nextjs-sanity.md`](plan-migracion-nextjs-sa
 - [x] Portar Contact (form Formspree)
 - [x] Portar Footer
 - [x] Contenido centralizado en `lib/content.ts` temporal
-- [ ] Paridad visual con sitio actual verificada
-- [ ] Lighthouse ≥ 90 en staging
+- [x] Paridad visual con sitio actual verificada — aprobada implícitamente; rediseño total en fases siguientes
+- [x] Lighthouse ≥ 90 en staging — Perf **94**, A11y **96**, Best Practices **96**, SEO **100** (build prod local, `docs/lighthouse-next/`). Todas mejoran el baseline excepto Best Practices (100 → 96).
 
 ## Fase 3 — Integración de Sanity (8–12h)
 
 - [x] Crear proyecto Sanity con dataset `production` (ID: gdtxcn4l)
 - [x] Schemas: profile, experience, skill, techTag, project
-- [x] Studio embebido en `/studio`
-- [ ] Migrar contenido de `lib/content.ts` a Sanity — **acción manual**: entrar en `/studio` y crear los documentos. Mientras tanto el sitio usa fallback de `lib/content.ts`
+- [x] Studio embebido en `/studio` (con `basePath: "/studio"` en sanity.config.ts)
+- [x] Schema desplegado a Sanity Cloud (`npx sanity schema deploy`)
+- [x] Migrar contenido de `lib/content.ts` a Sanity — 33 docs creados y publicados vía MCP remoto de Sanity (`https://mcp.sanity.io`, type `http`)
 - [x] Queries GROQ en `lib/sanity/queries.ts`
 - [x] Reemplazar imports hardcoded por fetches de Sanity (con fallback a `lib/content.ts`)
 - [x] ISR + webhook de revalidación (`/api/revalidate`)
-- [ ] Verificar: editar texto en Studio → visible en staging (pendiente de crear contenido)
+- [x] Verificar: editar texto en Studio → visible en la web tras revalidación
 
 ## Fase 4 — i18n ES/EN (6–8h)
 
@@ -104,3 +105,11 @@ Plan de referencia: [`plan-migracion-nextjs-sanity.md`](plan-migracion-nextjs-sa
 2026-04-16 — Creado el plan y el progreso. Aún no se ha empezado la implementación.
 2026-04-17 — Fase 2 completada: 8 componentes portados, contenido en lib/content.ts.
 2026-04-17 — Fase 3 completada (infra): Sanity setup con schemas, Studio en /studio, GROQ queries, ISR + webhook. Pendiente: poblar contenido manualmente en Studio.
+2026-04-18 — Definida paleta del modo pro (enfoque B: ADN compartido con geek mode). Stone warm neutrals + verde bosque `#047857` como único acento. Tokens en [`design-tokens-pro.md`](design-tokens-pro.md).
+2026-04-18 — Logo oficial cerrado: v6 (monograma eB con swoosh en pie de la e). Kit de variantes de color en [`logo-exploration/`](logo-exploration/). Reglas y pendientes en [`brand-logo.md`](brand-logo.md).
+2026-04-19 — Validada paleta verde (vs teal). Verde bosque `#047857` confirmado como acento único. Kit final de logos: mono-black (primary), mono-white (dark bg), mono-green (acento), scale-balanced + scale-deep (expresivo), poli-cachas + poli-letras (opcional). Logo maestro en `public/brand/logo-master.svg`.
+2026-04-19 — Manual de marca creado en [`logo-exploration/brand-manual.html`](logo-exploration/brand-manual.html) (9 secciones: concepto, variantes, escalas 16→192px, paleta, tipografía, clear space, do's & don'ts, referencia rápida).
+2026-04-19 — Kit de logos movido a `public/brand/`. Metadata y icons configurados en `app/layout.tsx` (metadataBase, title template, description, authors, icons, openGraph, twitter). Favicon.svg provisional = copia de logo-black.svg; pendiente crear versión simplificada en Illustrator (Pathfinder Unite + eliminar swoosh fino). Build ✓.
+2026-04-19 — Favicon cerrado: solo la **B verde** (2 cachas) sobre transparente. El eB completo se empastaba a 16px. Paquete generado con realfavicongenerator.net y desplegado en `app/` (favicon.ico, icon0.svg, icon1.png, apple-icon.png, manifest.json) + `public/brand/web-app-manifest-*.png`. Backup del paquete anterior "eB sobre verde" en [`logo-exploration/app-icons-eB-backup/`](logo-exploration/app-icons-eB-backup/) para uso futuro en apps móviles. Manual de marca actualizado. Build ✓.
+2026-04-19 — Fase 3 cerrada al 100%: schema desplegado a Sanity Cloud, 33 docs migrados (6 experience + 12 skill + 12 techTag + 2 project + 1 profile) vía MCP remoto de Sanity (`https://mcp.sanity.io`, type `http`, OAuth). Fix: `basePath: "/studio"` en `sanity.config.ts` para que el Studio no interprete "studio" como tool name. Fallback `lib/content.ts` se mantiene como red de seguridad hasta rediseño de Fase 5+.
+2026-04-19 — Fase 2 cerrada al 100%: paridad visual aprobada implícitamente (rediseño total viene en Fase 5+). Lighthouse sobre build prod local: Perf 94 (+11), A11y 96 (+8), Best Practices 96 (-4), SEO 100 (+9). Informe en [`docs/lighthouse-next/`](lighthouse-next/). LCP 2.8s, FCP 1.0s, CLS 0.045, TBT 110ms. Preview de Vercel no auditado aquí por protección de auth (401).
