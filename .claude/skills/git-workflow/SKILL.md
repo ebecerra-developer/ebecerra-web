@@ -11,14 +11,21 @@ El heredoc `git commit -m "$(cat <<'EOF'...)"` **falla en este entorno**. Usa si
 
 ```bash
 # 1. Escribir el mensaje con la herramienta Write a un archivo temporal
-#    (ej: commit-msg.txt en la raíz del proyecto)
+#    OJO: usar un nombre que empiece por `.` para que sea invisible
+#    y esté ya ignorado (ej: `.git-msg-tmp.txt`).
+#    Evita `commit-msg.txt` sin prefijo — en el pasado se coló en
+#    commits porque no estaba gitignored al principio.
 
 # 2. Commit + limpieza
-git commit -F commit-msg.txt && rm commit-msg.txt
+git commit -F .git-msg-tmp.txt && rm .git-msg-tmp.txt
 
 # 3. Push inmediato
 git push
 ```
+
+El `.gitignore` del proyecto tiene `commit-msg.txt` bloqueado por
+compatibilidad histórica, pero el estándar actual es el prefijo
+con punto.
 
 ## Reglas
 
