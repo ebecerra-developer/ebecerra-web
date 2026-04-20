@@ -1,7 +1,8 @@
-Limpiar gitignore y eliminar commit-msg.txt versionado
+Desvesionar commit-msg.txt definitivamente
 
-- Añadir commit-msg.txt al gitignore (era plantilla interna, no debe versionarse — se coló en el commit inicial de Fase 1).
-- Añadir /*.png al gitignore (screenshots ad-hoc de desarrollo).
-- Eliminar el commit-msg.txt versionado.
+El commit anterior de gitignore añadió la regla para ignorar
+commit-msg.txt, pero el archivo seguía versionado. Esta es la
+eliminación real del archivo del índice. Ahora sí: futuras
+plantillas de mensaje no se colarán en commits.
 
 Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
