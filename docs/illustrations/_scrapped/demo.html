@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Demo — anotaciones a mano (idea)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C0A09; --paper:#FAFAF9; --muted:#78716C; --border:#E7E5E4;
+    --green:#047857; --green-soft:rgba(4,120,87,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"DM Sans",system-ui;background:var(--paper);color:var(--ink);line-height:1.6}
+  .wrap{max-width:960px;margin:0 auto;padding:48px 24px 96px}
+  h1{font-size:32px;letter-spacing:-.02em;margin:0 0 8px}
+  h2{font-size:22px;letter-spacing:-.01em;margin:56px 0 8px;font-weight:600}
+  .sub{color:var(--muted);margin:0 0 40px;max-width:60ch}
+  .mono{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
+  .kit{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin:24px 0}
+  .cell{background:white;border:1px solid var(--border);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+  .cell svg{flex:0 0 auto}
+  .cell .name{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.02em}
+  .scene{background:white;border:1px solid var(--border);border-radius:16px;padding:48px;margin-top:32px;position:relative}
+  .scene h3{font-size:28px;margin:0 0 16px;letter-spacing:-.02em}
+  .scene p{color:#57534E;max-width:56ch;margin:0 0 24px}
+  .btn{display:inline-block;padding:10px 20px;background:var(--ink);color:var(--paper);border-radius:6px;text-decoration:none;font-size:14px;font-weight:500}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--border)}
+  .annot-relative{position:relative;display:inline-block}
+  .annot-abs{position:absolute;pointer-events:none}
+  .caveat{font-family:"Caveat",cursive;color:var(--green);font-size:18px}
+  .note{background:#FEF3C7;border-left:3px solid #F59E0B;padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:14px;color:#78350F}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="mono">DEMO · SISTEMA DE ANOTACIONES · v0</p>
+  <h1>Así imagino el lenguaje</h1>
+  <p class="sub">Elementos dibujados a mano superpuestos al layout. Trazo consistente 4-5px, verde bosque o tinta. Mis SVG aquí son mecánicos — lo tuyo a mano será más vivo.</p>
+
+  <h2>Kit base (v1 — 10 piezas)</h2>
+  <p class="sub">Cada una usada con moderación. Regla mental: <strong>si una página tiene más de 3, sobran</strong>.</p>
+
+  <div class="kit">
+
+    <div class="cell">
+      <svg width="80" height="60" viewBox="0 0 80 60" fill="none">
+        <path d="M6 42 Q 28 10, 58 24 Q 66 28, 72 22" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M66 18 L 72 22 L 68 28" stroke="#047857" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="name">01 · flecha curva derecha</span>
+    </div>
+
+    <div class="cell">
+      <svg width="60" height="80" viewBox="0 0 60 80" fill="none">
+        <path d="M14 8 Q 48 28, 28 58" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M22 50 L 28 60 L 38 56" stroke="#047857" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="name">02 · flecha curva abajo</span>
+    </div>
+
+    <div class="cell">
+      <svg width="100" height="60" viewBox="0 0 100 60" fill="none">
+        <path d="M12 32 Q 14 8, 52 8 Q 90 8, 90 32 Q 92 54, 54 54 Q 10 54, 14 30" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="name">03 · círculo halo</span>
+    </div>
+
+    <div class="cell">
+      <svg width="100" height="30" viewBox="0 0 100 30" fill="none">
+        <path d="M4 18 Q 14 8, 24 18 T 44 18 T 64 18 T 84 18 Q 92 14, 96 18" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="name">04 · subrayado ondulado</span>
+    </div>
+
+    <div class="cell">
+      <svg width="60" height="50" viewBox="0 0 60 50" fill="none">
+        <path d="M10 26 L 24 40 L 50 10" stroke="#047857" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="name">05 · check mark</span>
+    </div>
+
+    <div class="cell">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+        <g stroke="#047857" stroke-width="4" stroke-linecap="round">
+          <path d="M30 8 L 30 52"/>
+          <path d="M10 30 L 50 30"/>
+          <path d="M14 14 L 46 46"/>
+          <path d="M46 14 L 14 46"/>
+        </g>
+      </svg>
+      <span class="name">06 · asterisco</span>
+    </div>
+
+    <div class="cell">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="8" fill="#0C0A09"/>
+      </svg>
+      <span class="name">07 · viñeta gorda</span>
+    </div>
+
+    <div class="cell">
+      <svg width="120" height="20" viewBox="0 0 120 20" fill="none">
+        <path d="M6 12 Q 30 8, 60 10 T 114 12" stroke="#0C0A09" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="name">08 · subrayado recto</span>
+    </div>
+
+    <div class="cell">
+      <svg width="120" height="30" viewBox="0 0 120 30" fill="none">
+        <path d="M6 16 Q 30 12, 60 15 T 114 16" stroke="#78716C" stroke-width="3" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="name">09 · tachado</span>
+    </div>
+
+    <div class="cell">
+      <svg width="40" height="100" viewBox="0 0 40 100" fill="none">
+        <path d="M28 6 Q 12 8, 14 30 Q 16 46, 8 50 Q 16 54, 14 70 Q 12 92, 28 94" stroke="#047857" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="name">10 · corchete izquierdo</span>
+    </div>
+
+  </div>
+
+  <div class="note">
+    Los <strong>tuyos dibujados a mano</strong> tendrán presión variable, trazo temblón natural y pequeñas imperfecciones que estos SVG no captan. Eso es bueno — esa textura es lo que convierte esto en "lo dibujé yo" en vez de "lo generé".
+  </div>
+
+  <h2>Escena 1 — Hero</h2>
+  <p class="sub">Flecha apuntando al CTA, halo sobre la palabra clave.</p>
+
+  <div class="scene">
+    <p class="mono" style="color:var(--green)">// 00. hola</p>
+    <h3>
+      Hago webs que
+      <span class="annot-relative">
+        convierten
+        <svg class="annot-abs" style="left:-12px;top:calc(100% - 6px);width:calc(100% + 24px);height:18px" viewBox="0 0 180 18" preserveAspectRatio="none">
+          <path d="M4 12 Q 22 4, 48 10 T 96 10 T 144 10 Q 170 8, 176 12" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/>
+        </svg>
+      </span>,
+      no solo que se vean bonitas.
+    </h3>
+    <p>Arquitecto de software con 8 años de experiencia, ahora disponible para proyectos freelance con autónomos y PYMEs.</p>
+
+    <div class="annot-relative">
+      <a href="#" class="btn">Hablemos del proyecto</a>
+      <svg class="annot-abs" style="left:110%;top:-20px;width:90px;height:70px" viewBox="0 0 90 70">
+        <path d="M84 58 Q 40 46, 10 14" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M16 20 L 10 14 L 18 8" stroke="#047857" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <text x="30" y="64" font-family="Caveat" font-size="16" fill="#047857">empieza aquí</text>
+      </svg>
+    </div>
+    <a href="#" class="btn ghost" style="margin-left:12px">Ver casos</a>
+  </div>
+
+  <h2>Escena 2 — Sección servicios</h2>
+  <p class="sub">Viñetas a mano en listas, tildes verdes en lo incluido.</p>
+
+  <div class="scene">
+    <p class="mono" style="color:var(--green)">// servicio</p>
+    <h3>Auditoría + rediseño web</h3>
+    <p>Revisar el estado actual, identificar fricciones, entregar plan priorizado.</p>
+    <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+      <li style="display:flex;align-items:center;gap:12px">
+        <svg width="24" height="20" viewBox="0 0 24 20"><path d="M4 10 L 10 16 L 20 4" stroke="#047857" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <span>Auditoría técnica y de performance</span>
+      </li>
+      <li style="display:flex;align-items:center;gap:12px">
+        <svg width="24" height="20" viewBox="0 0 24 20"><path d="M4 10 L 10 16 L 20 4" stroke="#047857" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <span>Propuesta de arquitectura nueva</span>
+      </li>
+      <li style="display:flex;align-items:center;gap:12px">
+        <svg width="24" height="20" viewBox="0 0 24 20"><path d="M4 10 L 10 16 L 20 4" stroke="#047857" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <span>Roadmap de implementación por fases</span>
+      </li>
+    </ul>
+  </div>
+
+  <h2>Escena 3 — Caso de estudio</h2>
+  <p class="sub">Corchetes agrupando, subrayado ondulado bajo el resultado.</p>
+
+  <div class="scene" style="display:grid;grid-template-columns:40px 1fr;gap:20px;align-items:stretch">
+    <svg viewBox="0 0 40 100" preserveAspectRatio="none" style="height:100%">
+      <path d="M28 6 Q 12 8, 14 50 Q 12 92, 28 94" stroke="#0C0A09" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <div>
+      <p class="mono" style="color:var(--muted);margin:0 0 4px">Contexto</p>
+      <p style="margin:0 0 16px">Tienda online con caídas de conversión tras migración a Shopify.</p>
+      <p class="mono" style="color:var(--muted);margin:0 0 4px">Resultado</p>
+      <p style="margin:0">
+        <span class="annot-relative">
+          <span style="font-weight:600">+34% en conversión en 6 semanas</span>
+          <svg class="annot-abs" style="left:-6px;top:calc(100% - 4px);width:calc(100% + 12px);height:18px" viewBox="0 0 300 18" preserveAspectRatio="none">
+            <path d="M4 10 Q 40 2, 80 8 T 160 8 T 240 8 Q 280 6, 296 10" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/>
+          </svg>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <h2>Escena 4 — Footer / marginal</h2>
+  <p class="sub">Guiño final, asterisco + nota al margen tipo "made by hand".</p>
+
+  <div class="scene" style="display:flex;justify-content:space-between;align-items:center">
+    <div style="display:flex;align-items:center;gap:14px">
+      <svg width="28" height="28" viewBox="0 0 60 60">
+        <g stroke="#047857" stroke-width="5" stroke-linecap="round">
+          <path d="M30 8 L 30 52"/><path d="M10 30 L 50 30"/>
+          <path d="M14 14 L 46 46"/><path d="M46 14 L 14 46"/>
+        </g>
+      </svg>
+      <span style="color:var(--muted);font-size:14px">hecho a mano, en Madrid</span>
+    </div>
+    <span class="mono" style="color:var(--muted)">© 2026 ebecerra.es</span>
+  </div>
+
+  <h2>Cosas que quedarían fuera del kit</h2>
+  <ul style="color:var(--muted)">
+    <li>Ilustraciones "de escena" (personas, objetos, retratos) — fuera de alcance, requiere más habilidad y consistencia</li>
+    <li>Degradados dentro del trazo — rompe la lógica "tinta/verde plano"</li>
+    <li>Rotulaciones a mano sustituyendo textos largos — cansan</li>
+    <li>Sombras dibujadas bajo elementos — añaden ruido innecesario</li>
+  </ul>
+
+  <h2>Próximos pasos</h2>
+  <ol>
+    <li>Responde: iPad / Wacom / papel</li>
+    <li>Dibujas el kit siguiendo <a href="./brief.md">brief.md</a></li>
+    <li>Yo monto <code>app/playground/illustration-style/</code> con los tuyos</li>
+    <li>Decidimos</li>
+  </ol>
+
+</div>
+</body>
+</html>

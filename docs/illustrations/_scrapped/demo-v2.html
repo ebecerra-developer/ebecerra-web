@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Demo v2 — kit anotaciones (pluma caligráfica)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C0A09; --paper:#FAFAF9; --muted:#78716C; --border:#E7E5E4;
+    --green:#047857;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"DM Sans",system-ui;background:var(--paper);color:var(--ink);line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 24px 96px}
+  h1{font-size:32px;letter-spacing:-.02em;margin:0 0 8px}
+  h2{font-size:22px;letter-spacing:-.01em;margin:56px 0 8px;font-weight:600}
+  h3{font-size:18px;margin:32px 0 12px;font-weight:600}
+  .sub{color:var(--muted);margin:0 0 40px;max-width:60ch}
+  .mono{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
+  .col{background:white;border:1px solid var(--border);border-radius:12px;padding:24px}
+  .col.active{border-color:var(--green);box-shadow:0 0 0 3px rgba(4,120,87,.08)}
+  .col .tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;padding:3px 8px;border-radius:4px;background:#F5F5F4;color:var(--muted);letter-spacing:.05em;margin-bottom:12px}
+  .col.active .tag{background:var(--green);color:white}
+  .col h4{margin:0 0 16px;font-size:15px;font-weight:600}
+  .kit{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .cell{padding:16px 8px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;min-height:110px;justify-content:center}
+  .cell .name{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.02em}
+  .scene{background:white;border:1px solid var(--border);border-radius:16px;padding:48px;margin-top:24px;position:relative}
+  .scene h3{font-size:28px;margin:0 0 16px;letter-spacing:-.02em}
+  .scene p{color:#57534E;max-width:56ch;margin:0 0 24px}
+  .btn{display:inline-block;padding:10px 20px;background:var(--ink);color:var(--paper);border-radius:6px;text-decoration:none;font-size:14px;font-weight:500}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--border)}
+  .annot-relative{position:relative;display:inline-block}
+  .annot-abs{position:absolute;pointer-events:none}
+  .caveat{font-family:"Caveat",cursive;color:var(--green);font-size:18px}
+  .note{background:#FEF3C7;border-left:3px solid #F59E0B;padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:14px;color:#78350F}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="mono">DEMO V2 · PINCEL CALIGRÁFICO · CHISEL-TIP</p>
+  <h1>Comparativa: round vs chisel</h1>
+  <p class="sub">Izquierda = pincel circular (demo v1). Derecha = pluma caligráfica con punta rectangular (propuesta v2). Mismo contenido, distinto registro.</p>
+
+  <h2>Kit base — comparado</h2>
+
+  <div class="cmp">
+
+    <!-- LEFT: v1 round -->
+    <div class="col">
+      <span class="tag">V1 · ROUND</span>
+      <h4>Pincel circular (estilo "rotulador")</h4>
+      <div class="kit">
+
+        <div class="cell">
+          <svg width="72" height="54" viewBox="0 0 72 54"><path d="M6 40 Q 26 10, 54 22 Q 60 26, 66 20" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M60 16 L 66 20 L 62 26" stroke="#047857" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          <span class="name">flecha →</span>
+        </div>
+
+        <div class="cell">
+          <svg width="54" height="72" viewBox="0 0 54 72"><path d="M12 6 Q 42 26, 24 52" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M18 44 L 24 54 L 34 50" stroke="#047857" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          <span class="name">flecha ↓</span>
+        </div>
+
+        <div class="cell">
+          <svg width="90" height="54" viewBox="0 0 90 54"><path d="M10 28 Q 12 8, 46 8 Q 80 8, 80 28 Q 82 48, 48 48 Q 8 48, 12 26" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+          <span class="name">halo</span>
+        </div>
+
+        <div class="cell">
+          <svg width="90" height="24" viewBox="0 0 90 24"><path d="M4 14 Q 12 6, 20 14 T 38 14 T 56 14 T 74 14 Q 82 10, 86 14" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+          <span class="name">subrayado ~</span>
+        </div>
+
+        <div class="cell">
+          <svg width="54" height="44" viewBox="0 0 54 44"><path d="M10 24 L 22 36 L 46 8" stroke="#047857" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          <span class="name">check</span>
+        </div>
+
+        <div class="cell">
+          <svg width="54" height="54" viewBox="0 0 54 54"><g stroke="#047857" stroke-width="4" stroke-linecap="round"><path d="M27 6 L 27 48"/><path d="M6 27 L 48 27"/><path d="M12 12 L 42 42"/><path d="M42 12 L 12 42"/></g></svg>
+          <span class="name">asterisco</span>
+        </div>
+
+        <div class="cell">
+          <svg width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="7" fill="#0C0A09"/></svg>
+          <span class="name">viñeta</span>
+        </div>
+
+        <div class="cell">
+          <svg width="108" height="18" viewBox="0 0 108 18"><path d="M6 10 Q 28 6, 54 8 T 102 10" stroke="#0C0A09" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+          <span class="name">subrayado —</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: v2 chisel -->
+    <div class="col active">
+      <span class="tag">V2 · CHISEL</span>
+      <h4>Pluma caligráfica (punta rectangular 45°)</h4>
+      <div class="kit">
+
+        <!-- flecha → : tronco grueso en downstroke, fino en upstroke, punta en triángulo lleno -->
+        <div class="cell">
+          <svg width="72" height="54" viewBox="0 0 72 54">
+            <!-- tronco: forma filled que va gruesa en medio -->
+            <path fill="#047857" d="M5 42 Q 26 8, 54 20 L 57 26 Q 32 16, 10 44 Z"/>
+            <!-- punta arrowhead como dos filled diagonales -->
+            <path fill="#047857" d="M46 14 L 60 22 L 57 28 L 52 20 Z"/>
+            <path fill="#047857" d="M60 22 L 52 32 L 48 28 L 55 24 Z"/>
+          </svg>
+          <span class="name">flecha →</span>
+        </div>
+
+        <!-- flecha ↓ -->
+        <div class="cell">
+          <svg width="54" height="72" viewBox="0 0 54 72">
+            <path fill="#047857" d="M10 6 Q 42 24, 20 50 L 28 52 Q 46 28, 14 4 Z"/>
+            <path fill="#047857" d="M14 44 L 22 56 L 30 50 L 22 48 Z"/>
+            <path fill="#047857" d="M22 56 L 34 48 L 30 44 L 26 50 Z"/>
+          </svg>
+          <span class="name">flecha ↓</span>
+        </div>
+
+        <!-- halo: anillo con grosor variable, más grueso en diagonales -->
+        <div class="cell">
+          <svg width="90" height="54" viewBox="0 0 90 54">
+            <path fill="#047857" fill-rule="evenodd" d="M45 4 C 22 4, 8 14, 8 28 C 8 44, 24 50, 46 50 C 70 50, 84 40, 84 26 C 84 10, 68 4, 45 4 Z M45 10 C 66 10, 78 14, 78 26 C 78 36, 66 44, 46 44 C 26 44, 14 40, 14 28 C 14 18, 26 10, 45 10 Z"/>
+          </svg>
+          <span class="name">halo</span>
+        </div>
+
+        <!-- subrayado ondulado: forma filled con grosor variable -->
+        <div class="cell">
+          <svg width="90" height="24" viewBox="0 0 90 24">
+            <path fill="#047857" d="M4 14 Q 12 4, 22 14 T 40 14 T 58 14 T 76 14 Q 82 10, 86 14 L 88 18 Q 82 14, 76 18 T 58 18 T 40 18 T 22 18 Q 12 8, 4 18 Z"/>
+          </svg>
+          <span class="name">subrayado ~</span>
+        </div>
+
+        <!-- check: dos parallelogramos -->
+        <div class="cell">
+          <svg width="54" height="44" viewBox="0 0 54 44">
+            <path fill="#047857" d="M9 22 L 22 35 L 18 40 L 6 28 Z"/>
+            <path fill="#047857" d="M22 35 L 46 5 L 50 9 L 26 39 Z"/>
+          </svg>
+          <span class="name">check</span>
+        </div>
+
+        <!-- asterisco: radiales rectangulares, con grosor variable -->
+        <div class="cell">
+          <svg width="54" height="54" viewBox="0 0 54 54">
+            <!-- vertical, delgado -->
+            <path fill="#047857" d="M25 5 L 29 5 L 29 49 L 25 49 Z"/>
+            <!-- horizontal, medio -->
+            <path fill="#047857" d="M5 25 L 49 25 L 49 29 L 5 29 Z"/>
+            <!-- diagonal gruesa ↘ -->
+            <path fill="#047857" d="M12 10 L 44 42 L 42 44 L 10 12 Z"/>
+            <!-- diagonal delgada ↙ -->
+            <path fill="#047857" d="M42 12 L 14 44 L 12 42 L 40 10 Z"/>
+          </svg>
+          <span class="name">asterisco</span>
+        </div>
+
+        <!-- viñeta: gota/diamante en vez de círculo -->
+        <div class="cell">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <path fill="#0C0A09" d="M18 6 L 28 16 L 18 30 L 8 20 Z"/>
+          </svg>
+          <span class="name">viñeta</span>
+        </div>
+
+        <!-- subrayado recto: parallelogramo con ligera variación -->
+        <div class="cell">
+          <svg width="108" height="18" viewBox="0 0 108 18">
+            <path fill="#0C0A09" d="M6 8 L 102 10 L 102 14 L 6 13 Z"/>
+          </svg>
+          <span class="name">subrayado —</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <strong>Qué cambia técnicamente:</strong> en v1 uso <code>stroke</code> con <code>linecap: round</code> — línea de grosor uniforme, extremos redondeados. En v2 cada elemento es un <code>path</code> con <code>fill</code> — forma cerrada rellena con grosor variable según dirección, extremos planos o puntiagudos según construcción. Esta técnica es la que se usa para hacer tipografías, y se llama "chisel-tip calligraphy" simulada. Permite simular la estética de pluma de tinta (Lamy, Pilot Parallel) sin depender del ángulo real de una pluma.
+  </div>
+
+  <h2>Escena — Hero comparado</h2>
+
+  <h3>V1 · round</h3>
+  <div class="scene">
+    <p class="mono" style="color:var(--green)">// 00. hola</p>
+    <h3 style="margin:0 0 16px">
+      Hago webs que
+      <span class="annot-relative">
+        convierten
+        <svg class="annot-abs" style="left:-12px;top:calc(100% - 6px);width:calc(100% + 24px);height:18px" viewBox="0 0 180 18" preserveAspectRatio="none">
+          <path d="M4 12 Q 22 4, 48 10 T 96 10 T 144 10 Q 170 8, 176 12" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/>
+        </svg>
+      </span>,
+      no solo que se vean bonitas.
+    </h3>
+    <a href="#" class="btn">Hablemos del proyecto</a>
+  </div>
+
+  <h3>V2 · chisel</h3>
+  <div class="scene">
+    <p class="mono" style="color:var(--green)">// 00. hola</p>
+    <h3 style="margin:0 0 16px">
+      Hago webs que
+      <span class="annot-relative">
+        convierten
+        <svg class="annot-abs" style="left:-12px;top:calc(100% - 6px);width:calc(100% + 24px);height:18px" viewBox="0 0 180 18" preserveAspectRatio="none">
+          <path fill="#047857" d="M4 10 Q 22 2, 48 8 T 96 8 T 144 8 Q 170 6, 176 10 L 178 14 Q 172 10, 144 12 T 96 12 T 48 12 Q 22 8, 4 14 Z"/>
+        </svg>
+      </span>,
+      no solo que se vean bonitas.
+    </h3>
+    <a href="#" class="btn">Hablemos del proyecto</a>
+  </div>
+
+  <h2>Escena — Lista de servicios comparada</h2>
+
+  <div class="cmp">
+    <div class="col">
+      <span class="tag">V1 · ROUND</span>
+      <ul style="list-style:none;padding:0;margin:16px 0 0;display:flex;flex-direction:column;gap:10px">
+        <li style="display:flex;align-items:center;gap:12px">
+          <svg width="20" height="16" viewBox="0 0 20 16"><path d="M3 8 L 8 13 L 17 3" stroke="#047857" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          Auditoría técnica
+        </li>
+        <li style="display:flex;align-items:center;gap:12px">
+          <svg width="20" height="16" viewBox="0 0 20 16"><path d="M3 8 L 8 13 L 17 3" stroke="#047857" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          Propuesta de arquitectura
+        </li>
+        <li style="display:flex;align-items:center;gap:12px">
+          <svg width="20" height="16" viewBox="0 0 20 16"><path d="M3 8 L 8 13 L 17 3" stroke="#047857" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          Roadmap por fases
+        </li>
+      </ul>
+    </div>
+    <div class="col active">
+      <span class="tag">V2 · CHISEL</span>
+      <ul style="list-style:none;padding:0;margin:16px 0 0;display:flex;flex-direction:column;gap:10px">
+        <li style="display:flex;align-items:center;gap:12px">
+          <svg width="20" height="16" viewBox="0 0 20 16"><path fill="#047857" d="M3 8 L 7 12 L 5 14 L 1 10 Z"/><path fill="#047857" d="M7 12 L 17 2 L 19 4 L 9 14 Z"/></svg>
+          Auditoría técnica
+        </li>
+        <li style="display:flex;align-items:center;gap:12px">
+          <svg width="20" height="16" viewBox="0 0 20 16"><path fill="#047857" d="M3 8 L 7 12 L 5 14 L 1 10 Z"/><path fill="#047857" d="M7 12 L 17 2 L 19 4 L 9 14 Z"/></svg>
+          Propuesta de arquitectura
+        </li>
+        <li style="display:flex;align-items:center;gap:12px">
+          <svg width="20" height="16" viewBox="0 0 20 16"><path fill="#047857" d="M3 8 L 7 12 L 5 14 L 1 10 Z"/><path fill="#047857" d="M7 12 L 17 2 L 19 4 L 9 14 Z"/></svg>
+          Roadmap por fases
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Observaciones honestas</h2>
+
+  <p><strong>Lo que gana la versión chisel (v2):</strong></p>
+  <ul>
+    <li>Más <em>editorial/intencional</em>, menos "doodle infantil"</li>
+    <li>Puente más claro con el eB (que también tiene grosor variable)</li>
+    <li>Menos delator de IA (generadores tienden a trazos uniformes)</li>
+    <li>El check convertido en dos paralelogramos se lee más "impreso" que "dibujado", más profesional</li>
+  </ul>
+
+  <p><strong>Lo que pierde:</strong></p>
+  <ul>
+    <li>Menos "mano humana" inmediata — la calidad calligráfica se asocia con tipografía bien hecha, no con garabato</li>
+    <li>Construirlo bien exige más trabajo de path — las formas cerradas son más frágiles que los trazos</li>
+    <li>A tamaños muy pequeños (bullets, tildes de lista) la diferencia casi no se nota</li>
+  </ul>
+
+  <p><strong>Notas de producción:</strong></p>
+  <p>Mis paths aquí son aproximaciones honestas de una pluma a 45°, pero <strong>no son tipografía profesional</strong>. Para un kit real hay tres caminos:</p>
+
+  <ol>
+    <li><strong>Commission a ilustrador/tipógrafo</strong> (200-500€). Te entregan el kit vectorizado con variables de grosor reales, optimizado por tamaño. Mejor calidad, menos control iterativo.</li>
+    <li><strong>Usar una fuente caligráfica existente y extraer glifos.</strong> P.ej. Pilowlava, Quincy CF, o las flechas ornamentales de Adobe Garamond Pro. Rápido, gratis o muy barato, pero limitado al catálogo existente.</li>
+    <li><strong>Seguir con lo que tengo hecho aquí</strong> si visualmente te convence el resultado. Lo vectorizo limpio en archivos SVG individuales dentro de <code>public/brand/illustrations/</code> y los integramos en Tailwind como utility classes.</li>
+  </ol>
+
+  <h2>¿Siguiente paso?</h2>
+  <p>Necesito confirmación de dos cosas:</p>
+  <ol>
+    <li><strong>¿V1 round, V2 chisel, o ninguna?</strong> Si V2 chisel, seguimos refinando. Si V1 round con tu reticencia original, quizá es señal de que el "kit hand-drawn" no es la dirección.</li>
+    <li><strong>¿Camino de producción?</strong> Commission, fuente existente, o mis paths.</li>
+  </ol>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Demo v4 — kit anotaciones (variable width)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C0A09; --paper:#FAFAF9; --muted:#78716C; --border:#E7E5E4;
+    --green:#047857;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"DM Sans",system-ui;background:var(--paper);color:var(--ink);line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 24px 96px}
+  h1{font-size:32px;letter-spacing:-.02em;margin:0 0 8px}
+  h2{font-size:22px;letter-spacing:-.01em;margin:56px 0 8px;font-weight:600}
+  .sub{color:var(--muted);margin:0 0 40px;max-width:60ch}
+  .mono{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
+  .col{background:white;border:1px solid var(--border);border-radius:12px;padding:24px}
+  .col.active{border-color:var(--green);box-shadow:0 0 0 3px rgba(4,120,87,.08)}
+  .col .tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;padding:3px 8px;border-radius:4px;background:#F5F5F4;color:var(--muted);letter-spacing:.05em;margin-bottom:12px}
+  .col.active .tag{background:var(--green);color:white}
+  .col h4{margin:0 0 8px;font-size:15px;font-weight:600}
+  .col p.desc{font-size:12px;color:var(--muted);margin:0 0 20px}
+  .showcase{display:flex;justify-content:center;align-items:center;min-height:140px;padding:24px;background:#FAFAF9;border-radius:8px}
+  .scene{background:white;border:1px solid var(--border);border-radius:16px;padding:48px;margin-top:16px}
+  .scene h3{font-size:28px;margin:0 0 16px;letter-spacing:-.02em;font-weight:600}
+  .scene .lbl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;display:block}
+  .annot-relative{position:relative;display:inline-block}
+  .annot-abs{position:absolute;pointer-events:none}
+  .note{background:#EEF2FF;border-left:3px solid #4F46E5;padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:13px;color:#312E81}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="mono">DEMO V4 · GROSOR VARIABLE · TÉCNICA DOBLE-TRAZO</p>
+  <h1>Los tres ajustes pedidos</h1>
+  <p class="sub">Izquierda: v3 (base). Derecha: v4 con tres cambios concretos — grosor variable, onda contenida, arrowhead alineada al tronco.</p>
+
+  <div class="note">
+    <strong>Técnica:</strong> cada anotación se dibuja <strong>dos veces sobre el mismo path</strong>. Trazo fino (2-2.5px) en todo el recorrido + trazo grueso (4-5px) solo en el tramo central. El resultado simula la presión de una mano que empieza suave, carga en medio y afloja al final. No es filled path (v2 falló por ahí) sino stroke honesto con doble pasada.
+  </div>
+
+  <h2>1 · Flecha curva</h2>
+  <p class="sub">v4 añade: grosor variable en el tronco + arrowhead como triángulo relleno alineado con la tangente del tronco.</p>
+
+  <div class="row">
+    <div class="col">
+      <span class="tag">V3 · UNIFORM</span>
+      <h4>Grosor constante</h4>
+      <p class="desc">Stroke único, linecap square</p>
+      <div class="showcase">
+        <svg width="160" height="100" viewBox="0 0 160 100">
+          <path d="M10 78 Q 50 18, 110 38 Q 122 42, 132 28" stroke="#047857" stroke-width="4" stroke-linecap="square" fill="none"/>
+          <path d="M120 18 L 132 28 L 122 40" stroke="#047857" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="col active">
+      <span class="tag">V4 · VARIABLE</span>
+      <h4>Grosor variable + cabeza alineada</h4>
+      <p class="desc">Doble trazo + arrowhead filled triangle</p>
+      <div class="showcase">
+        <svg width="160" height="100" viewBox="0 0 160 100">
+          <!-- Trazo fino full path -->
+          <path d="M10 78 Q 50 18, 110 38 Q 122 42, 132 28" stroke="#047857" stroke-width="2.5" stroke-linecap="square" fill="none"/>
+          <!-- Trazo grueso, solo tramo central -->
+          <path d="M28 56 Q 56 24, 96 34" stroke="#047857" stroke-width="5.5" stroke-linecap="butt" fill="none"/>
+          <!-- Arrowhead filled, alineado con tangente final del tronco -->
+          <path fill="#047857" d="M132 28 L 118 18 L 120 36 Z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <h2>2 · Subrayado ondulado</h2>
+  <p class="sub">v4: amplitud reducida (de ~8px a ~3px) y grosor variable en los picos.</p>
+
+  <div class="row">
+    <div class="col">
+      <span class="tag">V3 · AMPLITUD ALTA</span>
+      <h4>Onda pronunciada</h4>
+      <p class="desc">Amplitud ±8px, grosor 4 uniforme</p>
+      <div class="showcase">
+        <svg width="260" height="50" viewBox="0 0 260 50">
+          <path d="M10 25 Q 30 9, 50 25 T 90 25 T 130 25 T 170 25 T 210 25 Q 230 21, 250 25" stroke="#047857" stroke-width="4" stroke-linecap="square" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="col active">
+      <span class="tag">V4 · CONTENIDA</span>
+      <h4>Onda sutil + grosor variable</h4>
+      <p class="desc">Amplitud ±3px, 2 trazos superpuestos</p>
+      <div class="showcase">
+        <svg width="260" height="50" viewBox="0 0 260 50">
+          <!-- Fino todo el recorrido -->
+          <path d="M10 25 Q 30 21, 50 25 T 90 25 T 130 25 T 170 25 T 210 25 Q 230 23, 250 25" stroke="#047857" stroke-width="2.5" stroke-linecap="square" fill="none"/>
+          <!-- Grueso en la zona central -->
+          <path d="M70 25 Q 90 21, 110 25 T 150 25 T 190 25" stroke="#047857" stroke-width="4.5" stroke-linecap="butt" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <h2>3 · Halo circular</h2>
+  <p class="sub">v4: más grueso en los "laterales" (donde una pluma caligráfica cargaría más), más fino arriba/abajo.</p>
+
+  <div class="row">
+    <div class="col">
+      <span class="tag">V3 · UNIFORM</span>
+      <h4>Grosor constante</h4>
+      <div class="showcase">
+        <svg width="200" height="100" viewBox="0 0 200 100">
+          <path d="M20 50 Q 22 12, 100 12 Q 180 12, 180 50 Q 184 90, 102 90 Q 16 90, 22 48" stroke="#047857" stroke-width="4" stroke-linecap="square" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="col active">
+      <span class="tag">V4 · VARIABLE</span>
+      <h4>Acento en los laterales</h4>
+      <div class="showcase">
+        <svg width="200" height="100" viewBox="0 0 200 100">
+          <path d="M20 50 Q 22 12, 100 12 Q 180 12, 180 50 Q 184 90, 102 90 Q 16 90, 22 48" stroke="#047857" stroke-width="2.5" stroke-linecap="square" fill="none"/>
+          <!-- Acento en lado izquierdo (carga en downstroke) -->
+          <path d="M22 30 Q 20 65, 45 88" stroke="#047857" stroke-width="5" stroke-linecap="butt" fill="none"/>
+          <!-- Acento en lado derecho (carga en downstroke) -->
+          <path d="M180 40 Q 184 75, 155 88" stroke="#047857" stroke-width="5" stroke-linecap="butt" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <h2>4 · Check</h2>
+  <p class="sub">v4: más grueso en la subida larga (downstroke), más fino en el golpe corto.</p>
+
+  <div class="row">
+    <div class="col">
+      <span class="tag">V3 · UNIFORM</span>
+      <h4>Grosor constante</h4>
+      <div class="showcase">
+        <svg width="100" height="80" viewBox="0 0 100 80">
+          <path d="M15 42 L 40 65 L 85 12" stroke="#047857" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="col active">
+      <span class="tag">V4 · VARIABLE</span>
+      <h4>Fino en el golpe, grueso en la subida</h4>
+      <div class="showcase">
+        <svg width="100" height="80" viewBox="0 0 100 80">
+          <!-- Golpe corto (fino) -->
+          <path d="M15 42 L 40 65" stroke="#047857" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+          <!-- Subida larga (grueso) -->
+          <path d="M40 65 L 85 12" stroke="#047857" stroke-width="5.5" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <h2>Hero comparado con todas las mejoras</h2>
+
+  <p class="mono" style="margin:32px 0 8px;color:var(--muted)">V3 (base, subrayado ondulado — ruidoso)</p>
+  <div class="scene">
+    <span class="lbl">// 00. hola</span>
+    <h3>
+      Hago webs que
+      <span class="annot-relative">
+        convierten
+        <svg class="annot-abs" style="left:-10px;top:calc(100% - 4px);width:calc(100% + 20px);height:16px" viewBox="0 0 180 16" preserveAspectRatio="none">
+          <path d="M4 10 Q 22 2, 48 10 T 96 10 T 144 10 Q 170 6, 176 10" stroke="#047857" stroke-width="4" stroke-linecap="square" fill="none"/>
+        </svg>
+      </span>,
+      no solo que se vean bonitas.
+    </h3>
+  </div>
+
+  <p class="mono" style="margin:32px 0 8px;color:var(--green)">V4 (subrayado recto-suave, sin picos)</p>
+  <div class="scene">
+    <span class="lbl">// 00. hola</span>
+    <h3>
+      Hago webs que
+      <span class="annot-relative">
+        convierten
+        <svg class="annot-abs" style="left:-10px;top:calc(100% - 2px);width:calc(100% + 20px);height:10px" viewBox="0 0 180 10" preserveAspectRatio="none">
+          <!-- Fino full path: una sola curva muy leve, casi recta -->
+          <path d="M4 5 Q 90 7, 176 5" stroke="#047857" stroke-width="2.5" stroke-linecap="square" fill="none"/>
+          <!-- Grueso en zona central (énfasis natural de la pluma cargada) -->
+          <path d="M40 6 Q 90 7, 140 6" stroke="#047857" stroke-width="4.5" stroke-linecap="butt" fill="none"/>
+        </svg>
+      </span>,
+      no solo que se vean bonitas.
+    </h3>
+  </div>
+
+  <div class="note">
+    <strong>Regla nueva del sistema:</strong> el subrayado <em>recto-suave</em> es el subrayado por defecto. Se usa bajo palabras clave en texto corrido. El subrayado <em>ondulado</em> queda reservado para <strong>métricas, resultados, titulares de impacto</strong> — no para subrayar palabras en una frase normal. Mismo criterio que la negrita: demasiada deja de tener peso.
+  </div>
+
+  <h2>Ajustes finos posibles si seguimos</h2>
+  <ul>
+    <li><strong>Posición del grueso</strong> — ahora va en el centro. Puede ir al arranque (como pluma cargada al empezar), al final (como énfasis al acabar), o repartido en 2-3 zonas.</li>
+    <li><strong>Ratio fino/grueso</strong> — ahora 2.5 / 4.5 (ratio 1:1.8). Podemos ser más suaves (2.5 / 3.5 = 1:1.4) o más marcados (2 / 6 = 1:3).</li>
+    <li><strong>Amplitud de la onda</strong> — ahora ±3. Se puede bajar a ±1.5 (casi plana, solo gesto) o subir a ±5 (decorativa).</li>
+    <li><strong>Linecap consistente</strong> — tengo mezcla de <code>square</code> (extremos externos) y <code>butt</code> (trazo interno grueso). Se puede unificar a uno u otro si prefieres.</li>
+  </ul>
+
+  <h2>¿Esto sí?</h2>
+  <p>Si V4 te cuadra, <strong>nos quedamos con esta técnica</strong> y aplico el enfoque a los 10 elementos del kit completo. Si aún hay algo forzado, dime cuál (más sutil, más marcado, otro reparto) y afino.</p>
+</div>
+</body>
+</html>

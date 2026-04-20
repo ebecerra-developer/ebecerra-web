@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Demo v3 — kit anotaciones (marker chisel)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C0A09; --paper:#FAFAF9; --muted:#78716C; --border:#E7E5E4;
+    --green:#047857;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"DM Sans",system-ui;background:var(--paper);color:var(--ink);line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 24px 96px}
+  h1{font-size:32px;letter-spacing:-.02em;margin:0 0 8px}
+  h2{font-size:22px;letter-spacing:-.01em;margin:56px 0 8px;font-weight:600}
+  .sub{color:var(--muted);margin:0 0 40px;max-width:60ch}
+  .mono{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
+  .cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+  .col{background:white;border:1px solid var(--border);border-radius:12px;padding:20px}
+  .col.active{border-color:var(--green);box-shadow:0 0 0 3px rgba(4,120,87,.08)}
+  .col .tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;padding:3px 8px;border-radius:4px;background:#F5F5F4;color:var(--muted);letter-spacing:.05em;margin-bottom:12px}
+  .col.active .tag{background:var(--green);color:white}
+  .col h4{margin:0 0 4px;font-size:14px;font-weight:600}
+  .col p.desc{font-size:12px;color:var(--muted);margin:0 0 16px}
+  .kit{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .cell{padding:12px 8px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;min-height:90px;justify-content:center}
+  .cell .name{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--muted)}
+  .scene{background:white;border:1px solid var(--border);border-radius:16px;padding:48px;margin-top:16px}
+  .scene h3{font-size:28px;margin:0 0 12px;letter-spacing:-.02em}
+  .scene .lbl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;display:block}
+  .annot-relative{position:relative;display:inline-block}
+  .annot-abs{position:absolute;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="mono">DEMO V3 · CAMBIO MÍNIMO · MARKER FLAT-TIP</p>
+  <h1>Tres extremos de línea — comparados</h1>
+  <p class="sub">Los paths son idénticos. Lo único que cambia: cómo se cierran los extremos y las esquinas. Es toda la diferencia entre <em>sharpie</em>, <em>Stabilo 88</em> y <em>pluma caligráfica</em>.</p>
+
+  <div class="cmp">
+
+    <div class="col">
+      <span class="tag">V1 · ROUND</span>
+      <h4>Sharpie</h4>
+      <p class="desc">linecap: round · linejoin: round</p>
+      <div class="kit">
+        <div class="cell">
+          <svg width="70" height="48" viewBox="0 0 70 48"><path d="M6 36 Q 24 8, 52 18 Q 58 22, 64 16" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M58 12 L 64 16 L 60 22" stroke="#047857" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          <span class="name">flecha</span>
+        </div>
+        <div class="cell">
+          <svg width="80" height="48" viewBox="0 0 80 48"><path d="M8 24 Q 10 6, 40 6 Q 70 6, 70 24 Q 72 42, 42 42 Q 8 42, 10 22" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+          <span class="name">halo</span>
+        </div>
+        <div class="cell">
+          <svg width="80" height="20" viewBox="0 0 80 20"><path d="M4 12 Q 12 4, 20 12 T 36 12 T 52 12 T 68 12 Q 74 8, 76 12" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+          <span class="name">ondulado</span>
+        </div>
+        <div class="cell">
+          <svg width="46" height="36" viewBox="0 0 46 36"><path d="M8 20 L 18 30 L 38 6" stroke="#047857" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          <span class="name">check</span>
+        </div>
+        <div class="cell">
+          <svg width="46" height="46" viewBox="0 0 46 46"><g stroke="#047857" stroke-width="4" stroke-linecap="round"><path d="M23 5 L 23 41"/><path d="M5 23 L 41 23"/><path d="M10 10 L 36 36"/><path d="M36 10 L 10 36"/></g></svg>
+          <span class="name">asterisco</span>
+        </div>
+        <div class="cell">
+          <svg width="90" height="18" viewBox="0 0 90 18"><path d="M6 10 Q 28 6, 54 8 T 84 10" stroke="#0C0A09" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+          <span class="name">recto</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col active">
+      <span class="tag">V3 · SQUARE</span>
+      <h4>Stabilo / Tombow flat</h4>
+      <p class="desc">linecap: square · linejoin: miter</p>
+      <div class="kit">
+        <div class="cell">
+          <svg width="70" height="48" viewBox="0 0 70 48"><path d="M6 36 Q 24 8, 52 18 Q 58 22, 64 16" stroke="#047857" stroke-width="4" stroke-linecap="square" fill="none"/><path d="M58 12 L 64 16 L 60 22" stroke="#047857" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" fill="none"/></svg>
+          <span class="name">flecha</span>
+        </div>
+        <div class="cell">
+          <svg width="80" height="48" viewBox="0 0 80 48"><path d="M8 24 Q 10 6, 40 6 Q 70 6, 70 24 Q 72 42, 42 42 Q 8 42, 10 22" stroke="#047857" stroke-width="4" stroke-linecap="square" fill="none"/></svg>
+          <span class="name">halo</span>
+        </div>
+        <div class="cell">
+          <svg width="80" height="20" viewBox="0 0 80 20"><path d="M4 12 Q 12 4, 20 12 T 36 12 T 52 12 T 68 12 Q 74 8, 76 12" stroke="#047857" stroke-width="4" stroke-linecap="square" fill="none"/></svg>
+          <span class="name">ondulado</span>
+        </div>
+        <div class="cell">
+          <svg width="46" height="36" viewBox="0 0 46 36"><path d="M8 20 L 18 30 L 38 6" stroke="#047857" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/></svg>
+          <span class="name">check</span>
+        </div>
+        <div class="cell">
+          <svg width="46" height="46" viewBox="0 0 46 46"><g stroke="#047857" stroke-width="4" stroke-linecap="square"><path d="M23 5 L 23 41"/><path d="M5 23 L 41 23"/><path d="M10 10 L 36 36"/><path d="M36 10 L 10 36"/></g></svg>
+          <span class="name">asterisco</span>
+        </div>
+        <div class="cell">
+          <svg width="90" height="18" viewBox="0 0 90 18"><path d="M6 10 Q 28 6, 54 8 T 84 10" stroke="#0C0A09" stroke-width="4" stroke-linecap="square" fill="none"/></svg>
+          <span class="name">recto</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <span class="tag">V3b · BUTT</span>
+      <h4>Pluma angular</h4>
+      <p class="desc">linecap: butt · linejoin: miter</p>
+      <div class="kit">
+        <div class="cell">
+          <svg width="70" height="48" viewBox="0 0 70 48"><path d="M6 36 Q 24 8, 52 18 Q 58 22, 64 16" stroke="#047857" stroke-width="4" stroke-linecap="butt" fill="none"/><path d="M58 12 L 64 16 L 60 22" stroke="#047857" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/></svg>
+          <span class="name">flecha</span>
+        </div>
+        <div class="cell">
+          <svg width="80" height="48" viewBox="0 0 80 48"><path d="M8 24 Q 10 6, 40 6 Q 70 6, 70 24 Q 72 42, 42 42 Q 8 42, 10 22" stroke="#047857" stroke-width="4" stroke-linecap="butt" fill="none"/></svg>
+          <span class="name">halo</span>
+        </div>
+        <div class="cell">
+          <svg width="80" height="20" viewBox="0 0 80 20"><path d="M4 12 Q 12 4, 20 12 T 36 12 T 52 12 T 68 12 Q 74 8, 76 12" stroke="#047857" stroke-width="4" stroke-linecap="butt" fill="none"/></svg>
+          <span class="name">ondulado</span>
+        </div>
+        <div class="cell">
+          <svg width="46" height="36" viewBox="0 0 46 36"><path d="M8 20 L 18 30 L 38 6" stroke="#047857" stroke-width="5" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/></svg>
+          <span class="name">check</span>
+        </div>
+        <div class="cell">
+          <svg width="46" height="46" viewBox="0 0 46 46"><g stroke="#047857" stroke-width="4" stroke-linecap="butt"><path d="M23 5 L 23 41"/><path d="M5 23 L 41 23"/><path d="M10 10 L 36 36"/><path d="M36 10 L 10 36"/></g></svg>
+          <span class="name">asterisco</span>
+        </div>
+        <div class="cell">
+          <svg width="90" height="18" viewBox="0 0 90 18"><path d="M6 10 Q 28 6, 54 8 T 84 10" stroke="#0C0A09" stroke-width="4" stroke-linecap="butt" fill="none"/></svg>
+          <span class="name">recto</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>Hero — comparado en contexto real</h2>
+
+  <p class="mono" style="margin:24px 0 8px">V1 · SHARPIE</p>
+  <div class="scene">
+    <span class="lbl" style="color:var(--green)">// 00. hola</span>
+    <h3>
+      Hago webs que
+      <span class="annot-relative">
+        convierten
+        <svg class="annot-abs" style="left:-12px;top:calc(100% - 6px);width:calc(100% + 24px);height:18px" viewBox="0 0 180 18" preserveAspectRatio="none">
+          <path d="M4 12 Q 22 4, 48 10 T 96 10 T 144 10 Q 170 8, 176 12" stroke="#047857" stroke-width="4" stroke-linecap="round" fill="none"/>
+        </svg>
+      </span>,
+      no solo que se vean bonitas.
+    </h3>
+  </div>
+
+  <p class="mono" style="margin:24px 0 8px;color:var(--green)">V3 · FLAT MARKER (propuesta)</p>
+  <div class="scene">
+    <span class="lbl" style="color:var(--green)">// 00. hola</span>
+    <h3>
+      Hago webs que
+      <span class="annot-relative">
+        convierten
+        <svg class="annot-abs" style="left:-12px;top:calc(100% - 6px);width:calc(100% + 24px);height:18px" viewBox="0 0 180 18" preserveAspectRatio="none">
+          <path d="M4 12 Q 22 4, 48 10 T 96 10 T 144 10 Q 170 8, 176 12" stroke="#047857" stroke-width="4" stroke-linecap="square" fill="none"/>
+        </svg>
+      </span>,
+      no solo que se vean bonitas.
+    </h3>
+  </div>
+
+  <p class="mono" style="margin:24px 0 8px">V3b · PLUMA</p>
+  <div class="scene">
+    <span class="lbl" style="color:var(--green)">// 00. hola</span>
+    <h3>
+      Hago webs que
+      <span class="annot-relative">
+        convierten
+        <svg class="annot-abs" style="left:-12px;top:calc(100% - 6px);width:calc(100% + 24px);height:18px" viewBox="0 0 180 18" preserveAspectRatio="none">
+          <path d="M4 12 Q 22 4, 48 10 T 96 10 T 144 10 Q 170 8, 176 12" stroke="#047857" stroke-width="4" stroke-linecap="butt" fill="none"/>
+        </svg>
+      </span>,
+      no solo que se vean bonitas.
+    </h3>
+  </div>
+
+  <h2>Resumen</h2>
+  <ul>
+    <li><strong>V1 (round)</strong> — cálido, amable, "sharpie/rotulador infantil". Se lee rápido como anotación. Perdía el registro <em>editorial</em> que querías.</li>
+    <li><strong>V3 (square)</strong> — extremos planos, las puntas sobresalen un poquito (por eso <code>square</code>, no <code>butt</code>). Estética <em>flat marker</em> tipo Stabilo 88. Puente natural con la geometría del eB. Mi apuesta.</li>
+    <li><strong>V3b (butt)</strong> — extremos cortados exactos, más técnico, casi "ingeniero". Funciona en el asterisco pero hace las flechas menos claras (la punta se ve truncada).</li>
+  </ul>
+
+  <p>Ojo: la <strong>viñeta (círculo relleno)</strong> no entra en esta comparativa porque no depende del linecap. Sigue igual en las tres variantes.</p>
+
+  <h2>¿Siguiente paso?</h2>
+  <p>Elige uno (v1 / v3 / v3b) y seguimos. Si v3 o v3b, propongo producción ligera: yo preparo los 10 SVG limpios en <code>public/brand/illustrations/</code>, los integramos en el proyecto como utility classes de Tailwind. Sin commission externo, sin fuente de terceros. Si más adelante quieres subir el nivel con ilustrador profesional, el kit se reemplaza fácil.</p>
+</div>
+</body>
+</html>
