@@ -25,6 +25,16 @@ const localeTextFields = supportedLanguages.map((lang) =>
   })
 );
 
+const localePortableTextFields = supportedLanguages.map((lang) =>
+  defineField({
+    name: lang.id,
+    title: lang.title,
+    type: "array",
+    of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+    validation: lang.isDefault ? (Rule) => Rule.required() : undefined,
+  })
+);
+
 export const localeString = defineType({
   name: "localeString",
   title: "Texto localizado (corto)",
@@ -37,4 +47,11 @@ export const localeText = defineType({
   title: "Texto localizado (largo)",
   type: "object",
   fields: localeTextFields,
+});
+
+export const localePortableText = defineType({
+  name: "localePortableText",
+  title: "Rich text localizado",
+  type: "object",
+  fields: localePortableTextFields,
 });

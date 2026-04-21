@@ -19,7 +19,16 @@ export default defineConfig({
         { id: "en", title: "English" },
       ],
       defaultLanguages: ["es"],
-      documentTypes: ["experience", "skill", "techTag", "project", "profile"],
+      documentTypes: [
+        "experience",
+        "skill",
+        "techTag",
+        "project",
+        "profile",
+        "service",
+        "processStep",
+        "caseStudy",
+      ],
       filterField: (enclosingType, member, selectedLanguageIds) =>
         !enclosingType.name.startsWith("locale") ||
         ("name" in member && selectedLanguageIds.includes(member.name)),

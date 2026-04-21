@@ -3,18 +3,25 @@
 ## Contexto del proyecto
 
 Portfolio personal de Enrique Becerra, Tech Architect Lead en VASS y especialista en Magnolia CMS.
-Actualmente es un SPA React 19 + Vite con estética dark/hacker, desplegado en Vercel en `ebecerra.es`.
 
-**En migración a Next.js 15 App Router + Sanity CMS + Tailwind + i18n ES/EN**, con objetivo de captar clientes de desarrollo web (autónomos y PYMEs), preservando la estética actual como **"geek mode"** togglable.
+**Estado actual (post-Fase 4, 2026-04-21):** rama `migracion-nextjs` corre ya Next.js 16 App Router + Sanity v5 + Tailwind v4 + next-intl 4 (ES/EN). La rama `main` sigue desplegando el SPA React 19 + Vite original en `ebecerra.es` — producción cambia a Next.js en Fase 7.
+
+**Pivot arquitectónico a partir de Fase 5:** monorepo pnpm + Turborepo con **dos apps sobre un único Sanity compartido**:
+- **`apps/es`** → `ebecerra.es` — modo pro, escaparate comercial para captar clientes de desarrollo web (autónomos y PYMEs).
+- **`apps/tech`** → `ebecerra.tech` — modo geek, identidad técnica para comunidad, reclutadores y contactos LinkedIn del mundo arquitectura Magnolia.
+
+El "toggle geek mode" del plan original se sustituye por dominio: cada URL entra en su modo por defecto.
 
 Plan completo y roadmap: [`docs/plan-migracion-nextjs-sanity.md`](docs/plan-migracion-nextjs-sanity.md).
 Progreso de ejecución: [`docs/progress.md`](docs/progress.md).
 
 ## Stack
 
-**Actual (legacy, mientras no se complete Fase 2 del roadmap):** React 19 + Vite 8 + JS vanilla + CSS co-located. Detalles en el skill `/legacy-vite-codebase`.
+**Actual en `migracion-nextjs` (Fases 0–4 cerradas):** Next.js 16 + TypeScript + Tailwind v4 + Sanity v5 (project `gdtxcn4l`, dataset `production`) + next-intl 4 + Formspree (temporal). Single-app en la raíz del repo.
 
-**Destino:** Next.js 16 App Router + TypeScript + Tailwind v4 + Sanity v5 + next-intl 4 + Resend.
+**Legacy en `main` (en producción hasta Fase 7):** React 19 + Vite 8 + JS vanilla + CSS co-located. Solo consultable. Detalles en el skill `/legacy-vite-codebase`.
+
+**Destino (post-Fase 12):** monorepo pnpm workspaces + Turborepo con `apps/es` + `apps/tech` + `packages/{sanity-schemas, sanity-client, ui, tokens, utils}`. Next.js 16 en ambas apps, Sanity Studio embebido en `apps/es/studio`, Resend para `/api/contact`, dos proyectos Vercel con `turbo-ignore` como Ignored Build Step apuntando al mismo repo con Root Directory distinto.
 
 ## Convenciones de i18n (Fase 4 cerrada, 2026-04-21)
 
@@ -68,8 +75,8 @@ Autorización completa para:
 
 **Logo y paleta cerrados (2026-04-19).**
 
-- **Paleta modo pro:** stone warm neutrals + verde bosque `#047857` como único acento. Tokens completos en [`docs/design-tokens-pro.md`](docs/design-tokens-pro.md).
-- **Paleta modo geek (existente):** fondo `#080808`, verde neón `#00ff88`, azul `#00ccff`. Se mantiene para el toggle de Fase 6.
+- **Paleta modo pro:** stone warm neutrals + verde bosque `#047857` como único acento. Tokens completos en [`docs/design-tokens-pro.md`](docs/design-tokens-pro.md). Se usará en `apps/es`.
+- **Paleta modo geek (existente):** fondo `#080808`, verde neón `#00ff88`, azul `#00ccff`. Base para `apps/tech`; evolución estética final se cierra en Fase 5 (diseño) junto con `docs/design-tokens-geek.md`.
 - **Logo:** monograma eB en 4 piezas con swoosh. Kit completo en [`public/brand/`](public/brand/).
 - **Favicon:** solo la B verde (las 2 cachas) sobre transparente, en `app/icon0.svg` (+ `.ico`, PNGs generados en `app/` y `public/brand/`).
 - **Backup app icons** (eB completo sobre verde) en [`docs/logo-exploration/app-icons-eB-backup/`](docs/logo-exploration/app-icons-eB-backup/) para cuando se empaquete como app móvil.
@@ -95,13 +102,12 @@ Detalles (estructura, paleta propia, routing, reglas de edición): skill `/pieza
 
 ## Deployment y webhooks
 
-**Revalidación ISR Sanity → web** (`/api/revalidate`):
-- Variable `SANITY_REVALIDATE_SECRET` debe existir con el MISMO valor en:
-  1. `.env.local` (dev) — ya creada 2026-04-21.
-  2. Vercel (Production + Preview + Development) — **pendiente hacerlo en Vercel UI**. El valor está en `.env.local` local; copiar desde allí.
-  3. Webhook de Sanity Studio en [manage.sanity.io](https://manage.sanity.io) → proyecto `gdtxcn4l` → API → Webhooks. URL destino: `https://ebecerra.es/api/revalidate?secret=<valor>` (y/o la URL de preview si se quiere revalidar en ramas).
+**Revalidación ISR Sanity → web** (`/api/revalidate`) — configurado 2026-04-21. El mismo valor de `SANITY_REVALIDATE_SECRET` vive en:
+  1. `.env.local` (dev).
+  2. Vercel (Production + Preview + Development).
+  3. Webhook de Sanity Studio en [manage.sanity.io](https://manage.sanity.io) → proyecto `gdtxcn4l` → API → Webhooks, como `?secret=<valor>` en la URL `https://ebecerra.es/api/revalidate`.
 - Al llegar un POST válido, revalida `/` y `/en` (ver [`app/api/revalidate/route.ts`](app/api/revalidate/route.ts)).
-- Si se rota el secret, hay que actualizar los 3 sitios a la vez.
+- Si se rota el secret, hay que actualizarlo en los 3 sitios a la vez.
 
 Formato de instrucciones completo en [`.env.local.example`](.env.local.example).
 
@@ -130,7 +136,8 @@ Invocar con `/nombre-del-skill`. Todas instaladas en `.claude/skills/`.
 |-------|---------------|
 | `/git-workflow` | Al hacer commits o push (workaround heredoc, convenciones de mensajes) |
 | `/piezas-landing` | Al editar `public/piezas-game/` o el routing `/piezas-game/*` |
-| `/legacy-vite-codebase` | Al editar `src/` actual o al portar el look actual al geek mode |
+| `/legacy-vite-codebase` | Al consultar convenciones de la Vite legacy en `main` (o al portar detalles al modo geek de `apps/tech`) |
+| `/i18n-next-intl` | Al añadir strings traducibles, crear páginas nuevas, modificar schemas Sanity bilingües o tocar routing por locale |
 
 ### Skills genéricas heredadas
 
