@@ -1,0 +1,34 @@
+/* ==========================================================================
+   ebecerra — Modo Geek — Design Tokens
+   --------------------------------------------------------------------------
+   Paleta "hacker/terminal" heredada del SPA legacy React+Vite original.
+   Destino: `apps/tech` del monorepo (dominio ebecerra.tech) una vez se
+   ejecute la Fase 5 del roadmap de migración.
+
+   Identidad: fondo negro warm, verde neón como acento primario, azul
+   cian como acento secundario puntual, tipografías mono en detalles
+   técnicos.
+
+   NO mezclar con tokens de modo pro (`pro.css`). Cada identidad vive
+   en su dominio y su app.
+   ========================================================================== */
+
+:root {
+  /* ---------- Color — Structure ---------- */
+  --geek-bg:           #080808;  /* fondo base (casi negro, no #000) */
+  --geek-surface:      #0d0d0d;  /* cards, terminal */
+  --geek-border:       #333333;  /* bordes sutiles */
+
+  /* ---------- Color — Text ---------- */
+  --geek-text:         #e0e0e0;  /* texto principal */
+  --geek-text-muted:   #888888;  /* texto secundario */
+  --geek-text-white:   #ffffff;  /* titulares */
+
+  /* ---------- Color — Accent ---------- */
+  --geek-accent:       #00ff88;  /* verde neón — acento primario */
+  --geek-accent-2:     #00ccff;  /* azul cian — acento secundario */
+
+  /* ---------- Typography — Families ---------- */
+  --geek-font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --geek-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
