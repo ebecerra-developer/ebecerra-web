@@ -1,0 +1,137 @@
+/* ==========================================================================
+   ebecerra.es — Modo Pro — Design Tokens
+   --------------------------------------------------------------------------
+   Tokens de color, tipografía, spacing, radios, sombras y transiciones para
+   el modo profesional de ebecerra.es. Monocromo warm stone + verde bosque
+   único acento decorativo.
+
+   Fuente de verdad: handoff bundle de Claude Design (2026-04-22) validado
+   con el diseño final de la home. Ver `docs/design-handoff-2026-04-22/`.
+
+   Destino (post-Fase 5 monorepo): `apps/es`.
+
+   NO añadir colores fuera de esta paleta. NO gradientes. NO slate/zinc.
+   ========================================================================== */
+
+:root {
+  /* ---------- Color — Structure ---------- */
+  --bg:              #fafaf9;  /* stone-50 — fondo principal, warm white */
+  --surface:         #ffffff;  /* cards, modales, inputs */
+  --surface-subtle:  #f5f5f4;  /* stone-100 — secciones alternas, zebra */
+  --border:          #e7e5e4;  /* stone-200 — divisores sutiles */
+  --border-strong:   #d6d3d1;  /* stone-300 — inputs, tablas */
+  --overlay:         rgba(12, 10, 9, 0.04);
+  --ink:             #1c1917;  /* stone-900 — fondo dramático (footer, CTA final). NUNCA #000 puro */
+
+  /* ---------- Color — Text ---------- */
+  --text:            #0c0a09;  /* stone-950 — titulares, copy principal */
+  --text-secondary:  #44403c;  /* stone-700 — párrafos body */
+  --text-muted:      #78716c;  /* stone-500 — captions, metadata */
+  --text-disabled:   #a8a29e;  /* stone-400 — inactivo */
+  --text-on-accent:  #fafaf9;  /* sobre verde bosque */
+  --text-on-ink:     #fafaf9;  /* sobre stone-900 warm */
+
+  /* ---------- Color — Interactive ---------- */
+  --fg:              #0c0a09;
+  --fg-hover:        #292524;
+  --focus-ring:      #a8a29e;
+
+  /* ---------- Color — CTA (único acento decorativo) ---------- */
+  --cta:             #047857;  /* emerald-700 */
+  --cta-hover:       #065f46;  /* emerald-800 */
+  --cta-soft:        rgba(4, 120, 87, 0.08);
+  --cta-soft-strong: rgba(4, 120, 87, 0.2);
+
+  /* ---------- Color — Semantic (un solo verde; info stone-700 neutro) ---------- */
+  --success:         #047857;  /* = --cta */
+  --warning:         #b45309;  /* amber-700 */
+  --error:           #b91c1c;  /* red-700 */
+  --info:            #44403c;  /* stone-700 — neutro, no azul (el azul pertenece al modo geek) */
+
+  /* ---------- Typography — Families ---------- */
+  --font-sans-stack: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono-stack: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ---------- Typography — Scale (major-third 1.25, titulares amplios) ----------
+     Escala fluida con clamp(). Valores finales: H1 68 · H2 48 · H3 36 ·
+     H4 24 · lead 21 · body 17 · sm 14. */
+  --fs-display:   clamp(3.25rem, 6.5vw, 5rem);     /* 52 → 80 */
+  --fs-h1:        clamp(2.75rem, 5.2vw, 4.25rem);  /* 44 → 68 */
+  --fs-h2:        clamp(2rem, 3.6vw, 3rem);        /* 32 → 48 */
+  --fs-h3:        clamp(1.625rem, 2.4vw, 2.25rem); /* 26 → 36 */
+  --fs-h4:        1.5rem;                           /* 24 */
+  --fs-body-lead: 1.3125rem;                        /* 21 — subtítulos hero, intros */
+  --fs-body-lg:   1.125rem;                         /* 18 */
+  --fs-body:      1.0625rem;                        /* 17 — body por defecto */
+  --fs-sm:        0.875rem;                         /* 14 — captions */
+  --fs-xs:        0.75rem;                          /* 12 */
+  --fs-mono-sm:   0.6875rem;                        /* 11 — mono kicker pequeño */
+  --fs-mono-md:   0.75rem;                          /* 12 — mono kicker normal */
+
+  /* ---------- Typography — Weights ---------- */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ---------- Typography — Line heights ---------- */
+  --lh-display:  1.03;
+  --lh-tight:    1.05;    /* H1 */
+  --lh-heading:  1.15;    /* H2-H3 */
+  --lh-h4:       1.25;
+  --lh-lead:     1.5;     /* lead corto — evita fragmentación */
+  --lh-body:     1.6;
+  --lh-prose:    1.75;    /* prose extenso (blog, casos largos) */
+
+  /* ---------- Typography — Tracking ---------- */
+  --tr-tight:     -0.025em;  /* display, H1 */
+  --tr-heading:   -0.015em;  /* H2-H3 */
+  --tr-normal:    0;
+  --tr-wide:      0.02em;
+  --tr-kicker-sm: 0.08em;
+  --tr-kicker-md: 0.12em;
+  --tr-kicker:    0.15em;    /* legacy */
+
+  /* ---------- Spacing scale (4px base) ---------- */
+  --s-0:  0;
+  --s-1:  0.25rem;   /* 4 */
+  --s-2:  0.5rem;    /* 8 */
+  --s-3:  0.75rem;   /* 12 */
+  --s-4:  1rem;      /* 16 */
+  --s-5:  1.5rem;    /* 24 */
+  --s-6:  2rem;      /* 32 */
+  --s-7:  3rem;      /* 48 */
+  --s-8:  4rem;      /* 64 */
+  --s-9:  6rem;      /* 96 */
+  --s-10: 8rem;      /* 128 */
+
+  /* ---------- Radii ---------- */
+  --r-none: 0;
+  --r-sm:   2px;
+  --r-md:   6px;
+  --r-lg:   10px;
+  --r-xl:   16px;
+  --r-pill: 9999px;
+
+  /* ---------- Borders ---------- */
+  --bw-hair:    1px;
+  --bw-strong:  1.5px;
+
+  /* ---------- Shadows ---------- */
+  --sh-1:     0 1px 2px rgba(12, 10, 9, 0.04);
+  --sh-2:     0 1px 3px rgba(12, 10, 9, 0.06), 0 1px 2px rgba(12, 10, 9, 0.04);
+  --sh-3:     0 4px 12px rgba(12, 10, 9, 0.06), 0 2px 4px rgba(12, 10, 9, 0.04);
+  --sh-focus: 0 0 0 3px var(--cta-soft);
+
+  /* ---------- Transitions ---------- */
+  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:   cubic-bezier(0, 0, 0.2, 1);
+  --dur-fast:   150ms;
+  --dur-base:   220ms;
+  --dur-slow:   320ms;
+
+  /* ---------- Layout ---------- */
+  --container-max: 1100px;
+  --gutter:        clamp(1.25rem, 5vw, 5rem);
+  --section-py:    clamp(4rem, 10vw, 8rem);
+}

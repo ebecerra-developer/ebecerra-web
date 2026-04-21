@@ -1,8 +1,41 @@
 @import "tailwindcss";
+@import "../packages/tokens/pro.css";
+@import "../packages/tokens/geek.css";
 
 @theme inline {
+  /* Font families — next/font vars inyectados por app/(locale)/[locale]/layout.tsx */
   --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-jetbrains-mono);
+
+  /* Colores — Structure (modo pro) */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+
+  /* Colores — Text (modo pro) */
+  --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-disabled: var(--text-disabled);
+  --color-text-on-accent: var(--text-on-accent);
+  --color-text-on-ink: var(--text-on-ink);
+
+  /* Colores — CTA único acento (modo pro) */
+  --color-cta: var(--cta);
+  --color-cta-hover: var(--cta-hover);
+  --color-cta-soft: var(--cta-soft);
+  --color-cta-soft-strong: var(--cta-soft-strong);
+
+  /* Colores — Semantic (modo pro) */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+
+  /* Animaciones heredadas del modo geek — temporales hasta Fase 5 (apps/tech) */
   --animate-pulse-glow: pulse-glow 2s infinite;
   --animate-blink: blink 1s infinite;
   --animate-fade-in-line: fadeInLine 0.3s ease;
@@ -12,22 +45,29 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ==========================================================================
+   TEMPORAL — reglas heredadas del modo geek (SPA legacy).
+   Se moverán a `apps/tech/app/globals.css` cuando se ejecute la Fase 5 del
+   monorepo. Las páginas/error-states que aún las usan se migrarán a modo
+   pro en Fase B de la implementación del diseño.
+   ========================================================================== */
+
 ::-webkit-scrollbar {
   width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d0d0d;
+  background: var(--geek-surface);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00ff88;
+  background: var(--geek-accent);
   border-radius: 2px;
 }
 
 body {
-  background: #080808;
-  color: #e0e0e0;
+  background: var(--geek-bg);
+  color: var(--geek-text);
 }
 
 @keyframes pulse-glow {

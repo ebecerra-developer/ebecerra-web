@@ -75,8 +75,8 @@ Autorización completa para:
 
 **Logo y paleta cerrados (2026-04-19).**
 
-- **Paleta modo pro:** stone warm neutrals + verde bosque `#047857` como único acento. Tokens completos en [`docs/design-tokens-pro.md`](docs/design-tokens-pro.md). Se usará en `apps/es`.
-- **Paleta modo geek (existente):** fondo `#080808`, verde neón `#00ff88`, azul `#00ccff`. Base para `apps/tech`; evolución estética final se cierra en Fase 5 (diseño) junto con `docs/design-tokens-geek.md`.
+- **Paleta modo pro:** stone warm neutrals + verde bosque `#047857` como único acento. Documentación en [`docs/design-tokens-pro.md`](docs/design-tokens-pro.md); CSS consumible desde código en [`packages/tokens/pro.css`](packages/tokens/pro.css). Se usa en `apps/es`.
+- **Paleta modo geek (existente):** fondo `#080808`, verde neón `#00ff88`, azul `#00ccff`. CSS consumible en [`packages/tokens/geek.css`](packages/tokens/geek.css) con variables prefijadas `--geek-*` para coexistir con pro sin colisión. Base para `apps/tech`.
 - **Logo:** monograma eB en 4 piezas con swoosh. Kit completo en [`public/brand/`](public/brand/).
 - **Favicon:** solo la B verde (las 2 cachas) sobre transparente, en `app/icon0.svg` (+ `.ico`, PNGs generados en `app/` y `public/brand/`).
 - **Backup app icons** (eB completo sobre verde) en [`docs/logo-exploration/app-icons-eB-backup/`](docs/logo-exploration/app-icons-eB-backup/) para cuando se empaquete como app móvil.
@@ -84,6 +84,29 @@ Autorización completa para:
 **Docs de referencia obligatoria antes de tocar marca:**
 - [`docs/brand-logo.md`](docs/brand-logo.md) — reglas de uso, kit, pendientes.
 - [`docs/logo-exploration/brand-manual.html`](docs/logo-exploration/brand-manual.html) — manual visual consultable.
+
+## Design tokens — estructura y handoff
+
+**`packages/tokens/`** es la fuente de verdad CSS para ambas identidades. En Fase 5 se mueve literal al `packages/tokens/` del monorepo sin cambios internos.
+
+| Archivo | Identidad | Consumo |
+|---|---|---|
+| [`packages/tokens/pro.css`](packages/tokens/pro.css) | modo pro (`.es`) | variables sin prefijo: `--cta`, `--bg`, `--text`, `--fs-h1`, `--s-5`, etc. |
+| [`packages/tokens/geek.css`](packages/tokens/geek.css) | modo geek (`.tech`) | variables con prefijo `--geek-*` |
+
+**Integración Tailwind v4** en [`app/globals.css`](app/globals.css):
+- Importa ambos archivos vía `@import "../packages/tokens/*.css"`.
+- Re-expone los tokens pro como utilities de Tailwind vía bloque `@theme inline` (`--color-cta`, `--color-bg`, `--color-text-muted`, etc.) — permite usar clases `bg-cta`, `text-text-secondary`, `border-border-strong`, etc.
+- Las reglas `body`/`scrollbar` actuales están en geek por compatibilidad con la home legacy. Marcadas con comentario "TEMPORAL" — se migran a modo pro cuando se implementen los componentes pro en Fase B, y se mueven a `apps/tech/app/globals.css` en Fase 5.
+
+**Handoff de Claude Design:** [`docs/design-handoff-2026-04-22/`](docs/design-handoff-2026-04-22/) contiene el bundle exportado desde [claude.ai/design](https://claude.ai/design) tras la sesión de diseño del modo pro (home completa con las 8 secciones comerciales). Incluye:
+- `project/index.html` — home como HTML/CSS/JS standalone (2178 líneas) con todos los tokens y la estructura final.
+- `chats/chat1.md` — transcript de la conversación con Claude Design.
+- `README.md` — instrucciones para agentes que implementan el diseño.
+
+**Al implementar nuevos componentes pro** consulta primero `docs/design-handoff-2026-04-22/project/index.html` para ver el diseño de referencia validado. Es fuente de verdad visual por encima de cualquier otro mockup.
+
+**rough-notation** ya está instalado (`rough-notation@0.5.1`, vanilla JS). Se usa para anotaciones hand-drawn en verde sobre palabras clave (hero, métricas, "8 años"). En React se envuelve con un pequeño hook cuando se implemente el Hero.
 
 ## Landing de Piezas — aislada
 
