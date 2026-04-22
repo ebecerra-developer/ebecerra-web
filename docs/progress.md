@@ -70,17 +70,17 @@ Decisión de herramienta: exploración visual en **Claude web con Artifacts/Canv
 
 ## Fase 6 — Secciones comerciales sobre app única (10–14h)
 
-Se trabaja aún sobre `migracion-nextjs` (monoapp). La app ya se ve y siente como el futuro `apps/es`.
+El pivot a monorepo (Fase 8 adelantada) ha cambiado el contexto: ya no se trabaja sobre monoapp, sino sobre `apps/es` con packages compartidos. Lo que antes era `lib/sanity/schemas/` vive ahora en `packages/sanity-schemas/`.
 
-- [ ] Schemas: service, processStep, caseStudy (en `lib/sanity/schemas/`, se moverán a `packages/sanity-schemas` en Fase 8)
-- [ ] Página `/servicios` con listado + sección "Proceso"
+- [x] Schemas: service, processStep, caseStudy en `packages/sanity-schemas/` + desplegados en Sanity Cloud
+- [ ] Página `/servicios` con listado + sección "Proceso" *(la home cubre el listado por ahora)*
 - [ ] Página `/casos` (listado)
 - [ ] Página `/casos/[slug]` (detalle con PortableText)
-- [ ] Home: sección "Casos destacados" + CTAs de conversión
-- [ ] `generateMetadata` desde Sanity por página
-- [ ] Contenido real cargado: 3–4 servicios + 1 caso de estudio mínimo
-- [ ] Aplicar diseño Fase 5 al home y secciones nuevas
-- [ ] Evaluar retirada del fallback `lib/content.ts` si Sanity está sólido
+- [x] Home: sección "Casos destacados" + CTAs de conversión *(3 casos anonimizados en grid con contexto/solución/resultado/traducible — 2026-04-23)*
+- [ ] `generateMetadata` desde Sanity por página *(hoy la home tira de `messages/metadata`)*
+- [~] Contenido real cargado — services con precios Kit Digital publicados en Sanity; casos aún servidos desde fallback estático anonimizado (cv-pro.md)
+- [x] Aplicar diseño Fase 5 al home *(handoff 2026-04-22 implementado en `apps/es`)*
+- [ ] Evaluar retirada del fallback `lib/content.ts` — se mantiene como red de seguridad mientras el dataset no tenga `caseStudy` publicados
 
 ## Fase 7 — Cutover parcial: merge a `main` y prod (2–3h)
 
@@ -183,6 +183,20 @@ Detalle en [`plan-migracion-nextjs-sanity.md`](plan-migracion-nextjs-sanity.md#4
 - **Pulido visual en 3 pasadas** (commits `ffaf16e` E-1 + `e7ab4c0` E-2 + `f5cbab0` E-3): tras feedback "demasiado serio, mucho hueco blanco, monograma gigante en tablet/mobile, poca personalidad", iteraciones progresivamente más agresivas. Padding secciones 72-140px → 40-72px (-50%). Monograma <1024px de 260px plano a `clamp(90,14vw,130)`. Breakpoint del Hero subido a 1024px (tablets ya no caen en layout desktop). Zebra bg/surface-subtle bien alternada. Deliverables de servicios poblados (4 bullets mono verdes por card). Pulse del kicker amplificado (scale 1→1.15 + double shadow cada 1.8s). Dot texture warm stone subida de 5% a 15% alpha (visible). Hovers translateY+border verde+sombra en cards de servicios, About y Process. Y la inversión bold del nav: **fondo verde `#047857`, logo blanco, links blancos, CTA blanco con texto verde** — propuesta del usuario para romper la monotonía blanca.
 
 Estado tras la sesión: `apps/es` ya renderiza la home pro completa con tokens, hovers, micro-animaciones y data dinámica (Sanity + fallback). `apps/tech` intacta con su estética geek pre-Fase B. `packages/sanity-{client,schemas}` compartidos. Pendiente para producción (no bloqueante en dev): copiar `.env.local` de `apps/tech` a `apps/es`, verificar dominio en Resend, configurar segundo proyecto Vercel (`apps/es` Root Directory) y hacer cutover de DNS cuando se quiera publicar. Roadmap re-ordenado: lo que era Fase 5+ (diseño + comerciales + cutover + split) se ha adelantado y solapado en buena parte. Fases pendientes: cutover `migracion-nextjs` → `main`, contenido y diseño definitivo a `apps/tech`, `ebecerra.tech` DNS + Vercel, Lighthouse ≥ 90 ambas apps + OG images + JSON-LD.
+
+2026-04-23 — **Home pro: veracidad de contenido, precios Kit Digital y casos anonimizados.** Sesión de *audit + fill* sobre `apps/es` con `docs/cv-pro.md` y `docs/cv-tech.md` como única fuente de verdad. Commit final `adf16b6 Home(es): precios Kit Digital, titular a medida y polish final`.
+
+- **Contenido irreal eliminado.** El stack inventado (Next.js + Sanity CMS) se sustituye por el real (Magnolia · Java · Spring) en hero `metaCompany`, `messages/metadata.description`, `keywords` de `[locale]/layout.tsx`, `knowsAbout` y `description` del JSON-LD Person/ProfessionalService, y en el `manifest.json`. Stats del About: `40+ proyectos migrados` / `100% a plazo` (inflados) → `8+ años · 13 proyectos entregados · 6 AAPP`, derivados directamente de cv-pro.md. Stats localizadas vía `about.statYears/statProjects/statPublicSector` en ES/EN.
+- **Precios anclados a Kit Digital.** Los precios placeholder (2.800 / 3.500 / 800 €) se sustituyen por los reales ofertables: web con CMS 1.500 €, migración 2.500 €, auditoría 500 €, cada uno con `priceNote` bilingüe que enmarca la subvención del Kit Digital (hasta 2.000 € cubiertos). `Services.tsx` renderiza ahora `priceNote` bajo `priceRange`. Docs correspondientes publicados en Sanity (dataset `production`). Referencias a WordPress en copy se sustituyen por "CMS tradicional" (menos marca-dependiente).
+- **Casos destacados (home)** — antes placeholder "disponible bajo petición", ahora grid de 3 cards anonimizadas desde cv-pro.md, cada una con sector (p.ej. "Sector financiero · web corporativa"), título, **Contexto / Solución / Resultado / Traducible a tu negocio** + métricas mono. Los 3 patrones: plataforma CMS corporativa, migración de portal institucional sin perder SEO, generador de portales multi-sede. **Cero nombres de cliente** (se respeta la confidencialidad contractual: ni VASS, Bilbomática, Onetec, CBNK, MAPA, SEPE, IE, Prosegur, Atradius, INECO, MECD, MCIN, PAG, Línea Directa, Bibliotecas). `Case.tsx` reescrito como grid responsive; `lib/content.ts` gana tipo `CaseCard` y `fallback.cases[]`. La query `getFeaturedCaseForHome` sigue disponible en `@ebecerra/sanity-client` pero la home hoy no la consume — cuando se publiquen `caseStudy` en el dataset se reactiva.
+- **GitHub fuera del pro.** Eliminado de `Contact.tsx` (INFO list), `Footer.tsx` (columna social), `fallback.footerLinks`, `sameAs` del JSON-LD (Person + Organization) y `messages/contact.infoGithub`. El GitHub vive en `apps/tech` si acaso — no en la identidad comercial.
+- **Refactor del Hero a markup inline** (`AnnotatedText`, commit del usuario). Las keys `titleBefore/titleHighlight/titleAfter` se colapsan a un único `hero.title` con tags `[circle]…[/circle]` parseados en runtime. Permite anotar cualquier string i18n sin refactor estructural (soporta `circle`, `underline`, `box`, `highlight`, `strike-through`, `crossed-off`, `bracket` con padding/stroke por defecto). Kicker sin fecha expiratoria ("Disponible para que trabajemos juntos") y lead reorientado al cliente.
+- **Capitalización en CTAs/labels.** Feedback del usuario: demasiadas minúsculas en botones daban aire de borrador. Capitalizado `Ver servicios`, `Ver detalles`, `Leer el caso completo`, `Ver perfil completo`, y eliminado el `.toLowerCase()` forzado en `Contact.tsx` sobre las labels (`Email`, `LinkedIn`, `Ubicación`, `Respuesta`). Se mantiene el estilo editorial mono-minúscula en kickers, columnas del footer y links legales por contraste tipográfico.
+- **Docs/memoria alineadas.** `CLAUDE.md` describe ahora la home real (precios Kit Digital, 3 casos anonimizados, stats reales, sin GitHub). Nueva memoria `feedback_content_veracity_pro.md` con la regla: en apps/es nada inventado, cv-pro.md/cv-tech.md anonimizado como fuente, precios reales o `null`. Memorias paralelas `project_pricing_strategy.md` y `user_sidegig_context.md` añadidas por el usuario documentan el ancla Kit Digital, competencia real (IONOS/Hostinger, no agencias) y contexto side-gig sobre sueldo VASS.
+
+Estado tras la sesión: home pro de `apps/es` 100% poblada con contenido real + anonimizado sin riesgos reputacionales ni de confidencialidad. Fase 6 avanzada — casos destacados en home ✓, schemas comerciales en packages ✓, diseño Fase 5 aplicado ✓. Quedan páginas dedicadas (`/servicios`, `/casos`, `/casos/[slug]`), metadata por página desde Sanity, y publicar `caseStudy` en el dataset para retirar el fallback de casos.
+
+---
 
 2026-04-21 — **Fase 4 cerrada**: i18n ES/EN con `next-intl` 4.9.1 + `@sanity/language-filter` 5.0.1. Decisiones clave:
 - **Routing**: `localePrefix: "as-needed"` (ES en `/` sin prefijo, EN en `/en`). Preserva URLs indexadas.

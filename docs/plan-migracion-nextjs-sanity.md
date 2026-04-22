@@ -24,6 +24,12 @@ Resumen (detalle en [`progress.md`](progress.md)):
 - **Fase 2** — port 1:1 de los 8 componentes con Tailwind; paridad visual con la web Vite original.
 - **Fase 3** — Sanity v5 (project `gdtxcn4l`, dataset `production`), schemas mínimos, Studio embebido en `/studio`, 33 docs migrados, ISR + webhook.
 - **Fase 4** — next-intl 4 con `localePrefix: "as-needed"` (ES en `/`, EN en `/en`), route groups `(locale)/(misc)`, `localeString`/`localeText` en Sanity + `@sanity/language-filter`, sitemap/robots/hreflang bilingües.
+- **Fase 5 (parcial)** — diseño pro validado con Claude Design (bundle en `docs/design-handoff-2026-04-22/`), tokens consolidados en `packages/tokens/pro.css` y `geek.css`; diseño geek pendiente de iterar sobre `apps/tech`.
+- **Fase 8 adelantada** — split a monorepo `apps/{es,tech}` + `packages/{tokens,sanity-schemas,sanity-client}` con npm workspaces + Turborepo (pnpm dejado para más tarde con un cambio de `packageManager`). Tags `archive/nextjs-geek-pure` y `archive/migracion-nextjs-mixed` como rollbacks.
+- **Fase 6 (parcial)** — schemas comerciales (service/processStep/caseStudy) publicados en Sanity; home pro de `apps/es` completa con 8 secciones + 3 casos anonimizados desde cv-pro.md + precios Kit Digital publicados; pendiente páginas dedicadas `/servicios`, `/casos`, `/casos/[slug]` y `generateMetadata` por página desde Sanity.
+- **Fase 11 (parcial, solo .es)** — `/api/contact` con Resend, Zod, honeypot e idempotency operativo en `apps/es`; pendiente verificar dominio en Resend y setear `RESEND_API_KEY` + `CONTACT_TO_EMAIL` en Vercel.
+
+> **Nota sobre orden de fases.** El roadmap original asumía ejecución secuencial; la ejecución real ha solapado Fases 5 → 6 → 8 → 11 para poder iterar diseño y arquitectura en paralelo. La verdad día-a-día vive en [`progress.md`](progress.md); el roadmap debajo se mantiene como referencia arquitectónica (stack destino, reglas de corte, configuración Vercel), no como orden estricto.
 
 ---
 
