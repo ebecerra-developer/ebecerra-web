@@ -12,7 +12,7 @@ export default function Experience({ items }: ExperienceProps) {
     <section
       id="experiencia"
       aria-labelledby="experience-heading"
-      className="py-[100px] px-[clamp(20px,5vw,80px)]"
+      className="py-[64px] px-[clamp(20px,5vw,80px)]"
     >
       <div className="max-w-[1100px] mx-auto">
         <span className="text-[#00ff88] font-mono text-xs tracking-[0.15em] uppercase block mb-3">

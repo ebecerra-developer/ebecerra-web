@@ -54,16 +54,16 @@ const es: Fallback = {
       role: "Tech Architect Lead",
       period: "mar 2024 – presente",
       tag: "actual",
-      desc: "Arquitectura y liderazgo técnico de soluciones Magnolia para cuentas enterprise: definición de stack, estimaciones, RFPs internacionales, soporte cross-proyecto y formación a cliente. Cuentas: CBNK (nueva web comercial del banco, otras webs del grupo e integraciones con sistemas externos), MAPA (migraciones y evolutivos de webs e intranets ministeriales), Atradius (componentes cross-site de Blogs & Knowledge).",
-      tech: ["Arquitectura de software", "Liderazgo técnico", "Magnolia CMS", "Java", "Spring", "REST", "RFPs", "Formación a cliente"],
+      desc: "Arquitectura y liderazgo técnico de soluciones Magnolia para cuentas enterprise: definición de stack, estimaciones, RFPs internacionales, soporte transversal entre proyectos y formación a cliente. Cuentas: CBNK (nueva web comercial del banco, otras webs del grupo e integraciones con sistemas externos), MAPA (migraciones y evolutivos de webs e intranets ministeriales), Atradius (componentes transversales de Blogs & Knowledge).",
+      tech: ["Arquitectura de software", "Liderazgo técnico", "Magnolia CMS", "Java", "REST", "RFPs", "Formación a cliente"],
     },
     {
       company: "VASS University",
       role: "Coordinador de gremio",
       period: "ago 2024 – presente",
       tag: "actual",
-      desc: "Coordinación del gremio Magnolia DXP (VassNolia) en VASS University: organización y dinamización de la comunidad, fomento de la participación y onboarding de nuevos miembros. Diseño del programa formativo, impartición de sesiones en directo, cursos internos y documentación técnica.",
-      tech: ["Coordinación", "Comunidades técnicas", "Gestión de formación", "Mentoring", "Public speaking", "Magnolia CMS"],
+      desc: "Coordinación del gremio Magnolia DXP (VassNolia) en VASS University: organización y dinamización de la comunidad, fomento de la participación e incorporación de nuevos miembros. Diseño del programa formativo, impartición de sesiones en directo, cursos internos y documentación técnica.",
+      tech: ["Coordinación", "Comunidades técnicas", "Gestión de formación", "Mentoría", "Oratoria", "Magnolia CMS"],
     },
     {
       company: "VASS",
@@ -71,7 +71,7 @@ const es: Fallback = {
       period: "jun 2023 – mar 2024",
       tag: null,
       desc: "Arquitectura técnica de soluciones Magnolia en cuentas clave. Proyectos: Faculty portal del Instituto de Empresa (proceso de alta de profesorado con clientes REST a servicios internos) e intranet de Prosegur (migraciones de versión e integraciones con APIs externas).",
-      tech: ["Arquitectura de software", "Magnolia CMS", "Java", "Spring", "REST", "Mentoring"],
+      tech: ["Arquitectura de software", "Magnolia CMS", "Java", "REST", "Mentoría"],
     },
     {
       company: "VASS",
@@ -79,7 +79,7 @@ const es: Fallback = {
       period: "jul 2021 – oct 2023",
       tag: null,
       desc: "Desarrollo full stack sobre Magnolia CMS con análisis funcional y técnico. Proyectos: Faculty portal del Instituto de Empresa (proceso de alta de profesorado con clientes REST) y soporte evolutivo de la intranet de Prosegur (integraciones con APIs externas).",
-      tech: ["Magnolia CMS", "Java", "Spring", "REST", "JavaScript", "Análisis funcional", "Mentoring"],
+      tech: ["Magnolia CMS", "Java", "Spring", "REST", "JavaScript", "Análisis funcional", "Mentoría"],
     },
     {
       company: "Bilbomatica",
@@ -94,7 +94,7 @@ const es: Fallback = {
       role: "Programador Sénior",
       period: "jul 2018 – abr 2019",
       tag: null,
-      desc: "Desarrollo Magnolia CMS sobre Apache Tomcat: mantenimiento, refactoring y migraciones de versión. Proyectos: portales del MECD y generador automático de portales para la red de Bibliotecas Públicas (plantillas parametrizadas para desplegar un site independiente por biblioteca).",
+      desc: "Desarrollo Magnolia CMS sobre Apache Tomcat: mantenimiento, refactoring y migraciones de versión. Proyectos: portales del MECD y generador automático de portales para la red de Bibliotecas Públicas (plantillas parametrizadas para desplegar un sitio independiente por biblioteca).",
       tech: ["Magnolia CMS", "Java", "Apache Tomcat", "JavaScript", "Sector público"],
     },
     {
@@ -203,7 +203,7 @@ const en: Fallback = {
       period: "Mar 2024 – present",
       tag: "current",
       desc: "Architecture and technical leadership of Magnolia solutions for enterprise accounts: stack definition, estimations, international RFPs, cross-project support and client training. Accounts: CBNK (new commercial banking website, additional group websites and integrations with external systems), MAPA (migrations and enhancements of ministry portals and intranets), Atradius (cross-site Blogs & Knowledge components).",
-      tech: ["Software architecture", "Technical leadership", "Magnolia CMS", "Java", "Spring", "REST", "RFPs", "Client training"],
+      tech: ["Software architecture", "Technical leadership", "Magnolia CMS", "Java", "REST", "RFPs", "Client training"],
     },
     {
       company: "VASS University",
@@ -219,7 +219,7 @@ const en: Fallback = {
       period: "Jun 2023 – Mar 2024",
       tag: null,
       desc: "Technical architecture of Magnolia solutions on key accounts. Projects: IE Business School's Faculty portal (faculty onboarding process with REST clients to internal services) and Prosegur's corporate intranet (version migrations and external API integrations).",
-      tech: ["Software architecture", "Magnolia CMS", "Java", "Spring", "REST", "Mentoring"],
+      tech: ["Software architecture", "Magnolia CMS", "Java", "REST", "Mentoring"],
     },
     {
       company: "VASS",

@@ -21,16 +21,16 @@ const loc = (field: string) =>
 export async function getSiteData(locale: Locale) {
   const params = { locale };
 
-  const [experienceItems, skillItems, techTagItems, projectItems, profileData] =
+  const [experienceItemsRaw, skillItems, techTagItems, projectItems, profileData] =
     await Promise.all([
-      client.fetch<ExperienceItem[]>(
+      client.fetch<Array<Omit<ExperienceItem, "tech"> & { tech: { v: string }[] | null }>>(
         `*[_type == "experience"] | order(order asc) {
           company,
           "role": ${loc("role")},
           period,
           tag,
           "desc": ${loc("desc")},
-          "tech": coalesce(tech, [])
+          "tech": tech[]{ "v": coalesce(@[$locale], @.es, @) }
         }`,
         params
       ),
@@ -75,6 +75,11 @@ export async function getSiteData(locale: Locale) {
         params
       ),
     ]);
+
+  const experienceItems: ExperienceItem[] = experienceItemsRaw.map((e) => ({
+    ...e,
+    tech: (e.tech ?? []).map((t) => t.v),
+  }));
 
   return {
     experience: experienceItems.length > 0 ? experienceItems : null,

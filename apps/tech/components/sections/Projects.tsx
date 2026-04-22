@@ -37,7 +37,7 @@ export default function Projects({ items }: ProjectsProps) {
     <section
       id="proyectos"
       aria-labelledby="projects-heading"
-      className="py-[100px] px-[clamp(20px,5vw,80px)]"
+      className="py-[64px] px-[clamp(20px,5vw,80px)]"
     >
       <div className="max-w-[1100px] mx-auto">
         <span className="text-[#00ff88] font-mono text-xs tracking-[0.15em] uppercase block mb-3">

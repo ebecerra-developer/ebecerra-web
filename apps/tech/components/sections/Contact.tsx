@@ -53,7 +53,7 @@ export default function Contact() {
     <section
       id="contacto"
       aria-labelledby="contact-heading"
-      className="py-[100px] px-[clamp(20px,5vw,80px)]"
+      className="py-[64px] px-[clamp(20px,5vw,80px)]"
     >
       <div className="max-w-[600px] mx-auto text-center">
         <span className="text-[#00ff88] font-mono text-xs tracking-[0.15em] uppercase block mb-3">
