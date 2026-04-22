@@ -101,7 +101,7 @@ export default async function Process({ steps }: Props) {
             {ordered.map((step) => {
               const number = String(step.order).padStart(2, "0");
               return (
-                <div key={step._id}>
+                <div key={step._id} className="process-step">
                   <div style={{ marginBottom: 24 }}>
                     <StepCircle number={number} />
                   </div>
@@ -150,6 +150,7 @@ export default async function Process({ steps }: Props) {
             return (
               <div
                 key={step._id}
+                className="process-step"
                 style={{
                   position: "relative",
                   paddingBottom: i === ordered.length - 1 ? 0 : 36,
@@ -187,6 +188,12 @@ export default async function Process({ steps }: Props) {
       <style>{`
         .process-desktop { display: none; }
         .process-mobile { display: block; }
+        .process-step h3 {
+          transition: color 180ms var(--ease);
+        }
+        .process-step:hover h3 {
+          color: var(--cta);
+        }
         @media (min-width: 900px) {
           .process-desktop { display: block; }
           .process-mobile { display: none; }

@@ -43,11 +43,13 @@ function FooterLink({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
+      className={accent ? "footer-link footer-link--accent" : "footer-link"}
       style={{
         fontFamily: "var(--font-sans)",
         fontSize: 14,
         color: accent ? "#34d399" : "#d6d3d1",
         textDecoration: "none",
+        transition: "color 150ms var(--ease)",
       }}
     >
       {children}
@@ -241,6 +243,8 @@ export default async function Footer() {
           padding-bottom: 40px;
           border-bottom: 1px solid #292524;
         }
+        .footer-link:hover { color: #fafaf9 !important; }
+        .footer-link--accent:hover { color: #6ee7b7 !important; }
         @media (min-width: 900px) {
           .footer-grid {
             grid-template-columns: 2fr 1fr 1fr 1fr;

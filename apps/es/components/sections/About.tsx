@@ -137,6 +137,7 @@ export default async function About({ features }: Props) {
             {features.map((feature, i) => (
               <div
                 key={`${feature.label}-${i}`}
+                className="about-feature-card"
                 style={{
                   background: "var(--surface)",
                   border: "1px solid var(--border)",
@@ -189,6 +190,15 @@ export default async function About({ features }: Props) {
 
       <style>{`
         .about-split { grid-template-columns: 1fr; }
+        .about-feature-card {
+          transition: transform 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease);
+        }
+        .about-feature-card:hover {
+          transform: translateY(-2px);
+          border-color: var(--cta);
+          background: var(--cta-soft);
+          box-shadow: var(--sh-2);
+        }
         @media (min-width: 900px) {
           .about-split { grid-template-columns: 1.2fr 1fr; }
         }

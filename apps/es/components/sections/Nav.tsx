@@ -107,7 +107,7 @@ function LangSwitch({ align = "right" }: { align?: "left" | "right" }) {
           cursor: "pointer",
           padding: "6px 8px",
           borderRadius: 6,
-          color: "var(--text)",
+          color: "#fafaf9",
           fontFamily: "var(--font-mono)",
           fontSize: 13,
           fontWeight: 500,
@@ -190,11 +190,12 @@ function NavLink({
         fontFamily: "var(--font-sans)",
         fontSize: 14,
         fontWeight: 500,
-        color: hover ? "var(--text)" : "var(--text-muted)",
+        color: hover ? "#fafaf9" : "rgba(250,250,249,0.82)",
+        background: hover ? "rgba(255,255,255,0.08)" : "transparent",
         textDecoration: "none",
         padding: "6px 12px",
         borderRadius: 6,
-        transition: "color 150ms var(--ease)",
+        transition: "color 150ms var(--ease), background 150ms var(--ease)",
       }}
     >
       {children}
@@ -205,7 +206,6 @@ function NavLink({
 export default function Nav() {
   const t = useTranslations("nav");
   const [open, setOpen] = useState(false);
-  const [logoHover, setLogoHover] = useState(false);
 
   return (
     <nav
@@ -213,8 +213,8 @@ export default function Nav() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "var(--bg)",
-        borderBottom: "1px solid var(--border)",
+        background: "var(--cta)",
+        borderBottom: "1px solid var(--cta-hover)",
       }}
     >
       <div
@@ -231,8 +231,6 @@ export default function Nav() {
       >
         <a
           href="#inicio"
-          onMouseEnter={() => setLogoHover(true)}
-          onMouseLeave={() => setLogoHover(false)}
           style={{
             display: "flex",
             alignItems: "center",
@@ -241,13 +239,13 @@ export default function Nav() {
           }}
           aria-label="eBecerra"
         >
-          <LogoMark variant={logoHover ? "accent" : "primary"} height={32} />
+          <LogoMark variant="negative" height={32} />
           <span
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 12,
               fontWeight: 400,
-              color: "var(--text-muted)",
+              color: "rgba(250,250,249,0.75)",
               letterSpacing: "0.04em",
             }}
           >
@@ -269,24 +267,24 @@ export default function Nav() {
             href="#contacto"
             style={{
               marginLeft: 12,
-              background: "var(--cta)",
-              color: "var(--text-on-accent)",
+              background: "#fafaf9",
+              color: "var(--cta)",
               fontFamily: "var(--font-sans)",
               fontSize: 13.5,
-              fontWeight: 500,
+              fontWeight: 600,
               padding: "8px 16px",
               borderRadius: 6,
               textDecoration: "none",
-              border: "1.5px solid var(--cta)",
-              transition: "background 150ms var(--ease)",
+              border: "1.5px solid #fafaf9",
+              transition: "background 150ms var(--ease), transform 150ms var(--ease)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--cta-hover)";
-              e.currentTarget.style.borderColor = "var(--cta-hover)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.12)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "var(--cta)";
-              e.currentTarget.style.borderColor = "var(--cta)";
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
             }}
           >
             → {t("ctaTalk")}
@@ -306,7 +304,7 @@ export default function Nav() {
               border: "none",
               padding: 6,
               cursor: "pointer",
-              color: "var(--text)",
+              color: "#fafaf9",
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
@@ -322,8 +320,8 @@ export default function Nav() {
           className="nav-mobile"
           style={{
             flexDirection: "column",
-            background: "var(--bg)",
-            borderTop: "1px solid var(--border)",
+            background: "var(--cta)",
+            borderTop: "1px solid var(--cta-hover)",
             padding: "12px 20px 20px",
             gap: 4,
           }}
@@ -337,10 +335,10 @@ export default function Nav() {
                 fontFamily: "var(--font-sans)",
                 fontSize: 16,
                 fontWeight: 500,
-                color: "var(--text)",
+                color: "#fafaf9",
                 textDecoration: "none",
                 padding: "10px 4px",
-                borderBottom: "1px solid var(--border)",
+                borderBottom: "1px solid rgba(255,255,255,0.12)",
               }}
             >
               {t(item.key)}
@@ -351,16 +349,16 @@ export default function Nav() {
             onClick={() => setOpen(false)}
             style={{
               marginTop: 12,
-              background: "var(--cta)",
-              color: "var(--text-on-accent)",
+              background: "#fafaf9",
+              color: "var(--cta)",
               fontFamily: "var(--font-sans)",
               fontSize: 15,
-              fontWeight: 500,
+              fontWeight: 600,
               padding: "12px 16px",
               borderRadius: 6,
               textAlign: "center",
               textDecoration: "none",
-              border: "1.5px solid var(--cta)",
+              border: "1.5px solid #fafaf9",
             }}
           >
             → {t("ctaTalk")}

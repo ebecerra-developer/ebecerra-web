@@ -14,8 +14,8 @@ export default async function Hero() {
         position: "relative",
         overflow: "hidden",
         backgroundImage:
-          "radial-gradient(circle at 1px 1px, rgba(12,10,9,0.05) 1px, transparent 0)",
-        backgroundSize: "24px 24px",
+          "radial-gradient(circle at 1px 1px, rgba(12,10,9,0.15) 1.2px, transparent 0)",
+        backgroundSize: "22px 22px",
       }}
     >
       <div
@@ -162,10 +162,19 @@ export default async function Hero() {
           margin: 0 auto;
         }
         @keyframes heroKickerPulse {
-          0%, 100% { box-shadow: 0 0 0 4px rgba(4,120,87,.15); }
-          50%      { box-shadow: 0 0 0 8px rgba(4,120,87,.05); }
+          0%, 100% {
+            box-shadow: 0 0 0 3px rgba(4,120,87,.35), 0 0 0 8px rgba(4,120,87,.12);
+            transform: scale(1);
+          }
+          50% {
+            box-shadow: 0 0 0 6px rgba(4,120,87,.18), 0 0 0 14px rgba(4,120,87,0);
+            transform: scale(1.15);
+          }
         }
-        .hero-kicker-dot { animation: heroKickerPulse 2.4s ease-in-out infinite; }
+        .hero-kicker-dot {
+          animation: heroKickerPulse 1.8s ease-in-out infinite;
+          transform-origin: center;
+        }
         @media (min-width: 1024px) {
           .hero-grid { grid-template-columns: 1.3fr 1fr; }
           .hero-monogram-img { width: min(380px, 100%); opacity: 1; }
