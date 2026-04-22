@@ -1,4 +1,7 @@
-import { getTranslations } from "next-intl/server";
+"use client";
+
+import { useTranslations } from "next-intl";
+import { usePathname } from "@/i18n/navigation";
 import LogoMark from "@/components/LogoMark";
 
 const NAV_COL = [
@@ -57,9 +60,12 @@ function FooterLink({
   );
 }
 
-export default async function Footer() {
-  const t = await getTranslations("footer");
-  const tn = await getTranslations("nav");
+export default function Footer() {
+  const t = useTranslations("footer");
+  const tn = useTranslations("nav");
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
   const year = new Date().getFullYear();
 
   return (
@@ -124,7 +130,7 @@ export default async function Footer() {
             >
               {NAV_COL.map((item) => (
                 <li key={item.id}>
-                  <FooterLink href={`#${item.id}`}>{tn(item.key)}</FooterLink>
+                  <FooterLink href={anchor(item.id)}>{tn(item.key)}</FooterLink>
                 </li>
               ))}
             </ul>

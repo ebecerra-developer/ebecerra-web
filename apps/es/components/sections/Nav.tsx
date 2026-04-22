@@ -205,7 +205,11 @@ function NavLink({
 
 export default function Nav() {
   const t = useTranslations("nav");
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  const isHome = pathname === "/";
+  const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 
   return (
     <nav
@@ -230,7 +234,7 @@ export default function Nav() {
         }}
       >
         <a
-          href="#inicio"
+          href={anchor("inicio")}
           style={{
             display: "flex",
             alignItems: "center",
@@ -256,7 +260,7 @@ export default function Nav() {
         {/* Desktop */}
         <div className="nav-desktop" style={{ alignItems: "center", gap: 2 }}>
           {NAV_ITEMS.map((item) => (
-            <NavLink key={item.id} href={`#${item.id}`}>
+            <NavLink key={item.id} href={anchor(item.id)}>
               {t(item.key)}
             </NavLink>
           ))}
@@ -264,7 +268,7 @@ export default function Nav() {
             <LangSwitch align="right" />
           </span>
           <a
-            href="#contacto"
+            href={anchor("contacto")}
             style={{
               marginLeft: 12,
               background: "#fafaf9",
@@ -329,7 +333,7 @@ export default function Nav() {
           {NAV_ITEMS.map((item) => (
             <a
               key={item.id}
-              href={`#${item.id}`}
+              href={anchor(item.id)}
               onClick={() => setOpen(false)}
               style={{
                 fontFamily: "var(--font-sans)",
@@ -345,7 +349,7 @@ export default function Nav() {
             </a>
           ))}
           <a
-            href="#contacto"
+            href={anchor("contacto")}
             onClick={() => setOpen(false)}
             style={{
               marginTop: 12,
