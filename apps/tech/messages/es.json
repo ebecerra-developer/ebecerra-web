@@ -1,10 +1,13 @@
 {
   "metadata": {
-    "title": "Enrique Becerra — Desarrollo web para autónomos y PYMEs",
-    "titleTemplate": "%s · eBecerra",
-    "description": "Tech Architect Lead especializado en Next.js, Sanity CMS y arquitecturas web modernas. Ayudo a autónomos y pequeñas empresas a tener una presencia digital profesional.",
-    "ogDescription": "Tech Architect Lead. Webs construidas con criterio arquitectónico para autónomos y PYMEs.",
-    "twitterDescription": "Tech Architect Lead. Webs construidas con criterio arquitectónico."
+    "title": "Enrique Becerra — Tech Architect Lead · Magnolia CMS, Java, Next.js",
+    "titleTemplate": "%s · ebecerra.tech",
+    "description": "Tech Architect Lead en VASS con 8+ años de experiencia en Magnolia CMS, Java/Spring, Next.js y arquitecturas web a escala enterprise. Coordinador del gremio VassNolia.",
+    "ogDescription": "Tech Architect Lead · Magnolia CMS · Java · Next.js. 8+ años diseñando arquitecturas web para administración pública y grandes corporaciones.",
+    "twitterDescription": "Tech Architect Lead · Magnolia CMS · Java · Next.js. Arquitecturas web enterprise."
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido principal"
   },
   "nav": {
     "home": "./home",
@@ -55,7 +58,7 @@
     "eyebrow": "// 01. sobre mí",
     "title": "Un poco sobre mí 📖",
     "bio1": "Soy <strong>Tech Architect Leader</strong> con más de 8 años de experiencia, especializado en <strong>Magnolia CMS</strong>, Java y Spring. Actualmente lidero equipos técnicos en VASS y coordino el gremio <strong>VassNolia</strong> en VASS University.",
-    "bio2": "Mi trabajo abarca toma de requisitos, análisis, estimación y desarrollo end-to-end, asegurando que lo técnico encaje con lo que el cliente necesita. He diseñado plantillas y componentes escalables en Magnolia, integrado sistemas vía REST y modernizado legacy con migraciones — mayoritariamente para <strong>administración pública</strong> y grandes corporaciones.",
+    "bio2": "Mi trabajo abarca toma de requisitos, análisis, estimación y desarrollo end-to-end, asegurando que lo técnico encaje con lo que el cliente necesita. He diseñado plantillas y componentes escalables en Magnolia, integrado sistemas vía REST y modernizado legacy con migraciones — mayoritariamente para administración pública y grandes corporaciones.",
     "bio3": "Fuera del trabajo: geek, curioso crónico, y alguien que también sabe que hay vida más allá del teclado."
   },
   "experience": {
@@ -85,7 +88,7 @@
     }
   },
   "footer": {
-    "copyright": "© {year} ebecerra.es — hecho con ❤️ y con un poco de 🔍 y 🧪",
+    "copyright": "© {year} ebecerra.tech — hecho con ❤️ y con un poco de 🔍 y 🧪",
     "online": "online",
     "version": "v2.0.0"
   },

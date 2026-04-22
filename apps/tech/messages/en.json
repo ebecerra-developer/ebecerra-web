@@ -1,10 +1,13 @@
 {
   "metadata": {
-    "title": "Enrique Becerra — Web development for freelancers and SMBs",
-    "titleTemplate": "%s · eBecerra",
-    "description": "Tech Architect Lead specialized in Next.js, Sanity CMS and modern web architectures. I help freelancers and small businesses build a professional digital presence.",
-    "ogDescription": "Tech Architect Lead. Websites built with architectural rigor for freelancers and SMBs.",
-    "twitterDescription": "Tech Architect Lead. Websites built with architectural rigor."
+    "title": "Enrique Becerra — Tech Architect Lead · Magnolia CMS, Java, Next.js",
+    "titleTemplate": "%s · ebecerra.tech",
+    "description": "Tech Architect Lead at VASS with 8+ years of experience in Magnolia CMS, Java/Spring, Next.js and enterprise-scale web architectures. Coordinator of the VassNolia guild.",
+    "ogDescription": "Tech Architect Lead · Magnolia CMS · Java · Next.js. 8+ years designing web architectures for public administration and large enterprises.",
+    "twitterDescription": "Tech Architect Lead · Magnolia CMS · Java · Next.js. Enterprise web architectures."
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
   },
   "nav": {
     "home": "./home",
@@ -55,7 +58,7 @@
     "eyebrow": "// 01. about me",
     "title": "A bit about me 📖",
     "bio1": "I'm a <strong>Tech Architect Leader</strong> with 8+ years of experience, specialized in <strong>Magnolia CMS</strong>, Java and Spring. I currently lead technical teams at VASS and coordinate the <strong>VassNolia</strong> guild at VASS University.",
-    "bio2": "My work spans requirement gathering, analysis, estimation and end-to-end development, making sure technical objectives align with client needs. I've designed scalable templates and components in Magnolia, integrated systems via REST and modernized legacy through migrations — mostly for <strong>government</strong> and large corporate sectors.",
+    "bio2": "My work spans requirement gathering, analysis, estimation and end-to-end development, making sure technical objectives align with client needs. I've designed scalable templates and components in Magnolia, integrated systems via REST and modernized legacy through migrations — mostly for government and large corporate sectors.",
     "bio3": "Outside of work: geek, chronically curious, and someone who also knows there's life beyond the keyboard."
   },
   "experience": {
@@ -85,7 +88,7 @@
     }
   },
   "footer": {
-    "copyright": "© {year} ebecerra.es — built with ❤️ and a bit of 🔍 and 🧪",
+    "copyright": "© {year} ebecerra.tech — built with ❤️ and a bit of 🔍 and 🧪",
     "online": "online",
     "version": "v2.0.0"
   },
