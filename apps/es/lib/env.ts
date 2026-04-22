@@ -6,7 +6,8 @@ const serverSchema = z.object({
     .min(1, "SANITY_REVALIDATE_SECRET is required"),
   SANITY_API_TOKEN: z.string().optional(),
   RESEND_API_KEY: z.string().optional(),
-  CONTACT_TO_EMAIL: z.string().email().optional(),
+  CONTACT_TO_EMAIL: z.email().optional(),
+  CONTACT_FROM_EMAIL: z.email().optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverSchema>;

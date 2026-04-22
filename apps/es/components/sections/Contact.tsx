@@ -34,16 +34,26 @@ const INFO: {
 export default function Contact() {
   const t = useTranslations("contact");
   const [status, setStatus] = useState<Status>("idle");
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-    // TODO Fase posterior: wire Resend endpoint. Por ahora simula éxito
-    // para que el UX esté listo y testable.
-    await new Promise((r) => setTimeout(r, 600));
-    setStatus("success");
-    setForm({ name: "", email: "", message: "" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+      setStatus("success");
+      setForm({ name: "", email: "", message: "", website: "" });
+    } catch {
+      setStatus("error");
+    }
   };
 
   const inputStyle: React.CSSProperties = {
@@ -240,6 +250,28 @@ export default function Contact() {
                 fontFamily: "var(--font-sans)",
               }}
             />
+
+            {/* Honeypot anti-bot: invisible para humanos, visible para scrapers. */}
+            <label
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                left: "-9999px",
+                width: 1,
+                height: 1,
+                overflow: "hidden",
+              }}
+            >
+              Website (no rellenar)
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.website}
+                onChange={(e) => setForm({ ...form, website: e.target.value })}
+              />
+            </label>
 
             <div
               style={{

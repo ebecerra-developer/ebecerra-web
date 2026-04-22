@@ -37,3 +37,8 @@ commit-msg.txt
 
 # Screenshots ad-hoc en raíz (usados durante desarrollo, no se versionan)
 /*.png
+
+# Exportaciones de CV / datos personales (vertical corporativo, Europass, etc.)
+/EB-*.json
+/cv-*.json
+/cv-*.pdf
