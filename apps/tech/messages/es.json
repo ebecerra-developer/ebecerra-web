@@ -7,13 +7,16 @@
     "twitterDescription": "Tech Architect Lead. Webs construidas con criterio arquitectónico."
   },
   "nav": {
-    "about": "sobre mí",
-    "experience": "experiencia",
-    "skills": "skills",
-    "projects": "proyectos",
-    "contact": "contacto",
+    "home": "./home",
+    "about": "./quien_soy",
+    "experience": "./trayectoria",
+    "skills": "./stack",
+    "projects": "./proyectos",
+    "contact": "./contactar",
     "menu": "Menú",
-    "language": "Idioma"
+    "language": "Cambiar idioma",
+    "langEs": "Español",
+    "langEn": "English"
   },
   "hero": {
     "available": "DISPONIBLE",
@@ -33,14 +36,14 @@
         "whoamiOut": "enrique becerra — tech architect",
         "roleOut": "arquitecto de software @ VASS",
         "skillsOut": "magnolia_cms, java, architecture",
-        "statusOut": "> abierto a proyectos freelance"
+        "statusOut": "abierto a proyectos freelance"
       },
       "commands": {
         "help": "Comandos: whoami, cat role.txt, ./skills --top, echo $status, pwd, ls, exit, git blame",
         "whoami": "enrique becerra — tech architect @ VASS",
         "role": "arquitecto de software, formador, geek empedernido",
         "skills": "magnolia_cms [98%], java [95%], architecture [90%]",
-        "status": "> abierto a proyectos freelance",
+        "status": "abierto a proyectos freelance",
         "pwd": "/home/enrique/universe/earth/spain/madrid",
         "ls": "proyectos/  skills/  experiencia/  contacto/  easter_eggs/",
         "exit": "nice try 😏",
@@ -51,8 +54,8 @@
   "about": {
     "eyebrow": "// 01. sobre mí",
     "title": "Un poco sobre mí 📖",
-    "bio1": "Soy arquitecto de software con 8 años de experiencia, especializado en <strong>Magnolia CMS</strong> y ecosistema Java. Actualmente lidero equipos técnicos en VASS y coordino el gremio VassNolia en VASS University.",
-    "bio2": "Me gusta entender cómo funcionan las cosas por dentro. Disfruto tanto construyendo soluciones sólidas como explicándolas y formando a otros. Si algo puede hacerse mejor, me pica la curiosidad hasta descubrir cómo.",
+    "bio1": "Soy <strong>Tech Architect Leader</strong> con más de 8 años de experiencia, especializado en <strong>Magnolia CMS</strong>, Java y Spring. Actualmente lidero equipos técnicos en VASS y coordino el gremio <strong>VassNolia</strong> en VASS University.",
+    "bio2": "Mi trabajo abarca toma de requisitos, análisis, estimación y desarrollo end-to-end, asegurando que lo técnico encaje con lo que el cliente necesita. He diseñado plantillas y componentes escalables en Magnolia, integrado sistemas vía REST y modernizado legacy con migraciones — mayoritariamente para <strong>administración pública</strong> y grandes corporaciones.",
     "bio3": "Fuera del trabajo: geek, curioso crónico, y alguien que también sabe que hay vida más allá del teclado."
   },
   "experience": {
@@ -75,7 +78,7 @@
       "name": "Tu nombre",
       "email": "tu@email.com",
       "message": "Cuéntame...",
-      "submit": "$ send_message →",
+      "submit": "$ enviar_mensaje →",
       "sending": "Enviando...",
       "success": "Mensaje enviado correctamente. ¡Gracias!",
       "error": "Error al enviar el mensaje. Inténtalo de nuevo."
