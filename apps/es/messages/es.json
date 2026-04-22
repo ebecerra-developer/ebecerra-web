@@ -29,33 +29,33 @@
     "ctaPrimary": "Solicitar presupuesto",
     "ctaSecondary": "ver servicios",
     "metaYears": "8 años · tech architect",
-    "metaCompany": "@ VASS · Magnolia CMS",
+    "metaCompany": "Magnolia · Java · Next.js",
     "metaLocation": "Madrid · España"
   },
   "services": {
     "kicker": "// 01. Servicios",
     "title": "Lo que construyo para ti",
-    "lead": "Tres formas de trabajar juntos, con alcance y precio orientativo claros desde la primera conversación.",
+    "lead": "Soluciones concretas con alcance y precio orientativo claros desde la primera conversación. Todas nacen de proyectos reales en entornos enterprise, escaladas a tu negocio.",
     "priceFrom": "desde",
     "viewMore": "ver detalles"
   },
   "case": {
     "kicker": "// Caso destacado",
     "readCase": "leer el caso completo",
-    "placeholderTitle": "Aún no hay casos publicados",
-    "placeholderBody": "Los casos de estudio llegarán cuando se conecte Sanity. Mientras tanto, mira los servicios o escríbeme para hablar de tu proyecto."
+    "placeholderTitle": "Caso detallado disponible bajo petición",
+    "placeholderBody": "Los clientes con los que trabajo lo hacen bajo contrato y no puedo mostrarlos aquí públicamente. Te doy referencias concretas por el canal que prefieras tras una primera conversación."
   },
   "about": {
     "kicker": "// Sobre mí",
     "title": "Un poco sobre quién construye",
-    "bio1": "Soy Enrique Becerra. Tech Architect Lead en VASS, especialista en Magnolia CMS y ecosistema Java con 8 años de experiencia.",
-    "bio2": "Trabajo freelance fuera del horario corporativo con autónomos y PYMEs que quieren hacer las cosas bien a la primera. Coordino el gremio VassNolia en VASS University.",
+    "bio1": "Soy Enrique Becerra. Llevo más de 8 años construyendo webs corporativas, portales institucionales e intranets para organizaciones que no pueden permitirse que su web falle.",
+    "bio2": "Ahora aplico ese mismo rigor a autónomos y PYMEs: webs que tu equipo mantiene solo, que se integran con tus herramientas y que siguen funcionando cuando crezcas. La diferencia es el tamaño, no la forma de trabajar.",
     "viewProfile": "ver perfil completo"
   },
   "process": {
     "kicker": "// 02. Cómo trabajamos juntos",
     "title": "De idea a sitio vivo en 4 pasos",
-    "lead": "Sin sorpresas ni consultoría interminable. Un camino corto y claro desde la primera llamada hasta la entrega."
+    "lead": "Sin consultoría interminable ni sorpresas en la factura. Un camino corto, honesto y medible desde la primera llamada hasta que tu equipo opera la web solo."
   },
   "contact": {
     "kicker": "// Contacto",
@@ -79,7 +79,7 @@
     "infoResponseValue": "24 h laborables"
   },
   "footer": {
-    "tagline": "Tech Architect Lead que construye software que funciona, forma equipos y perdura. Freelance para autónomos y PYMEs en España.",
+    "tagline": "Tech Architect Lead con experiencia enterprise aplicada a PYME. Webs que tu equipo mantiene solo, integradas con tus herramientas y que siguen funcionando cuando crezcas.",
     "availability": "disponible Q3 2026",
     "colNavTitle": "navegación",
     "colSocialTitle": "social",

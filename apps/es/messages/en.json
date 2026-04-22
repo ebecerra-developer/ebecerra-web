@@ -29,33 +29,33 @@
     "ctaPrimary": "Request a quote",
     "ctaSecondary": "view services",
     "metaYears": "8 years · tech architect",
-    "metaCompany": "@ VASS · Magnolia CMS",
+    "metaCompany": "Magnolia · Java · Next.js",
     "metaLocation": "Madrid · Spain"
   },
   "services": {
     "kicker": "// 01. Services",
     "title": "What I build for you",
-    "lead": "Three clear ways to work together, with scope and indicative pricing from the first conversation.",
+    "lead": "Concrete offerings with scope and indicative pricing from the first conversation. All born from real enterprise projects, scaled to your business.",
     "priceFrom": "from",
     "viewMore": "view details"
   },
   "case": {
     "kicker": "// Featured case",
     "readCase": "read the full case",
-    "placeholderTitle": "No case studies published yet",
-    "placeholderBody": "Case studies will arrive once Sanity is connected. Meanwhile, check the services or reach out to discuss your project."
+    "placeholderTitle": "Detailed case available on request",
+    "placeholderBody": "The clients I work with do so under contract and I can't show them publicly here. I'm happy to share specific references on your preferred channel after a first conversation."
   },
   "about": {
     "kicker": "// About",
     "title": "A bit about who's building",
-    "bio1": "I'm Enrique Becerra. Tech Architect Lead at VASS, specialized in Magnolia CMS and the Java ecosystem with 8 years of experience.",
-    "bio2": "I work freelance outside corporate hours with freelancers and SMBs who want things done right the first time. I coordinate the VassNolia guild at VASS University.",
+    "bio1": "I'm Enrique Becerra. For 8+ years I've built corporate websites, government portals and intranets for organizations that can't afford their web to fail.",
+    "bio2": "I now bring that same rigor to freelancers and SMBs: websites your team can maintain on their own, that integrate with the tools you already use, and that keep working as you grow. The difference is size, not how we work.",
     "viewProfile": "view full profile"
   },
   "process": {
     "kicker": "// 02. How we work together",
     "title": "From idea to live site in 4 steps",
-    "lead": "No surprises, no endless consulting. A short, clear path from first call to delivery."
+    "lead": "No endless consulting, no invoice surprises. A short, honest and measurable path from first call to the point where your team runs the site on its own."
   },
   "contact": {
     "kicker": "// Contact",
@@ -79,7 +79,7 @@
     "infoResponseValue": "24 business hours"
   },
   "footer": {
-    "tagline": "Tech Architect Lead who builds software that works, trains teams and lasts. Freelance for freelancers and SMBs in Spain.",
+    "tagline": "Tech Architect Lead bringing enterprise experience to SMB scale. Websites your team can maintain, integrated with your tools, that keep working as you grow.",
     "availability": "available Q3 2026",
     "colNavTitle": "navigation",
     "colSocialTitle": "social",
