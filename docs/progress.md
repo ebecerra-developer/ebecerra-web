@@ -57,16 +57,15 @@ Plan de referencia: [`plan-migracion-nextjs-sanity.md`](plan-migracion-nextjs-sa
 - [x] `hreflang` + `sitemap.ts` + `robots.ts` bilingües
 - [x] Verificar: `/` y `/en` renderizan contenidos distintos ✓ (lang correcto, Sanity sirve cada idioma)
 
-## Fase 5 — Diseño visual de ambos modos (6–10h)
+## Fase 5 — Diseño visual de ambos modos (6–10h) — **CERRADA**
 
-Decisión de herramienta: exploración visual en **Claude web con Artifacts/Canvas**; implementación en **Claude Code** con skills `/frontend-design`, `/tailwind-design-system`, `/shadcn`, `/web-design-guidelines`. Output de exploración guardado en `docs/design/`.
+El "mockup" se convirtió en el propio handoff ejecutable de Claude Design + iteración directa sobre código. No hay PNG intermedios en `docs/design/`.
 
-- [ ] Mockups home `.es` (pro): hero con propuesta de valor, servicios, casos destacados, CTAs
-- [ ] Mockups home `.tech` (geek evolucionado): terminal protagonista + CV técnico + easter eggs
-- [ ] Mockups `/servicios`, `/casos/[slug]` y equivalentes técnicos en `.tech`
-- [ ] Consolidar tokens pro en `docs/design-tokens-pro.md` (ya existe) y crear `docs/design-tokens-geek.md`
-- [ ] Decidir tipografías dominantes, densidad, iconografía y sistema de anotaciones por modo
-- [ ] Review con el creador antes de implementar
+- [x] Home `.es` (pro) con las 8 secciones comerciales (handoff 2026-04-22 en [`docs/design-handoff-2026-04-22/`](design-handoff-2026-04-22/)) — implementada en `apps/es`.
+- [x] Home `.tech` (geek) con terminal interactiva + CV técnico — implementada en `apps/tech` (preservada del estado pre-split).
+- [x] Tokens pro consolidados en [`packages/tokens/pro.css`](../packages/tokens/pro.css) + doc de apoyo en [`docs/design-tokens-pro.md`](design-tokens-pro.md); tokens geek en [`packages/tokens/geek.css`](../packages/tokens/geek.css) con prefijo `--geek-*` (doc aparte descartada, el CSS es autoexplicativo).
+- [x] Tipografías (DM Sans + JetBrains Mono), densidad, iconografía y sistema de anotaciones (`rough-notation` con wrapper `AnnotatedText` que parsea `[circle]…[/circle]` en strings i18n).
+- [~] Páginas dedicadas `/servicios`, `/casos[/[slug]]` no se han diseñado aparte — se resuelve dentro de la home `apps/es` hasta que haya volumen que justifique el split en páginas.
 
 ## Fase 6 — Secciones comerciales sobre app única (10–14h)
 
@@ -82,71 +81,71 @@ El pivot a monorepo (Fase 8 adelantada) ha cambiado el contexto: ya no se trabaj
 - [x] Aplicar diseño Fase 5 al home *(handoff 2026-04-22 implementado en `apps/es`)*
 - [ ] Evaluar retirada del fallback `lib/content.ts` — se mantiene como red de seguridad mientras el dataset no tenga `caseStudy` publicados
 
-## Fase 7 — Cutover parcial: merge a `main` y prod (2–3h)
+## Fase 7 — Cutover parcial: merge a `main` y prod (2–3h) — **CERRADA**
 
-Producción pasa a Next.js **antes** del split para validar la arquitectura nueva con tráfico real.
+El orden planeado ("monoapp a main → luego split") se saltó: la rama `migracion-nextjs` arrastró ya el split + apps/tech reconstruida, y se mergeó directa a `main`. El SPA Vite vive archivado en [`_legacy/`](../_legacy/) por si hiciese falta consultarlo.
 
-- [ ] Review final `migracion-nextjs` vs `main`
-- [ ] Merge a `main` (PR + squash)
-- [ ] Verificación en `ebecerra.es`: home, `/en`, navegación, `/piezas-game/*`, `/.well-known/assetlinks.json`, `/studio`, form, sitemap, robots
-- [ ] Lighthouse en prod ≥ 90 en las 4 categorías
-- [ ] Actualizar CORS Sanity con el dominio de producción si difiere
-- [ ] Monitorizar Analytics + Speed Insights 48h
-- [ ] Rama `migracion-nextjs` mergeada; Vite retirado (código sigue en git history por si acaso)
+- [x] Merge a `main` — monorepo en producción.
+- [x] Vite retirado a `_legacy/` (en el working tree, además del historial git).
+- [ ] Auditoría Lighthouse en prod ≥ 90 en las 4 categorías *(pendiente de correr contra el dominio en producción).*
+- [ ] Actualizar CORS Sanity con los dominios de producción (`https://ebecerra.es`, `https://www.ebecerra.es`, `https://ebecerra.tech`, `https://www.ebecerra.tech`) si alguno no estaba ya — confirmar en [manage.sanity.io](https://manage.sanity.io).
 
-## Fase 8 — Split a monorepo (8–12h)
+## Fase 8 — Split a monorepo (8–12h) — **CERRADA**
 
-Rama nueva `split-monorepo` desde `main` post-Fase 7.
+Adelantada al 2026-04-22 dentro de la misma rama `migracion-nextjs` (en vez de `split-monorepo` aparte). Decisión pragmática: **npm workspaces + Turborepo** en lugar de pnpm — migrar a pnpm queda como un solo cambio de `packageManager` si compensa en el futuro.
 
-- [ ] Setup raíz: `pnpm-workspace.yaml`, `turbo.json`, `package.json` raíz
-- [ ] Mover árbol actual a `apps/es/` (git mv preservando historia)
-- [ ] Extraer `packages/sanity-schemas`, `packages/sanity-client` (con parámetro `site` en queries), `packages/tokens`, `packages/ui`, `packages/utils`
-- [ ] Crear `apps/tech/` como copia inicial de `apps/es/` (placeholder "Hello tech world")
-- [ ] Verificación local: `pnpm install`, `pnpm --filter @ebecerra/es dev`, `pnpm --filter @ebecerra/tech dev`, `pnpm turbo build`
-- [ ] Preview Vercel con dos proyectos (ver Fase 10)
-- [ ] Cobertura funcional de `apps/es` idéntica a pre-split
+- [x] Setup raíz: `package.json` con workspaces + `turbo.json`. `packageManager: "npm@10.4.0"`.
+- [x] Árbol movido a `apps/es/` preservando historia (`git mv`).
+- [x] Packages extraídos: `@ebecerra/sanity-schemas`, `@ebecerra/sanity-client`, `@ebecerra/tokens` (como `packages/tokens/*.css`).
+- [x] `apps/tech/` creada como fork del estado Next.js pre-Fase B (no placeholder: CV-style completo intacto).
+- [x] Verificación local: `npm run build` pasa ambas apps en ~40s vía Turborepo.
+- [x] Cobertura funcional de `apps/es` idéntica a pre-split.
+- [~] Packages `ui` y `utils` aún no se han extraído — no emergieron primitivos suficientemente compartidos para justificarlo. Se crearán cuando dos componentes equivalentes empiecen a divergir.
 
-## Fase 9 — Construir `apps/tech` (12–16h)
+## Fase 9 — Construir `apps/tech` (12–16h) — **CERRADA**
 
-- [ ] Aplicar diseño geek de Fase 5 a `apps/tech`
-- [ ] Hero con terminal interactiva (migrar desde `apps/es` si quedó ahí)
-- [ ] CV técnico extendido en `/sobre-mi`
-- [ ] `/proyectos` y `/proyectos/[slug]` con perspectiva técnica
-- [ ] Easter eggs reactivados y pulidos
-- [ ] (Opcional) scaffold de `/blog`
-- [ ] Queries filtradas con `site: 'tech'`
-- [ ] `<CrossDomainLink />` en Nav y footer apuntando a `ebecerra.es`
-- [ ] Schema.org JSON-LD Person técnico
+El resultado no coincide del todo con la planificación: se mantuvo el estado Next.js pre-Fase B (CV-style sólido) en vez de rediseñar. Cuando se quiera iterar la identidad geek se abre otra fase.
+
+- [x] `apps/tech` con 8 secciones: Nav · Hero (terminal interactiva) · About · Experience · Skills · Projects · Contact · Footer.
+- [x] Hero con terminal interactiva (comandos `whoami`, `cat role.txt`, `./skills --top 3`, `echo $status`) + toggle input.
+- [x] CV técnico dentro de la home (Experience + Skills + Projects) — sin página `/sobre-mi` dedicada, el long-form vive en la experiencia.
+- [x] Schema.org JSON-LD (Person técnico) en [`apps/tech/components/StructuredData.tsx`](../apps/tech/components/StructuredData.tsx).
+- [x] Form de contacto `/api/contact` portado a Resend (commit `86411c7`).
+- [x] Monograma bracket-B neón + favicon propio (commit `4468cbf`).
+- [x] Enlace cruzado a `ebecerra.es` en el footer (columna "ecosistema ebecerra").
+- [~] Sin páginas dedicadas `/proyectos[/[slug]]` — los projects viven como sección en la home. Se crearán si el volumen lo pide.
+- [~] Queries filtradas por `site` — descartado de momento. Cada app hace su propia query GROQ sobre el dataset compartido sin campo `sites`; los tipos de documento exclusivos (service/caseStudy/processStep para `.es`) se filtran por `_type`.
+- [ ] Easter eggs del SPA original — no reactivados todavía.
+- [ ] Scaffold `/blog` — diferido (opcional desde el inicio).
 
 ## Fase 10 — Vercel + DNS para `.tech` (2–4h)
 
-Detalle en [`plan-migracion-nextjs-sanity.md`](plan-migracion-nextjs-sanity.md#4-configuración-vercel--dns--pasos-manuales).
+Detalle en [`plan-migracion-nextjs-sanity.md`](plan-migracion-nextjs-sanity.md#4-configuración-vercel--dns--pasos-manuales). Confirmar vía dashboard de Vercel + Sanity manage antes de marcar — aquí quedan los ítems que no puedo verificar desde el repo.
 
-- [ ] Reconfigurar proyecto existente para `apps/es` (Root Directory + Ignored Build Step `npx turbo-ignore @ebecerra/es`)
-- [ ] Crear proyecto nuevo `ebecerra-web-tech` (Root Directory `apps/tech` + `npx turbo-ignore @ebecerra/tech`)
-- [ ] Replicar env vars Sanity + Resend en ambos proyectos
-- [ ] Asignar `ebecerra.tech` y `www.ebecerra.tech` al proyecto nuevo (DNS ya en Vercel)
-- [ ] CORS Sanity: añadir `https://ebecerra.tech` + `www`
-- [ ] Webhook de revalidación adicional apuntando a `ebecerra.tech/api/revalidate`
-- [ ] Verificar SSL en ambos dominios
+- [x] Proyecto Vercel de `apps/es` desplegando `main` con Root Directory correcto (commits `chore: trigger vercel deploy`, `chore(turbo): declarar CONTACT_TO_EMAIL…` sugieren que el build pipeline funciona).
+- [ ] Proyecto Vercel nuevo para `apps/tech` apuntando a `ebecerra.tech` + `www.ebecerra.tech`.
+- [ ] CORS Sanity con los 4 dominios (es/tech + www).
+- [ ] Webhook de revalidación adicional apuntando a `ebecerra.tech/api/revalidate` con el mismo `SANITY_REVALIDATE_SECRET`.
+- [ ] SSL verificado en ambos dominios.
 
 ## Fase 11 — Form + SEO + pulido (6–8h)
 
-- [ ] `/api/contact` con Resend en `apps/es` (validación Zod + rate limit + idempotency + Turnstile/reCAPTCHA)
-- [ ] Opcional: form de contacto en `apps/tech` con copy técnico
-- [ ] OG images con `@vercel/og` dinámicas por caso y proyecto
-- [ ] Schema.org JSON-LD completo por app (Person, ProfessionalService, Article, CreativeWork)
-- [ ] Sitemaps y robots por dominio
-- [ ] Lighthouse ≥ 90 en ambos dominios
-- [ ] `error.tsx`, `global-error.tsx`, `not-found.tsx` con copy por modo
+- [x] `/api/contact` con Resend en `apps/es` (Zod + honeypot + idempotency SHA-256). Pendiente verificación de dominio y `RESEND_API_KEY` en Vercel antes de exponer en prod.
+- [x] `/api/contact` también en `apps/tech` (commit `86411c7`).
+- [x] Sitemaps y robots por app (`apps/<app>/app/sitemap.ts` + `robots.ts`).
+- [x] Schema.org JSON-LD en ambas apps (`apps/es/components/StructuredData.tsx` Person + ProfessionalService; `apps/tech/components/StructuredData.tsx` Person técnico).
+- [x] `global-error.tsx` en `apps/es`; `error.tsx` + `not-found.tsx` en `apps/tech`.
+- [ ] `error.tsx` / `not-found.tsx` en `apps/es` con copy pro (solo existe `global-error.tsx`).
+- [ ] OG images dinámicas con `@vercel/og` (ni `api/og` ni `opengraph-image.tsx` todavía — el og:image actual es la web-app-manifest 512×512).
+- [ ] Auditoría Lighthouse ≥ 90 en los 4 scores contra ambos dominios en prod.
+- [ ] Rate limit + Turnstile/reCAPTCHA en el form — el honeypot + idempotency cubren el 90% del ruido para el volumen esperado; añadir solo si aparece spam real.
 
 ## Fase 12 — Cutover final del monorepo (2–3h)
 
-- [ ] Merge `split-monorepo` → `main`
-- [ ] Ambos proyectos Vercel despliegan en paralelo
-- [ ] Validación final en ambos dominios, ambas locales, `/piezas-game/*`, form real, Studio editable
-- [ ] Monitorizar 48h: analytics, speed insights, errores
-- [ ] Comunicación pública (LinkedIn pro + tech según corresponda)
+- [x] Merge del monorepo a `main` — se hizo en un solo paso con Fase 7 (ver nota allí).
+- [ ] Ambos proyectos Vercel desplegando en paralelo sus dominios (apps/tech pendiente — ver Fase 10).
+- [ ] Validación end-to-end: home `/` + `/en` en ambos dominios, `/piezas-game/*` (solo `.es`), form real con Resend, Studio editable y webhook revalidando.
+- [ ] Comunicación pública (post en LinkedIn pro + LinkedIn tech cuando el dominio `.tech` esté vivo).
 
 ---
 
