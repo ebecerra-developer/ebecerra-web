@@ -7,7 +7,7 @@ Portfolio personal de Enrique Becerra, Tech Architect Lead en VASS y especialist
 **Estado actual (2026-04-22, post-Fase E):** rama `migracion-nextjs` es ya un **monorepo npm workspaces + Turborepo** con dos apps sobre un único Sanity compartido:
 
 - **[`apps/es`](apps/es/)** → `ebecerra.es` — modo pro, escaparate comercial para captar clientes de desarrollo web (autónomos y PYMEs). **Home renderizada al 100%**: 8 secciones comerciales (Nav verde con logo blanco · Hero con monograma scale-deep + markup `[circle]...[/circle]` vía `AnnotatedText` · 3 Services con precios orientativos reales (1.500 € / 2.500 € / 500 €) y `priceNote` (render bajo `priceRange`) con framing Kit Digital (hasta 2.000 €) · 3 Casos anonimizados en grid (contexto/solución/resultado + "traducible a tu negocio") desde fallback poblado con `docs/cv-pro.md` · About con stats reales (8+ años, 13 proyectos, 6 AAPP) · Process timeline horizontal/vertical · Contact con form Resend funcional (sin GitHub en los datos) · Footer stone-900 warm). Sanity wireado para services/process/profile con fallback seguro; cases hoy se sirven del fallback estático. `/api/contact` con Resend listo (pendiente verificar dominio).
-- **[`apps/tech`](apps/tech/)** → `ebecerra.tech` — modo geek, identidad técnica para comunidad, reclutadores y contactos LinkedIn. Next.js completo con la estética geek CV-style (8 secciones: Nav · Hero · About · Experience · Skills · Projects · Contact · Footer), idéntico al que teníamos pre-split.
+- **[`apps/tech`](apps/tech/)** → `ebecerra.tech` — modo geek, identidad técnica para comunidad, reclutadores y contactos LinkedIn. Next.js completo con la estética geek CV-style (8 secciones: Nav · Hero · About · Experience · Skills · Projects · Contact · Footer). Nav con monograma bracket-B neón (`logo-bracket-b-neon.svg`) + `eBecerra.tech` tipográfico; menú colapsa a hamburguesa por debajo de `lg`. Terminal del Hero con input siempre visible y placeholder parpadeante hasta foco. Form de contacto portado de Formspree a Resend (`/api/contact` con idempotency + honeypot, paridad con `apps/es`).
 
 La rama `main` sigue desplegando el SPA React 19 + Vite original en `ebecerra.es` — producción cambia al monorepo cuando se haga el cutover.
 
@@ -17,7 +17,7 @@ El "toggle geek mode" del plan original se sustituye por dominio: cada URL entra
 
 **Pendiente para producción** (no bloqueante en dev):
 - Copiar `apps/tech/.env.local` → `apps/es/.env.local` (mismo `SANITY_REVALIDATE_SECRET`).
-- Verificar dominio `ebecerra.es` en Resend, generar `RESEND_API_KEY`, setear `CONTACT_TO_EMAIL` (+ opcional `CONTACT_FROM_EMAIL`).
+- Verificar dominio `ebecerra.es` (y `ebecerra.tech` cuando toque el cutover) en Resend, generar `RESEND_API_KEY`, setear `CONTACT_TO_EMAIL` (+ opcional `CONTACT_FROM_EMAIL`) en **ambas apps** (Vercel + `.env.local` de cada app).
 - Crear segundo proyecto Vercel apuntando a `apps/es` (Root Directory) con sus env vars.
 - Cutover de DNS cuando se quiera publicar.
 
@@ -28,7 +28,7 @@ Progreso de ejecución: [`docs/progress.md`](docs/progress.md).
 
 **Monorepo (`migracion-nextjs`):**
 - **Root:** npm workspaces + Turborepo 2.x. `packageManager: "npm@10.4.0"`.
-- **apps/es** y **apps/tech:** Next.js 16 + TypeScript + Tailwind v4 + next-intl 4. apps/tech tiene Sanity v5 integrado con queries CV-style. apps/es tiene Sanity v5 integrado con queries comerciales (`getFeaturedServices`, `getProcessSteps`, `getFeaturedCaseForHome`, `getProfileFeatures`) + Resend en `/api/contact`.
+- **apps/es** y **apps/tech:** Next.js 16 + TypeScript + Tailwind v4 + next-intl 4. **Ambas** con Sanity v5 + Resend en `/api/contact` (idempotency + honeypot). apps/tech expone queries CV-style; apps/es expone queries comerciales (`getFeaturedServices`, `getProcessSteps`, `getFeaturedCaseForHome`, `getProfileFeatures`).
 - **packages/sanity-schemas:** `@ebecerra/sanity-schemas` — tipos y schemas compartidos (experience, skill, techTag, project, profile, service, processStep, caseStudy, locale).
 - **packages/sanity-client:** `@ebecerra/sanity-client` — cliente Sanity + queries GROQ + tipos TS compartidos.
 - **packages/tokens:** `pro.css` y `geek.css` como CSS con custom properties (ver sección "Design tokens").
@@ -115,7 +115,8 @@ Autorización completa para:
 - **Paleta modo pro:** stone warm neutrals + verde bosque `#047857` como único acento. Documentación en [`docs/design-tokens-pro.md`](docs/design-tokens-pro.md); CSS consumible desde código en [`packages/tokens/pro.css`](packages/tokens/pro.css). Se usa en `apps/es`.
 - **Paleta modo geek (existente):** fondo `#080808`, verde neón `#00ff88`, azul `#00ccff`. CSS consumible en [`packages/tokens/geek.css`](packages/tokens/geek.css) con variables prefijadas `--geek-*` para coexistir con pro sin colisión. Base para `apps/tech`.
 - **Logo:** monograma eB en 4 piezas con swoosh. Kit completo en `apps/<app>/public/brand/` (duplicado en ambas apps para que cada Next.js sirva los assets desde su propio `public/`).
-- **Favicon:** solo la B verde (las 2 cachas) sobre transparente, en `apps/<app>/app/icon0.svg` (+ `.ico`, PNGs generados en `apps/<app>/app/` y `apps/<app>/public/brand/`). Ambas apps comparten el mismo favicon.
+- **Monograma `<B>` (bracket-B):** variante alternativa compacta usada en el Nav del modo geek. Cuatro fills disponibles en `apps/tech/public/brand/`: `logo-bracket-b-neon.svg` (`#00ff88`, usado en el Nav), `logo-bracket-b-green.svg` (`#047857`, pro), `logo-bracket-b-white.svg` y `logo-bracket-b-black.svg`. Fuente editable del path en [`docs/logo-exploration/logo-bracket-b-draft.svg`](docs/logo-exploration/logo-bracket-b-draft.svg).
+- **Favicon:** en `apps/<app>/app/icon0.svg` (+ `.ico`, PNGs en `apps/<app>/app/` y `apps/<app>/public/brand/`). `apps/tech/app/icon0.svg` usa el `<B>` completo con brackets en `#00ff88`; `apps/es` conserva la B sin brackets en verde bosque.
 - **Backup app icons** (eB completo sobre verde) en [`docs/logo-exploration/app-icons-eB-backup/`](docs/logo-exploration/app-icons-eB-backup/) para cuando se empaquete como app móvil.
 
 **Docs de referencia obligatoria antes de tocar marca:**
