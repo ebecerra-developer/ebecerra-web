@@ -1,22 +1,19 @@
 import { getTranslations } from "next-intl/server";
-import type { FeaturedCase } from "@/lib/content";
-import RoughAnnotation from "@/components/RoughAnnotation";
+import type { CaseCard } from "@/lib/content";
 
 type Props = {
-  caseStudy: FeaturedCase | null;
+  cases: CaseCard[];
 };
 
-function SectionFrame({
-  kicker,
-  children,
-}: {
-  kicker: string;
-  children: React.ReactNode;
-}) {
+export default async function Case({ cases }: Props) {
+  const t = await getTranslations("cases");
+
+  if (cases.length === 0) return null;
+
   return (
     <section
       id="casos"
-      aria-label="Casos"
+      aria-labelledby="cases-heading"
       style={{
         padding: "clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px)",
         background: "var(--surface-subtle)",
@@ -35,203 +32,198 @@ function SectionFrame({
             fontWeight: 500,
           }}
         >
-          {kicker}
+          {t("kicker")}
         </div>
-        {children}
-      </div>
-    </section>
-  );
-}
-
-export default async function Case({ caseStudy }: Props) {
-  const t = await getTranslations("case");
-
-  if (!caseStudy) {
-    return (
-      <SectionFrame kicker={t("kicker")}>
         <h2
+          id="cases-heading"
           style={{
-            fontSize: "clamp(28px, 3.6vw, 48px)",
+            fontSize: "clamp(32px, 4.2vw, 56px)",
             lineHeight: 1.1,
             letterSpacing: "-0.025em",
             margin: "0 0 16px",
             maxWidth: 760,
           }}
         >
-          {t("placeholderTitle")}
+          {t("title")}
         </h2>
         <p
           className="lead"
-          style={{ maxWidth: 620, margin: "0 0 32px", color: "var(--text-secondary)" }}
+          style={{
+            maxWidth: 720,
+            margin: "0 0 40px",
+            color: "var(--text-secondary)",
+          }}
         >
-          {t("placeholderBody")}
+          {t("lead")}
         </p>
-        <a
-          href="#contacto"
-          className="link-accent"
+
+        <div
+          className="cases-grid"
           style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: 14,
-            fontWeight: 500,
+            display: "grid",
+            gap: 20,
           }}
         >
-          → Hablemos
-        </a>
-      </SectionFrame>
-    );
-  }
-
-  return (
-    <SectionFrame kicker={t("kicker")}>
-      <h2
-        style={{
-          fontSize: "clamp(32px, 4.2vw, 56px)",
-          lineHeight: 1.1,
-          letterSpacing: "-0.025em",
-          margin: "0 0 40px",
-          maxWidth: 760,
-        }}
-      >
-        {caseStudy.title}
-      </h2>
-
-      <div
-        className="case-split"
-        style={{
-          display: "grid",
-          gap: "clamp(32px, 5vw, 56px)",
-          alignItems: "start",
-        }}
-      >
-        <div>
-          <p
-            className="lead"
-            style={{ margin: "0 0 32px", color: "var(--text-secondary)" }}
-          >
-            {caseStudy.summary}
-          </p>
-
-          {caseStudy.metrics.length > 0 && (
-            <div
+          {cases.map((c) => (
+            <article
+              key={c._id}
+              className="case-card"
               style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: 8,
-                paddingTop: 24,
-                borderTop: "1px solid var(--border)",
-              }}
-            >
-              {caseStudy.metrics.map((metric) => (
-                <span
-                  key={metric.label}
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 11.5,
-                    color: "var(--text-muted)",
-                    background: "var(--surface)",
-                    border: "1px solid var(--border)",
-                    padding: "4px 10px",
-                    borderRadius: 2,
-                    letterSpacing: "0.02em",
-                  }}
-                >
-                  {metric.label}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <aside
-          style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            borderRadius: 10,
-            padding: "clamp(24px, 3vw, 32px) clamp(22px, 3vw, 28px)",
-            display: "flex",
-            flexDirection: "column",
-            gap: 24,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              color: "var(--text-muted)",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              fontWeight: 500,
-            }}
-          >
-            métricas clave
-          </div>
-
-          {caseStudy.metrics.map((metric, i) => (
-            <div
-              key={metric.label}
-              style={{
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                borderRadius: 10,
+                padding: "clamp(24px, 3.5vw, 32px) clamp(22px, 3vw, 28px)",
                 display: "flex",
                 flexDirection: "column",
-                gap: 6,
-                paddingTop: i === 0 ? 0 : 12,
-                borderTop: i === 0 ? "none" : "1px solid var(--border)",
+                gap: 18,
               }}
             >
-              <span
+              <div
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: 11,
-                  color: "var(--text-muted)",
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {metric.label}
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 28,
-                  fontWeight: 600,
                   color: "var(--cta)",
-                  letterSpacing: "-0.01em",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  fontWeight: 500,
                 }}
               >
-                <RoughAnnotation
-                  type="underline"
-                  padding={2}
-                  strokeWidth={2}
-                  color="var(--cta-soft-strong)"
-                >
-                  {metric.value}
-                </RoughAnnotation>
-              </span>
-            </div>
-          ))}
+                {c.sector}
+              </div>
+              <h3
+                style={{
+                  margin: 0,
+                  fontSize: 20,
+                  fontWeight: 700,
+                  letterSpacing: "-0.015em",
+                  lineHeight: 1.25,
+                }}
+              >
+                {c.title}
+              </h3>
 
-          <a
-            href={`/casos/${caseStudy.slug}`}
-            className="link-accent"
-            style={{
-              marginTop: 8,
-              paddingTop: 20,
-              borderTop: "1px solid var(--border)",
-              fontFamily: "var(--font-sans)",
-              fontSize: 14,
-              fontWeight: 500,
-            }}
-          >
-            {t("readCase")} →
-          </a>
-        </aside>
+              <Block label={t("contextLabel")} text={c.context} />
+              <Block label={t("solutionLabel")} text={c.solution} />
+              <Block label={t("resultLabel")} text={c.result} accent />
+
+              {c.metrics.length > 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 6,
+                    paddingTop: 4,
+                  }}
+                >
+                  {c.metrics.map((m) => (
+                    <span
+                      key={`${c._id}-${m.label}`}
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 11,
+                        color: "var(--text-muted)",
+                        background: "var(--surface-subtle)",
+                        border: "1px solid var(--border)",
+                        padding: "3px 9px",
+                        borderRadius: 3,
+                        letterSpacing: "0.02em",
+                      }}
+                    >
+                      <span style={{ color: "var(--text-muted)" }}>
+                        {m.label}:
+                      </span>{" "}
+                      <span style={{ color: "var(--text)", fontWeight: 600 }}>
+                        {m.value}
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div
+                style={{
+                  paddingTop: 16,
+                  borderTop: "1px solid var(--border)",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 13.5,
+                  color: "var(--text-secondary)",
+                  lineHeight: 1.6,
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 10.5,
+                    color: "var(--cta)",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    fontWeight: 500,
+                    display: "block",
+                    marginBottom: 6,
+                  }}
+                >
+                  → {t("translatesLabel")}
+                </span>
+                {c.translatesTo}
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
 
       <style>{`
-        .case-split { grid-template-columns: 1fr; }
-        @media (min-width: 900px) {
-          .case-split { grid-template-columns: 1.5fr 1fr; }
+        .cases-grid { grid-template-columns: 1fr; }
+        .case-card {
+          transition: transform 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
+        }
+        .case-card:hover {
+          transform: translateY(-2px);
+          border-color: var(--cta);
+          box-shadow: var(--sh-2);
+        }
+        @media (min-width: 1024px) {
+          .cases-grid { grid-template-columns: repeat(3, 1fr); align-items: start; }
         }
       `}</style>
-    </SectionFrame>
+    </section>
+  );
+}
+
+function Block({
+  label,
+  text,
+  accent = false,
+}: {
+  label: string;
+  text: string;
+  accent?: boolean;
+}) {
+  return (
+    <div>
+      <div
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: 10.5,
+          color: accent ? "var(--cta)" : "var(--text-muted)",
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          fontWeight: 500,
+          marginBottom: 6,
+        }}
+      >
+        {label}
+      </div>
+      <p
+        style={{
+          margin: 0,
+          fontSize: 14.5,
+          color: accent ? "var(--text)" : "var(--text-secondary)",
+          lineHeight: 1.65,
+          fontWeight: accent ? 500 : 400,
+        }}
+      >
+        {text}
+      </p>
+    </div>
   );
 }

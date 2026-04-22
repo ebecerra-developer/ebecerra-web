@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 type Status = "idle" | "sending" | "success" | "error";
 
 const INFO: {
-  labelKey: "infoEmail" | "infoLinkedin" | "infoGithub" | "infoLocation";
+  labelKey: "infoEmail" | "infoLinkedin" | "infoLocation";
   value: string;
   href?: string;
   external?: boolean;
@@ -20,12 +20,6 @@ const INFO: {
     labelKey: "infoLinkedin",
     value: "/in/enriquebecerra",
     href: "https://www.linkedin.com/in/enrique-becerra-garcia/",
-    external: true,
-  },
-  {
-    labelKey: "infoGithub",
-    value: "/Quiquebgit",
-    href: "https://github.com/Quiquebgit",
     external: true,
   },
   { labelKey: "infoLocation", value: "Madrid · España · remoto" },
@@ -156,7 +150,7 @@ export default function Contact() {
                   style={{ display: "flex", gap: 12, alignItems: "baseline" }}
                 >
                   <span style={{ color: "var(--text-muted)", width: 80 }}>
-                    {t(item.labelKey).toLowerCase()}
+                    {t(item.labelKey)}
                   </span>
                   {item.href ? (
                     <a
@@ -178,7 +172,7 @@ export default function Contact() {
               ))}
               <li style={{ display: "flex", gap: 12, alignItems: "baseline" }}>
                 <span style={{ color: "var(--text-muted)", width: 80 }}>
-                  {t("infoResponse").toLowerCase()}
+                  {t("infoResponse")}
                 </span>
                 <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <span

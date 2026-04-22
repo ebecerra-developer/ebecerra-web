@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
+import AnnotatedText from "@/components/AnnotatedText";
 import LogoMark from "@/components/LogoMark";
-import RoughAnnotation from "@/components/RoughAnnotation";
 
 export default async function Hero() {
   const t = await getTranslations("hero");
@@ -38,6 +38,7 @@ export default async function Hero() {
               gap: 8,
               fontFamily: "var(--font-mono)",
               fontSize: 12,
+              lineHeight: 1,
               color: "var(--cta)",
               letterSpacing: "0.15em",
               textTransform: "uppercase",
@@ -54,7 +55,9 @@ export default async function Hero() {
                 background: "var(--cta)",
               }}
             />
-            {t("kicker").replace(/^\/\/\s*/, "")}
+            <span style={{ display: "inline-block", lineHeight: 1 }}>
+              {t("kicker").replace(/^\/\/\s*/, "")}
+            </span>
           </div>
           <h1
             id="hero-heading"
@@ -66,11 +69,7 @@ export default async function Hero() {
               textWrap: "balance",
             }}
           >
-            {t("titleBefore")}{" "}
-            <RoughAnnotation type="circle" padding={[8, 12]} strokeWidth={2.5}>
-              {t("titleHighlight")}
-            </RoughAnnotation>{" "}
-            {t("titleAfter")}
+            <AnnotatedText text={t("title")} />
           </h1>
           <p
             className="lead"

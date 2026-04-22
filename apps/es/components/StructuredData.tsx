@@ -26,8 +26,8 @@ export default function StructuredData({ locale }: Props) {
         : "Tech Architect Lead and freelance developer",
     description:
       locale === "es"
-        ? "Tech Architect Lead con más de 8 años de experiencia. Desarrollo webs profesionales para autónomos y PYMEs con Next.js, Sanity y arquitecturas modernas."
-        : "Tech Architect Lead with 8+ years of experience. I build professional websites for freelancers and SMBs using Next.js, Sanity and modern architectures.",
+        ? "Tech Architect Lead con más de 8 años de experiencia en Magnolia CMS, Java y Spring. Desarrollo webs profesionales para autónomos y PYMEs con experiencia enterprise aplicada a tu escala."
+        : "Tech Architect Lead with 8+ years of experience in Magnolia CMS, Java and Spring. I build professional websites for freelancers and SMBs, bringing enterprise experience to your scale.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Madrid",
@@ -36,17 +36,16 @@ export default function StructuredData({ locale }: Props) {
     email: "mailto:contacto@ebecerra.es",
     sameAs: [
       "https://www.linkedin.com/in/enrique-becerra-garcia/",
-      "https://github.com/Quiquebgit",
       TECH_URL,
     ],
     knowsAbout: [
-      "Next.js",
-      "React",
-      "Sanity CMS",
       "Magnolia CMS",
       "Java",
-      "TypeScript",
+      "Spring Framework",
+      "REST APIs",
+      "JavaScript",
       "Web Architecture",
+      "CMS Migrations",
       "SEO",
     ],
     worksFor: { "@id": ORG_URL },
@@ -62,8 +61,8 @@ export default function StructuredData({ locale }: Props) {
     image: `${SITE_URL}/brand/web-app-manifest-512x512.png`,
     description:
       locale === "es"
-        ? "Servicios de desarrollo web profesional para autónomos y PYMEs: landing pages de conversión, sitios con CMS, ecommerce y arquitecturas Next.js."
-        : "Professional web development services for freelancers and SMBs: conversion landing pages, CMS-driven sites, ecommerce and Next.js architectures.",
+        ? "Servicios de desarrollo web profesional para autónomos y PYMEs: webs con CMS profesional, migraciones sin perder SEO, integraciones con tus herramientas y auditoría técnica."
+        : "Professional web development services for freelancers and SMBs: websites with a professional CMS, migrations without SEO loss, integrations with your tools and technical audits.",
     founder: { "@id": PERSON_URL },
     areaServed: [
       { "@type": "Country", name: "Spain" },
@@ -84,7 +83,6 @@ export default function StructuredData({ locale }: Props) {
     },
     sameAs: [
       "https://www.linkedin.com/in/enrique-becerra-garcia/",
-      "https://github.com/Quiquebgit",
       TECH_URL,
     ],
   };

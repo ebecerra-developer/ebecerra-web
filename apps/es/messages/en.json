@@ -2,8 +2,8 @@
   "metadata": {
     "title": "Enrique Becerra — Web development for freelancers and SMBs",
     "titleTemplate": "%s · eBecerra",
-    "description": "Tech Architect Lead specialized in Next.js, Sanity CMS and modern web architectures. I help freelancers and small businesses build a professional digital presence.",
-    "ogDescription": "Tech Architect Lead. Websites built with architectural rigor for freelancers and SMBs.",
+    "description": "Tech Architect Lead with 8+ years of experience in Magnolia CMS, Java and Spring. I help freelancers and small businesses build a professional digital presence their team can maintain.",
+    "ogDescription": "Tech Architect Lead bringing enterprise experience to SMB scale. Websites built with architectural rigor.",
     "twitterDescription": "Tech Architect Lead. Websites built with architectural rigor."
   },
   "a11y": {
@@ -24,27 +24,35 @@
     "langEn": "English"
   },
   "hero": {
-    "kicker": "// Available for freelance · Q3 2026",
-    "titleBefore": "I build websites with",
-    "titleHighlight": "architectural rigor",
-    "titleAfter": "for freelancers and SMBs.",
-    "lead": "No templates, no agencies that don't return your calls. A web architect thinking about your business.",
+    "kicker": "// Available to work together",
+    "title": "I build [circle]tailored[/circle] websites to bring customers to your business.",
+    "lead": "You talk to me, not a salesperson. No generic templates, no agencies that don't return your calls. I deliver something that works and that you can maintain.",
     "ctaPrimary": "Request a quote",
-    "ctaSecondary": "view services",
+    "ctaSecondary": "View services",
     "metaYears": "8 years · tech architect",
-    "metaCompany": "Magnolia · Java · Next.js",
+    "metaCompany": "Magnolia · Java · Spring",
     "metaLocation": "Madrid · Spain"
   },
   "services": {
     "kicker": "// 01. Services",
     "title": "What I build for you",
-    "lead": "Concrete offerings with scope and indicative pricing from the first conversation. All born from real enterprise projects, scaled to your business.",
+    "lead": "Concrete offerings with clear scope from the first conversation. All born from real enterprise and public-sector projects, scaled to your business.",
     "priceFrom": "from",
-    "viewMore": "view details"
+    "priceOnRequest": "Custom quote",
+    "viewMore": "View details"
+  },
+  "cases": {
+    "kicker": "// Featured cases",
+    "title": "Real projects, solved problems",
+    "lead": "Three solution patterns I've brought from enterprise environments to businesses of any scale. End clients remain under confidentiality; I can share specific references after a first conversation.",
+    "contextLabel": "Context",
+    "solutionLabel": "Solution",
+    "resultLabel": "Result",
+    "translatesLabel": "Translates to your business"
   },
   "case": {
     "kicker": "// Featured case",
-    "readCase": "read the full case",
+    "readCase": "Read the full case",
     "placeholderTitle": "Detailed case available on request",
     "placeholderBody": "The clients I work with do so under contract and I can't show them publicly here. I'm happy to share specific references on your preferred channel after a first conversation."
   },
@@ -53,7 +61,10 @@
     "title": "A bit about who's building",
     "bio1": "I'm Enrique Becerra. For 8+ years I've built corporate websites, government portals and intranets for organizations that can't afford their web to fail.",
     "bio2": "I now bring that same rigor to freelancers and SMBs: websites your team can maintain on their own, that integrate with the tools you already use, and that keep working as you grow. The difference is size, not how we work.",
-    "viewProfile": "view full profile"
+    "viewProfile": "View full profile",
+    "statYears": "years in craft",
+    "statProjects": "projects delivered",
+    "statPublicSector": "public-sector projects"
   },
   "process": {
     "kicker": "// 02. How we work together",
@@ -76,7 +87,6 @@
     "formError": "Failed to send. Try emailing me at contacto@ebecerra.es instead.",
     "infoEmail": "Email",
     "infoLinkedin": "LinkedIn",
-    "infoGithub": "GitHub",
     "infoLocation": "Location",
     "infoResponse": "Response",
     "infoResponseValue": "24 business hours"

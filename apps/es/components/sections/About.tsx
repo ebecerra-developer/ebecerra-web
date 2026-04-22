@@ -11,9 +11,9 @@ export default async function About({ features }: Props) {
   const t = await getTranslations("about");
 
   const stats: Stat[] = [
-    { value: "8", label: "años de oficio" },
-    { value: "40+", label: "proyectos migrados" },
-    { value: "100%", label: "proyectos a plazo" },
+    { value: "8+", label: t("statYears") },
+    { value: "13", label: t("statProjects") },
+    { value: "6", label: t("statPublicSector") },
   ];
 
   return (

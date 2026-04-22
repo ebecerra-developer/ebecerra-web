@@ -144,23 +144,15 @@ export default async function Footer() {
             >
               <li>
                 <FooterLink
-                  href="https://github.com/Quiquebgit"
-                  external
-                >
-                  github ↗
-                </FooterLink>
-              </li>
-              <li>
-                <FooterLink
                   href="https://www.linkedin.com/in/enrique-becerra-garcia/"
                   external
                 >
-                  linkedin ↗
+                  LinkedIn ↗
                 </FooterLink>
               </li>
               <li>
                 <FooterLink href="mailto:contacto@ebecerra.es">
-                  email
+                  Email
                 </FooterLink>
               </li>
             </ul>

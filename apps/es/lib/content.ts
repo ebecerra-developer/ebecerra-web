@@ -15,10 +15,23 @@ export type FeaturedCase = CaseStudySummary & {
   metrics: CaseStudyMetric[];
 };
 
+export type CaseCard = {
+  _id: string;
+  slug: string;
+  sector: string;
+  title: string;
+  context: string;
+  solution: string;
+  result: string;
+  translatesTo: string;
+  metrics: CaseStudyMetric[];
+};
+
 type Fallback = {
   services: Service[];
   processSteps: ProcessStep[];
   featuredCase: FeaturedCase | null;
+  cases: CaseCard[];
   aboutFeatures: Feature[];
   footerLinks: FooterLink[];
 };
@@ -39,8 +52,8 @@ const es: Fallback = {
         "plantillas y componentes reutilizables",
         "formación al equipo editorial",
       ],
-      priceRange: "desde 2.800€",
-      priceNote: null,
+      priceRange: "1.500 €",
+      priceNote: "Rango orientativo. Cubierto por Kit Digital (hasta 2.000 €).",
       featured: true,
     },
     {
@@ -49,7 +62,7 @@ const es: Fallback = {
       slug: "migracion-stack-moderno",
       icon: "🔁",
       summary:
-        "De WordPress cargado de plugins o web a medida abandonada a algo que tu equipo puede mantener. Sin perder SEO ni contenido.",
+        "De un CMS tradicional lleno de plugins o una web a medida abandonada a algo que tu equipo puede mantener. Sin perder SEO ni contenido.",
       description: null,
       deliverables: [
         "auditoría previa de URLs y contenido",
@@ -57,8 +70,8 @@ const es: Fallback = {
         "contenido migrado con estructura limpia",
         "periodo de coexistencia y auditoría post-migración",
       ],
-      priceRange: "desde 3.500€",
-      priceNote: null,
+      priceRange: "2.500 €",
+      priceNote: "Rango orientativo. Kit Digital aporta hasta 2.000 €.",
       featured: true,
     },
     {
@@ -67,16 +80,16 @@ const es: Fallback = {
       slug: "auditoria-tecnica",
       icon: "🔍",
       summary:
-        "Segunda opinión sobre tu web actual o sobre una propuesta técnica. Informe accionable en lenguaje de negocio.",
+        "Segunda opinión sobre tu web actual o sobre una propuesta técnica. Informe accionable en lenguaje de negocio, no de desarrollador.",
       description: null,
       deliverables: [
-        "auditoría de rendimiento y Core Web Vitals",
         "revisión de stack y arquitectura",
-        "roadmap priorizado a 90 días",
-        "1h de debrief en vídeo",
+        "informe accionable en lenguaje de negocio",
+        "arquitectura de nuevos proyectos antes de picar código",
+        "formación técnica al equipo interno",
       ],
-      priceRange: "desde 800€",
-      priceNote: null,
+      priceRange: "500 €",
+      priceNote: "Rango orientativo. Presupuesto cerrado tras conversación.",
       featured: true,
     },
   ],
@@ -114,23 +127,63 @@ const es: Fallback = {
       order: 4,
     },
   ],
-  featuredCase: {
-    _id: "fallback-case-migracion-seo",
-    title: "Migración de portal institucional sin perder posicionamiento",
-    slug: "migracion-portal-sin-perder-seo",
-    client: "sector público",
-    clientAnonymized: true,
-    year: 2024,
-    summary:
-      "Portal con miles de páginas, años de historia y tráfico orgánico crítico migrado a una plataforma moderna que el equipo puede mantener. Cero pérdida medible de posiciones.",
-    cover: null,
-    featured: true,
-    metrics: [
-      { label: "pérdida SEO", value: "0%" },
-      { label: "URLs migradas", value: "miles" },
-      { label: "plazo", value: "3 meses" },
-    ],
-  },
+  featuredCase: null,
+  cases: [
+    {
+      _id: "case-cms-financiero",
+      slug: "plataforma-cms-financiero",
+      sector: "Sector financiero · web corporativa",
+      title: "Plataforma web corporativa con CMS profesional",
+      context:
+        "Organización de tamaño medio-grande en el sector financiero. Equipo de marketing interno que necesitaba mantener y evolucionar la web sin dependencia constante del equipo de desarrollo.",
+      solution:
+        "Web construida sobre CMS profesional con plantillas a medida, componentes reutilizables, permisos por rol y previsualización antes de publicar. Formación al equipo de contenidos para autonomía completa.",
+      result:
+        "El equipo de marketing publica páginas nuevas el mismo día. Los desarrollos se concentran en mejoras reales, no en mantenimiento de contenido.",
+      translatesTo:
+        "Cualquier negocio con catálogo, blog o secciones que cambian cada mes puede operar así. La diferencia es el volumen, no la filosofía.",
+      metrics: [
+        { label: "rol", value: "Líder técnico" },
+        { label: "stack", value: "Magnolia · Java" },
+      ],
+    },
+    {
+      _id: "case-migracion-seo",
+      slug: "migracion-portal-sin-perder-seo",
+      sector: "Sector público · migración de portal",
+      title: "Migración de portal institucional sin perder posicionamiento",
+      context:
+        "Portal con años de historia, miles de páginas indexadas, tráfico orgánico crítico y una plataforma antigua que ya no se podía mantener.",
+      solution:
+        "Migración planificada por fases. Análisis previo de URLs, contenido y funcionalidad. Redirecciones 301 sistemáticas. Coexistencia controlada durante el cambio y auditoría post-migración.",
+      result:
+        "Cero pérdida de posiciones SEO medibles. Contenido migrado con estructura limpia. Plataforma nueva que el equipo puede mantener.",
+      translatesTo:
+        "El mismo proceso funciona a escala pequeña. Una web con 100 entradas sobre un CMS tradicional migrada a una plataforma moderna sigue el mismo playbook que una con 10.000.",
+      metrics: [
+        { label: "pérdida SEO", value: "0%" },
+        { label: "URLs migradas", value: "miles" },
+      ],
+    },
+    {
+      _id: "case-generador-multisede",
+      slug: "generador-portales-multi-sede",
+      sector: "Red institucional · multi-sede",
+      title: "Generador automático de portales multi-sede",
+      context:
+        "Red institucional con cientos de sedes independientes que necesitaban cada una su propia web, con identidad visual común pero contenido local.",
+      solution:
+        "Generador de portales desplegado sobre una plataforma central. Plantillas parametrizadas; cada sede con URL propia, contenido editable por su responsable local y diseño coherente con la marca común.",
+      result:
+        "Cientos de portales desplegados. Mantenimiento centralizado — un cambio de plantilla aplica a todos. Autonomía editorial por sede.",
+      translatesTo:
+        "Cadenas de franquicias, academias con varias sedes, agencias inmobiliarias multi-oficina, SaaS con producto white-label. Cuando tienes «muchos iguales con pequeñas diferencias», una plataforma multi-tenant se paga en meses.",
+      metrics: [
+        { label: "sedes", value: "cientos" },
+        { label: "mantenimiento", value: "centralizado" },
+      ],
+    },
+  ],
   aboutFeatures: [
     {
       icon: "🏛️",
@@ -150,7 +203,6 @@ const es: Fallback = {
   ],
   footerLinks: [
     { label: "LinkedIn", url: "https://www.linkedin.com/in/enrique-becerra-garcia/", external: true },
-    { label: "GitHub", url: "https://github.com/Quiquebgit", external: true },
     { label: "Email", url: "mailto:contacto@ebecerra.es" },
   ],
 };
@@ -171,8 +223,8 @@ const en: Fallback = {
         "reusable templates and components",
         "editorial team training",
       ],
-      priceRange: "from €2,800",
-      priceNote: null,
+      priceRange: "€1,500",
+      priceNote: "Starting estimate. Covered by Spain's Kit Digital grant (up to €2,000).",
       featured: true,
     },
     {
@@ -181,7 +233,7 @@ const en: Fallback = {
       slug: "migracion-stack-moderno",
       icon: "🔁",
       summary:
-        "From plugin-heavy WordPress or abandoned custom sites to something your team can maintain. No SEO or content loss.",
+        "From a plugin-heavy legacy CMS or abandoned custom sites to something your team can maintain. No SEO or content loss.",
       description: null,
       deliverables: [
         "URL and content audit upfront",
@@ -189,8 +241,8 @@ const en: Fallback = {
         "content migrated with clean structure",
         "coexistence window and post-migration audit",
       ],
-      priceRange: "from €3,500",
-      priceNote: null,
+      priceRange: "€2,500",
+      priceNote: "Starting estimate. Kit Digital contributes up to €2,000.",
       featured: true,
     },
     {
@@ -202,13 +254,13 @@ const en: Fallback = {
         "Second opinion on your current site or on a proposed architecture. Actionable report in plain business language.",
       description: null,
       deliverables: [
-        "performance and Core Web Vitals audit",
         "stack and architecture review",
-        "90-day prioritized roadmap",
-        "1h video debrief",
+        "actionable report in plain business language",
+        "architecture for new projects before writing code",
+        "technical training for your internal team",
       ],
-      priceRange: "from €800",
-      priceNote: null,
+      priceRange: "€500",
+      priceNote: "Starting estimate. Fixed quote after a 30-min call.",
       featured: true,
     },
   ],
@@ -246,23 +298,63 @@ const en: Fallback = {
       order: 4,
     },
   ],
-  featuredCase: {
-    _id: "fallback-case-migracion-seo",
-    title: "Institutional portal migration with zero SEO loss",
-    slug: "migracion-portal-sin-perder-seo",
-    client: "public sector",
-    clientAnonymized: true,
-    year: 2024,
-    summary:
-      "A portal with thousands of pages, years of history and critical organic traffic, migrated to a modern platform the team can maintain. No measurable loss of positions.",
-    cover: null,
-    featured: true,
-    metrics: [
-      { label: "SEO loss", value: "0%" },
-      { label: "URLs migrated", value: "thousands" },
-      { label: "timeline", value: "3 months" },
-    ],
-  },
+  featuredCase: null,
+  cases: [
+    {
+      _id: "case-cms-financiero",
+      slug: "plataforma-cms-financiero",
+      sector: "Financial sector · corporate site",
+      title: "Corporate web platform with a professional CMS",
+      context:
+        "Mid-to-large organization in the financial sector. Internal marketing team that needed to maintain and grow the site without constant dependency on the development team.",
+      solution:
+        "Website built on a professional CMS with tailored templates, reusable components, role-based permissions and preview before publish. Content team training for full autonomy.",
+      result:
+        "The marketing team ships new pages the same day. Development focuses on real improvements, not on content maintenance.",
+      translatesTo:
+        "Any business with a catalog, blog or sections that change monthly can operate this way. The difference is volume, not philosophy.",
+      metrics: [
+        { label: "role", value: "Tech lead" },
+        { label: "stack", value: "Magnolia · Java" },
+      ],
+    },
+    {
+      _id: "case-migracion-seo",
+      slug: "migracion-portal-sin-perder-seo",
+      sector: "Public sector · portal migration",
+      title: "Institutional portal migration with zero SEO loss",
+      context:
+        "Portal with years of history, thousands of indexed pages, critical organic traffic and a legacy platform that could no longer be maintained.",
+      solution:
+        "Phased migration. Upfront audit of URLs, content and functionality. Systematic 301 redirects. Controlled coexistence during the switch and a post-migration audit.",
+      result:
+        "Zero measurable SEO position loss. Content migrated with clean structure. New platform the team can maintain.",
+      translatesTo:
+        "The same process works at small scale. A legacy-CMS site with 100 posts migrated to a modern platform follows the same playbook as one with 10,000.",
+      metrics: [
+        { label: "SEO loss", value: "0%" },
+        { label: "URLs migrated", value: "thousands" },
+      ],
+    },
+    {
+      _id: "case-generador-multisede",
+      slug: "generador-portales-multi-sede",
+      sector: "Institutional network · multi-site",
+      title: "Automatic multi-site portal generator",
+      context:
+        "Institutional network with hundreds of independent branches, each needing its own website with a shared visual identity and local content.",
+      solution:
+        "Portal generator deployed on a central platform. Parameterized templates; each branch gets its own URL, content editable by its local owner and design consistent with the shared brand.",
+      result:
+        "Hundreds of portals deployed. Centralized maintenance — one template change applies to all. Editorial autonomy per branch.",
+      translatesTo:
+        "Franchise chains, academies with several branches, multi-office real-estate agencies, white-label SaaS. When you have 'many alike with small differences', a multi-tenant platform pays for itself in months.",
+      metrics: [
+        { label: "branches", value: "hundreds" },
+        { label: "maintenance", value: "centralized" },
+      ],
+    },
+  ],
   aboutFeatures: [
     {
       icon: "🏛️",
@@ -282,7 +374,6 @@ const en: Fallback = {
   ],
   footerLinks: [
     { label: "LinkedIn", url: "https://www.linkedin.com/in/enrique-becerra-garcia/", external: true },
-    { label: "GitHub", url: "https://github.com/Quiquebgit", external: true },
     { label: "Email", url: "mailto:contacto@ebecerra.es" },
   ],
 };

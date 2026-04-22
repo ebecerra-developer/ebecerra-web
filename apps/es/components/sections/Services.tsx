@@ -148,22 +148,36 @@ export default async function Services({ services }: Props) {
                   borderTop: "1px solid var(--border)",
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  alignItems: "flex-end",
                   gap: 12,
                 }}
               >
-                {service.priceRange && (
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 13,
-                      fontWeight: 600,
-                      color: "var(--text)",
-                    }}
-                  >
-                    {t("priceFrom")} {service.priceRange}
-                  </span>
-                )}
+                <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0 }}>
+                  {service.priceRange && (
+                    <span
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: "var(--text)",
+                      }}
+                    >
+                      {t("priceFrom")} {service.priceRange}
+                    </span>
+                  )}
+                  {service.priceNote && (
+                    <span
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: 11.5,
+                        color: "var(--text-muted)",
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {service.priceNote}
+                    </span>
+                  )}
+                </div>
                 <a
                   href="#contacto"
                   style={{
@@ -172,6 +186,7 @@ export default async function Services({ services }: Props) {
                     color: "var(--cta)",
                     textDecoration: "none",
                     fontWeight: 500,
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {t("viewMore")} →

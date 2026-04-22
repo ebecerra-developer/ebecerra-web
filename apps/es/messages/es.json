@@ -2,8 +2,8 @@
   "metadata": {
     "title": "Enrique Becerra — Desarrollo web para autónomos y PYMEs",
     "titleTemplate": "%s · eBecerra",
-    "description": "Tech Architect Lead especializado en Next.js, Sanity CMS y arquitecturas web modernas. Ayudo a autónomos y pequeñas empresas a tener una presencia digital profesional.",
-    "ogDescription": "Tech Architect Lead. Webs construidas con criterio arquitectónico para autónomos y PYMEs.",
+    "description": "Tech Architect Lead con más de 8 años de experiencia en Magnolia CMS, Java y Spring. Ayudo a autónomos y pequeñas empresas a tener una presencia digital profesional que su equipo pueda mantener.",
+    "ogDescription": "Tech Architect Lead con experiencia enterprise aplicada a PYME. Webs construidas con criterio arquitectónico.",
     "twitterDescription": "Tech Architect Lead. Webs construidas con criterio arquitectónico."
   },
   "a11y": {
@@ -24,27 +24,35 @@
     "langEn": "English"
   },
   "hero": {
-    "kicker": "// Disponible para freelance · Q3 2026",
-    "titleBefore": "Construyo webs con",
-    "titleHighlight": "criterio arquitectónico",
-    "titleAfter": "para autónomos y PYMEs.",
-    "lead": "Sin plantillas, sin agencias que no devuelven el teléfono. Un arquitecto web pensando en tu negocio.",
+    "kicker": "// Disponible para que trabajemos juntos",
+    "title": "Construyo webs [circle]a medida[/circle] para atraer clientes a tu negocio.",
+    "lead": "Hablas conmigo, no con un comercial. Sin plantillas genéricas ni agencias que no devuelven el teléfono. Entrego algo que funciona y que puedes mantener.",
     "ctaPrimary": "Solicitar presupuesto",
-    "ctaSecondary": "ver servicios",
+    "ctaSecondary": "Ver servicios",
     "metaYears": "8 años · tech architect",
-    "metaCompany": "Magnolia · Java · Next.js",
+    "metaCompany": "Magnolia · Java · Spring",
     "metaLocation": "Madrid · España"
   },
   "services": {
     "kicker": "// 01. Servicios",
     "title": "Lo que construyo para ti",
-    "lead": "Soluciones concretas con alcance y precio orientativo claros desde la primera conversación. Todas nacen de proyectos reales en entornos enterprise, escaladas a tu negocio.",
+    "lead": "Soluciones concretas con alcance claro desde la primera conversación. Todas nacen de proyectos reales en entornos enterprise y AAPP, escaladas a tu negocio.",
     "priceFrom": "desde",
-    "viewMore": "ver detalles"
+    "priceOnRequest": "Presupuesto a medida",
+    "viewMore": "Ver detalles"
+  },
+  "cases": {
+    "kicker": "// Casos destacados",
+    "title": "Proyectos reales, problemas resueltos",
+    "lead": "Tres patrones de solución que he llevado de entornos enterprise a negocios de cualquier escala. Los clientes finales se mantienen bajo confidencialidad; puedo dar referencias concretas tras una primera conversación.",
+    "contextLabel": "Contexto",
+    "solutionLabel": "Solución",
+    "resultLabel": "Resultado",
+    "translatesLabel": "Traducible a tu negocio"
   },
   "case": {
     "kicker": "// Caso destacado",
-    "readCase": "leer el caso completo",
+    "readCase": "Leer el caso completo",
     "placeholderTitle": "Caso detallado disponible bajo petición",
     "placeholderBody": "Los clientes con los que trabajo lo hacen bajo contrato y no puedo mostrarlos aquí públicamente. Te doy referencias concretas por el canal que prefieras tras una primera conversación."
   },
@@ -53,7 +61,10 @@
     "title": "Un poco sobre quién construye",
     "bio1": "Soy Enrique Becerra. Llevo más de 8 años construyendo webs corporativas, portales institucionales e intranets para organizaciones que no pueden permitirse que su web falle.",
     "bio2": "Ahora aplico ese mismo rigor a autónomos y PYMEs: webs que tu equipo mantiene solo, que se integran con tus herramientas y que siguen funcionando cuando crezcas. La diferencia es el tamaño, no la forma de trabajar.",
-    "viewProfile": "ver perfil completo"
+    "viewProfile": "Ver perfil completo",
+    "statYears": "años de oficio",
+    "statProjects": "proyectos entregados",
+    "statPublicSector": "proyectos AAPP"
   },
   "process": {
     "kicker": "// 02. Cómo trabajamos juntos",
@@ -63,7 +74,7 @@
   "contact": {
     "kicker": "// Contacto",
     "title": "Hablemos de tu proyecto",
-    "lead": "Cuéntame qué necesitas y te respondo en 24h laborables con una primera idea del alcance.",
+    "lead": "Cuéntame qué necesitas y te respondo en 24 h laborables con una primera idea del alcance.",
     "formName": "Nombre",
     "formNamePlaceholder": "Cómo te llamas",
     "formEmail": "Email",
@@ -72,11 +83,10 @@
     "formMessagePlaceholder": "Cuéntame brevemente qué necesitas",
     "formSubmit": "Enviar mensaje",
     "formSending": "Enviando…",
-    "formSuccess": "Mensaje enviado. Te respondo en 24h laborables.",
+    "formSuccess": "Mensaje enviado. Te respondo en 24 h laborables.",
     "formError": "Error al enviar. Prueba escribiéndome a contacto@ebecerra.es.",
     "infoEmail": "Email",
     "infoLinkedin": "LinkedIn",
-    "infoGithub": "GitHub",
     "infoLocation": "Ubicación",
     "infoResponse": "Respuesta",
     "infoResponseValue": "24 h laborables"

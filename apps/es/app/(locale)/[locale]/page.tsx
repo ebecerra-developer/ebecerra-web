@@ -4,7 +4,6 @@ import { getFallback } from "@/lib/content";
 import {
   getFeaturedServices,
   getProcessSteps,
-  getFeaturedCaseForHome,
   getProfileFeatures,
 } from "@ebecerra/sanity-client";
 import Nav from "@/components/sections/Nav";
@@ -29,19 +28,16 @@ export default async function Home({
 
   // Sanity en paralelo con fallback seguro: cualquier error de red o
   // esquema no rompe la home — simplemente se usa el contenido local.
-  const [services, processSteps, featuredCase, profileFeatures] =
-    await Promise.all([
-      getFeaturedServices(locale).catch(() => []),
-      getProcessSteps(locale).catch(() => []),
-      getFeaturedCaseForHome(locale).catch(() => null),
-      getProfileFeatures(locale).catch(() => null),
-    ]);
+  const [services, processSteps, profileFeatures] = await Promise.all([
+    getFeaturedServices(locale).catch(() => []),
+    getProcessSteps(locale).catch(() => []),
+    getProfileFeatures(locale).catch(() => null),
+  ]);
 
   const resolvedServices =
     services.length > 0 ? services : fallback.services;
   const resolvedProcess =
     processSteps.length > 0 ? processSteps : fallback.processSteps;
-  const resolvedCase = featuredCase ?? fallback.featuredCase;
   const resolvedFeatures = profileFeatures ?? fallback.aboutFeatures;
 
   return (
@@ -51,7 +47,7 @@ export default async function Home({
         <Hero />
         <Services services={resolvedServices} />
         <About features={resolvedFeatures} />
-        <Case caseStudy={resolvedCase} />
+        <Case cases={fallback.cases} />
         <Process steps={resolvedProcess} />
         <Contact />
       </main>
