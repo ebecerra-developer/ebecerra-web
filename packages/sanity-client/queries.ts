@@ -29,7 +29,8 @@ export async function getSiteData(locale: Locale) {
           "role": ${loc("role")},
           period,
           tag,
-          "desc": ${loc("desc")}
+          "desc": ${loc("desc")},
+          "tech": coalesce(tech, [])
         }`,
         params
       ),

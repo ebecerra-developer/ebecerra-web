@@ -8,6 +8,7 @@ export type ExperienceItem = {
   period: string;
   tag: string | null;
   desc: string;
+  tech: string[];
 };
 
 export type Skill = { name: string; level: number };

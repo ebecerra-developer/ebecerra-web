@@ -60,6 +60,18 @@ export default function Experience({ items }: ExperienceProps) {
                 <p className="text-[#777] text-[13px] leading-relaxed">
                   {exp.desc}
                 </p>
+                {exp.tech?.length > 0 && (
+                  <ul className="flex flex-wrap gap-1.5 mt-3">
+                    {exp.tech.map((t) => (
+                      <li
+                        key={t}
+                        className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#9aa] font-mono text-[11px] rounded px-2 py-0.5"
+                      >
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
           ))}

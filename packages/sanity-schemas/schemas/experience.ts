@@ -14,6 +14,13 @@ export default defineType({
       type: "string",
     }),
     defineField({ name: "desc", title: "Descripción", type: "localeText" }),
+    defineField({
+      name: "tech",
+      title: "Tecnologías / habilidades del puesto",
+      type: "array",
+      of: [{ type: "string" }],
+      options: { layout: "tags" },
+    }),
     defineField({ name: "order", title: "Orden", type: "number" }),
   ],
   orderings: [
