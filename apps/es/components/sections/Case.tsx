@@ -16,6 +16,7 @@ function SectionFrame({
   return (
     <section
       id="casos"
+      aria-label="Casos"
       style={{
         padding: "clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px)",
         background: "var(--surface-subtle)",

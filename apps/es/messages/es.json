@@ -6,6 +6,9 @@
     "ogDescription": "Tech Architect Lead. Webs construidas con criterio arquitectónico para autónomos y PYMEs.",
     "twitterDescription": "Tech Architect Lead. Webs construidas con criterio arquitectónico."
   },
+  "a11y": {
+    "skipToContent": "Saltar al contenido principal"
+  },
   "nav": {
     "services": "Servicios",
     "cases": "Casos",

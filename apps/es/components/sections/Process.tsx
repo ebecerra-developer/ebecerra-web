@@ -36,6 +36,7 @@ export default async function Process({ steps }: Props) {
   return (
     <section
       id="proceso"
+      aria-labelledby="process-heading"
       style={{
         padding: "clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px)",
         borderBottom: "1px solid var(--border)",
@@ -58,6 +59,7 @@ export default async function Process({ steps }: Props) {
           {t("kicker").replace(/^\/\/\s*02\.\s*/i, "")}
         </div>
         <h2
+          id="process-heading"
           style={{
             fontSize: "clamp(32px, 4.2vw, 56px)",
             lineHeight: 1.1,

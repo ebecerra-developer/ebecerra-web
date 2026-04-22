@@ -19,6 +19,7 @@ export default async function About({ features }: Props) {
   return (
     <section
       id="sobre-mi"
+      aria-labelledby="about-heading"
       style={{
         padding: "clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px)",
         borderBottom: "1px solid var(--border)",
@@ -41,6 +42,7 @@ export default async function About({ features }: Props) {
           {t("kicker").replace(/^\/\/\s*/i, "")}
         </div>
         <h2
+          id="about-heading"
           style={{
             fontSize: "clamp(32px, 4.2vw, 56px)",
             lineHeight: 1.1,

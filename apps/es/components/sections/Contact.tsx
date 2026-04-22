@@ -82,6 +82,7 @@ export default function Contact() {
   return (
     <section
       id="contacto"
+      aria-labelledby="contact-heading"
       style={{
         padding: "clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px)",
         background: "var(--surface-subtle)",
@@ -114,6 +115,7 @@ export default function Contact() {
         >
           <div>
             <h2
+              id="contact-heading"
               style={{
                 fontSize: "clamp(32px, 4.2vw, 56px)",
                 lineHeight: 1.1,
@@ -197,6 +199,8 @@ export default function Contact() {
 
           <form
             onSubmit={onSubmit}
+            noValidate
+            aria-describedby="contact-status"
             style={{
               display: "grid",
               gap: 14,
@@ -218,6 +222,7 @@ export default function Contact() {
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               style={inputStyle}
               autoComplete="name"
+              aria-invalid={status === "error" ? true : undefined}
             />
 
             <label style={labelStyle} htmlFor="contact-email">
@@ -232,6 +237,7 @@ export default function Contact() {
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               style={inputStyle}
               autoComplete="email"
+              aria-invalid={status === "error" ? true : undefined}
             />
 
             <label style={labelStyle} htmlFor="contact-message">
@@ -244,6 +250,7 @@ export default function Contact() {
               placeholder={t("formMessagePlaceholder")}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
+              aria-invalid={status === "error" ? true : undefined}
               style={{
                 ...inputStyle,
                 resize: "vertical",
@@ -284,10 +291,19 @@ export default function Contact() {
               }}
             >
               <span
+                id="contact-status"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: 11,
-                  color: "var(--text-muted)",
+                  color:
+                    status === "error"
+                      ? "#b91c1c"
+                      : status === "success"
+                        ? "var(--cta)"
+                        : "var(--text-muted)",
                   letterSpacing: "0.04em",
                 }}
               >

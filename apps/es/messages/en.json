@@ -6,6 +6,9 @@
     "ogDescription": "Tech Architect Lead. Websites built with architectural rigor for freelancers and SMBs.",
     "twitterDescription": "Tech Architect Lead. Websites built with architectural rigor."
   },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
   "nav": {
     "services": "Services",
     "cases": "Cases",

@@ -31,15 +31,17 @@ export default async function Home({
   const featureItems = sanity?.aboutFeatures ?? fallback.aboutFeatures;
 
   return (
-    <main>
+    <>
       <Nav />
-      <Hero />
-      <About features={featureItems} />
-      <Experience items={experienceItems} />
-      <Skills skills={skillItems} tags={tagItems} />
-      <Projects items={projectItems} />
-      <Contact />
+      <main id="main">
+        <Hero />
+        <About features={featureItems} />
+        <Experience items={experienceItems} />
+        <Skills skills={skillItems} tags={tagItems} />
+        <Projects items={projectItems} />
+        <Contact />
+      </main>
       <Footer links={fallback.footerLinks} />
-    </main>
+    </>
   );
 }

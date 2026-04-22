@@ -8,6 +8,7 @@ export default async function Hero() {
   return (
     <section
       id="inicio"
+      aria-labelledby="hero-heading"
       style={{
         padding: "clamp(32px, 5vw, 64px) clamp(20px, 4vw, 56px) clamp(32px, 4.5vw, 56px)",
         borderBottom: "1px solid var(--border)",
@@ -56,6 +57,7 @@ export default async function Hero() {
             {t("kicker").replace(/^\/\/\s*/, "")}
           </div>
           <h1
+            id="hero-heading"
             style={{
               fontSize: "clamp(44px, 6.2vw, 80px)",
               lineHeight: 1.03,

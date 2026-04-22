@@ -41,12 +41,19 @@ export default function Skills({ skills, tags }: SkillsProps) {
   const [hoveredTag, setHoveredTag] = useState<string | null>(null);
 
   return (
-    <section id="skills" className="py-[100px] px-[clamp(20px,5vw,80px)]">
+    <section
+      id="skills"
+      aria-labelledby="skills-heading"
+      className="py-[100px] px-[clamp(20px,5vw,80px)]"
+    >
       <div className="max-w-[1100px] mx-auto">
         <span className="text-[#00ff88] font-mono text-xs tracking-[0.15em] uppercase block mb-3">
           {t("eyebrow")}
         </span>
-        <h2 className="text-[clamp(28px,4vw,40px)] font-bold text-white tracking-tight mb-12">
+        <h2
+          id="skills-heading"
+          className="text-[clamp(28px,4vw,40px)] font-bold text-white tracking-tight mb-12"
+        >
           {t("title")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">

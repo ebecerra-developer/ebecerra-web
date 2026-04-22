@@ -47,7 +47,7 @@ export default async function Home({
   return (
     <>
       <Nav />
-      <main>
+      <main id="main">
         <Hero />
         <Services services={resolvedServices} />
         <About features={resolvedFeatures} />

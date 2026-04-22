@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 
-const SITE_URL = "https://ebecerra.es";
+const SITE_URL = "https://ebecerra.tech";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

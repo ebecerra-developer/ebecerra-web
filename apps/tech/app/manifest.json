@@ -1,7 +1,27 @@
 {
-  "name": "Enrique Becerra",
-  "short_name": "eBecerra",
+  "name": "Enrique Becerra — Tech Architect Lead",
+  "short_name": "eBecerra.tech",
+  "description": "Portfolio técnico de Enrique Becerra, Tech Architect Lead en VASS. Magnolia CMS, Java, Next.js.",
+  "lang": "es-ES",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#00ff88",
+  "background_color": "#080808",
   "icons": [
+    {
+      "src": "/brand/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/brand/web-app-manifest-192x192.png",
       "sizes": "192x192",
@@ -14,8 +34,5 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ],
-  "theme_color": "#FAFAF9",
-  "background_color": "#047857",
-  "display": "standalone"
+  ]
 }

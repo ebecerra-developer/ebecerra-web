@@ -1,7 +1,27 @@
 {
-  "name": "Enrique Becerra",
+  "name": "Enrique Becerra — Desarrollo web",
   "short_name": "eBecerra",
+  "description": "Tech Architect Lead. Desarrollo web profesional para autónomos y PYMEs con Next.js, Sanity y arquitecturas modernas.",
+  "lang": "es-ES",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#047857",
+  "background_color": "#FAFAF9",
   "icons": [
+    {
+      "src": "/brand/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/brand/web-app-manifest-192x192.png",
       "sizes": "192x192",
@@ -14,8 +34,5 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ],
-  "theme_color": "#FAFAF9",
-  "background_color": "#047857",
-  "display": "standalone"
+  ]
 }

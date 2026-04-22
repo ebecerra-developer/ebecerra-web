@@ -6,6 +6,8 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import StructuredData from "@/components/StructuredData";
+import type { Locale } from "@/i18n/routing";
 import "../../globals.css";
 
 const dmSans = DM_Sans({
@@ -30,8 +32,9 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
 
-  const baseUrl = "https://ebecerra.es";
+  const baseUrl = "https://ebecerra.tech";
   const canonical = locale === routing.defaultLocale ? baseUrl : `${baseUrl}/${locale}`;
+  const ogImage = `${baseUrl}/brand/web-app-manifest-512x512.png`;
 
   return {
     metadataBase: new URL(baseUrl),
@@ -40,8 +43,36 @@ export async function generateMetadata({
       template: t("titleTemplate"),
     },
     description: t("description"),
+    applicationName: "eBecerra.tech",
     authors: [{ name: "Enrique Becerra", url: baseUrl }],
     creator: "Enrique Becerra",
+    publisher: "Enrique Becerra",
+    keywords:
+      locale === "es"
+        ? [
+            "Enrique Becerra",
+            "tech architect",
+            "Magnolia CMS",
+            "Java",
+            "Spring",
+            "Next.js",
+            "arquitectura software",
+            "VASS",
+            "VassNolia",
+            "portfolio técnico",
+          ]
+        : [
+            "Enrique Becerra",
+            "tech architect",
+            "Magnolia CMS",
+            "Java",
+            "Spring",
+            "Next.js",
+            "software architecture",
+            "VASS",
+            "VassNolia",
+            "tech portfolio",
+          ],
     alternates: {
       canonical,
       languages: {
@@ -51,18 +82,41 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      type: "website",
+      type: "profile",
       locale: locale === "es" ? "es_ES" : "en_US",
+      alternateLocale: locale === "es" ? ["en_US"] : ["es_ES"],
       url: canonical,
-      siteName: "eBecerra",
+      siteName: "ebecerra.tech",
       title: t("title"),
       description: t("ogDescription"),
+      images: [
+        {
+          url: ogImage,
+          width: 512,
+          height: 512,
+          alt: "Enrique Becerra — ebecerra.tech",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: t("title"),
       description: t("twitterDescription"),
+      images: [ogImage],
     },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    category: "technology",
+    formatDetection: { telephone: false, address: false, email: false },
   };
 }
 
@@ -78,6 +132,7 @@ export default async function LocaleLayout({
     notFound();
   }
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "a11y" });
 
   return (
     <html
@@ -85,6 +140,13 @@ export default async function LocaleLayout({
       className={`${dmSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[999] focus:rounded-md focus:bg-[#00ff88] focus:px-4 focus:py-2 focus:font-mono focus:text-[#080808] focus:shadow-lg focus:outline-none"
+        >
+          {t("skipToContent")}
+        </a>
+        <StructuredData locale={locale as Locale} />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />

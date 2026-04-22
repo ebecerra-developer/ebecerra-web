@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/studio", "/api", "/playground"],
       },
     ],
-    sitemap: "https://ebecerra.es/sitemap.xml",
+    sitemap: "https://ebecerra.tech/sitemap.xml",
   };
 }

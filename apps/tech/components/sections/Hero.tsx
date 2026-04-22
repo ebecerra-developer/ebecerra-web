@@ -14,7 +14,7 @@ function TerminalHero() {
   const [visibleLines, setVisibleLines] = useState<TerminalLine[]>([]);
   const [userLines, setUserLines] = useState<TerminalLine[]>([]);
   const [inputVal, setInputVal] = useState("");
-  const [isWaiting, setIsWaiting] = useState(true);
+  const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -31,13 +31,10 @@ function TerminalHero() {
 
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
-    introLines.forEach(({ delay, line }, i) => {
+    introLines.forEach(({ delay, line }) => {
       timers.push(
         setTimeout(() => {
           setVisibleLines((prev) => [...prev, line]);
-          if (i === introLines.length - 1) {
-            setTimeout(() => setIsWaiting(false), 400);
-          }
         }, delay)
       );
     });
@@ -50,6 +47,10 @@ function TerminalHero() {
       contentRef.current.scrollTop = contentRef.current.scrollHeight;
     }
   }, [visibleLines, userLines]);
+
+  function focusInput() {
+    inputRef.current?.focus();
+  }
 
   function handleCommand(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key !== "Enter") return;
@@ -90,9 +91,13 @@ function TerminalHero() {
   }
 
   const allLines = [...visibleLines, ...userLines];
+  const isIdle = !isFocused && inputVal.length === 0;
 
   return (
-    <div className="bg-[#0d0d0d] border border-[#333] rounded-[10px] font-mono overflow-hidden max-w-[620px] w-full shadow-[0_0_60px_rgba(0,255,136,0.08)]">
+    <div
+      className="bg-[#0d0d0d] border border-[#333] rounded-[10px] font-mono overflow-hidden max-w-[620px] w-full shadow-[0_0_60px_rgba(0,255,136,0.08)]"
+      onClick={focusInput}
+    >
       <div className="bg-[#1a1a1a] px-4 py-2.5 flex items-center gap-2 border-b border-[#2a2a2a]">
         <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
         <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
@@ -101,37 +106,46 @@ function TerminalHero() {
       </div>
       <div
         ref={contentRef}
-        className="p-6 min-h-[220px] max-h-[320px] overflow-y-auto"
+        className="p-6 min-h-[220px] max-h-[320px] overflow-y-auto cursor-text"
       >
-        {allLines.map((line, i) => (
-          <div
-            key={i}
-            className={`mb-1 text-sm leading-[1.8] animate-fade-in-line ${
-              line.type === "cmd" ? "text-[#00ff88]" : "text-[#c8c8c8]"
-            }`}
-          >
-            {line.type === "cmd" && (
-              <span className="text-[#555]">→ </span>
-            )}
-            {line.text}
-          </div>
-        ))}
-        {isWaiting ? (
-          <span className="text-[#00ff88] text-sm animate-blink">█</span>
-        ) : (
-          <div className="flex items-center text-sm mt-1">
-            <span className="text-[#555]">→ </span>
+        {allLines.map((line, i) => {
+          const isCmd = line.type === "cmd";
+          return (
+            <div
+              key={i}
+              className={`mb-1 text-sm leading-[1.8] animate-fade-in-line ${
+                isCmd ? "text-[#00ff88]" : "text-[#c8c8c8]"
+              }`}
+            >
+              {isCmd && <span className="text-[#555]">→ </span>}
+              {line.text}
+            </div>
+          );
+        })}
+        <div className="flex items-center text-sm mt-1">
+          <span className="text-[#00ff88]">→ </span>
+          <span className="relative flex-1 ml-1">
             <input
               ref={inputRef}
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
               onKeyDown={handleCommand}
-              className="bg-transparent border-none text-[#e0e0e0] font-mono text-sm outline-none flex-1 ml-1"
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              className="bg-transparent border-none text-[#e0e0e0] font-mono text-sm outline-none w-full caret-[#00ff88] placeholder-transparent"
               placeholder={t("placeholder")}
-              autoFocus
+              aria-label={t("placeholder")}
             />
-          </div>
-        )}
+            {isIdle && (
+              <span
+                className="absolute left-0 top-0 text-[#555] font-mono text-sm pointer-events-none animate-blink"
+                aria-hidden="true"
+              >
+                {t("placeholder")}
+              </span>
+            )}
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -143,6 +157,7 @@ export default function Hero() {
   return (
     <section
       id="inicio"
+      aria-labelledby="hero-heading"
       className="min-h-screen flex items-center px-[clamp(20px,5vw,80px)] pt-20 pb-10 relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,255,136,0.08)_0%,rgba(0,204,255,0.05)_40%,transparent_70%)]" />
@@ -166,7 +181,10 @@ export default function Hero() {
               <span className="w-2 h-2 bg-[#00ff88] rounded-full animate-pulse-glow" />
               {t("available")}
             </div>
-            <h1 className="text-[clamp(36px,6vw,72px)] font-bold leading-[1.05] tracking-tight text-white mb-5">
+            <h1
+              id="hero-heading"
+              className="text-[clamp(36px,6vw,72px)] font-bold leading-[1.05] tracking-tight text-white mb-5"
+            >
               {t("firstName")}
               <br />
               <span className="bg-gradient-to-r from-[#00ff88] to-[#00ccff] bg-clip-text text-transparent">
