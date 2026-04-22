@@ -1,10 +1,18 @@
-type Variant = "primary" | "accent" | "negative" | "icon";
+type Variant =
+  | "primary"
+  | "accent"
+  | "negative"
+  | "icon"
+  | "scaleDeep"
+  | "scaleBalanced";
 
 const SRC: Record<Variant, string> = {
   primary: "/brand/logo-black.svg",
   accent: "/brand/logo-green.svg",
   negative: "/brand/logo-white.svg",
   icon: "/icon0.svg",
+  scaleDeep: "/brand/logo-scale-deep.svg",
+  scaleBalanced: "/brand/logo-scale-balanced.svg",
 };
 
 type Props = {
