@@ -37,7 +37,7 @@ export default async function Process({ steps }: Props) {
     <section
       id="proceso"
       style={{
-        padding: "clamp(72px, 10vw, 140px) clamp(20px, 4vw, 56px)",
+        padding: "clamp(56px, 7vw, 100px) clamp(20px, 4vw, 56px)",
         borderBottom: "1px solid var(--border)",
       }}
     >
@@ -70,7 +70,7 @@ export default async function Process({ steps }: Props) {
         </h2>
         <p
           className="lead"
-          style={{ maxWidth: 620, margin: "0 0 64px", color: "var(--text-secondary)" }}
+          style={{ maxWidth: 620, margin: "0 0 48px", color: "var(--text-secondary)" }}
         >
           {t("lead")}
         </p>

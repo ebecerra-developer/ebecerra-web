@@ -20,8 +20,7 @@ export default async function About({ features }: Props) {
     <section
       id="sobre-mi"
       style={{
-        padding: "clamp(72px, 10vw, 140px) clamp(20px, 4vw, 56px)",
-        background: "var(--surface-subtle)",
+        padding: "clamp(56px, 7vw, 100px) clamp(20px, 4vw, 56px)",
         borderBottom: "1px solid var(--border)",
       }}
     >
@@ -46,7 +45,7 @@ export default async function About({ features }: Props) {
             fontSize: "clamp(32px, 4.2vw, 56px)",
             lineHeight: 1.1,
             letterSpacing: "-0.025em",
-            margin: "0 0 56px",
+            margin: "0 0 40px",
             maxWidth: 680,
           }}
         >

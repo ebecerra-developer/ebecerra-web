@@ -9,7 +9,7 @@ export default async function Hero() {
     <section
       id="inicio"
       style={{
-        padding: "clamp(64px, 9vw, 120px) clamp(20px, 4vw, 56px) clamp(56px, 7vw, 100px)",
+        padding: "clamp(48px, 7vw, 96px) clamp(20px, 4vw, 56px) clamp(48px, 6vw, 80px)",
         borderBottom: "1px solid var(--border)",
         position: "relative",
         overflow: "hidden",
@@ -113,8 +113,8 @@ export default async function Hero() {
 
           <div
             style={{
-              marginTop: 56,
-              paddingTop: 28,
+              marginTop: 40,
+              paddingTop: 24,
               borderTop: "1px solid var(--border)",
               display: "flex",
               gap: 24,
@@ -152,10 +152,14 @@ export default async function Hero() {
 
       <style>{`
         .hero-grid { grid-template-columns: 1fr; }
-        .hero-monogram-img { width: min(260px, 70vw); opacity: 0.85; margin: 0 auto; }
+        .hero-monogram-img {
+          width: clamp(140px, 26vw, 200px);
+          opacity: 0.9;
+          margin: 0 auto;
+        }
         @media (min-width: 900px) {
           .hero-grid { grid-template-columns: 1.3fr 1fr; }
-          .hero-monogram-img { width: min(500px, 100%); opacity: 1; }
+          .hero-monogram-img { width: min(440px, 100%); opacity: 1; }
         }
       `}</style>
     </section>

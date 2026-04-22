@@ -17,7 +17,8 @@ function SectionFrame({
     <section
       id="casos"
       style={{
-        padding: "clamp(72px, 10vw, 140px) clamp(20px, 4vw, 56px)",
+        padding: "clamp(56px, 7vw, 100px) clamp(20px, 4vw, 56px)",
+        background: "var(--surface-subtle)",
         borderBottom: "1px solid var(--border)",
       }}
     >
@@ -86,7 +87,7 @@ export default async function Case({ caseStudy }: Props) {
           fontSize: "clamp(32px, 4.2vw, 56px)",
           lineHeight: 1.1,
           letterSpacing: "-0.025em",
-          margin: "0 0 56px",
+          margin: "0 0 40px",
           maxWidth: 760,
         }}
       >

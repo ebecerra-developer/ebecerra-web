@@ -83,7 +83,7 @@ export default function Contact() {
     <section
       id="contacto"
       style={{
-        padding: "clamp(72px, 10vw, 140px) clamp(20px, 4vw, 56px)",
+        padding: "clamp(56px, 7vw, 100px) clamp(20px, 4vw, 56px)",
         background: "var(--surface-subtle)",
       }}
     >

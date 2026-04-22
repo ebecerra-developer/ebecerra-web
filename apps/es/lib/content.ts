@@ -33,7 +33,12 @@ const es: Fallback = {
       summary:
         "Tu presencia digital con stack moderno pensado para que dure años, no modas.",
       description: null,
-      deliverables: [],
+      deliverables: [
+        "next.js + sanity cms",
+        "diseño a medida",
+        "seo técnico",
+        "deploy + dominio",
+      ],
       priceRange: "2.500€",
       priceNote: null,
       featured: true,
@@ -46,7 +51,12 @@ const es: Fallback = {
       summary:
         "De WordPress/Joomla legacy a Next.js + CMS headless. Sin perder SEO ni contenido.",
       description: null,
-      deliverables: [],
+      deliverables: [
+        "auditoría previa del stack",
+        "migración de contenido 1:1",
+        "redirects + preservación de seo",
+        "formación del equipo editorial",
+      ],
       priceRange: "3.500€",
       priceNote: null,
       featured: true,
@@ -59,7 +69,12 @@ const es: Fallback = {
       summary:
         "Revisión de rendimiento, SEO técnico, accesibilidad y arquitectura. Te entrego un informe accionable.",
       description: null,
-      deliverables: [],
+      deliverables: [
+        "audit lighthouse · core web vitals",
+        "revisión de stack y arquitectura",
+        "roadmap priorizado 90 días",
+        "1h de debrief",
+      ],
       priceRange: "800€",
       priceNote: null,
       featured: true,
@@ -132,7 +147,12 @@ const en: Fallback = {
       summary:
         "Your digital presence with a modern stack built to last for years, not trends.",
       description: null,
-      deliverables: [],
+      deliverables: [
+        "next.js + sanity cms",
+        "bespoke design",
+        "technical seo",
+        "deploy + domain",
+      ],
       priceRange: "€2,500",
       priceNote: null,
       featured: true,
@@ -145,7 +165,12 @@ const en: Fallback = {
       summary:
         "From legacy WordPress/Joomla to Next.js + headless CMS. No SEO or content loss.",
       description: null,
-      deliverables: [],
+      deliverables: [
+        "stack audit upfront",
+        "1:1 content migration",
+        "redirects + seo preservation",
+        "editorial team training",
+      ],
       priceRange: "€3,500",
       priceNote: null,
       featured: true,
@@ -158,7 +183,12 @@ const en: Fallback = {
       summary:
         "Review of performance, technical SEO, accessibility and architecture. You get an actionable report.",
       description: null,
-      deliverables: [],
+      deliverables: [
+        "lighthouse · core web vitals audit",
+        "stack + architecture review",
+        "90-day prioritized roadmap",
+        "1h debrief",
+      ],
       priceRange: "€800",
       priceNote: null,
       featured: true,
