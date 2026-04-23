@@ -95,16 +95,14 @@ Orden recomendado: empezar por los grandes (Hero, Services) para validar la conv
 
 ---
 
-## Fase D — Cutover `ebecerra.tech`
+## Fase D — Cutover `ebecerra.tech` ✓ completada (2026-04-24)
 
-No urgente. Hacer cuando `apps/tech` tenga contenido técnico listo para publicar y se quiera activar marca técnica.
-
-- [ ] Proyecto Vercel 2 apuntando a `apps/tech` (Root Directory) con `turbo-ignore`
-- [ ] Env vars replicadas (Sanity project/dataset, `SANITY_REVALIDATE_SECRET`, `RESEND_API_KEY`, `CONTACT_TO_EMAIL`)
-- [ ] Dominio `ebecerra.tech` + `www.ebecerra.tech` asignados al proyecto Vercel 2
-- [ ] CORS Sanity con los 4 dominios (es/tech + www)
-- [ ] Webhook adicional Sanity → `https://ebecerra.tech/api/revalidate`
-- [ ] SSL verificado
+- [x] Proyecto Vercel 2 apuntando a `apps/tech` (Root Directory) con `turbo-ignore`
+- [x] Env vars replicadas
+- [x] Dominio `ebecerra.tech` + `www.ebecerra.tech` asignados al proyecto Vercel 2
+- [x] CORS Sanity con los 4 dominios
+- [ ] Webhook adicional Sanity → `https://ebecerra.tech/api/revalidate` (pendiente — misma URL con trailing slash)
+- [x] SSL verificado
 - [ ] Easter eggs del SPA original reactivados en Hero (terminal)
 - [ ] Comunicación pública (LinkedIn tech)
 
