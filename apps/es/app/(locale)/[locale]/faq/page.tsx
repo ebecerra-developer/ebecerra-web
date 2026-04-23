@@ -4,8 +4,9 @@ import type { Locale } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
 import { getFaq } from "@/lib/faq";
+import { getFaqPage, getFaqItems } from "@ebecerra/sanity-client";
 
-export const revalidate = 86400;
+export const revalidate = 1800;
 
 export async function generateMetadata({
   params,
@@ -14,11 +15,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "faq" });
+  const faqPage = await getFaqPage(locale);
   const canonical = locale === "es" ? "/faq" : "/en/faq";
 
+  const title = faqPage?.metaTitle || t("metaTitle");
+  const description = faqPage?.metaDescription || t("metaDescription");
+
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
     robots: { index: true, follow: true },
     alternates: {
       canonical,
@@ -28,8 +33,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: t("metaTitle"),
-      description: t("metaDescription"),
+      title,
+      description,
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
       url: canonical,
@@ -45,7 +50,17 @@ export default async function FaqPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "faq" });
-  const items = getFaq(locale);
+
+  const [faqPage, faqItemsRaw] = await Promise.all([
+    getFaqPage(locale),
+    getFaqItems(locale),
+  ]);
+
+  const localItems = getFaq(locale);
+  const items =
+    faqItemsRaw.length > 0
+      ? faqItemsRaw.map((i) => ({ q: i.question, a: i.answer }))
+      : localItems;
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -80,7 +95,7 @@ export default async function FaqPage({
               fontWeight: 500,
             }}
           >
-            {t("kicker").replace(/^\/\/\s*/, "// ")}
+            {(faqPage?.kicker || t("kicker")).replace(/^\/\/\s*/, "// ")}
           </div>
           <h1
             style={{
@@ -90,7 +105,7 @@ export default async function FaqPage({
               margin: "0 0 16px",
             }}
           >
-            {t("title")}
+            {faqPage?.title || t("title")}
           </h1>
           <p
             className="lead"
@@ -100,7 +115,7 @@ export default async function FaqPage({
               maxWidth: 640,
             }}
           >
-            {t("lead")}
+            {faqPage?.lead || t("lead")}
           </p>
 
           <ul
@@ -189,7 +204,7 @@ export default async function FaqPage({
                 letterSpacing: "-0.015em",
               }}
             >
-              {t("contactTitle")}
+              {faqPage?.contactSectionTitle || t("contactTitle")}
             </h2>
             <p
               style={{
@@ -199,7 +214,7 @@ export default async function FaqPage({
                 lineHeight: 1.65,
               }}
             >
-              {t("contactLead")}
+              {faqPage?.contactSectionLead || t("contactLead")}
             </p>
             <a
               href={locale === "es" ? "/#contacto" : "/en#contacto"}
@@ -216,7 +231,7 @@ export default async function FaqPage({
                 fontSize: 14.5,
               }}
             >
-              {t("contactCta")} →
+              {faqPage?.contactCta || t("contactCta")} →
             </a>
           </section>
         </div>

@@ -13,6 +13,12 @@ import type {
   SiteSettingsMeta,
   ProfileContact,
   Locale,
+  SectionMeta,
+  ServiceSectionMeta,
+  FaqPageData,
+  FaqItem,
+  LegalPageData,
+  ProfileFull,
 } from "./types";
 
 // coalesce(field[$locale], field.es, field) → soporta:
@@ -307,4 +313,129 @@ export async function getCaseStudySlugs(): Promise<string[]> {
   return client.fetch<string[]>(
     `*[_type == "caseStudy" && defined(slug.current)].slug.current`
   );
+}
+
+// --- Fase A4: section metas, faq, legales, profile extendido ---
+
+export async function getSectionMeta(
+  type: "processSectionMeta" | "casesSectionMeta" | "contactSectionMeta",
+  locale: Locale
+): Promise<SectionMeta | null> {
+  return client
+    .fetch<SectionMeta | null>(
+      `*[_type == $type][0] {
+        "kicker": ${loc("kicker")},
+        "title": ${loc("title")},
+        "lead": ${loc("lead")}
+      }`,
+      { type, locale }
+    )
+    .catch(() => null);
+}
+
+export async function getServiceSectionMeta(
+  locale: Locale
+): Promise<ServiceSectionMeta | null> {
+  return client
+    .fetch<ServiceSectionMeta | null>(
+      `*[_type == "serviceSectionMeta"][0] {
+        "kicker": ${loc("kicker")},
+        "title": ${loc("title")},
+        "lead": ${loc("lead")},
+        "auditStrip": auditStrip {
+          "kicker": ${loc("kicker")},
+          "body": ${loc("body")}
+        }
+      }`,
+      { locale }
+    )
+    .catch(() => null);
+}
+
+export async function getFaqPage(locale: Locale): Promise<FaqPageData | null> {
+  return client
+    .fetch<FaqPageData | null>(
+      `*[_type == "faqPage"][0] {
+        "metaTitle": ${loc("metaTitle")},
+        "metaDescription": ${loc("metaDescription")},
+        "kicker": ${loc("kicker")},
+        "title": ${loc("title")},
+        "lead": ${loc("lead")},
+        "contactSectionTitle": ${loc("contactSectionTitle")},
+        "contactSectionLead": ${loc("contactSectionLead")},
+        "contactCta": ${loc("contactCta")}
+      }`,
+      { locale }
+    )
+    .catch(() => null);
+}
+
+export async function getFaqItems(locale: Locale): Promise<FaqItem[]> {
+  return client
+    .fetch<FaqItem[]>(
+      `*[_type == "faqItem"] | order(order asc) {
+        "_id": _id,
+        "question": ${loc("question")},
+        "answer": ${loc("answer")},
+        order,
+        category
+      }`,
+      { locale }
+    )
+    .catch(() => []);
+}
+
+export async function getLegalPage(
+  slug: string,
+  locale: Locale
+): Promise<LegalPageData | null> {
+  return client
+    .fetch<LegalPageData | null>(
+      `*[_type == "legalPage" && slug.current == $slug][0] {
+        "slug": slug.current,
+        "title": ${loc("title")},
+        "metaDescription": ${loc("metaDescription")},
+        "content": coalesce(content[$locale], content.es, []),
+        updatedAt
+      }`,
+      { slug, locale }
+    )
+    .catch(() => null);
+}
+
+export async function getLegalPageSlugs(): Promise<string[]> {
+  return client
+    .fetch<string[]>(
+      `*[_type == "legalPage" && defined(slug.current)].slug.current`
+    )
+    .catch(() => []);
+}
+
+export async function getProfile(locale: Locale): Promise<ProfileFull | null> {
+  return client
+    .fetch<ProfileFull | null>(
+      `*[_type == "profile"][0] {
+        name,
+        "jobTitle": ${loc("jobTitle")},
+        "bio1": ${loc("bio1")},
+        "bio2": ${loc("bio2")},
+        "stats": stats[]{
+          value,
+          "label": ${loc("label")}
+        },
+        "aboutFeatures": aboutFeatures[]{
+          icon,
+          "label": ${loc("label")},
+          "desc": ${loc("desc")}
+        },
+        "contact": contact {
+          email,
+          linkedinUrl,
+          "location": ${loc("location")},
+          "responseTime": ${loc("responseTime")}
+        }
+      }`,
+      { locale }
+    )
+    .catch(() => null);
 }

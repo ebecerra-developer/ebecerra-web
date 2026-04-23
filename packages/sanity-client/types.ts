@@ -109,3 +109,52 @@ export type CaseStudy = CaseStudySummary & {
   images: SanityImage[];
   body: PortableTextBlock[];
 };
+
+export type SectionMeta = {
+  kicker: string | null;
+  title: string | null;
+  lead: string | null;
+};
+
+export type ServiceSectionMeta = SectionMeta & {
+  auditStrip: { kicker: string | null; body: string | null } | null;
+};
+
+export type FaqPageData = {
+  metaTitle: string | null;
+  metaDescription: string | null;
+  kicker: string | null;
+  title: string | null;
+  lead: string | null;
+  contactSectionTitle: string | null;
+  contactSectionLead: string | null;
+  contactCta: string | null;
+};
+
+export type FaqItem = {
+  _id: string;
+  question: string;
+  answer: string;
+  order: number;
+  category: string | null;
+};
+
+export type LegalPageData = {
+  slug: string;
+  title: string;
+  metaDescription: string | null;
+  content: PortableTextBlock[];
+  updatedAt: string | null;
+};
+
+export type ProfileStat = { value: string; label: string };
+
+export type ProfileFull = {
+  name: string | null;
+  jobTitle: string | null;
+  bio1: string | null;
+  bio2: string | null;
+  stats: ProfileStat[];
+  aboutFeatures: Feature[] | null;
+  contact: ProfileContact | null;
+};

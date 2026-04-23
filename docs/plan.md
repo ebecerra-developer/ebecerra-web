@@ -41,11 +41,11 @@
 
 ### A4 — FAQ y legales
 
-- [ ] FAQ headers desde `faqPage`
-- [ ] FAQ items desde colección `faqItem` ordenados por `order`
-- [ ] Ruta dinámica `/[slug]` para legal pages bajo `app/(locale)/[locale]/`
-- [ ] Migrar privacy content existente a `legalPage` con slug `privacidad` (+ EN)
-- [ ] Borrar PrivacyEs/En hardcodeados una vez validado
+- [x] FAQ headers desde `faqPage`
+- [x] FAQ items desde colección `faqItem` ordenados por `order`
+- [x] Ruta dinámica `/[slug]` para legal pages bajo `app/(locale)/[locale]/`
+- [x] Migrar privacy content existente a `legalPage` con slug `privacidad` (+ EN)
+- [x] Borrar PrivacyEs/En hardcodeados una vez validado
 
 ### A5 — Structured Data dinámico
 

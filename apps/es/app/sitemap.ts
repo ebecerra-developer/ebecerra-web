@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
+import { getLegalPageSlugs } from "@ebecerra/sanity-client";
 
 const SITE_URL = "https://ebecerra.es";
 
@@ -8,14 +9,15 @@ function localizedUrl(locale: (typeof routing.locales)[number], path: string = "
   return path ? `${base}${path}` : base;
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const routes: { path: string; priority: number; changeFrequency: "weekly" | "monthly" }[] = [
+
+  const staticRoutes: { path: string; priority: number; changeFrequency: "weekly" | "monthly" }[] = [
     { path: "", priority: 1, changeFrequency: "weekly" },
     { path: "/faq", priority: 0.8, changeFrequency: "monthly" },
   ];
 
-  return routes.flatMap((route) =>
+  const staticEntries = staticRoutes.flatMap((route) =>
     routing.locales.map((locale) => ({
       url: localizedUrl(locale, route.path),
       lastModified: now,
@@ -28,4 +30,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     }))
   );
+
+  const legalSlugs = await getLegalPageSlugs();
+  const legalEntries = legalSlugs.flatMap((slug) =>
+    routing.locales.map((locale) => ({
+      url: localizedUrl(locale, `/${slug}`),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: locale === routing.defaultLocale ? 0.5 : 0.4,
+      alternates: {
+        languages: Object.fromEntries(
+          routing.locales.map((l) => [l, localizedUrl(l, `/${slug}`)])
+        ),
+      },
+    }))
+  );
+
+  return [...staticEntries, ...legalEntries];
 }
