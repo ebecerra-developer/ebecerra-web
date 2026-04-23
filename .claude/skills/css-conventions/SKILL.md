@@ -113,15 +113,19 @@ Todo dentro del module, no fuera:
 }
 ```
 
-## Composición de clases con clsx
+## Composición de clases condicionales
 
-Para clases condicionales, usar `clsx` (instalarlo como dep si hace falta):
+Usar **template literals nativos** — no añadir `clsx` (falló en Vercel monorepo aunque pasaba en local):
 
 ```tsx
-<button className={clsx(styles.button, isPrimary && styles.buttonPrimary)}>
+/* una condición */
+<button className={`${styles.button}${isPrimary ? ` ${styles.buttonPrimary}` : ""}`}>
+
+/* varias condiciones */
+<button className={[styles.button, isPrimary && styles.buttonPrimary, disabled && styles.buttonDisabled].filter(Boolean).join(" ")}>
 ```
 
-Si no hay condicionales, con template strings basta: `` className={`${styles.a} ${styles.b}`} ``.
+Si no hay condicionales, basta con: `` className={`${styles.a} ${styles.b}`} ``.
 
 ## Estilos globales
 
