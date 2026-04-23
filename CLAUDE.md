@@ -15,12 +15,9 @@ El "toggle geek mode" del plan original se sustituye por dominio: cada URL entra
 
 **Archivo histórico:** tags `archive/nextjs-geek-pure` (estado Next.js pre-split, single-app, commit `ba17925`) y `archive/migracion-nextjs-mixed` (estado con Fase B de mix geek+pro, commit `3763044`) permiten rollback si hace falta.
 
-**Pendiente menor** (no bloqueante):
-- Verificar dominio `ebecerra.tech` en Resend cuando se haga el cutover (ya hecho para `ebecerra.es`).
-- Crear segundo proyecto Vercel apuntando a `apps/tech` con sus env vars + cutover DNS cuando se quiera publicar ebecerra.tech.
-
-Plan completo y roadmap: [`docs/plan-migracion-nextjs-sanity.md`](docs/plan-migracion-nextjs-sanity.md).
-Progreso de ejecución: [`docs/progress.md`](docs/progress.md).
+Plan activo con checkboxes: [`docs/plan.md`](docs/plan.md).
+Log de decisiones y sesiones: [`docs/progress.md`](docs/progress.md).
+Plan y progreso originales (Fases 0–9 de la migración, ya cerradas): [`docs/archive/`](docs/archive/).
 
 ## Stack
 
