@@ -47,6 +47,7 @@ export default defineType({
       group: "about",
       of: [
         {
+          name: "profileStat",
           type: "object",
           fields: [
             {

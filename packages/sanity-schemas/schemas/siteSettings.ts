@@ -76,6 +76,7 @@ export default defineType({
           type: "array",
           of: [
             {
+              name: "socialLink",
               type: "object",
               fields: [
                 {
