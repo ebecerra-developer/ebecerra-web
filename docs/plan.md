@@ -101,7 +101,7 @@ Orden recomendado: empezar por los grandes (Hero, Services) para validar la conv
 - [x] Env vars replicadas
 - [x] Dominio `ebecerra.tech` + `www.ebecerra.tech` asignados al proyecto Vercel 2
 - [x] CORS Sanity con los 4 dominios
-- [ ] Webhook adicional Sanity → `https://ebecerra.tech/api/revalidate` (pendiente — misma URL con trailing slash)
+- [x] Webhook adicional Sanity → `https://ebecerra.tech/api/revalidate/` (con trailing slash)
 - [x] SSL verificado
 - [ ] Easter eggs del SPA original reactivados en Hero (terminal)
 - [ ] Comunicación pública (LinkedIn tech)
