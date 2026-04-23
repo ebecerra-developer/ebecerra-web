@@ -7,7 +7,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import StructuredData from "@/components/StructuredData";
-import { getSiteSettings } from "@ebecerra/sanity-client";
+import { getSiteSettingsFull, getProfile, getServices } from "@ebecerra/sanity-client";
 import type { Locale } from "@/i18n/routing";
 import "../../globals.css";
 
@@ -31,10 +31,11 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const [t, sanityMeta] = await Promise.all([
+  const [t, sanitySettings] = await Promise.all([
     getTranslations({ locale, namespace: "metadata" }),
-    getSiteSettings(locale).catch(() => null),
+    getSiteSettingsFull(locale),
   ]);
+  const sanityMeta = sanitySettings.metadata;
 
   const baseUrl = "https://ebecerra.es";
   const canonical = locale === routing.defaultLocale ? baseUrl : `${baseUrl}/${locale}`;
@@ -139,7 +140,12 @@ export default async function LocaleLayout({
     notFound();
   }
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "a11y" });
+  const [t, settings, profile, services] = await Promise.all([
+    getTranslations({ locale, namespace: "a11y" }),
+    getSiteSettingsFull(locale),
+    getProfile(locale),
+    getServices(locale).catch(() => []),
+  ]);
 
   return (
     <html
@@ -153,7 +159,12 @@ export default async function LocaleLayout({
         >
           {t("skipToContent")}
         </a>
-        <StructuredData locale={locale as Locale} />
+        <StructuredData
+          settings={settings}
+          profile={profile}
+          services={services}
+          locale={locale as Locale}
+        />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />

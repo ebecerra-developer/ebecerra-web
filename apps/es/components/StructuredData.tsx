@@ -1,43 +1,70 @@
 import type { Locale } from "@/i18n/routing";
+import type { SiteSettingsFull, ProfileFull, Service } from "@ebecerra/sanity-client";
 
 const SITE_URL = "https://ebecerra.es";
 const TECH_URL = "https://ebecerra.tech";
 const PERSON_URL = `${SITE_URL}/#person`;
 const ORG_URL = `${SITE_URL}/#organization`;
 const WEBSITE_URL = `${SITE_URL}/#website`;
-const SERVICE_URL = `${SITE_URL}/#service`;
 
-type Props = { locale: Locale };
+const DEFAULT_JOB_TITLE_ES = "Desarrollador web freelance para autónomos y PYMEs";
+const DEFAULT_JOB_TITLE_EN = "Freelance web developer for freelancers and SMBs";
+const DEFAULT_DESC_ES =
+  "Desarrollo webs a medida para clínicas, despachos, autónomos y PYMEs. Sin plantillas genéricas. Rápidas, accesibles y pensadas para que tu equipo las mantenga solo.";
+const DEFAULT_DESC_EN =
+  "I build custom websites for clinics, law firms, freelancers and SMBs. No generic templates. Fast, accessible and designed so your team can run them solo.";
+const DEFAULT_ORG_DESC_ES =
+  "Webs a medida para clínicas, despachos, autónomos y PYMEs: webs profesionales de presencia, webs editables con CMS, rescate de webs antiguas sin perder SEO y mantenimiento mensual.";
+const DEFAULT_ORG_DESC_EN =
+  "Custom websites for clinics, law firms, freelancers and SMBs: professional presence sites, editable CMS-powered sites, rescue of legacy sites without SEO loss, and monthly maintenance.";
 
-export default function StructuredData({ locale }: Props) {
-  const inLang = locale === "es" ? "es-ES" : "en-US";
-  const canonical = locale === "es" ? SITE_URL : `${SITE_URL}/${locale}`;
+type Props = {
+  settings: SiteSettingsFull;
+  profile: ProfileFull | null;
+  services: Service[];
+  locale: Locale;
+};
 
-  const person = {
+function buildSameAs(
+  profile: ProfileFull | null,
+  settings: SiteSettingsFull
+): string[] {
+  const links = [
+    profile?.contact?.linkedinUrl,
+    ...settings.footer.socialLinks.map((s) => s.url),
+    TECH_URL,
+  ].filter((v): v is string => Boolean(v));
+  return [...new Set(links)];
+}
+
+function buildPerson(
+  profile: ProfileFull | null,
+  settings: SiteSettingsFull,
+  locale: Locale
+) {
+  const sameAs = buildSameAs(profile, settings);
+  return {
     "@type": "Person",
     "@id": PERSON_URL,
-    name: "Enrique Becerra",
+    name: profile?.name ?? "Enrique Becerra",
     alternateName: "eBecerra",
     url: SITE_URL,
     image: `${SITE_URL}/brand/web-app-manifest-512x512.png`,
     jobTitle:
-      locale === "es"
-        ? "Desarrollador web freelance para autónomos y PYMEs"
-        : "Freelance web developer for freelancers and SMBs",
+      profile?.jobTitle ??
+      (locale === "es" ? DEFAULT_JOB_TITLE_ES : DEFAULT_JOB_TITLE_EN),
     description:
-      locale === "es"
-        ? "Desarrollo webs a medida para clínicas, despachos, autónomos y PYMEs. Sin plantillas genéricas. Rápidas, accesibles y pensadas para que tu equipo las mantenga solo."
-        : "I build custom websites for clinics, law firms, freelancers and SMBs. No generic templates. Fast, accessible and designed so your team can run them solo.",
+      profile?.bio1 ??
+      (locale === "es" ? DEFAULT_DESC_ES : DEFAULT_DESC_EN),
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Madrid",
+      addressLocality: profile?.contact?.location ?? "Madrid",
       addressCountry: "ES",
     },
-    email: "mailto:contacto@ebecerra.es",
-    sameAs: [
-      "https://www.linkedin.com/in/enrique-becerra-garcia/",
-      TECH_URL,
-    ],
+    email: profile?.contact?.email
+      ? `mailto:${profile.contact.email}`
+      : "mailto:contacto@ebecerra.es",
+    sameAs,
     knowsAbout: [
       "Desarrollo web a medida",
       "Accesibilidad web",
@@ -48,19 +75,27 @@ export default function StructuredData({ locale }: Props) {
     ],
     worksFor: { "@id": ORG_URL },
   };
+}
 
-  const organization = {
+function buildOrganization(
+  settings: SiteSettingsFull,
+  profile: ProfileFull | null,
+  locale: Locale
+) {
+  const sameAs = buildSameAs(profile, settings);
+  return {
     "@type": "ProfessionalService",
     "@id": ORG_URL,
-    name: "Enrique Becerra — Desarrollo web freelance",
+    name:
+      settings.metadata.title ??
+      "Enrique Becerra — Desarrollo web freelance",
     alternateName: "eBecerra",
     url: SITE_URL,
     logo: `${SITE_URL}/brand/web-app-manifest-512x512.png`,
     image: `${SITE_URL}/brand/web-app-manifest-512x512.png`,
     description:
-      locale === "es"
-        ? "Webs a medida para clínicas, despachos, autónomos y PYMEs: webs profesionales de presencia, webs editables con CMS, rescate de webs antiguas sin perder SEO y mantenimiento mensual."
-        : "Custom websites for clinics, law firms, freelancers and SMBs: professional presence sites, editable CMS-powered sites, rescue of legacy sites without SEO loss, and monthly maintenance.",
+      settings.metadata.description ??
+      (locale === "es" ? DEFAULT_ORG_DESC_ES : DEFAULT_ORG_DESC_EN),
     founder: { "@id": PERSON_URL },
     areaServed: [
       { "@type": "Country", name: "Spain" },
@@ -69,35 +104,46 @@ export default function StructuredData({ locale }: Props) {
     priceRange: "€€",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Madrid",
+      addressLocality: profile?.contact?.location ?? "Madrid",
       addressCountry: "ES",
     },
     contactPoint: {
       "@type": "ContactPoint",
-      email: "contacto@ebecerra.es",
+      email: profile?.contact?.email ?? "contacto@ebecerra.es",
       contactType: "customer support",
       areaServed: ["ES", "Worldwide"],
       availableLanguage: ["Spanish", "English"],
     },
-    sameAs: [
-      "https://www.linkedin.com/in/enrique-becerra-garcia/",
-      TECH_URL,
-    ],
+    sameAs,
   };
+}
 
-  const website = {
+function buildWebsite(locale: Locale) {
+  return {
     "@type": "WebSite",
     "@id": WEBSITE_URL,
     url: SITE_URL,
     name: "Enrique Becerra",
-    inLanguage: inLang,
+    inLanguage: locale === "es" ? "es-ES" : "en-US",
     publisher: { "@id": ORG_URL },
     about: { "@id": PERSON_URL },
   };
+}
 
-  const service = {
+function buildServiceGraph(services: Service[], locale: Locale) {
+  const canonical = locale === "es" ? SITE_URL : `${SITE_URL}/${locale}`;
+  const serviceItems = services.map((s) => ({
     "@type": "Service",
-    "@id": SERVICE_URL,
+    "@id": `${SITE_URL}/#service-${s.slug}`,
+    name: s.title,
+    description: s.summary,
+    provider: { "@id": ORG_URL },
+    url: `${canonical}#servicios`,
+  }));
+
+  const aggregate = {
+    "@type": "Service",
+    "@id": `${SITE_URL}/#service`,
     serviceType:
       locale === "es"
         ? "Desarrollo web para autónomos y PYMEs"
@@ -122,9 +168,18 @@ export default function StructuredData({ locale }: Props) {
     },
   };
 
+  return serviceItems.length > 0 ? [...serviceItems, aggregate] : [aggregate];
+}
+
+export default function StructuredData({ settings, profile, services, locale }: Props) {
   const graph = {
     "@context": "https://schema.org",
-    "@graph": [person, organization, website, service],
+    "@graph": [
+      buildPerson(profile, settings, locale),
+      buildOrganization(settings, profile, locale),
+      buildWebsite(locale),
+      ...buildServiceGraph(services, locale),
+    ],
   };
 
   return (

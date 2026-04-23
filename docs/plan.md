@@ -49,9 +49,9 @@
 
 ### A5 — Structured Data dinámico
 
-- [ ] JSON-LD (Person, Organization, WebSite, Service) alimentado desde `siteSettings`
-- [ ] Verificar con Google Rich Results Test
-- [ ] Extraer `Service` schema del JSON-LD desde docs `service` publicados
+- [x] JSON-LD (Person, Organization, WebSite, Service) alimentado desde `siteSettings`
+- [ ] Verificar con Google Rich Results Test (pendiente en preview)
+- [x] Extraer `Service` schema del JSON-LD desde docs `service` publicados
 
 **Riesgo principal:** Sanity down → cada sección debe degradar al fallback local de `messages/*.json` sin romper la home.
 
@@ -76,8 +76,8 @@ Orden recomendado: empezar por los grandes (Hero, Services) para validar la conv
 - [x] `Contact.tsx`
 - [x] `Footer.tsx`
 - [x] `LogoMark.tsx` (width/display al module; height sigue inline — valor generado por prop)
-- [ ] FAQ components (cuando los haya)
-- [ ] Legal page components (cuando se migren a Sanity)
+- [ ] `faq/page.tsx` — inline styles + `<style>` block con `.faq-item` transitions (A4 ya completo)
+- [ ] `[slug]/page.tsx` — Tailwind utilities en `main` + `<style>` block con `.prose-legal` (A4 ya completo)
 
 **Orden con Fase A:** B va después de A en teoría (para no tocar los mismos archivos dos veces). En la práctica la separación CSS/datos es limpia: B solo toca estilos; A toca props y queries en `page.tsx`. No hubo conflicto haciéndolas en paralelo — nota obsoleta.
 
