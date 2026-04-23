@@ -49,7 +49,7 @@ const structure: StructureResolver = (S) =>
                 .title("Hero")
                 .id("heroSection")
                 .child(
-                  S.document().schemaType("heroSection").documentId("heroSection")
+                  S.document().schemaType("heroSection").documentId("8d0cdc27-e77a-413f-97b3-295cffeeef0d")
                 ),
               S.listItem()
                 .title("Sección · Servicios")
@@ -57,7 +57,7 @@ const structure: StructureResolver = (S) =>
                 .child(
                   S.document()
                     .schemaType("serviceSectionMeta")
-                    .documentId("serviceSectionMeta")
+                    .documentId("a6675cf9-f20f-4741-82dc-f4f6f2504264")
                 ),
               S.listItem()
                 .title("Sección · Proceso")
@@ -65,7 +65,7 @@ const structure: StructureResolver = (S) =>
                 .child(
                   S.document()
                     .schemaType("processSectionMeta")
-                    .documentId("processSectionMeta")
+                    .documentId("5e6bf4ca-36ba-4537-b015-b6cb7bf76fcc")
                 ),
               S.listItem()
                 .title("Sección · Casos")
@@ -73,7 +73,7 @@ const structure: StructureResolver = (S) =>
                 .child(
                   S.document()
                     .schemaType("casesSectionMeta")
-                    .documentId("casesSectionMeta")
+                    .documentId("3fbbc4f8-48c6-4adc-9ae8-15123db6a005")
                 ),
               S.listItem()
                 .title("Sección · Contacto")
@@ -81,7 +81,7 @@ const structure: StructureResolver = (S) =>
                 .child(
                   S.document()
                     .schemaType("contactSectionMeta")
-                    .documentId("contactSectionMeta")
+                    .documentId("b2746aef-0e12-44a1-83b3-9ffe84551f32")
                 ),
             ])
         ),
@@ -95,17 +95,24 @@ const structure: StructureResolver = (S) =>
                 .title("Ajustes del sitio")
                 .id("siteSettings")
                 .child(
-                  S.document().schemaType("siteSettings").documentId("siteSettings")
+                  S.document().schemaType("siteSettings").documentId("de40d1fb-51ab-46d3-83c6-ffebefe05016")
                 ),
+              // Perfil existe con UUID legacy — se resuelve por filtro hasta
+              // migrar a documentId "profile". Con document.actions bloqueando
+              // create/duplicate sigue siendo singleton de facto.
               S.listItem()
                 .title("Perfil")
-                .id("profile")
-                .child(S.document().schemaType("profile").documentId("profile")),
+                .id("profile-singleton")
+                .child(
+                  S.documentTypeList("profile")
+                    .title("Perfil")
+                    .filter('_type == "profile"')
+                ),
               S.listItem()
                 .title("Página FAQ (meta)")
                 .id("faqPage")
                 .child(
-                  S.document().schemaType("faqPage").documentId("faqPage")
+                  S.document().schemaType("faqPage").documentId("2fccf962-b05c-4377-a421-efa1cca17b78")
                 ),
             ])
         ),
