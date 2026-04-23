@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import type { Service } from "@ebecerra/sanity-client";
+import styles from "./Services.module.css";
 
 type Props = {
   services: Service[];
@@ -12,183 +13,53 @@ export default async function Services({ services }: Props) {
     <section
       id="servicios"
       aria-labelledby="services-heading"
-      style={{
-        padding: "clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px)",
-        background: "var(--surface-subtle)",
-        borderBottom: "1px solid var(--border)",
-      }}
+      className={styles.section}
     >
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 12,
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            color: "var(--text-muted)",
-            marginBottom: 14,
-            fontWeight: 500,
-          }}
-        >
+      <div className={styles.inner}>
+        <div className={styles.kicker}>
           //{" "}
-          <span style={{ color: "var(--cta)" }}>01.</span>{" "}
+          <span className={styles.kickerAccent}>01.</span>{" "}
           {t("kicker").replace(/^\/\/\s*01\.\s*/i, "")}
         </div>
-        <h2
-          id="services-heading"
-          style={{
-            fontSize: "clamp(32px, 4.2vw, 56px)",
-            lineHeight: 1.1,
-            letterSpacing: "-0.025em",
-            margin: "0 0 16px",
-            maxWidth: 760,
-          }}
-        >
+        <h2 id="services-heading" className={styles.heading}>
           {t("title")}
         </h2>
-        <p
-          className="lead"
-          style={{ maxWidth: 620, margin: "0 0 32px", color: "var(--text-secondary)" }}
-        >
+        <p className={`lead ${styles.lead}`}>
           {t("lead")}
         </p>
 
-        <div
-          className="services-grid"
-          style={{
-            display: "grid",
-            gap: 20,
-          }}
-        >
+        <div className={styles.grid}>
           {services.map((service, index) => (
-            <article
-              key={service._id}
-              className="service-card"
-              style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: 10,
-                padding: "clamp(24px, 3.5vw, 36px) clamp(22px, 3vw, 32px)",
-                display: "flex",
-                flexDirection: "column",
-                gap: 20,
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--cta)",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  fontWeight: 500,
-                }}
-              >
+            <article key={service._id} className={styles.card}>
+              <div className={styles.cardIndex}>
                 // {String(index + 1).padStart(2, "0")}
               </div>
-              <h3
-                style={{
-                  margin: 0,
-                  fontSize: 22,
-                  fontWeight: 700,
-                  letterSpacing: "-0.015em",
-                  lineHeight: 1.2,
-                }}
-              >
-                {service.title}
-              </h3>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: 15,
-                  color: "var(--text-secondary)",
-                  lineHeight: 1.65,
-                  flex: 1,
-                }}
-              >
-                {service.summary}
-              </p>
+              <h3 className={styles.cardTitle}>{service.title}</h3>
+              <p className={styles.cardSummary}>{service.summary}</p>
 
               {service.deliverables.length > 0 && (
-                <ul
-                  style={{
-                    margin: 0,
-                    padding: "20px 0 0",
-                    listStyle: "none",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 8,
-                    borderTop: "1px solid var(--border)",
-                  }}
-                >
+                <ul className={styles.deliverablesList}>
                   {service.deliverables.map((item) => (
-                    <li
-                      key={item}
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: 12.5,
-                        color: "var(--text-secondary)",
-                        display: "flex",
-                        gap: 10,
-                        alignItems: "baseline",
-                      }}
-                    >
-                      <span style={{ color: "var(--cta)", fontWeight: 600 }}>
-                        →
-                      </span>
+                    <li key={item} className={styles.deliverableItem}>
+                      <span className={styles.deliverableArrow}>→</span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               )}
 
-              <div
-                style={{
-                  paddingTop: 16,
-                  borderTop: "1px solid var(--border)",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-end",
-                  gap: 12,
-                }}
-              >
-                <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0 }}>
+              <div className={styles.cardFooter}>
+                <div className={styles.priceBlock}>
                   {service.priceRange && (
-                    <span
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: 13,
-                        fontWeight: 600,
-                        color: "var(--text)",
-                      }}
-                    >
+                    <span className={styles.priceRange}>
                       {t("priceFrom")} {service.priceRange}
                     </span>
                   )}
                   {service.priceNote && (
-                    <span
-                      style={{
-                        fontFamily: "var(--font-sans)",
-                        fontSize: 11.5,
-                        color: "var(--text-muted)",
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      {service.priceNote}
-                    </span>
+                    <span className={styles.priceNote}>{service.priceNote}</span>
                   )}
                 </div>
-                <a
-                  href="#contacto"
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 13.5,
-                    color: "var(--cta)",
-                    textDecoration: "none",
-                    fontWeight: 500,
-                    whiteSpace: "nowrap",
-                  }}
-                >
+                <a href="#contacto" className={styles.viewMore}>
                   {t("viewMore")} →
                 </a>
               </div>
@@ -197,80 +68,20 @@ export default async function Services({ services }: Props) {
         </div>
 
         <aside
-          className="services-audit"
+          className={styles.audit}
           aria-labelledby="services-audit-heading"
-          style={{
-            marginTop: 32,
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            borderLeft: "3px solid var(--cta)",
-            borderRadius: 10,
-            padding: "clamp(20px, 3vw, 28px) clamp(22px, 3vw, 32px)",
-            display: "flex",
-            gap: 20,
-            alignItems: "center",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-          }}
         >
-          <div style={{ flex: "1 1 320px", minWidth: 0 }}>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                color: "var(--cta)",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                fontWeight: 500,
-                marginBottom: 6,
-              }}
-            >
-              // {t("auditKicker")}
-            </div>
-            <p
-              id="services-audit-heading"
-              style={{
-                margin: 0,
-                fontSize: 15,
-                color: "var(--text-secondary)",
-                lineHeight: 1.55,
-              }}
-            >
+          <div className={styles.auditBody}>
+            <div className={styles.auditKicker}>// {t("auditKicker")}</div>
+            <p id="services-audit-heading" className={styles.auditText}>
               {t("auditBody")}
             </p>
           </div>
-          <a
-            href="#contacto"
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 14,
-              color: "var(--cta)",
-              textDecoration: "none",
-              fontWeight: 600,
-              whiteSpace: "nowrap",
-              borderBottom: "1px solid var(--cta-soft-strong)",
-              paddingBottom: 2,
-            }}
-          >
+          <a href="#contacto" className={styles.auditCta}>
             {t("auditCta")} →
           </a>
         </aside>
       </div>
-
-      <style>{`
-        .services-grid { grid-template-columns: 1fr; }
-        .service-card {
-          transition: transform 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
-        }
-        .service-card:hover {
-          transform: translateY(-2px);
-          border-color: var(--cta);
-          box-shadow: var(--sh-2);
-        }
-        @media (min-width: 720px) {
-          .services-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-      `}</style>
     </section>
   );
 }
