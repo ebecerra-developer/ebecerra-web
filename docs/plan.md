@@ -91,7 +91,7 @@ Orden recomendado: empezar por los grandes (Hero, Services) para validar la conv
 - [x] OG image dinámica con `next/og` (`app/opengraph-image.tsx`, runtime edge, 1200×630)
 - [ ] Auditoría Lighthouse ≥ 90 en Perf/A11y/Best/SEO contra `ebecerra.es` prod
 - [x] Verificar CORS Sanity con dominios prod (ebecerra.es, www.ebecerra.es, localhost:3000, https://localhost:3000 — todos Allowed)
-- [ ] Verificar webhook de Sanity revalidando `/` y `/en` tras publish real
+- [x] Verificar webhook de Sanity revalidando `/` y `/en` tras publish real (verificado 2026-04-24: trailing slash + useCdn false + revalidatePath layout)
 
 ---
 
