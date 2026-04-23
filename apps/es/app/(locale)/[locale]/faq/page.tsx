@@ -3,8 +3,12 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
+import FaqIntro from "@/components/faq/FaqIntro";
+import FaqList from "@/components/faq/FaqList";
+import FaqContactBlock from "@/components/faq/FaqContactBlock";
 import { getFaq } from "@/lib/faq";
 import { getFaqPage, getFaqItems } from "@ebecerra/sanity-client";
+import styles from "./Faq.module.css";
 
 export const revalidate = 1800;
 
@@ -82,168 +86,23 @@ export default async function FaqPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Nav />
-      <main id="main" style={{ padding: "clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px)" }}>
-        <div style={{ maxWidth: 820, margin: "0 auto" }}>
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 12,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--text-muted)",
-              marginBottom: 14,
-              fontWeight: 500,
-            }}
-          >
-            {(faqPage?.kicker || t("kicker")).replace(/^\/\/\s*/, "// ")}
-          </div>
-          <h1
-            style={{
-              fontSize: "clamp(32px, 4.2vw, 52px)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.025em",
-              margin: "0 0 16px",
-            }}
-          >
-            {faqPage?.title || t("title")}
-          </h1>
-          <p
-            className="lead"
-            style={{
-              margin: "0 0 40px",
-              color: "var(--text-secondary)",
-              maxWidth: 640,
-            }}
-          >
-            {faqPage?.lead || t("lead")}
-          </p>
-
-          <ul
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-            }}
-          >
-            {items.map((item, idx) => (
-              <li
-                key={idx}
-                style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--border)",
-                  borderRadius: 10,
-                }}
-              >
-                <details className="faq-item">
-                  <summary
-                    style={{
-                      cursor: "pointer",
-                      padding: "18px 22px",
-                      fontSize: 17,
-                      fontWeight: 600,
-                      color: "var(--text)",
-                      listStyle: "none",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "baseline",
-                      gap: 16,
-                    }}
-                  >
-                    <span>{item.q}</span>
-                    <span
-                      aria-hidden
-                      className="faq-icon"
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        color: "var(--cta)",
-                        fontSize: 18,
-                        flexShrink: 0,
-                      }}
-                    >
-                      +
-                    </span>
-                  </summary>
-                  <div
-                    style={{
-                      padding: "0 22px 20px",
-                      fontSize: 15,
-                      lineHeight: 1.7,
-                      color: "var(--text-secondary)",
-                    }}
-                  >
-                    {item.a}
-                  </div>
-                </details>
-              </li>
-            ))}
-          </ul>
-
-          <section
-            aria-labelledby="faq-contact"
-            style={{
-              marginTop: 56,
-              padding: "32px clamp(22px, 3vw, 36px)",
-              background: "var(--surface-subtle)",
-              border: "1px solid var(--border)",
-              borderRadius: 12,
-              display: "flex",
-              flexDirection: "column",
-              gap: 16,
-              alignItems: "flex-start",
-            }}
-          >
-            <h2
-              id="faq-contact"
-              style={{
-                margin: 0,
-                fontSize: 22,
-                fontWeight: 700,
-                letterSpacing: "-0.015em",
-              }}
-            >
-              {faqPage?.contactSectionTitle || t("contactTitle")}
-            </h2>
-            <p
-              style={{
-                margin: 0,
-                color: "var(--text-secondary)",
-                fontSize: 15,
-                lineHeight: 1.65,
-              }}
-            >
-              {faqPage?.contactSectionLead || t("contactLead")}
-            </p>
-            <a
-              href={locale === "es" ? "/#contacto" : "/en#contacto"}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                background: "var(--cta)",
-                color: "#fff",
-                textDecoration: "none",
-                padding: "12px 20px",
-                borderRadius: 8,
-                fontWeight: 600,
-                fontSize: 14.5,
-              }}
-            >
-              {faqPage?.contactCta || t("contactCta")} →
-            </a>
-          </section>
+      <main id="main" className={styles.main}>
+        <div className={styles.container}>
+          <FaqIntro
+            kicker={faqPage?.kicker || t("kicker")}
+            title={faqPage?.title || t("title")}
+            lead={faqPage?.lead || t("lead")}
+          />
+          <FaqList items={items} />
+          <FaqContactBlock
+            title={faqPage?.contactSectionTitle || t("contactTitle")}
+            lead={faqPage?.contactSectionLead || t("contactLead")}
+            cta={faqPage?.contactCta || t("contactCta")}
+            href={locale === "es" ? "/#contacto" : "/en#contacto"}
+          />
         </div>
       </main>
       <Footer />
-
-      <style>{`
-        .faq-item summary::-webkit-details-marker { display: none; }
-        .faq-item[open] .faq-icon { transform: rotate(45deg); }
-        .faq-icon { transition: transform 180ms var(--ease); display: inline-block; }
-        .faq-item summary:hover { background: var(--surface-subtle); border-radius: 10px; }
-      `}</style>
     </>
   );
 }

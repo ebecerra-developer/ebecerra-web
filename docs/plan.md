@@ -76,8 +76,8 @@ Orden recomendado: empezar por los grandes (Hero, Services) para validar la conv
 - [x] `Contact.tsx`
 - [x] `Footer.tsx`
 - [x] `LogoMark.tsx` (width/display al module; height sigue inline — valor generado por prop)
-- [ ] `faq/page.tsx` — inline styles + `<style>` block con `.faq-item` transitions (A4 ya completo)
-- [ ] `[slug]/page.tsx` — Tailwind utilities en `main` + `<style>` block con `.prose-legal` (A4 ya completo)
+- [x] `faq/page.tsx` + extracción `components/faq/{FaqIntro,FaqList,FaqItem,FaqContactBlock}` con modules co-located
+- [x] `[slug]/page.tsx` + extracción `components/legal/LegalContent` con module co-located
 
 **Orden con Fase A:** B va después de A en teoría (para no tocar los mismos archivos dos veces). En la práctica la separación CSS/datos es limpia: B solo toca estilos; A toca props y queries en `page.tsx`. No hubo conflicto haciéndolas en paralelo — nota obsoleta.
 
