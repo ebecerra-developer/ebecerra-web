@@ -39,7 +39,10 @@
     "lead": "Cuatro formas de trabajar juntos, con precios claros desde el primer contacto. Si no sabes cuál encaja con tu caso, escríbeme y te oriento sin compromiso.",
     "priceFrom": "desde",
     "priceOnRequest": "Presupuesto a medida",
-    "viewMore": "Ver detalles"
+    "viewMore": "Ver detalles",
+    "auditKicker": "sin coste",
+    "auditBody": "¿No sabes cuál encaja con tu caso o quieres segunda opinión sobre tu web actual? 30 min de conversación y un mini-informe por email. Sin venta.",
+    "auditCta": "Reservar 30 min"
   },
   "cases": {
     "kicker": "// Casos destacados",

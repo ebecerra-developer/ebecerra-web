@@ -195,6 +195,66 @@ export default async function Services({ services }: Props) {
             </article>
           ))}
         </div>
+
+        <aside
+          className="services-audit"
+          aria-labelledby="services-audit-heading"
+          style={{
+            marginTop: 32,
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            borderLeft: "3px solid var(--cta)",
+            borderRadius: 10,
+            padding: "clamp(20px, 3vw, 28px) clamp(22px, 3vw, 32px)",
+            display: "flex",
+            gap: 20,
+            alignItems: "center",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+          }}
+        >
+          <div style={{ flex: "1 1 320px", minWidth: 0 }}>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 11,
+                color: "var(--cta)",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+                marginBottom: 6,
+              }}
+            >
+              // {t("auditKicker")}
+            </div>
+            <p
+              id="services-audit-heading"
+              style={{
+                margin: 0,
+                fontSize: 15,
+                color: "var(--text-secondary)",
+                lineHeight: 1.55,
+              }}
+            >
+              {t("auditBody")}
+            </p>
+          </div>
+          <a
+            href="#contacto"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 14,
+              color: "var(--cta)",
+              textDecoration: "none",
+              fontWeight: 600,
+              whiteSpace: "nowrap",
+              borderBottom: "1px solid var(--cta-soft-strong)",
+              paddingBottom: 2,
+            }}
+          >
+            {t("auditCta")} →
+          </a>
+        </aside>
       </div>
 
       <style>{`
