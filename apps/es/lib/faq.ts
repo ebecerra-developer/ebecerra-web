@@ -4,12 +4,16 @@ export type FaqItem = { q: string; a: string };
 
 const es: FaqItem[] = [
   {
+    q: "¿Cuál es la diferencia entre la web de 900 € y la de 1.500 €?",
+    a: "La web profesional (900 €) está pensada para negocios que necesitan presencia online limpia y rápida pero no van a actualizarla a menudo: clínicas, despachos, estudios, servicios locales. La hago a medida y tú me pides cambios puntuales cuando toque. La web editable (1.500 €) añade un CMS profesional encima para que tu equipo publique noticias, casos, novedades o fichas sin llamarme. Si vas a tocar contenido más de una vez al trimestre, la editable se amortiza en pocos meses.",
+  },
+  {
     q: "¿Cuánto tarda un proyecto web?",
-    a: "Depende del alcance. Una web corporativa con 5-8 secciones suele entregarse en 4-6 semanas desde la firma del presupuesto. Una migración grande puede ir a 2-3 meses. En la primera conversación te doy un plazo concreto con hitos semanales, no un rango vago.",
+    a: "Depende del servicio. Una web de presencia (900 €) se entrega en 2-3 semanas. Una web editable con CMS (1.500 €) en 4-6 semanas. Un rescate de una web antigua puede ir a 2-3 meses según lo que haya que mover y reescribir. En la primera conversación te doy un plazo concreto con hitos semanales, no un rango vago.",
   },
   {
     q: "¿Cómo se paga un proyecto?",
-    a: "30 % al firmar el presupuesto (reserva de calendario y arranque), 40 % al alcanzar el hito intermedio acordado y 30 % a la entrega en producción. Facturas con IVA y sin adelantos del 100 %. Todo por transferencia.",
+    a: "30 % al firmar el presupuesto (reserva de calendario y arranque), 40 % al alcanzar el hito intermedio acordado y 30 % a la entrega en producción. Facturas con IVA y sin adelantos del 100 %. El mantenimiento mensual (60 €/mes) se factura aparte, sin permanencia: te das de baja cuando quieras. Todo por transferencia.",
   },
   {
     q: "¿Qué pasa si no me gusta el diseño?",
@@ -21,7 +25,7 @@ const es: FaqItem[] = [
   },
   {
     q: "¿Quién mantiene la web después de entregarla?",
-    a: "La web queda montada sobre un CMS profesional para que tu equipo publique y actualice sin depender de mí. Incluyo formación al equipo editorial y 3 meses de soporte técnico tras la entrega. Pasado ese tiempo, ofrezco mantenimiento mensual o por bolsas de horas según lo que necesites.",
+    a: "Depende de lo que prefieras. Si contratas la web editable (1.500 €), tu equipo publica y actualiza sin llamarme: incluyo formación y 3 meses de soporte técnico tras la entrega. Si no quieres preocuparte por nada, está el plan de mantenimiento mensual (60 €/mes): alojamiento, copias de seguridad, pequeños cambios y alguien a quien llamar cuando algo no funciona. Sin permanencia, bajas cuando quieras.",
   },
   {
     q: "¿Tu web entra en el Kit Digital?",
@@ -39,12 +43,16 @@ const es: FaqItem[] = [
 
 const en: FaqItem[] = [
   {
+    q: "What's the difference between the €900 site and the €1,500 one?",
+    a: "The professional website (€900) is designed for businesses that need clean, fast online presence but won't update it often: clinics, law firms, studios, local services. I build it custom and you reach out when you need a change. The editable website (€1,500) adds a professional CMS on top so your team can publish news, cases, updates or product pages without calling me. If you'll touch content more than once a quarter, the editable one pays for itself in a few months.",
+  },
+  {
     q: "How long does a web project take?",
-    a: "It depends on scope. A corporate site with 5-8 sections usually ships 4-6 weeks from signing the quote. A larger migration can take 2-3 months. On our first call I give you a concrete timeline with weekly milestones, not a vague range.",
+    a: "It depends on the service. A presence site (€900) ships in 2-3 weeks. An editable site with a CMS (€1,500) in 4-6 weeks. A rescue of a legacy site can go to 2-3 months depending on what needs to be moved and rewritten. On our first call I give you a concrete timeline with weekly milestones, not a vague range.",
   },
   {
     q: "How do payments work?",
-    a: "30% on signing the quote (schedule reserved, work starts), 40% on the agreed mid-project milestone and 30% on live delivery. Invoices include VAT and there are no 100% upfront payments. All by bank transfer.",
+    a: "30% on signing the quote (schedule reserved, work starts), 40% on the agreed mid-project milestone and 30% on live delivery. Invoices include VAT and there are no 100% upfront payments. Monthly maintenance (€60/month) is billed separately, no lock-in, cancel whenever you want. All by bank transfer.",
   },
   {
     q: "What if I don't like the design?",
@@ -56,7 +64,7 @@ const en: FaqItem[] = [
   },
   {
     q: "Who maintains the site after delivery?",
-    a: "The site runs on a professional CMS so your team can publish and update without depending on me. I include editorial team training and 3 months of technical support after delivery. After that, I offer monthly maintenance or prepaid hours, depending on what you need.",
+    a: "It depends on what you prefer. If you pick the editable site (€1,500), your team publishes and updates without calling me: I include training and 3 months of technical support after delivery. If you'd rather not worry about anything, there's the monthly maintenance plan (€60/month): hosting, backups, small changes and someone to call when something breaks. No lock-in, cancel whenever you want.",
   },
   {
     q: "Does your work qualify for Spain's Kit Digital grant?",
