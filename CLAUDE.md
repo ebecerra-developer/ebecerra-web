@@ -7,7 +7,7 @@ Portfolio personal de Enrique Becerra, Tech Architect Lead en VASS y especialist
 **Estado (2026-04-23, post-cutover):** `main` es el **monorepo** en producción con dos apps sobre un único Sanity compartido:
 
 - **[`apps/es`](apps/es/)** → `ebecerra.es` — modo pro, escaparate comercial para autónomos/PYMEs. Home con 8 secciones. 4 servicios en grid 2x2 (Web profesional 900 €, Web editable 1.500 €, Rescate 2.500 €, Mantenimiento 60 €/mes). Sanity wired para services/process/profile; cases desde fallback estático. Form de contacto con Resend.
-- **[`apps/tech`](apps/tech/)** → `ebecerra.tech` — modo geek. Next.js CV-style (8 secciones). Pendiente cutover DNS (plan Fase D).
+- **[`apps/tech`](apps/tech/)** → `ebecerra.tech` — modo geek. Next.js CV-style (8 secciones). Live desde 2026-04-24. El contenido (experience, skills, techTags, projects) viene de Sanity — `apps/tech/lib/content.ts` es solo fallback. Para añadir o editar proyectos, experiencia o skills, hacerlo en Sanity (type `project`, `experience`, `skill`, `techTag`) y publicar; no editar el fallback.
 
 El "toggle geek mode" original se sustituyó por dominio: cada URL entra en su modo por defecto.
 
