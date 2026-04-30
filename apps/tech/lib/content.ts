@@ -142,9 +142,16 @@ const es: Fallback = {
       description:
         "Juego de puzzles con fotos personales. Engine en Canvas, 8 idiomas (react-i18next) y empaquetado nativo para Android. Publicado en Google Play.",
       tech: ["React", "Vite", "Canvas API", "Capacitor", "Android"],
-      status: "beta",
-      statusText: "beta disponible",
-      links: [{ text: "$ ver_landing", href: "/piezas-game/", external: true }],
+      status: "live",
+      statusText: "en Google Play",
+      links: [
+        { text: "$ ver_landing", href: "/piezas-game/", external: true },
+        {
+          text: "$ google_play →",
+          href: "https://play.google.com/store/apps/details?id=es.ebecerra.piezasgame",
+          external: true,
+        },
+      ],
     },
     {
       id: "rpg",
@@ -308,9 +315,16 @@ const en: Fallback = {
       description:
         "Puzzle game with personal photos. Canvas engine, 8 languages (react-i18next) and native Android packaging. Live on Google Play.",
       tech: ["React", "Vite", "Canvas API", "Capacitor", "Android"],
-      status: "beta",
-      statusText: "beta available",
-      links: [{ text: "$ view_landing", href: "/piezas-game/", external: true }],
+      status: "live",
+      statusText: "live on Google Play",
+      links: [
+        { text: "$ view_landing", href: "/piezas-game/", external: true },
+        {
+          text: "$ google_play →",
+          href: "https://play.google.com/store/apps/details?id=es.ebecerra.piezasgame",
+          external: true,
+        },
+      ],
     },
     {
       id: "rpg",

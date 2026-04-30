@@ -40,12 +40,10 @@ Mismos valores que la app, definidos como variables CSS locales en `styles.css`:
 
 ## Cosas a actualizar antes de publicar
 
-1. **Enlace de Google Play** — el `href` de los dos badges apunta a:
+1. **Enlace de Google Play** — los dos badges enlazan a la app publicada:
    ```
-   https://play.google.com/store/apps/details?id=com.piezasgame.app
+   https://play.google.com/store/apps/details?id=es.ebecerra.piezasgame
    ```
-   Reemplazar con la URL real cuando la app esté publicada en el Play Store.
-   El package ID `com.piezasgame.app` ya está configurado en el proyecto Android.
 
 2. **App Store** — el badge de Apple está marcado como "Próximamente".
    Cuando la app se publique en App Store, añadir el `href` y quitar el chip
