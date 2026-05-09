@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import styles from "./FisioNavMobile.module.css";
 
 type Item = { href: string; label: string };
@@ -25,6 +26,7 @@ export default function FisioNavMobile({
   ariaPrimaryNav,
 }: Props) {
   const [open, setOpen] = useState(false);
+  const isClient = typeof document !== "undefined";
 
   // Close on ESC
   useEffect(() => {
@@ -47,29 +49,13 @@ export default function FisioNavMobile({
     }
   }, [open]);
 
-  return (
+  const drawer = (
     <>
-      <button
-        type="button"
-        className={`${styles.toggle} ${open ? styles.open : ""}`}
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-controls="fisio-mobile-drawer"
-        aria-label={open ? ariaClose : ariaOpen}
-      >
-        <span className={styles.bars} aria-hidden="true">
-          <span className={`${styles.bar} ${styles.barTop}`} />
-          <span className={`${styles.bar} ${styles.barMid}`} />
-          <span className={`${styles.bar} ${styles.barBot}`} />
-        </span>
-      </button>
-
       <div
         className={`${styles.backdrop} ${open ? styles.backdropOpen : ""}`}
         onClick={() => setOpen(false)}
         aria-hidden="true"
       />
-
       <aside
         id="fisio-mobile-drawer"
         className={`${styles.drawer} ${open ? styles.drawerOpen : ""}`}
@@ -113,6 +99,26 @@ export default function FisioNavMobile({
           </a>
         </div>
       </aside>
+    </>
+  );
+
+  return (
+    <>
+      <button
+        type="button"
+        className={`${styles.toggle} ${open ? styles.open : ""}`}
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls="fisio-mobile-drawer"
+        aria-label={open ? ariaClose : ariaOpen}
+      >
+        <span className={styles.bars} aria-hidden="true">
+          <span className={`${styles.bar} ${styles.barTop}`} />
+          <span className={`${styles.bar} ${styles.barMid}`} />
+          <span className={`${styles.bar} ${styles.barBot}`} />
+        </span>
+      </button>
+      {isClient && createPortal(drawer, document.body)}
     </>
   );
 }
