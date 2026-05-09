@@ -23,6 +23,24 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    // La raíz del subdominio no tiene contenido propio: redirige a la
+    // galería del dominio principal (con header/footer/menu de apps/es).
+    // Las URLs de demos individuales (/equilibrio, /en/equilibrio, etc.)
+    // siguen sirviendo desde apps/demos.
+    return [
+      {
+        source: "/",
+        destination: "https://ebecerra.es/ejemplos",
+        permanent: true,
+      },
+      {
+        source: "/en",
+        destination: "https://ebecerra.es/en/ejemplos",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
