@@ -79,6 +79,9 @@ export default function Footer({ footerData }: Props) {
                   <FooterLink href={anchor(item.id)}>{tn(item.key)}</FooterLink>
                 </li>
               ))}
+              <li>
+                <FooterLink href="/ejemplos">{t("colNavExamples")}</FooterLink>
+              </li>
             </ul>
           </div>
 

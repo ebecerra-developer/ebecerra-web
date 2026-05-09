@@ -95,10 +95,22 @@
     "infoResponse": "Response",
     "infoResponseValue": "24 business hours"
   },
+  "examples": {
+    "metaTitle": "Website examples · Enrique Becerra",
+    "metaDescription": "Browsable demos of professional websites for clinics, law firms, freelancers and SMBs. See what you can have before commissioning yours.",
+    "kicker": "// Browsable demos",
+    "title": "Real website examples for your business",
+    "lead": "Complete demos so you can see what you can have: physiotherapy clinic, law firm, accounting firm… All of them are editable examples. The one you'd actually have starts from a conversation with you.",
+    "ctaContact": "Start yours",
+    "viewDemo": "Open demo",
+    "openInNewTab": "(opens in a new tab)",
+    "emptyState": "Demos coming soon. Check back later."
+  },
   "footer": {
     "tagline": "Custom websites for businesses that won't settle for a template. Fast, accessible, easy to maintain and built so your team can run them without depending on anyone.",
     "availability": "available to work together",
     "colNavTitle": "navigation",
+    "colNavExamples": "examples",
     "colSocialTitle": "social",
     "colCrossTitle": "ebecerra ecosystem",
     "legalPrivacy": "privacy",

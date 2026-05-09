@@ -165,7 +165,19 @@ Orden recomendado: empezar por los grandes (Hero, Services) para validar la conv
 - [ ] Indexable. Metadata + JSON-LD (`ItemList` o similar)
 - [ ] Enlace desde nav o footer de la web pro
 
-### F5 — Plantillas adicionales (rolling)
+### F5 — Presentation tool / Visual Editing (opcional, postcutover)
+
+Una vez `demos.ebecerra.es` esté en producción, activar split-view de edición en
+vivo desde el Studio embebido en `apps/es`. Argumento de venta frente a WordPress:
+el cliente edita en una columna y ve el cambio aplicado en la otra.
+
+- [ ] `presentationTool({ previewUrl, allowOrigins })` en `apps/es/sanity.config.ts` con `previewUrl.initial = 'https://demos.ebecerra.es'` y `allowOrigins` incluyendo `demos.ebecerra.es` + `localhost`
+- [ ] Route handler `apps/demos/app/api/draft-mode/enable/route.ts` validando secret y llamando `draftMode().enable()`
+- [ ] `<VisualEditing />` en layout cuando `draftMode().isEnabled`
+- [ ] Switch a `next-sanity`'s `sanityFetch` con `stega: true` para overlays click-to-edit
+- [ ] Resolver de URL de preview a partir del documento (slug → `/{locale}/{slug}`)
+
+### F6 — Plantillas adicionales (rolling)
 
 Sacar conforme haga falta. Cada plantilla es una sesión propia.
 

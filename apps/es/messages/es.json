@@ -95,10 +95,22 @@
     "infoResponse": "Respuesta",
     "infoResponseValue": "24 h laborables"
   },
+  "examples": {
+    "metaTitle": "Ejemplos de webs · Enrique Becerra",
+    "metaDescription": "Demos navegables de webs profesionales para clínicas, despachos, autónomos y PYMEs. Mira lo que puedes tener antes de encargar.",
+    "kicker": "// Demos navegables",
+    "title": "Ejemplos de webs reales para tu negocio",
+    "lead": "Demos completas para que veas qué puedes tener: clínica de fisioterapia, despacho, asesoría… Todas son ejemplos editables. La que tendrías tú nace de una conversación contigo.",
+    "ctaContact": "Empieza con la tuya",
+    "viewDemo": "Ver demo",
+    "openInNewTab": "(se abre en pestaña nueva)",
+    "emptyState": "Demos en preparación. Vuelve pronto."
+  },
   "footer": {
     "tagline": "Webs a medida para negocios que no se conforman con una plantilla. Rápidas, accesibles, fáciles de mantener y pensadas para que tu equipo opere sin depender de nadie.",
     "availability": "disponible para que trabajemos juntos",
     "colNavTitle": "navegación",
+    "colNavExamples": "ejemplos",
     "colSocialTitle": "social",
     "colCrossTitle": "ecosistema ebecerra",
     "legalPrivacy": "privacidad",
