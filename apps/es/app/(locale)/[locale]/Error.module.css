@@ -72,16 +72,18 @@
   padding: 14px 24px;
   background: var(--surface);
   color: var(--text);
-  border: 1px solid var(--border-strong);
+  border: 1.5px solid var(--border-strong);
   border-radius: var(--r-pill);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
-  transition: border-color 180ms var(--ease), color 180ms var(--ease);
+  transition: border-color 180ms var(--ease), color 180ms var(--ease),
+    transform 180ms var(--ease);
 }
 
 .btnSecondary:hover {
   border-color: var(--cta);
   color: var(--cta);
   text-decoration: none;
+  transform: translateY(-1px);
 }

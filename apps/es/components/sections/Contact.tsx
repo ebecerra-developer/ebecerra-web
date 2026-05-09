@@ -195,10 +195,10 @@ export default function Contact({ contactData, sectionMeta }: Props) {
                 className={`${styles.submitBtn}${status === "success" ? ` ${styles.submitBtnSuccess}` : ""}${status === "sending" ? ` ${styles.submitBtnSending}` : ""}`}
               >
                 {status === "success"
-                  ? `✓ ${t("formSuccess").split(".")[0]}`
+                  ? `${t("formSuccess").split(".")[0]} ✓`
                   : status === "sending"
                     ? t("formSending")
-                    : `→ ${t("formSubmit")}`}
+                    : `${t("formSubmit")} →`}
               </button>
             </div>
           </form>

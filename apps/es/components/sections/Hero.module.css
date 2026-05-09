@@ -71,12 +71,13 @@
   color: var(--text-on-accent);
   font-family: var(--font-sans);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 14px 24px;
   border-radius: var(--r-pill);
   text-decoration: none;
   border: 1.5px solid var(--cta);
-  transition: background 180ms var(--ease), border-color 180ms var(--ease);
+  transition: background 180ms var(--ease), border-color 180ms var(--ease),
+    transform 180ms var(--ease);
 }
 
 .ctaPrimary:hover {
@@ -84,6 +85,7 @@
   border-color: var(--cta-hover);
   color: var(--text-on-accent);
   text-decoration: none;
+  transform: translateY(-1px);
 }
 
 .ctaSecondary {
@@ -91,18 +93,20 @@
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 14px 24px;
   border-radius: var(--r-pill);
   text-decoration: none;
-  border: 1px solid var(--border-strong);
-  transition: border-color 180ms var(--ease), color 180ms var(--ease);
+  border: 1.5px solid var(--border-strong);
+  transition: border-color 180ms var(--ease), color 180ms var(--ease),
+    transform 180ms var(--ease);
 }
 
 .ctaSecondary:hover {
   color: var(--cta);
   border-color: var(--cta);
   text-decoration: none;
+  transform: translateY(-1px);
 }
 
 .metaStrip {

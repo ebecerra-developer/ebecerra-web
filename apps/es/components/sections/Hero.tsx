@@ -47,7 +47,7 @@ export default async function Hero({ sanityData }: Props) {
           </p>
           <div className={styles.ctas}>
             <a href="#contacto" className={styles.ctaPrimary}>
-              → {ctaPrimary}
+              {ctaPrimary} →
             </a>
             <a href="#servicios" className={styles.ctaSecondary}>
               {ctaSecondary}
