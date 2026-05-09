@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import type { DemoSite } from "@ebecerra/sanity-client";
 import type { Locale } from "@/i18n/routing";
 import { urlFor } from "@/lib/image";
+import FisioNavMobile from "./FisioNavMobile";
 import styles from "./FisioNav.module.css";
 
 export default async function FisioNav({
@@ -17,6 +18,27 @@ export default async function FisioNav({
   const logoUrl = demo.brand?.logo
     ? urlFor(demo.brand.logo).height(60).auto("format").url()
     : null;
+
+  const items: { href: string; label: string }[] = [];
+  if (demo.about) {
+    items.push({ href: "#sobre", label: locale === "en" ? "About" : "Sobre" });
+  }
+  if (demo.services.length > 0) {
+    items.push({
+      href: "#servicios",
+      label: locale === "en" ? "Services" : "Servicios",
+    });
+  }
+  if (demo.team.length > 0) {
+    items.push({
+      href: "#equipo",
+      label: locale === "en" ? "Team" : "Equipo",
+    });
+  }
+  items.push({
+    href: "#contacto",
+    label: locale === "en" ? "Contact" : "Contacto",
+  });
 
   return (
     <header className={styles.nav}>
@@ -35,32 +57,17 @@ export default async function FisioNav({
             demo.businessName
           )}
         </a>
-        <nav aria-label={t("ariaPrimaryNav")}>
+
+        <nav aria-label={t("ariaPrimaryNav")} className={styles.desktopNav}>
           <ul className={styles.menu}>
-            {demo.about && (
-              <li>
-                <a href="#sobre">{locale === "en" ? "About" : "Sobre"}</a>
+            {items.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.label}</a>
               </li>
-            )}
-            {demo.services.length > 0 && (
-              <li>
-                <a href="#servicios">
-                  {locale === "en" ? "Services" : "Servicios"}
-                </a>
-              </li>
-            )}
-            {demo.team.length > 0 && (
-              <li>
-                <a href="#equipo">{locale === "en" ? "Team" : "Equipo"}</a>
-              </li>
-            )}
-            <li>
-              <a href="#contacto">
-                {locale === "en" ? "Contact" : "Contacto"}
-              </a>
-            </li>
+            ))}
           </ul>
         </nav>
+
         <div className={styles.right}>
           {demo.enableEnglish && (
             <div className={styles.langSwitch}>
@@ -72,7 +79,9 @@ export default async function FisioNav({
               >
                 ES
               </Link>
-              <span className={styles.langSep} aria-hidden="true">/</span>
+              <span className={styles.langSep} aria-hidden="true">
+                /
+              </span>
               <Link
                 href={`/${demo.slug}`}
                 locale="en"
@@ -86,6 +95,15 @@ export default async function FisioNav({
           <a href="#contacto" className={styles.cta}>
             {t("callToAction")}
           </a>
+          <FisioNavMobile
+            brand={demo.businessName}
+            items={items}
+            ctaLabel={t("callToAction")}
+            ctaHref="#contacto"
+            ariaOpen={t("menuOpen")}
+            ariaClose={t("menuClose")}
+            ariaPrimaryNav={t("ariaPrimaryNav")}
+          />
         </div>
       </div>
     </header>

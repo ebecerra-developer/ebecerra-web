@@ -4,10 +4,11 @@
 
 Portfolio personal de Enrique Becerra, Tech Architect Lead en VASS y especialista en Magnolia CMS.
 
-**Estado (2026-04-23, post-cutover):** `main` es el **monorepo** en producción con dos apps sobre un único Sanity compartido:
+**Estado (2026-05-09):** `main` es el **monorepo** en producción con tres apps sobre un único Sanity compartido:
 
-- **[`apps/es`](apps/es/)** → `ebecerra.es` — modo pro, escaparate comercial para autónomos/PYMEs. Home con 8 secciones. 4 servicios en grid 2x2 (Web profesional 900 €, Web editable 1.500 €, Rescate 2.500 €, Mantenimiento 60 €/mes). Sanity wired para services/process/profile; cases desde fallback estático. Form de contacto con Resend.
+- **[`apps/es`](apps/es/)** → `ebecerra.es` — modo pro, escaparate comercial para autónomos/PYMEs. Home con 6 secciones numeradas: 01 Servicios · 02 Sobre mí · 03 Capacidades (IA, reservas, integraciones, datos) · 04 Cómo trabajamos · 05 Ejemplos · 06 Contacto. 4 servicios en grid 2x2 (Web profesional 900 €, Web editable 1.500 €, Rescate 2.500 €, Mantenimiento 60 €/mes). Sanity wired para services/process/profile/Examples (vía demoSite). Sección Casos retirada en 2026-05-09 (anonimizados, sin valor para el público). Form de contacto con Resend.
 - **[`apps/tech`](apps/tech/)** → `ebecerra.tech` — modo geek. Next.js CV-style (8 secciones). Live desde 2026-04-24. El contenido (experience, skills, techTags, projects) viene de Sanity — `apps/tech/lib/content.ts` es solo fallback. Para añadir o editar proyectos, experiencia o skills, hacerlo en Sanity (type `project`, `experience`, `skill`, `techTag`) y publicar; no editar el fallback.
+- **[`apps/demos`](apps/demos/)** → `demos.ebecerra.es` — subdominio de demos navegables para enseñar a clientes potenciales. Activo desde 2026-05-09. La raíz `/` renderiza la primera demo publicada (actualmente `equilibrio` — clínica fisio anonimizada). Cada demo es un doc `demoSite` en Sanity con `template` + `brandOverrides` (paleta y logo personalizables sin tocar código). Plantilla actual: `fisio` (paleta madera + petrol blue). Robots noindex global (header HTTP + meta).
 
 El "toggle geek mode" original se sustituyó por dominio: cada URL entra en su modo por defecto.
 
@@ -23,11 +24,11 @@ Código legacy del SPA React 19 + Vite archivado en [`_legacy/`](_legacy/). Tags
 ## Stack
 
 - **Monorepo:** npm workspaces + Turborepo 2.x. `packageManager: "npm@10.4.0"`.
-- **apps/es y apps/tech:** Next.js 16 + TypeScript + Tailwind v4 + next-intl 4 + Sanity v5 + Resend.
-- **packages/sanity-schemas:** `@ebecerra/sanity-schemas` — schemas y tipos compartidos (experience, skill, techTag, project, profile, service, processStep, caseStudy, locale).
+- **apps/es, apps/tech, apps/demos:** Next.js 16 + TypeScript + Tailwind v4 + next-intl 4 + Sanity v5. Apps/es además Resend.
+- **packages/sanity-schemas:** `@ebecerra/sanity-schemas` — schemas y tipos compartidos (experience, skill, techTag, project, profile, service, processStep, caseStudy, demoSite, locale).
 - **packages/sanity-client:** `@ebecerra/sanity-client` — cliente + queries GROQ + tipos TS.
-- **packages/tokens:** `pro.css` (apps/es) y `geek.css` (apps/tech).
-- **Sanity `gdtxcn4l` / dataset `production`** — único, compartido. Studio embebido en `apps/es/app/(misc)/studio/[[...tool]]`.
+- **packages/tokens:** `pro.css` (apps/es), `geek.css` (apps/tech), `demos-fisio.css` (apps/demos plantilla fisio).
+- **Sanity `gdtxcn4l` / dataset `production`** — único, compartido. Studio embebido en `apps/es/app/(misc)/studio/[[...tool]]`. Plan free permite 2 webhooks → patrón de fan-out: `apps/es/api/revalidate` reenvía a `demos.ebecerra.es/api/revalidate` cuando `_type == "demoSite"`.
 
 ---
 
@@ -80,6 +81,20 @@ Cada query en `page.tsx` lleva `.catch(() => fallback)`. La home no se cae si Sa
 ### 6. Verdad del contenido
 
 En `apps/es` (web comercial bajo nombre real): precios, stacks, cifras, clientes **reales o nada**. Fuente: [`docs/archive/cv-pro.md`](docs/archive/cv-pro.md) anonimizado. Clientes siempre anonimizados (sector + tipo de solución, nunca el nombre). Nunca inventar datos concretos.
+
+Lenguaje técnico (Magnolia, Java, Spring, frameworks específicos) **fuera de copy visible al cliente final** — el público de `apps/es` son autónomos/PYMEs, no perfiles tech. Stats anclados a commitments verificables (8+ años, 1:1 trato, 100% código tuyo) en lugar de cifras genéricas tipo "+150 proyectos". `apps/tech` sí puede mencionar stack.
+
+### 7. Mobile-first y nav hamburguesa por defecto
+
+Todo diseño se piensa primero en móvil y luego se enriquece a desktop. Antes de cerrar un componente, verificar layout en ≤480px, ≤768px y ≥1024px.
+
+**Patrón de nav en móvil:**
+
+- Por defecto **hamburger button** que abre un drawer con los enlaces de navegación + el CTA principal dentro.
+- El **switcher de idioma** (cuando exista) se queda **fuera** del hamburger, siempre visible — para que se note la capacidad multi-idioma sin abrir el menú.
+- En desktop la barra es plana (links inline + CTA + lang).
+
+Aplica tanto a `apps/es`/`apps/tech` como a las plantillas de `apps/demos`.
 
 ---
 

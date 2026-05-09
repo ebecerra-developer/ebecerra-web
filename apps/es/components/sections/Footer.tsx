@@ -80,9 +80,6 @@ export default function Footer({ footerData }: Props) {
                   <FooterLink href={anchor(item.id)}>{tn(item.key)}</FooterLink>
                 </li>
               ))}
-              <li>
-                <FooterLink href="/ejemplos">{t("colNavExamples")}</FooterLink>
-              </li>
             </ul>
           </div>
 
@@ -98,7 +95,7 @@ export default function Footer({ footerData }: Props) {
                 </FooterLink>
               </li>
               <li>
-                <FooterLink href="mailto:contacto@ebecerra.es">Email</FooterLink>
+                <FooterLink href="mailto:contacto@ebecerra.es">✉ Email</FooterLink>
               </li>
             </ul>
           </div>

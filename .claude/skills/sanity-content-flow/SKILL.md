@@ -35,6 +35,8 @@ Todo string nuevo se escribe **ES + EN a la vez**. En Sanity: tipo `localeString
 
 ## MCP de Sanity — operaciones frecuentes
 
+Autenticación: la primera vez en una sesión, llama `mcp__sanity__authenticate` → URL OAuth → el usuario autoriza → tools quedan disponibles. Si la página de redirect da error de conexión (es normal), pegarle al `complete_authentication` la URL completa que vio el usuario.
+
 Tools disponibles vía `mcp__sanity__*`. Las más usadas:
 
 | Tool | Para qué |
@@ -45,14 +47,42 @@ Tools disponibles vía `mcp__sanity__*`. Las más usadas:
 | `patch_document_from_json` | `set` / `unset` / `append` en un doc. Si apunta a published, crea draft |
 | `create_documents_from_json` | Crear drafts nuevos con contenido JSON |
 | `publish_documents` | Pasa drafts a published |
+| `generate_image` | Crea imagen IA y la asigna al field. Async (1-3 min) |
+| `transform_image` | Modifica una imagen ya subida con instrucción IA |
 | `list_releases` | Releases activas en el dataset |
 
 Al patchear, target sin `drafts.` prefix → se crea draft automáticamente. Publicar con `publish_documents` (el patch NO afecta producción hasta publicar). **El webhook de revalidación se dispara tras `publish_documents`.**
 
+Siempre incluir `workspaceName: "ebecerra-web"` en las llamadas — sin esto el MCP busca workspace `default` y devuelve "Schema not found".
+
+### Append a arrays de inline objects — gotcha
+
+Los arrays con `of: [{ type: "object", fields: [...] }]` (sin `name` propio) requieren **`_type: "object"` explícito** al hacer `append`:
+
+```json
+{
+  "path": "team",
+  "items": [{
+    "_type": "object",
+    "_key": "t3",
+    "name": "Marcos Valle",
+    "role": { "_type": "localeString", "es": "...", "en": "..." }
+  }]
+}
+```
+
+Si te lo dejas, falla con `Array item is missing required "_type" field`. Aunque los items existentes no tengan `_type` en el JSON guardado, el validador del MCP lo exige al añadir.
+
+### Imágenes IA con `generate_image`
+
+Async — devuelve "Image generation started" inmediatamente, la imagen aparece en el draft en 1-3 min. Para portraits/team, prompts efectivos incluyen aspect ratio (`4:5 vertical`), estilo (`editorial photography, NOT corporate or stock-like`), color palette y bg context. En arrays auto-añade un nuevo item; en campos individuales se asigna directamente. Tras generar todas las imágenes, **siempre `publish_documents`** o quedan solo en draft.
+
+Plugin `sanity-plugin-asset-source-unsplash` no soporta sanity v5 a fecha 2026-05 — usar Media Library nativa o `generate_image`.
+
 ## Gotchas conocidos
 
 - **`patch` con `set` sobre string plano esperando object falla con 500.** Ej: si un field era `"hola"` y quieres pasarlo a `{es: "hola", en: "hi"}`, necesitas dos calls: `unset` primero, `set` después.
-- **Conflicting target.include** si metes múltiples operaciones sobre el mismo path de array en una sola call. Solución: un ítem por call o usar `append` específico.
+- **Conflicting target.include** si metes múltiples operaciones sobre el mismo path de array en una sola call. Solución: una llamada por operación, o mezclar `set`/`unset` en distintos arrays. Ej: `unset` de dos items distintos del mismo array → falla, repartir en dos calls. `unset` de un item + `set` de otro campo distinto → OK.
 - **Resend SDK NO lanza excepciones.** Hay que chequear `{data, error}` explícito; no basta con try/catch.
 - **`revalidate: 3600`** en páginas = ISR de 1h. Si algo no se ve, o es cache o el webhook no disparó.
 
@@ -63,6 +93,8 @@ Al patchear, target sin `drafts.` prefix → se crea draft automáticamente. Pub
 1. `apps/<app>/.env.local` (dev).
 2. Vercel env vars (Production + Preview + Development) de cada proyecto.
 3. Webhook en [manage.sanity.io](https://manage.sanity.io) → proyecto `gdtxcn4l` → API → Webhooks → URL `https://ebecerra.es/api/revalidate?secret=<valor>`.
+
+**Patrón fan-out**: el plan free de Sanity solo permite 2 webhooks. El webhook de `apps/es` ya cubre el filtro completo de tipos (incluido `demoSite`). Cuando recibe un evento `_type == "demoSite"`, el handler en `apps/es/api/revalidate/route.ts` revalida `/ejemplos` Y reenvía el POST a `https://demos.ebecerra.es/api/revalidate?secret=...`. Así un único webhook Sanity cubre los 3 dominios. No crear webhooks adicionales para demos.
 
 Cuando disparas `publish_documents`, Sanity hace POST al webhook → revalida `/` y `/en`.
 
