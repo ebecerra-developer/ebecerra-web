@@ -49,34 +49,39 @@
 }
 
 .btnPrimary {
-  padding: 10px 24px;
+  padding: 14px 24px;
   background: var(--cta);
   color: var(--text-on-accent);
-  border: none;
-  border-radius: 4px;
+  border: 1.5px solid var(--cta);
+  border-radius: var(--r-pill);
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 180ms var(--ease), border-color 180ms var(--ease),
+    transform 180ms var(--ease);
 }
 
 .btnPrimary:hover {
   background: var(--cta-hover);
+  border-color: var(--cta-hover);
+  color: var(--text-on-accent);
+  transform: translateY(-1px);
 }
 
 .btnSecondary {
-  padding: 10px 24px;
-  background: transparent;
-  color: var(--text-secondary);
+  padding: 14px 24px;
+  background: var(--surface);
+  color: var(--text);
   border: 1px solid var(--border-strong);
-  border-radius: 4px;
+  border-radius: var(--r-pill);
   font-size: 15px;
   font-weight: 500;
   text-decoration: none;
-  transition: border-color 0.15s, color 0.15s;
+  transition: border-color 180ms var(--ease), color 180ms var(--ease);
 }
 
 .btnSecondary:hover {
   border-color: var(--cta);
   color: var(--cta);
+  text-decoration: none;
 }

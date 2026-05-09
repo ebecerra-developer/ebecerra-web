@@ -29,10 +29,21 @@
   align-items: center;
   gap: 8px;
   background: var(--cta);
-  color: #fff;
+  color: var(--text-on-accent);
   text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 8px;
+  padding: 14px 24px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--cta);
   font-weight: 600;
   font-size: 14.5px;
+  transition: background 180ms var(--ease), border-color 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.cta:hover {
+  background: var(--cta-hover);
+  border-color: var(--cta-hover);
+  color: var(--text-on-accent);
+  text-decoration: none;
+  transform: translateY(-1px);
 }

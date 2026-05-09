@@ -73,9 +73,17 @@
   font-size: 15px;
   font-weight: 500;
   padding: 14px 24px;
-  border-radius: var(--r-md);
+  border-radius: var(--r-pill);
   text-decoration: none;
   border: 1.5px solid var(--cta);
+  transition: background 180ms var(--ease), border-color 180ms var(--ease);
+}
+
+.ctaPrimary:hover {
+  background: var(--cta-hover);
+  border-color: var(--cta-hover);
+  color: var(--text-on-accent);
+  text-decoration: none;
 }
 
 .ctaSecondary {
@@ -85,9 +93,16 @@
   font-size: 15px;
   font-weight: 500;
   padding: 14px 24px;
-  border-radius: var(--r-md);
+  border-radius: var(--r-pill);
   text-decoration: none;
   border: 1px solid var(--border-strong);
+  transition: border-color 180ms var(--ease), color 180ms var(--ease);
+}
+
+.ctaSecondary:hover {
+  color: var(--cta);
+  border-color: var(--cta);
+  text-decoration: none;
 }
 
 .metaStrip {

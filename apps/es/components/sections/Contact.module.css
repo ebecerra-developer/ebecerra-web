@@ -180,9 +180,17 @@
   font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 500;
-  padding: 12px 22px;
-  border-radius: var(--r-md);
+  padding: 14px 24px;
+  border-radius: var(--r-pill);
   cursor: pointer;
+  transition: background 180ms var(--ease), border-color 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--cta-hover);
+  border-color: var(--cta-hover);
+  transform: translateY(-1px);
 }
 
 .submitBtnSuccess {
