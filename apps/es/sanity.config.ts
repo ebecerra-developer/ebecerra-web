@@ -2,6 +2,10 @@ import { defineConfig } from "sanity";
 import { structureTool, type StructureResolver } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { languageFilter } from "@sanity/language-filter";
+// TODO: re-añadir plugin Unsplash cuando publiquen versión compatible con
+// sanity v5. El último (3.1.0) sólo soporta sanity ^3 || ^4. Mientras tanto,
+// los editores pueden subir imágenes manualmente al asset library de Sanity.
+// import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import { schemaTypes, SINGLETON_TYPES } from "@ebecerra/sanity-schemas";
 
 const singletonSet = new Set<string>(SINGLETON_TYPES);
@@ -24,6 +28,7 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "faqPage",
   "faqItem",
   "legalPage",
+  "demoSite",
 ];
 
 const SINGLETON_DISABLED_ACTIONS = new Set([
@@ -141,6 +146,15 @@ const structure: StructureResolver = (S) =>
         .title("Páginas legales")
         .schemaType("legalPage")
         .child(S.documentTypeList("legalPage").title("Páginas legales")),
+      S.divider(),
+      S.listItem()
+        .title("Demos de webs")
+        .schemaType("demoSite")
+        .child(
+          S.documentTypeList("demoSite")
+            .title("Demos de webs")
+            .defaultOrdering([{ field: "galleryOrder", direction: "asc" }])
+        ),
       S.divider(),
       S.listItem()
         .title("Experiencia")

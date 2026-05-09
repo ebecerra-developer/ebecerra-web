@@ -42,3 +42,6 @@ commit-msg.txt
 /EB-*.json
 /cv-*.json
 /cv-*.pdf
+
+# Junction a workspace externo (no commitear)
+_external-plantilla/

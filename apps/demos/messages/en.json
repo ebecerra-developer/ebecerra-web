@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "title": "Demos · eBecerra",
+    "titleTemplate": "%s · Demo · eBecerra",
+    "description": "Examples of professional websites for freelancers and small businesses."
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
+  "demoBanner": {
+    "label": "Demo",
+    "text": "This website is an example. It does not represent a real business.",
+    "ctaLabel": "See more demos",
+    "ctaHref": "https://ebecerra.es/en/ejemplos"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "es": "Español",
+    "en": "English"
+  },
+  "indexPage": {
+    "title": "Website demos",
+    "lead": "Browsable examples of what we can build for your business.",
+    "ctaBack": "Back to ebecerra.es"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Demo not found",
+    "lead": "This URL doesn't exist or the demo was unpublished.",
+    "ctaHome": "See all demos",
+    "ctaSite": "Go to ebecerra.es"
+  },
+  "fisio": {
+    "ariaLogo": "Logo",
+    "ariaPrimaryNav": "Primary navigation",
+    "ariaServices": "Services",
+    "ariaTeam": "Team",
+    "ariaTestimonials": "Testimonials",
+    "ariaContact": "Contact",
+    "openHours": "Hours",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "addressLabel": "Address",
+    "callToAction": "Book appointment",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu"
+  }
+}

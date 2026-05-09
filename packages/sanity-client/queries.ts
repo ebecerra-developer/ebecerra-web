@@ -21,6 +21,8 @@ import type {
   FaqItem,
   LegalPageData,
   ProfileFull,
+  DemoSite,
+  DemoSiteSummary,
 } from "./types";
 
 // coalesce(field[$locale], field.es, field) → soporta:
@@ -472,6 +474,158 @@ export const DEFAULT_SITE_SETTINGS: SiteSettingsFull = {
     socialLinks: [],
   },
 };
+
+// ---------- Demos ----------
+
+const demoSiteProjection = `{
+  "_id": _id,
+  "slug": slug.current,
+  template,
+  "enableEnglish": coalesce(enableEnglish, false),
+  "businessName": ${loc("businessName")},
+  "tagline": ${loc("tagline")},
+  "hero": hero {
+    "kicker": ${loc("kicker")},
+    "heading": ${loc("heading")},
+    "sub": ${loc("sub")},
+    image,
+    "ctaPrimary": {
+      "label": ${loc("ctaPrimaryLabel")},
+      "href": ctaPrimaryHref
+    },
+    "ctaSecondary": {
+      "label": ${loc("ctaSecondaryLabel")},
+      "href": ctaSecondaryHref
+    }
+  },
+  "about": about {
+    "kicker": ${loc("kicker")},
+    "title": ${loc("title")},
+    "body": ${loc("body")},
+    "bullets": bullets[]{ "v": coalesce(@[$locale], @.es, @) },
+    image
+  },
+  "servicesSection": servicesSection {
+    "kicker": ${loc("kicker")},
+    "title": ${loc("title")},
+    "lead": ${loc("lead")}
+  },
+  "services": services[]{
+    "title": ${loc("title")},
+    "description": ${loc("description")},
+    icon,
+    "duration": ${loc("duration")},
+    "price": ${loc("price")}
+  },
+  "teamSection": teamSection {
+    "kicker": ${loc("kicker")},
+    "title": ${loc("title")},
+    "lead": ${loc("lead")}
+  },
+  "team": team[]{
+    name,
+    "role": ${loc("role")},
+    "bio": ${loc("bio")},
+    photo
+  },
+  "testimonialsSection": testimonialsSection {
+    "kicker": ${loc("kicker")},
+    "title": ${loc("title")}
+  },
+  "testimonials": testimonials[]{
+    "quote": ${loc("quote")},
+    author,
+    "context": ${loc("context")},
+    photo
+  },
+  "contact": contact {
+    "kicker": ${loc("kicker")},
+    "title": ${loc("title")},
+    "lead": ${loc("lead")},
+    address,
+    phone,
+    email,
+    "hours": hours[]{
+      "label": ${loc("label")},
+      "value": value
+    },
+    mapEmbedUrl,
+    bookingUrl,
+    "social": social[]{ name, url }
+  }
+}`;
+
+type RawDemoSite = Omit<DemoSite, "about"> & {
+  about: (Omit<NonNullable<DemoSite["about"]>, "bullets"> & {
+    bullets: { v: string }[] | null;
+  }) | null;
+};
+
+export async function getDemoSiteBySlug(
+  slug: string,
+  locale: Locale
+): Promise<DemoSite | null> {
+  const raw = await client
+    .fetch<RawDemoSite | null>(
+      `*[_type == "demoSite" && slug.current == $slug][0] ${demoSiteProjection}`,
+      { slug, locale }
+    )
+    .catch(() => null);
+
+  if (!raw) return null;
+
+  return {
+    ...raw,
+    services: raw.services ?? [],
+    team: raw.team ?? [],
+    testimonials: raw.testimonials ?? [],
+    about: raw.about
+      ? {
+          ...raw.about,
+          bullets: (raw.about.bullets ?? [])
+            .map((b) => b.v)
+            .filter(Boolean) as string[],
+        }
+      : null,
+    contact: raw.contact
+      ? {
+          ...raw.contact,
+          hours: raw.contact.hours ?? [],
+          social: raw.contact.social ?? [],
+        }
+      : null,
+  };
+}
+
+export async function getDemoSiteSlugs(): Promise<string[]> {
+  return client
+    .fetch<string[]>(
+      `*[_type == "demoSite" && defined(slug.current)].slug.current`
+    )
+    .catch(() => []);
+}
+
+export async function getPublishedDemoSites(
+  locale: Locale
+): Promise<DemoSiteSummary[]> {
+  return client
+    .fetch<DemoSiteSummary[]>(
+      `*[_type == "demoSite" && publishedToGallery == true]
+        | order(coalesce(galleryOrder, 9999) asc) {
+          "_id": _id,
+          "slug": slug.current,
+          template,
+          "businessName": ${loc("businessName")},
+          "tagline": ${loc("tagline")},
+          "sector": ${loc("sector")},
+          "shortDescription": ${loc("shortDescription")},
+          thumbnail,
+          galleryOrder
+        }`,
+      { locale }
+    )
+    .catch(() => []);
+}
 
 export async function getSiteSettingsFull(
   locale: Locale

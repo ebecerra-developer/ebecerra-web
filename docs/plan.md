@@ -108,6 +108,75 @@ Orden recomendado: empezar por los grandes (Hero, Services) para validar la conv
 
 ---
 
+## Fase F — Demos para clientes (`demos.ebecerra.es`)
+
+**Objetivo:** webs de ejemplo navegables (clínica fisio, dental, abogados, coach…) para enseñar a clientes potenciales lo que pueden tener. Cada demo accesible por URL propia, editable desde Sanity con interfaz simple, e imágenes vía Unsplash. Primera demo: fisio bilingüe ES/EN para enseñar a una amiga fisioterapeuta con web actual en WordPress.
+
+**Decisiones (2026-05-09):**
+
+- **App separada `apps/demos`** servida en subdominio `demos.ebecerra.es`. Aislamiento total de blast radius y bundle. Reusa `@ebecerra/sanity-client`, `@ebecerra/sanity-schemas` y `@ebecerra/tokens`.
+- **Schema único `demoSite`** con campo `template` (select) que dispara una plantilla React distinta. Schema en `packages/sanity-schemas`.
+- **Imágenes:** `sanity-plugin-asset-source-unsplash` en el Studio embebido de `apps/es`. Editor busca dentro de Sanity, asset queda en CDN Sanity con pipeline.
+- **Studio:** custom structure que destaca "Demos" como sección top-level. Presentation activado para split-view de edición en vivo.
+- **SEO:**
+  - Demos individuales `demos.ebecerra.es/{locale}/{slug}` → `noindex`.
+  - Galería pública `ebecerra.es/ejemplos` (en `apps/es`, no en `apps/demos`) → indexada, contenido editorial valioso ("ejemplos de webs para autónomos"), enlaza a las demos. Su SEO suma a `ebecerra.es`.
+- **i18n:** todos los campos de copy son `localeString`/`localeText` desde el inicio. Las demos monolingües dejan EN vacío y caen al fallback ES. Primera demo (fisio) bilingüe.
+- **DNS:** registro CNAME `demos` → `cname.vercel-dns.com` en panel DonDominio (DNS de ebecerra.es está en DonDominio, no en Vercel — corregir mención obsoleta en CLAUDE.md).
+- **Acceso de cliente:** prioridad demos guiadas. Invitación de usuarios viewer/editor a Sanity (plan free permite 3) queda como capacidad opcional, no bloqueante.
+
+### F1 — Scaffold del subdominio
+
+- [ ] Crear `apps/demos` (Next.js 16 + TS + Tailwind v4 + next-intl 4) copiando estructura mínima de `apps/es`
+- [ ] Wiring de `@ebecerra/sanity-client`, `@ebecerra/sanity-schemas`, `@ebecerra/tokens`
+- [ ] Layout raíz, `not-found.tsx`, `error.tsx`, robots con noindex global por defecto
+- [ ] Crear proyecto Vercel `ebecerra-demos` (root `apps/demos`, turbo-ignore)
+- [ ] Añadir dominio `demos.ebecerra.es` en Vercel + CNAME en DonDominio
+- [ ] Replicar env vars (Sanity project/dataset/token, Resend si aplica)
+- [ ] Añadir `https://demos.ebecerra.es` a CORS de Sanity
+- [ ] Smoke test: deploy "hello world" en el subdominio, SSL OK
+- [ ] Webhook adicional Sanity → `https://demos.ebecerra.es/api/revalidate/`
+
+### F2 — Schema `demoSite` + plugin Unsplash
+
+- [ ] Añadir schema `demoSite` a `packages/sanity-schemas`: slug, template (select), name, tagline, hero, about, services[], team[], testimonials[], contact, seo, enableEnglish
+- [ ] Campos de copy como `localeString`/`localeText`
+- [ ] Instalar `sanity-plugin-asset-source-unsplash` en `apps/es/sanity.config.ts`
+- [ ] Custom structure: sección top-level "Demos" listando documentos `demoSite`
+- [ ] Activar Presentation tool para `demoSite` apuntando a `demos.ebecerra.es/{locale}/{slug}`
+- [ ] Deploy schema (`npx sanity schema deploy`)
+- [ ] Crear doc vacío de prueba para validar que aparece en Studio
+
+### F3 — Plantilla "fisio" + demo Elena bilingüe
+
+- [ ] Definir paleta y tipografía propias del template fisio (cálida, sanitaria, distinta de la pro). Tokens en `packages/tokens/demos-fisio.css` o equivalente
+- [ ] Componentes de secciones: `<HeroFisio>`, `<AboutFisio>`, `<ServicesFisio>`, `<TeamFisio>`, `<TestimonialsFisio>`, `<ContactFisio>`, `<FooterFisio>`
+- [ ] Página `app/[locale]/[slug]/page.tsx` con switch por `template` (caso `fisio` por ahora)
+- [ ] Banner sutil "Demo / Ejemplo de web — no es un negocio real"
+- [ ] Crear documento real de Elena en Sanity con copy ES + EN + imágenes Unsplash
+- [ ] Switcher de idioma ES/EN funcional (condicionado por `enableEnglish`)
+- [ ] Validar mobile, Lighthouse, switcher
+
+### F4 — Galería pública en `apps/es`
+
+- [ ] Schema `demosGallery` (singleton) con title, lead, intro
+- [ ] Página `app/(locale)/[locale]/ejemplos/page.tsx` listando demos publicadas
+- [ ] Cada tarjeta: captura, nombre, sector, CTA "Ver demo" → `demos.ebecerra.es/{locale}/{slug}`
+- [ ] Indexable. Metadata + JSON-LD (`ItemList` o similar)
+- [ ] Enlace desde nav o footer de la web pro
+
+### F5 — Plantillas adicionales (rolling)
+
+Sacar conforme haga falta. Cada plantilla es una sesión propia.
+
+- [ ] Plantilla `dental`
+- [ ] Plantilla `legal` (despacho de abogados)
+- [ ] Plantilla `coach` (entrenador personal)
+- [ ] Plantilla `asesoria`
+- [ ] Plantilla `restaurante`
+
+---
+
 ## Fase E — Futuro (opcional)
 
 Nada bloqueante. Ir sacando si emerge necesidad.

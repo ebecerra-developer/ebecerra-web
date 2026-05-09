@@ -1,0 +1,116 @@
+.hero {
+  padding: clamp(3rem, 6vw, 5rem) 0 clamp(4rem, 8vw, 6rem);
+  background:
+    radial-gradient(ellipse at top right, var(--cta-soft) 0%, transparent 60%),
+    var(--bg);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  gap: clamp(2rem, 4vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+
+.kicker {
+  font-family: var(--font-mono-stack, monospace);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cta);
+  margin-bottom: 1rem;
+  font-weight: var(--fw-medium);
+}
+
+.heading {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-tight);
+  margin-bottom: 1.25rem;
+  font-family: var(--font-display);
+  color: var(--text);
+}
+
+.sub {
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-secondary);
+  max-width: 50ch;
+  margin-bottom: 2rem;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  background: var(--cta);
+  color: var(--text-on-accent);
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--r-pill);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.ctaPrimary:hover {
+  background: var(--cta-hover);
+  color: var(--text-on-accent);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--r-pill);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  background: var(--surface);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+.ctaSecondary:hover {
+  border-color: var(--cta);
+  color: var(--cta);
+  text-decoration: none;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--surface-warm);
+  box-shadow: var(--sh-lg);
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mediaPlaceholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+}

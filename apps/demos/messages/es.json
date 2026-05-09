@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "title": "Demos · eBecerra",
+    "titleTemplate": "%s · Demo · eBecerra",
+    "description": "Ejemplos de webs profesionales para autónomos y PYMEs."
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido principal"
+  },
+  "demoBanner": {
+    "label": "Demo",
+    "text": "Esta web es un ejemplo. No representa un negocio real.",
+    "ctaLabel": "Ver más demos",
+    "ctaHref": "https://ebecerra.es/ejemplos"
+  },
+  "languageSwitcher": {
+    "label": "Idioma",
+    "es": "Español",
+    "en": "English"
+  },
+  "indexPage": {
+    "title": "Demos de webs",
+    "lead": "Ejemplos navegables de lo que podemos construir para tu negocio.",
+    "ctaBack": "Volver a ebecerra.es"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Demo no encontrada",
+    "lead": "Esta URL no existe o la demo se ha despublicado.",
+    "ctaHome": "Ver todas las demos",
+    "ctaSite": "Ir a ebecerra.es"
+  },
+  "fisio": {
+    "ariaLogo": "Logotipo",
+    "ariaPrimaryNav": "Navegación principal",
+    "ariaServices": "Servicios",
+    "ariaTeam": "Equipo",
+    "ariaTestimonials": "Testimonios",
+    "ariaContact": "Contacto",
+    "openHours": "Horario",
+    "phoneLabel": "Teléfono",
+    "emailLabel": "Email",
+    "addressLabel": "Dirección",
+    "callToAction": "Pide cita",
+    "menuOpen": "Abrir menú",
+    "menuClose": "Cerrar menú"
+  }
+}

@@ -17,6 +17,7 @@ import {
 import faqPage from "./faqPage";
 import faqItem from "./faqItem";
 import legalPage from "./legalPage";
+import demoSite from "./demoSite";
 import { localeString, localeText, localePortableText } from "./locale";
 
 export const schemaTypes = [
@@ -43,6 +44,7 @@ export const schemaTypes = [
   caseStudy,
   faqItem,
   legalPage,
+  demoSite,
 ];
 
 export const SINGLETON_TYPES = [

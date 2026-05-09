@@ -169,3 +169,111 @@ export type SiteSettingsFull = {
   metadata: SiteSettingsMeta;
   footer: SiteSettingsFooter;
 };
+
+// ---------- Demo sites ----------
+
+export type DemoTemplate = "fisio" | "dental" | "legal" | "coach";
+
+export type DemoCta = {
+  label: string | null;
+  href: string | null;
+};
+
+export type DemoHero = {
+  kicker: string | null;
+  heading: string | null;
+  sub: string | null;
+  image: SanityImage | null;
+  ctaPrimary: DemoCta;
+  ctaSecondary: DemoCta;
+};
+
+export type DemoAbout = {
+  kicker: string | null;
+  title: string | null;
+  body: string | null;
+  bullets: string[];
+  image: SanityImage | null;
+};
+
+export type DemoSectionHeader = {
+  kicker: string | null;
+  title: string | null;
+  lead: string | null;
+};
+
+export type DemoService = {
+  title: string;
+  description: string | null;
+  icon: string | null;
+  duration: string | null;
+  price: string | null;
+};
+
+export type DemoTeamMember = {
+  name: string;
+  role: string | null;
+  bio: string | null;
+  photo: SanityImage | null;
+};
+
+export type DemoTestimonial = {
+  quote: string;
+  author: string;
+  context: string | null;
+  photo: SanityImage | null;
+};
+
+export type DemoHourEntry = {
+  label: string | null;
+  value: string | null;
+};
+
+export type DemoSocial = {
+  name: string | null;
+  url: string | null;
+};
+
+export type DemoContact = {
+  kicker: string | null;
+  title: string | null;
+  lead: string | null;
+  address: string | null;
+  phone: string | null;
+  email: string | null;
+  hours: DemoHourEntry[];
+  mapEmbedUrl: string | null;
+  bookingUrl: string | null;
+  social: DemoSocial[];
+};
+
+export type DemoSite = {
+  _id: string;
+  slug: string;
+  template: DemoTemplate;
+  enableEnglish: boolean;
+  businessName: string;
+  tagline: string | null;
+  hero: DemoHero | null;
+  about: DemoAbout | null;
+  servicesSection: DemoSectionHeader | null;
+  services: DemoService[];
+  teamSection: DemoSectionHeader | null;
+  team: DemoTeamMember[];
+  testimonialsSection: DemoSectionHeader | null;
+  testimonials: DemoTestimonial[];
+  contact: DemoContact | null;
+};
+
+export type DemoSiteSummary = {
+  _id: string;
+  slug: string;
+  template: DemoTemplate;
+  businessName: string;
+  tagline: string | null;
+  sector: string | null;
+  shortDescription: string | null;
+  thumbnail: SanityImage | null;
+  galleryOrder: number | null;
+};
+

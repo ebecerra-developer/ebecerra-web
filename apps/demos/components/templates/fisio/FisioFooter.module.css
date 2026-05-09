@@ -1,0 +1,41 @@
+.footer {
+  padding: 2rem 0;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+}
+
+.tagline {
+  font-style: italic;
+}
+
+.legal {
+  font-size: var(--fs-xs);
+}
+
+.legal a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.legal a:hover {
+  color: var(--cta);
+}

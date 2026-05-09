@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/*
+  Tokens base globales del subdominio demos. Cada plantilla puede sobreescribir
+  variables con su propia hoja en un selector específico (ej. [data-template="fisio"])
+  cargada desde su layout/page si crece la familia.
+  Por ahora, demos-fisio.css define los tokens al :root y todas las demos los usan.
+*/
+@import "../../../packages/tokens/demos-fisio.css";
+
+@theme inline {
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-fraunces);
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-warm: var(--surface-warm);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+
+  --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-on-accent: var(--text-on-accent);
+
+  --color-cta: var(--cta);
+  --color-cta-hover: var(--cta-hover);
+  --color-accent: var(--accent);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text);
+  font-family: var(--font-display);
+  text-wrap: balance;
+  margin: 0;
+  font-weight: var(--fw-semibold);
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-tight);
+  font-weight: var(--fw-bold);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-heading);
+}
+
+h4 {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-medium);
+}
+
+p { margin: 0; }
+
+a {
+  color: var(--cta);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1.5px;
+  transition: color var(--dur-fast) var(--ease),
+              text-decoration-color var(--dur-fast) var(--ease);
+}
+
+a:hover {
+  color: var(--cta-hover);
+  text-decoration-color: var(--cta-hover);
+}
+
+::selection {
+  background: var(--cta-soft-strong);
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--sh-focus);
+  border-radius: var(--r-sm);
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-py);
+}

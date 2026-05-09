@@ -1,0 +1,115 @@
+.section {
+  padding-block: var(--section-py);
+  background: var(--bg);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  max-width: 56ch;
+  margin-inline: auto;
+}
+
+.kicker {
+  font-family: var(--font-mono-stack, monospace);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cta);
+  margin-bottom: 0.75rem;
+  font-weight: var(--fw-medium);
+}
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.lead {
+  color: var(--text-secondary);
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 1.75rem;
+  transition: border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--cta);
+  box-shadow: var(--sh-md);
+  transform: translateY(-2px);
+}
+
+.icon {
+  display: inline-grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--r-md);
+  background: var(--cta-soft);
+  color: var(--cta);
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.serviceTitle {
+  margin-bottom: 0.5rem;
+  font-size: var(--fs-h4);
+}
+
+.serviceDesc {
+  color: var(--text-secondary);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  margin-bottom: 1.25rem;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: var(--fs-sm);
+}
+
+.metaItem {
+  color: var(--text-muted);
+}
+
+.price {
+  color: var(--text);
+  font-weight: var(--fw-semibold);
+  margin-left: auto;
+}
