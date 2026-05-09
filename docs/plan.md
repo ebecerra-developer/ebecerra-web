@@ -1,6 +1,12 @@
 # Plan de trabajo — ebecerra-web
 
-**Estado actual (2026-04-23):** `main` es el monorepo en producción sirviendo `apps/es` en [ebecerra.es](https://ebecerra.es). `apps/tech` completa en el repo, sin cutover DNS. Sanity `gdtxcn4l/production` alimenta services/process/profile; el resto del copy vive en `messages/*.json`.
+**Estado actual (2026-05-10):** `main` es el monorepo en producción con tres apps activas:
+
+- `apps/es` → [ebecerra.es](https://ebecerra.es) — home con 6 secciones numeradas (01 Servicios · 02 Sobre mí · 03 Capacidades · 04 Cómo trabajamos · 05 Ejemplos · 06 Contacto). Stats y features client-facing tras pivote comercial.
+- `apps/tech` → [ebecerra.tech](https://ebecerra.tech) — modo geek live desde 2026-04-24.
+- `apps/demos` → [demos.ebecerra.es](https://demos.ebecerra.es) — subdominio de demos navegables, activa desde 2026-05-09. Plantilla `fisio` con demo `equilibrio` (anonimizada, bilingüe ES/EN, paleta madera + petrol blue, hamburger mobile-first).
+
+Sanity `gdtxcn4l/production` compartido. Webhook fan-out desde apps/es cubre los 3 dominios.
 
 **Tracking:** checkboxes `[ ]` / `[x]` inline en este archivo. Decisiones dateadas y bloqueos en [`progress.md`](progress.md). Plan y progreso originales (Fases 0–9: migración Vite → Next + Sanity + monorepo + cutover) archivados en [`archive/`](archive/).
 
@@ -108,68 +114,65 @@ Orden recomendado: empezar por los grandes (Hero, Services) para validar la conv
 
 ---
 
-## Fase F — Demos para clientes (`demos.ebecerra.es`)
+## Fase F — Demos para clientes (`demos.ebecerra.es`) ✓ activa desde 2026-05-09
 
-**Objetivo:** webs de ejemplo navegables (clínica fisio, dental, abogados, coach…) para enseñar a clientes potenciales lo que pueden tener. Cada demo accesible por URL propia, editable desde Sanity con interfaz simple, e imágenes vía Unsplash. Primera demo: fisio bilingüe ES/EN para enseñar a una amiga fisioterapeuta con web actual en WordPress.
+**Objetivo cumplido:** webs de ejemplo navegables (clínica fisio anonimizada hoy; dental, abogados, coach… pendientes) para enseñar a clientes potenciales lo que pueden tener. Cada demo accesible por URL propia, editable desde Sanity con interfaz simple, imágenes vía AI generation (Sanity MCP) o Media Library nativa.
 
-**Decisiones (2026-05-09):**
+**Decisiones (2026-05-09 → 2026-05-10):**
 
-- **App separada `apps/demos`** servida en subdominio `demos.ebecerra.es`. Aislamiento total de blast radius y bundle. Reusa `@ebecerra/sanity-client`, `@ebecerra/sanity-schemas` y `@ebecerra/tokens`.
-- **Schema único `demoSite`** con campo `template` (select) que dispara una plantilla React distinta. Schema en `packages/sanity-schemas`.
-- **Imágenes:** `sanity-plugin-asset-source-unsplash` en el Studio embebido de `apps/es`. Editor busca dentro de Sanity, asset queda en CDN Sanity con pipeline.
-- **Studio:** custom structure que destaca "Demos" como sección top-level. Presentation activado para split-view de edición en vivo.
-- **SEO:**
-  - Demos individuales `demos.ebecerra.es/{locale}/{slug}` → `noindex`.
-  - Galería pública `ebecerra.es/ejemplos` (en `apps/es`, no en `apps/demos`) → indexada, contenido editorial valioso ("ejemplos de webs para autónomos"), enlaza a las demos. Su SEO suma a `ebecerra.es`.
-- **i18n:** todos los campos de copy son `localeString`/`localeText` desde el inicio. Las demos monolingües dejan EN vacío y caen al fallback ES. Primera demo (fisio) bilingüe.
-- **DNS:** registro CNAME `demos` → `cname.vercel-dns.com` en panel DonDominio (DNS de ebecerra.es está en DonDominio, no en Vercel — corregir mención obsoleta en CLAUDE.md).
-- **Acceso de cliente:** prioridad demos guiadas. Invitación de usuarios viewer/editor a Sanity (plan free permite 3) queda como capacidad opcional, no bloqueante.
+- **App separada `apps/demos`** servida en subdominio `demos.ebecerra.es`. Reusa `@ebecerra/sanity-client`, `@ebecerra/sanity-schemas` y `@ebecerra/tokens`.
+- **Schema único `demoSite`** con campo `template` (select), bloques editoriales y `brandOverrides` (paleta + logo) para personalizar sin tocar código.
+- **Imágenes:** plugin Unsplash NO compatible con sanity v5. Workflow real = `mcp__sanity__generate_image` (IA) + Media Library nativa para upload manual.
+- **Studio:** custom structure con sección "Demos de webs". Presentation tool pendiente (F5).
+- **SEO:** demos individuales `demos.ebecerra.es/{locale}/{slug}` → `noindex` (header HTTP + meta + robots.ts). Galería pública `ebecerra.es/ejemplos` indexada con JSON-LD ItemList.
+- **i18n:** `localeString`/`localeText` desde el inicio. Demos monolingües dejan EN vacío. Primera demo (fisio Equilibrio) bilingüe.
+- **DNS:** registro CNAME `demos` → `cname.vercel-dns.com` en panel DonDominio.
+- **Webhooks:** plan free Sanity = 2 webhooks. Patrón fan-out: `apps/es/api/revalidate` reenvía a `demos.ebecerra.es/api/revalidate` cuando `_type == "demoSite"`. Un único webhook cubre 3 dominios.
 
-### F1 — Scaffold del subdominio
+### F1 — Scaffold del subdominio ✓
 
-- [ ] Crear `apps/demos` (Next.js 16 + TS + Tailwind v4 + next-intl 4) copiando estructura mínima de `apps/es`
-- [ ] Wiring de `@ebecerra/sanity-client`, `@ebecerra/sanity-schemas`, `@ebecerra/tokens`
-- [ ] Layout raíz, `not-found.tsx`, `error.tsx`, robots con noindex global por defecto
-- [ ] Crear proyecto Vercel `ebecerra-demos` (root `apps/demos`, turbo-ignore)
-- [ ] Añadir dominio `demos.ebecerra.es` en Vercel + CNAME en DonDominio
-- [ ] Replicar env vars (Sanity project/dataset/token, Resend si aplica)
-- [ ] Añadir `https://demos.ebecerra.es` a CORS de Sanity
-- [ ] Smoke test: deploy "hello world" en el subdominio, SSL OK
-- [ ] Webhook adicional Sanity → `https://demos.ebecerra.es/api/revalidate/`
+- [x] Crear `apps/demos` (Next.js 16 + TS + Tailwind v4 + next-intl 4) copiando estructura mínima de `apps/es`
+- [x] Wiring de `@ebecerra/sanity-client`, `@ebecerra/sanity-schemas`, `@ebecerra/tokens`
+- [x] Layout raíz, `not-found.tsx`, `robots.ts` noindex global, X-Robots-Tag header en next.config
+- [x] Crear proyecto Vercel `ebecerra-demos` (root `apps/demos`)
+- [x] Añadir dominio `demos.ebecerra.es` en Vercel + CNAME en DonDominio
+- [x] Env var `SANITY_REVALIDATE_SECRET` (mismo valor que apps/es)
+- [x] Añadir `https://demos.ebecerra.es` a CORS de Sanity
+- [x] Smoke test: deploy en producción, SSL OK
+- [x] Webhook fan-out desde `apps/es/api/revalidate` (no webhook adicional Sanity, plan free)
 
-### F2 — Schema `demoSite` + plugin Unsplash
+### F2 — Schema `demoSite` + integración con Studio ✓
 
-- [ ] Añadir schema `demoSite` a `packages/sanity-schemas`: slug, template (select), name, tagline, hero, about, services[], team[], testimonials[], contact, seo, enableEnglish
-- [ ] Campos de copy como `localeString`/`localeText`
-- [ ] Instalar `sanity-plugin-asset-source-unsplash` en `apps/es/sanity.config.ts`
-- [ ] Custom structure: sección top-level "Demos" listando documentos `demoSite`
-- [ ] Activar Presentation tool para `demoSite` apuntando a `demos.ebecerra.es/{locale}/{slug}`
-- [ ] Deploy schema (`npx sanity schema deploy`)
-- [ ] Crear doc vacío de prueba para validar que aparece en Studio
+- [x] Schema `demoSite` en `packages/sanity-schemas` con slug, template, brand overrides (logo, colores, bgTone), bilingüe completo, hero, about, services[], team[], testimonials[], contact con horario+social
+- [x] Campos de copy como `localeString`/`localeText`
+- [x] Custom structure: sección "Demos de webs" en el Studio embebido de apps/es
+- [x] Deploy schema (`npx sanity schema deploy`)
+- [x] Doc Equilibrio creado y publicado vía MCP
+- [ ] ~~Plugin Unsplash~~ — abandonado (no soporta sanity v5). En su lugar: `mcp__sanity__generate_image`
 
-### F3 — Plantilla "fisio" + demo Elena bilingüe
+### F3 — Plantilla "fisio" + demo Equilibrio (anonimizada, sustituye a la idea inicial Elena/BeeMovement) ✓
 
-- [ ] Definir paleta y tipografía propias del template fisio (cálida, sanitaria, distinta de la pro). Tokens en `packages/tokens/demos-fisio.css` o equivalente
-- [ ] Componentes de secciones: `<HeroFisio>`, `<AboutFisio>`, `<ServicesFisio>`, `<TeamFisio>`, `<TestimonialsFisio>`, `<ContactFisio>`, `<FooterFisio>`
-- [ ] Página `app/[locale]/[slug]/page.tsx` con switch por `template` (caso `fisio` por ahora)
-- [ ] Banner sutil "Demo / Ejemplo de web — no es un negocio real"
-- [ ] Crear documento real de Elena en Sanity con copy ES + EN + imágenes Unsplash
-- [ ] Switcher de idioma ES/EN funcional (condicionado por `enableEnglish`)
-- [ ] Validar mobile, Lighthouse, switcher
+- [x] Tokens en `packages/tokens/demos-fisio.css` con paleta cream paper + walnut + petrol blue + terracota. Tipografía Fraunces serif + DM Sans
+- [x] Componentes: FisioNav (con FisioNavMobile hamburger drawer), FisioHero (full-bleed bg image), FisioAbout, FisioBannerCta, FisioServices, FisioTeam, FisioTestimonials, FisioBooking (mock slots), FisioContact con FisioContactForm (client + estado submit/success), FisioFooter
+- [x] Página `app/[locale]/[slug]/page.tsx` con switch por `template`
+- [x] DemoBanner no-sticky en cabecera
+- [x] Doc Equilibrio en Sanity con copy ES + EN, 5 servicios, 3 miembros equipo, 3 testimonios, 5 imágenes IA generadas (hero, about, thumbnail, 3 portraits)
+- [x] Switcher ES/EN funcional condicionado por `enableEnglish`
+- [x] Hamburger nav móvil con CTA dentro y lang switcher fuera (criterio mobile-first)
+- [x] La raíz `demos.ebecerra.es/` renderiza la primera demo publicada (no listado intermedio)
 
-### F4 — Galería pública en `apps/es`
+### F4 — Galería pública en `apps/es` ✓
 
-- [ ] Schema `demosGallery` (singleton) con title, lead, intro
-- [ ] Página `app/(locale)/[locale]/ejemplos/page.tsx` listando demos publicadas
-- [ ] Cada tarjeta: captura, nombre, sector, CTA "Ver demo" → `demos.ebecerra.es/{locale}/{slug}`
-- [ ] Indexable. Metadata + JSON-LD (`ItemList` o similar)
-- [ ] Enlace desde nav o footer de la web pro
+- [x] Página `app/(locale)/[locale]/ejemplos/page.tsx` listando demos `publishedToGallery == true`
+- [x] Cada tarjeta: thumbnail, sector, nombre, descripción corta, CTA "Ver demo" → `demos.ebecerra.es/{slug}/`
+- [x] Indexable. Metadata + JSON-LD `ItemList`
+- [x] Sección Examples (numerada 05) en home también muestra preview
+- [x] Link "Ejemplos" en nav y footer
+- [ ] ~~Schema `demosGallery` singleton~~ — descartado. Copy del header en `messages/*.json` (suficiente, no requiere edición editorial)
 
-### F5 — Presentation tool / Visual Editing (opcional, postcutover)
+### F5 — Presentation tool / Visual Editing (opcional, pendiente)
 
-Una vez `demos.ebecerra.es` esté en producción, activar split-view de edición en
-vivo desde el Studio embebido en `apps/es`. Argumento de venta frente a WordPress:
-el cliente edita en una columna y ve el cambio aplicado en la otra.
+Argumento de venta frente a WordPress: el cliente edita en una columna y ve el cambio aplicado en la otra.
 
 - [ ] `presentationTool({ previewUrl, allowOrigins })` en `apps/es/sanity.config.ts` con `previewUrl.initial = 'https://demos.ebecerra.es'` y `allowOrigins` incluyendo `demos.ebecerra.es` + `localhost`
 - [ ] Route handler `apps/demos/app/api/draft-mode/enable/route.ts` validando secret y llamando `draftMode().enable()`
@@ -186,6 +189,33 @@ Sacar conforme haga falta. Cada plantilla es una sesión propia.
 - [ ] Plantilla `coach` (entrenador personal)
 - [ ] Plantilla `asesoria`
 - [ ] Plantilla `restaurante`
+
+### F7 — Demo "BeeMovement" (privada, para Alejandra) — pendiente
+
+Demo branded con paleta/logo de BeeMovement Fisioterapia. URL accesible solo con link directo (`publishedToGallery: false`). Borrar o despublicar tras enseñar.
+
+- [ ] Crear doc en Sanity con `template: "fisio"` y brand overrides (colores y logo de BeeMovement)
+- [ ] Copy adaptado a su estructura actual (basado en beemovementfisioterapia.com)
+- [ ] Pasar URL a Alejandra
+- [ ] Tras feedback: borrar o convertir en proyecto si contrata
+
+---
+
+## Fase G — Iteración comercial home apps/es ✓ (2026-05-09 → 2026-05-10)
+
+Refactor del posicionamiento comercial de la home tras feedback con foco en target real (autónomos/PYMEs, no perfil tech).
+
+- [x] Stats client-facing: `8+ años de oficio` / `1:1 trato directo, sin intermediarios` / `100% código tuyo, sin lock-in`. Antes: 150+ proyectos, 20 AAPP (no verificables, no relevantes)
+- [x] About features: 4 cards 2x2 (Arquitectura · Formación técnica · Sectores críticos · Stack moderno con IA). Magnolia / Java & Spring fuera (jerga tech invisible al cliente final)
+- [x] Sección Casos eliminada (anonimizada bajo NDA, ocupaba mucho, prueba social ahora vive en Examples)
+- [x] **Nueva sección Capacidades (03)**: 4 cards (Asistente IA con badge "Nuevo", Reservas online, Integraciones, Datos para decidir). Bullets concretos por card. Nota inferior: capacidades modulares y opcionales
+- [x] Examples como sección numerada 05 (entre Cómo trabajamos y Contacto)
+- [x] Numeración renumerada: 01 Servicios · 02 Sobre mí · 03 Capacidades · 04 Cómo trabajamos · 05 Ejemplos · 06 Contacto
+- [x] Nav y Footer actualizados con los 6 pilares
+- [x] CTAs unificados (pill, weight 600, translateY hover, color explícito en :hover para evitar bug global)
+- [x] Footer cleanup: duplicado de "ejemplos" eliminado, icono ✉ en Email para consistencia
+- [x] Política #6 (verdad de contenido) extendida con prohibición de jerga técnica visible al cliente
+- [x] Política #7 (mobile-first + hamburger nav por defecto) añadida a CLAUDE.md
 
 ---
 
