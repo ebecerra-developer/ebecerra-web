@@ -3,6 +3,7 @@ import type { Locale } from "@/i18n/routing";
 import FisioNav from "./FisioNav";
 import FisioHero from "./FisioHero";
 import FisioAbout from "./FisioAbout";
+import FisioBannerCta from "./FisioBannerCta";
 import FisioServices from "./FisioServices";
 import FisioTeam from "./FisioTeam";
 import FisioTestimonials from "./FisioTestimonials";
@@ -28,6 +29,7 @@ export default function FisioTemplate({
       <main id="main">
         <FisioHero demo={demo} />
         {demo.about && <FisioAbout about={demo.about} />}
+        <FisioBannerCta demo={demo} />
         {demo.services.length > 0 && (
           <FisioServices header={demo.servicesSection} services={demo.services} />
         )}

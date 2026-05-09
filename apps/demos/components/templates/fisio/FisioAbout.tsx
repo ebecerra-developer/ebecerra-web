@@ -15,8 +15,13 @@ export default function FisioAbout({ about }: { about: DemoAbout }) {
       aria-labelledby="about-heading"
     >
       <div className={styles.inner}>
-        <div>
-          {about.kicker && <p className={styles.kicker}>{about.kicker}</p>}
+        <div className={styles.content}>
+          {about.kicker && (
+            <p className={styles.sectionIndex}>
+              <span className={styles.indexNumber}>01</span>
+              <span>{about.kicker.replace(/^\/\/\s*/, "")}</span>
+            </p>
+          )}
           {about.title && (
             <h2 id="about-heading" className={styles.title}>
               {about.title}
@@ -33,16 +38,22 @@ export default function FisioAbout({ about }: { about: DemoAbout }) {
             </ul>
           )}
         </div>
-        {imageUrl && (
+        <div className={styles.mediaWrap}>
           <div className={styles.media}>
-            <Image
-              src={imageUrl}
-              alt={about.title ?? ""}
-              fill
-              sizes="(min-width: 900px) 45vw, 100vw"
-            />
+            {imageUrl ? (
+              <Image
+                src={imageUrl}
+                alt={about.title ?? ""}
+                fill
+                sizes="(min-width: 900px) 45vw, 100vw"
+              />
+            ) : (
+              <div className={styles.mediaPlaceholder}>
+                {about.title ?? ""}
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

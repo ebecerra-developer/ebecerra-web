@@ -32,7 +32,10 @@ export default async function FisioNav({
               priority
             />
           ) : (
-            demo.businessName
+            <>
+              <span className={styles.brandDot} aria-hidden="true" />
+              {demo.businessName}
+            </>
           )}
         </a>
         <nav aria-label={t("ariaPrimaryNav")}>

@@ -14,8 +14,13 @@ export default function FisioHero({ demo }: { demo: DemoSite }) {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
       <div className={styles.inner}>
-        <div>
-          {hero.kicker && <p className={styles.kicker}>{hero.kicker}</p>}
+        <div className={styles.content}>
+          {hero.kicker && (
+            <div className={styles.kickerLine}>
+              <span className={styles.dot} aria-hidden="true" />
+              <p className={styles.kicker}>{hero.kicker}</p>
+            </div>
+          )}
           <h1 id="hero-heading" className={styles.heading}>
             {hero.heading ?? demo.businessName}
           </h1>
@@ -38,18 +43,31 @@ export default function FisioHero({ demo }: { demo: DemoSite }) {
               </a>
             )}
           </div>
+          <div className={styles.scrollHint} aria-hidden="true">
+            <span className={styles.scrollHintLine} />
+            <span>Scroll</span>
+          </div>
         </div>
+
         <div className={styles.media}>
           {imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt={hero.heading ?? demo.businessName}
-              fill
-              sizes="(min-width: 900px) 45vw, 100vw"
-              priority
-            />
+            <>
+              <Image
+                src={imageUrl}
+                alt={hero.heading ?? demo.businessName}
+                fill
+                sizes="(min-width: 960px) 45vw, 100vw"
+                priority
+              />
+              {demo.tagline && (
+                <span className={styles.mediaCaption}>{demo.tagline}</span>
+              )}
+            </>
           ) : (
-            <div className={styles.mediaPlaceholder}>{demo.businessName}</div>
+            <div className={styles.mediaPlaceholder}>
+              <span className={styles.mediaPlaceholderSymbol}>◯</span>
+              <span>{demo.tagline ?? demo.businessName}</span>
+            </div>
           )}
         </div>
       </div>

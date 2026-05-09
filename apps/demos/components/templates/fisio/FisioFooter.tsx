@@ -6,7 +6,10 @@ export default function FisioFooter({ demo }: { demo: DemoSite }) {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <span className={styles.brand}>{demo.businessName}</span>
+        <span className={styles.brand}>
+          <span className={styles.brandDot} aria-hidden="true" />
+          {demo.businessName}
+        </span>
         {demo.tagline && <span className={styles.tagline}>{demo.tagline}</span>}
         <span className={styles.legal}>
           © {year} · Demo en{" "}

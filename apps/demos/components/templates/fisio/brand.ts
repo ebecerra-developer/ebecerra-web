@@ -1,40 +1,59 @@
 import type { CSSProperties } from "react";
 import type { DemoBrandOverrides } from "@ebecerra/sanity-client";
 
-const BG_TONES: Record<NonNullable<DemoBrandOverrides["bgTone"]>, { bg: string; surface: string; surfaceSubtle: string; surfaceWarm: string }> = {
+type Tone = {
+  bg: string;
+  bgDeep: string;
+  surface: string;
+  surfaceSubtle: string;
+  surfaceWarm: string;
+  border: string;
+  borderStrong: string;
+};
+
+const BG_TONES: Record<NonNullable<DemoBrandOverrides["bgTone"]>, Tone> = {
   cream: {
-    bg: "#fdfaf5",
+    bg: "#f7f0e3",
+    bgDeep: "#ede1cb",
     surface: "#ffffff",
-    surfaceSubtle: "#f5efe6",
-    surfaceWarm: "#eadfce",
+    surfaceSubtle: "#f1e7d2",
+    surfaceWarm: "#e2d2b3",
+    border: "#e0cfaf",
+    borderStrong: "#c4ae84",
   },
   "off-white": {
-    bg: "#fafaf9",
+    bg: "#faf8f3",
+    bgDeep: "#f0ece0",
     surface: "#ffffff",
-    surfaceSubtle: "#f5f5f4",
-    surfaceWarm: "#e7e5e4",
+    surfaceSubtle: "#f1ede0",
+    surfaceWarm: "#e3dcc6",
+    border: "#e5dfcc",
+    borderStrong: "#c8bfa6",
   },
   sand: {
-    bg: "#f7f1e8",
+    bg: "#f4ead4",
+    bgDeep: "#e8d9b3",
     surface: "#ffffff",
-    surfaceSubtle: "#ede2d0",
-    surfaceWarm: "#dcc9aa",
+    surfaceSubtle: "#ecdfc1",
+    surfaceWarm: "#d8c498",
+    border: "#d5c194",
+    borderStrong: "#b39e6e",
   },
   "cool-white": {
-    bg: "#fafbfc",
+    bg: "#fafbf7",
+    bgDeep: "#eef0e8",
     surface: "#ffffff",
-    surfaceSubtle: "#f0f3f6",
-    surfaceWarm: "#e2e8ef",
+    surfaceSubtle: "#f0f1ea",
+    surfaceWarm: "#dde0d2",
+    border: "#dee2d4",
+    borderStrong: "#bbc1ad",
   },
 };
 
 /**
- * Devuelve un objeto de CSSProperties con CSS variables sobreescritas según
- * los brand overrides del documento. Si un campo es null, no lo sobreescribe
- * y el template usa el valor por defecto de demos-fisio.css.
- *
- * Convertimos hex → rgba para `--cta-soft` y similares con un degradado de
- * opacidad fijo (10% y 22%) que el template ya espera.
+ * Genera CSS custom properties desde los brand overrides del documento.
+ * Si un campo es null, no lo sobreescribe — el template usa el valor por
+ * defecto de demos-fisio.css.
  */
 export function brandStyle(brand: DemoBrandOverrides | null): CSSProperties {
   if (!brand) return {};
@@ -42,8 +61,8 @@ export function brandStyle(brand: DemoBrandOverrides | null): CSSProperties {
 
   if (brand.primaryColor) {
     style["--cta"] = brand.primaryColor;
-    style["--cta-hover"] = darken(brand.primaryColor, 0.12);
-    style["--cta-soft"] = withAlpha(brand.primaryColor, 0.1);
+    style["--cta-hover"] = darken(brand.primaryColor, 0.16);
+    style["--cta-soft"] = withAlpha(brand.primaryColor, 0.10);
     style["--cta-soft-strong"] = withAlpha(brand.primaryColor, 0.22);
     style["--success"] = brand.primaryColor;
   }
@@ -51,19 +70,24 @@ export function brandStyle(brand: DemoBrandOverrides | null): CSSProperties {
   if (brand.accentColor) {
     style["--accent"] = brand.accentColor;
     style["--accent-soft"] = withAlpha(brand.accentColor, 0.12);
+    style["--accent-strong"] = darken(brand.accentColor, 0.15);
   }
 
   if (brand.inkColor) {
     style["--ink"] = brand.inkColor;
+    style["--ink-soft"] = lighten(brand.inkColor, 0.08);
     style["--text"] = brand.inkColor;
   }
 
   const tone = BG_TONES[brand.bgTone ?? "cream"];
   if (tone) {
     style["--bg"] = tone.bg;
+    style["--bg-deep"] = tone.bgDeep;
     style["--surface"] = tone.surface;
     style["--surface-subtle"] = tone.surfaceSubtle;
     style["--surface-warm"] = tone.surfaceWarm;
+    style["--border"] = tone.border;
+    style["--border-strong"] = tone.borderStrong;
   }
 
   return style as CSSProperties;
@@ -92,4 +116,13 @@ function darken(hex: string, amount: number): string {
   if (!rgb) return hex;
   const dark = rgb.map((c) => Math.max(0, Math.round(c * (1 - amount))));
   return `#${dark.map((c) => c.toString(16).padStart(2, "0")).join("")}`;
+}
+
+function lighten(hex: string, amount: number): string {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return hex;
+  const light = rgb.map((c) =>
+    Math.min(255, Math.round(c + (255 - c) * amount))
+  );
+  return `#${light.map((c) => c.toString(16).padStart(2, "0")).join("")}`;
 }

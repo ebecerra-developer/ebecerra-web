@@ -1,90 +1,108 @@
 /* ==========================================================================
    demos.ebecerra.es — Plantilla Fisio — Design Tokens
    --------------------------------------------------------------------------
-   Paleta cálida sanitaria: sage / cream / terracota suave. Distinta del modo
-   pro (stone + verde bosque) para que cada demo tenga personalidad propia.
+   Filosofía: calma, madera, inspiración. Cream paper background, tonos
+   nogal/avellana en tinta, verde bosque cálido como acento principal,
+   terracota suave para contrastes. Tipografía editorial: Fraunces serif
+   para titulares grandes, DM Sans para cuerpo y mono kicker.
    ========================================================================== */
 
 :root {
   /* ---------- Color — Structure ---------- */
-  --bg:              #fdfaf5;  /* warm cream */
+  --bg:              #f7f0e3;  /* warm paper cream */
+  --bg-deep:         #ede1cb;  /* deeper paper for banners */
   --surface:         #ffffff;
-  --surface-subtle:  #f5efe6;  /* soft sand */
-  --surface-warm:    #eadfce;  /* deeper sand for accents */
-  --border:          #e6dccd;
-  --border-strong:   #cdbfa8;
-  --ink:             #2c3e2e;  /* deep forest */
+  --surface-subtle:  #f1e7d2;
+  --surface-warm:    #e2d2b3;  /* card backgrounds, accents */
+  --border:          #e0cfaf;
+  --border-strong:   #c4ae84;
+  --ink:             #2a1f12;  /* deep walnut — never pure black */
+  --ink-soft:        #3d2d1e;  /* softer walnut for surfaces */
 
   /* ---------- Color — Text ---------- */
-  --text:            #2c3e2e;
-  --text-secondary:  #4a5a4c;
-  --text-muted:      #7a8377;
-  --text-disabled:   #b3b7ac;
-  --text-on-accent:  #fdfaf5;
-  --text-on-ink:     #fdfaf5;
+  --text:            #2a1f12;
+  --text-secondary:  #4d3a26;
+  --text-muted:      #806748;
+  --text-disabled:   #b09a78;
+  --text-on-accent:  #f7f0e3;
+  --text-on-ink:     #f0e6d3;
 
-  /* ---------- Color — CTA — sage green ---------- */
-  --cta:             #5b8c6a;  /* sage 600 */
-  --cta-hover:       #4a7457;
-  --cta-soft:        rgba(91, 140, 106, 0.1);
-  --cta-soft-strong: rgba(91, 140, 106, 0.22);
+  /* ---------- Color — CTA — verde bosque cálido ---------- */
+  --cta:             #4d6b3c;  /* forest sage warm */
+  --cta-hover:       #3a5429;
+  --cta-soft:        rgba(77, 107, 60, 0.10);
+  --cta-soft-strong: rgba(77, 107, 60, 0.22);
 
-  /* ---------- Color — Accent secundario — terracota suave ---------- */
-  --accent:          #c97a5a;
-  --accent-soft:     rgba(201, 122, 90, 0.12);
+  /* ---------- Color — Accent — terracota suave ---------- */
+  --accent:          #b86a44;
+  --accent-soft:     rgba(184, 106, 68, 0.12);
+  --accent-strong:   #9b5635;
 
   /* ---------- Color — Semantic ---------- */
-  --success: #5b8c6a;
-  --warning: #c97a5a;
-  --error:   #b34c4c;
+  --success: #4d6b3c;
+  --warning: #b86a44;
+  --error:   #a04444;
 
   /* ---------- Typography ---------- */
   --font-sans-stack: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --font-display-stack: "Fraunces", "DM Serif Display", Georgia, serif;
+  --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  --fs-display:   clamp(2.75rem, 6vw, 4.5rem);
-  --fs-h1:        clamp(2.25rem, 4.6vw, 3.5rem);
-  --fs-h2:        clamp(1.875rem, 3.4vw, 2.625rem);
-  --fs-h3:        clamp(1.375rem, 2.2vw, 1.875rem);
-  --fs-h4:        1.25rem;
-  --fs-body-lead: 1.1875rem;
-  --fs-body:      1.0625rem;
-  --fs-sm:        0.9375rem;
-  --fs-xs:        0.8125rem;
+  /* Bigger, more editorial scale */
+  --fs-display:   clamp(3.25rem, 8vw, 6rem);     /* 52 → 96 */
+  --fs-h1:        clamp(2.5rem, 5.5vw, 4.25rem); /* 40 → 68 */
+  --fs-h2:        clamp(2rem, 4vw, 3.25rem);     /* 32 → 52 */
+  --fs-h3:        clamp(1.5rem, 2.6vw, 2.125rem);/* 24 → 34 */
+  --fs-h4:        1.375rem;                      /* 22 */
+  --fs-body-lead: 1.25rem;                       /* 20 */
+  --fs-body:      1.0625rem;                     /* 17 */
+  --fs-sm:        0.9375rem;                     /* 15 */
+  --fs-xs:        0.8125rem;                     /* 13 */
+  --fs-mono-md:   0.75rem;                       /* 12 — kicker */
 
   --fw-regular:  400;
   --fw-medium:   500;
   --fw-semibold: 600;
   --fw-bold:     700;
 
-  --lh-tight:    1.1;
-  --lh-heading:  1.2;
+  --lh-display:  1.05;
+  --lh-tight:    1.08;
+  --lh-heading:  1.18;
   --lh-body:     1.65;
   --lh-lead:     1.55;
 
-  --tr-tight:    -0.015em;
+  --tr-tight:    -0.02em;
+  --tr-display:  -0.025em;
+  --tr-kicker:   0.18em;
 
   /* ---------- Spacing & sizing ---------- */
-  --gutter:       clamp(1.25rem, 4vw, 2.5rem);
-  --container-max: 1180px;
-  --section-py:   clamp(4rem, 8vw, 6.5rem);
+  --gutter:        clamp(1.25rem, 4vw, 2.5rem);
+  --container-max: 1200px;
+  --container-narrow: 820px;
+  --section-py:    clamp(5rem, 10vw, 8rem);
+  --section-py-sm: clamp(3rem, 6vw, 4.5rem);
 
   /* ---------- Radii ---------- */
-  --r-xs:  6px;
-  --r-sm:  10px;
-  --r-md:  16px;
-  --r-lg:  24px;
+  --r-xs:  4px;
+  --r-sm:  8px;
+  --r-md:  14px;
+  --r-lg:  22px;
   --r-xl:  32px;
   --r-pill: 999px;
 
   /* ---------- Shadows ---------- */
-  --sh-sm:  0 1px 2px rgba(44, 62, 46, 0.06);
-  --sh-md:  0 4px 16px rgba(44, 62, 46, 0.08);
-  --sh-lg:  0 12px 32px rgba(44, 62, 46, 0.12);
-  --sh-focus: 0 0 0 3px rgba(91, 140, 106, 0.4);
+  --sh-sm:  0 1px 2px rgba(42, 31, 18, 0.06);
+  --sh-md:  0 6px 24px rgba(42, 31, 18, 0.10);
+  --sh-lg:  0 18px 48px rgba(42, 31, 18, 0.16);
+  --sh-card-hover: 0 20px 40px rgba(42, 31, 18, 0.14);
+  --sh-focus: 0 0 0 3px rgba(77, 107, 60, 0.4);
+
+  /* ---------- Decorative ---------- */
+  --grain: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/></svg>");
 
   /* ---------- Motion ---------- */
-  --dur-fast: 150ms;
-  --dur-base: 240ms;
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 480ms;
   --ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
 }

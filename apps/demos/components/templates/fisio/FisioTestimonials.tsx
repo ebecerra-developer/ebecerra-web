@@ -17,8 +17,17 @@ export default function FisioTestimonials({
     <section className={styles.section} aria-labelledby="testimonials-heading">
       <div className={styles.inner}>
         <header className={styles.header}>
-          {header?.kicker && <p className={styles.kicker}>{header.kicker}</p>}
-          {header?.title && <h2 id="testimonials-heading">{header.title}</h2>}
+          {header?.kicker && (
+            <p className={styles.sectionIndex}>
+              <span className={styles.indexNumber}>04</span>
+              <span>{header.kicker.replace(/^\/\/\s*/, "")}</span>
+            </p>
+          )}
+          {header?.title && (
+            <h2 id="testimonials-heading" className={styles.title}>
+              {header.title}
+            </h2>
+          )}
         </header>
 
         <ul className={styles.grid}>
@@ -26,13 +35,17 @@ export default function FisioTestimonials({
             const photoUrl = t.photo
               ? urlFor(t.photo).width(120).auto("format").url()
               : null;
+            const initial = t.author.charAt(0).toUpperCase();
             return (
               <li key={i} className={styles.card}>
+                <span className={styles.bigQuote} aria-hidden="true">“</span>
                 <p className={styles.quote}>{t.quote}</p>
                 <div className={styles.author}>
                   <div className={styles.photo}>
-                    {photoUrl && (
+                    {photoUrl ? (
                       <Image src={photoUrl} alt={t.author} fill sizes="48px" />
+                    ) : (
+                      <span className={styles.photoFallback}>{initial}</span>
                     )}
                   </div>
                   <div className={styles.authorMeta}>

@@ -21,31 +21,46 @@ export default function FisioTeam({
     >
       <div className={styles.inner}>
         <header className={styles.header}>
-          {header?.kicker && <p className={styles.kicker}>{header.kicker}</p>}
-          {header?.title && <h2 id="team-heading">{header.title}</h2>}
+          <div>
+            {header?.kicker && (
+              <p className={styles.sectionIndex}>
+                <span className={styles.indexNumber}>03</span>
+                <span>{header.kicker.replace(/^\/\/\s*/, "")}</span>
+              </p>
+            )}
+            {header?.title && (
+              <h2 id="team-heading" className={styles.title}>
+                {header.title}
+              </h2>
+            )}
+          </div>
           {header?.lead && <p className={styles.lead}>{header.lead}</p>}
         </header>
 
         <ul className={styles.grid}>
           {team.map((member, i) => {
             const photoUrl = member.photo
-              ? urlFor(member.photo).width(480).auto("format").url()
+              ? urlFor(member.photo).width(640).auto("format").url()
               : null;
             return (
               <li key={i} className={styles.member}>
-                <div className={styles.photo}>
+                <div className={styles.photoWrap}>
                   {photoUrl ? (
                     <Image
                       src={photoUrl}
                       alt={member.name}
                       fill
-                      sizes="240px"
+                      sizes="(min-width: 1100px) 380px, (min-width: 700px) 50vw, 100vw"
                     />
-                  ) : null}
+                  ) : (
+                    <div className={styles.photoPlaceholder}>◯</div>
+                  )}
                 </div>
-                <h3 className={styles.name}>{member.name}</h3>
-                {member.role && <p className={styles.role}>{member.role}</p>}
-                {member.bio && <p className={styles.bio}>{member.bio}</p>}
+                <div className={styles.body}>
+                  {member.role && <p className={styles.role}>{member.role}</p>}
+                  <h3 className={styles.name}>{member.name}</h3>
+                  {member.bio && <p className={styles.bio}>{member.bio}</p>}
+                </div>
               </li>
             );
           })}
