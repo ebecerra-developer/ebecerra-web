@@ -26,7 +26,14 @@ export default function FisioNavMobile({
   ariaPrimaryNav,
 }: Props) {
   const [open, setOpen] = useState(false);
-  const isClient = typeof document !== "undefined";
+  const [mounted, setMounted] = useState(false);
+
+  // Mount detection for portal — solo despues de hidratar evitamos
+  // mismatches React #418 entre SSR y cliente.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
   // Close on ESC
   useEffect(() => {
@@ -118,7 +125,7 @@ export default function FisioNavMobile({
           <span className={`${styles.bar} ${styles.barBot}`} />
         </span>
       </button>
-      {isClient && createPortal(drawer, document.body)}
+      {mounted && createPortal(drawer, document.body)}
     </>
   );
 }
