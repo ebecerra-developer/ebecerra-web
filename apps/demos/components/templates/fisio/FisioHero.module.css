@@ -74,14 +74,14 @@
   font-family: var(--font-sans-stack);
   font-size: var(--fs-sm);
   letter-spacing: 0.04em;
-  color: var(--accent);
+  color: var(--text-on-ink);
   font-weight: var(--fw-semibold);
-  background: rgba(247, 240, 227, 0.08);
-  border: 1px solid rgba(247, 240, 227, 0.18);
-  padding: 0.4rem 0.875rem;
+  background: rgba(42, 31, 18, 0.72);
+  border: 1px solid rgba(247, 240, 227, 0.22);
+  padding: 0.45rem 0.95rem;
   border-radius: var(--r-pill);
   width: fit-content;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
 }
 
 .dot {
@@ -89,6 +89,7 @@
   height: 6px;
   border-radius: 999px;
   background: var(--accent);
+  flex-shrink: 0;
 }
 
 .heading {
