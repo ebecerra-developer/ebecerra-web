@@ -26,7 +26,7 @@ export default async function Process({ steps, sectionMeta }: Props) {
     >
       <div className={styles.inner}>
         <div className={styles.kicker}>
-          //{" "}
+          {"// "}
           <span className={styles.kickerAccent}>03.</span>{" "}
           {t("kicker").replace(/^\/\/\s*02\.\s*/i, "")}
         </div>

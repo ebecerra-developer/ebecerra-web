@@ -30,7 +30,7 @@ export default async function About({ features, profile }: Props) {
     >
       <div className={styles.inner}>
         <div className={styles.kicker}>
-          //{" "}
+          {"// "}
           <span className={styles.kickerAccent}>02.</span>{" "}
           {t("kicker").replace(/^\/\/\s*/i, "")}
         </div>

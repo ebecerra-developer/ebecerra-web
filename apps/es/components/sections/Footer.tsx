@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { usePathname } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import LogoMark from "@/components/LogoMark";
 import type { SiteSettingsFooter } from "@ebecerra/sanity-client";
 import styles from "./Footer.module.css";
@@ -15,7 +15,7 @@ const NAV_COL = [
 ] as const;
 
 function ColTitle({ children }: { children: React.ReactNode }) {
-  return <div className={styles.colTitle}>// {children}</div>;
+  return <div className={styles.colTitle}>{"// "}{children}</div>;
 }
 
 function FooterLink({
@@ -122,12 +122,12 @@ export default function Footer({ footerData }: Props) {
         <div className={styles.bottom}>
           <span>{t("copyright", { year })}</span>
           <div className={styles.legalLinks}>
-            <a href="/faq" className={styles.legalLink}>
+            <Link href="/faq" className={styles.legalLink}>
               {t("legalFaq")}
-            </a>
-            <a href="/privacidad" className={styles.legalLink}>
+            </Link>
+            <Link href="/privacidad" className={styles.legalLink}>
               {t("legalPrivacy")}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

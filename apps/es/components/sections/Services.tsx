@@ -23,7 +23,7 @@ export default async function Services({ services, sectionMeta }: Props) {
     >
       <div className={styles.inner}>
         <div className={styles.kicker}>
-          //{" "}
+          {"// "}
           <span className={styles.kickerAccent}>01.</span>{" "}
           {t("kicker").replace(/^\/\/\s*01\.\s*/i, "")}
         </div>
@@ -38,7 +38,7 @@ export default async function Services({ services, sectionMeta }: Props) {
           {services.map((service, index) => (
             <article key={service._id} className={styles.card}>
               <div className={styles.cardIndex}>
-                // {String(index + 1).padStart(2, "0")}
+                {`// ${String(index + 1).padStart(2, "0")}`}
               </div>
               <h3 className={styles.cardTitle}>{service.title}</h3>
               <p className={styles.cardSummary}>{service.summary}</p>
@@ -78,7 +78,7 @@ export default async function Services({ services, sectionMeta }: Props) {
           aria-labelledby="services-audit-heading"
         >
           <div className={styles.auditBody}>
-            <div className={styles.auditKicker}>// {auditKicker}</div>
+            <div className={styles.auditKicker}>{`// ${auditKicker}`}</div>
             <p id="services-audit-heading" className={styles.auditText}>
               {auditBody}
             </p>

@@ -32,6 +32,10 @@ export default function LogoMark({
 }: Props) {
   const heightValue = typeof height === "number" ? `${height}px` : height;
   return (
+    // SVG estático sin dimensiones intrínsecas conocidas y servido desde /public.
+    // next/image no aporta optimización aquí (no rasteriza SVG) y exigiría width/height
+    // fijos por variante, lo que rompería el escalado por height prop.
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={SRC[variant]}
       alt={alt}
