@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  min-height: clamp(560px, 85vh, 780px);
+  min-height: clamp(440px, 65vh, 600px);
   display: flex;
   align-items: center;
   background: var(--ink);
@@ -46,7 +46,7 @@
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
-  padding: clamp(4rem, 8vw, 6rem) var(--gutter);
+  padding: clamp(3rem, 6vw, 4.5rem) var(--gutter);
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
@@ -54,7 +54,7 @@
 
 @media (min-width: 800px) {
   .inner {
-    grid-template-columns: minmax(0, 1.1fr) 1fr;
+    grid-template-columns: minmax(0, 1.2fr) 320px;
     align-items: end;
     gap: 3rem;
   }
@@ -180,11 +180,11 @@
 
 @media (min-width: 800px) {
   .aside {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
     color: var(--text-on-ink);
+    width: 100%;
   }
 }
 
@@ -192,23 +192,25 @@
   background: rgba(247, 240, 227, 0.08);
   border: 1px solid rgba(247, 240, 227, 0.18);
   backdrop-filter: blur(8px);
-  padding: 1.5rem 1.75rem;
+  padding: 1.25rem 1.5rem;
   border-radius: var(--r-md);
-  min-width: 240px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
 }
 
 .statValue {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   line-height: 1;
   color: var(--accent);
   font-weight: var(--fw-bold);
-  display: block;
-  margin-bottom: 0.5rem;
 }
 
 .statLabel {
   font-size: var(--fs-sm);
-  color: rgba(247, 240, 227, 0.75);
-  line-height: 1.4;
+  color: rgba(247, 240, 227, 0.78);
+  line-height: 1.35;
 }

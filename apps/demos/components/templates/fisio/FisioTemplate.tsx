@@ -7,6 +7,7 @@ import FisioBannerCta from "./FisioBannerCta";
 import FisioServices from "./FisioServices";
 import FisioTeam from "./FisioTeam";
 import FisioTestimonials from "./FisioTestimonials";
+import FisioBooking from "./FisioBooking";
 import FisioContact from "./FisioContact";
 import FisioFooter from "./FisioFooter";
 import { brandStyle } from "./brand";
@@ -42,7 +43,10 @@ export default function FisioTemplate({
             testimonials={demo.testimonials}
           />
         )}
-        {demo.contact && <FisioContact contact={demo.contact} />}
+        <FisioBooking />
+        {demo.contact && (
+          <FisioContact contact={demo.contact} services={demo.services} />
+        )}
       </main>
       <FisioFooter demo={demo} />
     </div>

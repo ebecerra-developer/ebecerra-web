@@ -45,12 +45,6 @@ export default function FisioServices({
               {service.description && (
                 <p className={styles.serviceDesc}>{service.description}</p>
               )}
-              {service.duration && (
-                <span className={styles.duration}>
-                  <span className={styles.durationDot} aria-hidden="true" />
-                  {service.duration}
-                </span>
-              )}
             </li>
           ))}
         </ul>

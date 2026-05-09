@@ -26,14 +26,6 @@
   letter-spacing: var(--tr-tight);
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-}
-
-.brandDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--cta);
 }
 
 .brand:hover {
@@ -94,23 +86,23 @@
 
 .langSwitch {
   display: inline-flex;
-  border: 1px solid var(--border);
-  border-radius: var(--r-pill);
-  overflow: hidden;
-  background: var(--surface);
+  align-items: center;
+  gap: 0;
+  font-size: var(--fs-sm);
 }
 
 .langBtn {
-  padding: 0.4rem 0.75rem;
-  font-size: var(--fs-xs);
+  padding: 0.25rem 0.5rem;
+  font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   color: var(--text-muted);
   background: transparent;
   border: 0;
   cursor: pointer;
   text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
 }
 
 .langBtn:hover {
@@ -119,33 +111,39 @@
 }
 
 .langBtnActive {
-  background: var(--cta);
-  color: var(--text-on-accent);
+  color: var(--text);
+  border-bottom-color: var(--cta);
 }
 
 .langBtnActive:hover {
-  color: var(--text-on-accent);
+  color: var(--text);
+}
+
+.langSep {
+  color: var(--text-muted);
+  opacity: 0.4;
+  user-select: none;
 }
 
 .cta {
   display: inline-flex;
   align-items: center;
-  background: var(--cta);
+  background: var(--accent);
   color: var(--text-on-accent);
   padding: 0.55rem 1rem;
   border-radius: var(--r-pill);
   font-weight: var(--fw-semibold);
   font-size: var(--fs-sm);
   text-decoration: none;
-  border: 1.5px solid var(--cta);
+  border: 1.5px solid var(--accent);
   transition: background var(--dur-fast) var(--ease),
     border-color var(--dur-fast) var(--ease);
   white-space: nowrap;
 }
 
 .cta:hover {
-  background: var(--cta-hover);
-  border-color: var(--cta-hover);
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
   color: var(--text-on-accent);
   text-decoration: none;
 }

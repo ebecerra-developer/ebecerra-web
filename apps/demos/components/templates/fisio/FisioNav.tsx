@@ -32,10 +32,7 @@ export default async function FisioNav({
               priority
             />
           ) : (
-            <>
-              <span className={styles.brandDot} aria-hidden="true" />
-              {demo.businessName}
-            </>
+            demo.businessName
           )}
         </a>
         <nav aria-label={t("ariaPrimaryNav")}>
@@ -75,6 +72,7 @@ export default async function FisioNav({
               >
                 ES
               </Link>
+              <span className={styles.langSep} aria-hidden="true">/</span>
               <Link
                 href={`/${demo.slug}`}
                 locale="en"

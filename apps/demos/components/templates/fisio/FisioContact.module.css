@@ -33,7 +33,9 @@
   z-index: -1;
 }
 
-.section h2 { color: var(--text-on-ink); }
+.section h2 {
+  color: var(--text-on-ink);
+}
 
 .inner {
   position: relative;
@@ -42,14 +44,15 @@
   margin-inline: auto;
   padding-inline: var(--gutter);
   display: grid;
-  gap: clamp(2.5rem, 5vw, 4.5rem);
+  gap: clamp(2rem, 4vw, 3.5rem);
   grid-template-columns: 1fr;
+  align-items: start;
 }
 
 @media (min-width: 900px) {
   .inner {
-    grid-template-columns: 1.05fr 1fr;
-    align-items: start;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3.5rem;
   }
 }
 
@@ -96,89 +99,47 @@
   max-width: 48ch;
 }
 
-.bookingCta {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
+.infoList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
   gap: 0.5rem;
-  background: var(--accent);
-  color: var(--text-on-accent);
-  padding: 1.05rem 1.85rem;
-  border-radius: var(--r-pill);
-  font-weight: var(--fw-medium);
-  text-decoration: none;
-  border: 1.5px solid var(--accent);
-  transition: background var(--dur-fast) var(--ease),
-    transform var(--dur-fast) var(--ease);
+  margin-top: 0.5rem;
 }
 
-.bookingCta:hover {
-  background: var(--accent-strong);
-  border-color: var(--accent-strong);
-  color: var(--text-on-accent);
-  text-decoration: none;
-  transform: translateY(-2px);
-}
-
-.bookingCta::after {
-  content: "→";
-  transition: transform var(--dur-fast) var(--ease);
-}
-
-.bookingCta:hover::after { transform: translateX(3px); }
-
-.right {
+.infoRow {
   display: grid;
-  gap: 1.5rem;
+  grid-template-columns: 28px 1fr;
+  align-items: baseline;
+  gap: 0.875rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(247, 240, 227, 0.12);
 }
 
-.infoGrid {
-  display: grid;
-  gap: 1.25rem;
+.infoRow:last-child {
+  border-bottom: 0;
 }
 
-@media (min-width: 600px) {
-  .infoGrid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.infoBlock {
-  padding: 1.25rem 1.5rem;
-  background: rgba(247, 240, 227, 0.06);
-  border: 1px solid rgba(247, 240, 227, 0.12);
-  border-radius: var(--r-md);
-  backdrop-filter: blur(4px);
-}
-
-.infoLabel {
-  display: block;
-  font-family: var(--font-mono-stack);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+.infoIcon {
+  font-size: 0.95rem;
   color: var(--accent);
-  font-weight: var(--fw-semibold);
-  margin-bottom: 0.5rem;
 }
 
-.infoValue {
-  display: block;
-  font-family: var(--font-display);
-  font-size: var(--fs-body-lg);
+.infoText {
   color: var(--text-on-ink);
-  line-height: 1.4;
-  word-break: break-word;
+  font-size: var(--fs-body);
+  line-height: 1.45;
 }
 
-.infoValue a {
+.infoText a {
   color: var(--text-on-ink);
   text-decoration: underline;
   text-decoration-color: rgba(247, 240, 227, 0.3);
   text-underline-offset: 0.25em;
 }
 
-.infoValue a:hover {
+.infoText a:hover {
   color: var(--accent);
   text-decoration-color: var(--accent);
 }
@@ -188,30 +149,23 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .hoursRow {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  gap: 1rem;
   font-size: var(--fs-sm);
-  border-bottom: 1px dashed rgba(247, 240, 227, 0.15);
-  padding-bottom: 0.4rem;
+  color: var(--text-on-ink);
 }
 
-.hoursRow:last-child { border-bottom: 0; }
-
 .hoursLabel {
-  color: rgba(247, 240, 227, 0.65);
-  font-family: var(--font-mono-stack);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: rgba(247, 240, 227, 0.7);
 }
 
 .hoursValue {
-  color: var(--text-on-ink);
   font-variant-numeric: tabular-nums;
   font-family: var(--font-display);
 }
@@ -220,6 +174,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .socialLink {
@@ -243,19 +198,6 @@
   text-decoration: none;
 }
 
-.map {
+.right {
   position: relative;
-  border-radius: var(--r-md);
-  overflow: hidden;
-  background: rgba(247, 240, 227, 0.05);
-  min-height: 240px;
-  border: 1px solid rgba(247, 240, 227, 0.12);
-}
-
-.map iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
 }

@@ -1,12 +1,16 @@
-import { getTranslations } from "next-intl/server";
-import type { DemoContact } from "@ebecerra/sanity-client";
+import type { DemoContact, DemoService } from "@ebecerra/sanity-client";
+import FisioContactForm from "./FisioContactForm";
 import styles from "./FisioContact.module.css";
 
-export default async function FisioContact({ contact }: { contact: DemoContact }) {
-  const t = await getTranslations("fisio");
-  const ctaLabel = t("callToAction");
-  const ctaHref = contact.bookingUrl ?? `mailto:${contact.email ?? ""}`;
+export default function FisioContact({
+  contact,
+  services,
+}: {
+  contact: DemoContact;
+  services: DemoService[];
+}) {
   const eyebrowText = contact.kicker?.replace(/^\/\/\s*/, "");
+  const serviceTitles = services.map((s) => s.title);
 
   return (
     <section
@@ -29,17 +33,53 @@ export default async function FisioContact({ contact }: { contact: DemoContact }
           )}
           {contact.lead && <p className={styles.lead}>{contact.lead}</p>}
 
-          {(contact.bookingUrl || contact.email) && (
-            <a
-              href={ctaHref}
-              className={styles.bookingCta}
-              {...(contact.bookingUrl
-                ? { target: "_blank", rel: "noopener" }
-                : {})}
-            >
-              {ctaLabel}
-            </a>
-          )}
+          <ul className={styles.infoList}>
+            {contact.address && (
+              <li className={styles.infoRow}>
+                <span className={styles.infoIcon} aria-hidden="true">
+                  📍
+                </span>
+                <span className={styles.infoText}>{contact.address}</span>
+              </li>
+            )}
+            {contact.phone && (
+              <li className={styles.infoRow}>
+                <span className={styles.infoIcon} aria-hidden="true">
+                  ☎
+                </span>
+                <span className={styles.infoText}>
+                  <a href={`tel:${contact.phone.replace(/\s+/g, "")}`}>
+                    {contact.phone}
+                  </a>
+                </span>
+              </li>
+            )}
+            {contact.email && (
+              <li className={styles.infoRow}>
+                <span className={styles.infoIcon} aria-hidden="true">
+                  ✉
+                </span>
+                <span className={styles.infoText}>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </span>
+              </li>
+            )}
+            {contact.hours.length > 0 && (
+              <li className={styles.infoRow}>
+                <span className={styles.infoIcon} aria-hidden="true">
+                  🕐
+                </span>
+                <ul className={styles.hours}>
+                  {contact.hours.map((row, i) => (
+                    <li key={i} className={styles.hoursRow}>
+                      <span className={styles.hoursLabel}>{row.label}</span>
+                      <span className={styles.hoursValue}>{row.value}</span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            )}
+          </ul>
 
           {contact.social.length > 0 && (
             <div className={styles.social}>
@@ -63,56 +103,7 @@ export default async function FisioContact({ contact }: { contact: DemoContact }
         </div>
 
         <div className={styles.right}>
-          <div className={styles.infoGrid}>
-            {contact.address && (
-              <div className={styles.infoBlock}>
-                <span className={styles.infoLabel}>{t("addressLabel")}</span>
-                <span className={styles.infoValue}>{contact.address}</span>
-              </div>
-            )}
-            {contact.phone && (
-              <div className={styles.infoBlock}>
-                <span className={styles.infoLabel}>{t("phoneLabel")}</span>
-                <span className={styles.infoValue}>
-                  <a href={`tel:${contact.phone.replace(/\s+/g, "")}`}>
-                    {contact.phone}
-                  </a>
-                </span>
-              </div>
-            )}
-            {contact.email && (
-              <div className={styles.infoBlock}>
-                <span className={styles.infoLabel}>{t("emailLabel")}</span>
-                <span className={styles.infoValue}>
-                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                </span>
-              </div>
-            )}
-            {contact.hours.length > 0 && (
-              <div className={styles.infoBlock}>
-                <span className={styles.infoLabel}>{t("openHours")}</span>
-                <ul className={styles.hours}>
-                  {contact.hours.map((row, i) => (
-                    <li key={i} className={styles.hoursRow}>
-                      <span className={styles.hoursLabel}>{row.label}</span>
-                      <span className={styles.hoursValue}>{row.value}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {contact.mapEmbedUrl && (
-            <div className={styles.map}>
-              <iframe
-                src={contact.mapEmbedUrl}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Mapa"
-              />
-            </div>
-          )}
+          <FisioContactForm serviceOptions={serviceTitles} />
         </div>
       </div>
     </section>
