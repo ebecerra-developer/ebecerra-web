@@ -59,22 +59,24 @@
   gap: 1.75rem;
 }
 
-.sectionIndex {
-  display: flex;
-  align-items: baseline;
-  gap: 0.875rem;
-  font-family: var(--font-mono-stack);
-  font-size: var(--fs-mono-md);
-  letter-spacing: var(--tr-kicker);
-  text-transform: uppercase;
-  color: rgba(247, 240, 227, 0.6);
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+  color: var(--accent);
   font-weight: var(--fw-semibold);
+  text-transform: uppercase;
   margin-bottom: 0.25rem;
 }
 
-.indexNumber {
-  color: var(--accent);
-  font-weight: var(--fw-bold);
+.eyebrowLine {
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
 }
 
 .title {

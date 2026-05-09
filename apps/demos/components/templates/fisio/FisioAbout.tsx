@@ -7,6 +7,7 @@ export default function FisioAbout({ about }: { about: DemoAbout }) {
   const imageUrl = about.image
     ? urlFor(about.image).width(900).auto("format").url()
     : null;
+  const eyebrowText = about.kicker?.replace(/^\/\/\s*/, "");
 
   return (
     <section
@@ -16,10 +17,10 @@ export default function FisioAbout({ about }: { about: DemoAbout }) {
     >
       <div className={styles.inner}>
         <div className={styles.content}>
-          {about.kicker && (
-            <p className={styles.sectionIndex}>
-              <span className={styles.indexNumber}>01</span>
-              <span>{about.kicker.replace(/^\/\/\s*/, "")}</span>
+          {eyebrowText && (
+            <p className={styles.eyebrow}>
+              <span className={styles.eyebrowLine} />
+              <span>{eyebrowText}</span>
             </p>
           )}
           {about.title && (
@@ -38,21 +39,17 @@ export default function FisioAbout({ about }: { about: DemoAbout }) {
             </ul>
           )}
         </div>
-        <div className={styles.mediaWrap}>
-          <div className={styles.media}>
-            {imageUrl ? (
-              <Image
-                src={imageUrl}
-                alt={about.title ?? ""}
-                fill
-                sizes="(min-width: 900px) 45vw, 100vw"
-              />
-            ) : (
-              <div className={styles.mediaPlaceholder}>
-                {about.title ?? ""}
-              </div>
-            )}
-          </div>
+        <div className={styles.media}>
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={about.title ?? ""}
+              fill
+              sizes="(min-width: 900px) 45vw, 100vw"
+            />
+          ) : (
+            <div className={styles.mediaPlaceholder}>{about.title ?? ""}</div>
+          )}
         </div>
       </div>
     </section>

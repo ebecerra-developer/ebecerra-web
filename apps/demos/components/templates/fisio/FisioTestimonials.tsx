@@ -13,14 +13,17 @@ export default function FisioTestimonials({
   header: DemoSectionHeader | null;
   testimonials: DemoTestimonial[];
 }) {
+  const eyebrowText = header?.kicker?.replace(/^\/\/\s*/, "");
+
   return (
     <section className={styles.section} aria-labelledby="testimonials-heading">
       <div className={styles.inner}>
         <header className={styles.header}>
-          {header?.kicker && (
-            <p className={styles.sectionIndex}>
-              <span className={styles.indexNumber}>04</span>
-              <span>{header.kicker.replace(/^\/\/\s*/, "")}</span>
+          {eyebrowText && (
+            <p className={styles.eyebrow}>
+              <span className={styles.eyebrowLine} />
+              <span>{eyebrowText}</span>
+              <span className={styles.eyebrowLine} />
             </p>
           )}
           {header?.title && (
@@ -38,8 +41,10 @@ export default function FisioTestimonials({
             const initial = t.author.charAt(0).toUpperCase();
             return (
               <li key={i} className={styles.card}>
-                <span className={styles.bigQuote} aria-hidden="true">“</span>
-                <p className={styles.quote}>{t.quote}</p>
+                <div className={styles.stars} aria-label="5 estrellas">
+                  ★★★★★
+                </div>
+                <p className={styles.quote}>“{t.quote}”</p>
                 <div className={styles.author}>
                   <div className={styles.photo}>
                     {photoUrl ? (

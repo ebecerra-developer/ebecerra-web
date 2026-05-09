@@ -6,6 +6,7 @@ export default async function FisioContact({ contact }: { contact: DemoContact }
   const t = await getTranslations("fisio");
   const ctaLabel = t("callToAction");
   const ctaHref = contact.bookingUrl ?? `mailto:${contact.email ?? ""}`;
+  const eyebrowText = contact.kicker?.replace(/^\/\/\s*/, "");
 
   return (
     <section
@@ -15,10 +16,10 @@ export default async function FisioContact({ contact }: { contact: DemoContact }
     >
       <div className={styles.inner}>
         <div className={styles.left}>
-          {contact.kicker && (
-            <p className={styles.sectionIndex}>
-              <span className={styles.indexNumber}>05</span>
-              <span>{contact.kicker.replace(/^\/\/\s*/, "")}</span>
+          {eyebrowText && (
+            <p className={styles.eyebrow}>
+              <span className={styles.eyebrowLine} />
+              <span>{eyebrowText}</span>
             </p>
           )}
           {contact.title && (

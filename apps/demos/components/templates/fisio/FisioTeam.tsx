@@ -13,6 +13,8 @@ export default function FisioTeam({
   header: DemoSectionHeader | null;
   team: DemoTeamMember[];
 }) {
+  const eyebrowText = header?.kicker?.replace(/^\/\/\s*/, "");
+
   return (
     <section
       id="equipo"
@@ -21,27 +23,27 @@ export default function FisioTeam({
     >
       <div className={styles.inner}>
         <header className={styles.header}>
-          <div>
-            {header?.kicker && (
-              <p className={styles.sectionIndex}>
-                <span className={styles.indexNumber}>03</span>
-                <span>{header.kicker.replace(/^\/\/\s*/, "")}</span>
-              </p>
-            )}
-            {header?.title && (
-              <h2 id="team-heading" className={styles.title}>
-                {header.title}
-              </h2>
-            )}
-          </div>
+          {eyebrowText && (
+            <p className={styles.eyebrow}>
+              <span className={styles.eyebrowLine} />
+              <span>{eyebrowText}</span>
+              <span className={styles.eyebrowLine} />
+            </p>
+          )}
+          {header?.title && (
+            <h2 id="team-heading" className={styles.title}>
+              {header.title}
+            </h2>
+          )}
           {header?.lead && <p className={styles.lead}>{header.lead}</p>}
         </header>
 
         <ul className={styles.grid}>
           {team.map((member, i) => {
             const photoUrl = member.photo
-              ? urlFor(member.photo).width(640).auto("format").url()
+              ? urlFor(member.photo).width(720).auto("format").url()
               : null;
+            const initial = member.name.charAt(0).toUpperCase();
             return (
               <li key={i} className={styles.member}>
                 <div className={styles.photoWrap}>
@@ -53,7 +55,7 @@ export default function FisioTeam({
                       sizes="(min-width: 1100px) 380px, (min-width: 700px) 50vw, 100vw"
                     />
                   ) : (
-                    <div className={styles.photoPlaceholder}>◯</div>
+                    <div className={styles.photoPlaceholder}>{initial}</div>
                   )}
                 </div>
                 <div className={styles.body}>

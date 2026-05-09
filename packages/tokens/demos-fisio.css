@@ -27,11 +27,11 @@
   --text-on-accent:  #f7f0e3;
   --text-on-ink:     #f0e6d3;
 
-  /* ---------- Color — CTA — verde bosque cálido ---------- */
-  --cta:             #4d6b3c;  /* forest sage warm */
-  --cta-hover:       #3a5429;
-  --cta-soft:        rgba(77, 107, 60, 0.10);
-  --cta-soft-strong: rgba(77, 107, 60, 0.22);
+  /* ---------- Color — CTA — azul petróleo cálido ---------- */
+  --cta:             #1e5f6e;  /* petrol teal warm — sofisticado, no hospital */
+  --cta-hover:       #154855;
+  --cta-soft:        rgba(30, 95, 110, 0.10);
+  --cta-soft-strong: rgba(30, 95, 110, 0.22);
 
   /* ---------- Color — Accent — terracota suave ---------- */
   --accent:          #b86a44;
@@ -39,7 +39,7 @@
   --accent-strong:   #9b5635;
 
   /* ---------- Color — Semantic ---------- */
-  --success: #4d6b3c;
+  --success: #1e5f6e;
   --warning: #b86a44;
   --error:   #a04444;
 

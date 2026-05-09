@@ -1,6 +1,6 @@
 .section {
   padding-block: var(--section-py);
-  background: var(--surface);
+  background: var(--surface-subtle);
   position: relative;
 }
 
@@ -17,22 +17,24 @@
   margin-inline: auto;
 }
 
-.sectionIndex {
+.eyebrow {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.875rem;
-  font-family: var(--font-mono-stack);
-  font-size: var(--fs-mono-md);
-  letter-spacing: var(--tr-kicker);
-  text-transform: uppercase;
-  color: var(--text-muted);
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+  color: var(--cta);
   font-weight: var(--fw-semibold);
-  margin-bottom: 1rem;
+  text-transform: uppercase;
+  margin-bottom: 0.875rem;
 }
 
-.indexNumber {
-  color: var(--cta);
-  font-weight: var(--fw-bold);
+.eyebrowLine {
+  width: 28px;
+  height: 2px;
+  background: var(--cta);
+  border-radius: 2px;
 }
 
 .title {
@@ -65,46 +67,38 @@
 }
 
 .card {
-  background: var(--surface-subtle);
-  border-radius: var(--r-md);
-  padding: 2.25rem 2rem 2rem;
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: 2rem 1.875rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  position: relative;
-  border: 1px solid var(--border);
-  transition: border-color var(--dur-fast) var(--ease),
+  gap: 1.25rem;
+  box-shadow: var(--sh-sm);
+  transition: transform var(--dur-base) var(--ease),
     box-shadow var(--dur-base) var(--ease);
 }
 
 .card:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--sh-sm);
+  transform: translateY(-3px);
+  box-shadow: var(--sh-md);
 }
 
-.bigQuote {
-  position: absolute;
-  top: -0.5rem;
-  left: 1.5rem;
-  font-family: var(--font-display);
-  font-size: 5rem;
-  line-height: 1;
-  color: var(--cta);
-  opacity: 0.55;
-  font-weight: var(--fw-bold);
-  pointer-events: none;
+.stars {
+  display: flex;
+  gap: 0.15rem;
+  color: var(--accent);
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
 }
 
 .quote {
-  font-family: var(--font-display);
-  font-size: var(--fs-body-lead);
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-body-lg);
   line-height: 1.55;
   color: var(--text);
   font-weight: var(--fw-medium);
-  font-style: italic;
-  position: relative;
-  padding-top: 1.5rem;
   margin: 0;
+  flex: 1;
 }
 
 .author {
@@ -136,16 +130,17 @@
   display: grid;
   place-items: center;
   height: 100%;
-  color: var(--text-muted);
+  color: var(--text-on-accent);
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: var(--fw-bold);
-  background: var(--cta-soft);
+  background: var(--cta);
 }
 
 .authorMeta {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .authorName {

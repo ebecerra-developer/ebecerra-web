@@ -8,18 +8,33 @@ export default function FisioHero({ demo }: { demo: DemoSite }) {
   if (!hero) return null;
 
   const imageUrl = hero.image
-    ? urlFor(hero.image).width(1200).auto("format").url()
+    ? urlFor(hero.image).width(2000).auto("format").url()
     : null;
 
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
+      {imageUrl ? (
+        <div className={styles.bgImage}>
+          <Image
+            src={imageUrl}
+            alt=""
+            fill
+            sizes="100vw"
+            priority
+            quality={85}
+          />
+        </div>
+      ) : (
+        <div className={styles.bgPlaceholder} aria-hidden="true" />
+      )}
+
       <div className={styles.inner}>
         <div className={styles.content}>
-          {hero.kicker && (
-            <div className={styles.kickerLine}>
+          {demo.tagline && (
+            <span className={styles.eyebrow}>
               <span className={styles.dot} aria-hidden="true" />
-              <p className={styles.kicker}>{hero.kicker}</p>
-            </div>
+              {demo.tagline}
+            </span>
           )}
           <h1 id="hero-heading" className={styles.heading}>
             {hero.heading ?? demo.businessName}
@@ -43,33 +58,22 @@ export default function FisioHero({ demo }: { demo: DemoSite }) {
               </a>
             )}
           </div>
-          <div className={styles.scrollHint} aria-hidden="true">
-            <span className={styles.scrollHintLine} />
-            <span>Scroll</span>
-          </div>
         </div>
 
-        <div className={styles.media}>
-          {imageUrl ? (
-            <>
-              <Image
-                src={imageUrl}
-                alt={hero.heading ?? demo.businessName}
-                fill
-                sizes="(min-width: 960px) 45vw, 100vw"
-                priority
-              />
-              {demo.tagline && (
-                <span className={styles.mediaCaption}>{demo.tagline}</span>
-              )}
-            </>
-          ) : (
-            <div className={styles.mediaPlaceholder}>
-              <span className={styles.mediaPlaceholderSymbol}>◯</span>
-              <span>{demo.tagline ?? demo.businessName}</span>
-            </div>
-          )}
-        </div>
+        <aside className={styles.aside} aria-hidden="true">
+          <div className={styles.statCard}>
+            <span className={styles.statValue}>50&apos;</span>
+            <span className={styles.statLabel}>
+              Sesiones largas, sin solapamiento
+            </span>
+          </div>
+          <div className={styles.statCard}>
+            <span className={styles.statValue}>+1.000</span>
+            <span className={styles.statLabel}>
+              Pacientes recuperados desde 2018
+            </span>
+          </div>
+        </aside>
       </div>
     </section>
   );
