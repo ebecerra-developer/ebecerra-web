@@ -247,6 +247,14 @@ export type DemoContact = {
   social: DemoSocial[];
 };
 
+export type DemoBrandOverrides = {
+  logo: SanityImage | null;
+  primaryColor: string | null;
+  accentColor: string | null;
+  inkColor: string | null;
+  bgTone: "cream" | "off-white" | "sand" | "cool-white" | null;
+};
+
 export type DemoSite = {
   _id: string;
   slug: string;
@@ -254,6 +262,7 @@ export type DemoSite = {
   enableEnglish: boolean;
   businessName: string;
   tagline: string | null;
+  brand: DemoBrandOverrides | null;
   hero: DemoHero | null;
   about: DemoAbout | null;
   servicesSection: DemoSectionHeader | null;

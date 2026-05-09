@@ -8,6 +8,7 @@ import FisioTeam from "./FisioTeam";
 import FisioTestimonials from "./FisioTestimonials";
 import FisioContact from "./FisioContact";
 import FisioFooter from "./FisioFooter";
+import { brandStyle } from "./brand";
 import styles from "./FisioTemplate.module.css";
 
 export default function FisioTemplate({
@@ -18,7 +19,11 @@ export default function FisioTemplate({
   locale: Locale;
 }) {
   return (
-    <div className={styles.shell} data-template="fisio">
+    <div
+      className={styles.shell}
+      data-template="fisio"
+      style={brandStyle(demo.brand)}
+    >
       <FisioNav demo={demo} locale={locale} />
       <main id="main">
         <FisioHero demo={demo} />

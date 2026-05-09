@@ -484,6 +484,13 @@ const demoSiteProjection = `{
   "enableEnglish": coalesce(enableEnglish, false),
   "businessName": ${loc("businessName")},
   "tagline": ${loc("tagline")},
+  "brand": brand {
+    logo,
+    primaryColor,
+    accentColor,
+    inkColor,
+    bgTone
+  },
   "hero": hero {
     "kicker": ${loc("kicker")},
     "heading": ${loc("heading")},

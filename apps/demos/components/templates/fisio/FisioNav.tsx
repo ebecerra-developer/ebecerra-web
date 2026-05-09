@@ -1,7 +1,9 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { DemoSite } from "@ebecerra/sanity-client";
 import type { Locale } from "@/i18n/routing";
+import { urlFor } from "@/lib/image";
 import styles from "./FisioNav.module.css";
 
 export default async function FisioNav({
@@ -12,12 +14,26 @@ export default async function FisioNav({
   locale: Locale;
 }) {
   const t = await getTranslations("fisio");
+  const logoUrl = demo.brand?.logo
+    ? urlFor(demo.brand.logo).height(60).auto("format").url()
+    : null;
 
   return (
     <header className={styles.nav}>
       <div className={styles.inner}>
         <a href="#main" className={styles.brand} aria-label={t("ariaLogo")}>
-          {demo.businessName}
+          {logoUrl ? (
+            <Image
+              src={logoUrl}
+              alt={demo.businessName}
+              height={32}
+              width={140}
+              className={styles.brandLogo}
+              priority
+            />
+          ) : (
+            demo.businessName
+          )}
         </a>
         <nav aria-label={t("ariaPrimaryNav")}>
           <ul className={styles.menu}>

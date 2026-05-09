@@ -6,6 +6,7 @@ export default defineType({
   type: "document",
   groups: [
     { name: "meta", title: "Meta", default: true },
+    { name: "brand", title: "Marca" },
     { name: "hero", title: "Portada" },
     { name: "about", title: "Sobre" },
     { name: "services", title: "Servicios" },
@@ -101,6 +102,72 @@ export default defineType({
       type: "number",
       group: "meta",
       initialValue: 100,
+    }),
+
+    // ---------- Brand overrides ----------
+    defineField({
+      name: "brand",
+      title: "Personalización de marca",
+      description:
+        "Si rellenas estos campos, la demo usa tus colores/logo. Si los dejas vacíos, usa la paleta y nombre por defecto de la plantilla.",
+      type: "object",
+      group: "brand",
+      fields: [
+        defineField({
+          name: "logo",
+          title: "Logo",
+          description:
+            "Sustituye al texto del nombre en el nav. SVG o PNG con fondo transparente, recomendado 200×60 px.",
+          type: "image",
+          options: { hotspot: false },
+        }),
+        defineField({
+          name: "primaryColor",
+          title: "Color principal (CTA, acentos)",
+          description: "Hex (ej. #5b8c6a). Sustituye al verde sage por defecto.",
+          type: "string",
+          validation: (Rule) =>
+            Rule.regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/).warning(
+              "Usa formato hex: #abc o #aabbcc"
+            ),
+        }),
+        defineField({
+          name: "accentColor",
+          title: "Color secundario (acentos cálidos)",
+          description: "Hex. Sustituye al terracota por defecto.",
+          type: "string",
+          validation: (Rule) =>
+            Rule.regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/).warning(
+              "Usa formato hex: #abc o #aabbcc"
+            ),
+        }),
+        defineField({
+          name: "inkColor",
+          title: "Color de tinta (footers / fondos oscuros)",
+          description:
+            "Hex. Sustituye al verde bosque oscuro. Suele ser un tono profundo del primario.",
+          type: "string",
+          validation: (Rule) =>
+            Rule.regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/).warning(
+              "Usa formato hex: #abc o #aabbcc"
+            ),
+        }),
+        defineField({
+          name: "bgTone",
+          title: "Tono de fondo",
+          type: "string",
+          options: {
+            list: [
+              { title: "Crema cálido (default)", value: "cream" },
+              { title: "Off-white neutro", value: "off-white" },
+              { title: "Arena suave", value: "sand" },
+              { title: "Blanco frío", value: "cool-white" },
+            ],
+            layout: "radio",
+          },
+          initialValue: "cream",
+        }),
+      ],
     }),
 
     // ---------- Hero ----------
