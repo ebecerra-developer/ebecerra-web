@@ -19,6 +19,11 @@
   font-weight: 500;
 }
 
+.kickerAccent {
+  color: var(--cta);
+  font-weight: 600;
+}
+
 .heading {
   font-size: clamp(32px, 4.2vw, 56px);
   line-height: 1.1;

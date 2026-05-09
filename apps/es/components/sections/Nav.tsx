@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { id: "servicios", key: "services" },
   { id: "sobre-mi", key: "about" },
   { id: "proceso", key: "process" },
+  { id: "ejemplos", key: "examples" },
   { id: "contacto", key: "contact" },
 ] as const;
 

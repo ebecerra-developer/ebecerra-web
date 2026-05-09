@@ -27,8 +27,8 @@ export default async function Process({ steps, sectionMeta }: Props) {
       <div className={styles.inner}>
         <div className={styles.kicker}>
           {"// "}
-          <span className={styles.kickerAccent}>03.</span>{" "}
-          {t("kicker").replace(/^\/\/\s*02\.\s*/i, "")}
+          <span className={styles.kickerAccent}>04.</span>{" "}
+          {t("kicker").replace(/^\/\/\s*\d+\.\s*/i, "")}
         </div>
         <h2 id="process-heading" className={styles.heading}>
           {title}

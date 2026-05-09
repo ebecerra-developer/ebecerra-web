@@ -67,8 +67,8 @@ export default function Contact({ contactData, sectionMeta }: Props) {
       <div className={styles.inner}>
         <div className={styles.kicker}>
           {"// "}
-          <span className={styles.kickerAccent}>04.</span>{" "}
-          {sectionKicker.replace(/^\/\/\s*/i, "")}
+          <span className={styles.kickerAccent}>06.</span>{" "}
+          {sectionKicker.replace(/^\/\/\s*\d*\.?\s*/i, "")}
         </div>
 
         <div className={styles.split}>

@@ -16,6 +16,7 @@ import Nav from "@/components/sections/Nav";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import About from "@/components/sections/About";
+import Capabilities from "@/components/sections/Capabilities";
 import Process from "@/components/sections/Process";
 import Examples from "@/components/sections/Examples";
 import Contact from "@/components/sections/Contact";
@@ -67,6 +68,7 @@ export default async function Home({
         <Hero sanityData={heroData} />
         <Services services={resolvedServices} sectionMeta={servicesMeta} />
         <About features={resolvedFeatures} profile={profileData} />
+        <Capabilities />
         <Process steps={resolvedProcess} sectionMeta={processMeta} />
         <Examples locale={locale} />
         <Contact contactData={contactData} sectionMeta={contactMeta} />

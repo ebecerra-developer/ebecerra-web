@@ -32,7 +32,11 @@ export default async function Examples({ locale }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <div className={styles.kicker}>{t("homeKicker")}</div>
+        <div className={styles.kicker}>
+          {"// "}
+          <span className={styles.kickerAccent}>05.</span>{" "}
+          {t("homeKicker").replace(/^\/\/\s*\d*\.?\s*/i, "")}
+        </div>
         <h2 id="examples-heading" className={styles.heading}>
           {t("homeTitle")}
         </h2>
