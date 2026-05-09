@@ -18,6 +18,7 @@ import Services from "@/components/sections/Services";
 import Case from "@/components/sections/Case";
 import About from "@/components/sections/About";
 import Process from "@/components/sections/Process";
+import Examples from "@/components/sections/Examples";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -71,6 +72,7 @@ export default async function Home({
         <About features={resolvedFeatures} profile={profileData} />
         <Case cases={fallback.cases} sectionMeta={casesMeta} />
         <Process steps={resolvedProcess} sectionMeta={processMeta} />
+        <Examples locale={locale} />
         <Contact contactData={contactData} sectionMeta={contactMeta} />
       </main>
       <Footer footerData={footerData} />

@@ -14,6 +14,7 @@
     "cases": "Casos",
     "about": "Sobre mí",
     "process": "Proceso",
+    "examples": "Ejemplos",
     "contact": "Contacto",
     "ctaTalk": "Hablemos",
     "menu": "Menú",
@@ -102,6 +103,10 @@
     "title": "Ejemplos de webs reales para tu negocio",
     "lead": "Demos completas para que veas qué puedes tener: clínica de fisioterapia, despacho, asesoría… Todas son ejemplos editables. La que tendrías tú nace de una conversación contigo.",
     "ctaContact": "Empieza con la tuya",
+    "homeKicker": "// Ejemplos",
+    "homeTitle": "Mira lo que puedes tener",
+    "homeLead": "Demos completas y navegables de webs como las que entrego a clínicas, despachos y autónomos. Para que veas el resultado antes de encargar.",
+    "homeViewAll": "Ver todos los ejemplos",
     "viewDemo": "Ver demo",
     "openInNewTab": "(se abre en pestaña nueva)",
     "emptyState": "Demos en preparación. Vuelve pronto."

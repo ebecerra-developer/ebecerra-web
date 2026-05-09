@@ -1,73 +1,71 @@
 import type { Metadata } from "next";
-import { setRequestLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { getPublishedDemoSites } from "@ebecerra/sanity-client";
-import { urlFor } from "@/lib/image";
+import { setRequestLocale } from "next-intl/server";
+import {
+  getDemoSiteBySlug,
+  getPublishedDemoSites,
+} from "@ebecerra/sanity-client";
 import type { Locale } from "@/i18n/routing";
-import styles from "./page.module.css";
+import FisioTemplate from "@/components/templates/fisio/FisioTemplate";
+import DemoBanner from "./[slug]/DemoBanner";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Demos",
   robots: { index: false, follow: false },
 };
 
-export default async function DemosIndexPage({
+export default async function DemosRootPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("indexPage");
-  const demos = await getPublishedDemoSites(locale as Locale);
+
+  const summaries = await getPublishedDemoSites(locale as Locale);
+  const first = summaries[0];
+
+  if (!first) {
+    return (
+      <main
+        id="main"
+        style={{
+          minHeight: "100vh",
+          display: "grid",
+          placeItems: "center",
+          padding: "3rem 1.5rem",
+          background: "var(--bg, #f7f0e3)",
+          color: "var(--text, #2a1f12)",
+          textAlign: "center",
+          fontFamily:
+            '"DM Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+        }}
+      >
+        <div>
+          <p style={{ fontSize: "1.25rem" }}>
+            Aún no hay demos publicadas. Vuelve pronto.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  const demo = await getDemoSiteBySlug(first.slug, locale as Locale);
+  if (!demo) return null;
 
   return (
-    <main id="main" className={styles.main}>
-      <div className="container">
-        <header className={styles.header}>
-          <h1 className={styles.headerTitle}>{t("title")}</h1>
-          <p className={styles.headerLead}>{t("lead")}</p>
-        </header>
-
-        {demos.length === 0 ? (
-          <p className={styles.empty}>(Sin demos publicadas)</p>
-        ) : (
-          <ul className={styles.grid}>
-            {demos.map((demo) => {
-              const thumbUrl = demo.thumbnail
-                ? urlFor(demo.thumbnail).width(800).auto("format").url()
-                : null;
-              return (
-                <li key={demo._id}>
-                  <Link href={`/${demo.slug}`} className={styles.card}>
-                    {thumbUrl && (
-                      <div
-                        className={styles.cardThumb}
-                        style={{ backgroundImage: `url(${thumbUrl})` }}
-                        role="img"
-                        aria-label={demo.businessName}
-                      />
-                    )}
-                    <div className={styles.cardBody}>
-                      {demo.sector && <p className={styles.cardSector}>{demo.sector}</p>}
-                      <h2 className={styles.cardTitle}>{demo.businessName}</h2>
-                      {demo.shortDescription && (
-                        <p className={styles.cardDesc}>{demo.shortDescription}</p>
-                      )}
-                    </div>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-
-        <div className={styles.footer}>
-          <a href="https://ebecerra.es" className={styles.backLink}>
-            ← {t("ctaBack")}
-          </a>
-        </div>
-      </div>
-    </main>
+    <>
+      <DemoBanner />
+      {demo.template === "fisio" ? (
+        <FisioTemplate demo={demo} locale={locale as Locale} />
+      ) : (
+        <main id="main" style={{ padding: "4rem 1.5rem", textAlign: "center" }}>
+          <p>
+            Plantilla <code>{demo.template}</code> aún no implementada.
+          </p>
+        </main>
+      )}
+    </>
   );
 }

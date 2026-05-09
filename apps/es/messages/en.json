@@ -14,6 +14,7 @@
     "cases": "Cases",
     "about": "About",
     "process": "Process",
+    "examples": "Examples",
     "contact": "Contact",
     "ctaTalk": "Let's talk",
     "menu": "Menu",
@@ -102,6 +103,10 @@
     "title": "Real website examples for your business",
     "lead": "Complete demos so you can see what you can have: physiotherapy clinic, law firm, accounting firm… All of them are editable examples. The one you'd actually have starts from a conversation with you.",
     "ctaContact": "Start yours",
+    "homeKicker": "// Examples",
+    "homeTitle": "See what you can have",
+    "homeLead": "Browsable, complete demos of websites like the ones I deliver to clinics, law firms and freelancers. So you see the result before commissioning.",
+    "homeViewAll": "See all examples",
     "viewDemo": "Open demo",
     "openInNewTab": "(opens in a new tab)",
     "emptyState": "Demos coming soon. Check back later."
