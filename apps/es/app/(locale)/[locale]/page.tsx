@@ -15,7 +15,6 @@ import {
 import Nav from "@/components/sections/Nav";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
-import Case from "@/components/sections/Case";
 import About from "@/components/sections/About";
 import Process from "@/components/sections/Process";
 import Examples from "@/components/sections/Examples";
@@ -42,7 +41,6 @@ export default async function Home({
     profileData,
     servicesMeta,
     processMeta,
-    casesMeta,
     contactMeta,
     footerData,
   ] = await Promise.all([
@@ -54,7 +52,6 @@ export default async function Home({
     getProfile(locale).catch(() => null),
     getServiceSectionMeta(locale).catch(() => null),
     getSectionMeta("processSectionMeta", locale).catch(() => null),
-    getSectionMeta("casesSectionMeta", locale).catch(() => null),
     getSectionMeta("contactSectionMeta", locale).catch(() => null),
     getSiteSettingsFooter(locale).catch(() => null),
   ]);
@@ -70,7 +67,6 @@ export default async function Home({
         <Hero sanityData={heroData} />
         <Services services={resolvedServices} sectionMeta={servicesMeta} />
         <About features={resolvedFeatures} profile={profileData} />
-        <Case cases={fallback.cases} sectionMeta={casesMeta} />
         <Process steps={resolvedProcess} sectionMeta={processMeta} />
         <Examples locale={locale} />
         <Contact contactData={contactData} sectionMeta={contactMeta} />

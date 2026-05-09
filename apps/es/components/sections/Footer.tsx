@@ -8,7 +8,6 @@ import styles from "./Footer.module.css";
 
 const NAV_COL = [
   { id: "servicios", key: "services" },
-  { id: "casos", key: "cases" },
   { id: "sobre-mi", key: "about" },
   { id: "proceso", key: "process" },
   { id: "contacto", key: "contact" },

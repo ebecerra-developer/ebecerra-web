@@ -9,10 +9,8 @@ import styles from "./Nav.module.css";
 
 const NAV_ITEMS = [
   { id: "servicios", key: "services" },
-  { id: "casos", key: "cases" },
   { id: "sobre-mi", key: "about" },
   { id: "proceso", key: "process" },
-  { id: "ejemplos", key: "examples" },
   { id: "contacto", key: "contact" },
 ] as const;
 
