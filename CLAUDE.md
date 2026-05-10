@@ -4,11 +4,14 @@
 
 Portfolio personal de Enrique Becerra, Tech Architect Lead en VASS y especialista en Magnolia CMS.
 
-**Estado (2026-05-09):** `main` es el **monorepo** en producción con tres apps sobre un único Sanity compartido:
+**Estado (2026-05-10):** `main` es el **monorepo** en producción con tres apps sobre un único Sanity compartido:
 
 - **[`apps/es`](apps/es/)** → `ebecerra.es` — modo pro, escaparate comercial para autónomos/PYMEs. Home con 6 secciones numeradas: 01 Servicios · 02 Sobre mí · 03 Capacidades (IA, reservas, integraciones, datos) · 04 Cómo trabajamos · 05 Ejemplos · 06 Contacto. 4 servicios en grid 2x2 (Web profesional 900 €, Web editable 1.500 €, Rescate 2.500 €, Mantenimiento 60 €/mes). Sanity wired para services/process/profile/Examples (vía demoSite). Sección Casos retirada en 2026-05-09 (anonimizados, sin valor para el público). Form de contacto con Resend.
 - **[`apps/tech`](apps/tech/)** → `ebecerra.tech` — modo geek. Next.js CV-style (8 secciones). Live desde 2026-04-24. El contenido (experience, skills, techTags, projects) viene de Sanity — `apps/tech/lib/content.ts` es solo fallback. Para añadir o editar proyectos, experiencia o skills, hacerlo en Sanity (type `project`, `experience`, `skill`, `techTag`) y publicar; no editar el fallback.
-- **[`apps/demos`](apps/demos/)** → `demos.ebecerra.es` — subdominio de demos navegables para enseñar a clientes potenciales. Activo desde 2026-05-09. La raíz `/` renderiza la primera demo publicada (actualmente `equilibrio` — clínica fisio anonimizada). Cada demo es un doc `demoSite` en Sanity con `template` + `brandOverrides` (paleta y logo personalizables sin tocar código). Plantilla actual: `fisio` (paleta madera + petrol blue). Robots noindex global (header HTTP + meta).
+- **[`apps/demos`](apps/demos/)** → `demos.ebecerra.es` — subdominio de demos navegables. Activo desde 2026-05-09. La raíz `/` renderiza la primera demo publicada por `galleryOrder`. Cada demo es un doc `demoSite` en Sanity con `template` + `brandOverrides` (paleta + logo + tono fondo). Robots noindex global. **Tres demos publicadas** (2026-05-10), cada una con plantilla propia (componentes y tokens propios — no son temas repintados):
+  - `/equilibrio` — plantilla `fisio` · clínica fisio anonimizada · cream paper + walnut + petrol blue · bilingüe ES/EN.
+  - `/marta-solana` — plantilla `coach-editorial` · coach mujer 35-55 (salud hormonal) · off-white + dusty rose + burdeos cálido + dark warm reservado · magazine spread, Cormorant Garamond italic.
+  - `/claudia-entrena` — plantilla `coach-vibrant` · coach generalista marca personal · cremoso + magenta saturado + verde ácido + lila · feed IG protagonista, Space Grotesk black.
 
 El "toggle geek mode" original se sustituyó por dominio: cada URL entra en su modo por defecto.
 
@@ -27,7 +30,7 @@ Código legacy del SPA React 19 + Vite archivado en [`_legacy/`](_legacy/). Tags
 - **apps/es, apps/tech, apps/demos:** Next.js 16 + TypeScript + Tailwind v4 + next-intl 4 + Sanity v5. Apps/es además Resend.
 - **packages/sanity-schemas:** `@ebecerra/sanity-schemas` — schemas y tipos compartidos (experience, skill, techTag, project, profile, service, processStep, caseStudy, demoSite, locale).
 - **packages/sanity-client:** `@ebecerra/sanity-client` — cliente + queries GROQ + tipos TS.
-- **packages/tokens:** `pro.css` (apps/es), `geek.css` (apps/tech), `demos-fisio.css` (apps/demos plantilla fisio).
+- **packages/tokens:** `pro.css` (apps/es), `geek.css` (apps/tech). Demos: una hoja por plantilla scopeada con `[data-template="..."]` (`demos-fisio.css`, `demos-coach-editorial.css`, `demos-coach-vibrant.css`).
 - **Sanity `gdtxcn4l` / dataset `production`** — único, compartido. Studio embebido en `apps/es/app/(misc)/studio/[[...tool]]`. Plan free permite 2 webhooks → patrón de fan-out: `apps/es/api/revalidate` reenvía a `demos.ebecerra.es/api/revalidate` cuando `_type == "demoSite"`.
 
 ---
@@ -96,6 +99,16 @@ Todo diseño se piensa primero en móvil y luego se enriquece a desktop. Antes d
 
 Aplica tanto a `apps/es`/`apps/tech` como a las plantillas de `apps/demos`.
 
+### 8. Cada demo merece su plantilla — no temas repintados
+
+`apps/demos` vende la idea de "webs a medida". Si dos demos comparten estructura, componentes y paleta familiar (aunque cambien colores), parecen el mismo template repetido y arruinan el argumento comercial. Reglas:
+
+- **Una plantilla por carril visual diferenciado.** No "un coach genérico con paletas distintas" — cada perfil de cliente importante (premium editorial, marca personal, etc.) tiene su propia plantilla con componentes, layouts y tokens propios.
+- **Solo se reutiliza lo no protagonista**: lógica de cliente con estado (form de contacto, drawer mobile), tipos compartidos, helpers de imagen. Hero/Services/About/Banner CTA/Footer son siempre propios por plantilla.
+- **Tokens** en `packages/tokens/demos-<template>.css`, scopeados con `[data-template="..."]`. Sustituyen tipografía, paleta, scale completa. Nunca dependen unos de otros.
+- **Booking, pricing público, IG feed y secciones similares**: opcionales por plantilla. No se incluyen porque "ya están hechas en otra plantilla" — solo si encajan con el avatar real (ej. coach editorial sí publica precios; coach marca personal no, capta por DM).
+- **Cuando un drawer/portal usa `createPortal(..., document.body)`**: el portal sale del shell con `data-template` y los tokens scopeados no aplican. Pasa `templateScope` como prop al componente y wrap el portal en un div con ese `data-template`. Patrón aplicado en `FisioNavMobile`.
+
 ---
 
 ## Permisos y autonomía
@@ -137,6 +150,7 @@ Invocar con `/nombre`. Organizadas por cuándo usarlas.
 |---|---|
 | `/git-workflow` | Commits y push (workaround heredoc, convenciones). |
 | `/sanity-content-flow` | Crear/editar/publicar contenido en Sanity, modificar schemas, patchear vía MCP. |
+| `/demos-template-system` | Añadir una plantilla nueva a `apps/demos` (dental, asesoría…). Estructura, qué reutilizar, gotcha de createPortal. |
 | `/css-conventions` | Escribir o portar estilos. CSS Modules co-located. |
 | `/design-tokens` | Paleta, tokens CSS, rough-notation, handoff de Claude Design. |
 | `/brand-identity` | Logos, favicons, OG images, kit de marca. |

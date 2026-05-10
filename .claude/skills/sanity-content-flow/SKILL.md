@@ -77,6 +77,12 @@ Si te lo dejas, falla con `Array item is missing required "_type" field`. Aunque
 
 Async — devuelve "Image generation started" inmediatamente, la imagen aparece en el draft en 1-3 min. Para portraits/team, prompts efectivos incluyen aspect ratio (`4:5 vertical`), estilo (`editorial photography, NOT corporate or stock-like`), color palette y bg context. En arrays auto-añade un nuevo item; en campos individuales se asigna directamente. Tras generar todas las imágenes, **siempre `publish_documents`** o quedan solo en draft.
 
+**Aspect ratio no garantizado:** el modelo respeta el ratio del prompt solo aproximadamente. Si pides "vertical 4:5" puede salir 1376×768 (≈16:9). Si necesitas un ratio estricto para layout (hero editorial vertical, IG feed cuadrado), regenera o usa `transform_image`.
+
+### Patches en arrays — selectores por `_key`
+
+Para `set`/`unset` apuntando a un item de array, usa el `_key` del item, no campos derivados como `name`. `contact.social[name=="WhatsApp"].url` puede fallar con 400; `contact.social[_key=="soc2"].url` funciona. Si no tienes el `_key`, hazte una query previa: `*[_id == "..."][0].contact.social[]{_key, name}`.
+
 Plugin `sanity-plugin-asset-source-unsplash` no soporta sanity v5 a fecha 2026-05 — usar Media Library nativa o `generate_image`.
 
 ## Gotchas conocidos
