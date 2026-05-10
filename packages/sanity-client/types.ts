@@ -176,7 +176,6 @@ export type DemoTemplate =
   | "fisio"
   | "dental"
   | "legal"
-  | "coach"
   | "coach-editorial"
   | "coach-vibrant";
 

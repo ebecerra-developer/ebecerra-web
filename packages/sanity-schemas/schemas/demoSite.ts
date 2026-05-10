@@ -50,7 +50,6 @@ export default defineType({
           { title: "Fisioterapia", value: "fisio" },
           { title: "Clínica dental", value: "dental" },
           { title: "Despacho de abogados", value: "legal" },
-          { title: "Coach (genérico) — deprecado", value: "coach" },
           { title: "Coach editorial (premium)", value: "coach-editorial" },
           { title: "Coach vibrant (marca personal)", value: "coach-vibrant" },
         ],
