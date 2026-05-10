@@ -103,6 +103,7 @@ export default async function FisioNav({
             ariaOpen={t("menuOpen")}
             ariaClose={t("menuClose")}
             ariaPrimaryNav={t("ariaPrimaryNav")}
+            templateScope="fisio"
           />
         </div>
       </div>

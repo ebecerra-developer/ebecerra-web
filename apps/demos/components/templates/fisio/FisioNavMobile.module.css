@@ -63,10 +63,15 @@
   transform: rotate(-45deg);
 }
 
+.portalRoot {
+  /* Wrapper inerte para que el portal herede los tokens del template
+     activo via data-template. No aporta estilos propios. */
+}
+
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(42, 31, 18, 0.55);
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
   backdrop-filter: blur(2px);
   z-index: 60;
   opacity: 0;
@@ -177,21 +182,21 @@
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
-  background: var(--accent);
+  background: var(--cta);
   color: var(--text-on-accent);
   padding: 1rem 1.5rem;
   border-radius: var(--r-pill);
   font-weight: var(--fw-semibold);
   font-size: var(--fs-body);
   text-decoration: none;
-  border: 1.5px solid var(--accent);
+  border: 1.5px solid var(--cta);
   transition: background var(--dur-fast) var(--ease),
     transform var(--dur-fast) var(--ease);
 }
 
 .cta:hover {
-  background: var(--accent-strong);
-  border-color: var(--accent-strong);
+  background: var(--cta-hover);
+  border-color: var(--cta-hover);
   color: var(--text-on-accent);
   text-decoration: none;
   transform: translateY(-1px);

@@ -70,6 +70,7 @@ export default async function VibrantNav({
             ariaOpen={t("menuOpen")}
             ariaClose={t("menuClose")}
             ariaPrimaryNav={t("ariaPrimaryNav")}
+            templateScope="coach-vibrant"
           />
         </div>
       </div>

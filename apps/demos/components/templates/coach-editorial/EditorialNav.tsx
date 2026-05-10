@@ -67,6 +67,7 @@ export default async function EditorialNav({
             ariaOpen={t("menuOpen")}
             ariaClose={t("menuClose")}
             ariaPrimaryNav={t("ariaPrimaryNav")}
+            templateScope="coach-editorial"
           />
         </div>
       </div>

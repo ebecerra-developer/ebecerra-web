@@ -14,6 +14,13 @@ type Props = {
   ariaOpen: string;
   ariaClose: string;
   ariaPrimaryNav: string;
+  /**
+   * Scope CSS de la plantilla que renderiza el drawer. El drawer se
+   * monta en document.body via createPortal, fuera del shell con
+   * data-template, así que necesita su propio data-template para
+   * heredar los tokens correctos (paleta, tipografía).
+   */
+  templateScope?: string;
 };
 
 export default function FisioNavMobile({
@@ -24,6 +31,7 @@ export default function FisioNavMobile({
   ariaOpen,
   ariaClose,
   ariaPrimaryNav,
+  templateScope = "fisio",
 }: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -57,7 +65,7 @@ export default function FisioNavMobile({
   }, [open]);
 
   const drawer = (
-    <>
+    <div data-template={templateScope} className={styles.portalRoot}>
       <div
         className={`${styles.backdrop} ${open ? styles.backdropOpen : ""}`}
         onClick={() => setOpen(false)}
@@ -106,7 +114,7 @@ export default function FisioNavMobile({
           </a>
         </div>
       </aside>
-    </>
+    </div>
   );
 
   return (
