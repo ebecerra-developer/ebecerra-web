@@ -1,0 +1,120 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in oklab, var(--bg) 90%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 1rem var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  font-size: 1.375rem;
+  letter-spacing: var(--tr-display);
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.brandAt {
+  color: var(--cta);
+}
+
+.brandHandle { color: var(--text); }
+
+.desktopNav {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .desktopNav { display: flex; flex: 1; justify-content: center; }
+}
+
+.menu {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.link {
+  font-family: var(--font-sans-stack);
+  font-size: 0.9375rem;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: var(--fw-semibold);
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--r-pill);
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.link:hover {
+  background: var(--cta-soft);
+  color: var(--cta);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.langSwitch {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-xs);
+}
+
+@media (min-width: 700px) { .langSwitch { display: inline-flex; } }
+
+.langBtn {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--r-pill);
+  transition: all var(--dur-fast) var(--ease);
+  font-weight: var(--fw-semibold);
+}
+.langBtn:hover { color: var(--cta); }
+.langBtnActive { background: var(--ink); color: var(--bg); }
+
+.cta {
+  display: none;
+  font-family: var(--font-sans-stack);
+  font-size: 0.9375rem;
+  font-weight: var(--fw-bold);
+  color: var(--text-on-magenta);
+  background: var(--cta);
+  padding: 0.75rem 1.4rem;
+  text-decoration: none;
+  border-radius: var(--r-pill);
+  transition: transform var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+  white-space: nowrap;
+}
+
+@media (min-width: 700px) { .cta { display: inline-flex; align-items: center; } }
+
+.cta:hover {
+  background: var(--cta-hover);
+  color: var(--text-on-magenta);
+  transform: scale(1.04);
+}

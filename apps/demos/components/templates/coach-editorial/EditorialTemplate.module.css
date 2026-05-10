@@ -1,0 +1,6 @@
+.shell {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans-stack);
+  -webkit-font-smoothing: antialiased;
+}

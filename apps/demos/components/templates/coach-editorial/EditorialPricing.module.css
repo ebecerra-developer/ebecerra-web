@@ -1,0 +1,132 @@
+.section {
+  padding-block: var(--section-py);
+  background: var(--bg);
+}
+
+.inner {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: clamp(3rem, 5vw, 4.5rem);
+  max-width: 56ch;
+  margin-inline: auto;
+}
+
+.kicker {
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tr-kicker);
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: var(--fw-semibold);
+  margin: 0 0 1rem;
+}
+
+.title {
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  color: var(--text);
+  font-weight: var(--fw-regular);
+  font-style: italic;
+  margin: 0 0 1rem;
+}
+
+.lead {
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.tableWrap {
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans-stack);
+}
+
+.th, .thLabel {
+  padding: 1.25rem 1rem;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tr-kicker);
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  vertical-align: bottom;
+}
+
+.thLabel { width: 32%; text-align: left; }
+
+.td, .tdRowLabel {
+  padding: 1.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tdRowLabel { text-align: left; }
+
+tbody tr:last-child .td,
+tbody tr:last-child .tdRowLabel { border-bottom: 0; }
+
+.tierLabel {
+  display: block;
+  font-family: var(--font-display-stack);
+  font-size: 1.375rem;
+  color: var(--text);
+  font-weight: var(--fw-regular);
+  font-style: italic;
+}
+
+.tierSessions {
+  display: block;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+}
+
+.priceCell {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.priceAmount {
+  font-family: var(--font-display-stack);
+  font-size: 1.875rem;
+  color: var(--cta);
+  font-weight: var(--fw-regular);
+  font-style: italic;
+  line-height: 1;
+}
+
+.pricePer {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.note {
+  margin-top: 1.5rem;
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  text-align: center;
+}

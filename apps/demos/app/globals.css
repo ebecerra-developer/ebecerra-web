@@ -8,6 +8,8 @@
 */
 @import "../../../packages/tokens/demos-fisio.css";
 @import "../../../packages/tokens/demos-coach.css";
+@import "../../../packages/tokens/demos-coach-editorial.css";
+@import "../../../packages/tokens/demos-coach-vibrant.css";
 
 @theme inline {
   --font-sans: var(--font-dm-sans);

@@ -1,0 +1,120 @@
+.section {
+  padding-block: var(--section-py);
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+@media (min-width: 1000px) {
+  .inner {
+    grid-template-columns: 5fr 6fr;
+    gap: 6rem;
+  }
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.kicker {
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tr-kicker);
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: var(--fw-semibold);
+  margin: 0;
+}
+
+.title {
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  color: var(--text);
+  font-weight: var(--fw-regular);
+  font-style: italic;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.lead {
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.infoList {
+  margin: 1.5rem 0 0;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem 2.5rem;
+  align-items: baseline;
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-body);
+}
+
+.infoList dt {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tr-kicker);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: var(--fw-semibold);
+}
+
+.infoList dd {
+  margin: 0;
+  color: var(--text);
+}
+
+.infoList a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-strong);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.infoList a:hover {
+  color: var(--cta);
+  border-color: var(--cta);
+}
+
+.hoursList,
+.socialList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.socialList { flex-direction: row; flex-wrap: wrap; gap: 0.5rem 1.25rem; }
+
+.hoursLabel {
+  color: var(--text-muted);
+  font-weight: var(--fw-medium);
+}
+
+.right { width: 100%; }
+
+.formWrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}

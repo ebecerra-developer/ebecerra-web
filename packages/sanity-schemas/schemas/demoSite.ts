@@ -16,6 +16,7 @@ export default defineType({
     { name: "team", title: "Equipo" },
     { name: "testimonials", title: "Testimonios" },
     { name: "instagram", title: "Instagram" },
+    { name: "lifestyle", title: "Lifestyle" },
     { name: "contact", title: "Contacto" },
     { name: "gallery", title: "Galería" },
   ],
@@ -49,7 +50,9 @@ export default defineType({
           { title: "Fisioterapia", value: "fisio" },
           { title: "Clínica dental", value: "dental" },
           { title: "Despacho de abogados", value: "legal" },
-          { title: "Coach / entrenador personal", value: "coach" },
+          { title: "Coach (genérico) — deprecado", value: "coach" },
+          { title: "Coach editorial (premium)", value: "coach-editorial" },
+          { title: "Coach vibrant (marca personal)", value: "coach-vibrant" },
         ],
         layout: "radio",
       },
@@ -298,6 +301,14 @@ export default defineType({
               type: "string",
             }),
             defineField({
+              name: "image",
+              title: "Imagen lifestyle (opcional)",
+              description:
+                "Foto editorial del servicio. Solo plantillas que la usen.",
+              type: "image",
+              options: { hotspot: true },
+            }),
+            defineField({
               name: "duration",
               title: "Duración",
               type: "localeString",
@@ -508,6 +519,28 @@ export default defineType({
         "Tabla pública de precios. Render condicional vía 'enabled'. Solo plantilla coach.",
       type: "object",
       group: "pricing",
+      validation: (Rule) =>
+        Rule.custom((value: unknown) => {
+          if (!value || typeof value !== "object") return true;
+          const v = value as {
+            enabled?: boolean;
+            modalities?: { id?: string }[];
+            tiers?: { prices?: { modalityId?: string }[] }[];
+          };
+          if (!v.enabled) return true;
+          const ids = new Set(
+            (v.modalities ?? []).map((m) => m?.id).filter(Boolean) as string[]
+          );
+          if (ids.size === 0) return true;
+          for (const tier of v.tiers ?? []) {
+            for (const price of tier.prices ?? []) {
+              if (price.modalityId && !ids.has(price.modalityId)) {
+                return `modalityId "${price.modalityId}" no existe en modalities. IDs válidos: ${Array.from(ids).join(", ")}`;
+              }
+            }
+          }
+          return true;
+        }),
       fields: [
         defineField({
           name: "enabled",
@@ -708,6 +741,45 @@ export default defineType({
           validation: (Rule) => Rule.max(12),
         }),
       ],
+    }),
+
+    // ---------- Lifestyle gallery ----------
+    defineField({
+      name: "lifestyleGallery",
+      title: "Galería lifestyle",
+      description:
+        "Tira / mosaico de fotos editoriales sin texto. Render según plantilla.",
+      type: "array",
+      group: "lifestyle",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "image",
+              title: "Imagen",
+              type: "image",
+              options: { hotspot: true },
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "alt",
+              title: "Texto alternativo",
+              type: "localeString",
+            }),
+          ],
+          preview: {
+            select: { title: "alt.es", media: "image" },
+            prepare({ title, media }) {
+              return {
+                title: title ?? "(sin alt)",
+                media,
+              };
+            },
+          },
+        },
+      ],
+      validation: (Rule) => Rule.max(12),
     }),
 
     // ---------- Contact ----------

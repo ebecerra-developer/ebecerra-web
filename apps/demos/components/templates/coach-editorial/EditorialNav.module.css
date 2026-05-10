@@ -1,0 +1,116 @@
+.nav {
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  background: color-mix(in oklab, var(--bg) 92%, transparent);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 1.5rem var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.brand {
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.brandText {
+  font-family: var(--font-display-stack);
+  font-size: 1.625rem;
+  letter-spacing: -0.01em;
+  font-weight: var(--fw-semibold);
+  font-style: italic;
+  color: var(--text);
+  text-transform: lowercase;
+}
+
+.desktopNav {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .desktopNav { display: flex; flex: 1; justify-content: center; }
+}
+
+.menu {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.link {
+  font-family: var(--font-sans-stack);
+  font-size: 0.8125rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease);
+  font-weight: var(--fw-medium);
+}
+
+.link:hover { color: var(--cta); }
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.langSwitch {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+}
+
+@media (min-width: 700px) { .langSwitch { display: inline-flex; } }
+
+.langBtn {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease);
+}
+.langBtn:hover { color: var(--cta); }
+.langBtnActive { color: var(--text); font-weight: var(--fw-semibold); }
+
+.cta {
+  display: none;
+  font-family: var(--font-sans-stack);
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
+  color: var(--bg);
+  background: var(--cta);
+  padding: 0.875rem 1.5rem;
+  text-decoration: none;
+  border-radius: 0;
+  transition: background var(--dur-fast) var(--ease);
+}
+
+@media (min-width: 700px) { .cta { display: inline-block; } }
+
+.cta:hover { background: var(--cta-hover); color: var(--bg); }
+
+.divider {
+  height: 1px;
+  background: var(--border);
+}

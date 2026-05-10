@@ -1,0 +1,126 @@
+/* ==========================================================================
+   demos.ebecerra.es — Plantilla Coach Vibrant — Design Tokens
+   --------------------------------------------------------------------------
+   Filosofía: marca personal joven con energía. Magenta saturado + lila +
+   verde ácido como acento contradictorio. Bg blanco roto cremoso, tinta
+   morada profunda. Tipografía sans grotesque bold para titulares y body
+   sans humanista. Estética social media moderna (tipo Spotify Wrapped /
+   Linktree con buen gusto).
+
+   Scope: [data-template="coach-vibrant"]. Sustituye TODOS los tokens
+   estructurales. NO depende de demos-fisio.css.
+   ========================================================================== */
+
+[data-template="coach-vibrant"] {
+  /* ---------- Color — Structure ---------- */
+  --bg:              #fbf6f0;  /* off-white cremoso luminoso */
+  --bg-deep:         #f3eadb;
+  --bg-block:        #f0e5fb;  /* lila claro pastel para bloques */
+  --bg-block-2:      #e8f5d1;  /* verde ácido claro para alternar */
+  --surface:         #ffffff;
+  --surface-subtle:  #f5edff;
+  --surface-warm:    #ffe9d9;
+  --border:          #e0d4c4;
+  --border-strong:   #b89d7c;
+
+  --ink:             #2d1a3d;  /* tinta morada profunda */
+  --ink-soft:        #432958;
+
+  /* ---------- Color — Text ---------- */
+  --text:            #2d1a3d;
+  --text-secondary:  #553973;
+  --text-muted:      #8b7295;
+  --text-disabled:   #b8a8c2;
+  --text-on-accent:  #ffffff;
+  --text-on-ink:     #f5edff;
+  --text-on-magenta: #ffffff;
+
+  /* ---------- Color — CTA — magenta saturado ---------- */
+  --cta:             #d6296a;  /* magenta vivo */
+  --cta-hover:       #b71d56;
+  --cta-soft:        rgba(214, 41, 106, 0.10);
+  --cta-soft-strong: rgba(214, 41, 106, 0.22);
+
+  /* ---------- Color — Accent — verde ácido ---------- */
+  --accent:          #b8e23f;  /* verde ácido lima */
+  --accent-soft:     rgba(184, 226, 63, 0.20);
+  --accent-strong:   #94b62e;
+  --accent-deep:     #6f8a1f;
+
+  /* ---------- Color — Tertiary — lila ---------- */
+  --lilac:           #9b6bd8;
+  --lilac-soft:      rgba(155, 107, 216, 0.18);
+  --lilac-strong:    #7848b8;
+
+  /* ---------- Color — Semantic ---------- */
+  --success: #6f8a1f;
+  --warning: #d6296a;
+  --error:   #b71d56;
+
+  /* ---------- Typography ---------- */
+  --font-sans-stack: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display-stack: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-manrope);
+
+  /* Scale — display BOLD energético */
+  --fs-display:   clamp(3rem, 9vw, 6.5rem);
+  --fs-h1:        clamp(2.5rem, 5.5vw, 4.5rem);
+  --fs-h2:        clamp(2rem, 4vw, 3.25rem);
+  --fs-h3:        clamp(1.5rem, 2.6vw, 2.125rem);
+  --fs-h4:        1.375rem;
+  --fs-body-lead: 1.25rem;
+  --fs-body:      1.0625rem;
+  --fs-sm:        0.9375rem;
+  --fs-xs:        0.8125rem;
+  --fs-mono-md:   0.75rem;
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    800;
+
+  --lh-display:  0.96;
+  --lh-tight:    1.05;
+  --lh-heading:  1.15;
+  --lh-body:     1.6;
+  --lh-lead:     1.5;
+
+  --tr-tight:    -0.025em;
+  --tr-display:  -0.04em;
+  --tr-kicker:   0.06em;
+
+  /* ---------- Spacing & sizing ---------- */
+  --gutter:        clamp(1.25rem, 4vw, 2.5rem);
+  --container-max: 1240px;
+  --container-narrow: 820px;
+  --section-py:    clamp(5rem, 10vw, 8rem);
+  --section-py-sm: clamp(3rem, 6vw, 4.5rem);
+
+  /* ---------- Radii — vibrant = curvas pronunciadas ---------- */
+  --r-xs:  6px;
+  --r-sm:  10px;
+  --r-md:  16px;
+  --r-lg:  24px;
+  --r-xl:  36px;
+  --r-pill: 999px;
+
+  /* ---------- Shadows — color-tinted ---------- */
+  --sh-sm:  0 1px 3px rgba(45, 26, 61, 0.08);
+  --sh-md:  0 8px 24px rgba(45, 26, 61, 0.12);
+  --sh-lg:  0 20px 48px rgba(45, 26, 61, 0.18);
+  --sh-card-hover: 0 24px 48px rgba(214, 41, 106, 0.18);
+  --sh-focus: 0 0 0 3px rgba(214, 41, 106, 0.4);
+  --sh-magenta: 6px 6px 0 var(--cta);
+  --sh-lilac: 6px 6px 0 var(--lilac);
+  --sh-acid: 6px 6px 0 var(--accent-strong);
+
+  /* ---------- Motion ---------- */
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 480ms;
+  --ease:      cubic-bezier(0.34, 1.56, 0.64, 1);  /* overshoot bouncy */
+  --ease-out:  cubic-bezier(0.2, 0.8, 0.2, 1);
+}

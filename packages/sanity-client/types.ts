@@ -172,7 +172,13 @@ export type SiteSettingsFull = {
 
 // ---------- Demo sites ----------
 
-export type DemoTemplate = "fisio" | "dental" | "legal" | "coach";
+export type DemoTemplate =
+  | "fisio"
+  | "dental"
+  | "legal"
+  | "coach"
+  | "coach-editorial"
+  | "coach-vibrant";
 
 export type DemoCta = {
   label: string | null;
@@ -206,8 +212,14 @@ export type DemoService = {
   title: string;
   description: string | null;
   icon: string | null;
+  image: SanityImage | null;
   duration: string | null;
   price: string | null;
+};
+
+export type DemoLifestyleImage = {
+  image: SanityImage;
+  alt: string | null;
 };
 
 export type DemoTeamMember = {
@@ -328,6 +340,7 @@ export type DemoSite = {
   testimonialsSection: DemoSectionHeader | null;
   testimonials: DemoTestimonial[];
   instagramFeed: DemoInstagramFeed | null;
+  lifestyleGallery: DemoLifestyleImage[];
   contact: DemoContact | null;
 };
 

@@ -526,6 +526,7 @@ const demoSiteProjection = `{
     "title": ${loc("title")},
     "description": ${loc("description")},
     icon,
+    image,
     "duration": ${loc("duration")},
     "price": ${loc("price")}
   },
@@ -590,6 +591,10 @@ const demoSiteProjection = `{
       postUrl
     }
   },
+  "lifestyleGallery": lifestyleGallery[]{
+    image,
+    "alt": ${loc("alt")}
+  },
   "contact": contact {
     "kicker": ${loc("kicker")},
     "title": ${loc("title")},
@@ -633,6 +638,7 @@ export async function getDemoSiteBySlug(
     testimonials: raw.testimonials ?? [],
     coachStats: raw.coachStats ?? [],
     objectives: raw.objectives ?? [],
+    lifestyleGallery: raw.lifestyleGallery ?? [],
     pricing: raw.pricing
       ? {
           ...raw.pricing,

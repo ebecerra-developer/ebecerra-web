@@ -1,0 +1,48 @@
+.section {
+  padding-block: var(--section-py-sm);
+  background: var(--bg);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(280px, auto);
+    gap: 1.25rem;
+  }
+}
+
+.cell {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--surface-warm);
+}
+
+.cell0 { aspect-ratio: 3 / 4; }
+.cell1 { aspect-ratio: 4 / 3; margin-top: 0; }
+.cell2 { aspect-ratio: 3 / 4; }
+
+@media (min-width: 700px) {
+  .cell0 { aspect-ratio: auto; }
+  .cell1 { aspect-ratio: auto; margin-top: 3rem; }
+  .cell2 { aspect-ratio: auto; }
+}
+
+.image {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+.cell:hover .image { transform: scale(1.04); }
