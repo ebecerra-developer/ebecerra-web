@@ -2,19 +2,24 @@ import type { DemoSite } from "@ebecerra/sanity-client";
 import styles from "./CoachStats.module.css";
 
 /**
- * Tira de credenciales numeradas (referencia: Edu Veiga "+10.000 entrenamientos").
- * Útil para coach con marca personal: año de inicio, sesiones acumuladas,
- * clientas activas, certificaciones.
- *
- * TODO (plan): añadir al schema demoSite el array `coachStats[]` con
- * `{ value: localeString, label: localeString }`. Render condicional cuando
- * el array tenga >= 1 entrada.
+ * Tira de credenciales numeradas (referencia: Edu Veiga "+10.000 sesiones").
+ * Render condicional cuando el array tiene >= 1 entrada.
  */
-export default function CoachStats({ demo: _demo }: { demo: DemoSite }) {
+export default function CoachStats({ demo }: { demo: DemoSite }) {
+  const stats = demo.coachStats;
+  if (stats.length === 0) return null;
+
   return (
-    <section className={styles.stats} aria-label="Credenciales">
-      <div className={styles.placeholder} data-todo="schema">
-        Stats coach — pendiente schema (coachStats[])
+    <section className={styles.section} aria-label="Credenciales">
+      <div className={styles.inner}>
+        <ul className={styles.grid} data-count={stats.length}>
+          {stats.map((stat, i) => (
+            <li key={i} className={styles.item}>
+              <p className={styles.value}>{stat.value}</p>
+              <p className={styles.label}>{stat.label}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

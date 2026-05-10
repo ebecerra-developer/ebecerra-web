@@ -253,6 +253,58 @@ export type DemoBrandOverrides = {
   accentColor: string | null;
   inkColor: string | null;
   bgTone: "cream" | "off-white" | "sand" | "cool-white" | null;
+  fontPair: "default" | "coach-a" | "coach-b" | null;
+};
+
+export type DemoCoachStat = {
+  value: string;
+  label: string;
+};
+
+export type DemoObjective = {
+  icon: string | null;
+  title: string;
+  description: string | null;
+};
+
+export type DemoPricingModality = {
+  id: string;
+  label: string;
+};
+
+export type DemoPricingPrice = {
+  modalityId: string;
+  amount: number;
+  perSession: number | null;
+};
+
+export type DemoPricingTier = {
+  sessions: number;
+  label: string;
+  prices: DemoPricingPrice[];
+};
+
+export type DemoPricing = {
+  enabled: boolean;
+  kicker: string | null;
+  title: string | null;
+  lead: string | null;
+  modalities: DemoPricingModality[];
+  tiers: DemoPricingTier[];
+  note: string | null;
+};
+
+export type DemoInstagramPost = {
+  image: SanityImage;
+  caption: string | null;
+  postUrl: string | null;
+};
+
+export type DemoInstagramFeed = {
+  enabled: boolean;
+  handle: string | null;
+  ctaLabel: string | null;
+  posts: DemoInstagramPost[];
 };
 
 export type DemoSite = {
@@ -264,13 +316,18 @@ export type DemoSite = {
   tagline: string | null;
   brand: DemoBrandOverrides | null;
   hero: DemoHero | null;
+  coachStats: DemoCoachStat[];
   about: DemoAbout | null;
   servicesSection: DemoSectionHeader | null;
   services: DemoService[];
+  objectivesSection: DemoSectionHeader | null;
+  objectives: DemoObjective[];
+  pricing: DemoPricing | null;
   teamSection: DemoSectionHeader | null;
   team: DemoTeamMember[];
   testimonialsSection: DemoSectionHeader | null;
   testimonials: DemoTestimonial[];
+  instagramFeed: DemoInstagramFeed | null;
   contact: DemoContact | null;
 };
 

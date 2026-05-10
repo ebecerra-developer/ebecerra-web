@@ -8,10 +8,14 @@ export default defineType({
     { name: "meta", title: "Meta", default: true },
     { name: "brand", title: "Marca" },
     { name: "hero", title: "Portada" },
+    { name: "stats", title: "Stats / credenciales" },
     { name: "about", title: "Sobre" },
     { name: "services", title: "Servicios" },
+    { name: "objectives", title: "Objetivos" },
+    { name: "pricing", title: "Precios" },
     { name: "team", title: "Equipo" },
     { name: "testimonials", title: "Testimonios" },
+    { name: "instagram", title: "Instagram" },
     { name: "contact", title: "Contacto" },
     { name: "gallery", title: "Galería" },
   ],
@@ -166,6 +170,22 @@ export default defineType({
             layout: "radio",
           },
           initialValue: "cream",
+        }),
+        defineField({
+          name: "fontPair",
+          title: "Par tipográfico",
+          description:
+            "Solo aplica a plantillas coach. Define qué par display+body se carga en el cliente.",
+          type: "string",
+          options: {
+            list: [
+              { title: "Default (Fraunces + DM Sans)", value: "default" },
+              { title: "Coach A — autoridad cálida", value: "coach-a" },
+              { title: "Coach B — marca personal moderna", value: "coach-b" },
+            ],
+            layout: "radio",
+          },
+          initialValue: "default",
         }),
       ],
     }),
@@ -394,6 +414,299 @@ export default defineType({
             select: { title: "author", subtitle: "quote.es", media: "photo" },
           },
         },
+      ],
+    }),
+
+    // ---------- Coach: Stats / credenciales ----------
+    defineField({
+      name: "coachStats",
+      title: "Stats / credenciales",
+      description:
+        "Tira numérica de credenciales (ej. 'Más de 10.000 sesiones'). Solo plantilla coach.",
+      type: "array",
+      group: "stats",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "value",
+              title: "Valor",
+              description: "Ej. '+10.000', '8 años', '500+'",
+              type: "localeString",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "label",
+              title: "Etiqueta",
+              description: "Ej. 'sesiones acumuladas'",
+              type: "localeString",
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: { title: "value.es", subtitle: "label.es" },
+          },
+        },
+      ],
+      validation: (Rule) => Rule.max(5),
+    }),
+
+    // ---------- Coach: Objectives ----------
+    defineField({
+      name: "objectivesSection",
+      title: "Cabecera de objetivos",
+      type: "object",
+      group: "objectives",
+      fields: [
+        defineField({ name: "kicker", title: "Kicker", type: "localeString" }),
+        defineField({ name: "title", title: "Título", type: "localeString" }),
+        defineField({ name: "lead", title: "Lead", type: "localeText" }),
+      ],
+    }),
+    defineField({
+      name: "objectives",
+      title: "Objetivos / para quién",
+      description:
+        "Cards que segmentan perfiles de cliente (ej. 'perder peso', 'preparar parto'). Solo plantilla coach.",
+      type: "array",
+      group: "objectives",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "icon",
+              title: "Icono (emoji)",
+              type: "string",
+            }),
+            defineField({
+              name: "title",
+              title: "Título",
+              type: "localeString",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "description",
+              title: "Descripción",
+              type: "localeText",
+            }),
+          ],
+          preview: {
+            select: { title: "title.es", subtitle: "description.es" },
+          },
+        },
+      ],
+      validation: (Rule) => Rule.max(8),
+    }),
+
+    // ---------- Coach: Pricing ----------
+    defineField({
+      name: "pricing",
+      title: "Precios en bonos",
+      description:
+        "Tabla pública de precios. Render condicional vía 'enabled'. Solo plantilla coach.",
+      type: "object",
+      group: "pricing",
+      fields: [
+        defineField({
+          name: "enabled",
+          title: "Mostrar sección de precios",
+          type: "boolean",
+          initialValue: false,
+        }),
+        defineField({ name: "kicker", title: "Kicker", type: "localeString" }),
+        defineField({ name: "title", title: "Título", type: "localeString" }),
+        defineField({ name: "lead", title: "Lead", type: "localeText" }),
+        defineField({
+          name: "modalities",
+          title: "Modalidades (columnas)",
+          description:
+            "Ej. individual / pareja / grupo reducido. Cada id se referencia desde tiers.prices[].",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "id",
+                  title: "ID interno",
+                  description: "Ej. 'individual'. Usado para enlazar precios.",
+                  type: "string",
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: "label",
+                  title: "Etiqueta visible",
+                  type: "localeString",
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+              preview: { select: { title: "label.es", subtitle: "id" } },
+            },
+          ],
+        }),
+        defineField({
+          name: "tiers",
+          title: "Bonos (filas)",
+          description:
+            "Cada bono define cuántas sesiones incluye y los precios por modalidad.",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "sessions",
+                  title: "Nº de sesiones",
+                  type: "number",
+                  validation: (Rule) => Rule.required().min(1),
+                }),
+                defineField({
+                  name: "label",
+                  title: "Etiqueta del bono",
+                  description: "Ej. 'Sesión suelta', 'Bono 4', 'Bono 12'",
+                  type: "localeString",
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: "prices",
+                  title: "Precios por modalidad",
+                  type: "array",
+                  of: [
+                    {
+                      type: "object",
+                      fields: [
+                        defineField({
+                          name: "modalityId",
+                          title: "Modalidad",
+                          description:
+                            "Debe coincidir con un id de modalidades.",
+                          type: "string",
+                          validation: (Rule) => Rule.required(),
+                        }),
+                        defineField({
+                          name: "amount",
+                          title: "Importe total (€)",
+                          type: "number",
+                          validation: (Rule) => Rule.required().min(0),
+                        }),
+                        defineField({
+                          name: "perSession",
+                          title: "Precio por sesión (€)",
+                          description:
+                            "Calculado por la editora; mostrado debajo del importe.",
+                          type: "number",
+                        }),
+                      ],
+                      preview: {
+                        select: {
+                          title: "modalityId",
+                          subtitle: "amount",
+                        },
+                        prepare({ title, subtitle }) {
+                          return {
+                            title: title ?? "(sin modalidad)",
+                            subtitle:
+                              subtitle != null ? `${subtitle} €` : undefined,
+                          };
+                        },
+                      },
+                    },
+                  ],
+                }),
+              ],
+              preview: {
+                select: { title: "label.es", subtitle: "sessions" },
+                prepare({ title, subtitle }) {
+                  return {
+                    title: title ?? "(sin etiqueta)",
+                    subtitle:
+                      subtitle != null
+                        ? `${subtitle} ${subtitle === 1 ? "sesión" : "sesiones"}`
+                        : undefined,
+                  };
+                },
+              },
+            },
+          ],
+        }),
+        defineField({
+          name: "note",
+          title: "Nota al pie",
+          description:
+            "Ej. 'Pagos por transferencia o Bizum. IVA incluido.'",
+          type: "localeText",
+        }),
+      ],
+    }),
+
+    // ---------- Coach: Instagram feed ----------
+    defineField({
+      name: "instagramFeed",
+      title: "Feed de Instagram",
+      description:
+        "Mosaico de posts (imágenes subidas manualmente, no API real). Render condicional. Solo plantilla coach.",
+      type: "object",
+      group: "instagram",
+      fields: [
+        defineField({
+          name: "enabled",
+          title: "Mostrar feed",
+          type: "boolean",
+          initialValue: false,
+        }),
+        defineField({
+          name: "handle",
+          title: "@handle de Instagram",
+          description: "Sin @. Ej. 'llaullau'.",
+          type: "string",
+        }),
+        defineField({
+          name: "ctaLabel",
+          title: "Texto del CTA",
+          description: "Ej. 'Sígueme en Instagram'",
+          type: "localeString",
+        }),
+        defineField({
+          name: "posts",
+          title: "Posts",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "image",
+                  title: "Imagen",
+                  type: "image",
+                  options: { hotspot: true },
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: "caption",
+                  title: "Caption",
+                  type: "localeString",
+                }),
+                defineField({
+                  name: "postUrl",
+                  title: "URL del post original",
+                  type: "url",
+                }),
+              ],
+              preview: {
+                select: { title: "caption.es", media: "image" },
+                prepare({ title, media }) {
+                  return {
+                    title: title ?? "(sin caption)",
+                    media,
+                  };
+                },
+              },
+            },
+          ],
+          validation: (Rule) => Rule.max(12),
+        }),
       ],
     }),
 

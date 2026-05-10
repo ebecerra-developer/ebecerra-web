@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
+import {
+  DM_Sans,
+  Fraunces,
+  Cormorant_Garamond,
+  Inter,
+  Space_Grotesk,
+  Manrope,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -15,6 +22,27 @@ const dmSans = DM_Sans({
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
+  subsets: ["latin"],
+});
+
+// Coach A — autoridad cálida (perfil mujer madura, salud hormonal)
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+// Coach B — marca personal moderna (perfil generalista con redes)
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+});
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -54,7 +82,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${dmSans.variable} ${fraunces.variable}`}
+      className={`${dmSans.variable} ${fraunces.variable} ${cormorant.variable} ${inter.variable} ${spaceGrotesk.variable} ${manrope.variable}`}
     >
       <body>
         <a

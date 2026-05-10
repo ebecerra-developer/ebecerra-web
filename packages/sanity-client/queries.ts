@@ -489,7 +489,8 @@ const demoSiteProjection = `{
     primaryColor,
     accentColor,
     inkColor,
-    bgTone
+    bgTone,
+    fontPair
   },
   "hero": hero {
     "kicker": ${loc("kicker")},
@@ -504,6 +505,10 @@ const demoSiteProjection = `{
       "label": ${loc("ctaSecondaryLabel")},
       "href": ctaSecondaryHref
     }
+  },
+  "coachStats": coachStats[]{
+    "value": ${loc("value")},
+    "label": ${loc("label")}
   },
   "about": about {
     "kicker": ${loc("kicker")},
@@ -523,6 +528,36 @@ const demoSiteProjection = `{
     icon,
     "duration": ${loc("duration")},
     "price": ${loc("price")}
+  },
+  "objectivesSection": objectivesSection {
+    "kicker": ${loc("kicker")},
+    "title": ${loc("title")},
+    "lead": ${loc("lead")}
+  },
+  "objectives": objectives[]{
+    icon,
+    "title": ${loc("title")},
+    "description": ${loc("description")}
+  },
+  "pricing": pricing {
+    "enabled": coalesce(enabled, false),
+    "kicker": ${loc("kicker")},
+    "title": ${loc("title")},
+    "lead": ${loc("lead")},
+    "modalities": modalities[]{
+      id,
+      "label": ${loc("label")}
+    },
+    "tiers": tiers[]{
+      sessions,
+      "label": ${loc("label")},
+      "prices": prices[]{
+        modalityId,
+        amount,
+        perSession
+      }
+    },
+    "note": ${loc("note")}
   },
   "teamSection": teamSection {
     "kicker": ${loc("kicker")},
@@ -544,6 +579,16 @@ const demoSiteProjection = `{
     author,
     "context": ${loc("context")},
     photo
+  },
+  "instagramFeed": instagramFeed {
+    "enabled": coalesce(enabled, false),
+    handle,
+    "ctaLabel": ${loc("ctaLabel")},
+    "posts": posts[]{
+      image,
+      "caption": ${loc("caption")},
+      postUrl
+    }
   },
   "contact": contact {
     "kicker": ${loc("kicker")},
@@ -586,6 +631,24 @@ export async function getDemoSiteBySlug(
     services: raw.services ?? [],
     team: raw.team ?? [],
     testimonials: raw.testimonials ?? [],
+    coachStats: raw.coachStats ?? [],
+    objectives: raw.objectives ?? [],
+    pricing: raw.pricing
+      ? {
+          ...raw.pricing,
+          modalities: raw.pricing.modalities ?? [],
+          tiers: (raw.pricing.tiers ?? []).map((t) => ({
+            ...t,
+            prices: t.prices ?? [],
+          })),
+        }
+      : null,
+    instagramFeed: raw.instagramFeed
+      ? {
+          ...raw.instagramFeed,
+          posts: raw.instagramFeed.posts ?? [],
+        }
+      : null,
     about: raw.about
       ? {
           ...raw.about,

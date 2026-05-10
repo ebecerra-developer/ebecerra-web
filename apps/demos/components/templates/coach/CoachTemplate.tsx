@@ -29,6 +29,7 @@ export default function CoachTemplate({
     <div
       className={styles.shell}
       data-template="coach"
+      data-font-pair={demo.brand?.fontPair ?? "default"}
       style={brandStyle(demo.brand)}
     >
       <FisioNav demo={demo} locale={locale} />

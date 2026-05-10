@@ -7,6 +7,7 @@
   Por ahora, demos-fisio.css define los tokens al :root y todas las demos los usan.
 */
 @import "../../../packages/tokens/demos-fisio.css";
+@import "../../../packages/tokens/demos-coach.css";
 
 @theme inline {
   --font-sans: var(--font-dm-sans);

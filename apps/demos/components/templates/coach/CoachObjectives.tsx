@@ -3,18 +3,52 @@ import styles from "./CoachObjectives.module.css";
 
 /**
  * Sección "Para quién es esto" / "Tus objetivos" (referencia: javierentrenador.es).
- * Grid de 3-6 cards segmentando perfiles de cliente/objetivo: perder peso,
- * ganar fuerza, prepararte para el parto, entrenar en menopausia, etc.
- * Sirve también como SEO long-tail.
- *
- * TODO (plan): añadir al schema `objectives[]` con
- * `{ icon: string, title: localeString, description: localeText, anchor: string }`.
+ * Grid de cards segmentando perfiles/objetivos. Sin CTA: la sección segmenta,
+ * no convierte (la conversión es contacto/booking más abajo).
  */
-export default function CoachObjectives({ demo: _demo }: { demo: DemoSite }) {
+export default function CoachObjectives({ demo }: { demo: DemoSite }) {
+  const objectives = demo.objectives;
+  if (objectives.length === 0) return null;
+
+  const header = demo.objectivesSection;
+  const eyebrowText = header?.kicker?.replace(/^\/\/\s*/, "");
+
   return (
-    <section className={styles.objectives} aria-label="Objetivos">
-      <div className={styles.placeholder} data-todo="schema">
-        Objetivos / para quién — pendiente schema (objectives[])
+    <section
+      id="objetivos"
+      className={styles.section}
+      aria-labelledby="objectives-heading"
+    >
+      <div className={styles.inner}>
+        {(eyebrowText || header?.title || header?.lead) && (
+          <header className={styles.header}>
+            {eyebrowText && (
+              <p className={styles.eyebrow}>
+                <span className={styles.eyebrowLine} />
+                <span>{eyebrowText}</span>
+                <span className={styles.eyebrowLine} />
+              </p>
+            )}
+            {header?.title && (
+              <h2 id="objectives-heading" className={styles.title}>
+                {header.title}
+              </h2>
+            )}
+            {header?.lead && <p className={styles.lead}>{header.lead}</p>}
+          </header>
+        )}
+
+        <ul className={styles.grid} data-count={objectives.length}>
+          {objectives.map((obj, i) => (
+            <li key={i} className={styles.card}>
+              {obj.icon && <span className={styles.icon}>{obj.icon}</span>}
+              <h3 className={styles.cardTitle}>{obj.title}</h3>
+              {obj.description && (
+                <p className={styles.cardDesc}>{obj.description}</p>
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
