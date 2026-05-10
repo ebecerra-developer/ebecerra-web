@@ -7,15 +7,18 @@ description: Sistema de marca del proyecto (logos eB, bracket-B, favicon, kit de
 
 **Logo y paleta cerrados 2026-04-19.** No tocar sin consultar.
 
-## Sistema de 3 marks según contexto
+## Sistema de marks según contexto
 
 | Mark | Cuándo | Dónde |
 |---|---|---|
 | **eB completo** (monograma con swoosh en el pie de la e) | Modo pro, identidad comercial | `apps/es` Nav, Hero, emails, facturas, casos de estudio, OG images |
-| **`<B>`** (B entre brackets) | Modo geek / tech | `apps/tech` Nav, dominio `.tech`, GitHub, badges técnicos |
-| **B sola** | Favicon ≤32px | Ambas apps (`app/icon*.{ico,png,svg}`) |
+| **`<B>`** (B entre brackets) | Modo geek / tech | `apps/tech` Nav, dominio `.tech`, GitHub, badges técnicos, **favicon de `apps/tech`** (verde neón) |
+| **B sola** | Favicon ≤32px de `apps/es` | `apps/es/app/icon0.svg` (verde bosque sobre cream) |
+| **`e` sola** (con swoosh) | Favicon ≤32px de `apps/demos` | `apps/demos/app/icon.tsx` (fallback) y `apps/demos/app/[locale]/[slug]/icon.tsx` (dinámico, color = `brand.primaryColor` de la demo) |
 
-Ni eB ni `<B>` aguantan a 16-32px → la B sola vive solo como favicon.
+`apps/tech` sí aguanta el `<B>` completo a 32px porque los brackets son trazos rectos finos, simplificados — el monograma eB con swoosh, en cambio, se difumina, por eso `apps/es` y `apps/demos` usan cada uno su mitad del monograma.
+
+**Favicon de `apps/demos`:** glifo `e` extraído de `logo-master.svg` (paths del bowl + swoosh) renderizado vía `next/og` `ImageResponse` con `<svg>` inline. El icon de cada `[slug]` lee `brand.primaryColor` del doc `demoSite` en Sanity y pinta la `e` en cream sobre ese color, así cada demo tiene su favicon coherente con su paleta. La raíz `demos.ebecerra.es/` usa el acento de `apps/es` como fallback.
 
 ## Kit de archivos
 
@@ -63,9 +66,9 @@ Antes de tocar la marca:
 ## Reglas duras
 
 - **No cambiar el kit** (logo files, favicons, tokens de color) sin consultar al usuario. Decisión cerrada.
-- **No mezclar marcas:** eB en `apps/es`, `<B>` en `apps/tech`. Nunca el `<B>` neón en modo pro ni el eB verde bosque en modo geek.
+- **No mezclar marcas:** eB en `apps/es`, `<B>` en `apps/tech`, `e` en `apps/demos`. Nunca el `<B>` neón en modo pro ni el eB verde bosque en modo geek.
 - **No recolorear** los SVG con CSS `filter` — usar la variante correcta del kit.
-- **Favicon** es siempre B sola. Ni eB ni `<B>` son legibles a 32px.
+- **Favicon:** B sola en `apps/es`, `<B>` con brackets en `apps/tech`, `e` con swoosh en `apps/demos`. El monograma eB completo no es legible a 32px.
 
 ## Cuándo ampliar el kit
 
