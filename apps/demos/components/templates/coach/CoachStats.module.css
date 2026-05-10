@@ -1,0 +1,15 @@
+.stats {
+  padding: 3rem 1.5rem;
+  background: var(--surface-subtle);
+  border-block: 1px solid var(--border);
+}
+
+.placeholder {
+  max-width: 64rem;
+  margin: 0 auto;
+  text-align: center;
+  font-family: var(--font-display, serif);
+  color: var(--ink-soft);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}

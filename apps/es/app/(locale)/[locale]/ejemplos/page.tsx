@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { getPublishedDemoSites } from "@ebecerra/sanity-client";
+import {
+  getPublishedDemoSites,
+  getSiteSettingsFooter,
+} from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import type { Locale } from "@/i18n/routing";
+import Nav from "@/components/sections/Nav";
+import Footer from "@/components/sections/Footer";
 import styles from "./page.module.css";
 
 export const revalidate = 1800;
@@ -47,8 +52,11 @@ export default async function EjemplosPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("examples");
-  const demos = await getPublishedDemoSites(locale as Locale);
+  const [t, demos, footerData] = await Promise.all([
+    getTranslations("examples"),
+    getPublishedDemoSites(locale as Locale),
+    getSiteSettingsFooter(locale).catch(() => null),
+  ]);
 
   const demoUrl = (slug: string) =>
     locale === "es"
@@ -67,7 +75,9 @@ export default async function EjemplosPage({
   };
 
   return (
-    <main id="main" className={styles.main}>
+    <>
+      <Nav />
+      <main id="main" className={styles.main}>
       <div className={styles.inner}>
         <header className={styles.header}>
           <p className={styles.kicker}>{t("kicker")}</p>
@@ -137,6 +147,8 @@ export default async function EjemplosPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
       />
-    </main>
+      </main>
+      <Footer footerData={footerData} />
+    </>
   );
 }

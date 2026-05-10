@@ -5,6 +5,7 @@ import { getDemoSiteBySlug, getDemoSiteSlugs } from "@ebecerra/sanity-client";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
 import FisioTemplate from "@/components/templates/fisio/FisioTemplate";
+import CoachTemplate from "@/components/templates/coach/CoachTemplate";
 import DemoBanner from "./DemoBanner";
 
 export const revalidate = 60;
@@ -48,6 +49,8 @@ export default async function DemoPage({
       <DemoBanner />
       {demo.template === "fisio" ? (
         <FisioTemplate demo={demo} locale={locale as Locale} />
+      ) : demo.template === "coach" ? (
+        <CoachTemplate demo={demo} locale={locale as Locale} />
       ) : (
         <main id="main" style={{ padding: "4rem 1.5rem", textAlign: "center" }}>
           <p>
