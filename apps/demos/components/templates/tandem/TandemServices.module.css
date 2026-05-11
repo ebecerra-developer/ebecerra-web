@@ -1,0 +1,121 @@
+.section {
+  padding: var(--section-py) var(--gutter);
+  background: var(--bg);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+.header {
+  max-width: 60ch;
+  margin-bottom: 3rem;
+}
+
+.kicker {
+  display: inline-block;
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-kicker);
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  padding: 0.35rem 0.8rem;
+  border: var(--bw-1) solid var(--ink);
+  border-radius: var(--r-pill);
+}
+
+.title {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-ultra);
+  font-size: var(--fs-h1);
+  letter-spacing: var(--tr-display);
+  line-height: var(--lh-tight);
+  color: var(--ink);
+  margin: 0;
+}
+
+.lead {
+  margin-top: 1rem;
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-secondary);
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  position: relative;
+  padding: 2rem 1.75rem 1.75rem;
+  background: var(--surface);
+  border: var(--bw-2) solid var(--ink);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-md);
+  transition: transform var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease), background var(--dur-base) var(--ease);
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card[data-tone="cobalt"] { background: var(--surface); }
+.card[data-tone="coral"]  { background: var(--bg-sage-soft); }
+.card[data-tone="sage"]   { background: var(--surface-warm); }
+.card[data-tone="ink"]    { background: var(--surface); }
+
+.card:hover {
+  transform: translate(-4px, -4px) rotate(-1deg);
+  box-shadow: var(--sh-lg);
+}
+
+.card[data-tone="cobalt"]:hover { box-shadow: var(--sh-cobalt); }
+.card[data-tone="coral"]:hover  { box-shadow: var(--sh-coral); }
+.card[data-tone="sage"]:hover   { box-shadow: var(--sh-sage); }
+
+.cardNum {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-ultra);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0.18;
+  letter-spacing: -0.04em;
+}
+
+.icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.cardTitle {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h3);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.cardDesc {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-secondary);
+}

@@ -1,0 +1,108 @@
+.section {
+  padding: var(--section-py) var(--gutter);
+  background: var(--bg);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+.header {
+  max-width: 56ch;
+  margin-bottom: 3rem;
+}
+
+.kicker {
+  display: inline-block;
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-kicker);
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  padding: 0.35rem 0.8rem;
+  border: var(--bw-1) solid var(--ink);
+  border-radius: var(--r-pill);
+}
+
+.title {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-ultra);
+  font-size: var(--fs-h1);
+  letter-spacing: var(--tr-display);
+  line-height: var(--lh-tight);
+  color: var(--ink);
+  margin: 0;
+}
+
+.lead {
+  margin-top: 1rem;
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-secondary);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: var(--bw-2) solid var(--ink);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-bottom: var(--bw-2) solid var(--ink);
+  transition: background var(--dur-base) var(--ease), padding var(--dur-base) var(--ease);
+}
+
+.step:hover {
+  background: var(--bg-sage-soft);
+  padding-inline: 1.5rem;
+}
+
+.num {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-ultra);
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.05em;
+  min-width: 3ch;
+}
+
+.step:hover .num { color: var(--cta); }
+
+.content { min-width: 0; }
+
+.stepTitle {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h3);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+}
+
+.stepDesc {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-secondary);
+  max-width: 60ch;
+}
+
+.icon {
+  font-size: 2rem;
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .icon { display: inline; }
+}

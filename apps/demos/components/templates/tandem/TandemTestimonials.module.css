@@ -1,0 +1,118 @@
+.section {
+  padding: var(--section-py) var(--gutter);
+  background: var(--bg);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+.header {
+  max-width: 56ch;
+  margin-bottom: 3rem;
+}
+
+.kicker {
+  display: inline-block;
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-kicker);
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  padding: 0.35rem 0.8rem;
+  border: var(--bw-1) solid var(--ink);
+  border-radius: var(--r-pill);
+}
+
+.title {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-ultra);
+  font-size: var(--fs-h1);
+  letter-spacing: var(--tr-display);
+  line-height: var(--lh-tight);
+  color: var(--ink);
+  margin: 0;
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.75rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  position: relative;
+  padding: 2.5rem 1.75rem 1.75rem;
+  background: var(--surface);
+  border: var(--bw-2) solid var(--ink);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: transform var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease);
+}
+
+.card[data-tone="cobalt"] { background: var(--surface); }
+.card[data-tone="coral"] { background: var(--surface-warm); }
+.card[data-tone="sage"] { background: var(--bg-sage-soft); }
+
+.card:hover { transform: translateY(-4px); }
+.card[data-tone="cobalt"]:hover { box-shadow: var(--sh-cobalt); }
+.card[data-tone="coral"]:hover  { box-shadow: var(--sh-coral); }
+.card[data-tone="sage"]:hover   { box-shadow: var(--sh-sage); }
+
+.mark {
+  position: absolute;
+  top: -1.5rem;
+  left: 1.5rem;
+  font-family: var(--font-serif-stack);
+  font-style: italic;
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--cta);
+}
+
+.card[data-tone="coral"] .mark { color: var(--accent-strong); }
+.card[data-tone="sage"] .mark { color: var(--sage-strong); }
+
+.quote {
+  margin: 0;
+  font-family: var(--font-serif-stack);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.meta {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border-soft);
+}
+
+.author {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 0 0 0.2rem;
+}
+
+.context {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin: 0;
+}

@@ -1,0 +1,113 @@
+.banner {
+  padding: var(--section-py-sm) var(--gutter);
+  background: var(--cta);
+  color: var(--text-on-cobalt);
+  border-block: var(--bw-2) solid var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.banner::before,
+.banner::after {
+  content: "";
+  position: absolute;
+  border-radius: var(--r-pill);
+  pointer-events: none;
+}
+
+.banner::before {
+  width: 280px;
+  height: 280px;
+  background: var(--accent);
+  top: -120px;
+  right: -80px;
+  opacity: 0.85;
+  animation: drift 14s ease-in-out infinite;
+}
+
+.banner::after {
+  width: 200px;
+  height: 200px;
+  background: var(--sage);
+  bottom: -90px;
+  left: 10%;
+  opacity: 0.7;
+  animation: drift 18s ease-in-out infinite reverse;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -10px); }
+}
+
+.inner {
+  position: relative;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-kicker);
+  color: var(--bg);
+  margin-bottom: 1.25rem;
+  padding: 0.4rem 0.9rem;
+  border: var(--bw-2) solid var(--bg);
+  border-radius: var(--r-pill);
+}
+
+.heading {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-ultra);
+  font-size: var(--fs-h1);
+  letter-spacing: var(--tr-display);
+  line-height: var(--lh-tight);
+  color: var(--bg);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.serif {
+  font-family: var(--font-serif-stack);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--accent);
+}
+
+.sub {
+  margin-top: 1.25rem;
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--bg);
+  opacity: 0.92;
+  max-width: 52ch;
+  margin-inline: auto;
+}
+
+.cta {
+  display: inline-flex;
+  margin-top: 2rem;
+  padding: 1.1rem 2rem;
+  background: var(--bg);
+  color: var(--ink);
+  border: var(--bw-2) solid var(--ink);
+  border-radius: var(--r-pill);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body);
+  text-decoration: none;
+  box-shadow: 6px 6px 0 var(--ink);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+
+.cta:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0 var(--ink);
+  color: var(--ink);
+}

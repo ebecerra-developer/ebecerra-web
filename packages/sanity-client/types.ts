@@ -177,7 +177,8 @@ export type DemoTemplate =
   | "dental"
   | "legal"
   | "coach-editorial"
-  | "coach-vibrant";
+  | "coach-vibrant"
+  | "tandem";
 
 export type DemoCta = {
   label: string | null;

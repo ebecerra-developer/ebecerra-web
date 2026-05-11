@@ -1,0 +1,130 @@
+/* ==========================================================================
+   demos.ebecerra.es — Plantilla Tándem — Design Tokens
+   --------------------------------------------------------------------------
+   Filosofía: agencia joven de marketing (dos socias 29-30). Fanzine 2026
+   cruzado con agencia editorial-playful. Hueso cálido + tinta densa +
+   cobalto eléctrico + coral cálido + salvia de soporte. Tipografía
+   Bricolage Grotesque chunky + Instrument Serif italic para acentos.
+
+   Scope: [data-template="tandem"]. Sustituye TODOS los tokens.
+   NO depende de otros demos-*.css.
+   ========================================================================== */
+
+[data-template="tandem"] {
+  /* ---------- Color — Structure ---------- */
+  --bg:              #f4ede0;  /* hueso cálido base */
+  --bg-deep:         #ece2cf;
+  --bg-block:        #e7ddc6;
+  --bg-block-2:      #ddd2bd;
+  --bg-sage:         #c9d4b3;  /* salvia para bloques soporte */
+  --bg-sage-soft:    #dbe4ca;
+  --surface:         #fbf6ea;
+  --surface-warm:    #fff4e3;
+  --border:          #1a1a1a;
+  --border-soft:     #d4c8b1;
+
+  --ink:             #111111;  /* tinta densa */
+  --ink-soft:        #1f1f1f;
+
+  /* ---------- Color — Text ---------- */
+  --text:            #111111;
+  --text-secondary:  #3a3833;
+  --text-muted:      #6e6a60;
+  --text-disabled:   #aaa496;
+  --text-on-accent:  #ffffff;
+  --text-on-ink:     #f4ede0;
+  --text-on-cobalt:  #ffffff;
+
+  /* ---------- Color — CTA — cobalto eléctrico ---------- */
+  --cta:             #2e3cff;
+  --cta-hover:       #1a25d0;
+  --cta-soft:        rgba(46, 60, 255, 0.10);
+  --cta-soft-strong: rgba(46, 60, 255, 0.22);
+
+  /* ---------- Color — Accent — coral cálido ---------- */
+  --accent:          #ff6b4a;
+  --accent-soft:     rgba(255, 107, 74, 0.18);
+  --accent-strong:   #e64f30;
+  --accent-deep:     #b73415;
+
+  /* ---------- Color — Tertiary — salvia ---------- */
+  --sage:            #c9d4b3;
+  --sage-soft:       rgba(201, 212, 179, 0.55);
+  --sage-strong:     #9eb285;
+
+  /* ---------- Color — Semantic ---------- */
+  --success: #2a8055;
+  --warning: #ff6b4a;
+  --error:   #b73415;
+
+  /* ---------- Typography ---------- */
+  --font-sans-stack: var(--font-bricolage), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display-stack: var(--font-bricolage), system-ui, sans-serif;
+  --font-serif-stack: var(--font-instrument-serif), "Iowan Old Style", "Apple Garamond", Georgia, serif;
+  --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Scale — display chunky dayvo-style */
+  --fs-display:   clamp(3.25rem, 11vw, 8rem);
+  --fs-h1:        clamp(2.5rem, 6.5vw, 5.5rem);
+  --fs-h2:        clamp(2rem, 4.5vw, 3.75rem);
+  --fs-h3:        clamp(1.5rem, 2.8vw, 2.25rem);
+  --fs-h4:        1.375rem;
+  --fs-body-lead: 1.25rem;
+  --fs-body:      1.0625rem;
+  --fs-sm:        0.9375rem;
+  --fs-xs:        0.8125rem;
+  --fs-kicker:    0.75rem;
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    800;
+  --fw-ultra:    900;
+
+  --lh-display:  0.92;
+  --lh-tight:    1.02;
+  --lh-heading:  1.12;
+  --lh-body:     1.6;
+  --lh-lead:     1.5;
+
+  --tr-tight:    -0.025em;
+  --tr-display:  -0.045em;
+  --tr-kicker:   0.12em;
+
+  /* ---------- Spacing & sizing ---------- */
+  --gutter:        clamp(1.25rem, 4vw, 2.5rem);
+  --container-max: 1320px;
+  --container-narrow: 880px;
+  --section-py:    clamp(5rem, 10vw, 9rem);
+  --section-py-sm: clamp(3rem, 6vw, 5rem);
+
+  /* ---------- Radii — mezcla rectas brutalistas + un pill cálido ---------- */
+  --r-xs:  4px;
+  --r-sm:  8px;
+  --r-md:  12px;
+  --r-lg:  20px;
+  --r-xl:  32px;
+  --r-pill: 999px;
+
+  /* ---------- Borders — brutalist line ---------- */
+  --bw-1:  1.5px;
+  --bw-2:  2.5px;
+  --bw-3:  3.5px;
+
+  /* ---------- Shadows — hard offset color ---------- */
+  --sh-sm:  0 1px 0 rgba(17, 17, 17, 0.08);
+  --sh-md:  6px 6px 0 var(--ink);
+  --sh-lg:  10px 10px 0 var(--ink);
+  --sh-cobalt: 8px 8px 0 var(--cta);
+  --sh-coral:  8px 8px 0 var(--accent);
+  --sh-sage:   8px 8px 0 var(--sage-strong);
+  --sh-focus: 0 0 0 3px rgba(46, 60, 255, 0.45);
+
+  /* ---------- Motion ---------- */
+  --dur-fast: 160ms;
+  --dur-base: 260ms;
+  --dur-slow: 480ms;
+  --ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}

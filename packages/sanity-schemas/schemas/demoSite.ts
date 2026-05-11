@@ -52,6 +52,7 @@ export default defineType({
           { title: "Despacho de abogados", value: "legal" },
           { title: "Coach editorial (premium)", value: "coach-editorial" },
           { title: "Coach vibrant (marca personal)", value: "coach-vibrant" },
+          { title: "Agencia marketing (tándem)", value: "tandem" },
         ],
         layout: "radio",
       },

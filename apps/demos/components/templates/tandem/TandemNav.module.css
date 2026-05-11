@@ -1,0 +1,109 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  border-bottom: var(--bw-1) solid var(--ink);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 0.85rem var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.brand {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-ultra);
+  font-size: 1.5rem;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.brand:hover {
+  color: var(--cta);
+}
+
+.desktopNav { display: none; }
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1.75rem;
+  align-items: center;
+}
+
+.link {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.link:hover { color: var(--cta); }
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.langSwitch {
+  display: flex;
+  gap: 0;
+  border: var(--bw-1) solid var(--ink);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+}
+
+.langBtn {
+  padding: 0.35rem 0.7rem;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+  text-decoration: none;
+  background: transparent;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+.langBtnActive {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.cta {
+  display: none;
+}
+
+@media (min-width: 820px) {
+  .desktopNav { display: block; }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.25rem;
+    background: var(--ink);
+    color: var(--bg);
+    border: var(--bw-1) solid var(--ink);
+    border-radius: var(--r-pill);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-sm);
+    text-decoration: none;
+    transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .cta:hover {
+    background: var(--cta);
+    color: var(--text-on-cobalt);
+    border-color: var(--cta);
+    transform: translateY(-2px);
+  }
+}

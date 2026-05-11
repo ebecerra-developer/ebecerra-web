@@ -1,0 +1,14 @@
+.shell {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans-stack);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+.shell :global(.serif) {
+  font-family: var(--font-serif-stack);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+}

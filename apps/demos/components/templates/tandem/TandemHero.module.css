@@ -1,0 +1,170 @@
+.hero {
+  position: relative;
+  padding: clamp(3rem, 8vw, 6rem) var(--gutter) clamp(3rem, 6vw, 5rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 90% 0%, var(--sage-soft) 0%, transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(255, 107, 74, 0.18) 0%, transparent 40%),
+    var(--bg);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  position: relative;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-kicker);
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  padding: 0.4rem 0.9rem;
+  border: var(--bw-1) solid var(--ink);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+}
+
+.kickerDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--cta);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+}
+
+.heading {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-ultra);
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  margin: 0;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.serif {
+  font-family: var(--font-serif-stack);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--cta);
+  padding-inline: 0.05em;
+}
+
+.sub {
+  margin-top: 1.75rem;
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-secondary);
+  max-width: 48ch;
+}
+
+.actions {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.75rem;
+  background: var(--cta);
+  color: var(--text-on-cobalt);
+  border: var(--bw-2) solid var(--ink);
+  border-radius: var(--r-pill);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body);
+  text-decoration: none;
+  box-shadow: var(--sh-md);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+
+.ctaPrimary:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0 var(--ink);
+  color: var(--text-on-cobalt);
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.75rem;
+  background: var(--surface);
+  color: var(--ink);
+  border: var(--bw-2) solid var(--ink);
+  border-radius: var(--r-pill);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body);
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+
+.ctaSecondary:hover {
+  background: var(--accent);
+  color: var(--ink);
+  transform: translate(-2px, -2px);
+}
+
+/* Stickers absolutos */
+.sticker {
+  position: absolute;
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--r-pill);
+  border: var(--bw-2) solid var(--ink);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.stickerCobalt {
+  top: 8%;
+  right: 5%;
+  background: var(--cta);
+  color: var(--text-on-cobalt);
+  transform: rotate(8deg);
+  animation: wobble 6s ease-in-out infinite;
+}
+
+.stickerCoral {
+  bottom: 12%;
+  right: 12%;
+  background: var(--accent);
+  color: var(--ink);
+  transform: rotate(-6deg);
+  animation: wobble 7s ease-in-out infinite reverse;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(8deg) translateY(0); }
+  50% { transform: rotate(6deg) translateY(-6px); }
+}
+
+@media (max-width: 720px) {
+  .stickerCobalt { display: none; }
+  .stickerCoral {
+    bottom: auto;
+    top: 1.5rem;
+    right: 1rem;
+  }
+}

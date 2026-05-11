@@ -6,6 +6,8 @@ import {
   Inter,
   Space_Grotesk,
   Manrope,
+  Bricolage_Grotesque,
+  Instrument_Serif,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -46,6 +48,18 @@ const manrope = Manrope({
   subsets: ["latin"],
 });
 
+// Tándem — agencia de marketing (Bricolage chunky + Instrument Serif italic)
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+});
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  weight: ["400"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+});
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -82,7 +96,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${dmSans.variable} ${fraunces.variable} ${cormorant.variable} ${inter.variable} ${spaceGrotesk.variable} ${manrope.variable}`}
+      className={`${dmSans.variable} ${fraunces.variable} ${cormorant.variable} ${inter.variable} ${spaceGrotesk.variable} ${manrope.variable} ${bricolage.variable} ${instrumentSerif.variable}`}
     >
       <body>
         <a

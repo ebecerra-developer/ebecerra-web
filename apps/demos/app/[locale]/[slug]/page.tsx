@@ -7,6 +7,7 @@ import type { Locale } from "@/i18n/routing";
 import FisioTemplate from "@/components/templates/fisio/FisioTemplate";
 import EditorialTemplate from "@/components/templates/coach-editorial/EditorialTemplate";
 import VibrantTemplate from "@/components/templates/coach-vibrant/VibrantTemplate";
+import TandemTemplate from "@/components/templates/tandem/TandemTemplate";
 import DemoBanner from "./DemoBanner";
 
 export const revalidate = 60;
@@ -54,6 +55,8 @@ export default async function DemoPage({
         <EditorialTemplate demo={demo} locale={locale as Locale} />
       ) : demo.template === "coach-vibrant" ? (
         <VibrantTemplate demo={demo} locale={locale as Locale} />
+      ) : demo.template === "tandem" ? (
+        <TandemTemplate demo={demo} locale={locale as Locale} />
       ) : (
         <main id="main" style={{ padding: "4rem 1.5rem", textAlign: "center" }}>
           <p>

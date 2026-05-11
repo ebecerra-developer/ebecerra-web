@@ -1,0 +1,137 @@
+.section {
+  padding: var(--section-py) var(--gutter);
+  background: var(--bg-sage-soft);
+  border-block: var(--bw-2) solid var(--ink);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+.header {
+  max-width: 56ch;
+  margin-bottom: 3rem;
+}
+
+.kicker {
+  display: inline-block;
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-kicker);
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  padding: 0.35rem 0.8rem;
+  border: var(--bw-1) solid var(--ink);
+  border-radius: var(--r-pill);
+}
+
+.title {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-ultra);
+  font-size: var(--fs-h1);
+  letter-spacing: var(--tr-display);
+  line-height: var(--lh-tight);
+  color: var(--ink);
+  margin: 0;
+}
+
+.lead {
+  margin-top: 1rem;
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-secondary);
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+.card {
+  background: var(--surface);
+  border: var(--bw-2) solid var(--ink);
+  border-radius: var(--r-lg);
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  transition: transform var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease);
+}
+
+.card[data-tone="coral"]:hover { box-shadow: var(--sh-coral); transform: translate(-4px, -4px); }
+.card[data-tone="cobalt"]:hover { box-shadow: var(--sh-cobalt); transform: translate(-4px, -4px); }
+
+.photoWrap {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--r-pill);
+  background: var(--bg-block);
+  border: var(--bw-2) solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.card[data-tone="coral"] .photoWrap { background: var(--accent-soft); }
+.card[data-tone="cobalt"] .photoWrap { background: var(--cta-soft); }
+
+.photoPlaceholder {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-ultra);
+  font-size: 2rem;
+  color: var(--ink);
+  letter-spacing: -0.04em;
+}
+
+.photoNote {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.65rem;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--r-xs);
+  white-space: nowrap;
+}
+
+.body { min-width: 0; }
+
+.name {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h3);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.15rem;
+}
+
+.role {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--cta);
+  margin: 0 0 0.85rem;
+  font-family: var(--font-serif-stack);
+  font-style: italic;
+}
+
+.bio {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-secondary);
+}
