@@ -22,7 +22,7 @@ export default async function TandemNav({
     { href: "#contacto", label: locale === "en" ? "Contact" : "Hablamos" },
   ];
 
-  const ctaLabel = locale === "en" ? "Let's talk →" : "Hablamos →";
+  const ctaLabel = locale === "en" ? "Let's talk" : "Hablamos";
   const ctaHref = "#contacto";
 
   return (

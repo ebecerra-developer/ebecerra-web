@@ -106,4 +106,12 @@
     border-color: var(--cta);
     transform: translateY(-2px);
   }
+  .cta::after {
+    content: "→";
+    margin-left: 0.5rem;
+    transition: transform var(--dur-fast) var(--ease);
+  }
+  .cta:hover::after {
+    transform: translateX(3px);
+  }
 }
