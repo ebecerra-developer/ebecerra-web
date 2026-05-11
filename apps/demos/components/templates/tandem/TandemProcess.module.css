@@ -58,14 +58,14 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 1.5rem;
-  padding: 2rem 0;
+  padding: 2rem 1.5rem 2rem 0;
   border-bottom: var(--bw-2) solid var(--ink);
   transition: background var(--dur-base) var(--ease), padding var(--dur-base) var(--ease);
 }
 
 .step:hover {
   background: var(--bg-sage-soft);
-  padding-inline: 1.5rem;
+  padding-right: 2.5rem;
 }
 
 .num {

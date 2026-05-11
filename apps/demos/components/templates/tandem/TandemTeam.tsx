@@ -1,4 +1,6 @@
+import Image from "next/image";
 import type { DemoSectionHeader, DemoTeamMember } from "@ebecerra/sanity-client";
+import { urlFor } from "@/lib/image";
 import styles from "./TandemTeam.module.css";
 
 export default function TandemTeam({
@@ -26,21 +28,37 @@ export default function TandemTeam({
         </header>
 
         <div className={styles.grid}>
-          {team.map((member, i) => (
+          {team.map((member, i) => {
+            const photoUrl = member.photo
+              ? urlFor(member.photo).width(240).height(240).auto("format").url()
+              : null;
+            return (
             <article
               key={member.name + i}
               className={styles.card}
               data-tone={i % 2 === 0 ? "coral" : "cobalt"}
             >
               <div className={styles.photoWrap} aria-hidden="true">
-                <span className={styles.photoPlaceholder}>
-                  {member.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .slice(0, 2)
-                    .join("")}
-                </span>
-                <span className={styles.photoNote}>foto pendiente</span>
+                {photoUrl ? (
+                  <Image
+                    src={photoUrl}
+                    alt=""
+                    width={120}
+                    height={120}
+                    className={styles.photo}
+                  />
+                ) : (
+                  <>
+                    <span className={styles.photoPlaceholder}>
+                      {member.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .slice(0, 2)
+                        .join("")}
+                    </span>
+                    <span className={styles.photoNote}>foto pendiente</span>
+                  </>
+                )}
               </div>
               <div className={styles.body}>
                 <h3 className={styles.name}>{member.name}</h3>
@@ -48,7 +66,8 @@ export default function TandemTeam({
                 {member.bio && <p className={styles.bio}>{member.bio}</p>}
               </div>
             </article>
-          ))}
+          );
+          })}
         </div>
       </div>
     </section>
