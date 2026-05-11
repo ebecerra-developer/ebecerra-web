@@ -137,7 +137,9 @@
     "homeViewAll": "See all examples",
     "viewDemo": "Open demo",
     "openInNewTab": "(opens in a new tab)",
-    "emptyState": "Demos coming soon. Check back later."
+    "emptyState": "Demos coming soon. Check back later.",
+    "prev": "Previous example",
+    "next": "Next example"
   },
   "footer": {
     "tagline": "Custom websites for businesses that won't settle for a template. Fast, accessible, easy to maintain and built so your team can run them without depending on anyone.",

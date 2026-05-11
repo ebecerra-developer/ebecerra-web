@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { getPublishedDemoSites } from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import type { Locale } from "@/i18n/routing";
+import ExamplesCarousel from "./ExamplesCarousel";
 import styles from "./Examples.module.css";
 
 const DEMOS_BASE_URL = "https://demos.ebecerra.es";
@@ -19,7 +20,6 @@ export default async function Examples({ locale }: Props) {
 
   if (demos.length === 0) return null;
 
-  const featured = demos.slice(0, 3);
   const demoUrl = (slug: string) =>
     locale === "es"
       ? `${DEMOS_BASE_URL}/${slug}/`
@@ -42,8 +42,11 @@ export default async function Examples({ locale }: Props) {
         </h2>
         <p className={`lead ${styles.lead}`}>{t("homeLead")}</p>
 
-        <div className={styles.grid}>
-          {featured.map((demo) => {
+        <ExamplesCarousel
+          prevLabel={t("prev")}
+          nextLabel={t("next")}
+        >
+          {demos.map((demo) => {
             const thumbUrl = demo.thumbnail
               ? urlFor(demo.thumbnail).width(800).auto("format").url()
               : null;
@@ -81,7 +84,7 @@ export default async function Examples({ locale }: Props) {
               </a>
             );
           })}
-        </div>
+        </ExamplesCarousel>
 
         <div className={styles.viewAllWrap}>
           <Link href="/ejemplos" className={styles.viewAll}>

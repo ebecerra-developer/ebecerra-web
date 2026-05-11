@@ -137,7 +137,9 @@
     "homeViewAll": "Ver todos los ejemplos",
     "viewDemo": "Ver demo",
     "openInNewTab": "(se abre en pestaña nueva)",
-    "emptyState": "Demos en preparación. Vuelve pronto."
+    "emptyState": "Demos en preparación. Vuelve pronto.",
+    "prev": "Ejemplo anterior",
+    "next": "Siguiente ejemplo"
   },
   "footer": {
     "tagline": "Webs a medida para negocios que no se conforman con una plantilla. Rápidas, accesibles, fáciles de mantener y pensadas para que tu equipo opere sin depender de nadie.",
