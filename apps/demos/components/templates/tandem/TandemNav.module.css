@@ -19,10 +19,10 @@
 .brand {
   font-family: var(--font-display-stack);
   font-weight: var(--fw-ultra);
-  font-size: 1.5rem;
+  font-size: 1.875rem;
   color: var(--ink);
   text-decoration: none;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
   line-height: 1;
 }
 

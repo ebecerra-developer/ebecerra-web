@@ -25,6 +25,10 @@ export default function TandemHero({ demo }: { demo: DemoSite }) {
       </span>
 
       <div className={styles.inner}>
+        <p className={styles.brand} aria-hidden="true">
+          {demo.businessName}
+        </p>
+
         {hero.kicker && (
           <p className={styles.kicker}>
             <span className={styles.kickerDot} aria-hidden="true" />

@@ -135,37 +135,32 @@
   transform: translateY(-2px);
 }
 
-/* Mockups stacked */
+/* Mockups: stacked en mobile, dos visibles separados en desktop */
 .mockups {
-  position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 1.5rem;
   align-self: center;
-  min-height: 280px;
+}
+
+.mockup {
+  margin: 0;
+  transition: transform var(--dur-base) var(--ease);
 }
 
 @media (min-width: 900px) {
   .mockups {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    min-height: 380px;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    align-items: center;
   }
 
-  .mockup[data-pos="back"]  { transform: rotate(-3deg) translate(-6%, -8%); }
-  .mockup[data-pos="front"] { transform: rotate(3deg) translate(6%, 8%); }
+  .mockup[data-pos="back"]  { transform: rotate(-3deg) translateY(-14px); }
+  .mockup[data-pos="front"] { transform: rotate(3deg) translateY(14px); }
 
-  .mockups .mockup {
-    position: absolute;
-    width: 78%;
-    transition: transform var(--dur-base) var(--ease);
-  }
-
-  .mockup[data-pos="back"]:hover  { transform: rotate(-1deg) translate(-4%, -6%) scale(1.02); }
-  .mockup[data-pos="front"]:hover { transform: rotate(1deg) translate(4%, 6%) scale(1.02); z-index: 2; }
+  .mockup[data-pos="back"]:hover  { transform: rotate(-1deg) translateY(-18px) scale(1.03); z-index: 2; }
+  .mockup[data-pos="front"]:hover { transform: rotate(1deg) translateY(10px) scale(1.03); z-index: 2; }
 }
-
-.mockup { margin: 0; transition: transform var(--dur-base) var(--ease); }
 
 .deviceFrame {
   background: var(--bg);
