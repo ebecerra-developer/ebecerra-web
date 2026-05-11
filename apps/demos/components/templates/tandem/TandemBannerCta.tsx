@@ -1,8 +1,9 @@
 import styles from "./TandemBannerCta.module.css";
 
-export default function TandemBannerCta() {
+export default function TandemBannerCta({ brand }: { brand: string }) {
   return (
     <section className={styles.banner} aria-labelledby="banner-cta-heading">
+      <span className={styles.watermark} aria-hidden="true">{brand}</span>
       <div className={styles.inner}>
         <p className={styles.kicker}>
           <span aria-hidden="true">✦</span> ¿Empezamos?

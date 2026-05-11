@@ -48,7 +48,7 @@ export default function TandemTemplate({
         {demo.team.length > 0 && (
           <TandemTeam header={demo.teamSection} team={demo.team} />
         )}
-        <TandemBannerCta />
+        <TandemBannerCta brand={demo.businessName} />
         {demo.contact && <TandemContact contact={demo.contact} services={demo.services} />}
       </main>
       <TandemFooter demo={demo} />
