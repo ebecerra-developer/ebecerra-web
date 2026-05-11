@@ -29,8 +29,8 @@
 
 @media (min-width: 900px) {
   .inner {
-    grid-template-columns: 1fr 1.1fr;
-    gap: 4rem;
+    grid-template-columns: 0.85fr 1.5fr;
+    gap: 3rem;
   }
 }
 
@@ -151,7 +151,7 @@
 @media (min-width: 900px) {
   .mockups {
     grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
+    gap: 1.75rem;
     align-items: center;
   }
 
