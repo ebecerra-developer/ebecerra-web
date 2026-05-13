@@ -122,6 +122,10 @@ export function ChatbotWidget({
       const root = document.documentElement;
       root.style.setProperty("--chatbot-vh", `${vv.height}px`);
       root.style.setProperty("--chatbot-vt", `${vv.offsetTop}px`);
+      // Al cambiar la altura (teclado abre/cierra), reescroll al final para
+      // que los últimos mensajes no queden bajo el teclado.
+      const el = messagesRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
     };
     update();
     vv.addEventListener("resize", update);
@@ -144,14 +148,30 @@ export function ChatbotWidget({
     };
   }, [open]);
 
-  // Bloquea scroll del body mientras está abierto en móvil (evita que el
-  // backdrop o el contenido detrás se desplace al hacer scroll dentro del chat).
+  // Bloquea scroll mientras está abierto. Usa `position: fixed` (no solo
+  // overflow: hidden) porque los in-app browsers de IG/FB scrollean el
+  // WebView entero al hacer focus en inputs, rompiendo el ancla del drawer.
+  // Guarda el scrollY previo para restaurarlo al cerrar.
   useEffect(() => {
     if (!open) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const scrollY = window.scrollY;
+    const body = document.body;
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = previousOverflow;
+      body.style.position = prev.position;
+      body.style.top = prev.top;
+      body.style.width = prev.width;
+      body.style.overflow = prev.overflow;
+      window.scrollTo(0, scrollY);
     };
   }, [open]);
 
@@ -349,7 +369,6 @@ export function ChatbotWidget({
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  disabled={streaming}
                 />
                 <button
                   type="submit"
