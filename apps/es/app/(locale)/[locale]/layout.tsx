@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -21,6 +21,16 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
+
+// interactiveWidget: "resizes-content" → cuando el teclado virtual se abre, la
+// layout viewport se reduce (no solo la visual). Necesario para que el
+// drawer del chatbot se adapte en in-app browsers (IG, FB) que no respetan
+// window.visualViewport.height al abrir el teclado.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  interactiveWidget: "resizes-content",
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
