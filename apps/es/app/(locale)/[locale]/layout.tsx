@@ -39,7 +39,8 @@ export async function generateMetadata({
   const sanityMeta = sanitySettings.metadata;
 
   const baseUrl = "https://ebecerra.es";
-  const canonical = locale === routing.defaultLocale ? baseUrl : `${baseUrl}/${locale}`;
+  // trailingSlash: true → URLs canónicas siempre con "/" final
+  const canonical = locale === routing.defaultLocale ? `${baseUrl}/` : `${baseUrl}/${locale}/`;
   const ogImage = `${baseUrl}/brand/web-app-manifest-512x512.png`;
 
   const title = sanityMeta?.title ?? t("title");
@@ -85,9 +86,9 @@ export async function generateMetadata({
     alternates: {
       canonical,
       languages: {
-        es: baseUrl,
-        en: `${baseUrl}/en`,
-        "x-default": baseUrl,
+        es: `${baseUrl}/`,
+        en: `${baseUrl}/en/`,
+        "x-default": `${baseUrl}/`,
       },
     },
     openGraph: {

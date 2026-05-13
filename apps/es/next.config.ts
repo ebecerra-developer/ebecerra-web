@@ -18,6 +18,16 @@ const nextConfig: NextConfig = {
       { source: "/piezas-game/", destination: "/piezas-game/index.html" },
     ];
   },
+
+  async redirects() {
+    return [
+      // Sitio antiguo estático tenía /index.html, /en/index.html, etc.
+      // Google los sigue rastreando y reporta 404 en Search Console.
+      // 301 → root preserva link equity y limpia el reporte de GSC.
+      { source: "/index.html", destination: "/", permanent: true },
+      { source: "/:locale/index.html", destination: "/:locale", permanent: true },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

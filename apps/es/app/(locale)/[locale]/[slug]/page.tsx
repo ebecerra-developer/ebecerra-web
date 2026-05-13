@@ -25,7 +25,7 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const page = await getLegalPage(slug, locale);
   if (!page) return {};
-  const canonical = locale === "es" ? `/${slug}` : `/en/${slug}`;
+  const canonical = locale === "es" ? `/${slug}/` : `/en/${slug}/`;
   return {
     title: page.title,
     description: page.metaDescription ?? undefined,
@@ -33,7 +33,7 @@ export async function generateMetadata({
     alternates: {
       canonical,
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, l === "es" ? `/${slug}` : `/en/${slug}`])
+        routing.locales.map((l) => [l, l === "es" ? `/${slug}/` : `/en/${slug}/`])
       ),
     },
   };

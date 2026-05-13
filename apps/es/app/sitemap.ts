@@ -4,9 +4,11 @@ import { getLegalPageSlugs } from "@ebecerra/sanity-client";
 
 const SITE_URL = "https://ebecerra.es";
 
+// trailingSlash: true en next.config → todas las URLs canónicas terminan con "/".
 function localizedUrl(locale: (typeof routing.locales)[number], path: string = ""): string {
   const base = locale === routing.defaultLocale ? SITE_URL : `${SITE_URL}/${locale}`;
-  return path ? `${base}${path}` : base;
+  const full = path ? `${base}${path}` : base;
+  return full.endsWith("/") ? full : `${full}/`;
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

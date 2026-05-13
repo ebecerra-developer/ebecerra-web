@@ -21,7 +21,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "examples" });
   const baseUrl = "https://ebecerra.es";
   const canonical =
-    locale === "es" ? `${baseUrl}/ejemplos` : `${baseUrl}/${locale}/ejemplos`;
+    locale === "es" ? `${baseUrl}/ejemplos/` : `${baseUrl}/${locale}/ejemplos/`;
 
   return {
     title: t("metaTitle"),
@@ -29,9 +29,9 @@ export async function generateMetadata({
     alternates: {
       canonical,
       languages: {
-        es: `${baseUrl}/ejemplos`,
-        en: `${baseUrl}/en/ejemplos`,
-        "x-default": `${baseUrl}/ejemplos`,
+        es: `${baseUrl}/ejemplos/`,
+        en: `${baseUrl}/en/ejemplos/`,
+        "x-default": `${baseUrl}/ejemplos/`,
       },
     },
     openGraph: {
@@ -72,6 +72,19 @@ export default async function EjemplosPage({
       url: demoUrl(demo.slug),
       name: demo.businessName,
     })),
+  };
+
+  const baseUrl = "https://ebecerra.es";
+  const homeUrl = locale === "es" ? `${baseUrl}/` : `${baseUrl}/${locale}/`;
+  const ejemplosUrl =
+    locale === "es" ? `${baseUrl}/ejemplos/` : `${baseUrl}/${locale}/ejemplos/`;
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: locale === "es" ? "Inicio" : "Home", item: homeUrl },
+      { "@type": "ListItem", position: 2, name: locale === "es" ? "Ejemplos" : "Examples", item: ejemplosUrl },
+    ],
   };
 
   return (
@@ -146,6 +159,10 @@ export default async function EjemplosPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       </main>
       <Footer footerData={footerData} />

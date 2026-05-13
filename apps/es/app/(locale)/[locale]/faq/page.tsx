@@ -20,7 +20,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "faq" });
   const faqPage = await getFaqPage(locale);
-  const canonical = locale === "es" ? "/faq" : "/en/faq";
+  const canonical = locale === "es" ? "/faq/" : "/en/faq/";
 
   const title = faqPage?.metaTitle || t("metaTitle");
   const description = faqPage?.metaDescription || t("metaDescription");
@@ -32,8 +32,8 @@ export async function generateMetadata({
     alternates: {
       canonical,
       languages: {
-        es: "/faq",
-        en: "/en/faq",
+        es: "/faq/",
+        en: "/en/faq/",
       },
     },
     openGraph: {
@@ -66,6 +66,10 @@ export default async function FaqPage({
       ? faqItemsRaw.map((i) => ({ q: i.question, a: i.answer }))
       : localItems;
 
+  const baseUrl = "https://ebecerra.es";
+  const homeUrl = locale === "es" ? `${baseUrl}/` : `${baseUrl}/${locale}/`;
+  const faqUrl = locale === "es" ? `${baseUrl}/faq/` : `${baseUrl}/${locale}/faq/`;
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -79,11 +83,24 @@ export default async function FaqPage({
     })),
   };
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: locale === "es" ? "Inicio" : "Home", item: homeUrl },
+      { "@type": "ListItem", position: 2, name: locale === "es" ? "Preguntas frecuentes" : "FAQ", item: faqUrl },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       <Nav />
       <main id="main" className={styles.main}>
