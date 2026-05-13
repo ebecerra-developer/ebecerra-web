@@ -99,17 +99,27 @@
   animation: chatbotSlideUp 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Mobile: full-screen sheet anclado abajo */
+/*
+ * Mobile: full-screen sheet ocupando el viewport visual real.
+ * `--chatbot-vh` lo escribe JS desde window.visualViewport.height (cubre
+ * teclado abierto, in-app browsers de IG, barra inferior del navegador).
+ * 100dvh es el fallback cuando JS aún no ha corrido o no hay visualViewport.
+ */
 .drawer {
-  inset: auto 0 0 0;
-  height: 92vh;
-  border-radius: var(--_radius) var(--_radius) 0 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--chatbot-vh, 100dvh);
+  border-radius: 0;
 }
 
 /* Desktop: panel acotado bottom-right */
 @media (min-width: 720px) {
   .drawer {
-    inset: auto clamp(16px, 4vw, 28px) clamp(16px, 4vw, 28px) auto;
+    top: auto;
+    left: auto;
+    right: clamp(16px, 4vw, 28px);
+    bottom: clamp(16px, 4vw, 28px);
     width: min(420px, calc(100vw - 32px));
     height: min(640px, calc(100vh - 80px));
     border-radius: var(--_radius);
@@ -118,7 +128,7 @@
 
 @keyframes chatbotSlideUp {
   from {
-    transform: translateY(20px);
+    transform: translateY(8px);
     opacity: 0;
   }
 }
@@ -135,9 +145,15 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 16px 18px;
+  padding: max(16px, env(safe-area-inset-top)) 18px 16px;
   border-bottom: 1px solid var(--_border);
   flex-shrink: 0;
+}
+@media (min-width: 720px) {
+  /* En desktop el drawer no toca el borde superior; sin safe-area. */
+  .header {
+    padding-top: 16px;
+  }
 }
 .title {
   margin: 0;
@@ -244,8 +260,13 @@
 
 .inputArea {
   border-top: 1px solid var(--_border);
-  padding: 12px 14px;
+  padding: 12px 14px max(12px, env(safe-area-inset-bottom));
   flex-shrink: 0;
+}
+@media (min-width: 720px) {
+  .inputArea {
+    padding-bottom: 12px;
+  }
 }
 
 .inputRow {

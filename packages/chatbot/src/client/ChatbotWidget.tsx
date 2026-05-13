@@ -102,6 +102,40 @@ export function ChatbotWidget({
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  // Mobile: cuadra la altura del drawer al viewport visual real (incluye
+  // teclado abierto, barra del navegador, in-app browsers de IG/FB). El
+  // fallback CSS (100dvh) cubre el primer paint y entornos sin la API.
+  useEffect(() => {
+    if (!open) return;
+    if (typeof window === "undefined" || !window.visualViewport) return;
+    const vv = window.visualViewport;
+    const update = () => {
+      document.documentElement.style.setProperty(
+        "--chatbot-vh",
+        `${vv.height}px`
+      );
+    };
+    update();
+    vv.addEventListener("resize", update);
+    vv.addEventListener("scroll", update);
+    return () => {
+      vv.removeEventListener("resize", update);
+      vv.removeEventListener("scroll", update);
+      document.documentElement.style.removeProperty("--chatbot-vh");
+    };
+  }, [open]);
+
+  // Bloquea scroll del body mientras está abierto en móvil (evita que el
+  // backdrop o el contenido detrás se desplace al hacer scroll dentro del chat).
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
   // Cancela petición en curso al desmontar / cerrar
   useEffect(() => {
     return () => abortRef.current?.abort();
