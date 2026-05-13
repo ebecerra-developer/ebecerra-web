@@ -27,11 +27,12 @@ Código legacy del SPA React 19 + Vite archivado en [`_legacy/`](_legacy/). Tags
 ## Stack
 
 - **Monorepo:** npm workspaces + Turborepo 2.x. `packageManager: "npm@10.4.0"`.
-- **apps/es, apps/tech, apps/demos:** Next.js 16 + TypeScript + Tailwind v4 + next-intl 4 + Sanity v5. Apps/es además Resend.
-- **packages/sanity-schemas:** `@ebecerra/sanity-schemas` — schemas y tipos compartidos (experience, skill, techTag, project, profile, service, processStep, caseStudy, demoSite, locale).
+- **apps/es, apps/tech, apps/demos:** Next.js 16 + TypeScript + Tailwind v4 + next-intl 4 + Sanity v5. Apps/es además Resend. Las 3 incluyen chatbot con Groq.
+- **packages/sanity-schemas:** `@ebecerra/sanity-schemas` — schemas y tipos compartidos (experience, skill, techTag, project, profile, service, processStep, caseStudy, demoSite, locale, chatbot).
 - **packages/sanity-client:** `@ebecerra/sanity-client` — cliente + queries GROQ + tipos TS.
-- **packages/tokens:** `pro.css` (apps/es), `geek.css` (apps/tech). Demos: una hoja por plantilla scopeada con `[data-template="..."]` (`demos-fisio.css`, `demos-coach-editorial.css`, `demos-coach-vibrant.css`).
-- **Sanity `gdtxcn4l` / dataset `production`** — único, compartido. Studio embebido en `apps/es/app/(misc)/studio/[[...tool]]`. Plan free permite 2 webhooks → patrón de fan-out: `apps/es/api/revalidate` reenvía a `demos.ebecerra.es/api/revalidate` cuando `_type == "demoSite"`.
+- **packages/chatbot:** `@ebecerra/chatbot` — recepción conversacional con IA. Cliente Groq con cadena de 6 modelos de fallback (`/server`) + componente React con streaming SSE (`/client`). Skill `/chatbot-system`.
+- **packages/tokens:** `pro.css` (apps/es), `geek.css` (apps/tech). Demos: una hoja por plantilla scopeada con `[data-template="..."]` (`demos-fisio.css`, `demos-coach-editorial.css`, `demos-coach-vibrant.css`, `demos-tandem.css`). Todas incluyen tokens `--chatbot-*`.
+- **Sanity `gdtxcn4l` / dataset `production` / workspace `ebecerra-web`** — único, compartido. Studio embebido en `apps/es/app/(misc)/studio/[[...tool]]`. Deploy de schema desde `apps/es` con `npx sanity schema deploy --workspace ebecerra-web` (necesita `apps/es/sanity.cli.ts`). Plan free permite 2 webhooks → patrón de fan-out: `apps/es/api/revalidate` reenvía a `demos.ebecerra.es/api/revalidate` cuando `_type == "demoSite"`.
 
 ---
 
@@ -140,6 +141,21 @@ Aplica tanto a `apps/es`/`apps/tech` como a las plantillas de `apps/demos`.
 
 ---
 
+## Env vars de Vercel
+
+Cada app tiene su propio proyecto de Vercel con su set de env vars. Variables compartidas (mismo valor en los 3 proyectos):
+
+- `SANITY_REVALIDATE_SECRET` — secret del webhook de revalidación.
+- `GROQ_API_KEY` — chatbot. Una sola key compartida (los rate limits de Groq son por cuenta, no por key — múltiples no escalan).
+
+Específicas de apps/es y apps/tech:
+
+- `RESEND_API_KEY`, `CONTACT_TO_EMAIL` — form de contacto.
+
+Para rotar la key de Groq: cambiarla en los 3 proyectos. No hay Team Environment Variables (cuenta free).
+
+---
+
 ## Skills
 
 Invocar con `/nombre`. Organizadas por cuándo usarlas.
@@ -150,6 +166,7 @@ Invocar con `/nombre`. Organizadas por cuándo usarlas.
 |---|---|
 | `/git-workflow` | Commits y push (workaround heredoc, convenciones). |
 | `/sanity-content-flow` | Crear/editar/publicar contenido en Sanity, modificar schemas, patchear vía MCP. |
+| `/chatbot-system` | Editar greetings/system prompts del chatbot, tocar la cadena de modelos Groq, añadir contexto nuevo o diagnosticar. |
 | `/demos-template-system` | Añadir una plantilla nueva a `apps/demos` (dental, asesoría…). Estructura, qué reutilizar, gotcha de createPortal. |
 | `/css-conventions` | Escribir o portar estilos. CSS Modules co-located. |
 | `/design-tokens` | Paleta, tokens CSS, rough-notation, handoff de Claude Design. |

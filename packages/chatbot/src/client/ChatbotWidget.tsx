@@ -83,6 +83,15 @@ export function ChatbotWidget({
     }
   }, [open]);
 
+  // Refocus al input cuando termina el streaming: el textarea quedó disabled
+  // mientras llegaba la respuesta y perdió el foco — devolvérselo para que el
+  // usuario pueda seguir escribiendo sin volver a clicar.
+  useEffect(() => {
+    if (open && !streaming) {
+      inputRef.current?.focus();
+    }
+  }, [open, streaming]);
+
   // Escape cierra el drawer
   useEffect(() => {
     if (!open) return;
