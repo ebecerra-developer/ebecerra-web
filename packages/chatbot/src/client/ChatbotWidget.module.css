@@ -73,13 +73,18 @@
 
 .backdrop {
   position: fixed;
-  inset: 0;
+  top: var(--chatbot-vt, 0);
+  right: 0;
+  left: 0;
+  height: var(--chatbot-vh, 100dvh);
   background: rgba(0, 0, 0, 0.4);
   z-index: 70;
   animation: chatbotFadeIn 180ms ease;
 }
 @media (min-width: 720px) {
   .backdrop {
+    inset: 0;
+    height: auto;
     background: transparent;
     pointer-events: none;
   }
@@ -101,12 +106,12 @@
 
 /*
  * Mobile: full-screen sheet ocupando el viewport visual real.
- * `--chatbot-vh` lo escribe JS desde window.visualViewport.height (cubre
- * teclado abierto, in-app browsers de IG, barra inferior del navegador).
- * 100dvh es el fallback cuando JS aún no ha corrido o no hay visualViewport.
+ * `--chatbot-vh` y `--chatbot-vt` los escribe JS desde window.visualViewport
+ * (cubre teclado abierto, in-app browsers de IG/FB que mueven el layout
+ * viewport al hacer focus). Fallbacks: 100dvh + 0.
  */
 .drawer {
-  top: 0;
+  top: var(--chatbot-vt, 0);
   right: 0;
   left: 0;
   height: var(--chatbot-vh, 100dvh);

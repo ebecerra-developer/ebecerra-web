@@ -64,14 +64,18 @@ export function ChatbotWidget({
   const [error, setError] = useState<string | null>(null);
 
   const abortRef = useRef<AbortController | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const messagesRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const titleId = useId();
 
-  // Auto-scroll al final cuando llegan mensajes nuevos o tokens streamed
+  // Auto-scroll al final cuando llegan mensajes nuevos o tokens streamed.
+  // Scroll imperativo + instantáneo: el smooth scroll se cancelaba a sí mismo
+  // entre tokens y el contenedor no terminaba de bajar.
   useEffect(() => {
     if (!open) return;
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    const el = messagesRef.current;
+    if (!el) return;
+    el.scrollTop = el.scrollHeight;
   }, [messages, open, streaming]);
 
   // Focus al input al abrir
@@ -102,26 +106,41 @@ export function ChatbotWidget({
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  // Mobile: cuadra la altura del drawer al viewport visual real (incluye
-  // teclado abierto, barra del navegador, in-app browsers de IG/FB). El
-  // fallback CSS (100dvh) cubre el primer paint y entornos sin la API.
+  // Mobile: cuadra el drawer al viewport visual real (cubre teclado abierto,
+  // barra del navegador, in-app browsers de IG/FB que mueven el layout
+  // viewport al hacer focus en el input).
+  //
+  // - --chatbot-vh: altura visible.
+  // - --chatbot-vt: offset desde el top del layout viewport (IG/FB scrollean
+  //   la página para meter el input en pantalla; sin esto el drawer queda
+  //   "arriba" fuera del área visible).
   useEffect(() => {
     if (!open) return;
     if (typeof window === "undefined" || !window.visualViewport) return;
     const vv = window.visualViewport;
     const update = () => {
-      document.documentElement.style.setProperty(
-        "--chatbot-vh",
-        `${vv.height}px`
-      );
+      const root = document.documentElement;
+      root.style.setProperty("--chatbot-vh", `${vv.height}px`);
+      root.style.setProperty("--chatbot-vt", `${vv.offsetTop}px`);
     };
     update();
     vv.addEventListener("resize", update);
     vv.addEventListener("scroll", update);
+    // Algunos in-app browsers (IG) tardan en reportar el resize tras el
+    // focus. Forzar update al hacer focus en cualquier input y un raf
+    // después por si la animación del teclado aún no ha terminado.
+    const onFocus = () => {
+      update();
+      requestAnimationFrame(update);
+      window.setTimeout(update, 250);
+    };
+    window.addEventListener("focusin", onFocus);
     return () => {
       vv.removeEventListener("resize", update);
       vv.removeEventListener("scroll", update);
+      window.removeEventListener("focusin", onFocus);
       document.documentElement.style.removeProperty("--chatbot-vh");
+      document.documentElement.style.removeProperty("--chatbot-vt");
     };
   }, [open]);
 
@@ -290,7 +309,7 @@ export function ChatbotWidget({
               </button>
             </header>
 
-            <div className={styles.messages} aria-live="polite">
+            <div className={styles.messages} aria-live="polite" ref={messagesRef}>
               {messages.map((m, i) => {
                 const isLast = i === messages.length - 1;
                 if (
@@ -318,7 +337,6 @@ export function ChatbotWidget({
                 );
               })}
               {error && <div className={styles.errorMessage}>{error}</div>}
-              <div ref={messagesEndRef} />
             </div>
 
             <form className={styles.inputArea} onSubmit={handleSubmit}>
