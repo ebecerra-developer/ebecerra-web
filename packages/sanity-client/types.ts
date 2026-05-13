@@ -150,6 +150,7 @@ export type LegalPageData = {
 export type SiteSettingsFooter = {
   tagline: string | null;
   availability: string | null;
+  email: string | null;
   socialLinks: { name: string; url: string; external: boolean }[];
 };
 

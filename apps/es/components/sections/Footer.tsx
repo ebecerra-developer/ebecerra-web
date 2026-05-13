@@ -43,8 +43,21 @@ function FooterLink({
 }
 
 type Props = {
-  footerData?: Pick<SiteSettingsFooter, "tagline" | "availability"> | null;
+  footerData?: Pick<
+    SiteSettingsFooter,
+    "tagline" | "availability" | "email" | "socialLinks"
+  > | null;
 };
+
+// Fallback si Sanity está vacío — mantiene el comportamiento anterior.
+const FALLBACK_SOCIAL: SiteSettingsFooter["socialLinks"] = [
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/enrique-becerra-garcia/",
+    external: true,
+  },
+];
+const FALLBACK_EMAIL = "contacto@ebecerra.es";
 
 export default function Footer({ footerData }: Props) {
   const t = useTranslations("footer");
@@ -56,6 +69,11 @@ export default function Footer({ footerData }: Props) {
 
   const tagline = footerData?.tagline ?? t("tagline");
   const availability = footerData?.availability ?? t("availability");
+  const email = footerData?.email ?? FALLBACK_EMAIL;
+  const socialLinks =
+    footerData?.socialLinks && footerData.socialLinks.length > 0
+      ? footerData.socialLinks
+      : FALLBACK_SOCIAL;
 
   return (
     <footer className={styles.footer}>
@@ -86,16 +104,15 @@ export default function Footer({ footerData }: Props) {
           <div>
             <ColTitle>{t("colSocialTitle")}</ColTitle>
             <ul className={styles.linkList}>
+              {socialLinks.map((s) => (
+                <li key={s.url}>
+                  <FooterLink href={s.url} external={s.external}>
+                    {s.name} ↗
+                  </FooterLink>
+                </li>
+              ))}
               <li>
-                <FooterLink
-                  href="https://www.linkedin.com/in/enrique-becerra-garcia/"
-                  external
-                >
-                  LinkedIn ↗
-                </FooterLink>
-              </li>
-              <li>
-                <FooterLink href="mailto:contacto@ebecerra.es">✉ Email</FooterLink>
+                <FooterLink href={`mailto:${email}`}>✉ Email</FooterLink>
               </li>
             </ul>
           </div>

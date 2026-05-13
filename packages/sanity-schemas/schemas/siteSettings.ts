@@ -71,8 +71,17 @@ export default defineType({
           type: "localeString",
         }),
         defineField({
+          name: "email",
+          title: "Email de contacto",
+          description:
+            "Aparece como enlace en la columna 'Síguenos' del footer. Ej: contacto@ebecerra.es",
+          type: "string",
+        }),
+        defineField({
           name: "socialLinks",
           title: "Enlaces sociales",
+          description:
+            "LinkedIn, Instagram, Facebook, Google Business, etc. Se renderizan en el footer y en sameAs de JSON-LD.",
           type: "array",
           of: [
             {
@@ -81,7 +90,7 @@ export default defineType({
               fields: [
                 {
                   name: "name",
-                  title: "Nombre (LinkedIn, GitHub, …)",
+                  title: "Nombre (LinkedIn, Instagram, …)",
                   type: "string",
                   validation: (Rule) => Rule.required(),
                 },

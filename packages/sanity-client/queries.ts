@@ -174,6 +174,7 @@ export async function getSiteSettingsFooter(locale: Locale): Promise<SiteSetting
     `*[_type == "siteSettings"][0].footer {
       "tagline": ${loc("tagline")},
       "availability": ${loc("availability")},
+      email,
       "socialLinks": socialLinks[]{ name, url, "external": coalesce(external, true) }
     }`,
     { locale }
@@ -527,6 +528,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettingsFull = {
   footer: {
     tagline: null,
     availability: null,
+    email: null,
     socialLinks: [],
   },
 };
@@ -787,6 +789,7 @@ export async function getSiteSettingsFull(
         "footer": footer {
           "tagline": ${loc("tagline")},
           "availability": ${loc("availability")},
+          email,
           "socialLinks": socialLinks[]{ name, url, external }
         }
       }`,
@@ -804,6 +807,7 @@ export async function getSiteSettingsFull(
     footer: {
       tagline: raw.footer?.tagline ?? null,
       availability: raw.footer?.availability ?? null,
+      email: raw.footer?.email ?? null,
       socialLinks: raw.footer?.socialLinks ?? [],
     },
   };
