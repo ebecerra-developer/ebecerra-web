@@ -23,7 +23,31 @@ import type {
   ProfileFull,
   DemoSite,
   DemoSiteSummary,
+  ChatbotConfig,
 } from "./types";
+
+// Proyección reutilizable para el objeto chatbot (embebido en profile y demoSite).
+const chatbotProjection = (loc: (f: string) => string) => `chatbot {
+  "enabled": coalesce(enabled, false),
+  "label": ${loc("label")},
+  "title": ${loc("title")},
+  "greeting": ${loc("greeting")},
+  "placeholder": ${loc("placeholder")},
+  "systemPrompt": ${loc("systemPrompt")},
+  "disclaimers": disclaimers[]{ "v": coalesce(@[$locale], @.es, @) }
+}`;
+
+type RawChatbot = Omit<ChatbotConfig, "disclaimers"> & {
+  disclaimers: { v: string }[] | null;
+};
+
+const normalizeChatbot = (raw: RawChatbot | null): ChatbotConfig | null => {
+  if (!raw) return null;
+  return {
+    ...raw,
+    disclaimers: (raw.disclaimers ?? []).map((d) => d.v).filter(Boolean),
+  };
+};
 
 // coalesce(field[$locale], field.es, field) → soporta:
 //  1. { es, en } (nuevo formato localeString) con fallback a ES
@@ -430,8 +454,9 @@ export async function getLegalPageSlugs(): Promise<string[]> {
 }
 
 export async function getProfile(locale: Locale): Promise<ProfileFull | null> {
-  return client
-    .fetch<ProfileFull | null>(
+  type Raw = Omit<ProfileFull, "chatbot"> & { chatbot: RawChatbot | null };
+  const raw = await client
+    .fetch<Raw | null>(
       `*[_type == "profile"][0] {
         name,
         "jobTitle": ${loc("jobTitle")},
@@ -451,11 +476,42 @@ export async function getProfile(locale: Locale): Promise<ProfileFull | null> {
           linkedinUrl,
           "location": ${loc("location")},
           "responseTime": ${loc("responseTime")}
-        }
+        },
+        "chatbot": ${chatbotProjection(loc)}
       }`,
       { locale }
     )
     .catch(() => null);
+  if (!raw) return null;
+  return { ...raw, chatbot: normalizeChatbot(raw.chatbot) };
+}
+
+/**
+ * Devuelve la configuración del chatbot del profile singleton.
+ *
+ * `field`:
+ *   - "chatbot"     → bot de ebecerra.es (comercial).
+ *   - "chatbotTech" → bot de ebecerra.tech (técnico).
+ */
+export async function getProfileChatbot(
+  locale: Locale,
+  field: "chatbot" | "chatbotTech" = "chatbot"
+): Promise<ChatbotConfig | null> {
+  const raw = await client
+    .fetch<RawChatbot | null>(
+      `*[_type == "profile"][0].${field} {
+        "enabled": coalesce(enabled, false),
+        "label": ${loc("label")},
+        "title": ${loc("title")},
+        "greeting": ${loc("greeting")},
+        "placeholder": ${loc("placeholder")},
+        "systemPrompt": ${loc("systemPrompt")},
+        "disclaimers": disclaimers[]{ "v": coalesce(@[$locale], @.es, @) }
+      }`,
+      { locale }
+    )
+    .catch(() => null);
+  return normalizeChatbot(raw);
 }
 
 export const DEFAULT_SITE_SETTINGS: SiteSettingsFull = {
@@ -609,13 +665,15 @@ const demoSiteProjection = `{
     mapEmbedUrl,
     bookingUrl,
     "social": social[]{ name, url }
-  }
+  },
+  "chatbot": ${chatbotProjection(loc)}
 }`;
 
-type RawDemoSite = Omit<DemoSite, "about"> & {
+type RawDemoSite = Omit<DemoSite, "about" | "chatbot"> & {
   about: (Omit<NonNullable<DemoSite["about"]>, "bullets"> & {
     bullets: { v: string }[] | null;
   }) | null;
+  chatbot: RawChatbot | null;
 };
 
 export async function getDemoSiteBySlug(
@@ -670,6 +728,7 @@ export async function getDemoSiteBySlug(
           social: raw.contact.social ?? [],
         }
       : null,
+    chatbot: normalizeChatbot(raw.chatbot),
   };
 }
 

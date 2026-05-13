@@ -123,4 +123,20 @@
   --dur-slow: 480ms;
   --ease:      cubic-bezier(0.34, 1.56, 0.64, 1);  /* overshoot bouncy */
   --ease-out:  cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* ---------- Chatbot (plantilla Coach vibrant) ---------- */
+  --chatbot-bg:                var(--surface);
+  --chatbot-fg:                var(--text);
+  --chatbot-muted:             var(--text-muted);
+  --chatbot-accent:            var(--cta);
+  --chatbot-accent-fg:         var(--text-on-accent);
+  --chatbot-border:            var(--border);
+  --chatbot-bubble-user:       var(--cta);
+  --chatbot-bubble-user-fg:    var(--text-on-accent);
+  --chatbot-bubble-assistant:  var(--surface-subtle);
+  --chatbot-bubble-assistant-fg: var(--text);
+  --chatbot-radius:            22px;
+  --chatbot-radius-bubble:     16px;
+  --chatbot-font:              var(--font-sans-stack);
+  --chatbot-shadow:            6px 6px 0 var(--lilac), 0 20px 48px rgba(45, 26, 61, 0.15);
 }

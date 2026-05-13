@@ -31,4 +31,20 @@
   /* ---------- Typography — Families ---------- */
   --geek-font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --geek-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ---------- Chatbot (modo geek) ---------- */
+  --chatbot-bg:                var(--geek-surface);
+  --chatbot-fg:                var(--geek-text);
+  --chatbot-muted:             var(--geek-text-muted);
+  --chatbot-accent:            var(--geek-accent);
+  --chatbot-accent-fg:         #001a0c;
+  --chatbot-border:            var(--geek-border);
+  --chatbot-bubble-user:       var(--geek-accent);
+  --chatbot-bubble-user-fg:    #001a0c;
+  --chatbot-bubble-assistant:  #181818;
+  --chatbot-bubble-assistant-fg: var(--geek-text);
+  --chatbot-radius:            12px;
+  --chatbot-radius-bubble:     8px;
+  --chatbot-font:              var(--geek-font-mono);
+  --chatbot-shadow:            0 0 40px rgba(0, 255, 136, 0.18);
 }

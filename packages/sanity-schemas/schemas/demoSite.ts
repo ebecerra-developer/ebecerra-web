@@ -19,6 +19,7 @@ export default defineType({
     { name: "lifestyle", title: "Lifestyle" },
     { name: "contact", title: "Contacto" },
     { name: "gallery", title: "Galería" },
+    { name: "chatbot", title: "Chatbot" },
   ],
   fields: [
     // ---------- Meta ----------
@@ -857,6 +858,16 @@ export default defineType({
           ],
         }),
       ],
+    }),
+
+    // ---------- Chatbot ----------
+    defineField({
+      name: "chatbot",
+      title: "Chatbot",
+      description:
+        "Recepción conversacional para la demo. Se renderiza si está activo.",
+      type: "chatbot",
+      group: "chatbot",
     }),
   ],
   preview: {

@@ -8,6 +8,7 @@ export default defineType({
     { name: "identity", title: "Identidad" },
     { name: "about", title: "Sobre mí" },
     { name: "contact", title: "Contacto" },
+    { name: "chatbot", title: "Chatbot" },
   ],
   fields: [
     defineField({
@@ -126,6 +127,22 @@ export default defineType({
           type: "localeString",
         }),
       ],
+    }),
+    defineField({
+      name: "chatbot",
+      title: "Chatbot · ebecerra.es",
+      description:
+        "Recepción conversacional para ebecerra.es (comercial, autónomos/PYMEs).",
+      type: "chatbot",
+      group: "chatbot",
+    }),
+    defineField({
+      name: "chatbotTech",
+      title: "Chatbot · ebecerra.tech",
+      description:
+        "Recepción conversacional para ebecerra.tech (técnico, Magnolia/freelance).",
+      type: "chatbot",
+      group: "chatbot",
     }),
   ],
   preview: {

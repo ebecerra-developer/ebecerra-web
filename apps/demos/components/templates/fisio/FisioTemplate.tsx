@@ -11,6 +11,7 @@ import FisioBooking from "./FisioBooking";
 import FisioContact from "./FisioContact";
 import FisioFooter from "./FisioFooter";
 import { brandStyle } from "./brand";
+import DemoChatbot from "@/components/DemoChatbot";
 import styles from "./FisioTemplate.module.css";
 
 export default function FisioTemplate({
@@ -49,6 +50,7 @@ export default function FisioTemplate({
         )}
       </main>
       <FisioFooter demo={demo} />
+      <DemoChatbot demo={demo} locale={locale} />
     </div>
   );
 }

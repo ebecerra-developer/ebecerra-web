@@ -105,4 +105,20 @@
   --dur-base: 280ms;
   --dur-slow: 480ms;
   --ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* ---------- Chatbot (plantilla Fisio) ---------- */
+  --chatbot-bg:                var(--surface);
+  --chatbot-fg:                var(--text);
+  --chatbot-muted:             var(--text-muted);
+  --chatbot-accent:            var(--cta);
+  --chatbot-accent-fg:         #f7f0e3;
+  --chatbot-border:            var(--border);
+  --chatbot-bubble-user:       var(--cta);
+  --chatbot-bubble-user-fg:    #f7f0e3;
+  --chatbot-bubble-assistant:  var(--surface-subtle);
+  --chatbot-bubble-assistant-fg: var(--text);
+  --chatbot-radius:            var(--r-lg);
+  --chatbot-radius-bubble:     var(--r-md);
+  --chatbot-font:              var(--font-sans-stack);
+  --chatbot-shadow:            0 20px 48px rgba(42, 31, 18, 0.18);
 }

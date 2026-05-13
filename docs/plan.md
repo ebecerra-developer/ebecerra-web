@@ -188,6 +188,7 @@ Schema mejorado (2026-05-10) para soportar variedad: `services[].image`, `lifest
 
 - [x] Plantilla `coach-editorial` (premium · mujer 35-55) — 11 componentes propios (`EditorialNav`, `EditorialHero` split asimétrico, `EditorialAbout` magazine spread, `EditorialServices` lista índice numerada con imagen lifestyle, `EditorialLifestyleStrip`, `EditorialBannerCta` dark warm, `EditorialPricing` tabla sobria, `EditorialTestimonials` pull-quote, `EditorialBookingNote` sin calendario, `EditorialContact`, `EditorialFooter`). Tokens `demos-coach-editorial.css` (off-white + dusty rose + burdeos + dark warm reservado). Tipografía Cormorant Garamond italic + Inter. Demo `/marta-solana`.
 - [x] Plantilla `coach-vibrant` (marca personal · generalista) — 11 componentes propios (`VibrantNav` con CTA pill, `VibrantHero` con stickers blob magenta/lilac/acid + imagen circular, `VibrantStats` ticker pills, `VibrantAbout` con bg-block, `VibrantServices` cards bold rotando 4 tonos con shadow offset, `VibrantObjectives`, `VibrantInstagramFeed` collage asimétrico, `VibrantBannerCta` magenta full-bleed, `VibrantTestimonials` cards estilo screenshot rotadas, `VibrantContact` bloques WhatsApp/IG sin form formal, `VibrantFooter`). Tokens `demos-coach-vibrant.css` (cremoso + magenta + verde ácido + lila + tinta morada). Tipografía Space Grotesk black + Manrope. Demo `/claudia-entrena`.
+- [ ] Plantilla `joyeria`
 - [ ] Plantilla `dental`
 - [ ] Plantilla `legal` (despacho de abogados)
 - [ ] Plantilla `asesoria`

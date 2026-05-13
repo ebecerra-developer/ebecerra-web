@@ -18,6 +18,7 @@ import faqPage from "./faqPage";
 import faqItem from "./faqItem";
 import legalPage from "./legalPage";
 import demoSite from "./demoSite";
+import chatbot from "./chatbot";
 import { localeString, localeText, localePortableText } from "./locale";
 
 export const schemaTypes = [
@@ -25,6 +26,8 @@ export const schemaTypes = [
   localeString,
   localeText,
   localePortableText,
+  // Object types compartidos
+  chatbot,
   // Singletons — home + settings
   heroSection,
   siteSettings,

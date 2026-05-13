@@ -1,0 +1,16 @@
+{
+  "name": "@ebecerra/chatbot",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./server": "./src/server/index.ts",
+    "./client": "./src/client/index.ts"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

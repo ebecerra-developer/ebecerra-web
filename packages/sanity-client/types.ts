@@ -163,6 +163,19 @@ export type ProfileFull = {
   stats: ProfileStat[];
   aboutFeatures: Feature[] | null;
   contact: ProfileContact | null;
+  chatbot: ChatbotConfig | null;
+};
+
+// ---------- Chatbot ----------
+
+export type ChatbotConfig = {
+  enabled: boolean;
+  label: string | null;
+  title: string | null;
+  greeting: string | null;
+  placeholder: string | null;
+  systemPrompt: string | null;
+  disclaimers: string[];
 };
 
 export type SiteSettingsFull = {
@@ -342,6 +355,7 @@ export type DemoSite = {
   instagramFeed: DemoInstagramFeed | null;
   lifestyleGallery: DemoLifestyleImage[];
   contact: DemoContact | null;
+  chatbot: ChatbotConfig | null;
 };
 
 export type DemoSiteSummary = {

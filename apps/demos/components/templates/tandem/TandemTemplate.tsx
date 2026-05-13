@@ -11,6 +11,7 @@ import TandemTestimonials from "./TandemTestimonials";
 import TandemBannerCta from "./TandemBannerCta";
 import TandemContact from "./TandemContact";
 import TandemFooter from "./TandemFooter";
+import DemoChatbot from "@/components/DemoChatbot";
 import styles from "./TandemTemplate.module.css";
 
 /**
@@ -52,6 +53,7 @@ export default function TandemTemplate({
         {demo.contact && <TandemContact contact={demo.contact} services={demo.services} />}
       </main>
       <TandemFooter demo={demo} />
+      <DemoChatbot demo={demo} locale={locale} />
     </div>
   );
 }

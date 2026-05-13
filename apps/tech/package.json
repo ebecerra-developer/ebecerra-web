@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ebecerra/chatbot": "*",
     "@ebecerra/sanity-client": "*",
     "@ebecerra/sanity-schemas": "*",
     "@sanity/image-url": "^2.1.1",

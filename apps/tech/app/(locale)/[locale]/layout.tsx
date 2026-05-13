@@ -8,6 +8,8 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import StructuredData from "@/components/StructuredData";
 import type { Locale } from "@/i18n/routing";
+import { ChatbotWidget } from "@ebecerra/chatbot/client";
+import { getProfileChatbot } from "@ebecerra/sanity-client";
 import "../../globals.css";
 
 const dmSans = DM_Sans({
@@ -132,7 +134,10 @@ export default async function LocaleLayout({
     notFound();
   }
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "a11y" });
+  const [t, chatbot] = await Promise.all([
+    getTranslations({ locale, namespace: "a11y" }),
+    getProfileChatbot(locale, "chatbotTech").catch(() => null),
+  ]);
 
   return (
     <html
@@ -148,6 +153,24 @@ export default async function LocaleLayout({
         </a>
         <StructuredData locale={locale as Locale} />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        {chatbot?.enabled && (
+          <ChatbotWidget
+            launcherLabel={chatbot.label ?? (locale === "es" ? "Consola" : "Console")}
+            drawerTitle={chatbot.title ?? "ebecerra.tech"}
+            greeting={
+              chatbot.greeting ??
+              (locale === "es"
+                ? "Hola. Pregúntame sobre el stack, los proyectos o cualquier cosa técnica."
+                : "Hi. Ask me about the stack, projects, or anything technical.")
+            }
+            placeholder={
+              chatbot.placeholder ??
+              (locale === "es" ? "Pregunta técnica…" : "Technical question…")
+            }
+            locale={locale}
+            disclaimers={chatbot.disclaimers}
+          />
+        )}
         <Analytics />
         <SpeedInsights />
       </body>

@@ -117,4 +117,20 @@
   --dur-base: 400ms;
   --dur-slow: 700ms;
   --ease:     cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* ---------- Chatbot (plantilla Coach editorial) ---------- */
+  --chatbot-bg:                var(--surface);
+  --chatbot-fg:                var(--text);
+  --chatbot-muted:             var(--text-muted);
+  --chatbot-accent:            var(--cta);
+  --chatbot-accent-fg:         var(--text-on-accent);
+  --chatbot-border:            var(--border);
+  --chatbot-bubble-user:       var(--cta);
+  --chatbot-bubble-user-fg:    var(--text-on-accent);
+  --chatbot-bubble-assistant:  var(--surface-subtle);
+  --chatbot-bubble-assistant-fg: var(--text);
+  --chatbot-radius:            20px;
+  --chatbot-radius-bubble:     14px;
+  --chatbot-font:              var(--font-sans-stack);
+  --chatbot-shadow:            0 24px 56px rgba(46, 31, 28, 0.22);
 }

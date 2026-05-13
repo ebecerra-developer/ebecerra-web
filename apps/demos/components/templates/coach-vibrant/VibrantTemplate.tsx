@@ -11,6 +11,7 @@ import VibrantBannerCta from "./VibrantBannerCta";
 import VibrantTestimonials from "./VibrantTestimonials";
 import VibrantContact from "./VibrantContact";
 import VibrantFooter from "./VibrantFooter";
+import DemoChatbot from "@/components/DemoChatbot";
 import styles from "./VibrantTemplate.module.css";
 
 /**
@@ -51,6 +52,7 @@ export default function VibrantTemplate({
         {demo.contact && <VibrantContact contact={demo.contact} />}
       </main>
       <VibrantFooter demo={demo} />
+      <DemoChatbot demo={demo} locale={locale} />
     </div>
   );
 }

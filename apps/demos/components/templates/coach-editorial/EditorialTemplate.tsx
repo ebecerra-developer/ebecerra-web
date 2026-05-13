@@ -12,6 +12,7 @@ import EditorialTestimonials from "./EditorialTestimonials";
 import EditorialBookingNote from "./EditorialBookingNote";
 import EditorialContact from "./EditorialContact";
 import EditorialFooter from "./EditorialFooter";
+import DemoChatbot from "@/components/DemoChatbot";
 import styles from "./EditorialTemplate.module.css";
 
 /**
@@ -56,6 +57,7 @@ export default function EditorialTemplate({
         )}
       </main>
       <EditorialFooter demo={demo} />
+      <DemoChatbot demo={demo} locale={locale} />
     </div>
   );
 }
