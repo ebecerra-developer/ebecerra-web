@@ -29,7 +29,7 @@
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 400;
-  color: rgba(250, 250, 249, 0.75);
+  color: var(--text-on-accent);
   letter-spacing: 0.04em;
 }
 

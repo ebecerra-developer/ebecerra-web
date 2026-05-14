@@ -7,7 +7,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import StructuredData from "@/components/StructuredData";
-import { ChatbotWidget } from "@ebecerra/chatbot/client";
+import ChatbotLoader from "@/components/ChatbotLoader";
 import { getSiteSettingsFull, getProfile, getServices } from "@ebecerra/sanity-client";
 import type { Locale } from "@/i18n/routing";
 import "../../globals.css";
@@ -179,7 +179,7 @@ export default async function LocaleLayout({
         />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         {profile?.chatbot?.enabled && (
-          <ChatbotWidget
+          <ChatbotLoader
             launcherLabel={profile.chatbot.label ?? (locale === "es" ? "¿Te ayudo?" : "Need help?")}
             drawerTitle={profile.chatbot.title ?? (locale === "es" ? "Recepción" : "Reception")}
             greeting={

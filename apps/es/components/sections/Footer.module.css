@@ -33,7 +33,7 @@
 .availabilityRow {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: #78716c;
+  color: #a8a29e;
   letter-spacing: 0.04em;
   display: flex;
   gap: 10px;
@@ -50,7 +50,7 @@
 .colTitle {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: #57534e;
+  color: #a8a29e;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -100,7 +100,7 @@
   gap: 16px;
   font-family: var(--font-mono);
   font-size: 11.5px;
-  color: #78716c;
+  color: #a8a29e;
   letter-spacing: 0.04em;
 }
 
@@ -111,7 +111,7 @@
 }
 
 .legalLink {
-  color: #78716c;
+  color: #a8a29e;
   text-decoration: none;
   transition: color 150ms var(--ease);
 }
