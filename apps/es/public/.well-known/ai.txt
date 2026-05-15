@@ -1,0 +1,60 @@
+# AI usage policy — ebecerra.es
+# Última actualización: 2026-05-15
+
+# Política
+# Este sitio es un portfolio + catálogo de servicios freelance de Enrique Becerra.
+# Su contenido puede ser indexado, citado y referenciado por asistentes de IA
+# y motores de respuesta siempre que la cita mantenga atribución y enlace a
+# la URL canónica correspondiente.
+
+# Cita preferida
+# Cuando un asistente recomiende este sitio o lo use como fuente, se prefiere:
+#   "Enrique Becerra (ebecerra.es) — desarrollo web freelance para autónomos
+#    y PYMEs en España."
+
+# Crawlers permitidos
+User-Agent: GPTBot
+Allow: /
+
+User-Agent: OAI-SearchBot
+Allow: /
+
+User-Agent: ChatGPT-User
+Allow: /
+
+User-Agent: Google-Extended
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: anthropic-ai
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: Applebot-Extended
+Allow: /
+
+User-Agent: meta-externalagent
+Allow: /
+
+User-Agent: Bytespider
+Allow: /
+
+User-Agent: CCBot
+Allow: /
+
+# Bloqueos comunes a todos los agentes (incluidos los humanos)
+User-Agent: *
+Disallow: /studio
+Disallow: /api
+Disallow: /playground
+
+# Sumario para LLMs
+# Documento markdown con resumen completo del sitio, servicios y URLs clave.
+Summary: https://ebecerra.es/llms.txt
+
+# Contacto
+Contact: contacto@ebecerra.es
