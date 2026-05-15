@@ -210,8 +210,6 @@ export default async function PostPage({
               )}
             </div>
 
-            <TableOfContents blocks={post.body} label={t("tocLabel")} />
-
             <PortableContent blocks={highlightedBody} />
 
             {post.tags.length > 0 && (
@@ -274,6 +272,8 @@ export default async function PostPage({
               />
             </section>
           </article>
+
+          <TableOfContents blocks={post.body} label={t("tocLabel")} />
         </div>
 
         <RelatedPosts

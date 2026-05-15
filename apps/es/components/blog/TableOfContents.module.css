@@ -1,15 +1,21 @@
-/* ToC inline al inicio del post: bloque a ancho completo del body, fondo
-   sutil, no sticky (decisión: el body ahora ocupa el ancho de página y no
-   tiene segunda columna donde anclar el sticky). */
+/* ToC sticky lateral cuando hay sitio (>=1200px). En móvil/tablet se oculta —
+   el contenido del post ya tiene jerarquía clara con h2/h3 visibles. */
 .toc {
-  margin: 24px 0 32px;
-  padding: 16px 20px;
-  background: var(--surface-subtle, rgba(0, 0, 0, 0.03));
-  border-left: 3px solid var(--accent, var(--cta));
-  border-radius: 4px;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--text-secondary);
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .toc {
+    display: block;
+    position: sticky;
+    top: 152px; /* top bar 72 + sub-nav 58 + buffer 22 */
+    align-self: start;
+    padding-left: 20px;
+    border-left: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
 }
 
 .label {

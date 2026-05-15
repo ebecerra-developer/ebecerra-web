@@ -34,6 +34,9 @@
   border-radius: 8px;
 }
 
+/* Shell del post: SIEMPRE al mismo ancho que faq/home/ejemplos (1100 de
+   contenido + padding). Cuando hay ToC, los 1100px se reparten entre body
+   y ToC, no se ensancha el shell. */
 .postShell {
   max-width: calc(var(--container-max, 1100px) + 2 * 56px);
   margin: 0 auto;
@@ -41,11 +44,19 @@
   padding-inline: clamp(20px, 4vw, 56px);
 }
 
-/* Layout del post: una sola columna a ancho del shell (1100). ToC se renderiza
-   al principio del article como bloque inline (no como columna sticky aparte),
-   porque el body necesita el ancho completo de página igual que el resto. */
 .postLayout {
   display: block;
+}
+
+/* En desktop, body + gap + ToC = 1100. Body es 1fr (= 832), ToC fijo 220.
+   Si ToC se oculta en mobile, body recupera todo el ancho. */
+@media (min-width: 1200px) {
+  .postLayout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 48px;
+    align-items: start;
+  }
 }
 
 .postBody {
