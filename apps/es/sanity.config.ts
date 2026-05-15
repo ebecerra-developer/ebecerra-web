@@ -26,6 +26,7 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "casesSectionMeta",
   "contactSectionMeta",
   "faqPage",
+  "examplesPage",
   "faqItem",
   "legalPage",
   "demoSite",
@@ -118,6 +119,12 @@ const structure: StructureResolver = (S) =>
                 .id("faqPage")
                 .child(
                   S.document().schemaType("faqPage").documentId("2fccf962-b05c-4377-a421-efa1cca17b78")
+                ),
+              S.listItem()
+                .title("Página Ejemplos (meta)")
+                .id("examplesPage")
+                .child(
+                  S.document().schemaType("examplesPage").documentId("examplesPage-singleton")
                 ),
             ])
         ),
