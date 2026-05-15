@@ -178,6 +178,10 @@
     "filterAll": "All",
     "filterCategory": "Category",
     "sortNewest": "Newest first",
-    "sortOldest": "Oldest first"
+    "sortOldest": "Oldest first",
+    "tocLabel": "In this article",
+    "shareLabel": "Share",
+    "byPrefix": "by",
+    "relatedHeading": "Related articles"
   }
 }

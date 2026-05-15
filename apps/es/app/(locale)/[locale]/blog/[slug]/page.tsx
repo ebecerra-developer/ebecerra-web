@@ -9,9 +9,22 @@ import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
 import PostMeta from "@/components/blog/PostMeta";
 import PortableContent from "@/components/blog/PortableContent";
-import { getPostBySlug, getPostSlugs } from "@ebecerra/sanity-client";
+import TableOfContents from "@/components/blog/TableOfContents";
+import ShareButtons from "@/components/blog/ShareButtons";
+import AuthorBio from "@/components/blog/AuthorBio";
+import RelatedPosts from "@/components/blog/RelatedPosts";
+import PostJsonLd from "@/components/blog/PostJsonLd";
+import RoughActivator from "@/components/blog/RoughActivator";
+import { highlightCodeBlocks } from "@/lib/highlight";
+import {
+  getPostBySlug,
+  getPostSlugs,
+  getRelatedPostsAuto,
+} from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import styles from "../Blog.module.css";
+
+const SITE_URL = "https://ebecerra.es";
 
 export const revalidate = 1800;
 
@@ -82,6 +95,30 @@ export default async function PostPage({
   const post = await getPostBySlug(slug, locale);
   if (!post) notFound();
 
+  // Pre-highlight de codeBlocks con Shiki — server-side, en build (ISR).
+  // Los demás bloques pasan tal cual; PortableContent lee highlightedHtml si existe.
+  const highlightedBody = await highlightCodeBlocks(
+    post.body as { _type?: string }[]
+  );
+
+  // Posts relacionados: si el editor definió manualmente, usarlos. Si no,
+  // calcular automáticamente por categoría/tags compartidos.
+  const related =
+    post.relatedPostsManual.length > 0
+      ? post.relatedPostsManual
+      : await getRelatedPostsAuto(
+          post._id,
+          post.category?.slug ?? null,
+          post.tags.map((t) => t.slug),
+          locale,
+          3
+        );
+
+  const absoluteUrl =
+    locale === "es"
+      ? `${SITE_URL}/blog/${slug}/`
+      : `${SITE_URL}/${locale}/blog/${slug}/`;
+
   const cover =
     post.coverImage && post.coverImage.asset
       ? urlFor(post.coverImage).width(1280).height(720).fit("crop").auto("format").url()
@@ -98,6 +135,8 @@ export default async function PostPage({
 
   return (
     <>
+      <PostJsonLd post={post} url={absoluteUrl} />
+      <RoughActivator rootSelector="[data-blog-post]" />
       <Nav />
       <main id="main" className={styles.postShell}>
         <Link href={blogHref} className={styles.backLink}>
@@ -134,17 +173,43 @@ export default async function PostPage({
           </div>
         )}
 
-        <PortableContent blocks={post.body} />
+        <div className={styles.postLayout}>
+          <article className={styles.postBody} data-blog-post>
+            <PortableContent blocks={highlightedBody} />
 
-        {post.tags.length > 0 && (
-          <div className={styles.postTags}>
-            {post.tags.map((tag) => (
-              <Link key={tag.slug} href={tagHref(tag.slug)} className={styles.postTag}>
-                #{tag.title}
-              </Link>
-            ))}
-          </div>
-        )}
+            {post.tags.length > 0 && (
+              <div className={styles.postTags}>
+                {post.tags.map((tag) => (
+                  <Link
+                    key={tag.slug}
+                    href={tagHref(tag.slug)}
+                    className={styles.postTag}
+                  >
+                    #{tag.title}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            <ShareButtons
+              url={absoluteUrl}
+              title={post.title}
+              label={t("shareLabel")}
+            />
+
+            {post.authorFull && (
+              <AuthorBio author={post.authorFull} byLabel={t("byPrefix")} />
+            )}
+          </article>
+
+          <TableOfContents blocks={post.body} label={t("tocLabel")} />
+        </div>
+
+        <RelatedPosts
+          posts={related}
+          locale={locale}
+          label={t("relatedHeading")}
+        />
       </main>
       <Footer />
     </>

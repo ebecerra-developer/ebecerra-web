@@ -110,6 +110,22 @@
   color: inherit;
 }
 
+.codeShiki :global(pre) {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  background: transparent !important;
+}
+
+.codeShiki :global(code) {
+  background: transparent;
+  padding: 0;
+  font: inherit;
+}
+
 .figure {
   margin: 1.6em 0;
 }

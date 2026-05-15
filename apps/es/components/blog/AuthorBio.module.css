@@ -1,0 +1,75 @@
+.bio {
+  display: flex;
+  gap: 20px;
+  padding: 24px;
+  margin: 48px 0 0;
+  background: var(--surface-subtle, rgba(0, 0, 0, 0.03));
+  border-radius: 12px;
+}
+
+.photo {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.role {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.social a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.social a:hover {
+  text-decoration: underline;
+}

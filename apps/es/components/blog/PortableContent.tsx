@@ -1,7 +1,17 @@
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity-image";
+import { slugify } from "./TableOfContents";
 import styles from "./PortableContent.module.css";
+
+function blockText(children: unknown): string {
+  if (typeof children === "string") return children;
+  if (Array.isArray(children)) return children.map(blockText).join("");
+  if (children && typeof children === "object" && "props" in children) {
+    return blockText((children as { props: { children?: unknown } }).props.children);
+  }
+  return "";
+}
 
 type Props = {
   blocks: unknown[];
@@ -9,8 +19,16 @@ type Props = {
 
 const components: PortableTextComponents = {
   block: {
-    h2: ({ children }) => <h2 className={styles.h2}>{children}</h2>,
-    h3: ({ children }) => <h3 className={styles.h3}>{children}</h3>,
+    h2: ({ children }) => (
+      <h2 id={slugify(blockText(children))} className={styles.h2}>
+        {children}
+      </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 id={slugify(blockText(children))} className={styles.h3}>
+        {children}
+      </h3>
+    ),
     blockquote: ({ children }) => (
       <blockquote className={styles.blockquote}>{children}</blockquote>
     ),
@@ -74,14 +92,23 @@ const components: PortableTextComponents = {
         language?: string;
         code?: string;
         filename?: string;
+        highlightedHtml?: string;
       };
       if (!v?.code) return null;
       return (
         <div className={styles.codeWrap}>
           {v.filename && <div className={styles.codeFilename}>{v.filename}</div>}
-          <pre className={styles.codePre} data-lang={v.language ?? "text"}>
-            <code>{v.code}</code>
-          </pre>
+          {v.highlightedHtml ? (
+            <div
+              className={styles.codeShiki}
+              data-lang={v.language ?? "text"}
+              dangerouslySetInnerHTML={{ __html: v.highlightedHtml }}
+            />
+          ) : (
+            <pre className={styles.codePre} data-lang={v.language ?? "text"}>
+              <code>{v.code}</code>
+            </pre>
+          )}
         </div>
       );
     },
