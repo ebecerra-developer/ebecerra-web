@@ -10,6 +10,7 @@ import {
 } from "@ebecerra/chatbot/server";
 import { getDemoSiteBySlug } from "@ebecerra/sanity-client";
 import { serverEnv } from "@/lib/env";
+import { logChatbotMessage } from "@/lib/chatbot-log";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -27,6 +28,7 @@ const payloadSchema = z.object({
    * del negocio ficticio. Lo inyecta el componente cliente al montarse.
    */
   demoSlug: z.string().min(1).max(120),
+  sessionId: z.string().min(8).max(64).optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -53,7 +55,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { messages, locale, demoSlug } = parsed.data;
+  const { messages, locale, demoSlug, sessionId } = parsed.data;
 
   const demo = await getDemoSiteBySlug(demoSlug, locale).catch(() => null);
   if (!demo) {
@@ -70,13 +72,41 @@ export async function POST(request: NextRequest) {
     ...messages,
   ];
 
+  // Logging opt-in: solo si llega sessionId y las env vars de Supabase están.
+  // El último mensaje del array es siempre el que el usuario acaba de enviar
+  // (el resto es histórico que ya se loguearon en turnos anteriores).
+  const loggingEnabled =
+    !!sessionId && !!env.NEXT_PUBLIC_SUPABASE_URL && !!env.SUPABASE_SECRET_KEY;
+  if (loggingEnabled) {
+    const lastUserMessage = messages[messages.length - 1];
+    if (lastUserMessage?.role === "user") {
+      void logChatbotMessage({
+        session_id: sessionId,
+        app: "demos",
+        role: "user",
+        content: lastUserMessage.content,
+      });
+    }
+  }
+
   try {
     const { stream, model } = await streamGroqChat({
       apiKey: env.GROQ_API_KEY,
       messages: fullMessages,
     });
 
-    return new Response(toClientSSE(stream, model), {
+    const onComplete = loggingEnabled
+      ? (fullText: string, modelUsed: string) =>
+          logChatbotMessage({
+            session_id: sessionId!,
+            app: "demos",
+            role: "assistant",
+            content: fullText,
+            model: modelUsed,
+          })
+      : undefined;
+
+    return new Response(toClientSSE(stream, model, onComplete), {
       headers: {
         "Content-Type": "text/event-stream; charset=utf-8",
         "Cache-Control": "no-cache, no-transform",

@@ -5,6 +5,9 @@ const serverSchema = z.object({
     .string()
     .min(1, "SANITY_REVALIDATE_SECRET is required"),
   GROQ_API_KEY: z.string().optional(),
+  NEXT_PUBLIC_SUPABASE_URL: z.url().optional(),
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: z.string().optional(),
+  SUPABASE_SECRET_KEY: z.string().optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverSchema>;
