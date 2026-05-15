@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import AdminShell from "../AdminShell";
 
 export const dynamic = "force-dynamic";
@@ -55,7 +56,10 @@ export default async function ChatbotSessionsPage({
   // Trae mensajes recientes y agrúpalos por session_id en memoria.
   // Para volumen actual (decenas-cientos/día) es suficiente; cuando crezca
   // se monta una vista materializada o una RPC con DISTINCT ON.
-  let query = supabase
+  // Admin client bypasea RLS — la tabla chatbot_messages no tiene policy de
+  // SELECT (es server-only por diseño), así que el publishable key no puede leerla.
+  const admin = createSupabaseAdminClient();
+  let query = admin
     .from("chatbot_messages")
     .select("session_id, app, role, content, created_at")
     .gte("created_at", sinceIso)

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import AdminShell from "../../AdminShell";
 
 export const dynamic = "force-dynamic";
@@ -28,7 +29,9 @@ export default async function ChatbotSessionDrilldown({
   } = await supabase.auth.getUser();
   if (!user?.email) redirect("/admin/login");
 
-  const { data: messages, error } = await supabase
+  // Admin client (secret key) bypasea RLS — chatbot_messages es server-only.
+  const admin = createSupabaseAdminClient();
+  const { data: messages, error } = await admin
     .from("chatbot_messages")
     .select("id, role, content, model, created_at, app")
     .eq("session_id", sessionId)
