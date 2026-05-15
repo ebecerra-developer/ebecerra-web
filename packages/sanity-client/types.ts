@@ -371,3 +371,66 @@ export type DemoSiteSummary = {
   galleryOrder: number | null;
 };
 
+// =====================================================
+// BLOG
+// =====================================================
+
+export type BlogAuthorSocial = {
+  linkedinUrl: string | null;
+  githubUrl: string | null;
+  twitterUrl: string | null;
+  instagramUrl: string | null;
+  websiteUrl: string | null;
+};
+
+export type BlogAuthor = {
+  _id: string;
+  name: string;
+  slug: string;
+  jobTitle: string | null;
+  bioShort: string;
+  bioLong: string | null;
+  email: string | null;
+  photo: SanityImage | null;
+  social: BlogAuthorSocial;
+};
+
+export type BlogCategory = {
+  _id: string;
+  title: string;
+  slug: string;
+  description: string | null;
+  order: number;
+};
+
+export type BlogTag = {
+  _id: string;
+  title: string;
+  slug: string;
+  description: string | null;
+};
+
+export type PostListItem = {
+  _id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  publishedAt: string;
+  updatedAt: string | null;
+  coverImage: SanityImage | null;
+  readingMinutes: number;
+  category: { title: string; slug: string } | null;
+  tags: { title: string; slug: string }[];
+  author: { name: string; slug: string; photo: SanityImage | null } | null;
+};
+
+export type PostFull = PostListItem & {
+  body: PortableTextBlock[];
+  seoTitle: string | null;
+  seoDescription: string | null;
+  ogImage: SanityImage | null;
+  noindex: boolean;
+  authorFull: BlogAuthor | null;
+  relatedPostsManual: PostListItem[];
+};
+

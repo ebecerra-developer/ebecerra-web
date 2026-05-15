@@ -24,6 +24,11 @@ import type {
   DemoSite,
   DemoSiteSummary,
   ChatbotConfig,
+  BlogAuthor,
+  BlogCategory,
+  BlogTag,
+  PostListItem,
+  PostFull,
 } from "./types";
 
 // Proyección reutilizable para el objeto chatbot (embebido en profile y demoSite).
@@ -811,4 +816,283 @@ export async function getSiteSettingsFull(
       socialLinks: raw.footer?.socialLinks ?? [],
     },
   };
+}
+
+
+// =====================================================
+// BLOG
+// =====================================================
+
+// Calcula minutos de lectura desde el número de caracteres del body en plano.
+// Asume ~5 chars/palabra, ~225 palabras/min (estándar reading speed).
+function calcReadingMinutes(bodyTextLength: number): number {
+  if (bodyTextLength <= 0) return 1;
+  return Math.max(1, Math.round(bodyTextLength / 5 / 225));
+}
+
+// Proyección compartida para items del listado de posts.
+const postListProjection = `
+  _id,
+  "slug": slug.current,
+  "title": ${loc("title")},
+  "excerpt": ${loc("excerpt")},
+  publishedAt,
+  updatedAt,
+  coverImage,
+  "bodyTextLength": length(pt::text(coalesce(body, []))),
+  "category": category->{
+    "title": ${loc("title")},
+    "slug": slug.current
+  },
+  "tags": tags[]->{
+    "title": ${loc("title")},
+    "slug": slug.current
+  },
+  "author": author->{
+    name,
+    "slug": slug.current,
+    photo
+  }
+`;
+
+type RawPostListItem = Omit<PostListItem, "readingMinutes" | "tags"> & {
+  bodyTextLength: number;
+  tags: { title: string; slug: string }[] | null;
+};
+
+function normalizePostListItem(raw: RawPostListItem): PostListItem {
+  const { bodyTextLength, tags, ...rest } = raw;
+  return {
+    ...rest,
+    tags: tags ?? [],
+    readingMinutes: calcReadingMinutes(bodyTextLength),
+  };
+}
+
+export async function getPosts(
+  locale: Locale,
+  options: {
+    categorySlug?: string;
+    tagSlug?: string;
+    order?: "newest" | "oldest";
+    limit?: number;
+    offset?: number;
+  } = {}
+): Promise<PostListItem[]> {
+  const { categorySlug, tagSlug, order = "newest", limit = 50, offset = 0 } =
+    options;
+
+  const filters = ['_type == "post"', "noindex != true", "publishedAt <= now()"];
+  if (categorySlug) filters.push("category->slug.current == $categorySlug");
+  if (tagSlug) filters.push("$tagSlug in tags[]->slug.current");
+
+  const direction = order === "newest" ? "desc" : "asc";
+  const query = `*[${filters.join(" && ")}] | order(publishedAt ${direction}) [${offset}...${offset + limit}] {
+    ${postListProjection}
+  }`;
+
+  const raw = await client
+    .fetch<RawPostListItem[]>(query, { locale, categorySlug, tagSlug })
+    .catch(() => [] as RawPostListItem[]);
+
+  return raw.map(normalizePostListItem);
+}
+
+export async function getPostSlugs(): Promise<string[]> {
+  const raw = await client
+    .fetch<{ slug: string | null }[]>(
+      `*[_type == "post" && noindex != true && publishedAt <= now()]{ "slug": slug.current }`
+    )
+    .catch(() => [] as { slug: string | null }[]);
+  return raw.map((r) => r.slug).filter((s): s is string => Boolean(s));
+}
+
+export async function getPostBySlug(
+  slug: string,
+  locale: Locale
+): Promise<PostFull | null> {
+  const params = { slug, locale };
+  const raw = await client
+    .fetch<
+      | (RawPostListItem & {
+          body: PostFull["body"] | null;
+          seoTitle: string | null;
+          seoDescription: string | null;
+          ogImage: PostFull["ogImage"];
+          noindex: boolean | null;
+          authorFull: BlogAuthor | null;
+          relatedPostsManual: RawPostListItem[] | null;
+        })
+      | null
+    >(
+      `*[_type == "post" && slug.current == $slug][0] {
+        ${postListProjection},
+        "body": coalesce(${locale === "en" ? "bodyEn" : "body"}, body),
+        "seoTitle": ${loc("seoTitle")},
+        "seoDescription": ${loc("seoDescription")},
+        ogImage,
+        noindex,
+        "authorFull": author->{
+          _id,
+          name,
+          "slug": slug.current,
+          "jobTitle": ${loc("jobTitle")},
+          "bioShort": ${loc("bioShort")},
+          "bioLong": ${loc("bioLong")},
+          email,
+          photo,
+          "social": social{
+            linkedinUrl,
+            githubUrl,
+            twitterUrl,
+            instagramUrl,
+            websiteUrl
+          }
+        },
+        "relatedPostsManual": relatedPosts[]->{ ${postListProjection} }
+      }`,
+      params
+    )
+    .catch(() => null);
+
+  if (!raw) return null;
+
+  const base = normalizePostListItem(raw);
+  return {
+    ...base,
+    body: raw.body ?? [],
+    seoTitle: raw.seoTitle,
+    seoDescription: raw.seoDescription,
+    ogImage: raw.ogImage,
+    noindex: raw.noindex ?? false,
+    authorFull: raw.authorFull
+      ? {
+          ...raw.authorFull,
+          social: raw.authorFull.social ?? {
+            linkedinUrl: null,
+            githubUrl: null,
+            twitterUrl: null,
+            instagramUrl: null,
+            websiteUrl: null,
+          },
+        }
+      : null,
+    relatedPostsManual: (raw.relatedPostsManual ?? []).map(normalizePostListItem),
+  };
+}
+
+export async function getRelatedPostsAuto(
+  postId: string,
+  categorySlug: string | null,
+  tagSlugs: string[],
+  locale: Locale,
+  limit = 3
+): Promise<PostListItem[]> {
+  // Heurística: posts en la misma categoría o que comparten al menos un tag,
+  // excluyendo el actual. Ordenados por publishedAt desc.
+  const raw = await client
+    .fetch<RawPostListItem[]>(
+      `*[
+        _type == "post"
+        && _id != $postId
+        && noindex != true
+        && publishedAt <= now()
+        && (
+          category->slug.current == $categorySlug
+          || count((tags[]->slug.current)[@ in $tagSlugs]) > 0
+        )
+      ] | order(publishedAt desc) [0...$limit] {
+        ${postListProjection}
+      }`,
+      { postId, categorySlug, tagSlugs, locale, limit }
+    )
+    .catch(() => [] as RawPostListItem[]);
+
+  return raw.map(normalizePostListItem);
+}
+
+export async function getCategories(locale: Locale): Promise<BlogCategory[]> {
+  return client
+    .fetch<BlogCategory[]>(
+      `*[_type == "blogCategory"] | order(order asc) {
+        _id,
+        "title": ${loc("title")},
+        "slug": slug.current,
+        "description": ${loc("description")},
+        "order": coalesce(order, 100)
+      }`,
+      { locale }
+    )
+    .catch(() => [] as BlogCategory[]);
+}
+
+export async function getCategoryBySlug(
+  slug: string,
+  locale: Locale
+): Promise<BlogCategory | null> {
+  return client
+    .fetch<BlogCategory | null>(
+      `*[_type == "blogCategory" && slug.current == $slug][0] {
+        _id,
+        "title": ${loc("title")},
+        "slug": slug.current,
+        "description": ${loc("description")},
+        "order": coalesce(order, 100)
+      }`,
+      { slug, locale }
+    )
+    .catch(() => null);
+}
+
+export async function getTags(locale: Locale): Promise<BlogTag[]> {
+  return client
+    .fetch<BlogTag[]>(
+      `*[_type == "blogTag"] | order(title.es asc) {
+        _id,
+        "title": ${loc("title")},
+        "slug": slug.current,
+        "description": ${loc("description")}
+      }`,
+      { locale }
+    )
+    .catch(() => [] as BlogTag[]);
+}
+
+export async function getTagBySlug(
+  slug: string,
+  locale: Locale
+): Promise<BlogTag | null> {
+  return client
+    .fetch<BlogTag | null>(
+      `*[_type == "blogTag" && slug.current == $slug][0] {
+        _id,
+        "title": ${loc("title")},
+        "slug": slug.current,
+        "description": ${loc("description")}
+      }`,
+      { slug, locale }
+    )
+    .catch(() => null);
+}
+
+export async function getAuthorBySlug(
+  slug: string,
+  locale: Locale
+): Promise<BlogAuthor | null> {
+  return client
+    .fetch<BlogAuthor | null>(
+      `*[_type == "author" && slug.current == $slug][0] {
+        _id,
+        name,
+        "slug": slug.current,
+        "jobTitle": ${loc("jobTitle")},
+        "bioShort": ${loc("bioShort")},
+        "bioLong": ${loc("bioLong")},
+        email,
+        photo,
+        "social": coalesce(social, {})
+      }`,
+      { slug, locale }
+    )
+    .catch(() => null);
 }

@@ -18,7 +18,12 @@ import faqPage from "./faqPage";
 import faqItem from "./faqItem";
 import legalPage from "./legalPage";
 import demoSite from "./demoSite";
+import examplesPage from "./examplesPage";
 import chatbot from "./chatbot";
+import author from "./author";
+import blogCategory from "./blogCategory";
+import blogTag from "./blogTag";
+import post from "./post";
 import { localeString, localeText, localePortableText } from "./locale";
 
 export const schemaTypes = [
@@ -36,6 +41,7 @@ export const schemaTypes = [
   casesSectionMeta,
   contactSectionMeta,
   faqPage,
+  examplesPage,
   profile,
   // Colecciones
   experience,
@@ -48,6 +54,11 @@ export const schemaTypes = [
   faqItem,
   legalPage,
   demoSite,
+  // Blog
+  author,
+  blogCategory,
+  blogTag,
+  post,
 ];
 
 export const SINGLETON_TYPES = [
@@ -58,6 +69,7 @@ export const SINGLETON_TYPES = [
   "casesSectionMeta",
   "contactSectionMeta",
   "faqPage",
+  "examplesPage",
   "profile",
 ] as const;
 
