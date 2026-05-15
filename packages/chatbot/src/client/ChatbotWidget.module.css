@@ -28,10 +28,19 @@
 /* ---------- Launcher ---------- */
 
 /*
- * Launcher: por defecto círculo compacto solo con icono para tapar lo
- * mínimo posible. En desktop, al hacer hover se expande a píldora
- * mostrando el label. En mobile (sin hover real) queda siempre como
- * círculo — el label vuelve a aparecer al abrir el chat.
+ * Launcher: círculo compacto solo con icono por defecto. En desktop,
+ * al hacer hover crece a píldora mostrando el label. En táctil queda
+ * siempre como círculo — el label aparece al abrir el chat.
+ *
+ * Estabilidad del hover (no flicker):
+ * - El botón se ancla `right:` y crece hacia la IZQUIERDA, así su borde
+ *   derecho no se mueve y el cursor que entró por la derecha no se sale.
+ * - El ancho lo dirige el contenido (icono + label), no una transición
+ *   de `width: 52px → auto` (que los browsers interpolan mal).
+ * - Sin `transform: translateY` en hover: mover el botón hacia arriba
+ *   tras detectar hover crea un bucle clásico cuando el cursor está
+ *   cerca del borde inferior (button sube → cursor fuera → hover off →
+ *   button baja → hover on → infinito).
  */
 .launcher {
   position: fixed;
@@ -42,7 +51,7 @@
   align-items: center;
   justify-content: center;
   gap: 0;
-  width: 52px;
+  min-width: 52px;
   height: 52px;
   padding: 0;
   background: var(--_accent);
@@ -54,15 +63,12 @@
   font-weight: 600;
   font-size: 14px;
   white-space: nowrap;
-  overflow: hidden;
   cursor: pointer;
   box-shadow: var(--_shadow);
   transition:
-    width 220ms cubic-bezier(0.22, 1, 0.36, 1),
     padding 220ms cubic-bezier(0.22, 1, 0.36, 1),
     gap 220ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 180ms ease,
-    box-shadow 180ms ease;
+    box-shadow 220ms ease;
 }
 
 .launcherLabel {
@@ -75,7 +81,12 @@
     opacity 160ms ease;
 }
 
-/* Desktop: hover y focus expanden a píldora con label */
+/*
+ * Desktop: al hover/focus aparece el label (max-width 0 → 200) y se
+ * abre padding lateral. El botón crece naturalmente porque el contenido
+ * empuja el ancho — sin tocar `width`. No hay `transform` que mueva el
+ * botón fuera del cursor.
+ */
 @media (hover: hover) and (pointer: fine) {
   .launcher {
     bottom: clamp(16px, 4vw, 28px);
@@ -83,19 +94,15 @@
   }
   .launcher:hover,
   .launcher:focus-visible {
-    width: auto;
-    padding: 12px 18px;
+    padding: 0 18px;
     gap: 10px;
+    box-shadow: 0 24px 64px -20px rgba(0, 0, 0, 0.4);
   }
   .launcher:hover .launcherLabel,
   .launcher:focus-visible .launcherLabel {
-    max-width: 200px;
+    max-width: 220px;
     opacity: 1;
   }
-}
-.launcher:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 24px 64px -20px rgba(0, 0, 0, 0.4);
 }
 .launcher:focus-visible {
   outline: 2px solid var(--_accent);
