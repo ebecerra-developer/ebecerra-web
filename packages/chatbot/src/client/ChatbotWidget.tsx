@@ -66,7 +66,24 @@ export function ChatbotWidget({
   const abortRef = useRef<AbortController | null>(null);
   const messagesRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
+  const sessionIdRef = useRef<string | null>(null);
   const titleId = useId();
+
+  // sessionId: persistente por pestaña (sessionStorage), no por usuario.
+  // Cada pestaña arranca una conversación nueva; al cerrarla, se descarta.
+  // Sobrevive a navegación SPA dentro de la misma pestaña.
+  if (sessionIdRef.current === null && typeof window !== "undefined") {
+    const storageKey = "chatbot:sessionId";
+    let id = window.sessionStorage.getItem(storageKey);
+    if (!id) {
+      id =
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? crypto.randomUUID()
+          : `s_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+      window.sessionStorage.setItem(storageKey, id);
+    }
+    sessionIdRef.current = id;
+  }
 
   // Auto-scroll al final cuando llegan mensajes nuevos o tokens streamed.
   // Scroll imperativo + instantáneo: el smooth scroll se cancelaba a sí mismo
@@ -197,7 +214,12 @@ export function ChatbotWidget({
         const res = await fetch(apiPath, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: next, locale, ...extraBody }),
+          body: JSON.stringify({
+            messages: next,
+            locale,
+            sessionId: sessionIdRef.current,
+            ...extraBody,
+          }),
           signal: ctrl.signal,
         });
 

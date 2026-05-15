@@ -10,6 +10,7 @@ import {
 } from "@ebecerra/chatbot/server";
 import { getProfileChatbot } from "@ebecerra/sanity-client";
 import { serverEnv } from "@/lib/env";
+import { logChatbotMessage } from "@/lib/chatbot-log";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -22,6 +23,7 @@ const messageSchema = z.object({
 const payloadSchema = z.object({
   messages: z.array(messageSchema).min(1).max(20),
   locale: z.string().min(2).max(8).default("es"),
+  sessionId: z.string().min(8).max(64).optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -48,7 +50,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { messages, locale } = parsed.data;
+  const { messages, locale, sessionId } = parsed.data;
 
   const chatbotConfig = await getProfileChatbot(locale, "chatbotTech").catch(
     () => null
@@ -64,13 +66,40 @@ export async function POST(request: NextRequest) {
     ...messages,
   ];
 
+  // Logging opt-in: solo si llega sessionId y las env vars de Supabase están.
+  // Loguea el último mensaje del usuario (el resto es histórico ya logueado).
+  const loggingEnabled =
+    !!sessionId && !!env.NEXT_PUBLIC_SUPABASE_URL && !!env.SUPABASE_SECRET_KEY;
+  if (loggingEnabled) {
+    const lastUserMessage = messages[messages.length - 1];
+    if (lastUserMessage?.role === "user") {
+      void logChatbotMessage({
+        session_id: sessionId,
+        app: "tech",
+        role: "user",
+        content: lastUserMessage.content,
+      });
+    }
+  }
+
   try {
     const { stream, model } = await streamGroqChat({
       apiKey: env.GROQ_API_KEY,
       messages: fullMessages,
     });
 
-    return new Response(toClientSSE(stream, model), {
+    const onComplete = loggingEnabled
+      ? (fullText: string, modelUsed: string) =>
+          logChatbotMessage({
+            session_id: sessionId!,
+            app: "tech",
+            role: "assistant",
+            content: fullText,
+            model: modelUsed,
+          })
+      : undefined;
+
+    return new Response(toClientSSE(stream, model, onComplete), {
       headers: {
         "Content-Type": "text/event-stream; charset=utf-8",
         "Cache-Control": "no-cache, no-transform",

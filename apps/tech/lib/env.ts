@@ -9,6 +9,8 @@ const serverSchema = z.object({
   CONTACT_TO_EMAIL: z.email().optional(),
   CONTACT_FROM_EMAIL: z.email().optional(),
   GROQ_API_KEY: z.string().optional(),
+  NEXT_PUBLIC_SUPABASE_URL: z.url().optional(),
+  SUPABASE_SECRET_KEY: z.string().optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverSchema>;

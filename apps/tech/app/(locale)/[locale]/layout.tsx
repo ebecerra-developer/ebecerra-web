@@ -178,7 +178,16 @@ export default async function LocaleLayout({
               (locale === "es" ? "Pregunta técnica…" : "Technical question…")
             }
             locale={locale}
-            disclaimers={chatbot.disclaimers}
+            disclaimers={[
+              ...(chatbot.disclaimers ?? []),
+              ...(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SECRET_KEY
+                ? [
+                    locale === "es"
+                      ? "Esta conversación se guarda para mejorar el servicio. Más info en ebecerra.es/privacidad."
+                      : "This conversation is stored to improve the service. More info at ebecerra.es/en/privacidad.",
+                  ]
+                : []),
+            ]}
           />
         )}
         <Analytics />
