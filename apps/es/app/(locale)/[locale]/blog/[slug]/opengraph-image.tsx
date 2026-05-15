@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import type { Locale } from "@/i18n/routing";
 import { getPostBySlug } from "@ebecerra/sanity-client";
 
 export const runtime = "nodejs";
@@ -12,7 +11,7 @@ export const contentType = "image/png";
 export default async function OgImage({
   params,
 }: {
-  params: { locale: Locale; slug: string };
+  params: { locale: string; slug: string };
 }) {
   const post = await getPostBySlug(params.slug, params.locale).catch(() => null);
 

@@ -1,5 +1,4 @@
 import type { NextRequest } from "next/server";
-import type { Locale } from "@/i18n/routing";
 import { getPosts } from "@ebecerra/sanity-client";
 
 export const revalidate = 3600;
@@ -17,7 +16,7 @@ function escape(str: string): string {
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: Promise<{ locale: Locale }> }
+  { params }: { params: Promise<{ locale: string }> }
 ) {
   const { locale } = await params;
   const posts = await getPosts(locale, { limit: 50 });
