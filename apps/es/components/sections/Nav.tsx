@@ -165,7 +165,12 @@ export default function Nav() {
   // Scroll-spy: marca la sección actualmente visible en el viewport para
   // resaltar el ítem correspondiente en la sub-nav. Solo en home.
   // rootMargin "-30% 0px -55%" → activa cuando la sección está en la franja
-  // central del viewport (no apenas asoma ni casi se sale).
+  // central del viewport.
+  //
+  // Mantenemos un Set vivo de qué secciones están en zona — así al volver
+  // al hero (ninguna sección en zona) limpiamos el activo en lugar de
+  // dejar pegado el último visto. Antes "Servicios" se quedaba marcado
+  // tras subir al top.
   useEffect(() => {
     if (!isHome) return;
     const ids = ANCHOR_LINKS.map((l) => l.id);
@@ -174,18 +179,28 @@ export default function Nav() {
       .filter((el): el is HTMLElement => el !== null);
     if (sections.length === 0) return;
 
+    const visibleIds = new Set<string>();
+
     const observer = new IntersectionObserver(
       (entries) => {
-        // Mantenemos el último que entra como activo. Si ninguna está en la
-        // franja central, dejamos el último activo (no quitamos el highlight).
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) {
-          setActiveAnchor((visible[0].target as HTMLElement).id);
+        for (const entry of entries) {
+          const id = (entry.target as HTMLElement).id;
+          if (entry.isIntersecting) visibleIds.add(id);
+          else visibleIds.delete(id);
         }
+        if (visibleIds.size === 0) {
+          setActiveAnchor(null);
+          return;
+        }
+        // Si hay varias en zona, el activo es la más alta en el documento
+        // (la que aparece antes al scrollear).
+        const topmost = Array.from(visibleIds)
+          .map((id) => document.getElementById(id))
+          .filter((el): el is HTMLElement => !!el)
+          .sort((a, b) => a.offsetTop - b.offsetTop)[0];
+        if (topmost) setActiveAnchor(topmost.id);
       },
-      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+      { rootMargin: "-30% 0px -55% 0px", threshold: 0 }
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();

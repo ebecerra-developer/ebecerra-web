@@ -1,7 +1,11 @@
+/* max-width INCLUYE el padding (border-box). Para que el ancho REAL de
+   contenido sea --container-max y coincida con faq + home + ejemplos, usamos
+   el MISMO padding lateral que el resto: clamp(20px, 4vw, 56px). */
 .shell {
-  max-width: var(--container-max, 1100px);
+  max-width: calc(var(--container-max, 1100px) + 2 * 56px);
   margin: 0 auto;
-  padding: 80px 24px 120px;
+  padding-block: 80px 120px;
+  padding-inline: clamp(20px, 4vw, 56px);
 }
 
 .grid {
@@ -31,9 +35,10 @@
 }
 
 .postShell {
-  max-width: var(--container-max, 1100px);
+  max-width: calc(var(--container-max, 1100px) + 2 * 56px);
   margin: 0 auto;
-  padding: 80px 24px 120px;
+  padding-block: 80px 120px;
+  padding-inline: clamp(20px, 4vw, 56px);
 }
 
 .postLayout {

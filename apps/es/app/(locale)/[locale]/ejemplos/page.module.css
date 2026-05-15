@@ -4,10 +4,13 @@
   min-height: 100vh;
 }
 
+/* Mismo patrón que faq/home/blog: padding-inline clamp(20px, 4vw, 56px) y
+   max-width = container-max + 2*56 para que el ancho real de contenido
+   coincida con todas las demás páginas. */
 .inner {
-  max-width: var(--container-max);
+  max-width: calc(var(--container-max) + 2 * 56px);
   margin-inline: auto;
-  padding-inline: var(--gutter);
+  padding-inline: clamp(20px, 4vw, 56px);
 }
 
 .header {
