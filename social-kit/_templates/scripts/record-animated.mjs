@@ -39,6 +39,34 @@ const TARGETS = [
     poster: "personal/stories/story-aeo-poster.png",
     duration: 12,
   },
+  {
+    name: "story-quien-soy",
+    html: "_templates/stories/story-quien-soy.html",
+    out: "personal/stories/story-quien-soy.mp4",
+    poster: "personal/stories/story-quien-soy-poster.png",
+    duration: 10,
+  },
+  {
+    name: "story-por-que-ahora",
+    html: "_templates/stories/story-por-que-ahora.html",
+    out: "personal/stories/story-por-que-ahora.mp4",
+    poster: "personal/stories/story-por-que-ahora-poster.png",
+    duration: 10,
+  },
+  {
+    name: "story-lo-que-cuesta",
+    html: "_templates/stories/story-lo-que-cuesta.html",
+    out: "personal/stories/story-lo-que-cuesta.mp4",
+    poster: "personal/stories/story-lo-que-cuesta-poster.png",
+    duration: 10,
+  },
+  {
+    name: "story-madrid",
+    html: "_templates/stories/story-madrid.html",
+    out: "personal/stories/story-madrid.mp4",
+    poster: "personal/stories/story-madrid-poster.png",
+    duration: 8,
+  },
 ];
 
 const FPS = 30;
