@@ -1,85 +1,102 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
 import BlogIntro from "@/components/blog/BlogIntro";
-import PostCard from "@/components/blog/PostCard";
-import { getPosts, getCategories } from "@ebecerra/sanity-client";
 import BlogFilters from "@/components/blog/BlogFilters";
-import styles from "./Blog.module.css";
+import PostCard from "@/components/blog/PostCard";
+import {
+  getPosts,
+  getTagBySlug,
+  getTags,
+  getCategories,
+} from "@ebecerra/sanity-client";
+import styles from "../../Blog.module.css";
+
+export const revalidate = 1800;
 
 type Sort = "newest" | "oldest";
 function isSort(value: string | undefined): value is Sort {
   return value === "newest" || value === "oldest";
 }
 
-export const revalidate = 1800;
+export async function generateStaticParams() {
+  const tags = await getTags("es");
+  return routing.locales.flatMap((locale) =>
+    tags.map((t) => ({ locale, slug: t.slug }))
+  );
+}
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale, slug } = await params;
   const t = await getTranslations({ locale, namespace: "blog" });
-  const canonical = locale === "es" ? "/blog/" : "/en/blog/";
+  const tag = await getTagBySlug(slug, locale);
+  if (!tag) return {};
+
+  const canonical =
+    locale === "es" ? `/blog/tag/${slug}/` : `/${locale}/blog/tag/${slug}/`;
+  const title = `#${tag.title} · ${t("title")}`;
+  const description = tag.description ?? `${t("title")} · ${tag.title}`;
 
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
     robots: { index: true, follow: true },
     alternates: {
       canonical,
       languages: {
-        es: "/blog/",
-        en: "/en/blog/",
+        es: `/blog/tag/${slug}/`,
+        en: `/en/blog/tag/${slug}/`,
       },
     },
-    openGraph: {
-      title: t("metaTitle"),
-      description: t("metaDescription"),
-      type: "website",
-      locale: locale === "es" ? "es_ES" : "en_US",
-      url: canonical,
-    },
+    openGraph: { title, description, type: "website", url: canonical },
   };
 }
 
-export default async function BlogPage({
+export default async function TagPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{ category?: string; sort?: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
+  searchParams: Promise<{ sort?: string }>;
 }) {
-  const { locale } = await params;
+  const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "blog" });
 
   const sp = await searchParams;
   const order: Sort = isSort(sp.sort) ? sp.sort : "newest";
-  const categorySlug = sp.category?.trim() || null;
 
-  const [posts, categories] = await Promise.all([
-    getPosts(locale, { order, categorySlug: categorySlug ?? undefined }),
+  const [tag, posts, categories] = await Promise.all([
+    getTagBySlug(slug, locale),
+    getPosts(locale, { tagSlug: slug, order }),
     getCategories(locale),
   ]);
+
+  if (!tag) notFound();
 
   return (
     <>
       <Nav />
       <main id="main" className={styles.shell}>
         <BlogIntro
-          kicker={t("kicker")}
-          title={t("title")}
-          lead={t("lead")}
+          kicker={`// tag`}
+          title={`#${tag.title}`}
+          lead={tag.description ?? ""}
         />
 
         <BlogFilters
           categories={categories}
-          selectedCategory={categorySlug}
+          selectedCategory={null}
           order={order}
+          fixedScope="tag"
         />
 
         {posts.length === 0 ? (
