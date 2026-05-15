@@ -7,13 +7,17 @@ import type { Locale } from "@/i18n/routing";
 import LogoMark from "@/components/LogoMark";
 import styles from "./Nav.module.css";
 
-const NAV_ITEMS = [
-  { id: "servicios", key: "services" },
-  { id: "sobre-mi", key: "about" },
-  { id: "capacidades", key: "capabilities" },
-  { id: "proceso", key: "process" },
-  { id: "ejemplos", key: "examples" },
-  { id: "contacto", key: "contact" },
+// Nav top-level items. Tipo discrimina anchor (sección de home) vs page (ruta).
+// La nav top se mantiene corta — el footer tiene la lista completa.
+type NavItem =
+  | { type: "anchor"; id: string; key: string }
+  | { type: "page"; href: string; key: string };
+
+const NAV_ITEMS: readonly NavItem[] = [
+  { type: "anchor", id: "servicios", key: "services" },
+  { type: "anchor", id: "ejemplos", key: "examples" },
+  { type: "page", href: "/blog/", key: "blog" },
+  { type: "anchor", id: "contacto", key: "contact" },
 ] as const;
 
 function GlobeIcon({ size = 20 }: { size?: number }) {
@@ -153,6 +157,10 @@ export default function Nav() {
 
   const isHome = pathname === "/";
   const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
+  const itemHref = (item: NavItem) =>
+    item.type === "anchor" ? anchor(item.id) : item.href;
+  const itemKey = (item: NavItem) =>
+    item.type === "anchor" ? item.id : item.href;
 
   return (
     <nav className={styles.nav}>
@@ -165,7 +173,7 @@ export default function Nav() {
         {/* Desktop */}
         <div className={styles.desktopNav}>
           {NAV_ITEMS.map((item) => (
-            <NavLink key={item.id} href={anchor(item.id)}>
+            <NavLink key={itemKey(item)} href={itemHref(item)}>
               {t(item.key)}
             </NavLink>
           ))}
@@ -196,8 +204,8 @@ export default function Nav() {
         <div className={styles.mobileDrawer}>
           {NAV_ITEMS.map((item) => (
             <a
-              key={item.id}
-              href={anchor(item.id)}
+              key={itemKey(item)}
+              href={itemHref(item)}
               onClick={() => setOpen(false)}
               className={styles.mobileLink}
             >

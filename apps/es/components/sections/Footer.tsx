@@ -6,13 +6,18 @@ import LogoMark from "@/components/LogoMark";
 import type { SiteSettingsFooter } from "@ebecerra/sanity-client";
 import styles from "./Footer.module.css";
 
-const NAV_COL = [
-  { id: "servicios", key: "services" },
-  { id: "sobre-mi", key: "about" },
-  { id: "capacidades", key: "capabilities" },
-  { id: "proceso", key: "process" },
-  { id: "ejemplos", key: "examples" },
-  { id: "contacto", key: "contact" },
+type FooterNavItem =
+  | { type: "anchor"; id: string; key: string }
+  | { type: "page"; href: string; key: string };
+
+const NAV_COL: readonly FooterNavItem[] = [
+  { type: "anchor", id: "servicios", key: "services" },
+  { type: "anchor", id: "sobre-mi", key: "about" },
+  { type: "anchor", id: "capacidades", key: "capabilities" },
+  { type: "anchor", id: "proceso", key: "process" },
+  { type: "anchor", id: "ejemplos", key: "examples" },
+  { type: "page", href: "/blog/", key: "blog" },
+  { type: "anchor", id: "contacto", key: "contact" },
 ] as const;
 
 function ColTitle({ children }: { children: React.ReactNode }) {
@@ -93,11 +98,15 @@ export default function Footer({ footerData }: Props) {
           <div>
             <ColTitle>{t("colNavTitle")}</ColTitle>
             <ul className={styles.linkList}>
-              {NAV_COL.map((item) => (
-                <li key={item.id}>
-                  <FooterLink href={anchor(item.id)}>{tn(item.key)}</FooterLink>
-                </li>
-              ))}
+              {NAV_COL.map((item) => {
+                const href = item.type === "anchor" ? anchor(item.id) : item.href;
+                const k = item.type === "anchor" ? item.id : item.href;
+                return (
+                  <li key={k}>
+                    <FooterLink href={href}>{tn(item.key)}</FooterLink>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
