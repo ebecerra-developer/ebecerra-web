@@ -15,6 +15,7 @@ import AuthorBio from "@/components/blog/AuthorBio";
 import RelatedPosts from "@/components/blog/RelatedPosts";
 import PostJsonLd from "@/components/blog/PostJsonLd";
 import RoughActivator from "@/components/blog/RoughActivator";
+import PostCoverFallback from "@/components/blog/PostCoverFallback";
 import PostLikes from "@/components/blog/PostLikes";
 import CommentForm from "@/components/blog/CommentForm";
 import CommentList, {
@@ -192,8 +193,8 @@ export default async function PostPage({
           />
         </header>
 
-        {cover && (
-          <div className={styles.postCover}>
+        <div className={styles.postCover}>
+          {cover ? (
             <Image
               src={cover}
               alt={post.coverImage?.alt ?? ""}
@@ -202,8 +203,14 @@ export default async function PostPage({
               priority
               sizes="(min-width: 800px) 720px, 100vw"
             />
-          </div>
-        )}
+          ) : (
+            <PostCoverFallback
+              variant="hero"
+              title={post.title}
+              category={post.category?.title ?? null}
+            />
+          )}
+        </div>
 
         <div className={styles.postLayout}>
           <article className={styles.postBody} data-blog-post>

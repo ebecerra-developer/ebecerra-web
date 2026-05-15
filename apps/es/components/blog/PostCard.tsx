@@ -4,6 +4,7 @@ import type { PostListItem } from "@ebecerra/sanity-client";
 import type { Locale } from "@/i18n/routing";
 import { urlFor } from "@/lib/sanity-image";
 import PostMeta from "./PostMeta";
+import PostCoverFallback from "./PostCoverFallback";
 import styles from "./PostCard.module.css";
 
 type Props = {
@@ -34,7 +35,11 @@ export default function PostCard({ post, locale }: Props) {
             className={styles.cover}
           />
         ) : (
-          <div className={styles.coverFallback} aria-hidden />
+          <PostCoverFallback
+            variant="card"
+            title={post.title}
+            category={post.category?.title ?? null}
+          />
         )}
       </Link>
       <div className={styles.body}>
