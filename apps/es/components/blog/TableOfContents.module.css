@@ -1,21 +1,15 @@
+/* ToC inline al inicio del post: bloque a ancho completo del body, fondo
+   sutil, no sticky (decisión: el body ahora ocupa el ancho de página y no
+   tiene segunda columna donde anclar el sticky). */
 .toc {
-  display: none;
-}
-
-@media (min-width: 1100px) {
-  .toc {
-    display: block;
-    position: sticky;
-    top: 96px;
-    align-self: start;
-    width: 220px;
-    margin-left: 32px;
-    padding-left: 20px;
-    border-left: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--text-secondary);
-  }
+  margin: 24px 0 32px;
+  padding: 16px 20px;
+  background: var(--surface-subtle, rgba(0, 0, 0, 0.03));
+  border-left: 3px solid var(--accent, var(--cta));
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-secondary);
 }
 
 .label {

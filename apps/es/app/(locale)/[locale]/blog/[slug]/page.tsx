@@ -176,40 +176,42 @@ export default async function PostPage({
           {t("backToList")}
         </Link>
 
-        <header className={styles.postHeader}>
-          {post.category && categoryHref && (
-            <Link href={categoryHref} className={styles.postCategory}>
-              {post.category.title}
-            </Link>
-          )}
-          <h1 className={styles.postTitle}>{post.title}</h1>
-          <p className={styles.postExcerpt}>{post.excerpt}</p>
-          <PostMeta
-            publishedAt={post.publishedAt}
-            updatedAt={post.updatedAt}
-            readingMinutes={post.readingMinutes}
-            authorName={post.author?.name ?? null}
-            locale={locale}
-          />
-        </header>
-
-        <div className={styles.postCover}>
-          {cover ? (
-            <Image
-              src={cover}
-              alt={post.coverImage?.alt ?? ""}
-              width={1280}
-              height={720}
-              priority
-              sizes="(min-width: 800px) 720px, 100vw"
-            />
-          ) : (
-            <PostCoverFallback variant="hero" />
-          )}
-        </div>
-
         <div className={styles.postLayout}>
           <article className={styles.postBody} data-blog-post>
+            <header className={styles.postHeader}>
+              {post.category && categoryHref && (
+                <Link href={categoryHref} className={styles.postCategory}>
+                  {post.category.title}
+                </Link>
+              )}
+              <h1 className={styles.postTitle}>{post.title}</h1>
+              <p className={styles.postExcerpt}>{post.excerpt}</p>
+              <PostMeta
+                publishedAt={post.publishedAt}
+                updatedAt={post.updatedAt}
+                readingMinutes={post.readingMinutes}
+                authorName={post.author?.name ?? null}
+                locale={locale}
+              />
+            </header>
+
+            <div className={styles.postCover}>
+              {cover ? (
+                <Image
+                  src={cover}
+                  alt={post.coverImage?.alt ?? ""}
+                  width={1280}
+                  height={720}
+                  priority
+                  sizes="(min-width: 1100px) 1100px, 100vw"
+                />
+              ) : (
+                <PostCoverFallback variant="hero" />
+              )}
+            </div>
+
+            <TableOfContents blocks={post.body} label={t("tocLabel")} />
+
             <PortableContent blocks={highlightedBody} />
 
             {post.tags.length > 0 && (
@@ -272,8 +274,6 @@ export default async function PostPage({
               />
             </section>
           </article>
-
-          <TableOfContents blocks={post.body} label={t("tocLabel")} />
         </div>
 
         <RelatedPosts
