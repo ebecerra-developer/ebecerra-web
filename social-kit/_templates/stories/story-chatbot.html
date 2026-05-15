@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../carruseles/4-demos/_base.css" />
+<style>
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--cream); }
+
+  .story {
+    width: 1080px; height: 1920px;
+    background: var(--cream);
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .top-band {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 140px; background: var(--green);
+    display: flex; align-items: center;
+    padding: 0 80px;
+    color: var(--cream);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-size: 22px;
+    text-transform: uppercase;
+  }
+  .top-band__dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--cream); color: var(--green);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 18px; margin-right: 16px;
+  }
+
+  /* Headline */
+  .headline {
+    position: absolute;
+    top: 200px;
+    left: 72px;
+    right: 72px;
+    font-size: 116px;
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    color: var(--ink);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .headline em {
+    font-style: normal;
+    color: var(--green);
+  }
+  .headline.in {
+    animation: rise 0.7s 0.15s forwards cubic-bezier(.2,.8,.2,1);
+  }
+
+  .sub {
+    position: absolute;
+    top: 440px;
+    left: 72px;
+    right: 72px;
+    font-size: 28px;
+    color: var(--muted);
+    font-weight: 500;
+    line-height: 1.3;
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  .sub.in {
+    animation: rise 0.6s 0.85s forwards cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  /* FAB (closed chat) */
+  .fab {
+    position: absolute;
+    bottom: 220px;
+    right: 80px;
+    width: 124px; height: 124px;
+    border-radius: 50%;
+    background: var(--green);
+    color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 58px;
+    box-shadow: 0 14px 32px rgba(4,120,87,0.4);
+    transform: scale(0);
+    transform-origin: center;
+    opacity: 1;
+    z-index: 4;
+  }
+  .fab.in { animation: pop 0.4s 1.3s forwards cubic-bezier(.34,1.56,.64,1); }
+  .fab.gone { animation: pop 0.4s 1.3s forwards cubic-bezier(.34,1.56,.64,1), fadeOut 0.3s 1.95s forwards; }
+  @keyframes pop {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+  }
+  @keyframes fadeOut { to { opacity: 0; transform: scale(0.5); } }
+
+  /* Chat panel — BIG */
+  .chat {
+    position: absolute;
+    top: 540px;
+    left: 60px;
+    right: 60px;
+    height: 1080px;
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 32px;
+    box-shadow: 16px 16px 0 var(--green);
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.4) translateY(40px);
+    transform-origin: bottom right;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+  }
+  .chat.in {
+    animation: chatIn 0.5s 1.95s forwards cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes chatIn {
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .chat__header {
+    background: var(--green);
+    color: var(--cream);
+    padding: 26px 32px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-weight: 700;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .chat__header .dot {
+    width: 16px; height: 16px; border-radius: 50%; background: #6EE7B7;
+    animation: ping 1.6s ease-in-out infinite;
+  }
+  @keyframes ping {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(110,231,183,0.7); }
+    50% { box-shadow: 0 0 0 8px rgba(110,231,183,0); }
+  }
+  .chat__header__sub {
+    margin-left: auto;
+    font-weight: 500;
+    font-size: 18px;
+    opacity: 0.85;
+  }
+
+  .chat__body {
+    padding: 32px 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    overflow: hidden;
+  }
+
+  /* Bubbles */
+  .msg {
+    max-width: 70%;
+    padding: 22px 28px;
+    font-size: 28px;
+    line-height: 1.35;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .msg--bot {
+    align-self: flex-start;
+    background: #F3F4F6;
+    color: var(--ink);
+    border-radius: 22px 22px 22px 8px;
+  }
+  .msg--user {
+    align-self: flex-end;
+    background: var(--green);
+    color: var(--cream);
+    border-radius: 22px 22px 8px 22px;
+  }
+
+  /* Typing dots */
+  .typing {
+    align-self: flex-start;
+    background: #F3F4F6;
+    border-radius: 22px 22px 22px 8px;
+    padding: 22px 28px;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+  }
+  .typing span {
+    width: 14px; height: 14px; border-radius: 50%; background: #9CA3AF;
+    animation: bounce 1s infinite;
+  }
+  .typing span:nth-child(2) { animation-delay: 0.15s; }
+  .typing span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes bounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+    40% { transform: translateY(-8px); opacity: 1; }
+  }
+
+  /* Timings — chat opens at 1.95s, +0.5s in */
+  /* bot greeting */
+  .msg-1 { animation: bubbleIn 0.4s 2.6s forwards cubic-bezier(.2,.8,.2,1); }
+  /* user msg 1 */
+  .msg-2 { animation: bubbleIn 0.4s 3.7s forwards cubic-bezier(.2,.8,.2,1); }
+  /* typing 1 */
+  .typing-1 {
+    animation: fadeIn 0.3s 4.4s forwards, fadeOut 0.3s 5.4s forwards;
+  }
+  /* bot reply */
+  .msg-3 { animation: bubbleIn 0.4s 5.5s forwards cubic-bezier(.2,.8,.2,1); }
+  /* user msg 2 */
+  .msg-4 { animation: bubbleIn 0.4s 6.7s forwards cubic-bezier(.2,.8,.2,1); }
+  /* typing 2 */
+  .typing-2 {
+    animation: fadeIn 0.3s 7.4s forwards, fadeOut 0.3s 8.2s forwards;
+  }
+  /* bot reply final */
+  .msg-5 { animation: bubbleIn 0.4s 8.3s forwards cubic-bezier(.2,.8,.2,1); }
+
+  @keyframes bubbleIn { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* Final overlay — appears LATE, does NOT cover chat */
+  .final {
+    position: absolute;
+    left: 60px;
+    right: 60px;
+    bottom: 80px;
+    padding: 32px 44px;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 24px;
+    opacity: 0;
+    transform: translateY(40px);
+    z-index: 5;
+    text-align: center;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.18);
+  }
+  .final.in {
+    animation: rise 0.5s 10.0s forwards cubic-bezier(.2,.8,.2,1);
+  }
+  .final__big {
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+    margin-bottom: 10px;
+  }
+  .final__small {
+    font-size: 24px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  .final__small em {
+    font-style: normal;
+    color: #6EE7B7;
+    font-weight: 800;
+  }
+</style>
+</head>
+<body>
+  <div class="story">
+    <div class="top-band">
+      <span class="top-band__dot">eB</span> novedad ✦
+    </div>
+
+    <h1 class="headline in">Tu web ahora<br/>puede <em>hablar</em>.</h1>
+    <p class="sub in">Chatbot con IA. En todas mis webs y demos.</p>
+
+    <!-- FAB (closed chat) — appears, then fades when chat opens -->
+    <div class="fab gone" id="fab">💬</div>
+
+    <!-- Chat panel — BIG, with multi-turn conversation -->
+    <div class="chat in" id="chat">
+      <div class="chat__header">
+        <span class="dot"></span>
+        <span>chat — ebecerra</span>
+        <span class="chat__header__sub">en línea</span>
+      </div>
+      <div class="chat__body">
+        <div class="msg msg--bot msg-1">¡Hola! Soy el chatbot. ¿Te ayudo en algo? 🌱</div>
+        <div class="msg msg--user msg-2">¿Cuánto cuesta una web nueva?</div>
+        <div class="typing typing-1"><span></span><span></span><span></span></div>
+        <div class="msg msg--bot msg-3">Depende del proyecto. ¿Me dejas tu email y te escribe Enrique?</div>
+        <div class="msg msg--user msg-4">javi@miempresa.es</div>
+        <div class="typing typing-2"><span></span><span></span><span></span></div>
+        <div class="msg msg--bot msg-5">Listo ✓ Te contesta en menos de 24 h.</div>
+      </div>
+    </div>
+
+    <div class="final in">
+      <div class="final__big">¿Lo quieres en la tuya?</div>
+      <div class="final__small"><em>DM</em> y te cuento cómo encaja.</div>
+    </div>
+  </div>
+  <script>
+    setTimeout(() => { window.__animationDone = true; }, 12000);
+  </script>
+</body>
+</html>

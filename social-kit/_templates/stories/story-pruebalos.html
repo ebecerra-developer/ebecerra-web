@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../carruseles/4-demos/_base.css" />
+<style>
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--cream); }
+
+  .story {
+    width: 1080px; height: 1920px;
+    background: var(--cream);
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .top-band {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 140px; background: var(--green);
+    display: flex; align-items: center;
+    padding: 0 80px;
+    color: var(--cream);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-size: 22px;
+    text-transform: uppercase;
+  }
+  .top-band__dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--cream); color: var(--green);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 18px; margin-right: 16px;
+  }
+
+  .header {
+    padding: 200px 72px 36px;
+  }
+  .header h1 {
+    font-size: 96px;
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .header h1 em { font-style: normal; color: var(--green); }
+  .header .sub {
+    font-size: 26px;
+    color: var(--muted);
+    font-weight: 500;
+    line-height: 1.35;
+    max-width: 800px;
+  }
+
+  .cards {
+    padding: 0 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .card {
+    display: flex;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .card__accent {
+    width: 14px;
+    flex-shrink: 0;
+  }
+  .card__body {
+    flex: 1;
+    padding: 22px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card__host {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: -0.01em;
+  }
+  .card__msg {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.32;
+    color: var(--ink);
+  }
+
+  /* Footer CTA */
+  .cta {
+    position: absolute;
+    bottom: 88px;
+    left: 72px;
+    right: 72px;
+    padding: 28px 36px;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 22px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .cta em {
+    font-style: normal;
+    color: #6EE7B7;
+  }
+</style>
+</head>
+<body>
+  <div class="story">
+    <div class="top-band">
+      <span class="top-band__dot">eB</span> pruébalos ✦
+    </div>
+
+    <header class="header">
+      <h1>5 webs.<br/><em>5 chatbots</em>.</h1>
+      <p class="sub">Cada uno con su tono. Pruébalos tú mismo en cualquier dispositivo.</p>
+    </header>
+
+    <div class="cards">
+      <div class="card">
+        <span class="card__accent" style="background: #047857;"></span>
+        <div class="card__body">
+          <span class="card__host">ebecerra.es</span>
+          <span class="card__msg">"Hola, soy el bot de Enrique. ¿Te cuento qué webs hago?"</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card__accent" style="background: #2e3cff;"></span>
+        <div class="card__body">
+          <span class="card__host">demos.ebecerra.es/eco</span>
+          <span class="card__msg">"Hola desde eco. ¿Buscas redes, SEO o campañas?"</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card__accent" style="background: #2d5d6e;"></span>
+        <div class="card__body">
+          <span class="card__host">demos.ebecerra.es/equilibrio</span>
+          <span class="card__msg">"Hola, soy el bot de Equilibrio. ¿Te reservo una valoración?"</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card__accent" style="background: #6b3a3a;"></span>
+        <div class="card__body">
+          <span class="card__host">demos.ebecerra.es/marta-solana</span>
+          <span class="card__msg">"Hola. Acompaño a Marta. ¿Hablamos de tu caso?"</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card__accent" style="background: #d6296a;"></span>
+        <div class="card__body">
+          <span class="card__host">demos.ebecerra.es/claudia-entrena</span>
+          <span class="card__msg">"¡Ey! Soy el bot de Claudia. ¿Te apunto a un reto?"</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta">
+      Abre cualquiera y dale al <em>💬</em>
+    </div>
+  </div>
+</body>
+</html>

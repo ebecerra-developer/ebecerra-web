@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1080px; overflow:hidden; font-family:'Inter',sans-serif; background:#FAFAF9; }
+  .stage { width:1080px; height:1080px; padding:80px 72px; display:flex; flex-direction:column; gap:32px; }
+  .top { display:flex; align-items:center; gap:20px; }
+  .top img { width:80px; height:80px; border-radius:20px; }
+  .top span { font-size:28px; font-weight:700; color:#047857; }
+  h1 { font-size:72px; font-weight:800; color:#0A0A0A; line-height:1.05; letter-spacing:-0.02em; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; flex:1; margin-top:16px; }
+  .card { background:#fff; border:2px solid #E7E5E4; border-radius:28px; padding:36px; display:flex; flex-direction:column; justify-content:space-between; }
+  .num { font-size:36px; font-weight:800; color:#047857; }
+  .title { font-size:36px; font-weight:700; color:#111; line-height:1.15; margin-top:8px; }
+  .benefit { font-size:32px; font-weight:600; color:#047857; line-height:1.2; }
+  .foot { text-align:center; font-size:34px; font-weight:700; color:#047857; letter-spacing:-0.01em; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="top"><img src="../personal/avatars/avatar-eB-green-512.png"><span>ebecerra.es</span></div>
+    <h1>4 formas de tener<br>tu web profesional.</h1>
+    <div class="grid">
+      <div class="card"><div><div class="num">01</div><div class="title">Web profesional</div></div><div class="benefit">Para empezar bien</div></div>
+      <div class="card"><div><div class="num">02</div><div class="title">Web editable</div></div><div class="benefit">Tú la actualizas</div></div>
+      <div class="card"><div><div class="num">03</div><div class="title">Rescate web</div></div><div class="benefit">Arregla la que ya tienes</div></div>
+      <div class="card"><div><div class="num">04</div><div class="title">Mantenimiento</div></div><div class="benefit">Mantenla a punto</div></div>
+    </div>
+    <div class="foot">Una web que sí te representa.</div>
+  </div>
+</body>
+</html>

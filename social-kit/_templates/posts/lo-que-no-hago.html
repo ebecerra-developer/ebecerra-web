@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../carruseles/4-demos/_base.css" />
+<style>
+  html, body { width: 1080px; height: 1350px; }
+  .post {
+    width: 1080px; height: 1350px;
+    background: var(--green);
+    color: var(--cream);
+    padding: 96px 80px 88px;
+    position: relative;
+    overflow: hidden;
+  }
+  .blob1, .blob2 {
+    position: absolute; border-radius: 50%; pointer-events: none;
+  }
+  .blob1 { width: 420px; height: 420px; background: var(--green-deeper); top: -140px; right: -120px; opacity: 0.55; }
+  .blob2 { width: 280px; height: 280px; background: var(--coral); bottom: -100px; left: -60px; opacity: 0.16; }
+
+  .kicker { color: var(--cream); opacity: 0.65; margin-bottom: 24px; font-size: 19px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  h1 {
+    font-size: 152px;
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+    font-weight: 900;
+    margin-bottom: 80px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--coral);
+    font-weight: 900;
+  }
+
+  .list { display: flex; flex-direction: column; gap: 32px; max-width: 880px; }
+  .item {
+    display: flex; gap: 26px; align-items: flex-start;
+    border-top: 1.5px solid rgba(250,250,249,0.22);
+    padding-top: 28px;
+  }
+  .item__x {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--coral); color: #1a1a1a;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-weight: 900; font-size: 28px; line-height: 1;
+  }
+  .item__text {
+    font-size: 36px;
+    line-height: 1.18;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    padding-top: 8px;
+  }
+
+  .brand-mark {
+    position: absolute; bottom: 56px; left: 80px;
+    color: var(--cream); font-size: 22px; font-weight: 700;
+  }
+</style>
+</head>
+<body>
+  <div class="post">
+    <span class="blob1"></span>
+    <span class="blob2"></span>
+    <p class="kicker">// cómo trabajo</p>
+    <h1>Lo que <em>NO</em><br/>hago.</h1>
+    <div class="list">
+      <div class="item"><span class="item__x">✕</span><span class="item__text">Plantillas recicladas.</span></div>
+      <div class="item"><span class="item__x">✕</span><span class="item__text">Subcontratar a desconocidos.</span></div>
+      <div class="item"><span class="item__x">✕</span><span class="item__text">Atarte a permanencias raras.</span></div>
+      <div class="item"><span class="item__x">✕</span><span class="item__text">Desaparecer al entregar.</span></div>
+    </div>
+    <span class="brand-mark"><span class="brand-mark__dot" style="background:var(--cream);color:var(--green);width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;margin-right:10px;">eB</span>ebecerra.es</span>
+  </div>
+</body>
+</html>

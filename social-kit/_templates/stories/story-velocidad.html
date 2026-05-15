@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" />
+<style>
+  :root {
+    --green: #047857;
+    --green-deep: #064E3B;
+    --cream: #FAFAF9;
+    --ink: #0A0A0A;
+    --muted: #525252;
+    --coral: #FF6B4A;
+    --red: #B91C1C;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  body { font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .stage {
+    position: relative;
+    width: 1080px; height: 1920px;
+    background: var(--cream);
+    overflow: hidden;
+  }
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none; opacity: 0.18;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(0,0,0,0.5) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 50;
+  }
+
+  .corner {
+    position: absolute;
+    top: 80px;
+    left: 80px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    z-index: 40;
+  }
+  .corner .dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--green);
+    color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+  }
+  .corner--light { color: var(--cream); }
+  .corner--light .dot { background: var(--cream); color: var(--green); }
+
+  /* SCENE 1 — Q */
+  .scene { position: absolute; inset: 0; opacity: 0; padding: 240px 80px 0; }
+  .scene--green { background: var(--green); color: var(--cream); }
+  .scene--cream { background: var(--cream); color: var(--ink); }
+
+  .big {
+    font-size: 130px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.94;
+  }
+  .big em { font-style: normal; color: var(--green); }
+  .scene--green .big em { color: #6EE7B7; }
+
+  .sub {
+    margin-top: 36px;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .scene--green .sub { color: rgba(250,250,249,0.9); }
+
+  /* SCENE 2 — Counter */
+  .counter-wrap {
+    position: absolute;
+    top: 720px;
+    left: 0; right: 0;
+    text-align: center;
+  }
+  .counter {
+    font-size: 480px;
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .counter__pct {
+    font-size: 280px;
+    letter-spacing: -0.04em;
+    vertical-align: 0.18em;
+  }
+
+  .source {
+    position: absolute;
+    bottom: 160px;
+    left: 80px; right: 80px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    opacity: 0.75;
+    letter-spacing: 0.02em;
+  }
+
+  /* SCENE 3 — comparison */
+  .speed-grid {
+    position: absolute;
+    top: 800px;
+    left: 80px; right: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+  .speed-card {
+    background: var(--cream);
+    border: 4px solid var(--ink);
+    border-radius: 28px;
+    padding: 40px 32px;
+    text-align: center;
+    color: var(--ink);
+    box-shadow: 12px 12px 0 var(--green);
+  }
+  .speed-card--bad { box-shadow: 12px 12px 0 var(--red); }
+  .speed-card__label {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    opacity: 0.7;
+  }
+  .speed-card__time {
+    font-size: 120px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .speed-card--bad .speed-card__time { color: var(--red); }
+  .speed-card--good .speed-card__time { color: var(--green); }
+  .speed-card__unit {
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* SCENE 4 — CTA */
+  .cta__handle {
+    margin-top: 60px;
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    background: var(--cream);
+    color: var(--green);
+    padding: 26px 50px;
+    border-radius: 999px;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <!-- SCENE 1: Question -->
+    <div class="scene scene--cream" id="s1">
+      <div class="corner"><span class="dot">eB</span> dato</div>
+      <div class="big">Si tu web<br/>tarda <em>+3 s</em><br/>en cargar…</div>
+      <div class="sub">…esto es lo que pasa.</div>
+    </div>
+
+    <!-- SCENE 2: Counter -->
+    <div class="scene scene--green" id="s2">
+      <div class="corner corner--light"><span class="dot">eB</span> dato</div>
+      <div class="big">El <em id="pctText">0</em><em class="counter__pct">%</em><br/>se va.</div>
+      <div class="sub" style="margin-top: 48px;">Antes de verla. Antes de saber qué haces.</div>
+      <div class="source">Fuente: Google · Think with Google (mobile page speed)</div>
+    </div>
+
+    <!-- SCENE 3: Comparison -->
+    <div class="scene scene--cream" id="s3">
+      <div class="corner"><span class="dot">eB</span> dato</div>
+      <div class="big">Las mías<br/>cargan en…</div>
+      <div class="speed-grid">
+        <div class="speed-card speed-card--bad">
+          <div class="speed-card__label">web típica</div>
+          <div class="speed-card__time" id="badTime">7,4</div>
+          <div class="speed-card__unit">segundos</div>
+        </div>
+        <div class="speed-card speed-card--good">
+          <div class="speed-card__label">demos eB</div>
+          <div class="speed-card__time" id="goodTime">1,2</div>
+          <div class="speed-card__unit">segundos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 4: CTA -->
+    <div class="scene scene--green" id="s4" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 0; text-align: center;">
+      <div class="corner corner--light"><span class="dot">eB</span> dato</div>
+      <div class="big" style="text-align: center;">Pruébalas<br/>tú mismo.</div>
+      <div class="cta__handle">demos.ebecerra.es</div>
+      <div class="sub" style="text-align: center; margin-top: 50px;">4 demos vivas · todas &lt; 2 s</div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.out" },
+      paused: true,
+    });
+    const FADE_OUT = { immediateRender: false };
+
+    // SCENE 1 (0 → 2.8s). First frame already visible for IG grid thumbnail.
+    gsap.set("#s1", { opacity: 1 });
+    gsap.set("#s1 .big", { y: 0, opacity: 1 });
+    gsap.set("#s1 .sub", { y: 0, opacity: 1 });
+    tl.fromTo("#s1", { opacity: 1 }, { opacity: 0, duration: 0.45, ...FADE_OUT }, 2.4);
+
+    // SCENE 2 (2.7 → 6.8s) — counter slow + hold
+    tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 2.7);
+    tl.fromTo("#s2 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 2.9);
+    const obj = { v: 0 };
+    tl.fromTo(obj, { v: 0 }, {
+      v: 53,
+      duration: 2.0,
+      ease: "power2.out",
+      onUpdate: () => {
+        document.getElementById("pctText").textContent = Math.round(obj.v);
+      }
+    }, 3.2);
+    tl.fromTo("#s2 .sub", { opacity: 0 }, { opacity: 1, duration: 0.55 }, 5.0);
+    tl.fromTo("#s2 .source", { opacity: 0 }, { opacity: 0.75, duration: 0.55 }, 5.5);
+    tl.fromTo("#s2", { opacity: 1 }, { opacity: 0, duration: 0.4, ...FADE_OUT }, 6.7);
+
+    // SCENE 3 (6.9 → 10s) — comparison
+    tl.fromTo("#s3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 6.9);
+    tl.fromTo("#s3 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 7.1);
+    tl.fromTo("#s3 .speed-card--bad", { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 1.1, ease: "power3.out" }, 7.7);
+    tl.fromTo("#s3 .speed-card--good", { x: 100, opacity: 0 }, { x: 0, opacity: 1, duration: 1.1, ease: "power3.out" }, 8.35);
+    tl.fromTo("#s3", { opacity: 1 }, { opacity: 0, duration: 0.4, ...FADE_OUT }, 10.0);
+
+    // SCENE 4 (10.1 → 12s)
+    tl.fromTo("#s4", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 10.1);
+    tl.fromTo("#s4 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 10.3);
+    tl.fromTo("#s4 .cta__handle", { scale: 0.75, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.95, ease: "power3.out" }, 10.85);
+    tl.fromTo("#s4 .sub", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 11.4);
+
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+    setTimeout(() => { window.__animationDone = true; }, 10500);
+  </script>
+</body>
+</html>

@@ -45,3 +45,17 @@ commit-msg.txt
 
 # Junction a workspace externo (no commitear)
 _external-plantilla/
+
+# social-kit — track templates / scripts / plans / brand SVGs only.
+# Binarios derivables (mp4, png renderizados) y node_modules quedan fuera.
+# Si necesitas regenerar: cd social-kit/_templates/scripts && node record-animated.mjs
+social-kit/personal/_tmp-*/
+social-kit/personal/captures/
+social-kit/personal/reels/
+social-kit/personal/stories/
+social-kit/personal/carruseles/
+social-kit/personal/posts/
+social-kit/personal/covers/
+social-kit/personal/highlights/
+social-kit/piezas/captures/
+social-kit/piezas/posts/

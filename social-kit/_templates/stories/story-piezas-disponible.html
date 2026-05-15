@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Inter:wght@400;600;700;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1920px; overflow:hidden; font-family:'Inter',sans-serif; }
+  .stage {
+    width:1080px; height:1920px;
+    background: #F7F2E8;
+    color:#3A2A1C;
+    padding:160px 90px 140px;
+    display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+    position:relative;
+  }
+  .stage::before {
+    content:""; position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 80% 12%, rgba(207,135,27,0.16), transparent 50%),
+      radial-gradient(circle at 15% 90%, rgba(207,135,27,0.12), transparent 55%);
+    pointer-events:none;
+  }
+  .badge {
+    position:relative;
+    background:#CF871B; color:#fff;
+    padding:18px 40px; border-radius:999px;
+    font-size:30px; font-weight:700; letter-spacing:.10em; text-transform:uppercase;
+  }
+  .center { display:flex; flex-direction:column; align-items:center; gap:80px; position:relative; }
+  .logo { width:520px; height:520px; border-radius:120px; overflow:hidden; box-shadow:0 32px 88px rgba(58,42,28,0.28); }
+  .logo img { width:100%; height:100%; display:block; }
+  .headline { text-align:center; padding:0 20px; }
+  .headline .lead {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:76px;
+    font-weight:500; line-height:1.0; color:#3A2A1C; opacity:.85;
+  }
+  .headline h1 {
+    font-family:'Cormorant Garamond',serif; font-weight:700;
+    font-size:164px; line-height:0.95; letter-spacing:-0.02em;
+    margin-top:14px;
+  }
+  .headline h1 b { color:#CF871B; }
+  .foot { display:flex; flex-direction:column; align-items:center; gap:32px; position:relative; }
+  .store {
+    background:#3A2A1C; color:#F7F2E8;
+    padding:28px 56px 28px 44px; border-radius:999px;
+    display:flex; align-items:center; gap:24px;
+    box-shadow:0 14px 36px rgba(58,42,28,0.30);
+  }
+  .store .gp-icon { width:60px; height:66px; flex-shrink:0; }
+  .store .txt { display:flex; flex-direction:column; line-height:1.1; }
+  .store .txt small { font-size:22px; font-weight:500; opacity:.75; letter-spacing:.06em; text-transform:uppercase; }
+  .store .txt span { font-size:44px; font-weight:700; letter-spacing:-0.01em; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="badge">Nuevo · 2026</div>
+    <div class="center">
+      <div class="logo"><img src="../../piezas/logos/piezas-icon-512.png"></div>
+      <div class="headline">
+        <div class="lead">Ya está aquí.</div>
+        <h1><b>Piezas</b><br>ya disponible.</h1>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="store">
+        <svg class="gp-icon" viewBox="0 0 60 66" xmlns="http://www.w3.org/2000/svg">
+          <!-- Google Play 4-color triangle (oficial: verde, azul, amarillo, rojo) -->
+          <defs>
+            <linearGradient id="gpGreen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#00F076"/>
+              <stop offset="1" stop-color="#00A472"/>
+            </linearGradient>
+            <linearGradient id="gpBlue" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#00C7E4"/>
+              <stop offset="1" stop-color="#0066D9"/>
+            </linearGradient>
+            <linearGradient id="gpYellow" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#FFD400"/>
+              <stop offset="1" stop-color="#FF8E00"/>
+            </linearGradient>
+            <linearGradient id="gpRed" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#FF3A44"/>
+              <stop offset="1" stop-color="#C31162"/>
+            </linearGradient>
+          </defs>
+          <!-- Verde: izquierda arriba -->
+          <polygon fill="url(#gpGreen)" points="4,2 30,33 4,33"/>
+          <!-- Azul: izquierda abajo -->
+          <polygon fill="url(#gpBlue)" points="4,33 30,33 4,64"/>
+          <!-- Amarillo: derecha arriba -->
+          <polygon fill="url(#gpYellow)" points="4,2 56,33 30,33"/>
+          <!-- Rojo: derecha abajo -->
+          <polygon fill="url(#gpRed)" points="30,33 56,33 4,64"/>
+        </svg>
+        <div class="txt">
+          <small>Disponible en</small>
+          <span>Google Play</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

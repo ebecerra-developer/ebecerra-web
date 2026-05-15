@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" />
+<style>
+  :root {
+    --green: #047857;
+    --cream: #FAFAF9;
+    --ink: #0A0A0A;
+    --muted: #525252;
+    --google-blue: #1A73E8;
+    --chatgpt-green: #10A37F;
+    --maps-red: #EA4335;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .stage {
+    position: relative;
+    width: 1080px; height: 1920px;
+    background: var(--cream);
+    overflow: hidden;
+  }
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none; opacity: 0.18;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(0,0,0,0.5) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 50;
+  }
+
+  .corner {
+    position: absolute;
+    top: 80px; left: 80px;
+    display: flex; align-items: center; gap: 14px;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    z-index: 40;
+  }
+  .corner .dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--green); color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+  }
+  .corner--light { color: var(--cream); }
+  .corner--light .dot { background: var(--cream); color: var(--green); }
+
+  .scene {
+    position: absolute; inset: 0;
+    padding: 220px 80px 0;
+    opacity: 0;
+  }
+
+  /* SCENE 1: Hook */
+  #s1 {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding-top: 0;
+    background: var(--cream);
+  }
+  #s1 .big {
+    font-size: 140px;
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    color: var(--ink);
+  }
+  #s1 .big em { font-style: normal; color: var(--green); }
+  #s1 .sub {
+    margin-top: 36px;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  /* Card stack — fakes search/chat/maps surfaces */
+  .card {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 380px;
+    background: #fff;
+    border: 4px solid var(--ink);
+    border-radius: 36px;
+    padding: 48px;
+    box-shadow: 16px 16px 0 var(--green);
+    opacity: 0;
+  }
+  .card__brand {
+    display: flex; align-items: center; gap: 16px;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 32px;
+  }
+  .card__brand-dot {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-weight: 900;
+    font-size: 26px;
+  }
+  .card__brand-dot--g { background: var(--google-blue); }
+  .card__brand-dot--c { background: var(--chatgpt-green); }
+  .card__brand-dot--m { background: var(--maps-red); }
+  .card__search {
+    background: #F1F3F4;
+    border-radius: 999px;
+    padding: 28px 40px;
+    font-size: 32px;
+    color: #222;
+    margin-bottom: 40px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .card__search::before {
+    content: "🔍";
+    font-size: 30px;
+  }
+  .card__result {
+    border-top: 2px solid #E5E7EB;
+    padding-top: 32px;
+  }
+  .card__url {
+    font-size: 22px;
+    color: #5F6368;
+    margin-bottom: 14px;
+  }
+  .card__title {
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--google-blue);
+    line-height: 1.2;
+    margin-bottom: 18px;
+  }
+  .card__snippet {
+    font-size: 24px;
+    color: #4A4A4A;
+    line-height: 1.35;
+  }
+  .card__highlight {
+    background: #FEF3C7;
+    padding: 0 6px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .card__badge {
+    display: inline-block;
+    margin-top: 24px;
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: 999px;
+    transform: rotate(-2deg);
+  }
+
+  /* ChatGPT-style bubble inside card */
+  .chat-msg {
+    background: #F7F7F8;
+    border-radius: 22px;
+    padding: 28px 32px;
+    font-size: 26px;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .chat-msg--user {
+    background: #ECFDF5;
+    align-self: flex-end;
+    max-width: 80%;
+    margin-left: auto;
+  }
+  .chat-cite {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 8px;
+    font-size: 20px;
+    color: var(--chatgpt-green);
+    font-weight: 700;
+  }
+  .chat-cite::before {
+    content: "🔗";
+  }
+
+  /* Maps fake — Google Maps real palette */
+  .map {
+    height: 380px;
+    background:
+      /* park top-left */
+      radial-gradient(ellipse 160px 110px at 18% 28%, #C8E6C9 0%, #C8E6C9 70%, transparent 100%),
+      /* park bottom-right */
+      radial-gradient(ellipse 130px 90px at 82% 78%, #C8E6C9 0%, #C8E6C9 70%, transparent 100%),
+      /* water blob right */
+      radial-gradient(ellipse 100px 200px at 95% 35%, #AECBFA 0%, #AECBFA 70%, transparent 100%),
+      /* base warm gray */
+      #EBE9E2;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: inset 0 0 0 1px #DAD7CE;
+  }
+  /* main yellow highway */
+  .map__road1 {
+    position: absolute;
+    top: 38%; left: -10%; right: -10%;
+    height: 14px;
+    background: #FCD66B;
+    box-shadow: 0 0 0 2px #E0B23F;
+    transform: rotate(-8deg);
+  }
+  /* side white road */
+  .map__road2 {
+    position: absolute;
+    top: 62%; left: -10%; right: -10%;
+    height: 8px;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 1px #D7D3C8;
+    transform: rotate(6deg);
+  }
+  /* vertical road */
+  .map__road3 {
+    position: absolute;
+    top: -10%; bottom: -10%; left: 35%;
+    width: 6px;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 1px #D7D3C8;
+    transform: rotate(-3deg);
+  }
+  /* a couple of building blocks */
+  .map__bldg {
+    position: absolute;
+    background: #F5F2EA;
+    box-shadow: 0 0 0 1px #DAD7CE;
+    border-radius: 2px;
+  }
+  .map__bldg--a { top: 45%; left: 52%; width: 60px; height: 38px; }
+  .map__bldg--b { top: 55%; left: 60%; width: 44px; height: 28px; }
+  .map__bldg--c { top: 14%; left: 56%; width: 52px; height: 30px; }
+  .map__bldg--d { top: 22%; left: 68%; width: 38px; height: 26px; }
+
+  /* Google-style teardrop pin */
+  .map__pin {
+    position: absolute;
+    top: 36%; left: 47%;
+    width: 56px; height: 80px;
+    z-index: 4;
+    filter: drop-shadow(0 6px 8px rgba(0,0,0,0.35));
+  }
+  .map__pin svg { width: 100%; height: 100%; display: block; }
+
+  .map__label {
+    position: absolute;
+    bottom: 22px; left: 22px;
+    background: #fff;
+    padding: 14px 22px;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex; align-items: center; gap: 12px;
+    z-index: 5;
+  }
+  .map__label .star {
+    color: #FBBC04;
+  }
+
+  /* Scene labels */
+  .scene-label {
+    position: absolute;
+    top: 220px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 14px 32px;
+    background: var(--cream);
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+  }
+  .scene-label--g { color: var(--google-blue); border-color: var(--google-blue); }
+  .scene-label--c { color: var(--chatgpt-green); border-color: var(--chatgpt-green); }
+  .scene-label--m { color: var(--maps-red); border-color: var(--maps-red); }
+
+  /* CTA scene */
+  #s5 {
+    background: var(--green);
+    color: var(--cream);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding-top: 0;
+  }
+  #s5 .kicker {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 30px;
+  }
+  #s5 .big {
+    font-size: 150px;
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+  }
+  #s5 .big em {
+    font-style: normal;
+    color: #6EE7B7;
+  }
+  #s5 .handle {
+    margin-top: 60px;
+    font-size: 56px;
+    font-weight: 800;
+    background: var(--cream);
+    color: var(--green);
+    padding: 22px 42px;
+    border-radius: 999px;
+  }
+  #s5 .sub {
+    margin-top: 50px;
+    font-size: 30px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <!-- SCENE 1: Hook (0 → 2s) -->
+    <div class="scene" id="s1">
+      <div class="corner"><span class="dot">eB</span> aeo</div>
+      <div class="big">Hoy te<br/>buscan en<br/><em>3 sitios</em>.</div>
+      <div class="sub">No solo en Google.</div>
+    </div>
+
+    <!-- SCENE 2: Google (2 → 6s) -->
+    <div class="scene" id="s2">
+      <div class="corner"><span class="dot">eB</span> aeo</div>
+      <div class="scene-label scene-label--g">1 · Google</div>
+      <div class="card" id="cardG">
+        <div class="card__brand">
+          <span class="card__brand-dot card__brand-dot--g">G</span>
+          <span>google.com</span>
+        </div>
+        <div class="card__search">fisio madrid centro</div>
+        <div class="card__result">
+          <div class="card__url">equilibrio-fisio.es</div>
+          <div class="card__title">Equilibrio · Fisioterapia en Madrid centro</div>
+          <div class="card__snippet">Consulta cercana al metro. <span class="card__highlight">Citas online</span> y atención personalizada para deportistas y oficinas.</div>
+          <div class="card__badge">apareces 1º</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 3: ChatGPT (6 → 10s) -->
+    <div class="scene" id="s3">
+      <div class="corner"><span class="dot">eB</span> aeo</div>
+      <div class="scene-label scene-label--c">2 · ChatGPT</div>
+      <div class="card" id="cardC" style="box-shadow: 16px 16px 0 var(--chatgpt-green);">
+        <div class="card__brand">
+          <span class="card__brand-dot card__brand-dot--c">✦</span>
+          <span>ChatGPT</span>
+        </div>
+        <div class="chat-msg chat-msg--user">¿Me recomiendas un fisio en Madrid centro?</div>
+        <div class="chat-msg">
+          Te recomiendo <strong>Equilibrio</strong> · cerca de metro, citas online y muy buenas reseñas por su trato con deportistas.
+          <div class="chat-cite">equilibrio-fisio.es</div>
+        </div>
+        <div class="card__badge" style="background: var(--chatgpt-green);">te cita la IA</div>
+      </div>
+    </div>
+
+    <!-- SCENE 4: Maps (10 → 12.5s) -->
+    <div class="scene" id="s4">
+      <div class="corner"><span class="dot">eB</span> aeo</div>
+      <div class="scene-label scene-label--m">3 · Maps</div>
+      <div class="card" id="cardM" style="box-shadow: 16px 16px 0 var(--maps-red);">
+        <div class="card__brand">
+          <span class="card__brand-dot card__brand-dot--m">📍</span>
+          <span>Google Maps</span>
+        </div>
+        <div class="map">
+          <div class="map__road1"></div>
+          <div class="map__road2"></div>
+          <div class="map__road3"></div>
+          <div class="map__bldg map__bldg--a"></div>
+          <div class="map__bldg map__bldg--b"></div>
+          <div class="map__bldg map__bldg--c"></div>
+          <div class="map__bldg map__bldg--d"></div>
+          <div class="map__pin">
+            <svg viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28 0 C12.5 0 0 12.5 0 28 C0 49 28 80 28 80 C28 80 56 49 56 28 C56 12.5 43.5 0 28 0 Z" fill="#EA4335"/>
+              <circle cx="28" cy="28" r="11" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <div class="map__label"><span class="star">★ 4,9</span> · Equilibrio Fisio</div>
+        </div>
+        <div class="card__snippet">Abierto · Citas hoy · A 320 m de tu ubicación</div>
+        <div class="card__badge" style="background: var(--maps-red);">te ve quien busca cerca</div>
+      </div>
+    </div>
+
+    <!-- SCENE 5: CTA (12.5 → 15s) -->
+    <div class="scene" id="s5">
+      <div class="corner corner--light"><span class="dot">eB</span> aeo</div>
+      <div class="kicker">Las 3 puertas</div>
+      <div class="big">las hago<br/><em>yo</em>.</div>
+      <div class="handle">@ebecerra.dev</div>
+      <div class="sub">DM y te cuento cómo encaja.</div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.out" },
+      paused: true,
+    });
+    const FADE_OUT = { immediateRender: false };
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+
+    // SCENE 1 — Hook (0 → 3.0s). First frame already visible for IG grid thumbnail.
+    gsap.set("#s1", { opacity: 1 });
+    gsap.set("#s1 .big", { y: 0, opacity: 1 });
+    gsap.set("#s1 .sub", { y: 0, opacity: 1 });
+    tl.fromTo("#s1", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FADE_OUT }, 2.6);
+
+    // SCENE 2 — Google (3.0 → 7.5s)
+    tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 3.0);
+    tl.fromTo("#s2 .scene-label", { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: "power3.out" }, 3.15);
+    tl.fromTo("#cardG", { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 3.5);
+    tl.fromTo("#cardG .card__badge", { scale: 0.5, opacity: 0, rotate: -15 }, { scale: 1, opacity: 1, rotate: -2, duration: 1.0, ease: "power3.out" }, 5.3);
+    tl.fromTo("#s2", { opacity: 1 }, { opacity: 0, duration: 0.4, ...FADE_OUT }, 7.2);
+
+    // SCENE 3 — ChatGPT (7.5 → 11.5s)
+    tl.fromTo("#s3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 7.5);
+    tl.fromTo("#s3 .scene-label", { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: "power3.out" }, 7.65);
+    tl.fromTo("#cardC", { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 8.0);
+    tl.fromTo("#cardC .card__badge", { scale: 0.5, opacity: 0, rotate: -15 }, { scale: 1, opacity: 1, rotate: -2, duration: 1.0, ease: "power3.out" }, 9.7);
+    tl.fromTo("#s3", { opacity: 1 }, { opacity: 0, duration: 0.4, ...FADE_OUT }, 11.2);
+
+    // SCENE 4 — Maps (11.5 → 15s)
+    tl.fromTo("#s4", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 11.5);
+    tl.fromTo("#s4 .scene-label", { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: "power3.out" }, 11.65);
+    tl.fromTo("#cardM", { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 12.0);
+    tl.fromTo(".map__pin", { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "bounce.out" }, 12.8);
+    tl.fromTo("#cardM .card__badge", { scale: 0.5, opacity: 0, rotate: -15 }, { scale: 1, opacity: 1, rotate: -2, duration: 1.0, ease: "power3.out" }, 13.5);
+    tl.fromTo("#s4", { opacity: 1 }, { opacity: 0, duration: 0.4, ...FADE_OUT }, 14.7);
+
+    // SCENE 5 — CTA (14.8 → 18s)
+    tl.fromTo("#s5", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 14.8);
+    tl.fromTo("#s5 .kicker", { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, 14.95);
+    tl.fromTo("#s5 .big", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 15.2);
+    tl.fromTo("#s5 .handle", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.95, ease: "power3.out" }, 15.9);
+    tl.fromTo("#s5 .sub", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 16.45);
+  </script>
+</body>
+</html>

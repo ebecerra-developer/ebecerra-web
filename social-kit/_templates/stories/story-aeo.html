@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" />
+<style>
+  :root {
+    --green: #047857;
+    --cream: #FAFAF9;
+    --ink: #0A0A0A;
+    --muted: #525252;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .stage {
+    position: relative;
+    width: 1080px; height: 1920px;
+    background: var(--cream);
+    overflow: hidden;
+  }
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none; opacity: 0.18;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(0,0,0,0.5) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 50;
+  }
+
+  .corner {
+    position: absolute;
+    top: 80px; left: 80px;
+    display: flex; align-items: center; gap: 14px;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 26px;
+    z-index: 40;
+  }
+  .corner .dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--green); color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+  }
+  .corner--light { color: var(--cream); }
+  .corner--light .dot { background: var(--cream); color: var(--green); }
+
+  .scene {
+    position: absolute; inset: 0;
+    padding: 220px 80px 0;
+    opacity: 0;
+  }
+  .scene--green { background: var(--green); color: var(--cream); }
+
+  /* S1 — Acronym reveal */
+  #s1 {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding-top: 0;
+  }
+  .acronym {
+    font-size: 360px;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .acronym em { font-style: normal; color: var(--green); }
+  .acronym__sub {
+    margin-top: 40px;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: -0.01em;
+  }
+
+  /* S2 — definition */
+  #s2 {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding-top: 0;
+  }
+  #s2 .big {
+    font-size: 110px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+  #s2 .big em { font-style: normal; color: #6EE7B7; }
+
+  /* S3 — comparison rows */
+  #s3 {
+    padding-top: 260px;
+  }
+  #s3 .title {
+    font-size: 80px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin-bottom: 100px;
+    text-align: center;
+  }
+  .row {
+    display: flex; align-items: center;
+    gap: 32px;
+    margin-bottom: 56px;
+    background: #fff;
+    border: 4px solid var(--ink);
+    border-radius: 28px;
+    padding: 36px 40px;
+    box-shadow: 12px 12px 0 var(--green);
+  }
+  .row__tag {
+    flex-shrink: 0;
+    font-size: 42px;
+    font-weight: 900;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 14px 28px;
+    border-radius: 16px;
+    min-width: 200px;
+    text-align: center;
+  }
+  .row__arrow {
+    font-size: 56px;
+    color: var(--muted);
+    font-weight: 900;
+  }
+  .row__target {
+    font-size: 46px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .row__target em {
+    font-style: normal;
+    color: var(--green);
+  }
+
+  /* S4 — CTA */
+  #s4 {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding-top: 0;
+  }
+  #s4 .big {
+    font-size: 130px;
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+  }
+  #s4 .big em { font-style: normal; color: #6EE7B7; }
+  #s4 .handle {
+    margin-top: 60px;
+    font-size: 56px;
+    font-weight: 800;
+    background: var(--cream);
+    color: var(--green);
+    padding: 22px 42px;
+    border-radius: 999px;
+  }
+  #s4 .sub {
+    margin-top: 50px;
+    font-size: 30px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <!-- S1: AEO acronym -->
+    <div class="scene" id="s1">
+      <div class="corner"><span class="dot">eB</span> glosario</div>
+      <div class="acronym"><em>AEO</em></div>
+      <div class="acronym__sub">Answer Engine Optimization</div>
+    </div>
+
+    <!-- S2: definition -->
+    <div class="scene scene--green" id="s2">
+      <div class="corner corner--light"><span class="dot">eB</span> glosario</div>
+      <div class="big">Que <em>las IA</em><br/>te citen<br/>cuando alguien<br/>les pregunta<br/>por lo tuyo.</div>
+    </div>
+
+    <!-- S3: comparison -->
+    <div class="scene" id="s3">
+      <div class="corner"><span class="dot">eB</span> glosario</div>
+      <div class="title">Dos puertas. Dos<br/>optimizaciones.</div>
+      <div class="row" id="row1">
+        <div class="row__tag">SEO</div>
+        <div class="row__arrow">→</div>
+        <div class="row__target">apareces en <em>Google</em></div>
+      </div>
+      <div class="row" id="row2">
+        <div class="row__tag">AEO</div>
+        <div class="row__arrow">→</div>
+        <div class="row__target">te citan en <em>ChatGPT</em></div>
+      </div>
+    </div>
+
+    <!-- S4: CTA -->
+    <div class="scene scene--green" id="s4">
+      <div class="corner corner--light"><span class="dot">eB</span> glosario</div>
+      <div class="big">Yo hago<br/>las <em>dos</em>.</div>
+      <div class="handle">@ebecerra.dev</div>
+      <div class="sub">DM si quieres aparecer también ahí.</div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.out" },
+      paused: true,
+    });
+    const FADE_OUT = { immediateRender: false };
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+
+    // S1 (0 → 3.0s). First frame already visible for IG grid thumbnail.
+    gsap.set("#s1", { opacity: 1 });
+    gsap.set(".acronym", { scale: 1, opacity: 1 });
+    gsap.set(".acronym__sub", { y: 0, opacity: 1 });
+    tl.fromTo("#s1", { opacity: 1 }, { opacity: 0, duration: 0.45, ...FADE_OUT }, 2.65);
+
+    // S2 (3 → 6s)
+    tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 3.0);
+    tl.fromTo("#s2 .big", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0 }, 3.2);
+    tl.fromTo("#s2", { opacity: 1 }, { opacity: 0, duration: 0.45, ...FADE_OUT }, 5.6);
+
+    // S3 (6 → 9.8s)
+    tl.fromTo("#s3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 6.0);
+    tl.fromTo("#s3 .title", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75 }, 6.15);
+    tl.fromTo("#row1", { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 1.1, ease: "power3.out" }, 6.8);
+    tl.fromTo("#row2", { x: 100, opacity: 0 }, { x: 0, opacity: 1, duration: 1.1, ease: "power3.out" }, 7.85);
+    tl.fromTo("#s3", { opacity: 1 }, { opacity: 0, duration: 0.45, ...FADE_OUT }, 9.8);
+
+    // S4 (10 → 12s)
+    tl.fromTo("#s4", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 10.0);
+    tl.fromTo("#s4 .big", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 10.2);
+    tl.fromTo("#s4 .handle", { scale: 0.75, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.95, ease: "power3.out" }, 10.85);
+    tl.fromTo("#s4 .sub", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 11.4);
+  </script>
+</body>
+</html>

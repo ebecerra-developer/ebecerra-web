@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+:root {
+  --green: #047857;
+  --green-dark: #065F46;
+  --green-deeper: #064E3B;
+  --cream: #FAFAF9;
+  --ink: #0A0A0A;
+  --muted: #525252;
+  --coral: #FF6B4A;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 1080px; height: 1080px; overflow: hidden; }
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.slide {
+  width: 1080px;
+  height: 1080px;
+  position: relative;
+  padding: 72px 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide--green { background: var(--green); color: var(--cream); }
+.slide--cream { background: var(--cream); color: var(--ink); }
+
+.kicker {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+
+.brand-mark {
+  position: absolute;
+  bottom: 64px;
+  left: 80px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.brand-mark__dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cream);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
+
+.slide--green .brand-mark__dot { background: var(--cream); color: var(--green); }
+.slide--green .brand-mark { color: var(--cream); }
+
+.page-num {
+  position: absolute;
+  top: 72px;
+  right: 80px;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.5;
+  letter-spacing: 0.05em;
+}
+
+.swipe {
+  position: absolute;
+  bottom: 64px;
+  right: 80px;
+  font-size: 18px;
+  font-weight: 600;
+  opacity: 0.85;
+  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

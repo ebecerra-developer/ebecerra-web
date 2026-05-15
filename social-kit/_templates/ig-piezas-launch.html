@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Inter:wght@400;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1080px; overflow:hidden; }
+  .stage {
+    width:1080px; height:1080px;
+    background: #F7F2E8;
+    color:#3A2A1C;
+    padding:96px 80px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    font-family:'Inter',sans-serif;
+    position:relative;
+  }
+  .stage::before {
+    content:""; position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(207,135,27,0.12), transparent 40%),
+      radial-gradient(circle at 15% 90%, rgba(207,135,27,0.10), transparent 50%);
+    pointer-events:none;
+  }
+  .header { display:flex; align-items:center; gap:24px; position:relative; }
+  .header img { width:120px; height:120px; }
+  .header .name { font-family:'Cormorant Garamond',serif; font-size:64px; font-weight:700; }
+  h1 { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:116px; line-height:1.0; font-weight:500; max-width:920px; position:relative; }
+  h1 b { font-style:normal; font-weight:700; color:#CF871B; }
+  .sub { font-size:34px; line-height:1.4; max-width:760px; font-weight:400; opacity:.78; position:relative; margin-top:24px; }
+  .foot { display:flex; justify-content:space-between; align-items:flex-end; position:relative; }
+  .badge { background:#3A2A1C; color:#F7F2E8; padding:20px 32px; border-radius:999px; font-size:28px; font-weight:600; letter-spacing:.04em; }
+  .url { font-size:30px; font-weight:600; opacity:.7; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="header"><img src="../piezas/logos/piezas-icon-512.png"><span class="name">Piezas</span></div>
+    <div>
+      <h1>Tu <b>recuerdo</b><br>hecho puzzle.</h1>
+      <p class="sub">Sube una foto y se convierte en un puzzle. Para ti, para regalar, para reencontrarte con tus momentos.</p>
+    </div>
+    <div class="foot">
+      <span class="badge">Disponible en Google Play</span>
+      <span class="url">ebecerra.es/piezas-game</span>
+    </div>
+  </div>
+</body>
+</html>

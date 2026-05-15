@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Inter:wght@400;600;700;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1080px; overflow:hidden; font-family:'Inter',sans-serif; }
+  .stage {
+    width:1080px; height:1080px;
+    background: #F7F2E8;
+    color:#3A2A1C;
+    padding:80px 80px 70px;
+    display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+    position:relative;
+  }
+  .stage::before {
+    content:""; position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 80% 15%, rgba(207,135,27,0.14), transparent 45%),
+      radial-gradient(circle at 15% 90%, rgba(207,135,27,0.10), transparent 50%);
+    pointer-events:none;
+  }
+  .badge {
+    position:relative; align-self:flex-start;
+    background:#CF871B; color:#fff;
+    padding:14px 28px; border-radius:999px;
+    font-size:24px; font-weight:700; letter-spacing:.10em; text-transform:uppercase;
+  }
+  .center { display:flex; flex-direction:column; align-items:center; gap:48px; position:relative; }
+  .logo { width:380px; height:380px; border-radius:84px; overflow:hidden; box-shadow:0 24px 60px rgba(58,42,28,0.22); }
+  .logo img { width:100%; height:100%; display:block; }
+  .headline { text-align:center; }
+  .headline .lead {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:64px;
+    font-weight:500; line-height:1.0; color:#3A2A1C; opacity:.85;
+  }
+  .headline h1 {
+    font-family:'Cormorant Garamond',serif; font-weight:700;
+    font-size:128px; line-height:0.95; letter-spacing:-0.02em;
+    margin-top:8px;
+  }
+  .headline h1 b { color:#CF871B; }
+  .foot { display:flex; flex-direction:column; align-items:center; gap:14px; position:relative; }
+  .store {
+    background:#3A2A1C; color:#F7F2E8;
+    padding:22px 40px; border-radius:999px;
+    font-size:32px; font-weight:700; letter-spacing:.04em;
+    display:flex; align-items:center; gap:14px;
+  }
+  .store .icon {
+    display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center;
+  }
+  .store .icon svg { width:32px; height:32px; }
+  .meta { font-size:24px; font-weight:600; opacity:.55; letter-spacing:.08em; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="badge">Nuevo · 2026</div>
+    <div class="center">
+      <div class="logo"><img src="../piezas/logos/piezas-icon-512.png"></div>
+      <div class="headline">
+        <div class="lead">Ya está aquí.</div>
+        <h1><b>Piezas</b><br>ya disponible.</h1>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="store">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 1.9c-.4.4-.6.9-.6 1.6v17c0 .7.2 1.2.6 1.6L13 12 3.6 1.9zm10.7 11.3l2.7 2.7-9.1 5.2c-.3.2-.6.3-.9.3-.2 0-.4 0-.6-.1l7.9-8.1zm2.9-2.6l3.3 1.9c.5.3.7.8.7 1.4 0 .6-.3 1.2-.7 1.4l-3.3 1.9-3-2.9 3-2.9zm-3 2.9l-9.1-9.1c.2-.1.4-.1.6-.1.3 0 .6.1.9.3l9.1 5.2-1.5 1.5z"/></svg>
+        </span>
+        <span>Disponible en Google Play</span>
+      </div>
+      <div class="meta">ebecerra.es/piezas-game</div>
+    </div>
+  </div>
+</body>
+</html>
