@@ -204,11 +204,7 @@ export default async function PostPage({
               sizes="(min-width: 800px) 720px, 100vw"
             />
           ) : (
-            <PostCoverFallback
-              variant="hero"
-              title={post.title}
-              category={post.category?.title ?? null}
-            />
+            <PostCoverFallback variant="hero" />
           )}
         </div>
 

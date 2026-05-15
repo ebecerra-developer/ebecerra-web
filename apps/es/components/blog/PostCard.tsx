@@ -35,11 +35,7 @@ export default function PostCard({ post, locale }: Props) {
             className={styles.cover}
           />
         ) : (
-          <PostCoverFallback
-            variant="card"
-            title={post.title}
-            category={post.category?.title ?? null}
-          />
+          <PostCoverFallback variant="card" />
         )}
       </Link>
       <div className={styles.body}>

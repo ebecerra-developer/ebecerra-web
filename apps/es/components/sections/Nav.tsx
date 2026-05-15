@@ -157,9 +157,39 @@ export default function Nav() {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [activeAnchor, setActiveAnchor] = useState<string | null>(null);
 
   const isHome = pathname === "/";
   const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
+
+  // Scroll-spy: marca la sección actualmente visible en el viewport para
+  // resaltar el ítem correspondiente en la sub-nav. Solo en home.
+  // rootMargin "-30% 0px -55%" → activa cuando la sección está en la franja
+  // central del viewport (no apenas asoma ni casi se sale).
+  useEffect(() => {
+    if (!isHome) return;
+    const ids = ANCHOR_LINKS.map((l) => l.id);
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Mantenemos el último que entra como activo. Si ninguna está en la
+        // franja central, dejamos el último activo (no quitamos el highlight).
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) {
+          setActiveAnchor((visible[0].target as HTMLElement).id);
+        }
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, [isHome]);
 
   return (
     <nav className={styles.nav}>
@@ -202,22 +232,29 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* === ZONA SUB-NAV: anclas a secciones (solo en home) === */}
-      {isHome && (
-        <div className={styles.subNav}>
-          <div className={styles.inner}>
-            <ul className={styles.subNavList}>
-              {ANCHOR_LINKS.map((item) => (
-                <li key={item.id}>
-                  <a href={anchor(item.id)} className={styles.subNavLink}>
-                    {t(item.key)}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+      {/* === ZONA SUB-NAV: anclas a secciones (siempre visible).
+            Fuera de la home, las anclas redirigen a /#section. El highlight
+            de scroll-spy solo se muestra cuando estás en la home. === */}
+      <div className={styles.subNav}>
+        <div className={styles.inner}>
+          <ul className={styles.subNavList}>
+            {ANCHOR_LINKS.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={anchor(item.id)}
+                  className={styles.subNavLink}
+                  data-active={isHome && activeAnchor === item.id}
+                  aria-current={
+                    isHome && activeAnchor === item.id ? "true" : undefined
+                  }
+                >
+                  {t(item.key)}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-      )}
+      </div>
 
       {/* === Mobile drawer === */}
       {open && (
@@ -233,21 +270,17 @@ export default function Nav() {
             </a>
           ))}
 
-          {isHome && (
-            <>
-              <div className={styles.mobileGroupLabel}>{t("homeSections")}</div>
-              {ANCHOR_LINKS.map((item) => (
-                <a
-                  key={item.id}
-                  href={anchor(item.id)}
-                  onClick={() => setOpen(false)}
-                  className={styles.mobileSubLink}
-                >
-                  {t(item.key)}
-                </a>
-              ))}
-            </>
-          )}
+          <div className={styles.mobileGroupLabel}>{t("homeSections")}</div>
+          {ANCHOR_LINKS.map((item) => (
+            <a
+              key={item.id}
+              href={anchor(item.id)}
+              onClick={() => setOpen(false)}
+              className={styles.mobileSubLink}
+            >
+              {t(item.key)}
+            </a>
+          ))}
 
           <a
             href={anchor("contacto")}
