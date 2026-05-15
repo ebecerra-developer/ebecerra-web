@@ -41,6 +41,15 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Offset al hacer scroll a un ancla — descuenta la altura de la nav sticky:
+     top bar (72px) + sub-nav (48px) + buffer. En móvil solo top bar (sin sub-nav). */
+  scroll-padding-top: 80px;
+}
+
+@media (min-width: 900px) {
+  html {
+    scroll-padding-top: 128px;
+  }
 }
 
 body {

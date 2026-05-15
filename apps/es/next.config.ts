@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
   // Evita que Turbopack bundle sanity/studio server-side (usan browser APIs)
   serverExternalPackages: ["sanity", "@sanity/ui", "@sanity/vision"],
 
+  images: {
+    remotePatterns: [
+      // Sanity asset CDN — covers de posts, imágenes inline, OG, etc.
+      { protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/**" },
+    ],
+  },
+
   experimental: {
     // Inlinea el CSS crítico en el HTML inicial para sacarlo de la ruta crítica
     // (PSI marcaba ~600 ms de bloqueo por dos chunks .css).
