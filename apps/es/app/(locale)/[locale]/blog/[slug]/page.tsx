@@ -15,7 +15,13 @@ import AuthorBio from "@/components/blog/AuthorBio";
 import RelatedPosts from "@/components/blog/RelatedPosts";
 import PostJsonLd from "@/components/blog/PostJsonLd";
 import RoughActivator from "@/components/blog/RoughActivator";
+import PostLikes from "@/components/blog/PostLikes";
+import CommentForm from "@/components/blog/CommentForm";
+import CommentList, {
+  type ApprovedComment,
+} from "@/components/blog/CommentList";
 import { highlightCodeBlocks } from "@/lib/highlight";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import {
   getPostBySlug,
   getPostSlugs,
@@ -119,6 +125,32 @@ export default async function PostPage({
       ? `${SITE_URL}/blog/${slug}/`
       : `${SITE_URL}/${locale}/blog/${slug}/`;
 
+  // Likes count + comentarios aprobados — admin client porque ambas tablas
+  // están limitadas a server por RLS (chatbot_messages style).
+  const supabaseAdmin = createSupabaseAdminClient();
+  const [likeRow, commentsRows] = await Promise.all([
+    supabaseAdmin
+      .from("post_likes")
+      .select("count")
+      .eq("post_slug", slug)
+      .maybeSingle(),
+    supabaseAdmin
+      .from("post_comments")
+      .select("id, author_name, body, created_at")
+      .eq("post_slug", slug)
+      .eq("status", "approved")
+      .order("created_at", { ascending: true }),
+  ]);
+  const likeCount: number = likeRow.data?.count ?? 0;
+  const approvedComments: ApprovedComment[] = (commentsRows.data ?? []).map(
+    (c) => ({
+      id: c.id,
+      authorName: c.author_name,
+      body: c.body,
+      createdAt: c.created_at,
+    })
+  );
+
   const cover =
     post.coverImage && post.coverImage.asset
       ? urlFor(post.coverImage).width(1280).height(720).fit("crop").auto("format").url()
@@ -197,9 +229,45 @@ export default async function PostPage({
               label={t("shareLabel")}
             />
 
+            <div className={styles.likesRow}>
+              <PostLikes
+                slug={slug}
+                initialCount={likeCount}
+                label={t("likeLabel")}
+                thanksLabel={t("likeThanks")}
+              />
+            </div>
+
             {post.authorFull && (
               <AuthorBio author={post.authorFull} byLabel={t("byPrefix")} />
             )}
+
+            <section className={styles.commentsSection} aria-labelledby="comments-heading">
+              <h2 id="comments-heading" className={styles.commentsHeading}>
+                {t("commentsHeading")}
+              </h2>
+              <CommentList
+                comments={approvedComments}
+                locale={locale}
+                emptyLabel={t("commentsEmpty")}
+                countLabel={(n) => t("commentsCount", { count: n })}
+              />
+              <CommentForm
+                postSlug={slug}
+                labels={{
+                  title: t("commentFormTitle"),
+                  name: t("commentFormName"),
+                  email: t("commentFormEmail"),
+                  emailHint: t("commentFormEmailHint"),
+                  body: t("commentFormBody"),
+                  submit: t("commentFormSubmit"),
+                  submitting: t("commentFormSubmitting"),
+                  success: t("commentFormSuccess"),
+                  error: t("commentFormError"),
+                  privacyNote: t("commentFormPrivacy"),
+                }}
+              />
+            </section>
           </article>
 
           <TableOfContents blocks={post.body} label={t("tocLabel")} />

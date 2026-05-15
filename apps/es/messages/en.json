@@ -182,6 +182,21 @@
     "tocLabel": "In this article",
     "shareLabel": "Share",
     "byPrefix": "by",
-    "relatedHeading": "Related articles"
+    "relatedHeading": "Related articles",
+    "likeLabel": "I liked it",
+    "likeThanks": "Thanks!",
+    "commentsHeading": "Comments",
+    "commentsEmpty": "Be the first to comment.",
+    "commentsCount": "{count, plural, one {1 comment} other {# comments}}",
+    "commentFormTitle": "Leave a comment",
+    "commentFormName": "Name",
+    "commentFormEmail": "Email",
+    "commentFormEmailHint": "(optional, not published)",
+    "commentFormBody": "Comment",
+    "commentFormSubmit": "Submit",
+    "commentFormSubmitting": "Sending…",
+    "commentFormSuccess": "Your comment is pending moderation. Thanks!",
+    "commentFormError": "Couldn't send. Please try again.",
+    "commentFormPrivacy": "Comments are reviewed before publishing."
   }
 }

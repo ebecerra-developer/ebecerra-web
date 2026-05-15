@@ -54,6 +54,25 @@
   min-width: 0;
 }
 
+.likesRow {
+  margin: 24px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.commentsSection {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
+}
+
+.commentsHeading {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 24px;
+  letter-spacing: -0.01em;
+}
+
 .backLink {
   display: inline-block;
   font-family: var(--font-mono);

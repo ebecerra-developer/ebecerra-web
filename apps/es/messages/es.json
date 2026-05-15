@@ -182,6 +182,21 @@
     "tocLabel": "En este artículo",
     "shareLabel": "Compartir",
     "byPrefix": "por",
-    "relatedHeading": "Artículos relacionados"
+    "relatedHeading": "Artículos relacionados",
+    "likeLabel": "Me ha gustado",
+    "likeThanks": "¡Gracias!",
+    "commentsHeading": "Comentarios",
+    "commentsEmpty": "Sé el primero en comentar.",
+    "commentsCount": "{count, plural, one {1 comentario} other {# comentarios}}",
+    "commentFormTitle": "Deja un comentario",
+    "commentFormName": "Nombre",
+    "commentFormEmail": "Email",
+    "commentFormEmailHint": "(opcional, no se publica)",
+    "commentFormBody": "Comentario",
+    "commentFormSubmit": "Enviar",
+    "commentFormSubmitting": "Enviando…",
+    "commentFormSuccess": "Tu comentario está pendiente de moderación. ¡Gracias!",
+    "commentFormError": "No se pudo enviar. Inténtalo en un momento.",
+    "commentFormPrivacy": "Los comentarios se revisan antes de publicarse."
   }
 }
