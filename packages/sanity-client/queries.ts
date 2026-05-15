@@ -882,7 +882,7 @@ export async function getPosts(
   const { categorySlug, tagSlug, order = "newest", limit = 50, offset = 0 } =
     options;
 
-  const filters = ['_type == "post"', "noindex != true", "publishedAt <= now()"];
+  const filters = ['_type == "post"', "noindex != true"];
   if (categorySlug) filters.push("category->slug.current == $categorySlug");
   if (tagSlug) filters.push("$tagSlug in tags[]->slug.current");
 
@@ -901,7 +901,7 @@ export async function getPosts(
 export async function getPostSlugs(): Promise<string[]> {
   const raw = await client
     .fetch<{ slug: string | null }[]>(
-      `*[_type == "post" && noindex != true && publishedAt <= now()]{ "slug": slug.current }`
+      `*[_type == "post" && noindex != true]{ "slug": slug.current }`
     )
     .catch(() => [] as { slug: string | null }[]);
   return raw.map((r) => r.slug).filter((s): s is string => Boolean(s));
@@ -996,7 +996,6 @@ export async function getRelatedPostsAuto(
         _type == "post"
         && _id != $postId
         && noindex != true
-        && publishedAt <= now()
         && (
           category->slug.current == $categorySlug
           || count((tags[]->slug.current)[@ in $tagSlugs]) > 0
