@@ -162,5 +162,22 @@
     "contactTitle": "Still have doubts?",
     "contactLead": "Tell me your case and I'll give you a first idea of scope, no strings attached.",
     "contactCta": "Write to me"
+  },
+  "blog": {
+    "metaTitle": "Blog · Professional web, AI and SEO for freelancers and SMBs",
+    "metaDescription": "Articles on professional websites, AI chatbots, SEO and technical decisions for freelancers and SMBs. No jargon, with judgment.",
+    "kicker": "// blog",
+    "title": "Blog",
+    "lead": "Articles on professional websites, AI applied to business, SEO and technical decisions. No jargon, with judgment.",
+    "empty": "No articles published yet.",
+    "readingMinutes": "{minutes, plural, one {1 min read} other {# min read}}",
+    "publishedOn": "Published on {date}",
+    "updatedOn": "Updated on {date}",
+    "byAuthor": "by {name}",
+    "backToList": "← Back to blog",
+    "filterAll": "All",
+    "filterCategory": "Category",
+    "sortNewest": "Newest first",
+    "sortOldest": "Oldest first"
   }
 }

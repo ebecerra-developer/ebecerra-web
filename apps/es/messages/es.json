@@ -162,5 +162,22 @@
     "contactTitle": "¿Sigues con dudas?",
     "contactLead": "Cuéntame tu caso y te doy una primera idea del alcance sin compromiso.",
     "contactCta": "Escribirme"
+  },
+  "blog": {
+    "metaTitle": "Blog · Web profesional, IA y SEO para autónomos y PYMEs",
+    "metaDescription": "Artículos sobre web profesional, chatbots con IA, SEO y decisiones técnicas para autónomos y PYMEs. Sin jerga, con criterio.",
+    "kicker": "// blog",
+    "title": "Blog",
+    "lead": "Artículos sobre web profesional, IA aplicada al negocio, SEO y decisiones técnicas. Sin jerga, con criterio.",
+    "empty": "Aún no hay artículos publicados.",
+    "readingMinutes": "{minutes, plural, one {1 min de lectura} other {# min de lectura}}",
+    "publishedOn": "Publicado el {date}",
+    "updatedOn": "Actualizado el {date}",
+    "byAuthor": "por {name}",
+    "backToList": "← Volver al blog",
+    "filterAll": "Todas",
+    "filterCategory": "Categoría",
+    "sortNewest": "Más recientes",
+    "sortOldest": "Más antiguos"
   }
 }
