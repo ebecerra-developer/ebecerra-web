@@ -70,10 +70,15 @@ export function toClientSSE(
           )
         );
         if (onComplete && assembled.length > 0) {
-          // Fire-and-forget: cualquier fallo del logger no debe romper el stream ya cerrado.
-          Promise.resolve(onComplete(assembled, model)).catch((err) => {
+          // Awaitar antes del controller.close del finally es clave en edge
+          // runtime: si lanzáramos fire-and-forget, Vercel mata la función en
+          // cuanto la response sale y el insert (fetch) puede no completarse.
+          // Mientras start() siga ejecutando, la función se mantiene viva.
+          try {
+            await onComplete(assembled, model);
+          } catch (err) {
             console.error("[toClientSSE] onComplete failed:", err);
-          });
+          }
         }
       } catch (err) {
         controller.enqueue(
