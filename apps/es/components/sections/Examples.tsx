@@ -47,8 +47,17 @@ export default async function Examples({ locale }: Props) {
           nextLabel={t("next")}
         >
           {demos.map((demo) => {
-            const thumbUrl = demo.thumbnail
-              ? urlFor(demo.thumbnail).width(800).auto("format").url()
+            const thumbnail = demo.thumbnail;
+            const thumb = thumbnail
+              ? {
+                  src: urlFor(thumbnail).width(800).auto("format").url(),
+                  srcSet: [400, 600, 800, 1200]
+                    .map(
+                      (w) =>
+                        `${urlFor(thumbnail).width(w).auto("format").url()} ${w}w`,
+                    )
+                    .join(", "),
+                }
               : null;
             return (
               <a
@@ -59,16 +68,22 @@ export default async function Examples({ locale }: Props) {
                 className={styles.card}
                 aria-label={`${t("viewDemo")}: ${demo.businessName} ${t("openInNewTab")}`}
               >
-                <div
-                  className={styles.thumb}
-                  style={
-                    thumbUrl
-                      ? { backgroundImage: `url(${thumbUrl})` }
-                      : undefined
-                  }
-                  role="img"
-                  aria-label={demo.businessName}
-                />
+                <div className={styles.thumb}>
+                  {thumb && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={thumb.src}
+                      srcSet={thumb.srcSet}
+                      sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 90vw"
+                      alt={demo.businessName}
+                      loading="lazy"
+                      decoding="async"
+                      width={800}
+                      height={500}
+                      className={styles.thumbImg}
+                    />
+                  )}
+                </div>
                 <div className={styles.body}>
                   {demo.sector && (
                     <span className={styles.sector}>{demo.sector}</span>
