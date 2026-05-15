@@ -3,6 +3,9 @@
   position: sticky;
   top: 0;
   z-index: 50;
+}
+
+.topBar {
   background: var(--cta);
   border-bottom: 1px solid var(--cta-hover);
 }
@@ -16,6 +19,88 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--s-4);
+}
+
+/* Sub-nav: anclas a secciones de la home. Solo desktop. Fondo claro,
+   contrasta con la barra superior verde. */
+.subNav {
+  display: none;
+  background: #fafaf9;
+  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.06));
+}
+
+.subNavList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  height: 48px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.subNavList::-webkit-scrollbar {
+  display: none;
+}
+
+.subNavLink {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary, #57534e);
+  text-decoration: none;
+  padding: 6px 4px;
+  white-space: nowrap;
+  position: relative;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.subNavLink:hover {
+  color: var(--text-primary, #1c1917);
+}
+
+.subNavLink::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: -2px;
+  height: 2px;
+  background: var(--accent, var(--cta));
+  border-radius: 1px;
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: center;
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.subNavLink:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Mobile drawer — separador de grupos */
+.mobileGroupLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250, 250, 249, 0.55);
+  margin-top: 16px;
+  padding: 6px 4px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobileSubLink {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(250, 250, 249, 0.85);
+  text-decoration: none;
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .logoLink {
@@ -210,5 +295,9 @@
 
   .mobileDrawer {
     display: none;
+  }
+
+  .subNav {
+    display: block;
   }
 }

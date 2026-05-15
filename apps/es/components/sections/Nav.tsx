@@ -7,17 +7,20 @@ import type { Locale } from "@/i18n/routing";
 import LogoMark from "@/components/LogoMark";
 import styles from "./Nav.module.css";
 
-// Nav top-level items. Tipo discrimina anchor (sección de home) vs page (ruta).
-// La nav top se mantiene corta — el footer tiene la lista completa.
-type NavItem =
-  | { type: "anchor"; id: string; key: string }
-  | { type: "page"; href: string; key: string };
+// Top zone: links a páginas (siempre visibles, en cualquier ruta).
+const TOP_LINKS = [
+  { href: "/blog/", key: "blog" },
+  { href: "/faq/", key: "faq" },
+] as const;
 
-const NAV_ITEMS: readonly NavItem[] = [
-  { type: "anchor", id: "servicios", key: "services" },
-  { type: "anchor", id: "ejemplos", key: "examples" },
-  { type: "page", href: "/blog/", key: "blog" },
-  { type: "anchor", id: "contacto", key: "contact" },
+// Sub-nav zone: anclas a secciones de la home. Solo se renderiza en /.
+const ANCHOR_LINKS = [
+  { id: "servicios", key: "services" },
+  { id: "sobre-mi", key: "about" },
+  { id: "capacidades", key: "capabilities" },
+  { id: "proceso", key: "process" },
+  { id: "ejemplos", key: "examples" },
+  { id: "contacto", key: "contact" },
 ] as const;
 
 function GlobeIcon({ size = 20 }: { size?: number }) {
@@ -157,61 +160,95 @@ export default function Nav() {
 
   const isHome = pathname === "/";
   const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
-  const itemHref = (item: NavItem) =>
-    item.type === "anchor" ? anchor(item.id) : item.href;
-  const itemKey = (item: NavItem) =>
-    item.type === "anchor" ? item.id : item.href;
 
   return (
     <nav className={styles.nav}>
-      <div className={styles.inner}>
-        <a href={anchor("inicio")} className={styles.logoLink} aria-label="eBecerra">
-          <LogoMark variant="negative" height={32} />
-          <span className={styles.logoDomain}>ebecerra.es</span>
-        </a>
-
-        {/* Desktop */}
-        <div className={styles.desktopNav}>
-          {NAV_ITEMS.map((item) => (
-            <NavLink key={itemKey(item)} href={itemHref(item)}>
-              {t(item.key)}
-            </NavLink>
-          ))}
-          <span className={styles.langWrapper}>
-            <LangSwitch align="right" />
-          </span>
-          <a href={anchor("contacto")} className={styles.ctaButton}>
-            → {t("ctaTalk")}
+      {/* === ZONA TOP: navegación de sitio (siempre visible) === */}
+      <div className={styles.topBar}>
+        <div className={styles.inner}>
+          <a href={anchor("inicio")} className={styles.logoLink} aria-label="eBecerra">
+            <LogoMark variant="negative" height={32} />
+            <span className={styles.logoDomain}>ebecerra.es</span>
           </a>
-        </div>
 
-        {/* Mobile */}
-        <div className={styles.mobileNav}>
-          <LangSwitch align="right" />
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? t("menuClose") : t("menuOpen")}
-            aria-expanded={open}
-            className={styles.menuButton}
-          >
-            <MenuIcon open={open} />
-          </button>
+          {/* Desktop */}
+          <div className={styles.desktopNav}>
+            {TOP_LINKS.map((item) => (
+              <NavLink key={item.href} href={item.href}>
+                {t(item.key)}
+              </NavLink>
+            ))}
+            <span className={styles.langWrapper}>
+              <LangSwitch align="right" />
+            </span>
+            <a href={anchor("contacto")} className={styles.ctaButton}>
+              → {t("ctaTalk")}
+            </a>
+          </div>
+
+          {/* Mobile */}
+          <div className={styles.mobileNav}>
+            <LangSwitch align="right" />
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? t("menuClose") : t("menuOpen")}
+              aria-expanded={open}
+              className={styles.menuButton}
+            >
+              <MenuIcon open={open} />
+            </button>
+          </div>
         </div>
       </div>
 
+      {/* === ZONA SUB-NAV: anclas a secciones (solo en home) === */}
+      {isHome && (
+        <div className={styles.subNav}>
+          <div className={styles.inner}>
+            <ul className={styles.subNavList}>
+              {ANCHOR_LINKS.map((item) => (
+                <li key={item.id}>
+                  <a href={anchor(item.id)} className={styles.subNavLink}>
+                    {t(item.key)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* === Mobile drawer === */}
       {open && (
         <div className={styles.mobileDrawer}>
-          {NAV_ITEMS.map((item) => (
+          {TOP_LINKS.map((item) => (
             <a
-              key={itemKey(item)}
-              href={itemHref(item)}
+              key={item.href}
+              href={item.href}
               onClick={() => setOpen(false)}
               className={styles.mobileLink}
             >
               {t(item.key)}
             </a>
           ))}
+
+          {isHome && (
+            <>
+              <div className={styles.mobileGroupLabel}>{t("homeSections")}</div>
+              {ANCHOR_LINKS.map((item) => (
+                <a
+                  key={item.id}
+                  href={anchor(item.id)}
+                  onClick={() => setOpen(false)}
+                  className={styles.mobileSubLink}
+                >
+                  {t(item.key)}
+                </a>
+              ))}
+            </>
+          )}
+
           <a
             href={anchor("contacto")}
             onClick={() => setOpen(false)}

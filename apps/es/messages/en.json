@@ -17,11 +17,13 @@
     "process": "Process",
     "examples": "Examples",
     "blog": "Blog",
+    "faq": "FAQ",
     "contact": "Contact",
     "ctaTalk": "Let's talk",
     "menu": "Menu",
     "menuOpen": "Open menu",
     "menuClose": "Close menu",
+    "homeSections": "Home sections",
     "language": "Change language",
     "langEs": "Español",
     "langEn": "English"
