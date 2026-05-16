@@ -29,7 +29,7 @@
   /* ---------- Color — Text ---------- */
   --text:            #111111;
   --text-secondary:  #3a3833;
-  --text-muted:      #6e6a60;
+  --text-muted:      #5a5750;  /* WCAG AA: ≥4.5:1 sobre --bg hueso */
   --text-disabled:   #aaa496;
   --text-on-accent:  #ffffff;
   --text-on-ink:     #f4ede0;

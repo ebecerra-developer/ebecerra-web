@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.sanity.io" },
     ],
   },
+  experimental: {
+    // Inlinea el CSS crítico en el HTML inicial para sacarlo de la ruta crítica
+    // (mismo patrón aplicado en apps/es — ~600 ms de bloqueo de render menos).
+    inlineCss: true,
+  },
   async headers() {
     return [
       {

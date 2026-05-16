@@ -1,5 +1,5 @@
 import type { DemoSite } from "@ebecerra/sanity-client";
-import { ChatbotWidget } from "@ebecerra/chatbot/client";
+import ChatbotLoader from "./ChatbotLoader";
 
 /**
  * Wrapper del chatbot para demos.
@@ -45,7 +45,7 @@ export default function DemoChatbot({
       : [];
 
   return (
-    <ChatbotWidget
+    <ChatbotLoader
       launcherLabel={config.label ?? (isEs ? "¿Te ayudo?" : "Need help?")}
       drawerTitle={config.title ?? `${businessName} · ${isEs ? "Recepción" : "Reception"}`}
       greeting={

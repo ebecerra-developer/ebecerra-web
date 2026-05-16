@@ -29,7 +29,7 @@
   /* ---------- Color — Text ---------- */
   --text:            #2e1f1c;
   --text-secondary:  #4a352f;
-  --text-muted:      #8a6f63;
+  --text-muted:      #715850;  /* WCAG AA: ≥4.5:1 sobre --bg off-white */
   --text-disabled:   #b8a193;
   --text-on-accent:  #faf6f1;
   --text-on-ink:     #f1e9dd;
