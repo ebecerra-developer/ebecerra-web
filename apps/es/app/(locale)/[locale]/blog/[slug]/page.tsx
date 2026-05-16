@@ -7,6 +7,7 @@ import type { Locale } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
+import PageHero from "@/components/sections/PageHero";
 import PostMeta from "@/components/blog/PostMeta";
 import PortableContent from "@/components/blog/PortableContent";
 import TableOfContents from "@/components/blog/TableOfContents";
@@ -172,28 +173,34 @@ export default async function PostPage({
       <RoughActivator rootSelector="[data-blog-post]" />
       <Nav />
       <main id="main" className={styles.postShell}>
-        <Link href={blogHref} className={styles.backLink}>
-          {t("backToList")}
-        </Link>
-
         <div className={styles.postLayout}>
           <article className={styles.postBody} data-blog-post>
-            <header className={styles.postHeader}>
-              {post.category && categoryHref && (
-                <Link href={categoryHref} className={styles.postCategory}>
-                  {post.category.title}
-                </Link>
-              )}
-              <h1 className={styles.postTitle}>{post.title}</h1>
-              <p className={styles.postExcerpt}>{post.excerpt}</p>
-              <PostMeta
-                publishedAt={post.publishedAt}
-                updatedAt={post.updatedAt}
-                readingMinutes={post.readingMinutes}
-                authorName={post.author?.name ?? null}
-                locale={locale}
-              />
-            </header>
+            <PageHero
+              breadcrumbs={[
+                { label: locale === "es" ? "Inicio" : "Home", href: locale === "es" ? "/" : `/${locale}/` },
+                { label: locale === "es" ? "Blog" : "Blog", href: blogHref },
+                { label: post.title },
+              ]}
+              kicker={
+                post.category
+                  ? `// ${post.category.title.toUpperCase()}`
+                  : "// BLOG"
+              }
+              title={post.title}
+              lead={post.excerpt}
+            />
+            {post.category && categoryHref && (
+              <Link href={categoryHref} className={styles.postCategoryLink}>
+                {locale === "es" ? "Ver todos en" : "See all in"} {post.category.title} →
+              </Link>
+            )}
+            <PostMeta
+              publishedAt={post.publishedAt}
+              updatedAt={post.updatedAt}
+              readingMinutes={post.readingMinutes}
+              authorName={post.author?.name ?? null}
+              locale={locale}
+            />
 
             <div className={styles.postCover}>
               {cover ? (

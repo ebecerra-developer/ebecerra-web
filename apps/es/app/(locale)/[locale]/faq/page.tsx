@@ -3,7 +3,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
-import FaqIntro from "@/components/faq/FaqIntro";
+import PageHero from "@/components/sections/PageHero";
 import FaqList from "@/components/faq/FaqList";
 import FaqContactBlock from "@/components/faq/FaqContactBlock";
 import { getFaq } from "@/lib/faq";
@@ -66,10 +66,6 @@ export default async function FaqPage({
       ? faqItemsRaw.map((i) => ({ q: i.question, a: i.answer }))
       : localItems;
 
-  const baseUrl = "https://ebecerra.es";
-  const homeUrl = locale === "es" ? `${baseUrl}/` : `${baseUrl}/${locale}/`;
-  const faqUrl = locale === "es" ? `${baseUrl}/faq/` : `${baseUrl}/${locale}/faq/`;
-
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -83,29 +79,16 @@ export default async function FaqPage({
     })),
   };
 
-  const breadcrumbLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: locale === "es" ? "Inicio" : "Home", item: homeUrl },
-      { "@type": "ListItem", position: 2, name: locale === "es" ? "Preguntas frecuentes" : "FAQ", item: faqUrl },
-    ],
-  };
-
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
-      />
       <Nav />
       <main id="main" className={styles.main}>
         <div className={styles.container}>
-          <FaqIntro
+          <PageHero
             kicker={faqPage?.kicker || t("kicker")}
             title={faqPage?.title || t("title")}
             lead={faqPage?.lead || t("lead")}

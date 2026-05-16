@@ -13,33 +13,6 @@
   padding-inline: clamp(20px, 4vw, 56px);
 }
 
-.header {
-  text-align: center;
-  margin-bottom: clamp(3rem, 6vw, 5rem);
-  max-width: 56ch;
-  margin-inline: auto;
-}
-
-.kicker {
-  font-family: var(--font-mono);
-  font-size: var(--fs-mono-md);
-  letter-spacing: var(--tr-kicker-md);
-  text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: var(--fw-medium);
-  margin-bottom: 1rem;
-}
-
-.title {
-  margin-bottom: 1.25rem;
-}
-
-.lead {
-  color: var(--text-secondary);
-  font-size: var(--fs-body-lead);
-  line-height: var(--lh-lead);
-}
-
 .grid {
   list-style: none;
   margin: 0;

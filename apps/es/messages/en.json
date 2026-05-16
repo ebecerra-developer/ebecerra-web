@@ -130,7 +130,7 @@
   "examples": {
     "metaTitle": "Website examples · Enrique Becerra",
     "metaDescription": "Browsable demos of professional websites for freelancers, SMBs and small businesses. See what you can have before commissioning yours.",
-    "kicker": "// Browsable demos",
+    "kicker": "// EXAMPLES",
     "title": "Real website examples for your business",
     "lead": "Complete demos so you can see what you can have: marketing agency, coaching, physiotherapy clinic… Each one with its own personality and tone. Yours starts from a conversation with you, not from a template.",
     "ctaContact": "Start yours",
@@ -169,9 +169,9 @@
   "blog": {
     "metaTitle": "Blog · Professional web, AI and SEO for freelancers and SMBs",
     "metaDescription": "Articles on professional websites, AI chatbots, SEO and technical decisions for freelancers and SMBs. No jargon, with judgment.",
-    "kicker": "// blog",
-    "title": "Blog",
-    "lead": "Articles on professional websites, AI applied to business, SEO and technical decisions. No jargon, with judgment.",
+    "kicker": "// BLOG",
+    "title": "Articles",
+    "lead": "On professional websites, AI applied to business, SEO and technical decisions. No jargon, with judgment.",
     "empty": "No articles published yet.",
     "readingMinutes": "{minutes, plural, one {1 min read} other {# min read}}",
     "publishedOn": "Published on {date}",

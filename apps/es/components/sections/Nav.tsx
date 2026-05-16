@@ -247,29 +247,29 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* === ZONA SUB-NAV: anclas a secciones (siempre visible).
-            Fuera de la home, las anclas redirigen a /#section. El highlight
-            de scroll-spy solo se muestra cuando estás en la home. === */}
-      <div className={styles.subNav}>
-        <div className={styles.inner}>
-          <ul className={styles.subNavList}>
-            {ANCHOR_LINKS.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={anchor(item.id)}
-                  className={styles.subNavLink}
-                  data-active={isHome && activeAnchor === item.id}
-                  aria-current={
-                    isHome && activeAnchor === item.id ? "true" : undefined
-                  }
-                >
-                  {t(item.key)}
-                </a>
-              </li>
-            ))}
-          </ul>
+      {/* === ZONA SUB-NAV: anclas a secciones de la home. Solo se renderiza en /
+            (en sub-páginas los breadcrumbs cubren la orientación; los enlaces
+            de la nav top hacen /#section, así que tampoco hace falta repetirlos). === */}
+      {isHome && (
+        <div className={styles.subNav}>
+          <div className={styles.inner}>
+            <ul className={styles.subNavList}>
+              {ANCHOR_LINKS.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={anchor(item.id)}
+                    className={styles.subNavLink}
+                    data-active={activeAnchor === item.id}
+                    aria-current={activeAnchor === item.id ? "true" : undefined}
+                  >
+                    {t(item.key)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* === Mobile drawer === */}
       {open && (

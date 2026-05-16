@@ -8,6 +8,7 @@ import { urlFor } from "@/lib/sanity-image";
 import type { Locale } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
+import PageHero from "@/components/sections/PageHero";
 import styles from "./page.module.css";
 
 export const revalidate = 1800;
@@ -74,29 +75,16 @@ export default async function EjemplosPage({
     })),
   };
 
-  const baseUrl = "https://ebecerra.es";
-  const homeUrl = locale === "es" ? `${baseUrl}/` : `${baseUrl}/${locale}/`;
-  const ejemplosUrl =
-    locale === "es" ? `${baseUrl}/ejemplos/` : `${baseUrl}/${locale}/ejemplos/`;
-  const breadcrumbLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: locale === "es" ? "Inicio" : "Home", item: homeUrl },
-      { "@type": "ListItem", position: 2, name: locale === "es" ? "Ejemplos" : "Examples", item: ejemplosUrl },
-    ],
-  };
-
   return (
     <>
       <Nav />
       <main id="main" className={styles.main}>
       <div className={styles.inner}>
-        <header className={styles.header}>
-          <p className={styles.kicker}>{t("kicker")}</p>
-          <h1 className={styles.title}>{t("title")}</h1>
-          <p className={styles.lead}>{t("lead")}</p>
-        </header>
+        <PageHero
+          kicker={t("kicker")}
+          title={t("title")}
+          lead={t("lead")}
+        />
 
         {demos.length === 0 ? (
           <p className={styles.empty}>{t("emptyState")}</p>
@@ -176,10 +164,6 @@ export default async function EjemplosPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       </main>
       <Footer footerData={footerData} />
