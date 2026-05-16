@@ -6,6 +6,7 @@ import { defineType, defineField, defineArrayMember } from "sanity";
  * Marks custom:
  *   - roughCircle  → en frontend, envuelve el span con rough-notation circle
  *   - roughUnderline → idem con rough-notation underline
+ *   - roughHighlight → idem con rough-notation highlight (efecto marcador/rotulador)
  *   - link → estándar
  *   - strong, em, code → estándar
  *
@@ -34,6 +35,7 @@ const postBlock = defineArrayMember({
       { title: "Código inline", value: "code" },
       { title: "Subrayado a mano", value: "roughUnderline" },
       { title: "Círculo a mano", value: "roughCircle" },
+      { title: "Marcador a mano", value: "roughHighlight" },
     ],
     annotations: [
       {

@@ -63,6 +63,7 @@ const components: PortableTextComponents = {
     // visual con rough-notation llega en F4.
     roughUnderline: ({ children }) => <span data-rough="underline">{children}</span>,
     roughCircle: ({ children }) => <span data-rough="circle">{children}</span>,
+    roughHighlight: ({ children }) => <span data-rough="highlight">{children}</span>,
   },
   types: {
     image: ({ value }) => {

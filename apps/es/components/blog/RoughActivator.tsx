@@ -10,6 +10,7 @@ import { annotate } from "rough-notation";
  * El serializer de PortableContent emite:
  *   <span data-rough="underline">…</span>
  *   <span data-rough="circle">…</span>
+ *   <span data-rough="highlight">…</span>
  *
  * El root busca todos esos spans y los anima con IntersectionObserver.
  */
@@ -31,13 +32,18 @@ export default function RoughActivator({
           const el = entry.target as HTMLElement;
           if (el.dataset.roughActive === "true") continue;
           el.dataset.roughActive = "true";
-          const type = el.dataset.rough === "circle" ? "circle" : "underline";
+          const raw = el.dataset.rough;
+          const type =
+            raw === "circle" ? "circle" : raw === "highlight" ? "highlight" : "underline";
           const annotation = annotate(el, {
             type,
-            color: "var(--accent, #047857)",
-            strokeWidth: 1.6,
+            color:
+              type === "highlight"
+                ? "rgba(253, 224, 71, 0.55)"
+                : "var(--accent, #047857)",
+            strokeWidth: type === "highlight" ? 24 : 1.6,
             padding: type === "circle" ? 6 : 2,
-            iterations: 1,
+            iterations: type === "highlight" ? 2 : 1,
             animationDuration: 700,
           });
           annotation.show();
