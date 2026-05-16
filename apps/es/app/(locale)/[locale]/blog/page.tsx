@@ -3,16 +3,11 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
-import BlogIntro from "@/components/blog/BlogIntro";
-import PostCard from "@/components/blog/PostCard";
+import PageHero from "@/components/sections/PageHero";
+import PostRow from "@/components/blog/PostRow";
+import CategoryPills from "@/components/blog/CategoryPills";
 import { getPosts, getCategories } from "@ebecerra/sanity-client";
-import BlogFilters from "@/components/blog/BlogFilters";
 import styles from "./Blog.module.css";
-
-type Sort = "newest" | "oldest";
-function isSort(value: string | undefined): value is Sort {
-  return value === "newest" || value === "oldest";
-}
 
 export const revalidate = 1800;
 
@@ -48,21 +43,15 @@ export async function generateMetadata({
 
 export default async function BlogPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{ category?: string; sort?: string }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "blog" });
 
-  const sp = await searchParams;
-  const order: Sort = isSort(sp.sort) ? sp.sort : "newest";
-  const categorySlug = sp.category?.trim() || null;
-
   const [posts, categories] = await Promise.all([
-    getPosts(locale, { order, categorySlug: categorySlug ?? undefined }),
+    getPosts(locale, { order: "newest" }),
     getCategories(locale),
   ]);
 
@@ -70,24 +59,24 @@ export default async function BlogPage({
     <>
       <Nav />
       <main id="main" className={styles.shell}>
-        <BlogIntro
+        <PageHero
           kicker={t("kicker")}
           title={t("title")}
           lead={t("lead")}
         />
 
-        <BlogFilters
+        <CategoryPills
           categories={categories}
-          selectedCategory={categorySlug}
-          order={order}
+          selectedSlug={null}
+          locale={locale}
         />
 
         {posts.length === 0 ? (
           <p className={styles.empty}>{t("empty")}</p>
         ) : (
-          <div className={styles.grid}>
+          <div className={styles.rows}>
             {posts.map((post) => (
-              <PostCard key={post._id} post={post} locale={locale} />
+              <PostRow key={post._id} post={post} locale={locale} />
             ))}
           </div>
         )}

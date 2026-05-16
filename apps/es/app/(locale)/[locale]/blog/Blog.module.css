@@ -8,22 +8,9 @@
   padding-inline: clamp(20px, 4vw, 56px);
 }
 
-.grid {
-  display: grid;
-  gap: 56px 32px;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 720px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.rows {
+  display: flex;
+  flex-direction: column;
 }
 
 .empty {

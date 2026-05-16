@@ -1,0 +1,38 @@
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-md);
+  letter-spacing: 0.02em;
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+  text-decoration: none;
+  transition: all var(--dur-fast) var(--ease);
+}
+
+.pill:hover {
+  color: var(--cta);
+  border-color: var(--cta);
+}
+
+.pill[data-active="true"] {
+  background: var(--cta);
+  color: var(--text-on-accent);
+  border-color: var(--cta);
+}
+
+.pill[data-active="true"]:hover {
+  background: var(--cta-hover);
+  border-color: var(--cta-hover);
+  color: var(--text-on-accent);
+}

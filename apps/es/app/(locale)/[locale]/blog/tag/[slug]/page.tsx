@@ -5,9 +5,9 @@ import type { Locale } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
-import BlogIntro from "@/components/blog/BlogIntro";
-import BlogFilters from "@/components/blog/BlogFilters";
-import PostCard from "@/components/blog/PostCard";
+import PageHero from "@/components/sections/PageHero";
+import CategoryPills from "@/components/blog/CategoryPills";
+import PostRow from "@/components/blog/PostRow";
 import {
   getPosts,
   getTagBySlug,
@@ -17,11 +17,6 @@ import {
 import styles from "../../Blog.module.css";
 
 export const revalidate = 1800;
-
-type Sort = "newest" | "oldest";
-function isSort(value: string | undefined): value is Sort {
-  return value === "newest" || value === "oldest";
-}
 
 export async function generateStaticParams() {
   const tags = await getTags("es");
@@ -62,21 +57,16 @@ export async function generateMetadata({
 
 export default async function TagPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: Locale; slug: string }>;
-  searchParams: Promise<{ sort?: string }>;
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "blog" });
 
-  const sp = await searchParams;
-  const order: Sort = isSort(sp.sort) ? sp.sort : "newest";
-
   const [tag, posts, categories] = await Promise.all([
     getTagBySlug(slug, locale),
-    getPosts(locale, { tagSlug: slug, order }),
+    getPosts(locale, { tagSlug: slug, order: "newest" }),
     getCategories(locale),
   ]);
 
@@ -86,25 +76,29 @@ export default async function TagPage({
     <>
       <Nav />
       <main id="main" className={styles.shell}>
-        <BlogIntro
-          kicker={`// tag`}
+        <PageHero
+          breadcrumbs={[
+            { label: locale === "es" ? "Inicio" : "Home", href: locale === "es" ? "/" : `/${locale}/` },
+            { label: "Blog", href: locale === "es" ? "/blog/" : `/${locale}/blog/` },
+            { label: `#${tag.title}` },
+          ]}
+          kicker="// TAG"
           title={`#${tag.title}`}
           lead={tag.description ?? ""}
         />
 
-        <BlogFilters
+        <CategoryPills
           categories={categories}
-          selectedCategory={null}
-          order={order}
-          fixedScope="tag"
+          selectedSlug={null}
+          locale={locale}
         />
 
         {posts.length === 0 ? (
           <p className={styles.empty}>{t("empty")}</p>
         ) : (
-          <div className={styles.grid}>
+          <div className={styles.rows}>
             {posts.map((post) => (
-              <PostCard key={post._id} post={post} locale={locale} />
+              <PostRow key={post._id} post={post} locale={locale} />
             ))}
           </div>
         )}

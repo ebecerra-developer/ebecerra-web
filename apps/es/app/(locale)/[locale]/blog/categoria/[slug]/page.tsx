@@ -5,9 +5,9 @@ import type { Locale } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
-import BlogIntro from "@/components/blog/BlogIntro";
-import BlogFilters from "@/components/blog/BlogFilters";
-import PostCard from "@/components/blog/PostCard";
+import PageHero from "@/components/sections/PageHero";
+import CategoryPills from "@/components/blog/CategoryPills";
+import PostRow from "@/components/blog/PostRow";
 import {
   getPosts,
   getCategoryBySlug,
@@ -16,11 +16,6 @@ import {
 import styles from "../../Blog.module.css";
 
 export const revalidate = 1800;
-
-type Sort = "newest" | "oldest";
-function isSort(value: string | undefined): value is Sort {
-  return value === "newest" || value === "oldest";
-}
 
 export async function generateStaticParams() {
   const categories = await getCategories("es");
@@ -64,21 +59,16 @@ export async function generateMetadata({
 
 export default async function CategoryPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: Locale; slug: string }>;
-  searchParams: Promise<{ sort?: string }>;
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "blog" });
 
-  const sp = await searchParams;
-  const order: Sort = isSort(sp.sort) ? sp.sort : "newest";
-
   const [category, posts, categories] = await Promise.all([
     getCategoryBySlug(slug, locale),
-    getPosts(locale, { categorySlug: slug, order }),
+    getPosts(locale, { categorySlug: slug, order: "newest" }),
     getCategories(locale),
   ]);
 
@@ -88,25 +78,29 @@ export default async function CategoryPage({
     <>
       <Nav />
       <main id="main" className={styles.shell}>
-        <BlogIntro
-          kicker={`// ${t("filterCategory").toLowerCase()}`}
+        <PageHero
+          breadcrumbs={[
+            { label: locale === "es" ? "Inicio" : "Home", href: locale === "es" ? "/" : `/${locale}/` },
+            { label: "Blog", href: locale === "es" ? "/blog/" : `/${locale}/blog/` },
+            { label: category.title },
+          ]}
+          kicker={`// ${t("filterCategory").toUpperCase()}`}
           title={category.title}
           lead={category.description ?? ""}
         />
 
-        <BlogFilters
+        <CategoryPills
           categories={categories}
-          selectedCategory={category.slug}
-          order={order}
-          fixedScope="category"
+          selectedSlug={category.slug}
+          locale={locale}
         />
 
         {posts.length === 0 ? (
           <p className={styles.empty}>{t("empty")}</p>
         ) : (
-          <div className={styles.grid}>
+          <div className={styles.rows}>
             {posts.map((post) => (
-              <PostCard key={post._id} post={post} locale={locale} />
+              <PostRow key={post._id} post={post} locale={locale} />
             ))}
           </div>
         )}

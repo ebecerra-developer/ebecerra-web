@@ -111,6 +111,22 @@ Aplica tanto a `apps/es`/`apps/tech` como a las plantillas de `apps/demos`.
 - **Booking, pricing público, IG feed y secciones similares**: opcionales por plantilla. No se incluyen porque "ya están hechas en otra plantilla" — solo si encajan con el avatar real (ej. coach editorial sí publica precios; coach marca personal no, capta por DM).
 - **Cuando un drawer/portal usa `createPortal(..., document.body)`**: el portal sale del shell con `data-template` y los tokens scopeados no aplican. Pasa `templateScope` como prop al componente y wrap el portal en un div con ese `data-template`. Patrón aplicado en `FisioNavMobile`.
 
+### 9. Patrón canónico de páginas secundarias (apps/es)
+
+Toda página secundaria de `apps/es` (no-home: Blog, FAQ, Ejemplos, futuras) usa el componente compartido **`<PageHero kicker title lead breadcrumbs? />`** en [`apps/es/components/sections/PageHero.tsx`](apps/es/components/sections/PageHero.tsx). No se crean heroes ad-hoc — si el patrón no cubre tu caso, se cambia el componente, no se inventa uno nuevo para esa página.
+
+- **Kicker**: formato `// PALABRA_CORTA` en UPPERCASE (`// BLOG`, `// FAQ`, `// EJEMPLOS`, `// TAG`…). Una palabra que identifica la sección. Texto descriptivo va al lead, no al kicker.
+- **H1**: token `--fs-h2` (32→48px), peso 600, alineado a la izquierda. **No** se usa `--fs-h1` ni `--fs-display` fuera del hero del home.
+- **Lead**: clase global `.lead`, max-width 640px. Opcional.
+- **Breadcrumbs**: `<Breadcrumbs items={...} />` (lo emite PageHero internamente cuando recibe la prop). Visibles + JSON-LD `BreadcrumbList` autogenerado. **Solo en nivel ≥ 2** (detalle de post, categoría, tag…). En listados de nivel 1 (`/blog`, `/faq`, `/ejemplos`) son ruido — el logo + nav top cubren la orientación.
+- **Sub-nav verde claro** (`.subNav` en `Nav.tsx`): solo se renderiza en home. Fuera de home no aparece — los breadcrumbs y la nav top (que ya hace `/#section`) cubren la navegación.
+
+**Listados de contenido** (blog, futuras secciones tipo "casos", "guías"…):
+
+- **Filas (rows), no cards** para el listado principal. Cards se reservan para módulos secundarios (related posts, sliders, mosaicos densos). Patrón en [`apps/es/components/blog/PostRow.tsx`](apps/es/components/blog/PostRow.tsx): texto izquierda + cover derecha en desktop, cover arriba + texto debajo en mobile.
+- **Sin sort UI**. Orden cronológico fijo (más recientes primero). El editor decide la prioridad publicando.
+- **Filtro por categoría como pills** (server component, links directos a `/blog/categoria/[slug]`), no `<select>`. Patrón en [`apps/es/components/blog/CategoryPills.tsx`](apps/es/components/blog/CategoryPills.tsx).
+
 ---
 
 ## Permisos y autonomía
@@ -167,6 +183,7 @@ Invocar con `/nombre`. Organizadas por cuándo usarlas.
 |---|---|
 | `/git-workflow` | Commits y push (workaround heredoc, convenciones). |
 | `/sanity-content-flow` | Crear/editar/publicar contenido en Sanity, modificar schemas, patchear vía MCP. |
+| `/blog-create-post` | Redactar y publicar un post nuevo del blog: tono PYME, estructura, marks rough, bilingüe, cover IA + validación. |
 | `/chatbot-system` | Editar greetings/system prompts del chatbot, tocar la cadena de modelos Groq, añadir contexto nuevo o diagnosticar. |
 | `/demos-template-system` | Añadir una plantilla nueva a `apps/demos` (dental, asesoría…). Estructura, qué reutilizar, gotcha de createPortal. |
 | `/css-conventions` | Escribir o portar estilos. CSS Modules co-located. |
