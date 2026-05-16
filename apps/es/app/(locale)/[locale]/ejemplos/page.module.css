@@ -1,15 +1,14 @@
 .main {
-  padding-block: var(--section-py);
   background: var(--bg);
   min-height: 100vh;
 }
 
-/* Mismo patrón que faq/home/blog: padding-inline clamp(20px, 4vw, 56px) y
-   max-width = container-max + 2*56 para que el ancho real de contenido
-   coincida con todas las demás páginas. */
+/* Wrapper canónico de página secundaria — coincide con /blog y /faq para que
+   el kicker/H1 caigan a la misma altura y ancho en todas. */
 .inner {
   max-width: calc(var(--container-max) + 2 * 56px);
   margin-inline: auto;
+  padding-block: 80px 120px;
   padding-inline: clamp(20px, 4vw, 56px);
 }
 

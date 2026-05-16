@@ -89,6 +89,10 @@ export default async function FaqPage({
       <main id="main" className={styles.main}>
         <div className={styles.container}>
           <PageHero
+            breadcrumbs={[
+              { label: locale === "es" ? "Inicio" : "Home", href: locale === "es" ? "/" : `/${locale}/` },
+              { label: faqPage?.title || t("title") },
+            ]}
             kicker={faqPage?.kicker || t("kicker")}
             title={faqPage?.title || t("title")}
             lead={faqPage?.lead || t("lead")}

@@ -60,6 +60,10 @@ export default async function BlogPage({
       <Nav />
       <main id="main" className={styles.shell}>
         <PageHero
+          breadcrumbs={[
+            { label: locale === "es" ? "Inicio" : "Home", href: locale === "es" ? "/" : `/${locale}/` },
+            { label: locale === "es" ? "Blog" : "Blog" },
+          ]}
           kicker={t("kicker")}
           title={t("title")}
           lead={t("lead")}

@@ -1,7 +1,13 @@
+/* Wrapper canónico de página secundaria — debe coincidir con /blog y /ejemplos
+   para que el kicker/H1 caigan a la misma altura y ancho en todas. */
 .main {
-  padding: clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px);
+  max-width: calc(var(--container-max, 1100px) + 2 * 56px);
+  margin: 0 auto;
+  padding-block: 80px 120px;
+  padding-inline: clamp(20px, 4vw, 56px);
 }
 
+/* El .container interno queda como passthrough — el .main ya limita ancho. */
 .container {
   max-width: var(--container-max, 1100px);
   margin: 0 auto;

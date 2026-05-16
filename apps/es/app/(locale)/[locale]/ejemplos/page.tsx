@@ -81,6 +81,10 @@ export default async function EjemplosPage({
       <main id="main" className={styles.main}>
       <div className={styles.inner}>
         <PageHero
+          breadcrumbs={[
+            { label: locale === "es" ? "Inicio" : "Home", href: locale === "es" ? "/" : `/${locale}/` },
+            { label: locale === "es" ? "Ejemplos" : "Examples" },
+          ]}
           kicker={t("kicker")}
           title={t("title")}
           lead={t("lead")}
