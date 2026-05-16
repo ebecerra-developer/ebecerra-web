@@ -8,7 +8,7 @@
 .inner {
   max-width: calc(var(--container-max) + 2 * 56px);
   margin-inline: auto;
-  padding-block: 80px 120px;
+  padding-block: 48px 120px;
   padding-inline: clamp(20px, 4vw, 56px);
 }
 
