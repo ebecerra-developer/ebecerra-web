@@ -52,7 +52,7 @@ export default function Experience({ items }: ExperienceProps) {
                         {exp.tag}
                       </span>
                     )}
-                    <span className="text-[#555] text-xs font-mono">
+                    <span className="text-[#a8a29e] text-xs font-mono">
                       {exp.period}
                     </span>
                   </div>

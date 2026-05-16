@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import StructuredData from "@/components/StructuredData";
 import type { Locale } from "@/i18n/routing";
-import { ChatbotWidget } from "@ebecerra/chatbot/client";
+import ChatbotLoader from "@/components/ChatbotLoader";
 import { getProfileChatbot } from "@ebecerra/sanity-client";
 import "../../globals.css";
 
@@ -164,7 +164,7 @@ export default async function LocaleLayout({
         <StructuredData locale={locale as Locale} />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         {chatbot?.enabled && (
-          <ChatbotWidget
+          <ChatbotLoader
             launcherLabel={chatbot.label ?? (locale === "es" ? "Consola" : "Console")}
             drawerTitle={chatbot.title ?? "ebecerra.tech"}
             greeting={

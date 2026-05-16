@@ -12,7 +12,7 @@ export default function Footer({ links }: FooterProps) {
   return (
     <footer className="border-t border-[#111] py-6 px-[clamp(20px,5vw,80px)]">
       <div className="flex flex-col items-center gap-2 w-full">
-        <span className="text-[#666] text-xs font-mono">
+        <span className="text-[#a8a29e] text-xs font-mono">
           {t("copyright", { year })}
         </span>
         <div className="flex gap-4">
@@ -30,7 +30,7 @@ export default function Footer({ links }: FooterProps) {
             </a>
           ))}
         </div>
-        <span className="text-[#666] text-xs font-mono">
+        <span className="text-[#a8a29e] text-xs font-mono">
           {t("version")} ·{" "}
           <span className="text-[#00ff88]">{t("online")}</span>
         </span>

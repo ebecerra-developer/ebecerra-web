@@ -21,7 +21,7 @@
 
   /* ---------- Color — Text ---------- */
   --geek-text:         #e0e0e0;  /* texto principal */
-  --geek-text-muted:   #888888;  /* texto secundario */
+  --geek-text-muted:   #a8a29e;  /* texto secundario — AA sobre #080808 */
   --geek-text-white:   #ffffff;  /* titulares */
 
   /* ---------- Color — Accent ---------- */

@@ -47,7 +47,7 @@ export default function Contact() {
   };
 
   const inputClass =
-    "bg-[#0d0d0d] border border-[#2a2a2a] text-[#e0e0e0] px-4 py-3 rounded-md font-sans text-sm w-full outline-none transition-all duration-200 focus:border-[#00ff88] focus:shadow-[0_0_0_3px_rgba(0,255,136,0.08)] placeholder:text-[#444]";
+    "bg-[#0d0d0d] border border-[#2a2a2a] text-[#e0e0e0] px-4 py-3 rounded-md font-sans text-sm w-full outline-none transition-all duration-200 focus:border-[#00ff88] focus:shadow-[0_0_0_3px_rgba(0,255,136,0.08)] placeholder:text-[#888]";
 
   return (
     <section
@@ -65,7 +65,7 @@ export default function Contact() {
         >
           {t("title")}
         </h2>
-        <p className="text-[#666] text-[15px] mb-12 leading-relaxed">
+        <p className="text-[#a8a29e] text-[15px] mb-12 leading-relaxed">
           {t("description")}
         </p>
         <form

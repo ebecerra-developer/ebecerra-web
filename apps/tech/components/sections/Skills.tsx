@@ -68,7 +68,7 @@ export default function Skills({ skills, tags }: SkillsProps) {
               className={`bg-[#0d0d0d] border text-xs font-mono px-3.5 py-1.5 rounded transition-all duration-200 cursor-default ${
                 hoveredTag === tag
                   ? "border-[#00ff88] text-[#00ff88]"
-                  : "border-[#222] text-[#666]"
+                  : "border-[#222] text-[#a8a29e]"
               }`}
               onMouseEnter={() => setHoveredTag(tag)}
               onMouseLeave={() => setHoveredTag(null)}

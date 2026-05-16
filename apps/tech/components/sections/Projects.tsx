@@ -57,7 +57,7 @@ export default function Projects({ items }: ProjectsProps) {
               className="bg-[#0d0d0d] border border-[#222] rounded-[10px] p-8 flex flex-col gap-4 hover:border-[#333] transition-all duration-200"
             >
               <div className="flex items-center justify-between gap-3 flex-wrap">
-                <span className="font-mono text-[11px] text-[#555] tracking-[0.1em] uppercase">
+                <span className="font-mono text-[11px] text-[#888] tracking-[0.1em] uppercase">
                   {p.label}
                 </span>
                 <span
@@ -78,7 +78,7 @@ export default function Projects({ items }: ProjectsProps) {
                 {p.tech.map((t) => (
                   <span
                     key={t}
-                    className="bg-[#111] border border-[#2a2a2a] text-[#555] font-mono text-[11px] px-2.5 py-1 rounded"
+                    className="bg-[#111] border border-[#2a2a2a] text-[#a8a29e] font-mono text-[11px] px-2.5 py-1 rounded"
                   >
                     {t}
                   </span>

@@ -47,7 +47,7 @@ export default function About({ features }: AboutProps) {
                   <div className="text-white font-medium text-sm mb-1">
                     {item.label}
                   </div>
-                  <div className="text-[#666] text-[13px]">{item.desc}</div>
+                  <div className="text-[#a8a29e] text-[13px]">{item.desc}</div>
                 </div>
               </div>
             ))}

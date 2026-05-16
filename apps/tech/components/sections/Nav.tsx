@@ -152,9 +152,13 @@ export default function Nav() {
         className="flex items-center gap-3 no-underline"
         aria-label="eBecerra"
       >
+        {/* width+height intrínsecos (viewBox 1024x1024, ratio 1:1) reservan
+            espacio y evitan CLS. CSS sobreescribe el tamaño visible. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/brand/logo-bracket-b-neon.svg"
           alt="eBecerra"
+          width={32}
           height={32}
           style={{ height: 32, width: "auto", display: "block" }}
         />
