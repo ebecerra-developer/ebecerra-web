@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" />
+<style>
+  :root { --green: #047857; --cream: #FAFAF9; --ink: #0A0A0A; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+  .bg-photo {
+    position: absolute; inset: 0;
+    background-image: url("../assets/yo/enrique-estudio.jpg");
+    background-size: cover;
+    background-position: center 30%;
+    filter: blur(4px) brightness(0.55) saturate(0.7);
+    transform: scale(1.05);
+    z-index: 0;
+  }
+  .bg-tint {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 35%, rgba(4,120,87,0.25) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(10,10,10,0.45) 0%, rgba(10,10,10,0.70) 100%);
+    z-index: 1;
+  }
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none; opacity: 0.16;
+    mix-blend-mode: overlay;
+    background-image: radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 10;
+  }
+
+  .corner {
+    position: absolute; top: 80px; left: 80px;
+    display: flex; align-items: center; gap: 14px;
+    color: var(--cream);
+    font-weight: 800; font-size: 26px;
+    z-index: 12;
+  }
+  .corner .dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--cream); color: var(--green);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+  }
+
+  .scene {
+    position: absolute; inset: 0;
+    padding: 240px 80px 200px;
+    z-index: 11;
+    color: var(--cream);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+  }
+
+  #s1 .big {
+    font-size: 150px;
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.9;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  #s1 .big em { font-style: normal; color: #6EE7B7; }
+
+  #s2 .big {
+    font-size: 130px;
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.9;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  #s2 .big em { font-style: normal; color: #6EE7B7; }
+  #s2 .big--two { margin-top: 32px; }
+
+  #s3 .big {
+    font-size: 110px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  #s3 .big em { font-style: normal; color: #6EE7B7; }
+  #s3 .sub {
+    margin-top: 42px;
+    font-size: 40px;
+    font-weight: 600;
+    color: rgba(250,250,249,0.88);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  #s3 .sub strong {
+    color: #6EE7B7;
+    font-weight: 800;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="bg-photo"></div>
+    <div class="bg-tint"></div>
+    <div class="corner"><span class="dot">eB</span> sobre mí</div>
+
+    <div class="scene" id="s1">
+      <div class="big">Lo que<br/>más me<br/><em>cuesta</em>.</div>
+    </div>
+
+    <div class="scene" id="s2">
+      <div class="big">No es la web.</div>
+      <div class="big big--two">Es que la <em>encuentren</em>.</div>
+    </div>
+
+    <div class="scene" id="s3">
+      <div class="big">Lo aprendo en<br/>mi propio <em>negocio</em>.</div>
+      <div class="sub">Tu web recibe solo<br/>lo que ya funciona.<br/><strong>No el experimento.</strong></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
+    const FADE_OUT = { immediateRender: false };
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+
+    // S1 visible from t=0
+    gsap.set("#s1", { opacity: 1 });
+    gsap.set("#s1 .big", { y: 0, opacity: 1 });
+    tl.fromTo("#s1", { opacity: 1 }, { opacity: 0, duration: 0.55, ...FADE_OUT }, 2.8);
+
+    // S2 (3.0 → 6.8s) — frase con pausa
+    tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 3.0);
+    tl.fromTo("#s2 .big:not(.big--two)", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 3.2);
+    tl.fromTo("#s2 .big--two", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 4.5);
+    tl.fromTo("#s2", { opacity: 1 }, { opacity: 0, duration: 0.55, ...FADE_OUT }, 6.8);
+
+    // S3 (7.1 → 10s)
+    tl.fromTo("#s3", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 7.1);
+    tl.fromTo("#s3 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 7.3);
+    tl.fromTo("#s3 .sub", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 8.2);
+  </script>
+</body>
+</html>
