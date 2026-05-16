@@ -1,6 +1,11 @@
 /* Wrapper canónico de página secundaria — IDÉNTICO a /blog y /ejemplos para
    que el kicker/H1 caigan a la misma altura y ancho exactos en todas. */
 .main {
+  /* width: 100% es OBLIGATORIO — sin él, como <main> es flex item del <body
+     flex-col>, el `margin: 0 auto` lo encoge a content-size en lugar de
+     estirarlo. Pasaba en /faq porque el contenido (texto) no llegaba al
+     max-width. Ver también Blog.module.css y ejemplos page.module.css. */
+  width: 100%;
   max-width: calc(var(--container-max, 1100px) + 2 * 56px);
   margin: 0 auto;
   padding-block: 48px 120px;

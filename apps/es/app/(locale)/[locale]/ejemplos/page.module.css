@@ -1,4 +1,7 @@
 .main {
+  /* width: 100% — <main> es flex-child del <body flex-col>. Sin esto se
+     encoge a content-size aunque no tenga max-width. Ver Faq.module.css. */
+  width: 100%;
   background: var(--bg);
   min-height: 100vh;
 }

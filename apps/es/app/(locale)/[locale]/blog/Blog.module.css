@@ -2,6 +2,10 @@
    contenido sea --container-max y coincida con faq + home + ejemplos, usamos
    el MISMO padding lateral que el resto: clamp(20px, 4vw, 56px). */
 .shell {
+  /* width: 100% — ver nota en Faq.module.css. Sin esto, en una página con
+     poco contenido (lista vacía, una sola row corta) el <main> flex-child
+     se encogería a content-size. */
+  width: 100%;
   max-width: calc(var(--container-max, 1100px) + 2 * 56px);
   margin: 0 auto;
   padding-block: 48px 120px;
@@ -25,6 +29,8 @@
    contenido + padding). Cuando hay ToC, los 1100px se reparten entre body
    y ToC, no se ensancha el shell. */
 .postShell {
+  /* width: 100% — ver nota en Faq.module.css (mismo bug en /blog/[slug]). */
+  width: 100%;
   max-width: calc(var(--container-max, 1100px) + 2 * 56px);
   margin: 0 auto;
   padding-block: 48px 120px;
