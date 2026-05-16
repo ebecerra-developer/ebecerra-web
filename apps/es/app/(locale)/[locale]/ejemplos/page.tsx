@@ -102,7 +102,8 @@ export default async function EjemplosPage({
           <p className={styles.empty}>{t("emptyState")}</p>
         ) : (
           <ul className={styles.grid}>
-            {demos.map((demo) => {
+            {demos.map((demo, i) => {
+              const isLcpCandidate = i === 0;
               const thumbnail = demo.thumbnail;
               const thumb = thumbnail
                 ? {
@@ -132,7 +133,8 @@ export default async function EjemplosPage({
                           srcSet={thumb.srcSet}
                           sizes="(min-width: 900px) 400px, (min-width: 600px) 50vw, 92vw"
                           alt={demo.businessName}
-                          loading="lazy"
+                          loading={isLcpCandidate ? "eager" : "lazy"}
+                          fetchPriority={isLcpCandidate ? "high" : undefined}
                           decoding="async"
                           width={800}
                           height={500}
