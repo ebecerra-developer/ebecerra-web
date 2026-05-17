@@ -17,6 +17,7 @@ import type {
   Locale,
   SectionMeta,
   ServiceSectionMeta,
+  ServicesPricing,
   FaqPageData,
   FaqItem,
   LegalPageData,
@@ -398,6 +399,101 @@ export async function getServiceSectionMeta(
       { locale }
     )
     .catch(() => null);
+}
+
+/**
+ * Singleton con la sección completa de Servicios y precios:
+ * caminos × tiers, add-ons, cláusula de rescisión y footnote.
+ *
+ * Devuelve null si no hay documento publicado — el componente
+ * Services debe renderizar un fallback en ese caso.
+ */
+export async function getServicesPricing(
+  locale: Locale
+): Promise<ServicesPricing | null> {
+  type Raw = Omit<ServicesPricing, "paths" | "addOns"> & {
+    paths:
+      | Array<
+          Omit<ServicesPricing["paths"][number], "tiers"> & {
+            tiers:
+              | Array<
+                  Omit<
+                    ServicesPricing["paths"][number]["tiers"][number],
+                    "features"
+                  > & {
+                    features:
+                      | ServicesPricing["paths"][number]["tiers"][number]["features"]
+                      | null;
+                  }
+                >
+              | null;
+          }
+        >
+      | null;
+    addOns: ServicesPricing["addOns"] | null;
+  };
+
+  const raw = await client
+    .fetch<Raw | null>(
+      `*[_type == "servicesPricing"][0] {
+        "kicker": ${loc("kicker")},
+        "title": ${loc("title")},
+        "lead": ${loc("lead")},
+        "pathSelectorLabel": ${loc("pathSelectorLabel")},
+        "paths": paths[]{
+          id,
+          "label": ${loc("label")},
+          "tagline": ${loc("tagline")},
+          "isDefault": coalesce(isDefault, false),
+          "tiers": tiers[]{
+            id,
+            "name": ${loc("name")},
+            priceMain,
+            "priceSecondary": ${loc("priceSecondary")},
+            "conditions": ${loc("conditions")},
+            "features": features[]{
+              "text": ${loc("text")},
+              "highlight": coalesce(highlight, false)
+            },
+            "highlighted": coalesce(highlighted, false),
+            "badge": ${loc("badge")},
+            "ctaLabel": ${loc("ctaLabel")},
+            ctaHref
+          }
+        },
+        "cancellationClause": cancellationClause {
+          showOnPathId,
+          "label": ${loc("label")},
+          "body": ${loc("body")}
+        },
+        "addOnsSectionTitle": ${loc("addOnsSectionTitle")},
+        "addOnsSectionLead": ${loc("addOnsSectionLead")},
+        "addOns": addOns[]{
+          "title": ${loc("title")},
+          "price": ${loc("price")},
+          "note": ${loc("note")}
+        },
+        "migrationFootnote": ${loc("migrationFootnote")}
+      }`,
+      { locale }
+    )
+    .catch(() => null);
+
+  if (!raw) return null;
+  return {
+    ...raw,
+    paths: (raw.paths ?? []).map((p) => ({
+      ...p,
+      tiers: (p.tiers ?? []).map((t) => ({
+        ...t,
+        features: (t.features ?? []).map((f) => ({
+          text: f.text,
+          highlight: Boolean(f.highlight),
+        })),
+      })),
+    })),
+    addOns: raw.addOns ?? [],
+  };
 }
 
 export async function getFaqPage(locale: Locale): Promise<FaqPageData | null> {

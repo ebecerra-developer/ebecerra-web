@@ -4,6 +4,7 @@ import techTag from "./techTag";
 import project from "./project";
 import profile from "./profile";
 import service from "./service";
+import servicesPricing from "./servicesPricing";
 import processStep from "./processStep";
 import caseStudy from "./caseStudy";
 import heroSection from "./heroSection";
@@ -37,6 +38,7 @@ export const schemaTypes = [
   heroSection,
   siteSettings,
   serviceSectionMeta,
+  servicesPricing,
   processSectionMeta,
   casesSectionMeta,
   contactSectionMeta,
@@ -65,6 +67,7 @@ export const SINGLETON_TYPES = [
   "heroSection",
   "siteSettings",
   "serviceSectionMeta",
+  "servicesPricing",
   "processSectionMeta",
   "casesSectionMeta",
   "contactSectionMeta",

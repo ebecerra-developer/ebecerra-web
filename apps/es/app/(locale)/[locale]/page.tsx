@@ -2,13 +2,12 @@ import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { getFallback } from "@/lib/content";
 import {
-  getFeaturedServices,
   getProcessSteps,
   getProfileFeatures,
   getHeroSection,
   getProfileContact,
   getProfile,
-  getServiceSectionMeta,
+  getServicesPricing,
   getSectionMeta,
   getSiteSettingsFooter,
 } from "@ebecerra/sanity-client";
@@ -35,29 +34,26 @@ export default async function Home({
 
   const [
     heroData,
-    services,
+    servicesPricing,
     processSteps,
     profileFeatures,
     contactData,
     profileData,
-    servicesMeta,
     processMeta,
     contactMeta,
     footerData,
   ] = await Promise.all([
     getHeroSection(locale).catch(() => null),
-    getFeaturedServices(locale).catch(() => []),
+    getServicesPricing(locale).catch(() => null),
     getProcessSteps(locale).catch(() => []),
     getProfileFeatures(locale).catch(() => null),
     getProfileContact(locale).catch(() => null),
     getProfile(locale).catch(() => null),
-    getServiceSectionMeta(locale).catch(() => null),
     getSectionMeta("processSectionMeta", locale).catch(() => null),
     getSectionMeta("contactSectionMeta", locale).catch(() => null),
     getSiteSettingsFooter(locale).catch(() => null),
   ]);
 
-  const resolvedServices = services.length > 0 ? services : fallback.services;
   const resolvedProcess = processSteps.length > 0 ? processSteps : fallback.processSteps;
   const resolvedFeatures = profileFeatures ?? fallback.aboutFeatures;
 
@@ -66,7 +62,7 @@ export default async function Home({
       <Nav />
       <main id="main">
         <Hero sanityData={heroData} />
-        <Services services={resolvedServices} sectionMeta={servicesMeta} />
+        <Services pricing={servicesPricing} />
         <About features={resolvedFeatures} profile={profileData} />
         <Capabilities />
         <Process steps={resolvedProcess} sectionMeta={processMeta} />

@@ -42,13 +42,12 @@
   "services": {
     "kicker": "// 01. Services",
     "title": "How I can help you",
-    "lead": "Four ways to work together, with clear pricing from the first contact. Not sure which fits your case? Write me and I'll point you the right way — no strings attached.",
+    "lead": "Two ways to pay, three levels of complexity. You pick how, not what.",
+    "pathTabsAriaLabel": "Switch between service contract and one-time payment",
+    "defaultCta": "Let's talk",
     "priceFrom": "from",
     "priceOnRequest": "Custom quote",
-    "viewMore": "View details",
-    "auditKicker": "no cost",
-    "auditBody": "Not sure which one fits your case, or want a second opinion on your current site? A 30-min conversation and a short written take by email. No sales pitch.",
-    "auditCta": "Book 30 min"
+    "viewMore": "View details"
   },
   "cases": {
     "kicker": "// Featured cases",

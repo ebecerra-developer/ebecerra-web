@@ -17,6 +17,7 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "project",
   "profile",
   "service",
+  "servicesPricing",
   "processStep",
   "caseStudy",
   "heroSection",
@@ -58,12 +59,20 @@ const structure: StructureResolver = (S) =>
                   S.document().schemaType("heroSection").documentId("8d0cdc27-e77a-413f-97b3-295cffeeef0d")
                 ),
               S.listItem()
-                .title("Sección · Servicios")
+                .title("Sección · Servicios (meta legacy)")
                 .id("serviceSectionMeta")
                 .child(
                   S.document()
                     .schemaType("serviceSectionMeta")
                     .documentId("a6675cf9-f20f-4741-82dc-f4f6f2504264")
+                ),
+              S.listItem()
+                .title("Sección · Servicios y precios")
+                .id("servicesPricing")
+                .child(
+                  S.document()
+                    .schemaType("servicesPricing")
+                    .documentId("148cf08a-bfe2-4188-ad31-79784ca11853")
                 ),
               S.listItem()
                 .title("Sección · Proceso")

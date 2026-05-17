@@ -42,13 +42,12 @@
   "services": {
     "kicker": "// 01. Servicios",
     "title": "Cómo puedo ayudarte",
-    "lead": "Cuatro formas de trabajar juntos, con precios claros desde el primer contacto. Si no sabes cuál encaja con tu caso, escríbeme y te oriento sin compromiso.",
+    "lead": "Dos formas de pagarlo, tres niveles de complejidad. Tú eliges cómo, no qué.",
+    "pathTabsAriaLabel": "Cambiar entre contrato de servicio y pago único",
+    "defaultCta": "Hablemos",
     "priceFrom": "desde",
     "priceOnRequest": "Presupuesto a medida",
-    "viewMore": "Ver detalles",
-    "auditKicker": "sin coste",
-    "auditBody": "¿No sabes cuál encaja con tu caso o quieres segunda opinión sobre tu web actual? 30 min de conversación y un mini-informe por email. Sin venta.",
-    "auditCta": "Reservar 30 min"
+    "viewMore": "Ver detalles"
   },
   "cases": {
     "kicker": "// Casos destacados",

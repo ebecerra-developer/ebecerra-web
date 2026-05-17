@@ -39,6 +39,59 @@ export type Service = {
   featured: boolean;
 };
 
+// ---------- Services Pricing (singleton) ----------
+
+export type ServicesPricingTierFeature = {
+  text: string;
+  highlight: boolean;
+};
+
+export type ServicesPricingTier = {
+  id: string;
+  name: string;
+  priceMain: string;
+  priceSecondary: string | null;
+  conditions: string | null;
+  features: ServicesPricingTierFeature[];
+  highlighted: boolean;
+  badge: string | null;
+  ctaLabel: string | null;
+  ctaHref: string | null;
+};
+
+export type ServicesPricingPath = {
+  id: string;
+  label: string;
+  tagline: string | null;
+  isDefault: boolean;
+  tiers: ServicesPricingTier[];
+};
+
+export type ServicesPricingCancellationClause = {
+  showOnPathId: string | null;
+  label: string | null;
+  body: string | null;
+};
+
+export type ServicesPricingAddOn = {
+  title: string;
+  price: string | null;
+  note: string | null;
+};
+
+export type ServicesPricing = {
+  kicker: string | null;
+  title: string | null;
+  lead: string | null;
+  pathSelectorLabel: string | null;
+  paths: ServicesPricingPath[];
+  cancellationClause: ServicesPricingCancellationClause | null;
+  addOnsSectionTitle: string | null;
+  addOnsSectionLead: string | null;
+  addOns: ServicesPricingAddOn[];
+  migrationFootnote: string | null;
+};
+
 export type ProcessStep = {
   _id: string;
   title: string;
