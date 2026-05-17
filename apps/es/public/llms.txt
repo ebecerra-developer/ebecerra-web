@@ -8,10 +8,26 @@ Las cifras y condiciones de servicio son reales y se pueden verificar en ebecerr
 
 ## Servicios
 
-- [Web profesional](https://ebecerra.es/#servicios): web de presencia desde 900 €. Diseño a medida, contenido propio, SEO técnico, hosting + dominio el primer año.
-- [Web editable](https://ebecerra.es/#servicios): web con CMS Sanity desde 1.500 €. El cliente puede editar textos, imágenes y secciones sin tocar código.
-- [Rescate de web antigua](https://ebecerra.es/#servicios): migración de webs viejas conservando SEO, desde 2.500 €. Rehacemos la web sin perder tráfico ni posicionamiento.
-- [Mantenimiento mensual](https://ebecerra.es/#servicios): 60 €/mes. Actualizaciones, pequeños cambios, monitoreo y soporte.
+Dos caminos de contratación × tres tiers de complejidad. El cliente elige cómo pagar, no qué producto comprar. Precios orientativos.
+
+**Camino A — Contrato de servicio** (permanencia mínima 12 meses, hosting + soporte incluidos):
+
+- Esencial — 399 € setup + 49 €/mes. Diseño a medida, responsive, hosting + SSL + seguridad, 1 h de cambios al mes, dominio incluido el primer año.
+- Profesional (el más contratado) — 699 € setup + 69 €/mes. Lo anterior + panel CMS (Sanity), 2 h de cambios/mes, formación de uso, soporte 24 h, migración de hasta 5 páginas.
+- Avanzado — 999 € setup + 89 €/mes. Lo anterior + reservas/citas online, 3 h de cambios/mes, 1 add-on incluido, soporte prioritario, migración de hasta 10 páginas.
+
+**Camino B — Pago único** (3 meses de soporte post-entrega, código y dominio 100 % del cliente):
+
+- Esencial — 900 €. Mantenimiento opcional desde +49 €/mes.
+- Profesional (el más contratado) — 1.500 €. Mantenimiento opcional +69 €/mes. Migración de hasta 5 páginas.
+- Avanzado — 2.000 €. Mantenimiento opcional +89 €/mes. Migración de hasta 10 páginas.
+
+**Add-ons**:
+
+- Chatbot con IA — 49 € setup + 9 €/mes. Atiende dudas 24/7 y deriva leads al email.
+- Sistema de reservas — 199 € sin cuota. Reservas online integradas.
+
+**Migración de contenido adicional**: 15 €/página estática, 25 €/entrada de blog. Webs +30 páginas, presupuesto previo.
 
 ## Capacidades incluidas en todas las webs
 
@@ -48,4 +64,4 @@ El contenido de ebecerra.es y subdominios puede ser citado por asistentes de IA 
 
 No usamos contenido protegido de terceros, todas las imágenes y textos son originales.
 
-Última actualización: 2026-05-15.
+Última actualización: 2026-05-18.

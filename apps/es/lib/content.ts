@@ -1,13 +1,12 @@
 import type { Locale } from "@/i18n/routing";
 import type {
   Feature,
-  Service,
   ProcessStep,
   CaseStudySummary,
   CaseStudyMetric,
 } from "@ebecerra/sanity-client";
 
-export type { Feature, Service, ProcessStep, CaseStudySummary, CaseStudyMetric };
+export type { Feature, ProcessStep, CaseStudySummary, CaseStudyMetric };
 
 export type FooterLink = { label: string; url: string; external?: boolean };
 
@@ -28,7 +27,6 @@ export type CaseCard = {
 };
 
 type Fallback = {
-  services: Service[];
   processSteps: ProcessStep[];
   featuredCase: FeaturedCase | null;
   cases: CaseCard[];
@@ -37,82 +35,6 @@ type Fallback = {
 };
 
 const es: Fallback = {
-  services: [
-    {
-      _id: "fallback-service-web-presencia",
-      title: "Web profesional para tu negocio",
-      slug: "web-presencia",
-      icon: "🌐",
-      summary:
-        "Tu negocio online con una web propia, rápida y clara. Para que quien te busque en Google te encuentre y te pueda contactar sin complicaciones.",
-      description: null,
-      deliverables: [
-        "diseño a medida, sin plantillas copiadas",
-        "se ve bien en móvil y en ordenador",
-        "formulario de contacto que llega a tu email",
-        "dominio, alojamiento y puesta en marcha",
-        "3 meses de soporte tras la entrega",
-      ],
-      priceRange: "900 €",
-      priceNote: "Rango orientativo. Presupuesto cerrado tras una primera conversación.",
-      featured: true,
-    },
-    {
-      _id: "fallback-service-web-cms",
-      title: "Web que actualizas tú solo",
-      slug: "web-editable",
-      icon: "✏️",
-      summary:
-        "Cambias textos, fotos y noticias sin llamarme a mí ni a nadie. Aprendes en una tarde y tu web sigue viva aunque yo no esté.",
-      description: null,
-      deliverables: [
-        "panel sencillo para editar páginas",
-        "subes fotos y textos sin saber diseño",
-        "creas páginas nuevas tú mismo",
-        "una sesión de 1h de formación práctica",
-      ],
-      priceRange: "1.500 €",
-      priceNote: "Rango orientativo. Presupuesto cerrado tras una primera conversación.",
-      featured: true,
-    },
-    {
-      _id: "fallback-service-migracion",
-      title: "Rescate de tu web actual",
-      slug: "rescate-web",
-      icon: "🛟",
-      summary:
-        "¿Tu web va lenta, se rompe cada mes o nadie sabe actualizarla? La rehago desde cero sin que pierdas posición en Google ni contenido.",
-      description: null,
-      deliverables: [
-        "revisión de lo que ya tienes",
-        "traslado sin perder visitas ni posicionamiento",
-        "web nueva más rápida y fácil de mantener",
-        "aviso a Google para que no te penalice el cambio",
-      ],
-      priceRange: "2.500 €",
-      priceNote: "Rango orientativo. Presupuesto cerrado tras revisar tu web actual.",
-      featured: true,
-    },
-    {
-      _id: "fallback-service-mantenimiento",
-      title: "Mantenimiento mensual",
-      slug: "mantenimiento",
-      icon: "🔧",
-      summary:
-        "Tu web siempre al día. Alojamiento, copias de seguridad, pequeños cambios y alguien a quien llamar cuando algo no funciona.",
-      description: null,
-      deliverables: [
-        "alojamiento y dominio incluidos",
-        "copias de seguridad diarias",
-        "actualizaciones de seguridad al día",
-        "cambios pequeños incluidos cada mes",
-        "respuesta rápida si algo falla",
-      ],
-      priceRange: "60 €/mes",
-      priceNote: "Sin permanencia. Bajas cuando quieras.",
-      featured: true,
-    },
-  ],
   processSteps: [
     {
       _id: "fallback-step-1",
@@ -228,82 +150,6 @@ const es: Fallback = {
 };
 
 const en: Fallback = {
-  services: [
-    {
-      _id: "fallback-service-web-presencia",
-      title: "Professional website for your business",
-      slug: "web-presencia",
-      icon: "🌐",
-      summary:
-        "Your business online with a fast, clear site of your own. So anyone who searches for you on Google finds you and can get in touch without friction.",
-      description: null,
-      deliverables: [
-        "custom design, no copy-paste templates",
-        "looks good on mobile and desktop",
-        "contact form that lands in your inbox",
-        "domain, hosting and go-live included",
-        "3 months of support after delivery",
-      ],
-      priceRange: "€900",
-      priceNote: "Starting estimate. Fixed quote after a first conversation.",
-      featured: true,
-    },
-    {
-      _id: "fallback-service-web-cms",
-      title: "A website you can update yourself",
-      slug: "web-editable",
-      icon: "✏️",
-      summary:
-        "Change text, photos and news without calling me or anyone else. You learn it in one afternoon and your site keeps living even when I'm not around.",
-      description: null,
-      deliverables: [
-        "simple panel to edit pages",
-        "upload photos and text without design skills",
-        "create new pages yourself",
-        "one 1-hour hands-on training session",
-      ],
-      priceRange: "€1,500",
-      priceNote: "Starting estimate. Fixed quote after a first conversation.",
-      featured: true,
-    },
-    {
-      _id: "fallback-service-migracion",
-      title: "Rescue of your current website",
-      slug: "rescate-web",
-      icon: "🛟",
-      summary:
-        "Is your site slow, breaking every month or impossible to update? I rebuild it from scratch without you losing your Google ranking or your content.",
-      description: null,
-      deliverables: [
-        "review of what you already have",
-        "move over without losing traffic or ranking",
-        "new site that's faster and easier to maintain",
-        "Google notified so the change doesn't hurt you",
-      ],
-      priceRange: "€2,500",
-      priceNote: "Starting estimate. Fixed quote after reviewing your current site.",
-      featured: true,
-    },
-    {
-      _id: "fallback-service-mantenimiento",
-      title: "Monthly maintenance",
-      slug: "mantenimiento",
-      icon: "🔧",
-      summary:
-        "Your site always up to date. Hosting, backups, small changes and someone you can call when something goes wrong.",
-      description: null,
-      deliverables: [
-        "hosting and domain included",
-        "daily backups",
-        "security updates handled",
-        "small changes included every month",
-        "quick response if anything breaks",
-      ],
-      priceRange: "€60/mo",
-      priceNote: "No lock-in. Cancel whenever you want.",
-      featured: true,
-    },
-  ],
   processSteps: [
     {
       _id: "fallback-step-1",

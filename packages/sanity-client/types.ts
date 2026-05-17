@@ -26,19 +26,6 @@ export type Project = {
   links: ProjectLink[];
 };
 
-export type Service = {
-  _id: string;
-  title: string;
-  slug: string;
-  icon: string | null;
-  summary: string;
-  description: string | null;
-  deliverables: string[];
-  priceRange: string | null;
-  priceNote: string | null;
-  featured: boolean;
-};
-
 // ---------- Services Pricing (singleton) ----------
 
 export type ServicesPricingTierFeature = {

@@ -4,7 +4,6 @@ import type {
   Skill,
   Project,
   Feature,
-  Service,
   ProcessStep,
   CaseStudy,
   CaseStudySummary,
@@ -201,36 +200,7 @@ export async function getProfileContact(locale: Locale): Promise<ProfileContact 
   );
 }
 
-// --- Fase 6+: services, processSteps, caseStudies ---
-
-type DeliverableRaw = { text: string };
-
-export async function getServices(locale: Locale): Promise<Service[]> {
-  const raw = await client.fetch<Array<Omit<Service, "deliverables"> & { deliverables: DeliverableRaw[] | null }>>(
-    `*[_type == "service"] | order(order asc) {
-      "_id": _id,
-      "title": ${loc("title")},
-      "slug": slug.current,
-      icon,
-      "summary": ${loc("summary")},
-      "description": ${loc("description")},
-      "deliverables": deliverables[]{ "text": coalesce(@[$locale], @.es, @) },
-      priceRange,
-      "priceNote": ${loc("priceNote")},
-      "featured": coalesce(featured, false)
-    }`,
-    { locale }
-  );
-  return raw.map((s) => ({
-    ...s,
-    deliverables: (s.deliverables ?? []).map((d) => d.text),
-  }));
-}
-
-export async function getFeaturedServices(locale: Locale): Promise<Service[]> {
-  const services = await getServices(locale);
-  return services.filter((s) => s.featured);
-}
+// --- Fase 6+: processSteps, caseStudies ---
 
 export async function getProcessSteps(locale: Locale): Promise<ProcessStep[]> {
   return client.fetch<ProcessStep[]>(

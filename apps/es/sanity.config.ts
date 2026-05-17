@@ -16,7 +16,6 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "techTag",
   "project",
   "profile",
-  "service",
   "servicesPricing",
   "processStep",
   "caseStudy",
@@ -138,10 +137,6 @@ const structure: StructureResolver = (S) =>
             ])
         ),
       S.divider(),
-      S.listItem()
-        .title("Servicios")
-        .schemaType("service")
-        .child(S.documentTypeList("service").title("Servicios")),
       S.listItem()
         .title("Pasos del proceso")
         .schemaType("processStep")

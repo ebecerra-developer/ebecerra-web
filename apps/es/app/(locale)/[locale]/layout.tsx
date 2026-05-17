@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import StructuredData from "@/components/StructuredData";
 import ChatbotLoader from "@/components/ChatbotLoader";
-import { getSiteSettingsFull, getProfile, getServices } from "@ebecerra/sanity-client";
+import { getSiteSettingsFull, getProfile, getServicesPricing } from "@ebecerra/sanity-client";
 import type { Locale } from "@/i18n/routing";
 import "../../globals.css";
 
@@ -152,11 +152,11 @@ export default async function LocaleLayout({
     notFound();
   }
   setRequestLocale(locale);
-  const [t, settings, profile, services] = await Promise.all([
+  const [t, settings, profile, pricing] = await Promise.all([
     getTranslations({ locale, namespace: "a11y" }),
     getSiteSettingsFull(locale),
     getProfile(locale),
-    getServices(locale).catch(() => []),
+    getServicesPricing(locale).catch(() => null),
   ]);
 
   return (
@@ -174,7 +174,7 @@ export default async function LocaleLayout({
         <StructuredData
           settings={settings}
           profile={profile}
-          services={services}
+          pricing={pricing}
           locale={locale as Locale}
         />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>

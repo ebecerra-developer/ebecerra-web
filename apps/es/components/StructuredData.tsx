@@ -1,5 +1,10 @@
 import type { Locale } from "@/i18n/routing";
-import type { SiteSettingsFull, ProfileFull, Service } from "@ebecerra/sanity-client";
+import type {
+  SiteSettingsFull,
+  ProfileFull,
+  ServicesPricing,
+  ServicesPricingTier,
+} from "@ebecerra/sanity-client";
 
 const SITE_URL = "https://ebecerra.es";
 const TECH_URL = "https://ebecerra.tech";
@@ -14,14 +19,14 @@ const DEFAULT_DESC_ES =
 const DEFAULT_DESC_EN =
   "I build custom websites for clinics, law firms, freelancers and SMBs. No generic templates. Fast, accessible and designed so your team can run them solo.";
 const DEFAULT_ORG_DESC_ES =
-  "Webs a medida para clínicas, despachos, autónomos y PYMEs: webs profesionales de presencia, webs editables con CMS, rescate de webs antiguas sin perder SEO y mantenimiento mensual.";
+  "Webs a medida para autónomos y PYMEs en dos modalidades de pago (contrato de servicio o pago único) y tres niveles de complejidad. Hosting, mantenimiento y add-ons opcionales.";
 const DEFAULT_ORG_DESC_EN =
-  "Custom websites for clinics, law firms, freelancers and SMBs: professional presence sites, editable CMS-powered sites, rescue of legacy sites without SEO loss, and monthly maintenance.";
+  "Custom websites for freelancers and SMBs in two payment paths (service contract or one-time) and three complexity tiers. Hosting, maintenance and optional add-ons.";
 
 type Props = {
   settings: SiteSettingsFull;
   profile: ProfileFull | null;
-  services: Service[];
+  pricing: ServicesPricing | null;
   locale: Locale;
 };
 
@@ -130,16 +135,50 @@ function buildWebsite(locale: Locale) {
   };
 }
 
-function buildServiceGraph(services: Service[], locale: Locale) {
+// "900 €" / "1.500 €" / "2.000 €" → "900" / "1500" / "2000"
+function parsePriceAmount(price: string | null | undefined): string | null {
+  if (!price) return null;
+  const digits = price.replace(/[^\d]/g, "");
+  return digits.length > 0 ? digits : null;
+}
+
+function buildTierDescription(
+  tier: ServicesPricingTier,
+  contractTier: ServicesPricingTier | undefined,
+  locale: Locale
+): string {
+  const parts: string[] = [];
+  if (contractTier) {
+    if (locale === "es") {
+      parts.push(
+        `Pago único ${tier.priceMain} o contrato desde ${contractTier.priceMain}${
+          contractTier.priceSecondary ? ` ${contractTier.priceSecondary}` : ""
+        }.`
+      );
+    } else {
+      parts.push(
+        `One-time ${tier.priceMain} or contract from ${contractTier.priceMain}${
+          contractTier.priceSecondary ? ` ${contractTier.priceSecondary}` : ""
+        }.`
+      );
+    }
+  } else if (tier.conditions) {
+    parts.push(`${tier.priceMain} · ${tier.conditions}`);
+  } else {
+    parts.push(tier.priceMain);
+  }
+
+  const featureSummary = tier.features
+    .slice(0, 3)
+    .map((f) => f.text)
+    .join(" · ");
+  if (featureSummary) parts.push(featureSummary);
+
+  return parts.join(" ");
+}
+
+function buildServiceGraph(pricing: ServicesPricing | null, locale: Locale) {
   const canonical = locale === "es" ? SITE_URL : `${SITE_URL}/${locale}`;
-  const serviceItems = services.map((s) => ({
-    "@type": "Service",
-    "@id": `${SITE_URL}/#service-${s.slug}`,
-    name: s.title,
-    description: s.summary,
-    provider: { "@id": ORG_URL },
-    url: `${canonical}#servicios`,
-  }));
 
   const aggregate = {
     "@type": "Service",
@@ -168,17 +207,71 @@ function buildServiceGraph(services: Service[], locale: Locale) {
     },
   };
 
-  return serviceItems.length > 0 ? [...serviceItems, aggregate] : [aggregate];
+  // Source of truth: la pareja de paths del singleton. Si no hay pricing aún
+  // (Sanity vacío o caído), emitimos solo el aggregate y dejamos que el SEO
+  // siga vivo aunque sin tier-level entries.
+  const oneTimePath = pricing?.paths.find((p) => p.id === "oneTime");
+  const contractPath = pricing?.paths.find((p) => p.id === "contract");
+  if (!oneTimePath || oneTimePath.tiers.length === 0) return [aggregate];
+
+  const tierItems = oneTimePath.tiers.map((tier) => {
+    const contractTier = contractPath?.tiers.find((t) => t.id === tier.id);
+    const oneTimeAmount = parsePriceAmount(tier.priceMain);
+    const contractSetupAmount = contractTier
+      ? parsePriceAmount(contractTier.priceMain)
+      : null;
+
+    // Si tenemos los dos precios → AggregateOffer (low/high). Si solo uno → Offer simple.
+    let offers: Record<string, unknown>;
+    if (contractSetupAmount && oneTimeAmount) {
+      offers = {
+        "@type": "AggregateOffer",
+        priceCurrency: "EUR",
+        lowPrice: contractSetupAmount,
+        highPrice: oneTimeAmount,
+        offerCount: 2,
+        availability: "https://schema.org/InStock",
+        url: `${canonical}#servicios`,
+      };
+    } else if (oneTimeAmount) {
+      offers = {
+        "@type": "Offer",
+        priceCurrency: "EUR",
+        price: oneTimeAmount,
+        availability: "https://schema.org/InStock",
+        url: `${canonical}#servicios`,
+      };
+    } else {
+      offers = {
+        "@type": "Offer",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: `${canonical}#servicios`,
+      };
+    }
+
+    return {
+      "@type": "Service",
+      "@id": `${SITE_URL}/#service-${tier.id}`,
+      name: tier.name,
+      description: buildTierDescription(tier, contractTier, locale),
+      provider: { "@id": ORG_URL },
+      url: `${canonical}#servicios`,
+      offers,
+    };
+  });
+
+  return [...tierItems, aggregate];
 }
 
-export default function StructuredData({ settings, profile, services, locale }: Props) {
+export default function StructuredData({ settings, profile, pricing, locale }: Props) {
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
       buildPerson(profile, settings, locale),
       buildOrganization(settings, profile, locale),
       buildWebsite(locale),
-      ...buildServiceGraph(services, locale),
+      ...buildServiceGraph(pricing, locale),
     ],
   };
 

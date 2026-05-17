@@ -3,7 +3,6 @@ import skill from "./skill";
 import techTag from "./techTag";
 import project from "./project";
 import profile from "./profile";
-import service from "./service";
 import servicesPricing from "./servicesPricing";
 import processStep from "./processStep";
 import caseStudy from "./caseStudy";
@@ -50,7 +49,6 @@ export const schemaTypes = [
   skill,
   techTag,
   project,
-  service,
   processStep,
   caseStudy,
   faqItem,
