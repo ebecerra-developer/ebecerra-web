@@ -5,7 +5,15 @@ description: Guía operativa para escribir y publicar un post nuevo en el blog d
 
 # Crear un post nuevo del blog — apps/es
 
-El blog vive en `apps/es`, vendido a **autónomos y dueños de PYMEs en España**. Esta skill orquesta la redacción + publicación. Para arquitectura (queries, layout, schemas) ver skill `/blog-system`.
+El blog vive en `apps/es`, vendido a **autónomos y dueños de PYMEs en España**. Esta skill cubre **la pieza "redactar y publicar el post"** — el resto del ciclo editorial (investigar, planificar, optimizar, repurpose) lo orquesta `/content-flow`.
+
+## Cuándo entrar por aquí vs por `/content-flow`
+
+- **Tema y ángulo ya decididos** → entra directo aquí. Saltas investigación y planificación.
+- **No sabes de qué escribir, o quieres un plan de contenido** → entra por `/content-flow` (te lleva por `/customer-research` y `/content-strategy` antes de volver aquí en el paso 3).
+- **Post existente al que quieres exprimir SEO/AEO o repurpose social** → `/content-flow` paso 4-7 (`/ai-seo`, `/seo-aeo-best-practices`, `/seo-audit`, `/social-media-kit`).
+
+Para arquitectura del blog (queries, layout, schemas, likes/comments) ver `/blog-system`. Para tono y construcción de frases (titulares, leads, CTAs) entra antes por `/copywriting`.
 
 ## 1. Reglas duras de redacción
 
