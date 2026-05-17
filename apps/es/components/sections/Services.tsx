@@ -165,6 +165,12 @@ export default function Services({ pricing }: Props) {
           </aside>
         )}
 
+        {pricing?.migrationFootnote && (
+          <p className={styles.footnote}>
+            <span aria-hidden="true">*</span> {pricing.migrationFootnote}
+          </p>
+        )}
+
         {(pricing?.addOns?.length ?? 0) > 0 && (
           <div className={styles.addOnsBlock}>
             {pricing?.addOnsSectionTitle && (
@@ -185,12 +191,6 @@ export default function Services({ pricing }: Props) {
               ))}
             </ul>
           </div>
-        )}
-
-        {pricing?.migrationFootnote && (
-          <p className={styles.footnote}>
-            <span aria-hidden="true">*</span> {pricing.migrationFootnote}
-          </p>
         )}
       </div>
     </section>
