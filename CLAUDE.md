@@ -4,9 +4,9 @@
 
 Portfolio personal de Enrique Becerra, Tech Architect Lead en VASS y especialista en Magnolia CMS.
 
-**Estado (2026-05-10):** `main` es el **monorepo** en producción con tres apps sobre un único Sanity compartido:
+**Estado (2026-05-18):** `main` es el **monorepo** en producción con tres apps sobre un único Sanity compartido:
 
-- **[`apps/es`](apps/es/)** → `ebecerra.es` — modo pro, escaparate comercial para autónomos/PYMEs. Home con 6 secciones numeradas: 01 Servicios · 02 Sobre mí · 03 Capacidades (IA, reservas, integraciones, datos) · 04 Cómo trabajamos · 05 Ejemplos · 06 Contacto. 4 servicios en grid 2x2 (Web profesional 900 €, Web editable 1.500 €, Rescate 2.500 €, Mantenimiento 60 €/mes). Sanity wired para services/process/profile/Examples (vía demoSite). Sección Casos retirada en 2026-05-09 (anonimizados, sin valor para el público). Form de contacto con Resend.
+- **[`apps/es`](apps/es/)** → `ebecerra.es` — modo pro, escaparate comercial para autónomos/PYMEs. Home con 6 secciones numeradas: 01 Servicios · 02 Sobre mí · 03 Capacidades (IA, reservas, integraciones, datos) · 04 Cómo trabajamos · 05 Ejemplos · 06 Contacto. Sección Servicios reescrita 2026-05-17: singleton `servicesPricing` con **dos caminos × tres tiers** (Contrato: Esencial 399 € + 49 €/mes, Profesional 699 € + 69 €/mes, Avanzado 999 € + 89 €/mes con permanencia 12m · Pago único: 900 / 1.500 / 2.000 €) + add-ons (chatbot 49 € + 9 €/mes, reservas 199 € sin cuota), cláusula de rescisión y footnote de migración (15 €/página, 25 €/blog entry). Sanity wired para servicesPricing/process/profile/Examples (vía demoSite). Sección Casos retirada en 2026-05-09 (anonimizados, sin valor para el público). Form de contacto con Resend. **Blog vivo desde 2026-05-15** (`/blog`, schemas Sanity post/author/blogCategory/blogTag, Shiki + rough-notation, likes/comments en Supabase).
 - **[`apps/tech`](apps/tech/)** → `ebecerra.tech` — modo geek. Next.js CV-style (8 secciones). Live desde 2026-04-24. El contenido (experience, skills, techTags, projects) viene de Sanity — `apps/tech/lib/content.ts` es solo fallback. Para añadir o editar proyectos, experiencia o skills, hacerlo en Sanity (type `project`, `experience`, `skill`, `techTag`) y publicar; no editar el fallback.
 - **[`apps/demos`](apps/demos/)** → `demos.ebecerra.es` — subdominio de demos navegables. Activo desde 2026-05-09. La raíz `/` renderiza la primera demo publicada por `galleryOrder`. Cada demo es un doc `demoSite` en Sanity con `template` + `brandOverrides` (paleta + logo + tono fondo). Robots noindex global. **Cuatro demos publicadas** (última actualización 2026-05-14), cada una con plantilla propia (componentes y tokens propios — no son temas repintados):
   - `/equilibrio` — plantilla `fisio` · clínica fisio anonimizada · cream paper + walnut + petrol blue · bilingüe ES/EN.
@@ -175,42 +175,100 @@ Para rotar la key de Groq: cambiarla en los 3 proyectos. No hay Team Environment
 
 ## Skills
 
-Invocar con `/nombre`. Organizadas por cuándo usarlas.
+Invocar con `/nombre`. Agrupadas por dominio.
 
 ### Específicas de este proyecto
+
+#### Workflow y git
 
 | Skill | Cuándo |
 |---|---|
 | `/git-workflow` | Commits y push (workaround heredoc, convenciones). |
+
+#### Sanity y contenido del proyecto
+
+| Skill | Cuándo |
+|---|---|
 | `/sanity-content-flow` | Crear/editar/publicar contenido en Sanity, modificar schemas, patchear vía MCP. |
-| `/blog-create-post` | Redactar y publicar un post nuevo del blog: tono PYME, estructura, marks rough, bilingüe, cover IA + validación. |
-| `/chatbot-system` | Editar greetings/system prompts del chatbot, tocar la cadena de modelos Groq, añadir contexto nuevo o diagnosticar. |
-| `/demos-template-system` | Añadir una plantilla nueva a `apps/demos` (dental, asesoría…). Estructura, qué reutilizar, gotcha de createPortal. |
+| `/blog-system` | Arquitectura del blog en apps/es: schemas, queries, layout sticky ToC, Shiki, likes+comments Supabase. |
+| `/blog-create-post` | Redactar y publicar un post nuevo: tono PYME, estructura, marks rough, bilingüe, cover IA + validación. |
+| `/chatbot-system` | Editar greetings/system prompts, cadena de modelos Groq, añadir contexto nuevo o diagnosticar. |
+| `/demos-template-system` | Añadir plantilla nueva a `apps/demos` (dental, asesoría…). Qué reutilizar, gotcha createPortal. |
+
+#### Estilos y marca
+
+| Skill | Cuándo |
+|---|---|
 | `/css-conventions` | Escribir o portar estilos. CSS Modules co-located. |
 | `/design-tokens` | Paleta, tokens CSS, rough-notation, handoff de Claude Design. |
 | `/brand-identity` | Logos, favicons, OG images, kit de marca. |
+
+#### Infra y i18n
+
+| Skill | Cuándo |
+|---|---|
 | `/deployment-sanity-webhook` | Vercel, dominios, env vars, webhooks Sanity, CORS. |
 | `/i18n-next-intl` | Añadir strings traducibles, routing por locale, metadata bilingüe. |
+
+#### Legacy y landings estáticas
+
+| Skill | Cuándo |
+|---|---|
 | `/piezas-landing` | Editar `public/piezas-game/` o su routing. |
 | `/legacy-vite-codebase` | Consultar convenciones del SPA archivado en `_legacy/`. |
 
-### Genéricas de uso habitual
+### Genéricas — contenido, marketing y SEO
+
+Flujo recomendado para crear contenido (post, landing nueva, copy de sección):
+
+1. **Descubrir de qué hablar** → `/customer-research` (Reddit/G2/reviews/JTBD del público real: autónomos, PYMEs) y/o `/tavily-research` (reports profundos con citas para tendencias y comparativas de mercado).
+2. **Planificar el qué** → `/content-strategy` (traduce los hallazgos a pillares, calendario, topic clusters).
+3. **Redactar el cómo** → `/copywriting` (titulares, leads, CTAs, claridad, voz) + `/blog-create-post` si es un post (flujo operativo Sanity).
+4. **Optimizar para visibilidad** → `/ai-seo` (estructura extractable, citation patterns, llms.txt, `/pricing.md`, monitoring de citas en LLMs).
+5. **Implementar técnico** → `/seo-aeo-best-practices` (metadata, OG, sitemaps, robots.txt, hreflang, JSON-LD).
+6. **Auditar después** → `/seo-audit` (rankings, Core Web Vitals, indexing).
+7. **Repurpose social** → `/social-media-kit` (Instagram/Facebook posts, carousels, stories).
+
+| Skill | Uso | Solape a tener en cuenta |
+|---|---|---|
+| `/customer-research` | Voice of customer en fuentes externas (Reddit, G2, foros, reviews, transcripts). Personas, JTBD, vocabulario verbatim. | Va antes de `/content-strategy`: research aporta datos, strategy planifica. |
+| `/tavily-research` | Investigación web profunda con citas vía CLI `tvly`. Comparativas, análisis de mercado, literature reviews. **Requiere** `curl -fsSL https://cli.tavily.com/install.sh \| bash && tvly login`. | Complementa `/customer-research` cuando hace falta datos sintetizados, no quotes verbatim. |
+| `/content-strategy` | Pillares, calendario editorial, topic clusters, decisión de "qué publicar". | Ver flujo arriba. |
+| `/copywriting` | Redacción persuasiva: titulares, leads, CTAs, voz. Aplica a copy de cualquier página, no solo blog. | Para el flujo operativo de publicar un post (Sanity, marks, bilingüe), `/blog-create-post`. Aquí se enfoca el cómo escribir. |
+| `/ai-seo` | Estrategia editorial para que LLMs (Perplexity, ChatGPT, AI Overviews) te citen: estructura, three pillars, llms.txt, /pricing.md, monitoring. | `/seo-aeo-best-practices` es la implementación técnica (metadata/JSON-LD/robots); `/ai-seo` es la estrategia + auditoría editorial. Se complementan. |
+| `/seo-aeo-best-practices` | Metadata, OG, sitemaps, robots.txt, hreflang, JSON-LD, EEAT. Más técnico. | Ver arriba. |
+| `/seo-audit` | Diagnóstico SEO on-page existente: rankings, indexing, Core Web Vitals, crawl errors. | Va al final del ciclo, no al principio. |
+| `/social-media-kit` | Producción IG/FB: posts, carousels, stories, captions, alt text. Para ebecerra.es y Piezas. | — |
+
+### Genéricas — Sanity y content modeling
 
 | Skill | Uso |
 |---|---|
-| `/simplify` | Revisar código cambiado por calidad y reuso. |
-| `/next-best-practices` | Código Next.js App Router (RSC, Server Actions, routing). |
-| `/next-cache-components` | Caching, ISR, revalidación. |
+| `/sanity-best-practices` | Schemas, GROQ, TypeGen, Presentation, Visual Editing, Functions, Blueprints. |
+| `/content-modeling-best-practices` | Referenciar vs embeber, naming, i18n, taxonomías. |
+
+### Genéricas — Next.js, React, TypeScript
+
+| Skill | Uso |
+|---|---|
+| `/next-best-practices` | App Router (RSC, Server Actions, routing, async APIs, metadata). |
+| `/next-cache-components` | PPR, `use cache`, `cacheLife`, `cacheTag`, `updateTag`. |
 | `/vercel-react-best-practices` | Patrones React 19 (Suspense, hooks, transiciones). |
-| `/sanity-best-practices` | Schemas, GROQ, TypeGen, Presentation. |
-| `/content-modeling-best-practices` | Referenciar vs embeber, naming, i18n en Sanity. |
-| `/seo-aeo-best-practices` | Metadata, schema.org, AEO. |
-| `/seo-audit` | Auditoría SEO on-page. |
+| `/typescript-advanced-types` | Genéricos, utility types, inferencia. |
+
+### Genéricas — diseño y UI
+
+| Skill | Uso |
+|---|---|
+| `/frontend-design` | Diseño creativo de componentes o layouts (escapar de la estética AI genérica). |
+| `/web-design-guidelines` | Revisar UI contra guidelines de accesibilidad y UX. |
+
+### Genéricas — infra y misc
+
+| Skill | Uso |
+|---|---|
 | `/resend` | Email transaccional (gotchas de idempotency, templates). |
 | `/deploy-to-vercel` | Deploy, env vars, dominios en Vercel. |
-| `/typescript-advanced-types` | Genéricos, utility types, inferencia. |
-| `/frontend-design` | Diseño de componentes o layouts. |
-| `/web-design-guidelines` | Revisar UI contra guidelines de accesibilidad y UX. |
-| `/content-strategy` | Planificar copy de servicios, casos, CTAs. |
+| `/simplify` | Revisar código cambiado por calidad y reuso. |
 
-Añadir más skills: `npx skills add <owner/repo@skill> -y` dentro del proyecto.
+Añadir más skills: `npx skills add <owner/repo@skill> -g -y` (global) o sin `-g` para el proyecto.

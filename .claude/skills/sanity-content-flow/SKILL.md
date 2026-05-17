@@ -110,10 +110,12 @@ Si rotas el secret, hay que actualizarlo en los 3 sitios a la vez.
 
 | Tipo | ID | Nota |
 |---|---|---|
-| `service` web-presencia (900 €) | `17d4e524-2f39-4a35-8b1f-3ba705566f33` | — |
-| `service` web-editable (1.500 €) | `5ab18da6-add5-48d6-a09a-ca96639ce62d` | — |
-| `service` rescate-web (2.500 €) | `84d16ea1-b1a2-4efa-a2b7-ff13c26e2b0e` | — |
-| `service` mantenimiento (60 €/mes) | `8674893a-2479-4794-830d-9d0b7d6e3cb3` | — |
+| `servicesPricing` (singleton sección Servicios) | `148cf08a-bfe2-4188-ad31-79784ca11853` | Caminos × tiers + add-ons + cláusula + footnote. Fuente real de la sección Servicios desde 2026-05-17. |
+| `profile` (singleton + chatbots) | `136f3077-4754-470c-9f79-663097a57568` | Contiene `chatbot.systemPrompt` (recepción ebecerra.es) y `chatbotTech.systemPrompt` (consola ebecerra.tech). |
+| `service` web-presencia (legacy) | `17d4e524-2f39-4a35-8b1f-3ba705566f33` | Deprecated en home, sigue alimentando JSON-LD vía `StructuredData`. |
+| `service` web-editable (legacy) | `5ab18da6-add5-48d6-a09a-ca96639ce62d` | Idem. |
+| `service` rescate-web (legacy) | `84d16ea1-b1a2-4efa-a2b7-ff13c26e2b0e` | Idem. |
+| `service` mantenimiento (legacy) | `8674893a-2479-4794-830d-9d0b7d6e3cb3` | Idem. |
 
 Actualizar aquí cuando se creen o reenumeren docs.
 
