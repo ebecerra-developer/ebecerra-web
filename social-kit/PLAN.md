@@ -78,15 +78,20 @@ Mini-serie **"Sobre mí · Capítulos"** (highlight homónimo):
 | 2026-05-17 (dom) ~10:00 | [`0012-story-lo-que-cuesta`](personal/0012-story-lo-que-cuesta/) — vulnerabilidad | MP4 listo |
 | 2026-05-17 (dom) ~10:05 | [`0013-story-madrid`](personal/0013-story-madrid/) — pregunta + sticker | MP4 listo |
 
-Otras (planificadas):
+Trío del lunes 18 (todas listas para subir):
 
-| Fecha publicación | Pieza | Estado |
+| Hora | Pieza | Acción extra |
 |---|---|---|
-| 2026-05-18 (lun) ~10:00 | `0014-story-formulario-llega` (producto) — por producir | Pendiente HTML+grabación |
-| 2026-05-18 (lun) ~19:00 | `0015-story-conoce-marta` (portfolio demo) — por producir | Pendiente HTML+grabación |
-| 2026-05-19 (mar) ~10:00 | `0016-story-seo-glosario` (educativo, sigue serie AEO) — por producir | Pendiente HTML+grabación |
-| TBD | [`0008-story-velocidad`](personal/0008-story-velocidad/) — pendiente decisión cifras 7,4/1,2 | MP4 listo, copy por decidir |
-| TBD | [`0009-story-aeo`](personal/0009-story-aeo/) — separada del Reel 3 puertas | MP4 listo |
+| ~10:00 | [`0014-story-seo-glosario`](personal/0014-story-seo-glosario/) | Crear highlight nuevo **glosario** tras subir |
+| ~14:00 | [`0015-story-blog-announce`](personal/0015-story-blog-announce/) | Sticker LINK a `ebecerra.es/blog` obligatorio |
+| ~19:00 | [`0016-story-servicios-2-caminos`](personal/0016-story-servicios-2-caminos/) | **Antes**: archivar story vieja del highlight Servicios. **Después**: añadir esta al highlight Servicios. |
+
+## ❌ Producidas pero descartadas
+
+| Pieza | Razón |
+|---|---|
+| [`0008-story-velocidad`](personal/0008-story-velocidad/) | Cifras 7,4/1,2 inventadas nunca resueltas; el Reel 0006 rescate ya cubre producto/velocidad con más fuerza. Material preservado por si se recicla con cifras medidas. |
+| [`0009-story-aeo`](personal/0009-story-aeo/) | El Reel 0007 (3 puertas) ya cubre AEO con más alcance. Material preservado por si arranca la serie glosario con otra pieza inaugural. |
 
 ---
 

@@ -27,6 +27,9 @@ const TARGETS = [
   { name: "0011-story-por-que-ahora", folder: "personal/0011-story-por-que-ahora", duration: 10 },
   { name: "0012-story-lo-que-cuesta", folder: "personal/0012-story-lo-que-cuesta", duration: 10 },
   { name: "0013-story-madrid",        folder: "personal/0013-story-madrid",        duration: 8  },
+  { name: "0014-story-seo-glosario",  folder: "personal/0014-story-seo-glosario",  duration: 11 },
+  { name: "0015-story-blog-announce", folder: "personal/0015-story-blog-announce", duration: 9  },
+  { name: "0016-story-servicios-2-caminos", folder: "personal/0016-story-servicios-2-caminos", duration: 10 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,

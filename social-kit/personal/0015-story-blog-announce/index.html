@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" />
+<style>
+  :root {
+    --green: #047857;
+    --cream: #FAFAF9;
+    --ink: #0A0A0A;
+    --muted: #525252;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .stage {
+    position: relative; width: 1080px; height: 1920px;
+    background: var(--cream); overflow: hidden;
+  }
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none; opacity: 0.18; mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(0,0,0,0.5) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 50;
+  }
+
+  .corner {
+    position: absolute; top: 80px; left: 80px;
+    display: flex; align-items: center; gap: 14px;
+    color: var(--ink); font-weight: 800; font-size: 26px;
+    z-index: 40;
+  }
+  .corner .dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--green); color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+  }
+  .corner--light { color: var(--cream); }
+  .corner--light .dot { background: var(--cream); color: var(--green); }
+
+  .scene { position: absolute; inset: 0; opacity: 0; padding: 240px 80px 200px; }
+  .scene--green { background: var(--green); color: var(--cream); }
+
+  #s1 {
+    display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: center; padding-top: 0;
+  }
+  #s1 .big {
+    font-size: 260px; font-weight: 900;
+    letter-spacing: -0.05em; line-height: 0.88;
+    color: var(--ink);
+  }
+  #s1 .big em { font-style: normal; color: var(--green); }
+
+  #s2 {
+    display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: center; padding-top: 0;
+  }
+  #s2 .big {
+    font-size: 140px; font-weight: 900;
+    letter-spacing: -0.045em; line-height: 0.92;
+    color: var(--ink);
+  }
+  #s2 .big em { font-style: normal; color: var(--green); }
+  #s2 .sub {
+    margin-top: 50px;
+    font-size: 42px; font-weight: 600;
+    color: var(--muted); line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  #s3 {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center; padding-top: 0;
+  }
+  #s3 .kicker {
+    font-size: 32px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    opacity: 0.85; margin-bottom: 30px;
+  }
+  #s3 .big {
+    font-size: 120px; font-weight: 900;
+    letter-spacing: -0.04em; line-height: 0.95;
+  }
+  #s3 .url-pill {
+    margin-top: 60px;
+    display: inline-block;
+    background: var(--cream); color: var(--green);
+    font-size: 56px; font-weight: 800;
+    padding: 22px 42px; border-radius: 999px;
+  }
+  #s3 .sub {
+    margin-top: 50px;
+    font-size: 30px; font-weight: 600;
+    opacity: 0.9;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="corner"><span class="dot">eB</span> novedad</div>
+
+    <div class="scene" id="s1">
+      <div class="big">Hay<br/><em>blog</em>.</div>
+    </div>
+
+    <div class="scene" id="s2">
+      <div class="big">Lo que <em>aprendo</em><br/>montando webs.</div>
+      <div class="sub">Sin jerga.<br/>Para que decidas mejor lo tuyo.</div>
+    </div>
+
+    <div class="scene scene--green" id="s3">
+      <div class="corner corner--light"><span class="dot">eB</span> novedad</div>
+      <div class="kicker">Está vivo</div>
+      <div class="big">Léeme.</div>
+      <div class="url-pill">ebecerra.es/blog</div>
+      <div class="sub">Sticker link abajo ↓</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
+    const FADE_OUT = { immediateRender: false };
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+
+    // S1 visible desde t=0
+    gsap.set("#s1", { opacity: 1 });
+    gsap.set("#s1 .big", { y: 0, opacity: 1 });
+    tl.fromTo("#s1", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FADE_OUT }, 2.6);
+
+    // S2 (2.8 → 6s)
+    tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 2.8);
+    tl.fromTo("#s2 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.95 }, 3.0);
+    tl.fromTo("#s2 .sub", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 4.1);
+    tl.fromTo("#s2", { opacity: 1 }, { opacity: 0, duration: 0.45, ...FADE_OUT }, 5.8);
+
+    // S3 (6 → 9s)
+    tl.fromTo("#s3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 6.0);
+    tl.fromTo("#s3 .kicker", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, 6.2);
+    tl.fromTo("#s3 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 6.5);
+    tl.fromTo("#s3 .url-pill", { scale: 0.75, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.65 }, 7.3);
+    tl.fromTo("#s3 .sub", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 7.95);
+  </script>
+</body>
+</html>
