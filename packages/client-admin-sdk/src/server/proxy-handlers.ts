@@ -131,12 +131,18 @@ export function buildAdminProxyHandler(upstreamPath: string) {
 
 /**
  * Guard para Server Components: comprueba sesión, redirige a /admin/login si no hay.
+ *
+ * Cast a Parameters<typeof redirect>[0]: Next 16 con typedRoutes solo acepta
+ * literales conocidos; al ser SDK reusable con redirectTo configurable, casteamos
+ * para que cualquier ruta del consumidor sea válida.
  */
 export async function requireSession(opts?: { redirectTo?: string }) {
   const session = await readSession();
   if (!session) {
     const { redirect } = await import("next/navigation");
-    redirect(opts?.redirectTo ?? "/admin/login");
+    redirect(
+      (opts?.redirectTo ?? "/admin/login") as Parameters<typeof redirect>[0]
+    );
   }
   return session!;
 }
