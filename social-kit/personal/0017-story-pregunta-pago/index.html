@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" />
+<style>
+  :root {
+    --green: #047857;
+    --cream: #FAFAF9;
+    --ink: #0A0A0A;
+    --muted: #525252;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .stage {
+    position: relative; width: 1080px; height: 1920px;
+    background: var(--cream); overflow: hidden;
+  }
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none; opacity: 0.18; mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(0,0,0,0.5) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 50;
+  }
+
+  .corner {
+    position: absolute; top: 80px; left: 80px;
+    display: flex; align-items: center; gap: 14px;
+    color: var(--ink); font-weight: 800; font-size: 26px;
+    z-index: 40;
+  }
+  .corner .dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--green); color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+  }
+
+  /* Contenido en tercio superior; tercio inferior libre para sticker IG encuesta */
+  .scene {
+    position: absolute;
+    top: 240px; left: 80px; right: 80px;
+    bottom: 50%;
+    z-index: 11;
+    color: var(--ink);
+    display: flex; flex-direction: column;
+    justify-content: flex-start; align-items: flex-start;
+  }
+
+  .kicker {
+    font-size: 32px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 32px;
+  }
+
+  .pregunta {
+    font-size: 100px; font-weight: 900;
+    letter-spacing: -0.035em; line-height: 0.95;
+    color: var(--ink);
+  }
+  .pregunta em { font-style: normal; color: var(--green); }
+
+  /* Opciones visuales — solo decorativas, el sticker IG es el votable */
+  .opciones {
+    position: absolute;
+    top: 820px;
+    left: 80px; right: 80px;
+    z-index: 11;
+    display: flex; flex-direction: column;
+    gap: 24px;
+  }
+  .opt {
+    display: flex; align-items: center; gap: 24px;
+    font-size: 44px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 22px;
+    padding: 28px 36px;
+    box-shadow: 8px 8px 0 var(--green);
+  }
+  .opt--b { box-shadow: 8px 8px 0 #FF6B4A; }
+  .opt__tag {
+    flex-shrink: 0;
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: var(--ink); color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; font-weight: 900;
+  }
+  .opt--b .opt__tag { background: #FF6B4A; }
+
+  /* Hint sutil del sticker en tercio inferior */
+  .sticker-hint {
+    position: absolute;
+    bottom: 240px;
+    left: 80px; right: 80px;
+    text-align: center;
+    z-index: 11;
+    color: rgba(10,10,10,0.55);
+    font-size: 30px; font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .sticker-hint__dash {
+    display: inline-block;
+    width: 60px; height: 2px;
+    background: rgba(10,10,10,0.4);
+    vertical-align: middle;
+    margin: 0 18px;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="corner"><span class="dot">eB</span> pensando en alto</div>
+
+    <div class="scene" id="head">
+      <div class="kicker">Pensando en alto</div>
+      <div class="pregunta">¿Cómo te<br/>encajaría más<br/><em>pagar</em> una web?</div>
+    </div>
+
+    <div class="opciones" id="opciones">
+      <div class="opt" id="optA">
+        <span class="opt__tag">A</span>
+        <span>Setup + cuota mensual</span>
+      </div>
+      <div class="opt opt--b" id="optB">
+        <span class="opt__tag">B</span>
+        <span>Pago único, sin permanencia</span>
+      </div>
+    </div>
+
+    <div class="sticker-hint" id="hint">
+      <span class="sticker-hint__dash"></span>
+      vota aquí
+      <span class="sticker-hint__dash"></span>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+
+    // Cabecera visible desde t=0 (thumbnail safe)
+    gsap.set("#head", { opacity: 1 });
+    gsap.set(".kicker", { opacity: 1, y: 0 });
+    gsap.set(".pregunta", { opacity: 1, y: 0 });
+
+    // Opciones entran escalonadas
+    tl.fromTo("#optA", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7 }, 1.4);
+    tl.fromTo("#optB", { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7 }, 2.3);
+
+    // Hint del sticker
+    gsap.set("#hint", { opacity: 0, y: 20 });
+    tl.to("#hint", { opacity: 1, y: 0, duration: 0.7 }, 3.6);
+    tl.to("#hint", { scale: 1.06, duration: 0.5, yoyo: true, repeat: 3 }, 5.0);
+  </script>
+</body>
+</html>

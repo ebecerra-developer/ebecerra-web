@@ -78,13 +78,18 @@ Mini-serie **"Sobre mí · Capítulos"** (highlight homónimo):
 | 2026-05-17 (dom) ~10:00 | [`0012-story-lo-que-cuesta`](personal/0012-story-lo-que-cuesta/) — vulnerabilidad | MP4 listo |
 | 2026-05-17 (dom) ~10:05 | [`0013-story-madrid`](personal/0013-story-madrid/) — pregunta + sticker | MP4 listo |
 
-Trío del lunes 18 (todas listas para subir):
+Estado real (al 21 may):
 
-| Hora | Pieza | Acción extra |
+- **0015 blog** y **0016 servicios** subidas lunes 18. ✓
+- **0014 SEO glosario** subida martes 19 pero NO destacada — recuperar del Archivo IG y meter en highlight nuevo `glosario` (cover ya generada en [`highlights/glosario.png`](personal/highlights/glosario.png)).
+- **0015 blog** sin destacar es OK por diseño. Si en el futuro se hacen 2-3 stories más sobre posts del blog, crear highlight `blog` (cover ya generada en [`highlights/blog.png`](personal/highlights/blog.png)).
+
+Pendiente:
+
+| Día | Pieza | Acción |
 |---|---|---|
-| ~10:00 | [`0014-story-seo-glosario`](personal/0014-story-seo-glosario/) | Crear highlight nuevo **glosario** tras subir |
-| ~14:00 | [`0015-story-blog-announce`](personal/0015-story-blog-announce/) | Sticker LINK a `ebecerra.es/blog` obligatorio |
-| ~19:00 | [`0016-story-servicios-2-caminos`](personal/0016-story-servicios-2-caminos/) | **Antes**: archivar story vieja del highlight Servicios. **Después**: añadir esta al highlight Servicios. |
+| jueves 21 | [`0017-story-pregunta-pago`](personal/0017-story-pregunta-pago/) | Sticker encuesta IG: `Cuota mensual` vs `Pago único`. Sin highlight. |
+| lunes 24 | Pieza fuerte por decidir | Post / carrusel / reel sobre tema nuevo |
 
 ## ❌ Producidas pero descartadas
 

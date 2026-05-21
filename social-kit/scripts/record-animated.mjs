@@ -33,6 +33,8 @@ const TARGETS = [
   { name: "0014-story-seo-glosario",  folder: "personal/0014-story-seo-glosario",  duration: 14 },
   { name: "0015-story-blog-announce", folder: "personal/0015-story-blog-announce", duration: 12 },
   { name: "0016-story-servicios-2-caminos", folder: "personal/0016-story-servicios-2-caminos", duration: 13 },
+  // Pregunta + sticker IG nativo (hold largo final para que voten antes del auto-advance)
+  { name: "0017-story-pregunta-pago", folder: "personal/0017-story-pregunta-pago", duration: 12 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,
