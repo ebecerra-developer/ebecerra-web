@@ -1,8 +1,14 @@
-# 0009 · STORY animada · ¿Qué es AEO? · glosario
+# ❌ 0009 · STORY animada · ¿Qué es AEO? · glosario
+
+> **DESCARTADA (2026-05-18) — no se va a subir.**
+>
+> Razón: el [Reel 0007 · 3 puertas](../0007-reel-3puertas/) ya introdujo y explicó AEO con más alcance del que tendría una story glosario complementaria. Subirla ahora repetiría tema demasiado parecido al reel ya en grid.
+>
+> El MP4 + poster + HTML quedan aquí. Si en el futuro la serie "glosario" arranca de cero con otra pieza inaugural (p.ej. SEO o un glosario de "tu web por dentro"), esta puede reciclarse como segunda entrega del highlight.
 
 - **Tipo**: story animada 1080×1920, 12s, 30fps, sin audio
-- **Estado**: **PENDIENTE DE SUBIR** — se redistribuyó para no doblar ángulo el mismo día que el reel 3 puertas
-- **Categoría**: educativo
+- **Estado**: ❌ descartada
+- **Categoría** (original): educativo
 - **Outputs**: `final.mp4` + `poster.png`
 - **Highlight destino**: glosario (a crear con esta primera story)
 

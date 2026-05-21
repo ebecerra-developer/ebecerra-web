@@ -1,8 +1,16 @@
-# 0008 · STORY animada · "El 53% se va" · contador velocidad
+# ❌ 0008 · STORY animada · "El 53% se va" · contador velocidad
+
+> **DESCARTADA (2026-05-18) — no se va a subir.**
+>
+> Razones:
+> 1. Las cifras del contraste (7,4 s vs 1,2 s) son inventadas y nunca llegamos a medir las demos para sacar números defendibles.
+> 2. El [Reel 0006 rescate visual](../0006-reel-rescate/) ya cubre el ángulo producto/velocidad con más fuerza. Subir esta story repetiría tema sin sumar.
+>
+> El MP4 + poster + HTML quedan aquí por si en el futuro se recicla el contador con datos medidos sobre demos.ebecerra.es.
 
 - **Tipo**: story animada 1080×1920, 12s, 30fps, sin audio
-- **Estado**: **PENDIENTE DE SUBIR** — cifras 7,4 / 1,2 pendientes de resolver antes de publicar
-- **Categoría**: producto / datos
+- **Estado**: ❌ descartada
+- **Categoría** (original): producto / datos
 - **Outputs**: `final.mp4` + `poster.png`
 - **Highlight destino**: servicios
 
