@@ -1,8 +1,11 @@
 import { revalidatePath } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 import { serverEnv } from "@/lib/env";
+import { handleSyncWebhook } from "@ebecerra/chatbot-saas/sanity-sync";
 
 const FAQ_TYPES = new Set(["faqItem", "faqPage"]);
+const CHATBOT_SYNC_TYPES = new Set(["profile", "demoSite", "chatbotConfig"]);
+const EBECERRA_SANITY_PROJECT_ID = "gdtxcn4l";
 
 const DEMOS_REVALIDATE_URL = "https://demos.ebecerra.es/api/revalidate";
 
@@ -14,14 +17,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
     }
 
-    let body: { _type?: string; slug?: string } = {};
+    let body: Record<string, unknown> = {};
     try {
-      body = await request.json();
+      body = (await request.json()) as Record<string, unknown>;
     } catch {
       // no body — fallback to home revalidation
     }
 
-    const { _type, slug } = body;
+    const _type = typeof body._type === "string" ? body._type : undefined;
+    const slug = typeof body.slug === "string" ? body.slug : undefined;
+    const _id = typeof body._id === "string" ? body._id : undefined;
     const revalidated: string[] = [];
 
     // Fan-out: cuando el doc es demoSite, este endpoint revalida la galería
@@ -55,6 +60,23 @@ export async function POST(request: NextRequest) {
     } else {
       revalidatePath("/", "layout");
       revalidated.push("/", "/en");
+    }
+
+    // Fan-out chatbot: si el doc afecta a la config del chatbot multi-tenant,
+    // disparamos la sincronización al cache de Supabase. Llamada local (misma
+    // función Vercel), no HTTP, no requiere auth extra.
+    if (_type && _id && CHATBOT_SYNC_TYPES.has(_type)) {
+      try {
+        const result = await handleSyncWebhook({
+          sanityProjectId: EBECERRA_SANITY_PROJECT_ID,
+          payload: body as { _id: string; _type: string; _rev?: string },
+        });
+        if (!result.ok) {
+          console.warn("[revalidate→chatbot sync] skip:", result.reason);
+        }
+      } catch (err) {
+        console.error("[revalidate→chatbot sync] failed:", err);
+      }
     }
 
     return NextResponse.json({ revalidated: true, paths: revalidated, timestamp: Date.now() });

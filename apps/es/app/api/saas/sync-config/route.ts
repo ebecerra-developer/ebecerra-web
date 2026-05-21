@@ -2,6 +2,11 @@ import {
   verifySanityWebhookSignature,
   handleSyncWebhook,
 } from "@ebecerra/chatbot-saas/sanity-sync";
+import {
+  validateTenantKey,
+  authContextFromRequest,
+  InvalidTenantKeyError,
+} from "@ebecerra/chatbot-saas/auth";
 
 /**
  * POST /api/saas/sync-config
@@ -29,21 +34,44 @@ export async function POST(request: Request): Promise<Response> {
     return jsonError(400, "missing_project", "?project= query string required");
   }
 
-  const secret = process.env.SANITY_WEBHOOK_SECRET;
-  if (!secret) {
-    return jsonError(500, "config_error", "Server missing SANITY_WEBHOOK_SECRET");
-  }
-
   const rawBody = await request.text();
-  const signatureHeader = request.headers.get("sanity-webhook-signature");
 
-  const valid = verifySanityWebhookSignature({
-    rawBody,
-    signatureHeader,
-    secret,
-  });
-  if (!valid) {
-    return jsonError(401, "invalid_signature", "Webhook signature invalid or expired");
+  // Auth: dos modos, en orden de preferencia.
+  //  1. HMAC signature (`sanity-webhook-signature` header): webhook directo de Sanity.
+  //  2. X-Tenant-Key: forward desde el /api/revalidate de un cliente con tenant key
+  //     (caso típico: llaullau, donde el webhook de Sanity llega a su /api/revalidate
+  //     y este reenvía el doc aquí). Sanity free tier solo permite 2 webhooks → reusamos
+  //     el de revalidate como fan-in.
+  const signatureHeader = request.headers.get("sanity-webhook-signature");
+  const tenantKeyHeader = request.headers.get("x-tenant-key");
+
+  if (signatureHeader) {
+    const secret = process.env.SANITY_WEBHOOK_SECRET;
+    if (!secret) {
+      return jsonError(500, "config_error", "Server missing SANITY_WEBHOOK_SECRET");
+    }
+    const valid = verifySanityWebhookSignature({
+      rawBody,
+      signatureHeader,
+      secret,
+    });
+    if (!valid) {
+      return jsonError(401, "invalid_signature", "Webhook signature invalid or expired");
+    }
+  } else if (tenantKeyHeader) {
+    try {
+      await validateTenantKey(
+        tenantKeyHeader,
+        authContextFromRequest(request, "/api/saas/sync-config")
+      );
+    } catch (e) {
+      if (e instanceof InvalidTenantKeyError) {
+        return jsonError(401, "unauthorized", `Invalid tenant key (${e.reason})`);
+      }
+      throw e;
+    }
+  } else {
+    return jsonError(401, "missing_auth", "Provide sanity-webhook-signature or X-Tenant-Key");
   }
 
   let payload: unknown;
