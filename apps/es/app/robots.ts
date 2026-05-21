@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { headers } from "next/headers";
 
 // AI crawlers explicitly allowed to index and cite this site.
 // Listing them by name (instead of relying on the wildcard) signals
@@ -20,7 +21,17 @@ const AI_AGENTS = [
 
 const DISALLOW = ["/studio", "/api", "/playground"];
 
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const h = await headers();
+  const host = h.get("host") ?? "";
+
+  // Subdominio API del chatbot SaaS: noindex global, sin sitemap.
+  if (host.startsWith("chats.")) {
+    return {
+      rules: [{ userAgent: "*", disallow: "/" }],
+    };
+  }
+
   return {
     rules: [
       { userAgent: "*", allow: "/", disallow: DISALLOW },

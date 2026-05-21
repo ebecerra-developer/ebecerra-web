@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@ebecerra/chatbot": "*",
+    "@ebecerra/chatbot-admin-ui": "*",
+    "@ebecerra/chatbot-saas": "*",
+    "@ebecerra/sanity-chatbot-schema": "*",
     "@ebecerra/sanity-client": "*",
     "@ebecerra/sanity-schemas": "*",
     "@portabletext/react": "^6.0.3",

@@ -32,11 +32,11 @@ export default function DemoChatbot({
             : "Demo by ebecerra.es · Want a site like this? Visit ebecerra.es",
         ];
 
-  // Logging opt-in: si las env vars de Supabase están en este deploy,
-  // añadimos un aviso. Link cross-domain a la política de la web principal,
-  // porque las demos no tienen su propia página /privacidad.
+  // Logging opt-in: si hay tenant key configurada en este deploy, el chat se
+  // loguea en el backend SaaS central. Mostramos aviso con link a la política
+  // de ebecerra.es (las demos no tienen privacidad propia).
   const loggingDisclaimers =
-    process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SECRET_KEY
+    process.env[`CHATBOT_TENANT_KEY_${demo.slug.toUpperCase().replace(/-/g, "_")}`]
       ? [
           isEs
             ? "Esta conversación se guarda para mejorar el servicio. Más info en ebecerra.es/privacidad."
@@ -59,6 +59,7 @@ export default function DemoChatbot({
         (isEs ? "Escribe tu pregunta…" : "Type your question…")
       }
       locale={locale}
+      apiPath="/api/chatbot"
       disclaimers={[...baseDisclaimers, ...loggingDisclaimers]}
       extraBody={{ demoSlug: demo.slug }}
     />
