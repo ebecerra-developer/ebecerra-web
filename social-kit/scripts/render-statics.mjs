@@ -20,6 +20,10 @@ const JOBS = [
   },
 
   // ── 0002 · Carrusel 4 demos · 7 slides 1080×1080 ─────────────────────
+  // NOTA: este carrusel ya está publicado en formato cuadrado (1:1) del modelo
+  // antiguo. NO regenerar a 4:5 — IG no permite cambiar el aspect ratio de un
+  // post ya publicado, y los slides en pantalla seguirían siendo 1:1.
+  // Los CARRUSELES NUEVOS deben usar 1080×1350 (4:5) — ver skill canónica.
   ...[1,2,3,4,5,6,7].map((n) => ({
     html: `personal/0002-carrusel-4-demos/slide-${n}.html`,
     out:  `personal/0002-carrusel-4-demos/slide-${n}.png`,
