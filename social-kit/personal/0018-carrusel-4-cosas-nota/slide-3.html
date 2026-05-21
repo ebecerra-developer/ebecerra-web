@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_base.css" />
+<style>
+  .visual__phone {
+    width: 280px; height: 580px;
+    background: #111;
+    border-radius: 48px;
+    padding: 14px;
+    box-shadow: 16px 16px 0 var(--green), 0 0 0 4px #222;
+    position: relative;
+    transform: rotate(-6deg);
+  }
+  .visual__phone::before {
+    content: "";
+    position: absolute;
+    top: 22px; left: 50%;
+    transform: translateX(-50%);
+    width: 110px; height: 22px;
+    background: #000;
+    border-radius: 16px;
+    z-index: 3;
+  }
+  .visual__phone__screen {
+    width: 100%; height: 100%;
+    background: linear-gradient(180deg, #ECFDF5 0%, var(--cream) 100%);
+    border-radius: 36px;
+    overflow: hidden;
+    padding: 60px 24px 24px;
+  }
+  .visual__phone__bar {
+    background: var(--ink);
+    height: 18px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .visual__phone__bar--short { width: 60%; }
+  .visual__phone__bar--med { width: 85%; }
+  .visual__phone__bar--btn {
+    background: var(--green);
+    width: 70%;
+    height: 28px;
+    margin-top: 32px;
+  }
+  .visual__phone__bar--mini {
+    background: var(--muted);
+    height: 10px;
+    opacity: 0.4;
+  }
+</style>
+</head>
+<body>
+  <div class="slide slide--cream">
+    <div class="tag"><span class="tag__num">02</span> móvil</div>
+    <div class="page-num">03 / 07</div>
+
+    <div style="margin-top: 36px;">
+      <div class="big">Cómo se ve<br/>en su <em>móvil</em>.</div>
+      <div class="lead">El 70&nbsp;% entra desde ahí.<br/>Si en el móvil no funciona, no existes.</div>
+    </div>
+
+    <div class="visual">
+      <div class="visual__phone">
+        <div class="visual__phone__screen">
+          <div class="visual__phone__bar"></div>
+          <div class="visual__phone__bar visual__phone__bar--short"></div>
+          <div class="visual__phone__bar visual__phone__bar--mini"></div>
+          <div class="visual__phone__bar visual__phone__bar--mini"></div>
+          <div class="visual__phone__bar visual__phone__bar--mini" style="width: 80%;"></div>
+          <div class="visual__phone__bar visual__phone__bar--btn"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-mark"><span class="brand-mark__dot">eB</span> @ebecerra.dev</div>
+    <div class="swipe">→</div>
+  </div>
+</body>
+</html>

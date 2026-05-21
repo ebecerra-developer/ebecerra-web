@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_base.css" />
+<style>
+  .visual__clock {
+    position: relative;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: #fff;
+    border: 8px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 16px 16px 0 var(--green);
+  }
+  .visual__clock::before, .visual__clock::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    background: var(--ink);
+    border-radius: 4px;
+    transform-origin: bottom center;
+  }
+  /* Manecilla minutos (vertical) */
+  .visual__clock::before {
+    width: 8px; height: 130px;
+    transform: translate(-50%, -100%) rotate(0deg);
+  }
+  /* Manecilla horas (3) */
+  .visual__clock::after {
+    width: 8px; height: 90px;
+    transform: translate(-50%, -100%) rotate(140deg);
+  }
+  .visual__dot {
+    position: absolute;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--ink);
+    z-index: 3;
+  }
+  .visual__num {
+    position: absolute;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .visual__num--12 { top: 26px; left: 50%; transform: translateX(-50%); }
+  .visual__num--3  { right: 30px; top: 50%; transform: translateY(-50%); }
+  .visual__num--6  { bottom: 26px; left: 50%; transform: translateX(-50%); }
+  .visual__num--9  { left: 30px; top: 50%; transform: translateY(-50%); }
+</style>
+</head>
+<body>
+  <div class="slide slide--cream">
+    <div class="tag"><span class="tag__num">01</span> velocidad</div>
+    <div class="page-num">02 / 07</div>
+
+    <div style="margin-top: 36px;">
+      <div class="big">Cuánto tarda<br/>en <em>abrir</em>.</div>
+      <div class="lead">Si pasa de 3 segundos, mira el reloj.<br/>Y se va.</div>
+    </div>
+
+    <div class="visual">
+      <div class="visual__clock">
+        <div class="visual__dot"></div>
+        <span class="visual__num visual__num--12">12</span>
+        <span class="visual__num visual__num--3">3</span>
+        <span class="visual__num visual__num--6">6</span>
+        <span class="visual__num visual__num--9">9</span>
+      </div>
+    </div>
+
+    <div class="brand-mark"><span class="brand-mark__dot">eB</span> @ebecerra.dev</div>
+    <div class="swipe">→</div>
+  </div>
+</body>
+</html>

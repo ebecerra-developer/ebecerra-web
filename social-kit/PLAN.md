@@ -89,7 +89,7 @@ Pendiente:
 | Día | Pieza | Acción |
 |---|---|---|
 | jueves 21 | [`0017-story-pregunta-pago`](personal/0017-story-pregunta-pago/) | Sticker encuesta IG: `Cuota mensual` vs `Pago único`. Sin highlight. |
-| lunes 24 | Pieza fuerte por decidir | Post / carrusel / reel sobre tema nuevo |
+| **viernes 23** ~10:00 | **[`0018-carrusel-4-cosas-nota`](personal/0018-carrusel-4-cosas-nota/)** | Primer carrusel en formato 4:5. 7 slides. Sin sticker. Cross-post FB auto. |
 
 ## ❌ Producidas pero descartadas
 

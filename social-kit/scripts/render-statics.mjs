@@ -30,6 +30,13 @@ const JOBS = [
     w: 1080, h: 1080,
   })),
 
+  // ── 0018 · Carrusel "4 cosas que tu cliente nota" · 7 slides 1080×1350 (4:5) ──
+  ...[1,2,3,4,5,6,7].map((n) => ({
+    html: `personal/0018-carrusel-4-cosas-nota/slide-${n}.html`,
+    out:  `personal/0018-carrusel-4-cosas-nota/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
   // ── 0004 · Story eco estática (1080×1920) ────────────────────────────
   {
     html: "personal/0004-story-eco/index.html",

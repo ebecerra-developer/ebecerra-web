@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_base.css" />
+<style>
+  .visual__envelope {
+    width: 380px; height: 260px;
+    background: #fff;
+    border: 8px solid var(--ink);
+    border-radius: 12px;
+    box-shadow: 16px 16px 0 var(--green);
+    position: relative;
+    overflow: hidden;
+  }
+  .visual__envelope::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background:
+      linear-gradient(135deg, transparent 49%, var(--ink) 49%, var(--ink) 51%, transparent 51%),
+      linear-gradient(-135deg, transparent 49%, var(--ink) 49%, var(--ink) 51%, transparent 51%);
+    background-size: 100% 100%;
+    background-position: top left, top right;
+  }
+  .visual__check {
+    position: absolute;
+    bottom: -36px;
+    right: -36px;
+    width: 130px; height: 130px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 var(--green-deeper);
+  }
+  .visual__check svg {
+    width: 70px; height: 70px;
+    stroke: var(--cream);
+    stroke-width: 6;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
+</head>
+<body>
+  <div class="slide slide--cream">
+    <div class="tag"><span class="tag__num">03</span> formulario</div>
+    <div class="page-num">04 / 07</div>
+
+    <div style="margin-top: 36px;">
+      <div class="big">Si su mensaje<br/>te <em>llega</em>.</div>
+      <div class="lead">Muchos se pierden por el camino.<br/>El cliente cree que pasaste de él.</div>
+    </div>
+
+    <div class="visual">
+      <div class="visual__envelope">
+        <div class="visual__check">
+          <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-mark"><span class="brand-mark__dot">eB</span> @ebecerra.dev</div>
+    <div class="swipe">→</div>
+  </div>
+</body>
+</html>

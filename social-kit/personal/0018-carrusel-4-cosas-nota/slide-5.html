@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_base.css" />
+<style>
+  .visual__split {
+    width: 600px; height: 360px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    box-shadow: 16px 16px 0 var(--green);
+    border: 8px solid var(--ink);
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  .visual__split__left,
+  .visual__split__right {
+    padding: 32px 28px;
+  }
+  .visual__split__left {
+    background: #FFE680;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    color: #B91C1C;
+    border-right: 4px dashed var(--ink);
+  }
+  .visual__split__right {
+    background: #fff;
+    color: var(--ink);
+  }
+  .visual__split__label {
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    opacity: 0.7;
+  }
+  .visual__split__title {
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1.05;
+    text-shadow: 2px 2px 0 #fff;
+  }
+  .visual__split__right .visual__split__title {
+    font-family: "Inter", sans-serif;
+    text-shadow: none;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .visual__split__bar {
+    background: var(--ink);
+    height: 10px;
+    border-radius: 4px;
+    margin-top: 14px;
+    width: 80%;
+  }
+  .visual__split__bar--mini { height: 6px; width: 60%; opacity: 0.4; margin-top: 8px; }
+  .visual__split__btn {
+    background: var(--green);
+    color: var(--cream);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 18px;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+  <div class="slide slide--cream">
+    <div class="tag"><span class="tag__num">04</span> diseño honesto</div>
+    <div class="page-num">05 / 07</div>
+
+    <div style="margin-top: 36px;">
+      <div class="big">Si parece <em>nueva</em>.<br/>O de hace 10 años.</div>
+      <div class="lead">Marca su confianza más que cualquier texto.<br/>En 3 segundos decide si te toma en serio.</div>
+    </div>
+
+    <div class="visual">
+      <div class="visual__split">
+        <div class="visual__split__left">
+          <div class="visual__split__label">antes</div>
+          <div class="visual__split__title">¡¡Empresa S.L.!!</div>
+        </div>
+        <div class="visual__split__right">
+          <div class="visual__split__label">ahora</div>
+          <div class="visual__split__title">Tu negocio,<br/>bien presentado.</div>
+          <div class="visual__split__bar"></div>
+          <div class="visual__split__bar visual__split__bar--mini"></div>
+          <div class="visual__split__btn">Pedir cita</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-mark"><span class="brand-mark__dot">eB</span> @ebecerra.dev</div>
+    <div class="swipe">→</div>
+  </div>
+</body>
+</html>
