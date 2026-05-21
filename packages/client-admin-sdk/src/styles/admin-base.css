@@ -64,9 +64,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--admin-pad-x);
-  background: color-mix(in srgb, var(--admin-bg) 88%, transparent);
-  backdrop-filter: saturate(140%) blur(10px);
-  border-bottom: 1px solid var(--admin-border);
+  background: var(--admin-bg-deep);
+  border-bottom: 1px solid var(--admin-border-strong);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
 }
 
 .admin-header__brand {
@@ -109,9 +109,9 @@
   height: var(--admin-subnav-h);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   padding: 0 var(--admin-pad-x);
-  background: var(--admin-bg);
+  background: var(--admin-surface-2);
   border-bottom: 1px solid var(--admin-border);
   overflow-x: auto;
   scrollbar-width: thin;
@@ -119,7 +119,7 @@
 
 .admin-subnav__inner {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   width: 100%;
   max-width: var(--admin-max-w);
   margin: 0 auto;
@@ -128,27 +128,40 @@
 .admin-subnav__link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   padding: 8px 14px;
   border-radius: 6px;
   text-decoration: none;
   color: var(--admin-text-soft);
   font-family: var(--admin-font-mono);
   font-size: 12px;
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   white-space: nowrap;
+  position: relative;
   transition: background 120ms ease, color 120ms ease;
 }
 
 .admin-subnav__link:hover {
-  background: var(--admin-surface-2);
+  background: var(--admin-bg);
   color: var(--admin-text);
 }
 
 .admin-subnav__link.is-active {
-  background: var(--admin-primary-soft);
   color: var(--admin-primary-strong);
+  background: var(--admin-bg);
+}
+
+.admin-subnav__link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: -1px;
+  height: 2px;
+  background: var(--admin-primary);
+  border-radius: 1px 1px 0 0;
 }
 
 .admin-subnav__link.is-disabled {
@@ -168,6 +181,11 @@
   color: var(--admin-on-primary);
 }
 
+.admin-subnav__link.is-active .admin-subnav__badge {
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--admin-on-primary);
+}
+
 /* ==========================================================================
    User menu (avatar + dropdown)
    ========================================================================== */
@@ -180,20 +198,21 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: transparent;
-  border: 1px solid transparent;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
   border-radius: 999px;
-  padding: 4px 6px 4px 4px;
+  padding: 4px 10px 4px 4px;
   cursor: pointer;
   font: inherit;
   color: var(--admin-text-soft);
-  transition: background 120ms ease, border-color 120ms ease;
+  transition: background 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
 }
 
 .admin-user__trigger:hover,
 .admin-user__trigger[aria-expanded="true"] {
-  background: var(--admin-surface-2);
-  border-color: var(--admin-border);
+  background: var(--admin-bg);
+  border-color: var(--admin-border-strong);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .admin-user__avatar {
@@ -351,7 +370,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--admin-pad-x);
-  border-top: 1px solid var(--admin-border);
+  background: var(--admin-bg-deep);
+  border-top: 1px solid var(--admin-border-strong);
   font-family: var(--admin-font-mono);
   font-size: 11px;
   color: var(--admin-text-muted);
