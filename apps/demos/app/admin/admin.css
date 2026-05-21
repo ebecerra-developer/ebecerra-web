@@ -63,9 +63,9 @@
 
 /* Marta Solana — coach-editorial (off-white / burdeos / rosa palo) */
 .admin-shell[data-template="coach-editorial"] {
-  --adm-bg: #faf6f1;
-  --adm-bg-deep: #f1e9dd;
-  --adm-surface: #ffffff;
+  --adm-bg: #f1e9dd;
+  --adm-bg-deep: #ead7c2;
+  --adm-surface: #faf6f1;
   --adm-surface-2: #f5ece1;
   --adm-border: #e3d5c4;
   --adm-border-strong: #c8b099;
@@ -80,9 +80,9 @@
 
 /* Claudia Entrena — coach-vibrant (cremoso / magenta / lima) */
 .admin-shell[data-template="coach-vibrant"] {
-  --adm-bg: #fbf6f0;
-  --adm-bg-deep: #f3eadb;
-  --adm-surface: #ffffff;
+  --adm-bg: #f3eadb;
+  --adm-bg-deep: #e8ddc8;
+  --adm-surface: #fbf6f0;
   --adm-surface-2: #f5edff;
   --adm-border: #e0d4c4;
   --adm-border-strong: #b89d7c;
