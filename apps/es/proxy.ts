@@ -8,20 +8,21 @@ const intlMiddleware = createMiddleware(routing);
 // Rutas dentro de /admin que NO requieren sesión activa.
 const ADMIN_PUBLIC_PATHS = ["/admin/login", "/admin/auth/callback"];
 
-// Subdominio chats.ebecerra.es: solo API del chatbot SaaS, nada más.
-// El matcher ya excluye /api/*, pero el proxy igualmente entra para rutas HTML
-// (admin, studio, páginas del portfolio). Aquí cortamos: en host chats.* solo
-// pasan rutas API explícitas; el resto devuelve 404 para no exponer la web.
+// Subdominios funcionales:
+//  - chats.ebecerra.es  → API consumida por widgets de chat y webhooks Sanity.
+//  - admin.ebecerra.es  → API consumida por proxies admin de cada web cliente
+//                          (auth + admin tools).
+// En ambos subdominios solo pasan rutas API; cualquier ruta HTML devuelve 404
+// (el matcher ya excluye /api/*, así que aquí cortamos HTML/admin/studio).
 const CHATS_HOST_PREFIX = "chats.";
+const ADMIN_HOST_PREFIX = "admin.";
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Host-aware: en chats.* todo lo que no sea API del chatbot devuelve 404.
-  // (Las rutas /api/* van por una route handler aparte y no entran al proxy
-  // gracias al matcher; aquí solo bloqueamos HTML/admin/studio en ese host.)
+  // Host-aware: chats.* y admin.* solo sirven API.
   const host = request.headers.get("host") ?? "";
-  if (host.startsWith(CHATS_HOST_PREFIX)) {
+  if (host.startsWith(CHATS_HOST_PREFIX) || host.startsWith(ADMIN_HOST_PREFIX)) {
     return new NextResponse("Not Found", { status: 404 });
   }
 

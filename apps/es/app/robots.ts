@@ -25,8 +25,8 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
   const h = await headers();
   const host = h.get("host") ?? "";
 
-  // Subdominio API del chatbot SaaS: noindex global, sin sitemap.
-  if (host.startsWith("chats.")) {
+  // Subdominios funcionales (API only): noindex global, sin sitemap.
+  if (host.startsWith("chats.") || host.startsWith("admin.")) {
     return {
       rules: [{ userAgent: "*", disallow: "/" }],
     };

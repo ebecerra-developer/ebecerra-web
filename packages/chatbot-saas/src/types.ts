@@ -22,6 +22,7 @@ export type Tenant = {
   tenant_key_prefix: string;
   status: TenantStatus;
   monthly_message_limit: number;
+  admin_base_url: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -83,7 +84,11 @@ export type AuditAction =
   | "quota.exceeded"
   | "chat.completed"
   | "chat.failed"
-  | "auth.failed";
+  | "auth.failed"
+  | "auth.magic_link.requested"
+  | "auth.magic_link.sent"
+  | "auth.magic_link.verified"
+  | "auth.magic_link.invalid";
 
 export type AuditEntry = {
   tenant_id: string | null;
