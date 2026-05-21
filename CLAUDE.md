@@ -18,9 +18,11 @@ Legacy SPA React+Vite en [`_legacy/`](_legacy/). Tags `archive/nextjs-geek-pure`
 
 Monorepo npm workspaces + Turborepo 2.x (`packageManager: npm@10.4.0`). Las 3 apps: Next.js 16 + TS + Tailwind v4 + next-intl 4 + Sanity v5 + chatbot Groq. `apps/es` además Resend.
 
-Packages internos: `@ebecerra/sanity-schemas`, `@ebecerra/sanity-client`, `@ebecerra/chatbot`, `@ebecerra/tokens` (una hoja por modo/plantilla, scopeada con `[data-template="..."]` en demos).
+Packages internos: `@ebecerra/sanity-schemas`, `@ebecerra/sanity-client`, `@ebecerra/chatbot`, `@ebecerra/chatbot-saas`, `@ebecerra/chatbot-admin-ui`, `@ebecerra/sanity-chatbot-schema`, `@ebecerra/tokens` (una hoja por modo/plantilla, scopeada con `[data-template="..."]` en demos).
 
-Studio embebido en `apps/es/app/(misc)/studio/[[...tool]]`. Deploy schema desde `apps/es`: `npx sanity schema deploy --workspace ebecerra-web` (necesita `apps/es/sanity.cli.ts`). Webhooks limitados a 2 (plan free) → `apps/es/api/revalidate` reenvía a `demos.ebecerra.es/api/revalidate` cuando `_type == "demoSite"`.
+Studio embebido en `apps/es/app/(misc)/studio/[[...tool]]`. Deploy schema desde `apps/es`: `npx sanity schema deploy --workspace ebecerra-web` (necesita `apps/es/sanity.cli.ts`). Webhooks limitados a 2 (plan free) → `apps/es/api/revalidate` reenvía a `demos.ebecerra.es/api/revalidate` cuando `_type == "demoSite"` Y dispara `handleSyncWebhook` del chatbot SaaS internamente cuando el doc es chatbot-relevante (profile/demoSite/chatbotConfig). Cero webhooks dedicados al sync de chatbot.
+
+**Chatbot multi-tenant SaaS desde 2026-05-21**: backend centralizado en `apps/es` servido en `chats.ebecerra.es`. 7 tenants activos (apps-es, apps-tech, 4 demos, llaullau). Cada web cliente solo proxea con su `CHATBOT_TENANT_KEY`. Ver `/chatbot-system`.
 
 ---
 
