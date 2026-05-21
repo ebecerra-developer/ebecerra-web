@@ -6,50 +6,88 @@
 <style>
   .visual__clock {
     position: relative;
-    width: 360px; height: 360px;
+    width: 380px; height: 380px;
     border-radius: 50%;
     background: #fff;
-    border: 8px solid var(--ink);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 16px 16px 0 var(--green);
+    border: 10px solid var(--ink);
+    box-shadow: 18px 18px 0 var(--green);
   }
-  .visual__clock::before, .visual__clock::after {
-    content: "";
+  /* Marcas de horas (12 dashes alrededor) */
+  .visual__clock__marks {
+    position: absolute; inset: 0;
+  }
+  .visual__clock__mark {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    width: 5px;
+    height: 18px;
+    background: var(--ink);
+    transform-origin: 2.5px 176px;
+    margin-left: -2.5px;
+    border-radius: 3px;
+  }
+  .visual__clock__mark--big {
+    width: 8px;
+    height: 26px;
+    background: var(--ink);
+    margin-left: -4px;
+  }
+  /* Zona crítica (de 12 a 3) — coral, sectores donde "se va" */
+  .visual__clock__zone {
     position: absolute;
     top: 50%; left: 50%;
-    background: var(--ink);
-    border-radius: 4px;
-    transform-origin: bottom center;
-  }
-  /* Manecilla minutos (vertical) */
-  .visual__clock::before {
-    width: 8px; height: 130px;
-    transform: translate(-50%, -100%) rotate(0deg);
-  }
-  /* Manecilla horas (3) */
-  .visual__clock::after {
-    width: 8px; height: 90px;
-    transform: translate(-50%, -100%) rotate(140deg);
-  }
-  .visual__dot {
-    position: absolute;
-    width: 24px; height: 24px;
+    width: 360px; height: 360px;
+    margin: -180px 0 0 -180px;
     border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--coral) 0deg, var(--coral) 90deg, transparent 90deg);
+    opacity: 0.22;
+  }
+  /* Manecillas */
+  .visual__clock__hand {
+    position: absolute;
+    bottom: 50%; left: 50%;
     background: var(--ink);
+    transform-origin: bottom center;
+    border-radius: 4px;
     z-index: 3;
   }
-  .visual__num {
-    position: absolute;
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--ink);
+  .visual__clock__hand--min {
+    width: 10px; height: 130px;
+    margin-left: -5px;
+    transform: translateY(0) rotate(0deg);
   }
-  .visual__num--12 { top: 26px; left: 50%; transform: translateX(-50%); }
-  .visual__num--3  { right: 30px; top: 50%; transform: translateY(-50%); }
-  .visual__num--6  { bottom: 26px; left: 50%; transform: translateX(-50%); }
-  .visual__num--9  { left: 30px; top: 50%; transform: translateY(-50%); }
+  .visual__clock__hand--sec {
+    width: 5px; height: 150px;
+    margin-left: -2.5px;
+    background: var(--coral);
+    transform: translateY(0) rotate(108deg); /* hacia ~3.5 = zona crítica */
+  }
+  .visual__clock__center {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 26px; height: 26px;
+    margin: -13px 0 0 -13px;
+    border-radius: 50%;
+    background: var(--ink);
+    z-index: 4;
+    box-shadow: 0 0 0 4px #fff;
+  }
+  /* Counter digital */
+  .visual__counter {
+    position: absolute;
+    top: -30px; right: -40px;
+    background: var(--coral);
+    color: var(--cream);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 32px;
+    font-weight: 800;
+    padding: 14px 22px;
+    border-radius: 12px;
+    box-shadow: 6px 6px 0 var(--ink);
+    z-index: 5;
+    letter-spacing: 0.06em;
+  }
 </style>
 </head>
 <body>
@@ -64,11 +102,26 @@
 
     <div class="visual">
       <div class="visual__clock">
-        <div class="visual__dot"></div>
-        <span class="visual__num visual__num--12">12</span>
-        <span class="visual__num visual__num--3">3</span>
-        <span class="visual__num visual__num--6">6</span>
-        <span class="visual__num visual__num--9">9</span>
+        <div class="visual__clock__zone"></div>
+        <div class="visual__clock__marks">
+          <!-- 12 marcas a cada 30 grados; las de 12/3/6/9 más gordas -->
+          <div class="visual__clock__mark visual__clock__mark--big" style="transform: rotate(0deg);"></div>
+          <div class="visual__clock__mark" style="transform: rotate(30deg);"></div>
+          <div class="visual__clock__mark" style="transform: rotate(60deg);"></div>
+          <div class="visual__clock__mark visual__clock__mark--big" style="transform: rotate(90deg);"></div>
+          <div class="visual__clock__mark" style="transform: rotate(120deg);"></div>
+          <div class="visual__clock__mark" style="transform: rotate(150deg);"></div>
+          <div class="visual__clock__mark visual__clock__mark--big" style="transform: rotate(180deg);"></div>
+          <div class="visual__clock__mark" style="transform: rotate(210deg);"></div>
+          <div class="visual__clock__mark" style="transform: rotate(240deg);"></div>
+          <div class="visual__clock__mark visual__clock__mark--big" style="transform: rotate(270deg);"></div>
+          <div class="visual__clock__mark" style="transform: rotate(300deg);"></div>
+          <div class="visual__clock__mark" style="transform: rotate(330deg);"></div>
+        </div>
+        <div class="visual__clock__hand visual__clock__hand--min"></div>
+        <div class="visual__clock__hand visual__clock__hand--sec"></div>
+        <div class="visual__clock__center"></div>
+        <div class="visual__counter">+ 3 s</div>
       </div>
     </div>
 

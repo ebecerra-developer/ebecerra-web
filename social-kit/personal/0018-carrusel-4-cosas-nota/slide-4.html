@@ -4,45 +4,88 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" href="_base.css" />
 <style>
-  .visual__envelope {
-    width: 380px; height: 260px;
+  /* Mockup de notificación de email (estilo bandeja entrante) */
+  .visual__notif {
+    width: 600px;
     background: #fff;
-    border: 8px solid var(--ink);
-    border-radius: 12px;
+    border: 5px solid var(--ink);
+    border-radius: 22px;
     box-shadow: 16px 16px 0 var(--green);
-    position: relative;
     overflow: hidden;
   }
-  .visual__envelope::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 50%;
-    background:
-      linear-gradient(135deg, transparent 49%, var(--ink) 49%, var(--ink) 51%, transparent 51%),
-      linear-gradient(-135deg, transparent 49%, var(--ink) 49%, var(--ink) 51%, transparent 51%);
-    background-size: 100% 100%;
-    background-position: top left, top right;
+  .visual__notif__header {
+    background: #F3F4F6;
+    padding: 20px 28px;
+    border-bottom: 3px solid var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.01em;
   }
-  .visual__check {
-    position: absolute;
-    bottom: -36px;
-    right: -36px;
-    width: 130px; height: 130px;
+  .visual__notif__header__icon {
+    width: 36px; height: 36px;
     background: var(--green);
-    border-radius: 50%;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 0 var(--green-deeper);
   }
-  .visual__check svg {
-    width: 70px; height: 70px;
+  .visual__notif__header__icon svg {
+    width: 22px; height: 22px;
     stroke: var(--cream);
-    stroke-width: 6;
+    stroke-width: 2.5;
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
+  }
+  .visual__notif__header__badge {
+    margin-left: auto;
+    background: var(--coral);
+    color: var(--cream);
+    font-size: 18px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+  .visual__notif__msg {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .visual__notif__msg__from {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .visual__notif__msg__time {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 18px;
+    margin-left: 12px;
+  }
+  .visual__notif__msg__subject {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .visual__notif__msg__preview {
+    font-size: 20px;
+    color: var(--muted);
+    font-weight: 500;
+    line-height: 1.35;
+    margin-top: 4px;
+  }
+  .visual__notif__msg__preview em {
+    font-style: normal;
+    color: var(--green);
+    font-weight: 700;
   }
 </style>
 </head>
@@ -57,9 +100,24 @@
     </div>
 
     <div class="visual">
-      <div class="visual__envelope">
-        <div class="visual__check">
-          <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+      <div class="visual__notif">
+        <div class="visual__notif__header">
+          <span class="visual__notif__header__icon">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="6" width="18" height="12" rx="2"/>
+              <path d="M3 8 L12 14 L21 8"/>
+            </svg>
+          </span>
+          <span>Bandeja entrada</span>
+          <span class="visual__notif__header__badge">+ 1</span>
+        </div>
+        <div class="visual__notif__msg">
+          <div>
+            <span class="visual__notif__msg__from">Pepe Martínez</span>
+            <span class="visual__notif__msg__time">hace 2 min</span>
+          </div>
+          <div class="visual__notif__msg__subject">Cita el lunes</div>
+          <div class="visual__notif__msg__preview">Hola, vi tu web y quería pedir una cita para el lunes por la tarde. ¿Tienes hueco a las 17 h? <em>Llega.</em></div>
         </div>
       </div>
     </div>
