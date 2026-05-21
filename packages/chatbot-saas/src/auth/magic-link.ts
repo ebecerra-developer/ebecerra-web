@@ -107,8 +107,15 @@ export async function requestMagicLink(args: {
       action: "auth.magic_link.invalid",
       details: { reason: "unauthorized_email", ip: args.ip },
     });
-    // Devolvemos OK falso para no filtrar la existencia del email
-    return { sent: false };
+    // Decisión consciente: este admin no es SaaS público y la lista de emails
+    // es pequeña (operadores + clientes específicos). Para un admin privado,
+    // dar feedback al usuario gana a la protección anti-enumeración. Si en V2
+    // esto pasa a SaaS público, valorar volver a silencioso.
+    throw new MagicLinkError(
+      403,
+      "unauthorized_email",
+      "No tienes acceso a este panel. Si crees que es un error, contacta con quien te dio acceso."
+    );
   }
 
   const { raw } = await createMagicLinkToken({
