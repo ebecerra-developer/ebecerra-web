@@ -67,7 +67,7 @@ const JOBS = [
   ...[
     "sobre-mi",
     "servicios",
-    "webs",
+    "imagina",
     "piezas",
     "proyectos",
     "contacto",
