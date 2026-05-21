@@ -1,36 +1,39 @@
 import { NextResponse } from "next/server";
-import { getClientAdminEnv } from "./env";
+import { resolveAdminConfig } from "./env";
 import { readSession, setSession, clearSession } from "./cookie";
 
-type AuthAction = "send-magic-link" | "verify";
+export type HandlerOpts = {
+  /** Override del tenantKey. Default: env CHATBOT_TENANT_KEY. */
+  tenantKey?: string;
+  /** Override del adminApiUrl. Default: env ADMIN_API_URL. */
+  adminApiUrl?: string;
+  /** Path al que se restringe la cookie de sesión. Default "/" (toda la web). */
+  cookiePath?: string;
+};
 
 async function forwardToAdmin(
   path: string,
-  init: RequestInit
+  init: RequestInit,
+  opts?: HandlerOpts
 ): Promise<Response> {
-  const env = getClientAdminEnv();
-  const upstream = await fetch(`${env.adminApiUrl}${path}`, {
+  const { adminApiUrl, tenantKey } = resolveAdminConfig(opts);
+  return fetch(`${adminApiUrl}${path}`, {
     ...init,
     headers: {
       ...(init.headers as Record<string, string> | undefined),
-      "X-Tenant-Key": env.tenantKey,
+      "X-Tenant-Key": tenantKey,
     },
   });
-  return upstream;
 }
 
-/**
- * Handler de POST /api/auth/login (alias del send-magic-link en backend).
- * Body: { email }. Devuelve { ok: true } siempre — no filtra existencia.
- */
-export function buildAuthLoginHandler() {
+export function buildAuthLoginHandler(opts?: HandlerOpts) {
   return async function POST(request: Request) {
     const body = await request.text();
-    const upstream = await forwardToAdmin("/api/auth/send-magic-link", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-    });
+    const upstream = await forwardToAdmin(
+      "/api/auth/send-magic-link",
+      { method: "POST", headers: { "Content-Type": "application/json" }, body },
+      opts
+    );
     return new Response(upstream.body, {
       status: upstream.status,
       headers: { "Content-Type": "application/json" },
@@ -38,18 +41,14 @@ export function buildAuthLoginHandler() {
   };
 }
 
-/**
- * Handler de POST /api/auth/verify.
- * Body: { token }. Si OK, firma cookie de sesión local y devuelve { ok: true, role }.
- */
-export function buildAuthVerifyHandler() {
+export function buildAuthVerifyHandler(opts?: HandlerOpts) {
   return async function POST(request: Request) {
     const body = await request.text();
-    const upstream = await forwardToAdmin("/api/auth/verify", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-    });
+    const upstream = await forwardToAdmin(
+      "/api/auth/verify",
+      { method: "POST", headers: { "Content-Type": "application/json" }, body },
+      opts
+    );
 
     if (!upstream.ok) {
       return new Response(upstream.body, {
@@ -67,59 +66,43 @@ export function buildAuthVerifyHandler() {
 
     if (!data.email || !data.tenant_id || !data.role) {
       return NextResponse.json(
-        { error: { code: "incomplete_upstream", message: "Missing fields in upstream response" } },
+        { error: { code: "incomplete_upstream" } },
         { status: 502 }
       );
     }
 
-    await setSession({
-      email: data.email,
-      tenant_id: data.tenant_id,
-      tenant_slug: data.tenant_slug,
-      role: data.role as "owner" | "editor" | "client",
-    });
-
+    await setSession(
+      {
+        email: data.email,
+        tenant_id: data.tenant_id,
+        tenant_slug: data.tenant_slug,
+        role: data.role as "owner" | "editor" | "client",
+      },
+      { cookiePath: opts?.cookiePath }
+    );
     return NextResponse.json({ ok: true, email: data.email, role: data.role });
   };
 }
 
-/**
- * Handler de POST /api/auth/logout. Limpia la cookie local. No-op upstream.
- */
-export function buildLogoutHandler() {
+export function buildLogoutHandler(opts?: HandlerOpts) {
   return async function POST() {
-    await clearSession();
+    await clearSession({ cookiePath: opts?.cookiePath });
     return NextResponse.json({ ok: true });
   };
 }
 
-/**
- * Handler de GET para proxies admin. Verifica sesión local + forwardea al backend.
- *
- * Si no hay sesión válida, 401. Si sesión OK, llama admin.ebecerra.es/{upstreamPath}
- * con X-Tenant-Key + X-Actor-Email (audit).
- */
-export function buildAdminProxyHandler(upstreamPath: string) {
+export function buildAdminProxyHandler(upstreamPath: string, opts?: HandlerOpts) {
   return async function GET(request: Request) {
     const session = await readSession();
     if (!session) {
-      return NextResponse.json(
-        { error: { code: "unauthenticated", message: "No valid session" } },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: { code: "unauthenticated" } }, { status: 401 });
     }
-
-    // Preserve query string
     const url = new URL(request.url);
-    const upstreamUrl = upstreamPath + url.search;
-
-    const upstream = await forwardToAdmin(upstreamUrl, {
-      method: "GET",
-      headers: {
-        "X-Actor-Email": session.email,
-      },
-    });
-
+    const upstream = await forwardToAdmin(
+      upstreamPath + url.search,
+      { method: "GET", headers: { "X-Actor-Email": session.email } },
+      opts
+    );
     return new Response(upstream.body, {
       status: upstream.status,
       headers: {
@@ -132,17 +115,28 @@ export function buildAdminProxyHandler(upstreamPath: string) {
 /**
  * Guard para Server Components: comprueba sesión, redirige a /admin/login si no hay.
  *
- * Cast a Parameters<typeof redirect>[0]: Next 16 con typedRoutes solo acepta
- * literales conocidos; al ser SDK reusable con redirectTo configurable, casteamos
- * para que cualquier ruta del consumidor sea válida.
+ * @param opts.requireTenantId si está, exige que session.tenant_id coincida
+ *   (excepto si role es owner/editor — operador cross-tenant).
  */
-export async function requireSession(opts?: { redirectTo?: string }) {
+export async function requireSession(opts?: {
+  redirectTo?: string;
+  requireTenantId?: string;
+}) {
   const session = await readSession();
+  const { redirect } = await import("next/navigation");
+
   if (!session) {
-    const { redirect } = await import("next/navigation");
-    redirect(
-      (opts?.redirectTo ?? "/admin/login") as Parameters<typeof redirect>[0]
-    );
+    redirect((opts?.redirectTo ?? "/admin/login") as Parameters<typeof redirect>[0]);
   }
+
+  // Operator (role owner/editor) → cross-tenant OK. Client → debe matchear tenant.
+  if (
+    opts?.requireTenantId &&
+    session!.role === "client" &&
+    session!.tenant_id !== opts.requireTenantId
+  ) {
+    redirect((opts?.redirectTo ?? "/admin/login") as Parameters<typeof redirect>[0]);
+  }
+
   return session!;
 }

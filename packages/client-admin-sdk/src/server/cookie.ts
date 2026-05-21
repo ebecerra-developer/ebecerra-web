@@ -21,9 +21,13 @@ export async function readSession(): Promise<SessionPayload | null> {
 
 /**
  * Persiste una sesión nueva en cookie HttpOnly Secure SameSite=Lax.
+ * @param cookiePath path de la cookie. Default "/" — para deployments multi-tenant
+ *                    en el mismo dominio (apps/demos) pasar "/<slug>/admin" para
+ *                    aislar sesiones entre demos.
  */
 export async function setSession(
-  payload: Omit<SessionPayload, "exp">
+  payload: Omit<SessionPayload, "exp">,
+  opts?: { cookiePath?: string }
 ): Promise<{ exp: number }> {
   const { token, exp } = signSession(payload);
   const store = await cookies();
@@ -31,19 +35,19 @@ export async function setSession(
     httpOnly: true,
     secure: true,
     sameSite: "lax",
-    path: "/",
+    path: opts?.cookiePath ?? "/",
     maxAge: getSessionTtlSeconds(),
   });
   return { exp };
 }
 
-export async function clearSession(): Promise<void> {
+export async function clearSession(opts?: { cookiePath?: string }): Promise<void> {
   const store = await cookies();
   store.set(SESSION_COOKIE, "", {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
-    path: "/",
+    path: opts?.cookiePath ?? "/",
     maxAge: 0,
   });
 }

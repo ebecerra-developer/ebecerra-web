@@ -1,11 +1,18 @@
 import createMiddleware from "next-intl/middleware";
+import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
 
-export default createMiddleware(routing);
+const intlMiddleware = createMiddleware(routing);
+
+export default function proxy(request: NextRequest) {
+  // /admin no usa i18n (es interno, ES-only).
+  if (request.nextUrl.pathname.startsWith("/admin")) {
+    return NextResponse.next();
+  }
+  return intlMiddleware(request);
+}
 
 export const config = {
-  // Excluye: api, studio, playground, next internals, vercel, assets estáticos
-  // (piezas-game/, brand/, .well-known/, favicons), y cualquier archivo con extensión.
   matcher: [
     "/((?!api|studio|playground|_next|_vercel|piezas-game|brand|\\.well-known|.*\\..*).*)",
   ],
