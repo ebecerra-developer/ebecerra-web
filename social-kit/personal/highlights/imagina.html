@@ -1,12 +1,20 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><link rel="stylesheet" href="_base.css"></head>
 <body><div class="stage">
   <div class="icon-wrap">
-    <!-- Lightbulb: imagina lo que tu web podría ser -->
-    <svg viewBox="0 0 24 24">
+    <!-- Lightbulb encendida: bulbo + base + rayos de luz alrededor -->
+    <svg viewBox="-5 -5 34 34">
+      <!-- Bulbo -->
+      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5a6 6 0 0 0-12 0c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/>
+      <!-- Base / roscas -->
       <path d="M9 18h6"/>
       <path d="M10 22h4"/>
-      <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2v.3h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2Z"/>
-      <path d="M9.5 11l1.2 1.2L13 10"/>
+      <!-- Rayos de luz · 5 a 45° de separación · radio 9.5 a 11.5
+           (2.5 unidades de aire entre bulbo y rayo) -->
+      <path d="M23.5 8L21.5 8"/>
+      <path d="M20.13 -0.13L18.72 1.28"/>
+      <path d="M12 -3.5L12 -1.5"/>
+      <path d="M3.87 -0.13L5.28 1.28"/>
+      <path d="M0.5 8L2.5 8"/>
     </svg>
   </div>
 </div></body></html>
