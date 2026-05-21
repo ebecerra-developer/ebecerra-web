@@ -150,7 +150,6 @@
 
 .admin-subnav__link.is-active {
   color: var(--admin-primary-strong);
-  background: var(--admin-bg);
 }
 
 .admin-subnav__link.is-active::after {
@@ -161,7 +160,6 @@
   bottom: -1px;
   height: 2px;
   background: var(--admin-primary);
-  border-radius: 1px 1px 0 0;
 }
 
 .admin-subnav__link.is-disabled {
