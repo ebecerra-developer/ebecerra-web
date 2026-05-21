@@ -1,27 +1,21 @@
-import { requireSession } from "@ebecerra/client-admin-sdk/server";
-import { LogoutButton } from "@ebecerra/client-admin-sdk/client";
+import { AuthShell } from "../_lib/AuthShell";
 import { ChatbotSessions } from "./ChatbotSessions";
 import { UsageWidget } from "./UsageWidget";
 
-export const metadata = { title: "Conversaciones · ebecerra.tech admin" };
+export const metadata = { title: "Chatbot · ebecerra.tech admin" };
 
 export default async function ChatbotAdminPage() {
-  const session = await requireSession();
-
   return (
-    <div className="admin-page">
-      <header className="admin-page__header">
-        <div>
-          <h1>// ebecerra.tech · chatbot</h1>
-          <p className="admin-page__subtitle">$ session: {session.email}</p>
-        </div>
-        <LogoutButton className="admin-logout" />
-      </header>
+    <AuthShell activeModule="chatbot">
+      <h1 className="admin-page__title">// chatbot</h1>
+      <p className="admin-page__lead">
+        Conversaciones del asistente con visitantes y consumo del mes.
+      </p>
 
       <UsageWidget />
 
-      <h2 className="admin-page__section-title">Recent sessions</h2>
+      <h2 className="admin-page__section-title">Sesiones recientes</h2>
       <ChatbotSessions />
-    </div>
+    </AuthShell>
   );
 }

@@ -10,22 +10,41 @@ export default function AdminIndexPage() {
 
   return (
     <div className="admin-shell" data-template="fisio">
-      <div className="admin-index">
-        <h1>Admin · demos</h1>
-        <p>Elige el demo cuyo panel quieres abrir.</p>
+      <div
+        style={{
+          maxWidth: "560px",
+          margin: "clamp(48px, 10vh, 90px) auto 0",
+          padding: "36px 32px 32px",
+          background: "var(--admin-surface)",
+          border: "1px solid var(--admin-border)",
+          borderRadius: "var(--admin-radius)",
+          boxShadow: "var(--admin-shadow)",
+        }}
+      >
+        <h1 className="admin-page__title" style={{ marginBottom: "6px" }}>
+          Admin · demos
+        </h1>
+        <p className="admin-page__lead">
+          Elige el demo cuyo panel quieres abrir. Cada uno tiene su propio
+          login y solo ve sus propias conversaciones.
+        </p>
         {available.length === 0 ? (
           <p className="admin-empty">No hay tenants configurados.</p>
         ) : (
-          <ul>
+          <div className="admin-modules" style={{ gridTemplateColumns: "1fr" }}>
             {available.map((slug) => (
-              <li key={slug}>
-                <Link href={`/admin/${slug}/login`}>
-                  <span>{DEMO_DISPLAY_NAME[slug] ?? slug}</span>
-                  <span>→</span>
-                </Link>
-              </li>
+              <Link
+                key={slug}
+                href={`/admin/${slug}/login` as Parameters<typeof Link>[0]["href"]}
+                className="admin-module-card"
+              >
+                <span className="admin-module-card__title">
+                  {DEMO_DISPLAY_NAME[slug] ?? slug}
+                </span>
+                <span className="admin-module-card__arrow">Abrir →</span>
+              </Link>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </div>

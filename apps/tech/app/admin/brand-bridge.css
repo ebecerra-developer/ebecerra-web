@@ -1,0 +1,35 @@
+/* ==========================================================================
+   ebecerra.tech · brand-bridge.css
+   --------------------------------------------------------------------------
+   Mapea los tokens del modo geek (negro + verde neón) a las variables
+   --admin-* que consume el SDK. El admin de tech queda visualmente
+   alineado con su web pública.
+   ========================================================================== */
+
+.admin-shell {
+  --admin-bg: var(--geek-bg, #080808);
+  --admin-bg-deep: #050505;
+  --admin-surface: var(--geek-surface, #0d0d0d);
+  --admin-surface-2: #161616;
+  --admin-border: var(--geek-border, #333333);
+  --admin-border-strong: #4a4a4a;
+  --admin-text: var(--geek-text, #e0e0e0);
+  --admin-text-soft: #c4c4c4;
+  --admin-text-muted: var(--geek-text-muted, #a8a29e);
+  --admin-primary: var(--geek-accent, #00ff88);
+  --admin-primary-strong: #00cc6e;
+  --admin-primary-soft: rgba(0, 255, 136, 0.12);
+  --admin-on-primary: #001a0c;
+  --admin-accent: var(--geek-accent-2, #00ccff);
+  --admin-error: #ff6464;
+  --admin-success: var(--geek-accent, #00ff88);
+
+  --admin-font: var(--geek-font-sans, "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif);
+  --admin-font-display: var(--geek-font-mono, "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace);
+  --admin-font-mono: var(--geek-font-mono, "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace);
+}
+
+/* En geek mode el header/footer queda más oscuro sin radial gradient warm. */
+.admin-shell {
+  background: var(--admin-bg) !important;
+}

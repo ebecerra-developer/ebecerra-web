@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import "./admin.css";
+import "@ebecerra/client-admin-sdk/styles/admin-base.css";
+import "./brand-bridge.css";
 
 export const metadata: Metadata = {
   title: "Admin · demos.ebecerra.es",

@@ -1,0 +1,96 @@
+/* ==========================================================================
+   demos.ebecerra.es · brand-bridge.css
+   --------------------------------------------------------------------------
+   Cada demo arrastra su paleta del template (fisio / coach-editorial /
+   coach-vibrant / tandem) a las variables --admin-* del SDK. Las paletas
+   vienen de packages/tokens/demos-*.css — aquí solo mapeamos.
+   ========================================================================== */
+
+/* Defaults — equivalen a fisio (más neutro) */
+.admin-shell {
+  --admin-bg: #f7f0e3;
+  --admin-bg-deep: #ede1cb;
+  --admin-surface: #fdf7ea;
+  --admin-surface-2: #f1e7d2;
+  --admin-border: #e0cfaf;
+  --admin-border-strong: #c4ae84;
+  --admin-text: #2a1f12;
+  --admin-text-soft: #4d3a26;
+  --admin-text-muted: #6d573c;
+  --admin-primary: #1e5f6e;
+  --admin-primary-strong: #154855;
+  --admin-primary-soft: rgba(30, 95, 110, 0.10);
+  --admin-on-primary: #ffffff;
+  --admin-accent: #b86a44;
+
+  --admin-font: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --admin-font-display: "Fraunces", "DM Serif Display", Georgia, serif;
+}
+
+/* Equilibrio — fisio */
+.admin-shell[data-template="fisio"] {
+  --admin-bg: #f7f0e3;
+  --admin-bg-deep: #ede1cb;
+  --admin-surface: #fdf7ea;
+  --admin-surface-2: #f1e7d2;
+  --admin-border: #e0cfaf;
+  --admin-border-strong: #c4ae84;
+  --admin-text: #2a1f12;
+  --admin-text-soft: #4d3a26;
+  --admin-text-muted: #6d573c;
+  --admin-primary: #1e5f6e;
+  --admin-primary-strong: #154855;
+  --admin-primary-soft: rgba(30, 95, 110, 0.10);
+  --admin-accent: #b86a44;
+}
+
+/* Marta Solana — coach-editorial */
+.admin-shell[data-template="coach-editorial"] {
+  --admin-bg: #f1e9dd;
+  --admin-bg-deep: #ead7c2;
+  --admin-surface: #faf6f1;
+  --admin-surface-2: #f5ece1;
+  --admin-border: #e3d5c4;
+  --admin-border-strong: #c8b099;
+  --admin-text: #2e1f1c;
+  --admin-text-soft: #4a352f;
+  --admin-text-muted: #715850;
+  --admin-primary: #6b3a3a;
+  --admin-primary-strong: #4f2727;
+  --admin-primary-soft: rgba(107, 58, 58, 0.10);
+  --admin-accent: #c8a2a0;
+}
+
+/* Claudia Entrena — coach-vibrant */
+.admin-shell[data-template="coach-vibrant"] {
+  --admin-bg: #f3eadb;
+  --admin-bg-deep: #e8ddc8;
+  --admin-surface: #fbf6f0;
+  --admin-surface-2: #f5edff;
+  --admin-border: #e0d4c4;
+  --admin-border-strong: #b89d7c;
+  --admin-text: #2d1a3d;
+  --admin-text-soft: #553973;
+  --admin-text-muted: #6e5878;
+  --admin-primary: #d6296a;
+  --admin-primary-strong: #b71d56;
+  --admin-primary-soft: rgba(214, 41, 106, 0.10);
+  --admin-accent: #b8e23f;
+}
+
+/* Eco — tandem */
+.admin-shell[data-template="tandem"] {
+  --admin-bg: #f4ede0;
+  --admin-bg-deep: #ece2cf;
+  --admin-surface: #fbf6ea;
+  --admin-surface-2: #fff4e3;
+  --admin-border: #d4c8b1;
+  --admin-border-strong: #1a1a1a;
+  --admin-text: #111111;
+  --admin-text-soft: #3a3833;
+  --admin-text-muted: #5a5750;
+  --admin-primary: #2e3cff;
+  --admin-primary-strong: #1a25d0;
+  --admin-primary-soft: rgba(46, 60, 255, 0.10);
+  --admin-accent: #ff6b4a;
+}
