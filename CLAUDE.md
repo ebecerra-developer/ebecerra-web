@@ -92,6 +92,7 @@ Invocar con `/nombre`. Para crear contenido (post, copy, SEO, AEO) entra por **`
 | `/content-flow` | Orquesta investigación → estrategia → redacción → AI-SEO → SEO técnico → auditoría → social. |
 | `/page-patterns` | Páginas secundarias en apps/es (PageHero, listados, breadcrumbs, sub-nav). |
 | `/chatbot-system` | Greetings/system prompts, cadena Groq, añadir contexto o diagnosticar. |
+| `/admin-panel` | Añadir módulo, provisionar admin de cliente nuevo, mapear tokens al admin, depurar estética. |
 | `/demos-template-system` | Añadir plantilla nueva a `apps/demos`. |
 | `/css-conventions` | Estilos: CSS Modules co-located. |
 | `/design-tokens` | Paleta, tokens, rough-notation, handoff Claude Design. |
