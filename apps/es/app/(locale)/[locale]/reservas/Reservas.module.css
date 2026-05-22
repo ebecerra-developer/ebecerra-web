@@ -1,0 +1,19 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.widgetSection {
+  padding: 3rem clamp(20px, 4vw, 56px) 4rem;
+}
+
+.notConfigured {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #f7fafc;
+  border-radius: 8px;
+  text-align: center;
+  color: #555;
+}

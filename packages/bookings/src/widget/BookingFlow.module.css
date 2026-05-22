@@ -1,0 +1,312 @@
+.root {
+  --accent: var(--bookings-accent, #047857);
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #666;
+  --border: #e5e5e5;
+  --error: #b91c1c;
+  font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.backBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.backBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.stepTitle {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.steps {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0 0 1.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.step {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.stepActive {
+  background: var(--accent);
+}
+
+/* ------ STEP 1: services ------ */
+.serviceList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 600px) {
+  .serviceList {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.serviceCard {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  background: var(--bg);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.serviceCard:hover,
+.serviceCard:focus-visible {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.serviceCard h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.serviceMeta {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.servicePrice {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* ------ STEP 2: calendar ------ */
+.calendarNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.calendarNav button {
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.calendarNav button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.dayLabel {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding: 0.25rem 0;
+}
+
+.dayCell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.dayCell:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.dayHasSlots {
+  border-color: var(--border);
+}
+
+.dayHasSlots:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.daySelected {
+  background: var(--accent);
+  color: #fff;
+}
+
+.daySelected:hover {
+  color: #fff;
+}
+
+.dayEmpty {
+  visibility: hidden;
+}
+
+/* ------ STEP 3: slots ------ */
+.slotsGroup {
+  margin: 1rem 0;
+}
+
+.slotsGroupTitle {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.slotsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 0.5rem;
+}
+
+.slotBtn {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  padding: 0.6rem 0.4rem;
+  border-radius: 6px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: center;
+}
+
+.slotBtn:hover,
+.slotBtn:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ------ STEP 4: form ------ */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.field label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.field input,
+.field textarea {
+  font: inherit;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.submitBtn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.summary {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.summary strong {
+  display: inline-block;
+  min-width: 110px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.success {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.success h2 {
+  color: var(--accent);
+  margin: 0 0 0.5rem;
+}
+
+.policy {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--muted);
+}

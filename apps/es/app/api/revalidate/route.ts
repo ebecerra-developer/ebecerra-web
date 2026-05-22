@@ -2,9 +2,11 @@ import { revalidatePath } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 import { serverEnv } from "@/lib/env";
 import { handleSyncWebhook } from "@ebecerra/chatbot-saas/sanity-sync";
+import { handleBookingsSyncWebhook } from "@ebecerra/bookings/sanity-sync";
 
 const FAQ_TYPES = new Set(["faqItem", "faqPage"]);
 const CHATBOT_SYNC_TYPES = new Set(["profile", "demoSite", "chatbotConfig"]);
+const BOOKINGS_SYNC_TYPES = new Set(["bookingTenantConfig", "bookingService"]);
 const EBECERRA_SANITY_PROJECT_ID = "gdtxcn4l";
 
 const DEMOS_REVALIDATE_URL = "https://demos.ebecerra.es/api/revalidate";
@@ -76,6 +78,22 @@ export async function POST(request: NextRequest) {
         }
       } catch (err) {
         console.error("[revalidate→chatbot sync] failed:", err);
+      }
+    }
+
+    // Fan-out bookings: idem para el sistema de reservas. Reutilizamos este
+    // webhook de Sanity en vez de añadir uno nuevo (plan free solo permite 2).
+    if (_type && _id && BOOKINGS_SYNC_TYPES.has(_type)) {
+      try {
+        const result = await handleBookingsSyncWebhook({
+          sanityProjectId: EBECERRA_SANITY_PROJECT_ID,
+          payload: body as { _id: string; _type: string; _rev?: string },
+        });
+        if (!result.ok) {
+          console.warn("[revalidate→bookings sync] skip:", result.reason);
+        }
+      } catch (err) {
+        console.error("[revalidate→bookings sync] failed:", err);
       }
     }
 

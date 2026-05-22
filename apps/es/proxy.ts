@@ -9,20 +9,25 @@ const intlMiddleware = createMiddleware(routing);
 const ADMIN_PUBLIC_PATHS = ["/admin/login", "/admin/auth/callback"];
 
 // Subdominios funcionales:
-//  - chats.ebecerra.es  → API consumida por widgets de chat y webhooks Sanity.
-//  - admin.ebecerra.es  → API consumida por proxies admin de cada web cliente
-//                          (auth + admin tools).
-// En ambos subdominios solo pasan rutas API; cualquier ruta HTML devuelve 404
+//  - chats.ebecerra.es     → API consumida por widgets de chat y webhooks Sanity.
+//  - admin.ebecerra.es     → API consumida por proxies admin de cada web cliente.
+//  - bookings.ebecerra.es  → API y landings de confirm/cancel del sistema de reservas.
+// En estos subdominios solo pasan rutas API; cualquier ruta HTML devuelve 404
 // (el matcher ya excluye /api/*, así que aquí cortamos HTML/admin/studio).
 const CHATS_HOST_PREFIX = "chats.";
 const ADMIN_HOST_PREFIX = "admin.";
+const BOOKINGS_HOST_PREFIX = "bookings.";
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Host-aware: chats.* y admin.* solo sirven API.
+  // Host-aware: chats.*, admin.* y bookings.* solo sirven API.
   const host = request.headers.get("host") ?? "";
-  if (host.startsWith(CHATS_HOST_PREFIX) || host.startsWith(ADMIN_HOST_PREFIX)) {
+  if (
+    host.startsWith(CHATS_HOST_PREFIX) ||
+    host.startsWith(ADMIN_HOST_PREFIX) ||
+    host.startsWith(BOOKINGS_HOST_PREFIX)
+  ) {
     return new NextResponse("Not Found", { status: 404 });
   }
 

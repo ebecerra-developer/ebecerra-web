@@ -10,9 +10,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ebecerra/bookings": "*",
+    "@ebecerra/bookings-admin-ui": "*",
     "@ebecerra/chatbot": "*",
     "@ebecerra/chatbot-admin-ui": "*",
     "@ebecerra/chatbot-saas": "*",
+    "@ebecerra/sanity-booking-schema": "*",
     "@ebecerra/sanity-chatbot-schema": "*",
     "@ebecerra/sanity-client": "*",
     "@ebecerra/sanity-schemas": "*",

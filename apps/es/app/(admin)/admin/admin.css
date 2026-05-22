@@ -148,6 +148,32 @@
 .admin-pill[data-status="approved"] { background: #14532d; color: #d9f99d; }
 .admin-pill[data-status="rejected"] { background: #7f1d1d; color: #fecaca; }
 
+/* Bookings status — reusan data-app porque la página los pinta con esa key */
+.admin-pill[data-app="pending"]   { background: #713f12; color: #fef3c7; }
+.admin-pill[data-app="confirmed"] { background: #14532d; color: #d9f99d; }
+.admin-pill[data-app="cancelled"] { background: #7f1d1d; color: #fecaca; }
+.admin-pill[data-app="completed"] { background: #1e3a8a; color: #dbeafe; }
+.admin-pill[data-app="no_show"]   { background: #4c1d95; color: #ddd6fe; }
+
+.admin-btn {
+  background: transparent;
+  border: 1px solid #44403c;
+  color: #d6d3d1;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.admin-btn:hover {
+  border-color: #84cc16;
+  color: #84cc16;
+}
+.admin-btn-danger:hover {
+  border-color: #ef4444;
+  color: #fecaca;
+}
+
 .admin-filters {
   display: flex;
   gap: 12px;

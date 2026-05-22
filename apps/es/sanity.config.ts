@@ -7,6 +7,10 @@ import { languageFilter } from "@sanity/language-filter";
 // los editores pueden subir imágenes manualmente al asset library de Sanity.
 // import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import { schemaTypes, SINGLETON_TYPES } from "@ebecerra/sanity-schemas";
+import {
+  bookingSchemas,
+  bookingStructure,
+} from "@ebecerra/sanity-booking-schema";
 
 const singletonSet = new Set<string>(SINGLETON_TYPES);
 
@@ -30,6 +34,8 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "faqItem",
   "legalPage",
   "demoSite",
+  "bookingTenantConfig",
+  "bookingService",
 ];
 
 const SINGLETON_DISABLED_ACTIONS = new Set([
@@ -167,6 +173,8 @@ const structure: StructureResolver = (S) =>
             .defaultOrdering([{ field: "galleryOrder", direction: "asc" }])
         ),
       S.divider(),
+      bookingStructure(S),
+      S.divider(),
       S.listItem()
         .title("Experiencia")
         .schemaType("experience")
@@ -207,7 +215,7 @@ export default defineConfig({
     }),
   ],
   schema: {
-    types: schemaTypes,
+    types: [...schemaTypes, ...bookingSchemas],
   },
   // Enforcement singleton: bloquear create/delete/duplicate/unpublish en los
   // tipos declarados como singleton. Una sola lista en un punto.
