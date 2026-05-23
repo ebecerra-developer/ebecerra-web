@@ -8,7 +8,7 @@ const DEMOS = [
   { slug: "claudia-entrena",  file: "demo-claudia-entrena" },
 ];
 
-const OUT_DIR = path.resolve("../../personal/captures");
+const OUT_DIR = path.resolve("../personal/assets/captures");
 
 async function main() {
   const browser = await chromium.launch({ headless: true });
@@ -35,7 +35,7 @@ async function main() {
     console.log(`  saved: ${out}`);
   }
 
-  // Mobile capture for eco specifically (story 2 prominent use)
+  // Mobile captures (para reels y stories que muestran demos en phone mockup)
   await ctx.close();
   const mobileCtx = await browser.newContext({
     viewport: { width: 390, height: 844 },
@@ -43,17 +43,23 @@ async function main() {
     isMobile: true,
     hasTouch: true,
   });
-  const mPage = await mobileCtx.newPage();
-  await mPage.goto("https://demos.ebecerra.es/eco/", { waitUntil: "networkidle", timeout: 45000 });
-  await mPage.evaluate(() => {
-    const region = [...document.querySelectorAll('[role="region"]')].find((el) =>
-      /ejemplo|example/i.test(el.textContent || "")
-    );
-    region?.remove();
-  });
-  await mPage.waitForTimeout(800);
-  await mPage.screenshot({ path: path.join(OUT_DIR, "demo-eco-mobile.png"), fullPage: false });
-  console.log("  saved mobile eco");
+
+  const MOBILE_DEMOS = ["eco", "equilibrio", "marta-solana", "claudia-entrena"];
+  for (const slug of MOBILE_DEMOS) {
+    const mPage = await mobileCtx.newPage();
+    await mPage.goto(`https://demos.ebecerra.es/${slug}/`, { waitUntil: "networkidle", timeout: 45000 });
+    await mPage.evaluate(() => {
+      const region = [...document.querySelectorAll('[role="region"]')].find((el) =>
+        /ejemplo|example/i.test(el.textContent || "")
+      );
+      region?.remove();
+    });
+    await mPage.waitForTimeout(800);
+    const out = path.join(OUT_DIR, `demo-${slug}-mobile.png`);
+    await mPage.screenshot({ path: out, fullPage: false });
+    console.log(`  saved mobile: ${out}`);
+    await mPage.close();
+  }
 
   await browser.close();
 }

@@ -51,6 +51,15 @@ const JOBS = [
     w: 1080, h: 1920,
   },
 
+  // ── 0020 · Story reservas real (1080×1920) ───────────────────────────
+  // Story estática complementaria al Reel 0019. Lleva screenshot REAL del
+  // modal de reservas (capture-booking-modal.mjs) y link sticker manual en IG.
+  {
+    html: "personal/0020-story-reservas-real/index.html",
+    out:  "personal/0020-story-reservas-real/final.png",
+    w: 1080, h: 1920,
+  },
+
   // ── Covers de perfil ─────────────────────────────────────────────────
   {
     html: "personal/covers/fb-cover.html",

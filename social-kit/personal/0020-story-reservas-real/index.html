@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@500;700;800;900&display=swap" />
+<style>
+  /* Paleta eB (marca) — solo brand corner */
+  :root {
+    --green: #047857;
+    --cream: #FAFAF9;
+  }
+  /* Paleta equilibrio fisio — todo el resto */
+  :root {
+    --eq-bg: #f7f0e3;
+    --eq-bg-deep: #ede1cb;
+    --eq-surface: #ffffff;
+    --eq-ink: #2a1f12;
+    --eq-text: #2a1f12;
+    --eq-muted: #6d573c;
+    --eq-cta: #1e5f6e;
+    --eq-accent: #b86a44;
+    --eq-border: #e0cfaf;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1080px; height: 1920px;
+    background: var(--eq-bg);
+    font-family: "DM Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage {
+    position: relative;
+    width: 1080px; height: 1920px;
+    background: var(--eq-bg);
+    overflow: hidden;
+  }
+  /* Sutil grano */
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none; opacity: 0.14;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(42,31,18,0.5) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 50;
+  }
+
+  /* Brand corner eB (top-left, pequeño) */
+  .eb-corner {
+    position: absolute; top: 64px; left: 72px;
+    display: flex; align-items: center; gap: 14px;
+    z-index: 40;
+    font-family: "Inter", sans-serif;
+    color: var(--eq-text);
+    font-weight: 800; font-size: 26px;
+  }
+  .eb-corner .dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--green); color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+  }
+
+  /* Zona reservada para el LINK STICKER de IG (~ top 22% del frame).
+     IG suele colocar stickers en mitad superior; dejamos respiración aquí
+     para que el usuario lo arrastre sobre la flecha indicada. */
+  .sticker-hint {
+    position: absolute;
+    top: 200px; left: 0; right: 0;
+    text-align: center;
+    z-index: 30;
+  }
+  .sticker-hint .arrow {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 38px;
+    color: var(--eq-muted);
+    letter-spacing: -0.01em;
+  }
+  .sticker-hint .label {
+    display: block;
+    margin-top: 4px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--eq-muted);
+  }
+
+  /* Headline principal */
+  .head {
+    position: absolute;
+    top: 360px;
+    left: 88px; right: 88px;
+    text-align: center;
+    z-index: 20;
+  }
+  .head .kicker {
+    font-family: "DM Sans", sans-serif;
+    font-size: 26px; font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--eq-cta);
+    margin-bottom: 22px;
+  }
+  .head h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 110px; font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 0.96;
+    color: var(--eq-text);
+  }
+  .head h1 em {
+    font-style: italic;
+    color: var(--eq-cta);
+  }
+  .head .sub {
+    margin-top: 22px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--eq-muted);
+    line-height: 1.35;
+  }
+
+  /* Phone mockup — placeholder ahora; reemplazar src cuando esté el real */
+  .phone-wrap {
+    position: absolute;
+    top: 740px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1.5deg);
+    z-index: 18;
+  }
+  .phone {
+    width: 420px;
+    aspect-ratio: 9 / 19.5;
+    background: var(--eq-ink);
+    border-radius: 48px;
+    padding: 12px;
+    box-shadow:
+      0 36px 80px rgba(42,31,18,0.28),
+      0 12px 24px rgba(42,31,18,0.18);
+    position: relative;
+  }
+  .phone::before {
+    content: "";
+    position: absolute;
+    top: 22px; left: 50%;
+    transform: translateX(-50%);
+    width: 110px; height: 24px;
+    background: #000;
+    border-radius: 14px;
+    z-index: 2;
+  }
+  .phone__screen {
+    width: 100%; height: 100%;
+    border-radius: 38px;
+    overflow: hidden;
+    background: var(--eq-bg);
+  }
+  .phone__screen img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  /* Footer CTA */
+  .footer {
+    position: absolute;
+    bottom: 80px;
+    left: 0; right: 0;
+    text-align: center;
+    z-index: 20;
+  }
+  .footer .handle {
+    display: inline-block;
+    background: var(--eq-ink);
+    color: var(--eq-bg);
+    font-family: "Inter", sans-serif;
+    font-size: 38px; font-weight: 800;
+    padding: 18px 36px;
+    border-radius: 999px;
+    letter-spacing: -0.005em;
+  }
+  .footer .url {
+    margin-top: 22px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--eq-muted);
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="eb-corner"><span class="dot">eB</span> reservas</div>
+
+    <!-- Indicador donde el user pondrá manualmente el link sticker en IG -->
+    <div class="sticker-hint">
+      <span class="arrow">↑ aquí va el sticker ↑</span>
+      <span class="label">toca para reservar</span>
+    </div>
+
+    <div class="head">
+      <div class="kicker">funciona · pruébalo</div>
+      <h1>Pide cita<br/><em>online</em>.</h1>
+      <p class="sub">Sin llamadas. Sin esperar a mañana.<br/>Equilibrio Fisio · Madrid centro.</p>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone__screen">
+          <!-- PLACEHOLDER: reemplazar por demo-equilibrio-booking-modal.png
+               cuando el sistema esté vivo (corre capture-booking-modal.mjs) -->
+          <img src="../assets/captures/demo-equilibrio-mobile.png" alt="Equilibrio Fisio en móvil" />
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="handle">@ebecerra.es</div>
+      <div class="url">demos.ebecerra.es/equilibrio</div>
+    </div>
+  </div>
+</body>
+</html>

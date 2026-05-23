@@ -23,6 +23,8 @@ Ordenadas por intuición de impacto, no por prioridad inmediata. Mover a "En pro
 
 - [ ] Story individual de cada demo (eco, equilibrio, marta, claudia) — una al mes para no quemar (próxima: Marta → `0015-`)
 - [x] Reel rescate → [`0006-reel-rescate`](personal/0006-reel-rescate/) (publicado 15-may)
+- [x] Reel reservas online (equilibrio) → [`0019-reel-reservas-equilibrio`](personal/0019-reel-reservas-equilibrio/) (subir 23-may)
+- [x] Story reservas real (equilibrio + link sticker) → [`0020-story-reservas-real`](personal/0020-story-reservas-real/) (subir 23-may unas horas después del 0019)
 
 ### Tipo · Educativo / mitos / proceso
 
@@ -89,7 +91,9 @@ Pendiente:
 | Día | Pieza | Acción |
 |---|---|---|
 | jueves 21 | [`0017-story-pregunta-pago`](personal/0017-story-pregunta-pago/) | Sticker encuesta IG: `Cuota mensual` vs `Pago único`. Sin highlight. |
-| **viernes 23** ~10:00 | **[`0018-carrusel-4-cosas-nota`](personal/0018-carrusel-4-cosas-nota/)** | Primer carrusel en formato 4:5. 7 slides. Sin sticker. Cross-post FB auto. |
+| viernes 23 ~10:00 | [`0018-carrusel-4-cosas-nota`](personal/0018-carrusel-4-cosas-nota/) | Primer carrusel en formato 4:5. 7 slides. Sin sticker. Cross-post FB auto. |
+| **sábado 23 (mañana)** | **[`0019-reel-reservas-equilibrio`](personal/0019-reel-reservas-equilibrio/)** | Reel 20s sobre reservas online. Coordinado con despliegue real del sistema en `demos.ebecerra.es/equilibrio`. Cross-post FB auto. Añadir a highlight `servicios`. |
+| **sábado 23 (unas horas después)** | **[`0020-story-reservas-real`](personal/0020-story-reservas-real/)** | Story estática complementaria. Antes de subir: correr `scripts/capture-booking-modal.mjs` para el screenshot real → editar `index.html` (swap img) → `render-statics.mjs 0020-story-reservas-real`. Link sticker manual a `https://demos.ebecerra.es/equilibrio`. Añadir a highlight `servicios`. |
 
 ## ❌ Producidas pero descartadas
 
@@ -134,6 +138,8 @@ Reglas para no quemar temas. Si choca, pivotar a otra cosa del backlog.
 | AEO / "3 puertas" / "te citan en ChatGPT" | 2026-06-15 (1 mes tras Reel 3 puertas) | El concepto necesita reposar antes de variar |
 | Rescate visual antes/después con demo eco | 2026-07-15 (2 meses) | El Reel cubre la idea; siguiente variante con otra demo |
 | Velocidad/Core Web Vitals | sin cooldown todavía (Story no subida 2026-05-15) | Cifras pendientes de resolver antes de publicar |
+| Reservas online / "coger cita mientras duermes" | 2026-06-23 (1 mes tras Reel 0019) | Repetir con otro sector u otro ángulo (no más llamadas, ahorro de tiempo, etc.) |
+| Demo equilibrio como protagonista | 2026-06-23 (1 mes) | Acaba de protagonizar 0019+0020. Rotar a marta-solana, claudia-entrena o eco antes de volver a equilibrio |
 
 ---
 

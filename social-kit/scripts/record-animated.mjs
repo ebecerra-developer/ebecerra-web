@@ -35,6 +35,8 @@ const TARGETS = [
   { name: "0016-story-servicios-2-caminos", folder: "personal/0016-story-servicios-2-caminos", duration: 13 },
   // Pregunta + sticker IG nativo (hold largo final para que voten antes del auto-advance)
   { name: "0017-story-pregunta-pago", folder: "personal/0017-story-pregunta-pago", duration: 12 },
+  // Reel 0019: reservas online (18s anim + 3s hold final sobre CTA)
+  { name: "0019-reel-reservas-equilibrio", folder: "personal/0019-reel-reservas-equilibrio", duration: 20 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,
