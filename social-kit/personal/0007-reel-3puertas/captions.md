@@ -30,7 +30,7 @@ Yo optimizo para los 3. No es magia, es trabajo:
 ## Alt text
 
 ```
-Vídeo vertical en 3 escenas: un mockup de búsqueda en Google mostrando "Equilibrio Fisioterapia" como primer resultado, luego un chat de ChatGPT recomendando la misma empresa, y por último una vista de Google Maps con un pin sobre el negocio. Cierra con "Las 3 puertas, las hago yo · @ebecerra.dev".
+Vídeo vertical en 3 escenas: un mockup de búsqueda en Google mostrando "Equilibrio Fisioterapia" como primer resultado, luego un chat de ChatGPT recomendando la misma empresa, y por último una vista de Google Maps con un pin sobre el negocio. Cierra con "Las 3 puertas, las hago yo · @ebecerra.es".
 ```
 
 ## Música sugerida

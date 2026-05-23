@@ -35,7 +35,7 @@ Si quieres que te diga cómo está la tuya, mándamela por DM. Te respondo en 24
 ## Alt text (slide 1)
 
 ```
-Portada de carrusel sobre fondo verde con título "4 cosas que tu cliente nota en tu web" donde el "4" y "web" están en verde menta. Subtítulo: "Sin que tú lo sepas." Logo eB y handle @ebecerra.dev abajo a la izquierda. Indicador "desliza →" abajo a la derecha.
+Portada de carrusel sobre fondo verde con título "4 cosas que tu cliente nota en tu web" donde el "4" y "web" están en verde menta. Subtítulo: "Sin que tú lo sepas." Logo eB y handle @ebecerra.es abajo a la izquierda. Indicador "desliza →" abajo a la derecha.
 ```
 
 ## Comentario fijado

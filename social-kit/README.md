@@ -1,6 +1,6 @@
 # social-kit
 
-Toolbox local para producir contenido de Instagram + Facebook para ebecerra.es (cuenta `@ebecerra.dev`) y, en paralelo, para Piezas Game.
+Toolbox local para producir contenido de Instagram + Facebook para ebecerra.es (cuenta `@ebecerra.es`) y, en paralelo, para Piezas Game.
 
 > **Antes de producir nada**, abre [`PLAN.md`](PLAN.md): backlog, qué está en producción, qué se ha publicado, cooldown de temas.
 
@@ -32,7 +32,7 @@ social-kit/
 │   ├── capture-demos.mjs                    Captura demos vivas de producción
 │   └── record-chatbot.mjs                   (legacy)
 │
-├── personal/                                Cuenta @ebecerra.dev
+├── personal/                                Cuenta @ebecerra.es
 │   ├── assets/                              SOURCE assets compartidos
 │   │   ├── avatars/                         Logos eB (PNG + SVG)
 │   │   ├── logos/                           Bracket-B SVGs

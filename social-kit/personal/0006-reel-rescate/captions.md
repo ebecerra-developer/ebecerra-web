@@ -27,7 +27,7 @@ Si quieres ver cómo queda → DM, sin compromiso. Te enseño una demo viva.
 ## Alt text
 
 ```
-Vídeo split: a la izquierda un móvil con una web antigua de 2014 (Comic Sans, paleta amarilla, "en construcción"), a la derecha el mismo móvil con una web moderna y limpia de fisioterapia. Cierra con texto "Tu web también puede verse así · @ebecerra.dev".
+Vídeo split: a la izquierda un móvil con una web antigua de 2014 (Comic Sans, paleta amarilla, "en construcción"), a la derecha el mismo móvil con una web moderna y limpia de fisioterapia. Cierra con texto "Tu web también puede verse así · @ebecerra.es".
 ```
 
 ## Música sugerida (añadir desde IG al subir)

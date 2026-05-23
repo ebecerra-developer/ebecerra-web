@@ -11,11 +11,11 @@
 - S1 (visible t=0): `SEO` *(grande verde)* + `(Es que Google te encuentre)`
 - S2: `Sin SEO, tu web está en una calle vacía.`
 - S3: `Con SEO, está donde te buscan.`
-- S4: `Lo monto en cada web.` + `@ebecerra.dev`
+- S4: `Lo monto en cada web.` + `@ebecerra.es`
 
 ## Stickers a añadir en IG
 
-- **Sticker mención** (opcional): `@ebecerra.dev` para tap al handle.
+- **Sticker mención** (opcional): `@ebecerra.es` para tap al handle.
 - **Opcional**: link sticker a `ebecerra.es` con label "Quiero entender".
 
 ## Música sugerida

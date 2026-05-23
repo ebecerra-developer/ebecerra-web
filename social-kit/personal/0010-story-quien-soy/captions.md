@@ -10,11 +10,11 @@
 
 - S1 (visible desde t=0): `QUIÉN HAY DETRÁS · Hola, soy Enrique.`
 - S2: `Hago webs para autónomos y PYMEs en Madrid.` + sub `Una persona. Sin agencia, sin equipo. El trabajo lo hago yo.`
-- S3: `¿Hablamos de la tuya?` + `@ebecerra.dev`
+- S3: `¿Hablamos de la tuya?` + `@ebecerra.es`
 
 ## Stickers a añadir en IG
 
-- **Sticker mención** (opcional, esquina): `@ebecerra.dev` para que el seguidor pueda hacer tap al handle.
+- **Sticker mención** (opcional, esquina): `@ebecerra.es` para que el seguidor pueda hacer tap al handle.
 - **NO link sticker** (es la pieza de apertura, queremos que entren al perfil, no que se vayan).
 
 ## Música sugerida

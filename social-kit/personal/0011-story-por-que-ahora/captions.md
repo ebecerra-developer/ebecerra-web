@@ -10,7 +10,7 @@
 
 - S1 (visible desde t=0): `¿Por qué ahora?`
 - S2: `Lo que antes me llevaba días.` `Hoy, horas.`
-- S3: `El tiempo lo gasto donde se nota.` sub: `En el oficio, no en lo repetitivo.` + `@ebecerra.dev`
+- S3: `El tiempo lo gasto donde se nota.` sub: `En el oficio, no en lo repetitivo.` + `@ebecerra.es`
 
 ## Stickers a añadir en IG
 
