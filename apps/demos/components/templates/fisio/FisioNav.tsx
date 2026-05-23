@@ -36,6 +36,10 @@ export default async function FisioNav({
     });
   }
   items.push({
+    href: "#reservas",
+    label: locale === "en" ? "Book" : "Reservar",
+  });
+  items.push({
     href: "#contacto",
     label: locale === "en" ? "Contact" : "Contacto",
   });
@@ -92,14 +96,14 @@ export default async function FisioNav({
               </Link>
             </div>
           )}
-          <a href="#contacto" className={styles.cta}>
-            {t("callToAction")}
+          <a href="#reservas" className={styles.cta}>
+            {locale === "en" ? "Book now" : "Reservar"}
           </a>
           <FisioNavMobile
             brand={demo.businessName}
             items={items}
-            ctaLabel={t("callToAction")}
-            ctaHref="#contacto"
+            ctaLabel={locale === "en" ? "Book now" : "Reservar"}
+            ctaHref="#reservas"
             ariaOpen={t("menuOpen")}
             ariaClose={t("menuClose")}
             ariaPrimaryNav={t("ariaPrimaryNav")}

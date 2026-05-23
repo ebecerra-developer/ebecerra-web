@@ -211,7 +211,13 @@ export function BookingFlow(props: BookingFlowProps) {
   if (!catalog) {
     return (
       <div className={css.root} style={accentVar}>
-        <p>{strings.step2Loading}</p>
+        {state.error ? (
+          <p className={css.error} role="alert">
+            {state.error}
+          </p>
+        ) : (
+          <p>{strings.step2Loading}</p>
+        )}
       </div>
     );
   }

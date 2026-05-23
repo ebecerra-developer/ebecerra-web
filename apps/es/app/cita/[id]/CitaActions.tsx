@@ -85,7 +85,7 @@ export default function CitaActions(props: Props) {
     setMode("submitting");
     setError(null);
     try {
-      const res = await fetch(`${props.bookingsApiBase}${"/api/v1/bookings/"}${path}`, {
+      const res = await fetch(`${props.bookingsApiBase}/api/v1/bookings/${path}/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

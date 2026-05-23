@@ -43,7 +43,7 @@ export default function FisioHero({ demo }: { demo: DemoSite }) {
           <div className={styles.ctas}>
             {hero.ctaPrimary.label && (
               <a
-                href={hero.ctaPrimary.href ?? "#contacto"}
+                href={hero.ctaPrimary.href ?? "#reservas"}
                 className={styles.ctaPrimary}
               >
                 {hero.ctaPrimary.label}

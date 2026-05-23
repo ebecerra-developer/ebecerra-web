@@ -35,6 +35,7 @@ export default function FisioTemplate({
         {demo.services.length > 0 && (
           <FisioServices header={demo.servicesSection} services={demo.services} />
         )}
+        <FisioBooking />
         {demo.team.length > 0 && (
           <FisioTeam header={demo.teamSection} team={demo.team} />
         )}
@@ -44,7 +45,6 @@ export default function FisioTemplate({
             testimonials={demo.testimonials}
           />
         )}
-        <FisioBooking />
         {demo.contact && (
           <FisioContact contact={demo.contact} services={demo.services} />
         )}

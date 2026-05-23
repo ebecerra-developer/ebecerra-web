@@ -114,12 +114,14 @@ function buildVars(
 
 function manageUrl(bookingId: string, manageSignedToken: string): string {
   const origin = bookingsOrigin();
-  return `${origin}/cita/${bookingId}?token=${encodeURIComponent(manageSignedToken)}`;
+  // Trailing slash explícito — apps/es next.config tiene trailingSlash:true y los
+  // 308 redirects rompen preflight CORS / añaden un hop extra al GET de email.
+  return `${origin}/cita/${bookingId}/?token=${encodeURIComponent(manageSignedToken)}`;
 }
 
 function confirmUrl(confirmSignedToken: string): string {
   const origin = bookingsOrigin();
-  return `${origin}/api/v1/bookings/confirm?token=${encodeURIComponent(confirmSignedToken)}`;
+  return `${origin}/api/v1/bookings/confirm/?token=${encodeURIComponent(confirmSignedToken)}`;
 }
 
 /** Send "pending — please confirm" con links de confirmar + gestionar. */
@@ -278,7 +280,7 @@ export async function sendCancelledEmail(args: {
 }): Promise<void> {
   const ctx = await loadContext(args.bookingId);
   const vars = buildVars(ctx, {
-    rebook: args.rebookOrigin ? `${args.rebookOrigin}/reservas` : undefined,
+    rebook: args.rebookOrigin ? `${args.rebookOrigin}/reservas/` : undefined,
   });
   vars.cancellationReason = args.reason;
   const locale = (ctx.booking.locale as Locale) ?? "es";
@@ -308,7 +310,7 @@ export async function sendPendingExpiredEmail(args: {
 }): Promise<void> {
   const ctx = await loadContext(args.bookingId);
   const vars = buildVars(ctx, {
-    rebook: args.rebookOrigin ? `${args.rebookOrigin}/reservas` : undefined,
+    rebook: args.rebookOrigin ? `${args.rebookOrigin}/reservas/` : undefined,
   });
   const locale = (ctx.booking.locale as Locale) ?? "es";
   const { subject, html, text } = buildPendingExpiredEmail(vars, locale);
@@ -335,7 +337,7 @@ export async function sendSlotTakenEmail(args: {
 }): Promise<void> {
   const ctx = await loadContext(args.bookingId);
   const vars = buildVars(ctx, {
-    rebook: args.rebookOrigin ? `${args.rebookOrigin}/reservas` : undefined,
+    rebook: args.rebookOrigin ? `${args.rebookOrigin}/reservas/` : undefined,
   });
   const locale = (ctx.booking.locale as Locale) ?? "es";
   const { subject, html, text } = buildSlotTakenEmail(vars, locale);

@@ -62,11 +62,11 @@ export function createRescheduleApi(opts: {
       const res = await get<{
         tenant: WidgetTenant;
         services: WidgetService[];
-      }>(`/api/v1/bookings/by-token?token=${encodeURIComponent(opts.rawToken)}`);
+      }>(`/api/v1/bookings/by-token/?token=${encodeURIComponent(opts.rawToken)}`);
       return { tenant: res.tenant, services: res.services };
     },
     async loadAvailability({ serviceId, fromUtc, toUtc }) {
-      return await post<{ slots: WidgetSlot[] }>(`/api/v1/bookings/by-token`, {
+      return await post<{ slots: WidgetSlot[] }>(`/api/v1/bookings/by-token/`, {
         token: opts.rawToken,
         service_id: serviceId,
         from_utc: fromUtc,
@@ -77,7 +77,7 @@ export function createRescheduleApi(opts: {
       const res = await post<{
         new_booking_id: string;
         new_manage_token: string;
-      }>(`/api/v1/bookings/reschedule`, {
+      }>(`/api/v1/bookings/reschedule/`, {
         token: opts.rawToken,
         booking_id: opts.bookingId,
         new_slot_start_utc: newSlotStartUtc,
@@ -128,10 +128,10 @@ export function createBookingApi(opts: {
 
   return {
     async loadCatalog() {
-      return await call("/api/v1/bookings/services", { method: "GET" });
+      return await call("/api/v1/bookings/services/", { method: "GET" });
     },
     async loadAvailability({ serviceId, fromUtc, toUtc }) {
-      return await call("/api/v1/bookings/availability", {
+      return await call("/api/v1/bookings/availability/", {
         method: "POST",
         body: JSON.stringify({
           service_id: serviceId,
@@ -141,7 +141,7 @@ export function createBookingApi(opts: {
       });
     },
     async createBooking({ serviceId, slotStartUtc, contact, locale }) {
-      const res = await call<{ booking_id: string }>("/api/v1/bookings/create", {
+      const res = await call<{ booking_id: string }>("/api/v1/bookings/create/", {
         method: "POST",
         body: JSON.stringify({
           service_id: serviceId,

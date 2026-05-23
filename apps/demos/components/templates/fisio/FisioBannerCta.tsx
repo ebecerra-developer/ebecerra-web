@@ -12,7 +12,7 @@ export default async function FisioBannerCta({ demo }: { demo: DemoSite }) {
   if (!demo.tagline) return null;
   const t = await getTranslations("fisio");
   const ctaLabel = demo.hero?.ctaPrimary.label ?? t("callToAction");
-  const ctaHref = demo.hero?.ctaPrimary.href ?? "#contacto";
+  const ctaHref = demo.hero?.ctaPrimary.href ?? "#reservas";
 
   const bgSource = demo.about?.image ?? demo.hero?.image;
   const bgUrl = bgSource
