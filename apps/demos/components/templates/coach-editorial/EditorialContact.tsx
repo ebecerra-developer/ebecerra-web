@@ -1,4 +1,4 @@
-import type { DemoContact, DemoService } from "@ebecerra/sanity-client";
+import type { DemoContact } from "@ebecerra/sanity-client";
 import FisioContactForm from "../fisio/FisioContactForm";
 import styles from "./EditorialContact.module.css";
 
@@ -7,13 +7,7 @@ import styles from "./EditorialContact.module.css";
  * contacto + redes en formato magazine. Derecha form (reusa lógica
  * FisioContactForm pero con estilos editoriales aplicados via :global).
  */
-export default function EditorialContact({
-  contact,
-  services,
-}: {
-  contact: DemoContact;
-  services: DemoService[];
-}) {
+export default function EditorialContact({ contact }: { contact: DemoContact }) {
   return (
     <section id="contacto" className={styles.section} aria-labelledby="contact-heading">
       <div className={styles.inner}>
@@ -79,7 +73,7 @@ export default function EditorialContact({
 
         <div className={styles.right}>
           <div className={styles.formWrap}>
-            <FisioContactForm serviceOptions={services.map((s) => s.title)} />
+            <FisioContactForm />
           </div>
         </div>
       </div>

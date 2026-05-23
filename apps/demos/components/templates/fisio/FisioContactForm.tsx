@@ -5,18 +5,20 @@ import styles from "./FisioContactForm.module.css";
 
 type Status = "idle" | "submitting" | "success";
 
-export default function FisioContactForm({
-  serviceOptions,
-}: {
-  serviceOptions: string[];
-}) {
+/**
+ * Formulario de consultas — NO de reserva.
+ *
+ * Para reservar, el visitante usa el widget de reservas (FisioBooking) que vive
+ * más arriba en la página. Este form cubre casos que el flujo automático no
+ * resuelve: mutuas, casos especiales, fuera de horario, dudas previas.
+ */
+export default function FisioContactForm() {
   const [status, setStatus] = useState<Status>("idle");
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("submitting");
-    // Demo: simulación de envío. En una web real, aquí va una server action
-    // o fetch a /api/contact con Resend/SES.
+    // Demo: simulación de envío. En una web real iría a /api/contact (Resend/SES).
     setTimeout(() => setStatus("success"), 700);
   }
 
@@ -27,7 +29,7 @@ export default function FisioContactForm({
           <span className={styles.successIcon} aria-hidden="true">
             ✓
           </span>
-          <p className={styles.successTitle}>¡Mensaje recibido!</p>
+          <p className={styles.successTitle}>¡Consulta recibida!</p>
           <p className={styles.successText}>
             Te contestamos en menos de 24 horas laborables. Si tu caso es
             urgente, llámanos directamente.
@@ -40,10 +42,10 @@ export default function FisioContactForm({
   return (
     <form className={styles.formCard} onSubmit={handleSubmit} noValidate>
       <div className={styles.formHeader}>
-        <h3 className={styles.formTitle}>Pide tu primera valoración</h3>
+        <h3 className={styles.formTitle}>Pregúntanos antes de reservar</h3>
         <p className={styles.formLead}>
-          Cuéntanos qué te pasa. Te llamamos en menos de 24 horas para
-          ayudarte a elegir la sesión que necesitas.
+          ¿Tienes dudas sobre qué sesión te encaja, llevas mutua, o necesitas
+          algo fuera de los huecos del calendario? Cuéntanoslo y te ayudamos.
         </p>
       </div>
 
@@ -93,40 +95,38 @@ export default function FisioContactForm({
         />
       </div>
 
-      {serviceOptions.length > 0 && (
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="cf-service">
-            ¿Qué te interesa?
-          </label>
-          <select
-            id="cf-service"
-            name="service"
-            className={styles.select}
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Selecciona un servicio
-            </option>
-            <option value="valoracion">Primera valoración</option>
-            {serviceOptions.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
-            ))}
-            <option value="otra">Otra consulta</option>
-          </select>
-        </div>
-      )}
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="cf-topic">
+          Sobre qué quieres preguntar
+        </label>
+        <select
+          id="cf-topic"
+          name="topic"
+          className={styles.select}
+          defaultValue=""
+        >
+          <option value="" disabled>
+            Elige el motivo
+          </option>
+          <option value="mutua">Mutua o seguro privado</option>
+          <option value="caso-especial">Caso clínico especial</option>
+          <option value="duda-servicio">No sé qué sesión necesito</option>
+          <option value="fuera-horario">Horario fuera del calendario</option>
+          <option value="grupo">Grupo / familia / empresa</option>
+          <option value="otra">Otra cosa</option>
+        </select>
+      </div>
 
       <div className={styles.field}>
         <label className={styles.label} htmlFor="cf-message">
-          Mensaje
+          Tu consulta<span className={styles.required}>*</span>
         </label>
         <textarea
           id="cf-message"
           name="message"
+          required
           className={styles.textarea}
-          placeholder="Cuéntanos brevemente qué te pasa o qué necesitas"
+          placeholder="Cuéntanos brevemente qué necesitas"
         />
       </div>
 
@@ -135,7 +135,7 @@ export default function FisioContactForm({
         className={styles.submit}
         disabled={status === "submitting"}
       >
-        {status === "submitting" ? "Enviando…" : "Solicitar valoración"}
+        {status === "submitting" ? "Enviando…" : "Enviar consulta"}
       </button>
 
       <p className={styles.note}>

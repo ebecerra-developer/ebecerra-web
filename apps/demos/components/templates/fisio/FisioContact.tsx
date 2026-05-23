@@ -1,16 +1,9 @@
-import type { DemoContact, DemoService } from "@ebecerra/sanity-client";
+import type { DemoContact } from "@ebecerra/sanity-client";
 import FisioContactForm from "./FisioContactForm";
 import styles from "./FisioContact.module.css";
 
-export default function FisioContact({
-  contact,
-  services,
-}: {
-  contact: DemoContact;
-  services: DemoService[];
-}) {
+export default function FisioContact({ contact }: { contact: DemoContact }) {
   const eyebrowText = contact.kicker?.replace(/^\/\/\s*/, "");
-  const serviceTitles = services.map((s) => s.title);
 
   return (
     <section
@@ -103,7 +96,7 @@ export default function FisioContact({
         </div>
 
         <div className={styles.right}>
-          <FisioContactForm serviceOptions={serviceTitles} />
+          <FisioContactForm />
         </div>
       </div>
     </section>

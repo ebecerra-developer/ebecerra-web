@@ -53,7 +53,7 @@ export default function EditorialTemplate({
         )}
         <EditorialBookingNote demo={demo} />
         {demo.contact && (
-          <EditorialContact contact={demo.contact} services={demo.services} />
+          <EditorialContact contact={demo.contact} />
         )}
       </main>
       <EditorialFooter demo={demo} />

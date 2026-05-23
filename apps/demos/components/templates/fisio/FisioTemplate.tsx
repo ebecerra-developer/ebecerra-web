@@ -45,9 +45,7 @@ export default function FisioTemplate({
             testimonials={demo.testimonials}
           />
         )}
-        {demo.contact && (
-          <FisioContact contact={demo.contact} services={demo.services} />
-        )}
+        {demo.contact && <FisioContact contact={demo.contact} />}
       </main>
       <FisioFooter demo={demo} />
       <DemoChatbot demo={demo} locale={locale} />
