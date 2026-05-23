@@ -43,7 +43,7 @@ export default function FisioBooking() {
               apiBase={apiBase}
               tenantKey={tenantKey}
               locale="es"
-              accentColor="#4f8a76"
+              accentColor="var(--cta)"
             />
           ) : (
             <p className={styles.note}>

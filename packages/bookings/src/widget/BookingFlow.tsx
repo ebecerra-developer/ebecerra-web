@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useReducer, useState } from "react";
+import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import css from "./BookingFlow.module.css";
 import {
   createBookingApi,
@@ -133,6 +133,13 @@ export function BookingFlow(props: BookingFlowProps) {
   );
   const [loadingAvail, setLoadingAvail] = useState(false);
 
+  // Scroll al inicio del widget cuando cambia de step (clave en mobile y en
+  // success — sino el usuario queda donde estaba el form al hacer submit).
+  const rootRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [state.step]);
+
   // Catalog
   useEffect(() => {
     const loader = api ?? reschedApi;
@@ -210,7 +217,7 @@ export function BookingFlow(props: BookingFlowProps) {
 
   if (!catalog) {
     return (
-      <div className={css.root} style={accentVar}>
+      <div ref={rootRef} className={css.root} style={accentVar}>
         {state.error ? (
           <p className={css.error} role="alert">
             {state.error}
@@ -224,7 +231,7 @@ export function BookingFlow(props: BookingFlowProps) {
 
   if (state.step === "success") {
     return (
-      <div className={css.root} style={accentVar}>
+      <div ref={rootRef} className={css.root} style={accentVar}>
         <div className={css.success}>
           <h2>{strings.successTitle}</h2>
           <p>{strings.successBody}</p>
@@ -234,7 +241,7 @@ export function BookingFlow(props: BookingFlowProps) {
   }
 
   return (
-    <div className={css.root} style={accentVar}>
+    <div ref={rootRef} className={css.root} style={accentVar}>
       <div className={css.steps} aria-hidden>
         {[1, 2, 3, 4].map((n) => (
           <span
@@ -437,10 +444,11 @@ function Step2Calendar({
   const todayDateStr = dayInZone(today.toISOString(), tenant.timezone);
 
   return (
-    <>
+    <div className={css.calendarWrap}>
       <div className={css.calendarNav}>
         <button
           type="button"
+          aria-label="Mes anterior"
           disabled={!canGoBack}
           onClick={() => {
             const prev = new Date(monthStart);
@@ -453,6 +461,7 @@ function Step2Calendar({
         <strong style={{ textTransform: "capitalize" }}>{monthLabel}</strong>
         <button
           type="button"
+          aria-label="Mes siguiente"
           onClick={() => {
             const next = new Date(monthStart);
             next.setUTCMonth(next.getUTCMonth() + 1);
@@ -466,7 +475,7 @@ function Step2Calendar({
       {loading ? (
         <p>{strings.step2Loading}</p>
       ) : (
-        <div className={css.calendarGrid}>
+        <div className={css.calendarGrid} role="grid">
           {dayLabels.map((l) => (
             <div key={l} className={css.dayLabel}>
               {l}
@@ -478,12 +487,21 @@ function Step2Calendar({
             }
             const hasSlots = (slotsByDay?.get(c.dateStr)?.length ?? 0) > 0;
             const isPast = c.dateStr < todayDateStr;
+            const isToday = c.dateStr === todayDateStr;
+            const classes = [
+              css.dayCell,
+              hasSlots ? css.dayHasSlots : "",
+              isToday ? css.dayToday : "",
+            ]
+              .filter(Boolean)
+              .join(" ");
             return (
               <button
                 key={i}
                 type="button"
-                className={`${css.dayCell} ${hasSlots ? css.dayHasSlots : ""}`}
+                className={classes}
                 disabled={isPast || !hasSlots}
+                aria-label={c.dateStr}
                 onClick={() => onPickDay(c.dateStr!)}
               >
                 {c.day}
@@ -494,9 +512,11 @@ function Step2Calendar({
       )}
 
       {!loading && slotsByDay && slotsByDay.size === 0 && (
-        <p style={{ marginTop: "1rem", color: "#666" }}>{strings.step2NoSlots}</p>
+        <p style={{ marginTop: "1rem", color: "var(--muted)", textAlign: "center" }}>
+          {strings.step2NoSlots}
+        </p>
       )}
-    </>
+    </div>
   );
 }
 

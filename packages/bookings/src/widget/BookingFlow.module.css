@@ -1,9 +1,13 @@
 .root {
   --accent: var(--bookings-accent, #047857);
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-text: color-mix(in srgb, var(--accent) 78%, #000 22%);
   --bg: #ffffff;
   --fg: #1a1a1a;
-  --muted: #666;
-  --border: #e5e5e5;
+  --muted: #57534e;
+  --border: #c7c7c0;
+  --border-soft: #e7e5e0;
+  --disabled: #b0b0a8;
   --error: #b91c1c;
   font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   color: var(--fg);
@@ -11,6 +15,7 @@
   max-width: 720px;
   margin: 0 auto;
   padding: 1.5rem;
+  scroll-margin-top: 1rem;
 }
 
 .header {
@@ -110,39 +115,58 @@
 }
 
 /* ------ STEP 2: calendar ------ */
+.calendarWrap {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
 .calendarNav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+.calendarNav strong {
+  font-size: 0.95rem;
 }
 
 .calendarNav button {
-  background: none;
+  background: var(--bg);
   border: 1px solid var(--border);
-  padding: 0.4rem 0.8rem;
+  padding: 0.3rem 0.7rem;
   border-radius: 6px;
   cursor: pointer;
   font: inherit;
-  color: inherit;
+  color: var(--fg);
+  min-width: 36px;
+}
+
+.calendarNav button:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .calendarNav button:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
 .calendarGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 3px;
 }
 
 .dayLabel {
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: var(--muted);
-  padding: 0.25rem 0;
+  padding: 0.2rem 0;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .dayCell {
@@ -152,32 +176,44 @@
   justify-content: center;
   border: 1px solid transparent;
   border-radius: 6px;
-  background: none;
+  background: #f5f4ef;
+  color: var(--disabled);
   font: inherit;
-  color: inherit;
+  font-size: 0.92rem;
   cursor: pointer;
+  transition: background 100ms ease, border-color 100ms ease, color 100ms ease;
 }
 
 .dayCell:disabled {
-  color: #ccc;
+  background: transparent;
+  color: var(--disabled);
   cursor: not-allowed;
 }
 
 .dayHasSlots {
-  border-color: var(--border);
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--accent-text);
+  font-weight: 600;
 }
 
-.dayHasSlots:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.daySelected {
+.dayHasSlots:hover,
+.dayHasSlots:focus-visible {
   background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
+  outline: none;
 }
 
+.dayToday {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.daySelected,
 .daySelected:hover {
+  background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
 }
 
