@@ -133,11 +133,26 @@ export function BookingFlow(props: BookingFlowProps) {
   );
   const [loadingAvail, setLoadingAvail] = useState(false);
 
-  // Scroll al inicio del widget cuando cambia de step (clave en mobile y en
-  // success — sino el usuario queda donde estaba el form al hacer submit).
+  // Scroll al inicio cuando cambia de step. Si el widget está embebido en una
+  // sección con heading propio (caso típico: demo equilibrio "Reserva tu sesión"),
+  // preferimos scrollear al heading de la sección para mantener contexto. Si no,
+  // scrolleamos al root con scroll-margin-top para dejar aire arriba.
   const rootRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const root = rootRef.current;
+    if (!root) return;
+    const section = root.closest("section");
+    const sectionHeading = section?.querySelector("h1, h2") as HTMLElement | null;
+    const target = sectionHeading ?? root;
+    // Aseguramos un offset visual por si hay nav sticky en el host
+    const prev = target.style.scrollMarginTop;
+    target.style.scrollMarginTop = sectionHeading ? "24px" : "80px";
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Restauramos tras la animación (smooth scroll ≈ 400ms)
+    const t = window.setTimeout(() => {
+      target.style.scrollMarginTop = prev;
+    }, 600);
+    return () => window.clearTimeout(t);
   }, [state.step]);
 
   // Catalog

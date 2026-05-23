@@ -24,7 +24,7 @@ Ordenadas por intuición de impacto, no por prioridad inmediata. Mover a "En pro
 - [ ] Story individual de cada demo (eco, equilibrio, marta, claudia) — una al mes para no quemar (próxima: Marta → `0015-`)
 - [x] Reel rescate → [`0006-reel-rescate`](personal/0006-reel-rescate/) (publicado 15-may)
 - [x] Reel reservas online (equilibrio) → [`0019-reel-reservas-equilibrio`](personal/0019-reel-reservas-equilibrio/) (subir 23-may)
-- [x] Story reservas real (equilibrio + link sticker) → [`0020-story-reservas-real`](personal/0020-story-reservas-real/) (subir 23-may unas horas después del 0019)
+- [x] Story ANIMADA reservas real (equilibrio + link sticker, 6 capturas reales del widget) → [`0020-story-reservas-real`](personal/0020-story-reservas-real/) (subir 23-may unas horas después del 0019)
 
 ### Tipo · Educativo / mitos / proceso
 
@@ -93,7 +93,7 @@ Pendiente:
 | jueves 21 | [`0017-story-pregunta-pago`](personal/0017-story-pregunta-pago/) | Sticker encuesta IG: `Cuota mensual` vs `Pago único`. Sin highlight. |
 | viernes 23 ~10:00 | [`0018-carrusel-4-cosas-nota`](personal/0018-carrusel-4-cosas-nota/) | Primer carrusel en formato 4:5. 7 slides. Sin sticker. Cross-post FB auto. |
 | **sábado 23 (mañana)** | **[`0019-reel-reservas-equilibrio`](personal/0019-reel-reservas-equilibrio/)** | Reel 20s sobre reservas online. Coordinado con despliegue real del sistema en `demos.ebecerra.es/equilibrio`. Cross-post FB auto. Añadir a highlight `servicios`. |
-| **sábado 23 (unas horas después)** | **[`0020-story-reservas-real`](personal/0020-story-reservas-real/)** | Story estática complementaria. Antes de subir: correr `scripts/capture-booking-modal.mjs` para el screenshot real → editar `index.html` (swap img) → `render-statics.mjs 0020-story-reservas-real`. Link sticker manual a `https://demos.ebecerra.es/equilibrio`. Añadir a highlight `servicios`. |
+| **sábado 23 (unas horas después)** | **[`0020-story-reservas-real`](personal/0020-story-reservas-real/)** | Story ANIMADA 15s con 6 capturas reales del widget (portada → sección → servicio → día → hora → cita solicitada). MP4 grabado con `record-animated.mjs`. Link sticker manual a `https://demos.ebecerra.es/equilibrio` sobre la zona indicada. Añadir a highlight `servicios`. |
 
 ## ❌ Producidas pero descartadas
 

@@ -37,6 +37,8 @@ const TARGETS = [
   { name: "0017-story-pregunta-pago", folder: "personal/0017-story-pregunta-pago", duration: 12 },
   // Reel 0019: reservas online (18s anim + 3s hold final sobre CTA)
   { name: "0019-reel-reservas-equilibrio", folder: "personal/0019-reel-reservas-equilibrio", duration: 20 },
+  // Story 0020: animada con screenshots REALES del widget de reservas (6 frames + hold)
+  { name: "0020-story-reservas-real", folder: "personal/0020-story-reservas-real", duration: 15 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,

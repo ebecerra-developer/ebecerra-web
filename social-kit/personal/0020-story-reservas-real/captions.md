@@ -1,9 +1,31 @@
-# 0020 · Story · Reservas online — está vivo
+# 0020 · Story · Reservas online — está vivo (animada)
 
-**Tipo:** Story 1080×1920 estática (PNG)
+**Tipo:** Story animada 1080×1920 (MP4), 15s (12s anim + 3s hold), 30fps, sin audio
 **Cuándo:** mismo día que el Reel 0019, unas horas después
-**Por qué dos piezas el mismo día:** la story es **contenido independiente** (screenshot real + link sticker), no un "compartir Reel". No canibaliza el alcance del 0019.
-**Pieza relacionada:** [`0019-reel-reservas-equilibrio`](../0019-reel-reservas-equilibrio/) (el reel mockup; esta story enseña que existe de verdad)
+**Por qué animada y no estática:** el flow de reservas se entiende mucho mejor viendo los pasos en secuencia que en un solo frame. 6 capturas reales del widget desplegado (no mockup) animadas con cross-fade.
+**Pieza relacionada:** [`0019-reel-reservas-equilibrio`](../0019-reel-reservas-equilibrio/) (el reel con mockup del concepto; esta story enseña los pasos reales)
+
+---
+
+## Secuencia de frames (en el phone mockup)
+
+| # | t (s) | Contenido | Caption sincronizada |
+|---|---|---|---|
+| 1 | 1.0–2.8 | Portada equilibrio (hero `Cuida tu cuerpo. Sin parches.`) | `Demo · Equilibrio Fisioterapia` |
+| 2 | 2.8–4.8 | Sección "Reserva tu sesión" + step 1 visible | `Sección Reserva online` |
+| 3 | 4.8–6.8 | Step 1 zoomed: 4 servicios (Primera valoración / Sesión / Punción / Pilates) | `1. Elige un servicio` |
+| 4 | 6.8–8.8 | Step 2: calendario Mayo 2026 (días 25-29 disponibles) | `2. Elige el día` |
+| 5 | 8.8–10.8 | Step 3: hora — Martes 26 con slots Mañana/Tarde/Noche | `3. Elige la hora` |
+| 6 | 10.8–12.0 → hold 12.0–15.0 | Step success: "Cita solicitada · Te hemos enviado un email…" | `✓ Cita solicitada` |
+
+Capturas en [`personal/assets/captures/`](../assets/captures/):
+- `demo-equilibrio-mobile.png` (portada)
+- `demo-equilibrio-booking-step1-servicios.png`
+- `demo-equilibrio-booking-step2-dia.png`
+- `demo-equilibrio-booking-widget.png` (paso hora)
+- `demo-equilibrio-booking-step6-solicitada.png`
+
+(El frame 6 se generó inyectando el success view en DOM via Playwright para evitar crear una reserva real en el sistema solo para la foto.)
 
 ---
 
@@ -11,54 +33,52 @@
 
 Manual en IG al subir la story:
 - **URL:** `https://demos.ebecerra.es/equilibrio`
-- **Texto sticker:** "Pide cita" (o el default IG)
-- **Posición:** arrastrar sobre la flecha "↑ aquí va el sticker ↑" (top centro, ~y=240px en preview IG)
-- **Estilo:** el verde claro de IG queda bien sobre el cream; si IG ofrece "Black & white", también
+- **Posición:** arrastrar sobre la flecha "↑ aquí va el sticker ↑" (top centro)
 
 ---
 
-## Alt text (accesibilidad)
+## Alt text
 
 ```
-Captura de móvil de la demo Equilibrio Fisio con el sistema de reservas online abierto. Encima, en serif sobre fondo crema: "Pide cita online". Una flecha indica dónde colocar el link sticker para probarlo.
+Vídeo vertical en story IG. Sobre fondo crema con título "Pide cita online", se ven dentro de un mockup de móvil seis capturas reales del sistema de reservas de la demo Equilibrio Fisioterapia: la portada, la sección de reserva, la pantalla de elegir servicio, el calendario de mayo 2026, la lista de horas del martes 26, y la pantalla final "Cita solicitada". Un caption pequeño debajo del título va anunciando cada paso (1. Elige un servicio · 2. Elige el día · 3. Elige la hora · ✓ Cita solicitada).
 ```
 
 ---
 
-## Caption (opcional — las stories suelen ir sin texto adicional, pero por si lo quieres como reply automático o post-it interno)
+## Caption sugerida (opcional, IG)
 
 ```
-Está vivo.
-Demo equilibrio + reservas online en demos.ebecerra.es/equilibrio.
-Pide una cita falsa, mira cómo va.
+Es la 1 de la madrugada.
+Tu cliente quiere cita.
+
+Estos son los pasos REALES en demos.ebecerra.es/equilibrio
+(no son maquetas — pruébalo y deja la reserva colgada, si quieres).
+
+Para tu negocio: DM.
 ```
 
 ---
 
-## Workflow para subir
+## Música sugerida
 
-1. Esperar a que el sistema de reservas esté desplegado en `demos.ebecerra.es/equilibrio` (chequear que el botón "Pide tu primera sesión" abre el modal real).
-2. Correr `node scripts/capture-booking-modal.mjs` desde `social-kit/scripts/` → genera `assets/captures/demo-equilibrio-booking-modal.png`.
-3. Editar [`index.html`](index.html) y cambiar el `src` del `<img>` placeholder por `../assets/captures/demo-equilibrio-booking-modal.png`.
-4. Correr `node scripts/render-statics.mjs 0020-story-reservas-real` → genera `final.png`.
-5. Subir `final.png` a IG como story. Añadir link sticker manual sobre la zona indicada con URL `https://demos.ebecerra.es/equilibrio`.
-6. Tras publicar: añadir a **highlight "servicios"** (regla [[feedback-stories-highlights]]).
+- **Estilo**: lo-fi / minimal tech, beat suave que NO pisa la lectura.
+- Volumen 40-50% (la story es de "lectura", no de baile).
+- Búsqueda en IG audio: `chill demo`, `minimal product`, `lo-fi tech`.
 
 ---
 
-## Notas de diseño
+## Workflow de actualización (si cambia el widget)
 
-- Paleta equilibrio (no eB verde) para que el frame "respire la marca del cliente que demuestras"
-- Phone mockup con tilt -1.5° (más vivo que recto, sin marearse)
-- Brand corner `[eB] reservas` arriba a la izquierda — establece autoría sin protagonismo
-- Sin animaciones; story estática (no necesita GSAP)
-- Zona top reservada para el link sticker manual — la flecha es una "instrucción visual" que también funciona si el sticker no se coloca exactamente ahí
+1. Re-capturar pasos con MCP Playwright o con el script `capture-booking-modal.mjs` (ajustar nombres de archivo si renombras pasos)
+2. Las nuevas capturas reemplazan las antiguas en `personal/assets/captures/`
+3. Re-grabar: `cd social-kit/scripts && node record-animated.mjs 0020-story-reservas-real`
+4. El `final.mp4` se regenera con las capturas actualizadas
 
 ---
 
-## Música sugerida (si decides poner audio)
+## Notas de diseño / GSAP
 
-Las stories estáticas suelen ir sin música, pero si quieres añadir IG-native audio:
-- Algo low-fi tranquilo (matching cream/petrol palette)
-- Ambient/lo-fi <30s; volumen al 30%
-- IG mostrará un sticker de audio que podemos esconder detrás del phone si no lo quieres visible
+- Cross-fade de 0.5s entre frames, captions sincronizadas con offset +0.1s
+- Frame 3 (servicios) tiene ken-burns continuo (scale 1.15 → 1.28) sobre el mismo asset que frame 2, para diferenciar "ver sección" vs "enfocar servicios"
+- Frame 6 entra con `back.out(1.4)` + check pop, y mantiene micro-zoom durante el hold final
+- Timeline `paused: true` + seek deterministico por frame (gotcha #8 del SKILL: real-time perdería frames a 80ms screenshot/1080×1920)
