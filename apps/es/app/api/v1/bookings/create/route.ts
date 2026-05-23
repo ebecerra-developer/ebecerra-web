@@ -83,18 +83,15 @@ export async function POST(request: Request): Promise<Response> {
       locale: locale ?? tenant.default_locale,
     });
 
-    // Envío del email "pendiente de confirmación". Si Resend falla, devolvemos 502
-    // y el caller decide. Alternativa futura: enqueue + retry, pero no en V1.
+    // Envío del email "pendiente de confirmación".
     try {
       await sendPendingEmail({
         bookingId: created.bookingId,
         confirmSignedToken: created.confirmToken,
-        cancelSignedToken: created.cancelToken,
+        manageSignedToken: created.cancelToken, // adapter aún expone `cancelToken` por compat
       });
     } catch (e) {
       console.error("[bookings/create] sendPendingEmail failed:", e);
-      // El booking está en pending — el negocio lo verá en /admin aunque el email falle.
-      // No tiramos el request; el cliente igual tiene la reserva creada.
     }
 
     return Response.json(

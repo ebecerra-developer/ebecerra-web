@@ -1,0 +1,212 @@
+.cita-root {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  color: #1a1a1a;
+  font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+.cita-header {
+  margin-bottom: 1.5rem;
+}
+
+.cita-tenant {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+  letter-spacing: 0.02em;
+}
+
+.cita-header h1 {
+  margin: 0.25rem 0 0;
+  font-size: 1.6rem;
+}
+
+.cita-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+}
+
+.cita-card-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.cita-card-meta {
+  margin: 0.3rem 0;
+  color: #444;
+}
+
+.cita-card-status {
+  margin: 1rem 0 0;
+}
+
+.cita-status-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.cita-status-pending { background: #fef3c7; color: #713f12; }
+.cita-status-confirmed { background: #d1fae5; color: #064e3b; }
+.cita-status-cancelled { background: #fecaca; color: #7f1d1d; }
+.cita-status-completed { background: #dbeafe; color: #1e3a8a; }
+.cita-status-no_show { background: #ddd6fe; color: #4c1d95; }
+
+.cita-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cita-action-btn {
+  background: #fff;
+  border: 1px solid #d4d4d4;
+  border-radius: 8px;
+  padding: 0.9rem 1.2rem;
+  font: inherit;
+  color: #1a1a1a;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cita-action-btn:hover:not(:disabled) {
+  border-color: var(--accent, #047857);
+}
+
+.cita-action-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.cita-action-btn-primary {
+  background: var(--accent, #047857);
+  color: #fff;
+  border-color: var(--accent, #047857);
+}
+
+.cita-action-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.cita-action-btn-danger {
+  border-color: #d4d4d4;
+}
+
+.cita-action-btn-danger:hover:not(:disabled) {
+  border-color: #b91c1c;
+  color: #b91c1c;
+}
+
+.cita-action-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.cita-action-hint {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.cita-action-btn-primary .cita-action-hint {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cita-cutoff-note {
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  color: #7c2d12;
+  font-size: 0.95rem;
+}
+
+.cita-final {
+  background: #fff;
+  border-radius: 10px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.cita-final h2 {
+  margin: 0 0 0.5rem;
+  color: #b45309;
+}
+
+.cita-cta {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 1.4rem;
+  background: var(--accent, #047857);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.cita-reschedule-section {
+  margin-top: 1.5rem;
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.cita-cancel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.cita-cancel-form label {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.cita-cancel-form textarea {
+  font: inherit;
+  border: 1px solid #d4d4d4;
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  resize: vertical;
+  min-height: 60px;
+}
+
+.cita-cancel-form-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.cita-cancel-form-buttons button {
+  font: inherit;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #d4d4d4;
+  background: #fff;
+}
+
+.cita-cancel-form-buttons button[type="submit"] {
+  border-color: #b91c1c;
+  background: #b91c1c;
+  color: #fff;
+}
+
+.cita-error {
+  color: #b91c1c;
+  margin: 0.5rem 0;
+}

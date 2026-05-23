@@ -1,63 +1,26 @@
+"use client";
+
+import { BookingFlow } from "@ebecerra/bookings/widget";
 import styles from "./FisioBooking.module.css";
 
-const DAYS = [
-  {
-    label: "Mañana",
-    date: "Mar 14",
-    weekday: "Martes",
-    slots: [
-      { time: "09:00", busy: false },
-      { time: "10:00", busy: true },
-      { time: "11:00", busy: false },
-      { time: "16:00", busy: false },
-      { time: "17:30", busy: true },
-      { time: "19:00", busy: false },
-    ],
-  },
-  {
-    label: "Pasado",
-    date: "Mié 15",
-    weekday: "Miércoles",
-    slots: [
-      { time: "08:30", busy: false },
-      { time: "10:00", busy: false },
-      { time: "11:30", busy: true },
-      { time: "16:30", busy: false },
-      { time: "18:00", busy: false },
-      { time: "20:00", busy: true },
-    ],
-  },
-  {
-    label: "Jueves",
-    date: "Jue 16",
-    weekday: "Jueves",
-    slots: [
-      { time: "09:30", busy: true },
-      { time: "11:00", busy: false },
-      { time: "13:00", busy: false },
-      { time: "17:00", busy: false },
-      { time: "18:30", busy: true },
-      { time: "20:00", busy: false },
-    ],
-  },
-  {
-    label: "Viernes",
-    date: "Vie 17",
-    weekday: "Viernes",
-    slots: [
-      { time: "08:00", busy: false },
-      { time: "10:30", busy: false },
-      { time: "12:00", busy: false },
-      { time: "16:00", busy: true },
-      { time: "17:30", busy: false },
-      { time: "19:00", busy: false },
-    ],
-  },
-];
-
+/**
+ * Sección "Reserva online" de la plantilla fisio.
+ *
+ * En vez de un calendario mockeado, embebemos el widget real de @ebecerra/bookings
+ * conectado al tenant demo-equilibrio (apps/es). Disponibilidad y reservas reales
+ * para que el visitante de la demo pueda probar el flujo de principio a fin.
+ *
+ * Env vars necesarias (apps/demos):
+ *   NEXT_PUBLIC_BOOKINGS_API_BASE = https://bookings.ebecerra.es
+ *   NEXT_PUBLIC_BOOKING_TENANT_KEY_DEMO_FISIO = <btk_…>
+ */
 export default function FisioBooking() {
+  const apiBase = process.env.NEXT_PUBLIC_BOOKINGS_API_BASE ?? "";
+  const tenantKey = process.env.NEXT_PUBLIC_BOOKING_TENANT_KEY_DEMO_FISIO ?? "";
+  const configured = apiBase && tenantKey;
+
   return (
-    <section className={styles.section} aria-labelledby="booking-heading">
+    <section className={styles.section} aria-labelledby="booking-heading" id="reservas">
       <div className={styles.inner}>
         <header className={styles.header}>
           <p className={styles.eyebrow}>
@@ -66,65 +29,32 @@ export default function FisioBooking() {
             <span className={styles.eyebrowLine} />
           </p>
           <h2 id="booking-heading" className={styles.title}>
-            Próximas citas disponibles
+            Reserva tu sesión
           </h2>
           <p className={styles.lead}>
-            Elige el hueco que mejor te encaje. Confirmas con un clic, recibes
-            recordatorio por SMS y WhatsApp.
+            Elige el servicio, mira huecos en tiempo real, reserva con tu email
+            y confirma con un clic.
           </p>
         </header>
 
-        <div className={styles.calendar}>
-          <div className={styles.days}>
-            {DAYS.map((day) => (
-              <div key={day.date} className={styles.day}>
-                <div className={styles.dayHeader}>
-                  <span className={styles.dayLabel}>{day.weekday}</span>
-                  <span className={styles.dayDate}>{day.date}</span>
-                </div>
-                <ul className={styles.slots}>
-                  {day.slots.map((slot) => (
-                    <li key={slot.time}>
-                      <a
-                        href={slot.busy ? undefined : "#contacto"}
-                        className={
-                          slot.busy
-                            ? `${styles.slot} ${styles.slotBusy}`
-                            : styles.slot
-                        }
-                        aria-disabled={slot.busy}
-                        tabIndex={slot.busy ? -1 : 0}
-                      >
-                        {slot.time}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <div className={styles.legend} role="presentation">
-            <span className={styles.legendItem}>
-              <span
-                className={`${styles.legendDot} ${styles.legendDotFree}`}
-                aria-hidden="true"
-              />
-              Disponible
-            </span>
-            <span className={styles.legendItem}>
-              <span
-                className={`${styles.legendDot} ${styles.legendDotBusy}`}
-                aria-hidden="true"
-              />
-              Ocupado
-            </span>
-          </div>
+        <div className={styles.widgetWrap}>
+          {configured ? (
+            <BookingFlow
+              apiBase={apiBase}
+              tenantKey={tenantKey}
+              locale="es"
+              accentColor="#4f8a76"
+            />
+          ) : (
+            <p className={styles.note}>
+              Configura <code>NEXT_PUBLIC_BOOKING_TENANT_KEY_DEMO_FISIO</code> y
+              <code> NEXT_PUBLIC_BOOKINGS_API_BASE</code> en Vercel para activar el widget.
+            </p>
+          )}
         </div>
 
         <p className={styles.note}>
-          ¿Prefieres otro día o necesitas una franja distinta?{" "}
-          <a href="#contacto">Escríbenos</a> y te encajamos.
+          ¿Prefieres llamar? Estamos en <strong>+34 600 000 000</strong> · L-V 9-20h
         </p>
       </div>
     </section>

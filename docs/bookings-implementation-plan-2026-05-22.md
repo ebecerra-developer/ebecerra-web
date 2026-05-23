@@ -331,6 +331,135 @@ HMAC firma adicional sobre el raw con `BOOKINGS_TOKEN_SECRET` para que un token 
 
 ---
 
+## Fase 9 — Gestión de citas + hardening (post-V1, antes del piloto)
+
+**Disparador**: feedback del 2026-05-22 — el flujo "confirm + cancel" del email es demasiado pobre. Cliente debe poder reagendar sin tener que cancelar y empezar de cero. Y el sistema debe tolerar carreras y pending abandonados sin double-bookings ni squat de huecos.
+
+**Estado final**: página `/cita/{id}` en `bookings.ebecerra.es` con flujo completo de gestión (confirmar/cambiar/cancelar), cutoffs configurables, contador de reagendamientos, caducidad de pending, fix de carreras en confirm.
+
+Estimación: **2 días** de trabajo. Migración aditiva — no rompe nada de Fases 1-8.
+
+### Decisiones tomadas
+
+| Decisión | Resolución |
+|---|---|
+| Default cutoff cancelar | **24h** antes del slot (configurable per-tenant) |
+| Default cutoff reagendar | **24h** antes del slot (separado del de cancelar, configurable) |
+| Reagendar permite cambiar servicio | **Sí** — reusa `<BookingFlow />` completo saltando Step 4 (datos ya conocidos) |
+| Max reschedules por reserva | **5** (configurable per-tenant). Solo cuenta reschedules de bookings ya `confirmed`, no en `pending` |
+| Caducidad de pending | **60 min** por defecto (configurable per-tenant 5-240). Confirm token caduca con el pending — un solo source of truth |
+| Mínimo tiempo desde reserva al slot | **10 min** por defecto (configurable per-tenant). Reservas demasiado cercanas se rechazan al crear |
+| URL de gestión | `bookings.ebecerra.es/cita/{booking-id}?token=<signed>`. Token autentica, ID solo display |
+| Comportamiento en `pending` | 3 acciones (Confirmar / Cambiar / Cancelar). Cambiar = cancelar pending + crear nueva pending (re-confirmación necesaria) |
+| Comportamiento en `confirmed` | 2 acciones (Cambiar / Cancelar), respetando cutoffs |
+| Comportamiento en `cancelled`/`completed`/`no_show` | Solo lectura + CTA "Reservar otra cita" |
+
+### Tareas
+
+1. **Migración Supabase aditiva** `apps/es/supabase/migrations/<ts>_bookings_management.sql`:
+   - `booking_tenants`:
+     - `cancel_cutoff_hours int default 24` (NULL = sin cutoff)
+     - `reschedule_cutoff_hours int default 24`
+     - `max_reschedules_per_booking int default 5`
+     - `pending_expires_in_minutes int default 60`
+     - `min_minutes_to_slot int default 10`
+     - `contact_phone text` (para mensaje "llama al negocio si quieres cambiar pasado el cutoff")
+   - `bookings`:
+     - `pending_expires_at timestamptz` (NULL para confirmed/cancelled/completed/no_show; valor para pending)
+     - `replaces_booking_id uuid references bookings(id)` (NULL salvo reagendamientos — apunta a la cita anterior)
+     - `reschedule_count int default 0`
+     - Extender check `cancelled_by` para admitir `'rescheduled'` y `'slot_taken_by_another'` y `'expired'`
+   - `booking_tokens.scope` check extendido para admitir `'manage'` (alias funcional del antiguo `'cancel'`)
+   - Índice parcial `bookings_pending_expiring_idx on bookings (pending_expires_at) where status = 'pending'`
+
+2. **Schemas Sanity** en `packages/sanity-booking-schema/src/schemas/bookingTenantConfig.ts` — añadir los 5 campos nuevos + `contactPhone`.
+
+3. **Página `/cita/{id}`** — nueva ruta `apps/es/app/cita/[id]/page.tsx` (fuera del grupo locale, lee locale del booking). Sirve desde `bookings.ebecerra.es/cita/{id}?token=<signed>`:
+   - Servidor valida token + carga booking + tenant + servicio + cutoffs
+   - Si pending: muestra 3 botones
+   - Si confirmed: muestra 2 botones (con cutoffs aplicados)
+   - Si otros estados: read-only + CTA volver a reservar
+   - Acción "Cambiar": monta `<BookingFlow />` con prop `mode="reschedule"` que salta Step 4 y al submit llama `/api/v1/bookings/reschedule`
+   - `proxy.ts`: añadir excepción para permitir `/cita/*` HTML en host `bookings.*`
+
+4. **API nuevos endpoints**:
+   - `POST /api/v1/bookings/reschedule`:
+     - Auth: manage token
+     - Body: `{ new_slot_start_utc, new_service_id? }`
+     - Validaciones: cutoff respetado, max_reschedules no superado, slot disponible (con NOT EXISTS atómico — ver fix carrera más abajo)
+     - Lógica: marca cita original `cancelled` con `cancelled_by='rescheduled'`, crea nueva en `confirmed` (sin re-confirmación) con `replaces_booking_id = old.id` y `reschedule_count = old.reschedule_count + 1`
+     - Email "Cita reagendada" con .ics nuevo + nuevo manage token
+   - `GET /api/v1/bookings/by-token?token=<signed>` — endpoint server-side que la página `/cita/{id}` consume para hidratar (puede inlinear si SSR)
+
+5. **Fix carrera en confirm** — `confirmBooking` cambia a UPDATE con `WHERE NOT EXISTS` subquery de bookings confirmados que solapen (ver detalle en sección dedicada abajo). Si el UPDATE devuelve 0 filas, marca la pending del segundo como `cancelled` con `cancelled_by='slot_taken_by_another'` y envía email "Tu cita no se pudo confirmar — el hueco se acaba de ocupar, [reserva otra]".
+
+6. **Cron de cleanup pending expirados** — nuevo cron `apps/es/app/api/cron/booking-pending-cleanup/route.ts` (cada 15 min):
+   - Busca `pending` con `pending_expires_at < now()`
+   - Marca como `cancelled` con `cancelled_by='expired'`
+   - Envía email "Tu reserva pendiente caducó porque no la confirmaste a tiempo. Reserva de nuevo si quieres."
+   - Añadir al `apps/es/vercel.json`
+
+7. **Emails nuevos**:
+   - `BookingRescheduled` — confirmación del cambio con datos nuevos + .ics actualizado + link de gestionar
+   - `BookingPendingExpired` — caducó el pending
+   - `BookingSlotTakenByAnother` — alguien se quedó con el hueco antes
+   Todos bilingüe ES/EN.
+
+8. **Plantillas existentes**: actualizar `BookingPending`, `BookingConfirmed`, `BookingReminder24h` para que el segundo enlace sea "Gestionar cita" en lugar de "Cancelar cita" — apunta a `/cita/{id}?token=<signed>`.
+
+9. **Widget `<BookingFlow />`** — añadir prop `mode?: 'create' | 'reschedule'` y `prefill?: { serviceId, contactData }`. En modo reschedule:
+   - Step 1 muestra catálogo de servicios con el actual preseleccionado (cliente puede cambiar)
+   - Step 4 se salta
+   - Submit llama a `/reschedule` en vez de `/create`
+
+10. **Adapter native** — `nativeProvider`:
+    - Nuevo método `rescheduleBooking(params)` con validaciones (cutoff + max_reschedules + atomicidad)
+    - `createBooking` ahora setea `pending_expires_at = min(now + tenant.pending_expires_in_minutes, slot_start - 5 min)`
+    - `createBooking` rechaza si `slot_start - now < tenant.min_minutes_to_slot`
+    - `confirmBooking` rechaza si `pending_expires_at < now()` con código `expired_pending`
+
+### Sub-sección — Fix de carrera en confirm (detalle)
+
+El UPDATE atómico:
+
+```sql
+UPDATE bookings SET status='confirmed', confirmed_at=now()
+WHERE id = $booking_id
+  AND status = 'pending'
+  AND pending_expires_at >= now()
+  AND NOT EXISTS (
+    SELECT 1 FROM bookings b2
+    WHERE b2.id <> $booking_id
+      AND b2.booking_tenant_id = $tenant_id
+      AND b2.status = 'confirmed'
+      AND b2.slot_start_utc < $slot_end_with_buffer
+      AND b2.slot_end_utc > $slot_start_with_buffer
+  )
+RETURNING *;
+```
+
+Si devuelve 0 filas, el endpoint:
+
+1. Re-consulta el booking para distinguir el motivo: `expired_pending` (caducó), `slot_taken_by_another` (alguien confirmó antes), `already_confirmed` (idempotencia, devolver 200).
+2. Si `slot_taken_by_another`: marca esa pending como `cancelled` con `cancelled_by='slot_taken_by_another'` y manda email.
+3. Renderiza página adecuada en `/cita/{id}` o landing del confirm.
+
+Capa 2 (`pg_advisory_xact_lock` en create) **no se implementa en V1**. El confirm atómico tapa el caso crítico; la doble-pending raro y se autoresuelve.
+
+### Definition of done
+
+- [ ] Cliente reserva con < 10 min al slot → 422 con mensaje "muy poco margen para confirmar"
+- [ ] Cliente reserva pero no confirma → en 60 min el cron marca cancelled y manda email
+- [ ] Cliente reserva, confirma, intenta cambiar a < 24h del slot → 422 "ya no se puede, llama al +34…"
+- [ ] Cliente reschedule cambiando servicio → cita antigua cancelled con motivo 'rescheduled', nueva confirmed referenciándola
+- [ ] Dos pending concurrentes en mismo slot → solo una puede confirmar; la otra recibe email "alguien se quedó con el hueco"
+- [ ] `/cita/{id}` muestra UI distinta según estado (pending / confirmed / otros)
+- [ ] Página `/cita/{id}` validada en móvil y desktop
+- [ ] Cron `booking-pending-cleanup` configurado en `vercel.json` con schedule `*/15 * * * *`
+- [ ] Memoria `project_bookings_system.md` actualizada con los flujos nuevos
+
+---
+
 ## Fase 1.5 — Google Calendar one-way (opcional, post-piloto)
 
 **Disparador**: el primer cliente pide ver las citas en su Google Calendar.

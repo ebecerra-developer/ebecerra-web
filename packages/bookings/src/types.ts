@@ -1,9 +1,13 @@
 // Tipos compartidos del sistema de reservas.
-// Más tipos se irán añadiendo según se implementen los módulos (adapters, slots, tokens).
 
 export type BookingStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed' | 'no_show';
-export type TokenScope = 'confirm' | 'cancel';
-export type CancelledBy = 'customer' | 'business' | 'expired';
+export type TokenScope = 'confirm' | 'cancel' | 'manage';
+export type CancelledBy =
+  | 'customer'
+  | 'business'
+  | 'expired'
+  | 'rescheduled'
+  | 'slot_taken_by_another';
 export type TenantStatus = 'active' | 'paused' | 'archived';
 export type SanityMatchType = 'document_id' | 'document_type';
 
@@ -20,12 +24,18 @@ export interface BookingTenant {
   requires_approval: boolean;
   cancellation_policy: LocaleString;
   contact_email: string;
+  contact_phone: string | null;
   branding_logo_url: string | null;
   branding_color_primary: string | null;
   allowed_origins: string[];
   status: TenantStatus;
   monthly_booking_limit: number;
   reminder_hours_before: number;
+  cancel_cutoff_hours: number | null;
+  reschedule_cutoff_hours: number | null;
+  max_reschedules_per_booking: number;
+  pending_expires_in_minutes: number;
+  min_minutes_to_slot: number;
 }
 
 export interface BookingService {
@@ -67,6 +77,9 @@ export interface Booking {
   cancelled_at: string | null;
   cancelled_by: CancelledBy | null;
   cancellation_reason: string | null;
+  pending_expires_at: string | null;
+  replaces_booking_id: string | null;
+  reschedule_count: number;
   created_at: string;
   updated_at: string;
 }

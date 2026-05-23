@@ -75,6 +75,27 @@ async function syncTenant(args: {
     typeof raw["reminderHoursBefore"] === "number"
       ? (raw["reminderHoursBefore"] as number)
       : tenant.reminder_hours_before;
+  const contact_phone = (raw["contactPhone"] as string | null) ?? null;
+  const cancel_cutoff_hours =
+    typeof raw["cancelCutoffHours"] === "number"
+      ? (raw["cancelCutoffHours"] as number)
+      : null;
+  const reschedule_cutoff_hours =
+    typeof raw["rescheduleCutoffHours"] === "number"
+      ? (raw["rescheduleCutoffHours"] as number)
+      : null;
+  const max_reschedules_per_booking =
+    typeof raw["maxReschedulesPerBooking"] === "number"
+      ? (raw["maxReschedulesPerBooking"] as number)
+      : 5;
+  const pending_expires_in_minutes =
+    typeof raw["pendingExpiresInMinutes"] === "number"
+      ? (raw["pendingExpiresInMinutes"] as number)
+      : 60;
+  const min_minutes_to_slot =
+    typeof raw["minMinutesToSlot"] === "number"
+      ? (raw["minMinutesToSlot"] as number)
+      : 10;
 
   const weeklyScheduleRaw = Array.isArray(raw["weeklySchedule"])
     ? (raw["weeklySchedule"] as Array<Record<string, unknown>>)
@@ -119,10 +140,16 @@ async function syncTenant(args: {
       requires_approval,
       cancellation_policy,
       contact_email,
+      contact_phone,
       branding_logo_url,
       branding_color_primary,
       allowed_origins,
       reminder_hours_before,
+      cancel_cutoff_hours,
+      reschedule_cutoff_hours,
+      max_reschedules_per_booking,
+      pending_expires_in_minutes,
+      min_minutes_to_slot,
     },
     weeklySchedule,
     availabilityOverrides,

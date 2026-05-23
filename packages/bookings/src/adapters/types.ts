@@ -50,6 +50,9 @@ export interface BookingProvider {
   confirmBooking(params: {
     rawToken: string;
     bookingId: string;
+    /** Por defecto consume token con scope 'confirm' (email original).
+     *  Puede ser 'manage' cuando la página /cita/{id} confirma usando el manage token. */
+    tokenScope?: "confirm" | "manage";
   }): Promise<ConfirmedBooking>;
 
   cancelBooking(params: {

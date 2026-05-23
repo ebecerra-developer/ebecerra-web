@@ -21,14 +21,23 @@ const BOOKINGS_HOST_PREFIX = "bookings.";
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Host-aware: chats.*, admin.* y bookings.* solo sirven API.
+  // Host-aware: chats.* y admin.* solo sirven API.
+  // bookings.* sirve API + páginas /cita/{id} (gestión de cita por el visitante).
   const host = request.headers.get("host") ?? "";
-  if (
-    host.startsWith(CHATS_HOST_PREFIX) ||
-    host.startsWith(ADMIN_HOST_PREFIX) ||
-    host.startsWith(BOOKINGS_HOST_PREFIX)
-  ) {
+  if (host.startsWith(CHATS_HOST_PREFIX) || host.startsWith(ADMIN_HOST_PREFIX)) {
     return new NextResponse("Not Found", { status: 404 });
+  }
+  if (host.startsWith(BOOKINGS_HOST_PREFIX)) {
+    // En bookings.* permitimos solo /api/* (ya pasa el matcher), /cita/* y /reservas/*.
+    if (
+      !pathname.startsWith("/cita/") &&
+      !pathname.startsWith("/reservas") &&
+      pathname !== "/cita"
+    ) {
+      return new NextResponse("Not Found", { status: 404 });
+    }
+    // No aplicar next-intl ni gating /admin en este host.
+    return NextResponse.next();
   }
 
   // Refresh sesión Supabase en cada request (también en rutas públicas, así

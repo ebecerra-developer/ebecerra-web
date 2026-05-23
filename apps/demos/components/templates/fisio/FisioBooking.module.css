@@ -52,6 +52,19 @@
   line-height: var(--lh-lead);
 }
 
+.widgetWrap {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: 1rem;
+  box-shadow: var(--sh-md);
+}
+
+@media (min-width: 700px) {
+  .widgetWrap {
+    padding: 1.5rem;
+  }
+}
+
 .calendar {
   background: var(--surface);
   border-radius: var(--r-lg);

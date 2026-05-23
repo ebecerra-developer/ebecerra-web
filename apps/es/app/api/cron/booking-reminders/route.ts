@@ -81,14 +81,14 @@ export async function GET(request: Request): Promise<Response> {
 
   for (const booking of due) {
     try {
-      const cancelToken = await issueToken({
+      const manageToken = await issueToken({
         bookingId: booking.id,
-        scope: "cancel",
+        scope: "manage",
         expiresAt: new Date(booking.slot_start_utc),
       });
       await sendReminderEmail({
         bookingId: booking.id,
-        cancelSignedToken: cancelToken.signed,
+        manageSignedToken: manageToken.signed,
       });
       const { error: updErr } = await supabase
         .from("bookings")

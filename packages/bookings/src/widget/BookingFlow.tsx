@@ -4,8 +4,10 @@ import { useEffect, useMemo, useReducer, useState } from "react";
 import css from "./BookingFlow.module.css";
 import {
   createBookingApi,
+  createRescheduleApi,
   BookingApiError,
   type BookingApiClient,
+  type RescheduleApiClient,
 } from "./api";
 import {
   DEFAULT_STRINGS,
@@ -18,7 +20,7 @@ import {
 export interface BookingFlowProps {
   /** Endpoint base, ej. `https://bookings.ebecerra.es`. */
   apiBase: string;
-  /** Clave pública del tenant (BOOKING_TENANT_KEY raw). */
+  /** Clave pública del tenant (BOOKING_TENANT_KEY raw). Solo necesaria en mode='create'. */
   tenantKey: string;
   /** Locale del visitante. Default 'es'. */
   locale?: "es" | "en";
@@ -26,6 +28,22 @@ export interface BookingFlowProps {
   strings?: Partial<WidgetStrings>;
   /** Color acento override (sobrescribe el del tenant). */
   accentColor?: string;
+  /**
+   * Modo del widget:
+   * - 'create' (default): flujo completo nueva reserva, requiere tenantKey.
+   * - 'reschedule': flujo reagendado, requiere rescheduleContext. Salta Step 4 (contacto).
+   */
+  mode?: "create" | "reschedule";
+  /** Contexto requerido cuando mode='reschedule'. */
+  rescheduleContext?: {
+    bookingId: string;
+    rawToken: string;
+    currentServiceId: string;
+    tenantSlug: string;
+    tenantTimezone: string;
+  };
+  /** Callback tras reagendar OK. */
+  onRescheduled?: (newBookingId: string, newManageToken: string) => void;
 }
 
 type Step = 1 | 2 | 3 | 4 | "success";
@@ -82,15 +100,28 @@ const initialState = (): State => ({
 
 export function BookingFlow(props: BookingFlowProps) {
   const locale = props.locale ?? "es";
+  const mode = props.mode ?? "create";
   const strings = useMemo<WidgetStrings>(
     () => ({ ...DEFAULT_STRINGS[locale], ...props.strings }),
     [locale, props.strings]
   );
 
-  const api = useMemo<BookingApiClient>(
-    () => createBookingApi({ apiBase: props.apiBase, tenantKey: props.tenantKey }),
-    [props.apiBase, props.tenantKey]
+  const api = useMemo<BookingApiClient | null>(
+    () =>
+      mode === "create"
+        ? createBookingApi({ apiBase: props.apiBase, tenantKey: props.tenantKey })
+        : null,
+    [props.apiBase, props.tenantKey, mode]
   );
+
+  const reschedApi = useMemo<RescheduleApiClient | null>(() => {
+    if (mode !== "reschedule" || !props.rescheduleContext) return null;
+    return createRescheduleApi({
+      apiBase: props.apiBase,
+      rawToken: props.rescheduleContext.rawToken,
+      bookingId: props.rescheduleContext.bookingId,
+    });
+  }, [props.apiBase, props.rescheduleContext, mode]);
 
   const [state, dispatch] = useReducer(reducer, undefined, initialState);
   const [catalog, setCatalog] = useState<{
@@ -104,11 +135,23 @@ export function BookingFlow(props: BookingFlowProps) {
 
   // Catalog
   useEffect(() => {
+    const loader = api ?? reschedApi;
+    if (!loader) return;
     let cancelled = false;
-    api
+    loader
       .loadCatalog()
       .then((c) => {
-        if (!cancelled) setCatalog(c);
+        if (cancelled) return;
+        setCatalog(c);
+        // En reschedule preseleccionamos el servicio actual y arrancamos en step 2.
+        if (mode === "reschedule" && props.rescheduleContext) {
+          const current = c.services.find(
+            (s) => s.id === props.rescheduleContext!.currentServiceId
+          );
+          if (current) {
+            dispatch({ type: "select-service", service: current });
+          }
+        }
       })
       .catch((e) => {
         if (!cancelled)
@@ -120,7 +163,7 @@ export function BookingFlow(props: BookingFlowProps) {
     return () => {
       cancelled = true;
     };
-  }, [api, strings]);
+  }, [api, reschedApi, strings, mode, props.rescheduleContext]);
 
   // Availability del mes cuando hay servicio + mes
   useEffect(() => {
@@ -129,7 +172,9 @@ export function BookingFlow(props: BookingFlowProps) {
     const fromUtc = new Date(state.monthStart).toISOString();
     const toUtc = endOfMonthUtc(state.monthStart).toISOString();
     let cancelled = false;
-    api
+    const loader = api ?? reschedApi;
+    if (!loader) return;
+    loader
       .loadAvailability({
         serviceId: state.service.id,
         fromUtc,
@@ -156,7 +201,7 @@ export function BookingFlow(props: BookingFlowProps) {
     return () => {
       cancelled = true;
     };
-  }, [api, state.service, state.monthStart, catalog, strings]);
+  }, [api, reschedApi, state.service, state.monthStart, catalog, strings]);
 
   const accentVar: React.CSSProperties = {
     ["--bookings-accent" as string]:
@@ -239,11 +284,28 @@ export function BookingFlow(props: BookingFlowProps) {
           tenant={catalog.tenant}
           locale={locale}
           strings={strings}
-          onPickSlot={(slot) => dispatch({ type: "select-slot", slot })}
+          onPickSlot={(slot) => {
+            if (mode === "reschedule" && reschedApi && state.service) {
+              dispatch({ type: "select-slot", slot });
+              reschedApi
+                .reschedule({
+                  newSlotStartUtc: slot.start,
+                  newServiceId: state.service.id,
+                })
+                .then((r) => {
+                  props.onRescheduled?.(r.newBookingId, r.newManageToken);
+                })
+                .catch((e) => {
+                  dispatch({ type: "set-error", error: errorMessage(e, strings) });
+                });
+            } else {
+              dispatch({ type: "select-slot", slot });
+            }
+          }}
         />
       )}
 
-      {state.step === 4 && state.slot && state.service && (
+      {mode === "create" && state.step === 4 && state.slot && state.service && api && (
         <Step4Contact
           service={state.service}
           slot={state.slot}

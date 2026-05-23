@@ -58,10 +58,16 @@ export async function upsertBookingTenantFromSanity(args: {
     requires_approval: boolean;
     cancellation_policy: Record<string, string>;
     contact_email: string;
+    contact_phone: string | null;
     branding_logo_url: string | null;
     branding_color_primary: string | null;
     allowed_origins: string[];
     reminder_hours_before: number;
+    cancel_cutoff_hours: number | null;
+    reschedule_cutoff_hours: number | null;
+    max_reschedules_per_booking: number;
+    pending_expires_in_minutes: number;
+    min_minutes_to_slot: number;
   }>;
   weeklySchedule: WeeklyScheduleInput[];
   availabilityOverrides: AvailabilityOverrideInput[];

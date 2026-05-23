@@ -1,6 +1,15 @@
-import { consumeToken, issueToken } from "@ebecerra/bookings/tokens";
-import { getSupabase, logAudit } from "@ebecerra/bookings/db";
-import { sendConfirmedEmail } from "@ebecerra/bookings/email";
+import {
+  nativeProvider,
+  isSlotTaken,
+  isBookingError,
+  isTokenError,
+} from "@ebecerra/bookings/adapters/native";
+import { issueToken } from "@ebecerra/bookings/tokens";
+import { getSupabase } from "@ebecerra/bookings/db";
+import {
+  sendConfirmedEmail,
+  sendSlotTakenEmail,
+} from "@ebecerra/bookings/email";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -10,94 +19,124 @@ export const dynamic = "force-dynamic";
  *
  * Landing page tras click en el email de "confirma tu cita".
  * Sin X-Tenant-Key — el token es la auth.
- * Devuelve HTML directo (no JSON) — el usuario lo abre en su navegador.
+ *
+ * Confirma de forma atómica vía nativeProvider — si otra reserva ya está
+ * confirmada para el mismo slot, marca esta como `slot_taken_by_another` y
+ * muestra mensaje adecuado.
  */
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const signedToken = url.searchParams.get("token");
-  if (!signedToken) {
-    return htmlError(400, "Falta el token en el enlace.");
+  if (!signedToken) return htmlError(400, "Falta el token en el enlace.");
+
+  // Necesitamos saber el bookingId antes de llamar a confirmBooking.
+  // El token está firmado; resolvemos vía el endpoint by-token.
+  const bookingId = await resolveBookingIdFromConfirmToken(signedToken);
+  if (!bookingId) {
+    return htmlError(400, "Enlace inválido o ya usado.");
   }
 
-  const result = await consumeToken({
-    signedToken,
-    expectedScope: "confirm",
-  });
-  if (!result.ok) {
-    return htmlError(
-      result.reason === "expired" ? 410 : 400,
-      reasonToMessage(result.reason)
-    );
-  }
-
-  const supabase = getSupabase();
-  const { data: booking, error } = await supabase
-    .from("bookings")
-    .update({
-      status: "confirmed",
-      confirmed_at: new Date().toISOString(),
-    })
-    .eq("id", result.bookingId)
-    .eq("status", "pending")
-    .select(
-      "id, slot_start_utc, slot_end_utc, contact_name, locale, booking_tenant_id, service_id"
-    )
-    .maybeSingle();
-  if (error) throw error;
-  if (!booking) {
-    return htmlError(409, "Esta cita ya estaba confirmada o cancelada.");
-  }
-
-  await logAudit({
-    booking_tenant_id: booking.booking_tenant_id,
-    booking_id: booking.id,
-    action: "booking.confirmed",
-  });
-
-  // Email de confirmación con .ics + nuevo token de cancelación válido hasta el slot.
   try {
-    const cancelToken = await issueToken({
-      bookingId: booking.id,
-      scope: "cancel",
-      expiresAt: new Date(booking.slot_start_utc),
+    const { booking } = await nativeProvider.confirmBooking({
+      rawToken: signedToken,
+      bookingId,
     });
-    await sendConfirmedEmail({
-      bookingId: booking.id,
-      cancelSignedToken: cancelToken.signed,
-    });
+
+    // Email de confirmación con .ics + nuevo manage token (válido hasta slot).
+    try {
+      const mng = await issueToken({
+        bookingId: booking.id,
+        scope: "manage",
+        expiresAt: new Date(booking.slot_start_utc),
+      });
+      await sendConfirmedEmail({
+        bookingId: booking.id,
+        manageSignedToken: mng.signed,
+      });
+    } catch (e) {
+      console.error("[bookings/confirm] sendConfirmedEmail failed:", e);
+    }
+
+    const slotLocal = await formatSlotForBooking(booking.id);
+    return html(`
+      <h1>Cita confirmada</h1>
+      <p>Hola ${escape(booking.contact_name)},</p>
+      <p>Tu cita está confirmada para el <strong>${escape(slotLocal)}</strong>.</p>
+      <p>Te llegará un email de recordatorio antes de la cita.</p>
+    `);
   } catch (e) {
-    console.error("[bookings/confirm] sendConfirmedEmail failed:", e);
+    if (isSlotTaken(e)) {
+      try {
+        await sendSlotTakenEmail({ bookingId });
+      } catch (mailErr) {
+        console.error("[bookings/confirm] sendSlotTakenEmail failed:", mailErr);
+      }
+      return htmlError(
+        409,
+        "Lo sentimos, alguien acaba de quedarse con esa hora justo antes que tú. Te hemos enviado un email para que puedas elegir otra."
+      );
+    }
+    if (isTokenError(e)) {
+      return htmlError(400, tokenErrorMessage(e.reason));
+    }
+    if (isBookingError(e)) {
+      if (e.code === "expired_pending") {
+        return htmlError(
+          410,
+          "Tu reserva caducó porque no la confirmaste a tiempo. Reserva de nuevo si quieres."
+        );
+      }
+      if (e.code === "not_pending") {
+        return htmlError(409, "Esta cita ya estaba confirmada o cancelada.");
+      }
+      return htmlError(400, e.message);
+    }
+    console.error("[bookings/confirm] unexpected:", e);
+    return htmlError(500, "Algo ha fallado. Inténtalo de nuevo en unos minutos.");
   }
-
-  // Tenant + servicio para el render.
-  const [tenantRes, serviceRes] = await Promise.all([
-    supabase
-      .from("booking_tenants")
-      .select("name, timezone")
-      .eq("id", booking.booking_tenant_id)
-      .maybeSingle(),
-    supabase
-      .from("booking_services")
-      .select("name, duration_min")
-      .eq("id", booking.service_id)
-      .maybeSingle(),
-  ]);
-
-  const tenantName = tenantRes.data?.name ?? "el negocio";
-  const timezone = tenantRes.data?.timezone ?? "Europe/Madrid";
-  const serviceName =
-    pickLocale(serviceRes.data?.name, booking.locale) ?? "tu servicio";
-  const slotLocal = formatInZone(new Date(booking.slot_start_utc), timezone);
-
-  return html(`
-    <h1>Cita confirmada</h1>
-    <p>Hola ${escape(booking.contact_name)},</p>
-    <p>Tu cita con <strong>${escape(tenantName)}</strong> para <strong>${escape(serviceName)}</strong> está confirmada para el <strong>${escape(slotLocal)}</strong>.</p>
-    <p>Te llegará un email de recordatorio 24 horas antes.</p>
-  `);
 }
 
-function reasonToMessage(reason: string): string {
+async function resolveBookingIdFromConfirmToken(
+  signedToken: string
+): Promise<string | null> {
+  // Hashea raw para buscar el token sin consumirlo.
+  const { createHash } = await import("node:crypto");
+  const parts = signedToken.split(".");
+  if (parts.length !== 2) return null;
+  const raw = parts[0];
+  const hash = createHash("sha256").update(raw).digest("hex");
+  const supabase = getSupabase();
+  const { data } = await supabase
+    .from("booking_tokens")
+    .select("booking_id, scope")
+    .eq("token_hash", hash)
+    .maybeSingle();
+  if (!data || data.scope !== "confirm") return null;
+  return data.booking_id;
+}
+
+async function formatSlotForBooking(bookingId: string): Promise<string> {
+  const supabase = getSupabase();
+  const { data: b } = await supabase
+    .from("bookings")
+    .select("slot_start_utc, booking_tenant_id")
+    .eq("id", bookingId)
+    .single();
+  if (!b) return "";
+  const { data: t } = await supabase
+    .from("booking_tenants")
+    .select("timezone")
+    .eq("id", b.booking_tenant_id)
+    .single();
+  const tz = t?.timezone ?? "Europe/Madrid";
+  return new Intl.DateTimeFormat("es-ES", {
+    timeZone: tz,
+    dateStyle: "full",
+    timeStyle: "short",
+  }).format(new Date(b.slot_start_utc));
+}
+
+function tokenErrorMessage(reason: string): string {
   switch (reason) {
     case "expired":
       return "Este enlace ha caducado.";
@@ -113,25 +152,6 @@ function reasonToMessage(reason: string): string {
     default:
       return "Enlace inválido.";
   }
-}
-
-function pickLocale(
-  v: unknown,
-  locale: string | undefined
-): string | undefined {
-  if (!v || typeof v !== "object") return undefined;
-  const obj = v as Record<string, unknown>;
-  const lang = locale ?? "es";
-  return (typeof obj[lang] === "string" && (obj[lang] as string)) ||
-    (typeof obj.es === "string" ? (obj.es as string) : undefined);
-}
-
-function formatInZone(date: Date, timezone: string): string {
-  return new Intl.DateTimeFormat("es-ES", {
-    timeZone: timezone,
-    dateStyle: "full",
-    timeStyle: "short",
-  }).format(date);
 }
 
 function escape(s: string): string {
@@ -150,10 +170,10 @@ function html(content: string): Response {
 }
 
 function htmlError(status: number, message: string): Response {
-  return new Response(layout(`<h1>No se pudo confirmar</h1><p>${escape(message)}</p>`), {
-    status,
-    headers: { "Content-Type": "text/html; charset=utf-8" },
-  });
+  return new Response(
+    layout(`<h1>No se pudo confirmar</h1><p>${escape(message)}</p>`),
+    { status, headers: { "Content-Type": "text/html; charset=utf-8" } }
+  );
 }
 
 function layout(body: string): string {

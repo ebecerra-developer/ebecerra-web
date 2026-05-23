@@ -83,6 +83,58 @@ export default defineType({
       validation: (Rule) => Rule.required().email(),
     }),
     defineField({
+      name: "contactPhone",
+      title: "Teléfono de contacto del negocio",
+      description:
+        "Se muestra al cliente final cuando intenta cambiar/cancelar pasado el cutoff. Opcional pero recomendado.",
+      type: "string",
+    }),
+    defineField({
+      name: "cancelCutoffHours",
+      title: "Cutoff cancelar (horas antes del slot)",
+      description:
+        "Horas antes de la cita tras las que el cliente no puede cancelar online. Vacío = sin cutoff. Default 24.",
+      type: "number",
+      initialValue: 24,
+      validation: (Rule) => Rule.min(0).max(168),
+    }),
+    defineField({
+      name: "rescheduleCutoffHours",
+      title: "Cutoff reagendar (horas antes del slot)",
+      description:
+        "Horas antes de la cita tras las que el cliente no puede reagendar online. Vacío = sin cutoff. Default 24.",
+      type: "number",
+      initialValue: 24,
+      validation: (Rule) => Rule.min(0).max(168),
+    }),
+    defineField({
+      name: "maxReschedulesPerBooking",
+      title: "Máx. reagendamientos por reserva",
+      description:
+        "Tope de veces que el cliente puede cambiar una misma reserva. 0 = no permitir reagendar.",
+      type: "number",
+      initialValue: 5,
+      validation: (Rule) => Rule.required().min(0).max(20),
+    }),
+    defineField({
+      name: "pendingExpiresInMinutes",
+      title: "Caducidad del pending (minutos)",
+      description:
+        "Cuánto vive una reserva sin confirmar antes de auto-cancelarse. Default 60.",
+      type: "number",
+      initialValue: 60,
+      validation: (Rule) => Rule.required().min(5).max(240),
+    }),
+    defineField({
+      name: "minMinutesToSlot",
+      title: "Mínimo margen de reserva (minutos)",
+      description:
+        "No se acepta reservar con menos de N minutos hasta el slot. Margen para que el cliente pueda confirmar el email.",
+      type: "number",
+      initialValue: 10,
+      validation: (Rule) => Rule.required().min(0).max(1440),
+    }),
+    defineField({
       name: "brandingLogoUrl",
       title: "Logo (URL)",
       type: "url",
