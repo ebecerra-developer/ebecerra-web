@@ -193,9 +193,10 @@ export default async function LocaleLayout({
               (locale === "es" ? "Escribe tu pregunta…" : "Type your question…")
             }
             locale={locale}
+            apiPath="/api/chatbot"
             disclaimers={[
               ...(profile.chatbot.disclaimers ?? []),
-              ...(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SECRET_KEY
+              ...(process.env.CHATBOT_TENANT_KEY
                 ? [
                     locale === "es"
                       ? "Esta conversación se guarda para mejorar el servicio. Más info en /privacidad."
