@@ -97,8 +97,25 @@ jobs:
           fi
 
       - name: Render job
+        id: render
         env:
           JOB_ID: ${{ inputs.job_id }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
-        run: node render-job.mjs
+        run: |
+          set +e
+          node render-job.mjs 2>&1 | tee render-output.log
+          EXIT=${PIPESTATUS[0]}
+          echo "::group::Render output (also uploaded as artifact)"
+          cat render-output.log
+          echo "::endgroup::"
+          echo "Exit code: $EXIT"
+          exit $EXIT
+
+      - name: Upload render log artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: render-output-${{ inputs.job_id }}
+          path: social-templates/render-output.log
+          retention-days: 7
