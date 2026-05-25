@@ -40,6 +40,7 @@ Ordenadas por intuición de impacto, no por prioridad inmediata. Mover a "En pro
 ### Tipo · Diferenciación / valores
 
 - [x] Post "Lo que NO hago" → [`0001-post-lo-que-no-hago`](personal/0001-post-lo-que-no-hago/) (publicado 13-may)
+- [x] Post "Cuéntamela" — puerta abierta + foto estudio → [`0021-post-cuentamela`](personal/0021-post-cuentamela/) (subir lunes 25-may)
 - [ ] Post single — "Lo que SÍ hago de serie" (versión positiva, esperar ≥6 semanas)
 - [ ] Carrusel — "Sin agencia. Sin equipo. Sin packs." (3 cards)
 
@@ -94,6 +95,7 @@ Pendiente:
 | viernes 23 ~10:00 | [`0018-carrusel-4-cosas-nota`](personal/0018-carrusel-4-cosas-nota/) | Primer carrusel en formato 4:5. 7 slides. Sin sticker. Cross-post FB auto. |
 | **sábado 23 (mañana)** | **[`0019-reel-reservas-equilibrio`](personal/0019-reel-reservas-equilibrio/)** | Reel 20s sobre reservas online. Coordinado con despliegue real del sistema en `demos.ebecerra.es/equilibrio`. Cross-post FB auto. Añadir a highlight `servicios`. |
 | **sábado 23 (unas horas después)** | **[`0020-story-reservas-real`](personal/0020-story-reservas-real/)** | Story ANIMADA 15s con 6 capturas reales del widget (portada → sección → servicio → día → hora → cita solicitada). MP4 grabado con `record-animated.mjs`. Link sticker manual a `https://demos.ebecerra.es/equilibrio` sobre la zona indicada. Añadir a highlight `servicios`. |
+| **lunes 25 ~10:00** | **[`0021-post-cuentamela`](personal/0021-post-cuentamela/)** | Post single 4:5 con foto del estudio + invitación al DM ("puerta abierta"). Primera vez que sale la cara en feed. Cross-post FB auto. Sin highlight. |
 
 ## ❌ Producidas pero descartadas
 
@@ -140,6 +142,7 @@ Reglas para no quemar temas. Si choca, pivotar a otra cosa del backlog.
 | Velocidad/Core Web Vitals | sin cooldown todavía (Story no subida 2026-05-15) | Cifras pendientes de resolver antes de publicar |
 | Reservas online / "coger cita mientras duermes" | 2026-06-23 (1 mes tras Reel 0019) | Repetir con otro sector u otro ángulo (no más llamadas, ahorro de tiempo, etc.) |
 | Demo equilibrio como protagonista | 2026-06-23 (1 mes) | Acaba de protagonizar 0019+0020. Rotar a marta-solana, claudia-entrena o eco antes de volver a equilibrio |
+| "DM abierto / puerta abierta" como CTA central | 2026-07-25 (2 meses tras 0021) | Repetir pronto suena a desespero comercial |
 
 ---
 

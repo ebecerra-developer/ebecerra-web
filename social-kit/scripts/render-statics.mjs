@@ -37,6 +37,13 @@ const JOBS = [
     w: 1080, h: 1350,
   })),
 
+  // ── 0021 · Post "Cuéntamela" (single image, foto estudio + invitación DM) ──
+  {
+    html: "personal/0021-post-cuentamela/index.html",
+    out:  "personal/0021-post-cuentamela/final.png",
+    w: 1080, h: 1350,
+  },
+
   // ── 0004 · Story eco estática (1080×1920) ────────────────────────────
   {
     html: "personal/0004-story-eco/index.html",
