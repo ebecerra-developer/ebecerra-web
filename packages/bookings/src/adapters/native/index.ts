@@ -371,6 +371,10 @@ export const nativeProvider: BookingProvider = {
   },
 
   async cancelBooking({ rawToken, bookingId, by, reason }): Promise<ConfirmedBooking> {
+    const supabase = getSupabase();
+
+    // Cutoff: solo aplica a cancelaciones del cliente final. El operador desde
+    // /admin (by='business') puede cancelar siempre, sin importar el plazo.
     if (by === "customer") {
       // Acepta ambos scopes — tokens viejos ("cancel") siguen funcionando, los nuevos son "manage".
       const r1 = await consumeToken({ signedToken: rawToken, expectedScope: "manage" });
@@ -381,9 +385,37 @@ export const nativeProvider: BookingProvider = {
         else throw new TokenError(r2.reason);
       }
       if (resolved.bookingId !== bookingId) throw new TokenError("not_found");
+
+      // Cargar booking + tenant para validar cutoff. Solo bloquea cancelar fuera
+      // de plazo si la reserva ya está confirmed; pending siempre cancelable.
+      const { data: booking, error: bErr } = await supabase
+        .from("bookings")
+        .select("status, slot_start_utc, booking_tenant_id")
+        .eq("id", bookingId)
+        .maybeSingle();
+      if (bErr) throw bErr;
+      if (!booking) throw new BookingError("not_found", "Booking not found");
+
+      if (booking.status === "confirmed") {
+        const { data: tenant } = await supabase
+          .from("booking_tenants")
+          .select("cancel_cutoff_hours")
+          .eq("id", booking.booking_tenant_id)
+          .single();
+        if (tenant?.cancel_cutoff_hours !== null && tenant?.cancel_cutoff_hours !== undefined) {
+          const cutoffMs =
+            new Date(booking.slot_start_utc).getTime() -
+            tenant.cancel_cutoff_hours * 60 * 60 * 1000;
+          if (Date.now() > cutoffMs) {
+            throw new BookingError(
+              "cutoff_passed",
+              `Cannot cancel less than ${tenant.cancel_cutoff_hours}h before slot`
+            );
+          }
+        }
+      }
     }
 
-    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("bookings")
       .update({
