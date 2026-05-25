@@ -1,5 +1,4 @@
-import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentAdmin } from "@/lib/admin/current-admin";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import AdminShell from "../AdminShell";
 import {
@@ -32,11 +31,7 @@ export default async function CommentsModerationPage({
 }: {
   searchParams: Promise<{ status?: string }>;
 }) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user?.email) redirect("/admin/login");
+  const me = await getCurrentAdmin();
 
   const params = await searchParams;
   const statusFilter: Status =
@@ -52,7 +47,12 @@ export default async function CommentsModerationPage({
     .limit(200);
 
   return (
-    <AdminShell activeSection="comments" userEmail={user.email}>
+    <AdminShell
+      activeSection="comments"
+      userEmail={me.email}
+      permissions={me.permissions}
+      isOperator={me.isOperator}
+    >
       <h2>Moderación de comentarios</h2>
 
       <form className="admin-filters" method="get">

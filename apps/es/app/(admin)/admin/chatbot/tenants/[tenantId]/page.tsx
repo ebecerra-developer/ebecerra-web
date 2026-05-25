@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notFound } from "next/navigation";
+import { getCurrentAdmin } from "@/lib/admin/current-admin";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import AdminShell from "../../../AdminShell";
 
@@ -29,11 +29,7 @@ export default async function TenantDetailPage({
 }: {
   params: Promise<{ tenantId: string }>;
 }) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user?.email) redirect("/admin/login");
+  const me = await getCurrentAdmin({ requirePermission: "chatbot" });
 
   const { tenantId } = await params;
   const admin = createSupabaseAdminClient();
@@ -77,7 +73,12 @@ export default async function TenantDetailPage({
   );
 
   return (
-    <AdminShell activeSection="chatbot" userEmail={user.email}>
+    <AdminShell
+      activeSection="chatbot"
+      userEmail={me.email}
+      permissions={me.permissions}
+      isOperator={me.isOperator}
+    >
       <nav style={{ marginBottom: 16, fontSize: 12 }}>
         <Link href="/admin/chatbot/tenants">← Todos los tenants</Link>
       </nav>

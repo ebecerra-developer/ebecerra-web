@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentAdmin } from "@/lib/admin/current-admin";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import AdminShell from "../../AdminShell";
 
@@ -23,11 +22,7 @@ export default async function ChatbotSessionDrilldown({
   params: Promise<{ sessionId: string }>;
 }) {
   const { sessionId } = await params;
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user?.email) redirect("/admin/login");
+  const me = await getCurrentAdmin({ requirePermission: "chatbot" });
 
   const admin = createSupabaseAdminClient();
   const { data: messages, error } = await admin
@@ -48,7 +43,12 @@ export default async function ChatbotSessionDrilldown({
   }
 
   return (
-    <AdminShell activeSection="chatbot" userEmail={user.email}>
+    <AdminShell
+      activeSection="chatbot"
+      userEmail={me.email}
+      permissions={me.permissions}
+      isOperator={me.isOperator}
+    >
       <div style={{ marginBottom: 16 }}>
         <Link
           href="/admin/chatbot"

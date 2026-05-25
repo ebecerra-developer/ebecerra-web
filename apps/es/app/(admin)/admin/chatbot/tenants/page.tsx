@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentAdmin } from "@/lib/admin/current-admin";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import AdminShell from "../../AdminShell";
 
@@ -31,11 +30,7 @@ function firstOfMonth(): string {
 }
 
 export default async function TenantsPage() {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user?.email) redirect("/admin/login");
+  const me = await getCurrentAdmin({ requirePermission: "chatbot" });
 
   const admin = createSupabaseAdminClient();
 
@@ -69,7 +64,12 @@ export default async function TenantsPage() {
   }));
 
   return (
-    <AdminShell activeSection="chatbot" userEmail={user.email}>
+    <AdminShell
+      activeSection="chatbot"
+      userEmail={me.email}
+      permissions={me.permissions}
+      isOperator={me.isOperator}
+    >
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
         <h2 style={{ margin: 0 }}>Tenants del chatbot</h2>
         <nav style={{ display: "flex", gap: 12, fontSize: 12 }}>

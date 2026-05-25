@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentAdmin } from "@/lib/admin/current-admin";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import AdminShell from "../AdminShell";
 
@@ -31,11 +30,7 @@ export default async function ChatbotSessionsPage({
 }: {
   searchParams: Promise<{ tenant?: string; q?: string; days?: string }>;
 }) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user?.email) redirect("/admin/login");
+  const me = await getCurrentAdmin({ requirePermission: "chatbot" });
 
   const params = await searchParams;
   const tenantFilter = params.tenant?.trim() || null;
@@ -110,7 +105,12 @@ export default async function ChatbotSessionsPage({
   );
 
   return (
-    <AdminShell activeSection="chatbot" userEmail={user.email}>
+    <AdminShell
+      activeSection="chatbot"
+      userEmail={me.email}
+      permissions={me.permissions}
+      isOperator={me.isOperator}
+    >
       <h2>Conversaciones del chatbot</h2>
 
       <form className="admin-filters" method="get">
