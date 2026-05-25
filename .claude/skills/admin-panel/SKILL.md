@@ -7,6 +7,19 @@ description: Panel de administración multi-tenant del ecosistema ebecerra. Úsa
 
 Panel de admin **distribuido** (un front por cada dominio cliente) con backend SaaS centralizado en `admin.ebecerra.es`. Diseñado para ser **config-zero** al instalar en un cliente nuevo: solo `brand-bridge.css` + `_lib/modules.ts`.
 
+## ⚠ Tenant nuevo → seedear `tenant_branding`
+
+Al provisionar un cliente nuevo (`INSERT INTO public.tenants`), **siempre** crear su fila correspondiente en `public.tenant_branding` con su paleta + monograma + fuentes. Sin eso, el preview del Generador Social cae al default (verde ebecerra) y se ve mal.
+
+```sql
+insert into public.tenant_branding (tenant_id, bg, fg, primary_color, accent, monogram, font_display, font_body, notes)
+values ((select id from public.tenants where slug = '<new-slug>'),
+        '#bg', '#fg', '#primary', '#accent', 'XY', 'Display Font', 'Body Font',
+        'Origen de la paleta');
+```
+
+Detalle de columnas en [[project-social-generator]]. Si cambias luego brand del cliente, mismo recordatorio en `/brand-identity` y `/design-tokens`.
+
 ## Stack canónico
 
 - **SDK**: [`packages/client-admin-sdk/`](../../../packages/client-admin-sdk/) (`@ebecerra/client-admin-sdk`, v0.1.0). Workspace dep en apps/* del monorepo. Vendor copy en `llaullau-web/lib/admin-sdk/` para repos externos.

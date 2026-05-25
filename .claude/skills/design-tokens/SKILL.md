@@ -7,6 +7,33 @@ description: Paleta, tokens CSS y sistema de anotaciones del proyecto. Úsalo al
 
 Fuente de verdad CSS para las dos identidades del proyecto. Vive en [`packages/tokens/`](../../../packages/tokens/).
 
+## ⚠ Sincronizar `tenant_branding` en Supabase
+
+Si tocas valores en `pro.css`, `geek.css`, `demos-fisio.css`, `demos-coach-editorial.css`, `demos-coach-vibrant.css`, `demos-tandem.css` o cualquier archivo de tokens — **actualiza también la tabla `public.tenant_branding` en Supabase**. Esa tabla es snapshot manual de los tokens y la consume el Generador Social (`/admin/social`) + futuras herramientas multi-tenant.
+
+Mapping tenant → archivo de tokens:
+
+| Slug (tenants) | Archivo de tokens |
+|---|---|
+| `apps-es` | `packages/tokens/pro.css` |
+| `apps-tech` | `packages/tokens/geek.css` |
+| `apps-demos` | `packages/tokens/pro.css` (meta-site) |
+| `demo-equilibrio` | `packages/tokens/demos-fisio.css` |
+| `demo-marta-solana` | `packages/tokens/demos-coach-editorial.css` |
+| `demo-claudia-entrena` | `packages/tokens/demos-coach-vibrant.css` |
+| `demo-eco` | `packages/tokens/demos-tandem.css` |
+| `llaullau`, `brunette-agency` | tokens en sus repos externos (no en este monorepo) |
+
+Patrón de update:
+```sql
+update public.tenant_branding
+set bg = '#nuevo-bg', fg = '#nuevo-fg', primary_color = '#nuevo-primary',
+    accent = '#nuevo-accent', font_display = 'NuevaFont', font_body = 'OtraFont'
+where tenant_id = (select id from public.tenants where slug = '<slug>');
+```
+
+Detalle de qué columnas existen y cómo se usan en [[project-social-generator]].
+
 ## Archivos
 
 | Archivo | Identidad | App consumidora | Convención |

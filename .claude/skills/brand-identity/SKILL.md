@@ -7,6 +7,21 @@ description: Sistema de marca del proyecto (logos eB, bracket-B, favicon, kit de
 
 **Logo y paleta cerrados 2026-04-19.** No tocar sin consultar.
 
+## ⚠ Sincronizar `tenant_branding` en Supabase
+
+Cuando cambies **logo, color, favicon, OG image o monograma** de cualquier tenant (apps-es, apps-tech, apps-demos, demos individuales, llaullau, brunette-agency...), recuerda actualizar también `public.tenant_branding` en Supabase. Esa tabla es la fuente que consume el **Generador Social** (`/admin/social`) y futuras herramientas multi-tenant.
+
+Si no se actualiza, el preview y los renders seguirán saliendo con los valores viejos sin avisar.
+
+Patrón:
+```sql
+update public.tenant_branding
+set primary_color = '#nuevo', logo_url = 'https://...', monogram = 'XY'
+where tenant_id = (select id from public.tenants where slug = '<tenant-slug>');
+```
+
+Columnas relevantes: `bg`, `fg`, `primary_color`, `accent`, `logo_url`, `logo_inverse_url`, `monogram`, `font_display`, `font_body`. Detalle en [[project-social-generator]].
+
 ## Sistema de marks según contexto
 
 | Mark | Cuándo | Dónde |
