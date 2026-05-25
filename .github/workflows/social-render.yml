@@ -33,7 +33,20 @@ jobs:
           cache-dependency-path: social-templates/package.json
 
       - name: Install dependencies
-        run: npm install --no-package-lock
+        run: |
+          npm install --no-package-lock --loglevel=info
+          echo "--- node_modules contents ---"
+          ls node_modules/ 2>/dev/null | head -30 || echo "NO node_modules/"
+          echo "--- check key modules ---"
+          [ -d node_modules/@supabase/supabase-js ] && echo "✓ @supabase/supabase-js" || echo "❌ MISSING @supabase/supabase-js"
+          [ -d node_modules/playwright ] && echo "✓ playwright" || echo "❌ MISSING playwright"
+
+      - name: Try imports (diagnostic)
+        run: |
+          node --version
+          node -e "import('@supabase/supabase-js').then(m=>console.log('✓ supabase-js:',Object.keys(m).slice(0,3))).catch(e=>{console.error('❌ supabase-js:',e.message);process.exit(1)})"
+          node -e "import('playwright').then(m=>console.log('✓ playwright:',Object.keys(m).slice(0,3))).catch(e=>{console.error('❌ playwright:',e.message);process.exit(1)})"
+          node -e "import('./engine.mjs').then(m=>console.log('✓ engine.mjs:',Object.keys(m))).catch(e=>{console.error('❌ engine.mjs:',e.message);process.exit(1)})"
 
       - name: Install Playwright browser (Chromium only)
         run: npx playwright install --with-deps chromium
