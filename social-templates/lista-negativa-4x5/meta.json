@@ -1,0 +1,67 @@
+{
+  "id": "lista-negativa-4x5",
+  "name": "Lista negativa (post 4:5)",
+  "description": "Post oscuro con kicker, titular con palabra en énfasis y lista de 4 ítems con ✕. Inspirado en 'Lo que NO hago'.",
+  "format": "post-4x5",
+  "width": 1080,
+  "height": 1350,
+  "fields": [
+    {
+      "id": "kicker",
+      "type": "text",
+      "label": "Antetítulo (kicker)",
+      "help": "Pequeño texto en mayúsculas arriba. Suele empezar con // o · .",
+      "maxLength": 40,
+      "default": "// cómo trabajo"
+    },
+    {
+      "id": "titleStart",
+      "type": "text",
+      "label": "Título — antes del énfasis",
+      "help": "Primera parte del titular. Ej: 'Lo que '.",
+      "maxLength": 30,
+      "required": true,
+      "default": "Lo que"
+    },
+    {
+      "id": "titleEmphasis",
+      "type": "text",
+      "label": "Título — palabra en énfasis",
+      "help": "Va en color de acento. 1-3 palabras máx.",
+      "maxLength": 10,
+      "required": true,
+      "default": "NO"
+    },
+    {
+      "id": "titleEnd",
+      "type": "text",
+      "label": "Título — después del énfasis",
+      "help": "Cierre del titular. Aparece en nueva línea.",
+      "maxLength": 30,
+      "default": "hago."
+    },
+    {
+      "id": "items",
+      "type": "list",
+      "label": "Ítems de la lista",
+      "help": "Cada ítem aparece con ✕. Recomendado 3-5.",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemMaxLength": 70,
+      "default": [
+        "Plantillas recicladas.",
+        "Subcontratar a desconocidos.",
+        "Atarte a permanencias raras.",
+        "Desaparecer al entregar."
+      ]
+    },
+    {
+      "id": "handle",
+      "type": "text",
+      "label": "Handle al pie",
+      "help": "Dominio o @usuario al pie. El monograma del logo se añade automático.",
+      "maxLength": 30,
+      "default": "ebecerra.es"
+    }
+  ]
+}

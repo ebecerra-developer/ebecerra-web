@@ -7,6 +7,7 @@ export type AdminRole = "owner" | "editor" | "client";
 export interface AdminPermissions {
   chatbot?: boolean;
   bookings?: boolean;
+  social?: boolean;
 }
 
 export interface CurrentAdmin {

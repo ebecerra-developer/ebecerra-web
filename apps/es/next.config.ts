@@ -1,5 +1,9 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname_ = path.dirname(fileURLToPath(import.meta.url));
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
@@ -11,6 +15,15 @@ const nextConfig: NextConfig = {
 
   // Evita que Turbopack bundle sanity/studio server-side (usan browser APIs)
   serverExternalPackages: ["sanity", "@sanity/ui", "@sanity/vision"],
+
+  // Las plantillas del Generador Social viven en <repo>/social-templates/.
+  // Next.js debe incluirlas en el bundle serverless para que las route handlers
+  // del admin las puedan leer en runtime.
+  outputFileTracingRoot: path.join(__dirname_, "..", ".."),
+  outputFileTracingIncludes: {
+    "/api/admin/social/**": ["../../social-templates/**/*.json", "../../social-templates/**/*.html"],
+    "/admin/social/**": ["../../social-templates/**/*.json", "../../social-templates/**/*.html"],
+  },
 
   images: {
     remotePatterns: [

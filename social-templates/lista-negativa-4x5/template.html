@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap');
+  :root {
+    --brand-primary: #047857;
+    --brand-bg: #0a0a0a;
+    --brand-fg: #fafaf9;
+    --brand-accent: #ff6f59;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; font-family: 'Inter', sans-serif; }
+  .post {
+    width: 1080px;
+    height: 1350px;
+    background: var(--brand-primary);
+    color: var(--brand-fg);
+    padding: 96px 80px 88px;
+    position: relative;
+    overflow: hidden;
+  }
+  .blob1, .blob2 {
+    position: absolute; border-radius: 50%; pointer-events: none;
+  }
+  .blob1 {
+    width: 420px; height: 420px;
+    background: rgba(0,0,0,0.25);
+    top: -140px; right: -120px;
+    opacity: 0.55;
+  }
+  .blob2 {
+    width: 280px; height: 280px;
+    background: var(--brand-accent);
+    bottom: -100px; left: -60px;
+    opacity: 0.16;
+  }
+  .kicker {
+    color: var(--brand-fg);
+    opacity: 0.65;
+    margin-bottom: 24px;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-size: 152px;
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+    font-weight: 900;
+    margin-bottom: 80px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--brand-accent);
+    font-weight: 900;
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    max-width: 880px;
+  }
+  .item {
+    display: flex;
+    gap: 26px;
+    align-items: flex-start;
+    border-top: 1.5px solid rgba(250,250,249,0.22);
+    padding-top: 24px;
+  }
+  .item__x {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--brand-accent);
+    color: #1a1a1a;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 1;
+  }
+  .item__text {
+    font-size: 34px;
+    line-height: 1.18;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    padding-top: 6px;
+  }
+  .brand-mark {
+    position: absolute;
+    bottom: 56px;
+    left: 80px;
+    color: var(--brand-fg);
+    font-size: 22px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+  }
+  .brand-mark__dot {
+    background: var(--brand-fg);
+    color: var(--brand-primary);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+</style>
+</head>
+<body>
+  <div class="post">
+    <span class="blob1"></span>
+    <span class="blob2"></span>
+    <p class="kicker">{{kicker}}</p>
+    <h1>{{titleStart}} <em>{{titleEmphasis}}</em><br/>{{titleEnd}}</h1>
+    <div class="list">
+      {{#each items}}
+      <div class="item">
+        <span class="item__x">&#x2715;</span>
+        <span class="item__text">{{this}}</span>
+      </div>
+      {{/each}}
+    </div>
+    <span class="brand-mark">
+      <span class="brand-mark__dot">{{brand.monogram}}</span>{{handle}}
+    </span>
+  </div>
+</body>
+</html>

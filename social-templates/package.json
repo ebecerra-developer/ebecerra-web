@@ -1,0 +1,15 @@
+{
+  "name": "@ebecerra/social-templates",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Biblioteca de plantillas + motor de render del Generador Social de ebecerra.",
+  "main": "engine.mjs",
+  "scripts": {
+    "render": "node render-job.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "playwright": "^1.48.0"
+  }
+}
