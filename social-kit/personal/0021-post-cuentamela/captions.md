@@ -26,7 +26,7 @@ Puerta abierta.
 ## Alt text
 
 ```
-Foto de Enrique Becerra sentado en su estudio mirando a cámara, con monitores y certificados detrás. Debajo, sobre fondo crema, texto serif: "¿Llevas tiempo dándole vueltas a una web? Cuéntamela por DM y la hablamos. Sin reuniones de una hora, sin formulario de 20 campos, sin propuesta automática al día siguiente. Si encaja, seguimos. Si no, te habré ahorrado tiempo." Eyebrow "PUERTA ABIERTA" en verde sage. Handle @ebecerra.es al pie.
+Foto de Enrique Becerra sentado en su estudio mirando a cámara, con monitores y certificados detrás. Debajo, sobre fondo crema, texto serif: "¿Llevas tiempo dándole vueltas a una web? Cuéntame tu idea por DM y vemos cómo convertirla en realidad. Sin reuniones de una hora, sin formulario de 20 campos, sin propuesta automática al día siguiente. Si encaja, seguimos. Si no, te habré ahorrado tiempo." Eyebrow "PUERTA ABIERTA" en verde sage. Handle @ebecerra.es con monograma eB al pie.
 ```
 
 ## Comentario fijado

@@ -43,7 +43,7 @@
   .photo img {
     width: 100%; height: 100%;
     object-fit: cover;
-    object-position: center 60%;
+    object-position: center 53%;
     display: block;
   }
   /* Suave fade hacia abajo para transición tonal foto → cream */
@@ -161,19 +161,25 @@
     position: absolute;
     bottom: 56px;
     left: 88px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
     font-family: "Inter", sans-serif;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 700;
     color: var(--ink);
     letter-spacing: -0.005em;
   }
   .handle .dot {
-    display: inline-block;
-    width: 10px; height: 10px;
+    width: 44px; height: 44px;
     border-radius: 50%;
     background: var(--green);
-    vertical-align: 2px;
-    margin-right: 10px;
+    color: var(--bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
   }
 </style>
 </head>
@@ -189,14 +195,14 @@
 
       <h1>¿Llevas tiempo<br/>dándole vueltas<br/>a una <em>web</em>?</h1>
 
-      <p class="body">Cuéntamela por DM y la hablamos.</p>
+      <p class="body">Cuéntame tu idea por DM y vemos cómo convertirla en realidad.</p>
 
       <p class="anti">Sin reuniones de una hora, sin formulario de 20 campos, sin propuesta automática al día siguiente.</p>
 
       <p class="closer">Si encaja, seguimos.<br/><span class="accent">Si no, te habré ahorrado tiempo.</span></p>
     </div>
 
-    <div class="handle"><span class="dot"></span>@ebecerra.es</div>
+    <div class="handle"><span class="dot">eB</span>@ebecerra.es</div>
 
   </div>
 </body>
