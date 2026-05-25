@@ -25,10 +25,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node 20
+      - name: Setup Node 22
+        # @supabase/supabase-js v2.50+ usa @supabase/realtime-js que requiere
+        # WebSocket nativo (Node 22+). En Node 20 falla con "Node.js 20 detected
+        # without native WebSocket support".
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: npm
           cache-dependency-path: social-templates/package.json
 
