@@ -29,15 +29,23 @@ export default async function ChatbotSessionDrilldown({
   } = await supabase.auth.getUser();
   if (!user?.email) redirect("/admin/login");
 
-  // Admin client (secret key) bypasea RLS — chatbot_messages es server-only.
   const admin = createSupabaseAdminClient();
   const { data: messages, error } = await admin
     .from("chatbot_messages")
-    .select("id, role, content, model, created_at, app")
+    .select("id, role, content, model, created_at, tenant_id")
     .eq("session_id", sessionId)
     .order("created_at", { ascending: true });
 
-  const app = messages?.[0]?.app;
+  const tenantId = messages?.[0]?.tenant_id ?? null;
+  let tenantSlug: string | null = null;
+  if (tenantId) {
+    const { data: t } = await admin
+      .from("tenants")
+      .select("slug")
+      .eq("id", tenantId)
+      .maybeSingle();
+    tenantSlug = (t?.slug as string | undefined) ?? null;
+  }
 
   return (
     <AdminShell activeSection="chatbot" userEmail={user.email}>
@@ -52,9 +60,9 @@ export default async function ChatbotSessionDrilldown({
 
       <div style={{ marginBottom: 20, display: "flex", alignItems: "center", gap: 12 }}>
         <h2 style={{ margin: 0 }}>Conversación</h2>
-        {app && (
-          <span className="admin-pill" data-app={app}>
-            {app}
+        {tenantSlug && (
+          <span className="admin-pill" data-app={tenantSlug}>
+            {tenantSlug}
           </span>
         )}
         <code

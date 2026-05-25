@@ -8,19 +8,13 @@ export const dynamic = "force-dynamic";
 
 type SessionRow = {
   session_id: string;
-  app: string;
+  tenant_id: string;
+  tenant_slug: string;
   message_count: number;
   first_at: string;
   last_at: string;
   preview: string;
 };
-
-const APPS = ["es", "tech", "demos", "llaullau"] as const;
-type App = (typeof APPS)[number];
-
-function isApp(value: string): value is App {
-  return (APPS as readonly string[]).includes(value);
-}
 
 function formatDateTime(iso: string): string {
   return new Date(iso).toLocaleString("es-ES", {
@@ -35,7 +29,7 @@ function formatDateTime(iso: string): string {
 export default async function ChatbotSessionsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ app?: string; q?: string; days?: string }>;
+  searchParams: Promise<{ tenant?: string; q?: string; days?: string }>;
 }) {
   const supabase = await createSupabaseServerClient();
   const {
@@ -44,44 +38,57 @@ export default async function ChatbotSessionsPage({
   if (!user?.email) redirect("/admin/login");
 
   const params = await searchParams;
-  const appFilter = params.app && isApp(params.app) ? params.app : null;
+  const tenantFilter = params.tenant?.trim() || null;
   const search = params.q?.trim() ?? "";
   const days = Number.parseInt(params.days ?? "30", 10) || 30;
 
-  // Server Component dinámico (force-dynamic): se ejecuta una vez por request,
-  // no es un componente reactivo. Date.now aquí es seguro.
+  // Server Component dinámico (force-dynamic): se ejecuta una vez por request.
   // eslint-disable-next-line react-hooks/purity
   const sinceIso = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
 
-  // Trae mensajes recientes y agrúpalos por session_id en memoria.
-  // Para volumen actual (decenas-cientos/día) es suficiente; cuando crezca
-  // se monta una vista materializada o una RPC con DISTINCT ON.
-  // Admin client bypasea RLS — la tabla chatbot_messages no tiene policy de
-  // SELECT (es server-only por diseño), así que el publishable key no puede leerla.
+  // Admin client bypasea RLS — chatbot_messages es server-only.
   const admin = createSupabaseAdminClient();
+
+  // 1. Tenants disponibles para filtrar + para mapear id→slug.
+  const { data: tenantsRaw } = await admin
+    .from("tenants")
+    .select("id, slug, name")
+    .neq("status", "archived")
+    .order("slug", { ascending: true });
+  const tenants = (tenantsRaw ?? []) as { id: string; slug: string; name: string }[];
+  const tenantById = new Map(tenants.map((t) => [t.id, t]));
+
+  // 2. Mensajes recientes. Filtra por tenant_id si hay filtro.
   let query = admin
     .from("chatbot_messages")
-    .select("session_id, app, role, content, created_at")
+    .select("session_id, tenant_id, role, content, created_at")
     .gte("created_at", sinceIso)
     .order("created_at", { ascending: false })
     .limit(2000);
 
-  if (appFilter) query = query.eq("app", appFilter);
+  if (tenantFilter) {
+    const t = tenants.find((x) => x.slug === tenantFilter);
+    if (t) query = query.eq("tenant_id", t.id);
+  }
   if (search) query = query.ilike("content", `%${search}%`);
 
   const { data: rows, error } = await query;
 
-  const sessions: Map<string, SessionRow> = new Map();
+  const sessions = new Map<string, SessionRow>();
   if (rows) {
-    // Recorrido en orden DESC: el primero que veamos de cada session_id es
-    // el más reciente (last_at) y suele ser el assistant. Buscamos también
-    // un user para preview.
-    for (const row of rows) {
+    for (const row of rows as {
+      session_id: string;
+      tenant_id: string;
+      role: string;
+      content: string;
+      created_at: string;
+    }[]) {
       let entry = sessions.get(row.session_id);
       if (!entry) {
         entry = {
           session_id: row.session_id,
-          app: row.app,
+          tenant_id: row.tenant_id,
+          tenant_slug: tenantById.get(row.tenant_id)?.slug ?? "—",
           message_count: 0,
           first_at: row.created_at,
           last_at: row.created_at,
@@ -90,10 +97,8 @@ export default async function ChatbotSessionsPage({
         sessions.set(row.session_id, entry);
       }
       entry.message_count += 1;
-      // El primero que encontramos (DESC) es el más reciente.
       if (row.created_at > entry.last_at) entry.last_at = row.created_at;
       if (row.created_at < entry.first_at) entry.first_at = row.created_at;
-      // Preview: el primer mensaje del usuario que veamos (más reciente).
       if (!entry.preview && row.role === "user") {
         entry.preview = row.content.slice(0, 120);
       }
@@ -110,12 +115,12 @@ export default async function ChatbotSessionsPage({
 
       <form className="admin-filters" method="get">
         <label>
-          App
-          <select name="app" defaultValue={appFilter ?? ""}>
-            <option value="">Todas</option>
-            {APPS.map((a) => (
-              <option key={a} value={a}>
-                {a}
+          Tenant
+          <select name="tenant" defaultValue={tenantFilter ?? ""}>
+            <option value="">Todos</option>
+            {tenants.map((t) => (
+              <option key={t.id} value={t.slug}>
+                {t.slug}
               </option>
             ))}
           </select>
@@ -138,19 +143,7 @@ export default async function ChatbotSessionsPage({
             placeholder="palabra clave…"
           />
         </label>
-        <button
-          type="submit"
-          style={{
-            background: "transparent",
-            border: "1px solid #44403c",
-            color: "#d6d3d1",
-            fontFamily: "inherit",
-            fontSize: "12px",
-            padding: "4px 12px",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
+        <button type="submit" className="admin-btn">
           Filtrar
         </button>
       </form>
@@ -163,7 +156,7 @@ export default async function ChatbotSessionsPage({
 
       {!error && sortedSessions.length === 0 && (
         <div className="admin-empty">
-          {search || appFilter
+          {search || tenantFilter
             ? "No hay conversaciones que coincidan con los filtros."
             : "No hay conversaciones aún. Cuando alguien use el chatbot, aparecerán aquí."}
         </div>
@@ -174,7 +167,7 @@ export default async function ChatbotSessionsPage({
           <thead>
             <tr>
               <th>Última actividad</th>
-              <th>App</th>
+              <th>Tenant</th>
               <th>Mensajes</th>
               <th>Primer mensaje del usuario</th>
               <th></th>
@@ -185,8 +178,8 @@ export default async function ChatbotSessionsPage({
               <tr key={s.session_id}>
                 <td>{formatDateTime(s.last_at)}</td>
                 <td>
-                  <span className="admin-pill" data-app={s.app}>
-                    {s.app}
+                  <span className="admin-pill" data-app={s.tenant_slug}>
+                    {s.tenant_slug}
                   </span>
                 </td>
                 <td>{s.message_count}</td>

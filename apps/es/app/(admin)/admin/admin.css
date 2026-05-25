@@ -1,92 +1,15 @@
-/* Admin: hoja minimalista, dark, monoespaciada. Sin tokens compartidos con el
-   sitio público — el admin es una herramienta interna, no parte del producto. */
+/* Admin: hoja con utilidades de tabla, pill, message, filtros y login.
+   El layout (shell / header / sub-nav / footer / user menu) viene del SDK
+   @ebecerra/client-admin-sdk vía admin-base.css + brand-bridge.css. */
 
 .admin-body {
   margin: 0;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 14px;
   line-height: 1.5;
-  color: #e7e5e4;
-  background: #0a0a0a;
   min-height: 100vh;
 }
 
-.admin-shell {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px 20px 80px;
-}
-
-.admin-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #292524;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.admin-header h1 {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #fafaf9;
-}
-
-.admin-nav {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.admin-nav a {
-  color: #a8a29e;
-  text-decoration: none;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 13px;
-}
-
-.admin-nav a:hover,
-.admin-nav a[data-active="true"] {
-  color: #fafaf9;
-  background: #1c1917;
-}
-
-.admin-user {
-  font-size: 12px;
-  color: #78716c;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.admin-user form {
-  display: inline;
-}
-
-.admin-user button {
-  background: transparent;
-  border: 1px solid #44403c;
-  color: #d6d3d1;
-  font-family: inherit;
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.admin-user button:hover {
-  border-color: #78716c;
-  color: #fafaf9;
-}
-
-.admin-section h2 {
+.admin-shell h2 {
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;

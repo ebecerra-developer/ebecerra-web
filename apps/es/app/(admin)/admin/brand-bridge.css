@@ -1,0 +1,31 @@
+/* ==========================================================================
+   ebecerra.es · brand-bridge.css — admin operador (dark stone + verde bosque)
+   --------------------------------------------------------------------------
+   El admin de apps/es es la consola interna del operador (Enrique). Mantiene
+   estética dark/herramienta, distinta del sitio público (pro mode claro).
+   Comparte estructura (header / sub-nav / footer) con el resto de admins del
+   ecosistema vía @ebecerra/client-admin-sdk.
+   ========================================================================== */
+
+.admin-shell {
+  --admin-bg: #0a0a0a;
+  --admin-bg-deep: #050505;
+  --admin-surface: #141312;
+  --admin-surface-2: #0d0d0d;
+  --admin-border: #1c1917;
+  --admin-border-strong: #292524;
+  --admin-text: #e7e5e4;
+  --admin-text-soft: #d6d3d1;
+  --admin-text-muted: #78716c;
+  --admin-primary: #84cc16;
+  --admin-primary-strong: #65a30d;
+  --admin-primary-soft: rgba(132, 204, 22, 0.14);
+  --admin-on-primary: #14210a;
+  --admin-accent: #38bdf8;
+  --admin-error: #ef4444;
+  --admin-success: #84cc16;
+
+  --admin-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --admin-font-display: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --admin-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
