@@ -132,19 +132,6 @@ export default function JobStatusPoller({
           <div style={{ color: "#78716c", fontSize: 12, marginTop: 12 }}>
             El proceso suele tardar 30-60 segundos.
           </div>
-          {/* Link técnico SOLO para operators */}
-          {isOperator && runUrl && (
-            <div style={{ marginTop: 16 }}>
-              <a
-                href={runUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "#57534e", fontSize: 11, textDecoration: "none" }}
-              >
-                ver progreso técnico
-              </a>
-            </div>
-          )}
         </div>
       )}
 
