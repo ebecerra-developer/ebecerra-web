@@ -68,24 +68,36 @@ export function render(html, scope) {
 }
 
 /**
- * Inyecta tokens de marca como CSS vars en el <head>.
+ * Inyecta tokens de marca como CSS vars + carga las fuentes de Google.
  * @param {string} html
- * @param {object} brand — { primary, bg, fg, accent, logoUrl }
+ * @param {object} brand — { bg, fg, primary, accent, logoUrl, logoInverseUrl, monogram, fontDisplay, fontBody }
  * @returns {string}
  */
 export function injectBrandTokens(html, brand) {
-  const vars = Object.entries(brand)
-    .filter(([k, v]) => v != null && v !== "" && k !== "monogram")
-    .map(([k, v]) => `--brand-${kebab(k)}: ${v};`)
-    .join(" ");
-  if (!vars) return html;
-  const styleTag = `<style id="brand-tokens">:root{${vars}}</style>`;
-  if (html.includes("</head>")) return html.replace("</head>", `${styleTag}</head>`);
-  return styleTag + html;
-}
+  const vars = [];
+  if (brand.bg) vars.push(`--brand-bg: ${brand.bg};`);
+  if (brand.fg) vars.push(`--brand-fg: ${brand.fg};`);
+  if (brand.primary) vars.push(`--brand-primary: ${brand.primary};`);
+  if (brand.accent) vars.push(`--brand-accent: ${brand.accent};`);
+  if (brand.fontDisplay) vars.push(`--brand-font-display: '${brand.fontDisplay}', serif;`);
+  if (brand.fontBody) vars.push(`--brand-font-body: '${brand.fontBody}', sans-serif;`);
 
-function kebab(s) {
-  return s.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
+  // Carga ambas familias desde Google Fonts (las plantillas suelen usar weights 600-900).
+  const fontFamilies = new Set();
+  if (brand.fontDisplay) fontFamilies.add(brand.fontDisplay);
+  if (brand.fontBody) fontFamilies.add(brand.fontBody);
+  const fontParams = [...fontFamilies]
+    .map((f) => `family=${f.replace(/\s+/g, "+")}:wght@400;600;700;800;900`)
+    .join("&");
+  const fontLink = fontParams
+    ? `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?${fontParams}&display=swap">`
+    : "";
+
+  const styleTag = `<style id="brand-tokens">:root{${vars.join(" ")}}</style>`;
+  const inject = fontLink + styleTag;
+
+  if (html.includes("</head>")) return html.replace("</head>", `${inject}</head>`);
+  return inject + html;
 }
 
 /**

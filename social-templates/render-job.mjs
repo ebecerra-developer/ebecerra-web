@@ -113,14 +113,18 @@ async function main() {
     return fail(`Campos inválidos: ${validation.errors.join("; ")}`);
   }
 
-  // 5) Resolver branding del tenant (si hay tenant_id)
+  // 5) Resolver branding del tenant (si hay tenant_id) desde tenant_branding.
+  // Fuente canónica única — no leer de booking_tenants ni chatbot_configs aquí.
   let brand = {
-    primary: "#047857",
     bg: "#0a0a0a",
     fg: "#fafaf9",
+    primary: "#047857",
     accent: "#ff6f59",
     logoUrl: null,
+    logoInverseUrl: null,
     monogram: "eB",
+    fontDisplay: "Inter",
+    fontBody: "Inter",
   };
   let tenantSlug = "_personal";
   if (job.tenant_id) {
@@ -131,19 +135,32 @@ async function main() {
       .maybeSingle();
     if (tenant) tenantSlug = tenant.slug;
 
-    // Branding desde booking_tenants si existe (es donde guardamos branding granular).
-    const { data: bt } = await supabase
-      .from("booking_tenants")
-      .select("branding_color_primary, branding_logo_url, name")
+    const { data: tb } = await supabase
+      .from("tenant_branding")
+      .select("bg, fg, primary_color, accent, logo_url, logo_inverse_url, monogram, font_display, font_body")
       .eq("tenant_id", job.tenant_id)
       .maybeSingle();
-    if (bt?.branding_color_primary) brand.primary = bt.branding_color_primary;
-    if (bt?.branding_logo_url) brand.logoUrl = bt.branding_logo_url;
-    if (bt?.name) brand.monogram = monogramFor(bt.name);
-    else if (tenant?.name) brand.monogram = monogramFor(tenant.name);
+    if (tb) {
+      brand.bg = tb.bg ?? brand.bg;
+      brand.fg = tb.fg ?? brand.fg;
+      brand.primary = tb.primary_color ?? brand.primary;
+      brand.accent = tb.accent ?? brand.accent;
+      brand.logoUrl = tb.logo_url ?? null;
+      brand.logoInverseUrl = tb.logo_inverse_url ?? null;
+      brand.monogram = tb.monogram ?? monogramFor(tenant?.name ?? "");
+      brand.fontDisplay = tb.font_display ?? brand.fontDisplay;
+      brand.fontBody = tb.font_body ?? brand.fontBody;
+    } else if (tenant?.name) {
+      brand.monogram = monogramFor(tenant.name);
+    }
   }
 
-  // 6) Renderizar HTML
+  // 6) Pre-render del bloque marca (logo img o monograma) — el motor no soporta ifs.
+  brand.markHtml = brand.logoUrl
+    ? `<img src="${brand.logoUrl}" class="brand-mark__logo" alt="${brand.monogram}" />`
+    : `<span class="brand-mark__dot">${brand.monogram}</span>`;
+
+  // 7) Renderizar HTML
   let html = injectBrandTokens(tpl.html, brand);
   html = render(html, { ...validation.value, brand });
 

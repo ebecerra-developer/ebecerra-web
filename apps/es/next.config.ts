@@ -21,8 +21,16 @@ const nextConfig: NextConfig = {
   // del admin las puedan leer en runtime.
   outputFileTracingRoot: path.join(__dirname_, "..", ".."),
   outputFileTracingIncludes: {
-    "/api/admin/social/**": ["../../social-templates/**/*.json", "../../social-templates/**/*.html"],
-    "/admin/social/**": ["../../social-templates/**/*.json", "../../social-templates/**/*.html"],
+    "/api/admin/social/**": [
+      "../../social-templates/**/*.json",
+      "../../social-templates/**/*.html",
+      "../../social-templates/*.mjs",
+    ],
+    "/admin/social/**": [
+      "../../social-templates/**/*.json",
+      "../../social-templates/**/*.html",
+      "../../social-templates/*.mjs",
+    ],
   },
 
   images: {

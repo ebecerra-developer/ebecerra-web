@@ -64,6 +64,7 @@ export default async function JobPage({
         initialSignedUrl={signedUrl}
         initialError={job.error_message}
         initialRunUrl={job.gh_run_url}
+        isOperator={me.isOperator}
       />
     </AdminShell>
   );

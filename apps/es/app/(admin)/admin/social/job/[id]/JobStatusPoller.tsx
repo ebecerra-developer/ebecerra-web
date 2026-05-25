@@ -8,9 +8,26 @@ interface Props {
   initialSignedUrl: string | null;
   initialError: string | null;
   initialRunUrl: string | null;
+  isOperator: boolean;
 }
 
 const POLL_MS = 3000;
+
+// Mensajes rotativos durante el render — dan sensación de progreso
+// aunque GH Actions no expone steps en tiempo real.
+const PROGRESS_MESSAGES = [
+  "Analizando plantilla…",
+  "Preparando lienzo…",
+  "Aplicando paleta de marca…",
+  "Componiendo tipografías…",
+  "Acomodando elementos…",
+  "Cargando recursos visuales…",
+  "Pintando capas…",
+  "Refinando detalles…",
+  "Generando imagen final…",
+  "Subiendo a la nube…",
+];
+const ROTATE_MS = 2500;
 
 export default function JobStatusPoller({
   jobId,
@@ -18,12 +35,15 @@ export default function JobStatusPoller({
   initialSignedUrl,
   initialError,
   initialRunUrl,
+  isOperator,
 }: Props) {
   const [status, setStatus] = useState(initialStatus);
   const [signedUrl, setSignedUrl] = useState(initialSignedUrl);
   const [error, setError] = useState(initialError);
   const [runUrl, setRunUrl] = useState(initialRunUrl);
+  const [msgIdx, setMsgIdx] = useState(0);
 
+  // Polling de estado del job
   useEffect(() => {
     if (status === "done" || status === "failed" || status === "cancelled") return;
     let cancelled = false;
@@ -42,7 +62,7 @@ export default function JobStatusPoller({
         setRunUrl(data.job.gh_run_url);
         if (data.signedUrl) setSignedUrl(data.signedUrl);
       } catch {
-        // silencio — siguiente tick lo reintenta
+        // silencio — siguiente tick reintenta
       }
     }
 
@@ -53,6 +73,15 @@ export default function JobStatusPoller({
       clearInterval(interval);
     };
   }, [jobId, status]);
+
+  // Rotación de mensajes mientras está queued/rendering
+  useEffect(() => {
+    if (status !== "queued" && status !== "rendering") return;
+    const interval = setInterval(() => {
+      setMsgIdx((i) => (i + 1) % PROGRESS_MESSAGES.length);
+    }, ROTATE_MS);
+    return () => clearInterval(interval);
+  }, [status]);
 
   return (
     <div>
@@ -66,27 +95,55 @@ export default function JobStatusPoller({
       {(status === "queued" || status === "rendering") && (
         <div
           style={{
-            padding: 24,
-            border: "1px dashed #44403c",
-            borderRadius: 6,
-            color: "#a8a29e",
+            padding: 32,
+            border: "1px solid #44403c",
+            borderRadius: 8,
+            background: "#0c0a09",
             textAlign: "center",
+            maxWidth: 540,
           }}
         >
-          <div style={{ marginBottom: 12 }}>
-            {status === "queued"
-              ? "En cola — esperando a que arranque el worker…"
-              : "Renderizando… (Playwright + GitHub Actions, ~30-60s)"}
+          {/* Spinner sobrio */}
+          <div
+            aria-hidden="true"
+            style={{
+              width: 32,
+              height: 32,
+              border: "3px solid #292524",
+              borderTopColor: "#047857",
+              borderRadius: "50%",
+              margin: "0 auto 20px",
+              animation: "spin 0.9s linear infinite",
+            }}
+          />
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+          <div
+            key={msgIdx}
+            style={{
+              color: "#e7e5e4",
+              fontSize: 15,
+              fontWeight: 500,
+              animation: "fadeIn 0.5s ease",
+            }}
+          >
+            {PROGRESS_MESSAGES[msgIdx]}
           </div>
-          {runUrl && (
-            <a
-              href={runUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "#34d399", fontSize: 13 }}
-            >
-              Ver run en GitHub Actions →
-            </a>
+          <style>{`@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }`}</style>
+          <div style={{ color: "#78716c", fontSize: 12, marginTop: 12 }}>
+            El proceso suele tardar 30-60 segundos.
+          </div>
+          {/* Link técnico SOLO para operators */}
+          {isOperator && runUrl && (
+            <div style={{ marginTop: 16 }}>
+              <a
+                href={runUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#57534e", fontSize: 11, textDecoration: "none" }}
+              >
+                ver progreso técnico
+              </a>
+            </div>
           )}
         </div>
       )}
@@ -101,16 +158,20 @@ export default function JobStatusPoller({
             color: "#fecaca",
           }}
         >
-          <div style={{ fontWeight: 600, marginBottom: 8 }}>Render fallido</div>
-          <div style={{ fontSize: 13, fontFamily: "monospace" }}>{error ?? "Sin detalles"}</div>
-          {runUrl && (
+          <div style={{ fontWeight: 600, marginBottom: 8 }}>
+            No hemos podido generar la imagen
+          </div>
+          <div style={{ fontSize: 13 }}>
+            {isOperator ? (error ?? "Sin detalles") : "Algo ha fallado durante el render. Vuelve a intentarlo o avísanos si persiste."}
+          </div>
+          {isOperator && runUrl && (
             <a
               href={runUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "#fca5a5", fontSize: 13, display: "block", marginTop: 12 }}
             >
-              Ver logs en GitHub →
+              Ver logs técnicos →
             </a>
           )}
         </div>
