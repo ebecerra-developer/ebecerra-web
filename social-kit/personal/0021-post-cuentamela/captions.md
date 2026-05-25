@@ -13,9 +13,9 @@ Llevo días viendo a gente dándole vueltas a si "necesita una web" o no, si aho
 
 Si te suena, abre el DM y la hablamos.
 
-Te digo qué pienso, qué se puede simplificar, por dónde empezarías. Sin reuniones de una hora, sin formulario de 20 campos, sin propuesta automática al día siguiente.
+Sin reuniones de una hora, sin formulario de 20 campos, sin propuesta automática al día siguiente.
 
-Si encaja, hablamos.
+Si encaja, seguimos.
 Si no, te habré ahorrado tiempo.
 
 Puerta abierta.
@@ -26,7 +26,7 @@ Puerta abierta.
 ## Alt text
 
 ```
-Foto de Enrique Becerra sentado en su estudio mirando a cámara, con monitores y certificados detrás. Encima, sobre fondo crema, texto serif: "¿Llevas tiempo dándole vueltas a una web? Cuéntamela por DM. Te digo qué pienso, qué se puede simplificar, por dónde empezarías. Sin reuniones de una hora, sin formulario de 20 campos, sin propuesta automática al día siguiente. Si encaja, hablamos. Si no, te habré ahorrado tiempo." Eyebrow "PUERTA ABIERTA" en verde sage. Handle @ebecerra.es al pie.
+Foto de Enrique Becerra sentado en su estudio mirando a cámara, con monitores y certificados detrás. Debajo, sobre fondo crema, texto serif: "¿Llevas tiempo dándole vueltas a una web? Cuéntamela por DM y la hablamos. Sin reuniones de una hora, sin formulario de 20 campos, sin propuesta automática al día siguiente. Si encaja, seguimos. Si no, te habré ahorrado tiempo." Eyebrow "PUERTA ABIERTA" en verde sage. Handle @ebecerra.es al pie.
 ```
 
 ## Comentario fijado
