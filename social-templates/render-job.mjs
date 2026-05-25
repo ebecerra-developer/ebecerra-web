@@ -18,17 +18,24 @@
 //
 // La UI del admin recibe el cambio vía Supabase Realtime y muestra el resultado.
 
+console.log("[render-job] node booted, loading modules…");
+
 import { createClient } from "@supabase/supabase-js";
 import { chromium } from "playwright";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { render, injectBrandTokens, loadTemplate, validateFields } from "./engine.mjs";
 
+console.log("[render-job] modules loaded");
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const JOB_ID = process.env.JOB_ID;
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
+// .trim() es crítico: copy-paste de secrets en GitHub a veces incluye trailing \n.
+const JOB_ID = process.env.JOB_ID?.trim();
+const SUPABASE_URL = process.env.SUPABASE_URL?.trim();
+const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY?.trim();
+
+console.log(`[render-job] env check — JOB_ID:${JOB_ID ? "ok" : "MISSING"} URL:${SUPABASE_URL ? `ok(${SUPABASE_URL.length})` : "MISSING"} KEY:${SUPABASE_SECRET_KEY ? `ok(${SUPABASE_SECRET_KEY.length})` : "MISSING"}`);
 const GH_RUN_ID = process.env.GITHUB_RUN_ID ?? null;
 const GH_RUN_URL = (process.env.GITHUB_SERVER_URL && process.env.GITHUB_REPOSITORY && GH_RUN_ID)
   ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${GH_RUN_ID}`
@@ -46,16 +53,22 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SECRET_KEY, {
 const t0 = Date.now();
 
 async function fail(message, err) {
-  console.error(`[render-job] FAIL — ${message}`, err ?? "");
-  await supabase
-    .from("social_render_jobs")
-    .update({
-      status: "failed",
-      error_message: message + (err?.message ? `: ${err.message}` : ""),
-      completed_at: new Date().toISOString(),
-      duration_ms: Date.now() - t0,
-    })
-    .eq("id", JOB_ID);
+  console.error(`[render-job] FAIL — ${message}`);
+  if (err) console.error(err.stack ?? err.message ?? err);
+  try {
+    const { error: updErr } = await supabase
+      .from("social_render_jobs")
+      .update({
+        status: "failed",
+        error_message: message + (err?.message ? `: ${err.message}` : ""),
+        completed_at: new Date().toISOString(),
+        duration_ms: Date.now() - t0,
+      })
+      .eq("id", JOB_ID);
+    if (updErr) console.error("[render-job] DB update for fail() also failed:", updErr);
+  } catch (e) {
+    console.error("[render-job] fail() update threw:", e);
+  }
   process.exit(1);
 }
 

@@ -64,6 +64,25 @@ jobs:
           fi
           exit $missing
 
+      - name: Ping Supabase REST (aisla red/auth del script)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          # Trim posibles \n por copy-paste
+          URL="$(echo -n "$SUPABASE_URL" | tr -d '[:space:]')"
+          KEY="$(echo -n "$SUPABASE_SECRET_KEY" | tr -d '[:space:]')"
+          echo "URL hash: $(echo -n "$URL" | sha256sum | cut -c1-12)"
+          echo "KEY hash: $(echo -n "$KEY" | sha256sum | cut -c1-12)"
+          code="$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
+            "$URL/rest/v1/social_render_jobs?select=id&limit=1")"
+          echo "Supabase REST status: $code"
+          if [ "$code" != "200" ]; then
+            echo "::error::Supabase REST devolvió $code — revisa URL/KEY"
+            exit 1
+          fi
+
       - name: Render job
         env:
           JOB_ID: ${{ inputs.job_id }}
