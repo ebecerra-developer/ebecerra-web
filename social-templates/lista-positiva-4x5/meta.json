@@ -1,0 +1,29 @@
+{
+  "id": "lista-positiva-4x5",
+  "name": "Lista positiva (post 4:5)",
+  "description": "Post oscuro con kicker, titular afirmativo y lista de ítems con ✓. Estética más serena que lista-negativa, sin blobs. Ideal para 'Lo que SÍ hago' / 'Lo que incluye'.",
+  "format": "post-4x5",
+  "width": 1080,
+  "height": 1350,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Antetítulo (kicker)", "maxLength": 40, "default": "// lo que incluye" },
+    { "id": "titleStart", "type": "text", "label": "Título — antes del énfasis", "maxLength": 30, "required": true, "default": "Lo que" },
+    { "id": "titleEmphasis", "type": "text", "label": "Título — palabra en énfasis", "maxLength": 10, "required": true, "default": "" },
+    { "id": "titleEnd", "type": "text", "label": "Título — después del énfasis", "maxLength": 30, "default": "hago." },
+    {
+      "id": "items",
+      "type": "list",
+      "label": "Ítems con ✓",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemMaxLength": 70,
+      "default": [
+        "Diseño desde cero, sin plantillas.",
+        "Código limpio y mantenible.",
+        "Mantenimiento y soporte directo.",
+        "Acompañamiento durante todo el proceso."
+      ]
+    },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "ebecerra.es" }
+  ]
+}

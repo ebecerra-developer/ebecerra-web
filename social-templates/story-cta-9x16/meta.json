@@ -1,0 +1,30 @@
+{
+  "id": "story-cta-9x16",
+  "name": "Story — CTA con badge (9:16)",
+  "description": "Story con título, cuerpo explicativo y un CTA tipo botón al pie en color acento. Para empujar a acción: contacto, deslizar, leer.",
+  "format": "story-9x16",
+  "width": 1080,
+  "height": 1920,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Antetítulo (kicker)", "maxLength": 40, "default": "// ahora mismo" },
+    {
+      "id": "title", "type": "text", "label": "Título principal",
+      "help": "Frase grande, 3-8 palabras.",
+      "maxLength": 50, "required": true,
+      "default": "Tu web puede vivir."
+    },
+    {
+      "id": "body", "type": "textarea", "label": "Cuerpo",
+      "help": "Desarrollo en 1-3 frases.",
+      "maxLength": 240,
+      "default": "No tiene que ser un PDF estático. Animaciones sutiles, interacciones que enseñan, copy que respira. Eso vendes tú, no el resto."
+    },
+    {
+      "id": "ctaText", "type": "text", "label": "Texto del CTA",
+      "help": "Llamada a acción del badge inferior. 2-4 palabras.",
+      "maxLength": 24, "required": true,
+      "default": "Deslízate y mira"
+    },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "ebecerra.es" }
+  ]
+}

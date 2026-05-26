@@ -1,0 +1,31 @@
+{
+  "id": "comparison-4x5",
+  "name": "Comparativa A vs B (post 4:5)",
+  "description": "Layout split-vertical para contraponer dos opciones, momentos o estados. Antes/Después, Esto/No esto, A/B.",
+  "format": "post-4x5",
+  "width": 1080,
+  "height": 1350,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Antetítulo (kicker)", "maxLength": 40, "default": "// la diferencia" },
+    { "id": "title", "type": "text", "label": "Título principal", "maxLength": 28, "required": true, "default": "Web propia vs plantilla" },
+    {
+      "id": "leftLabel", "type": "text", "label": "Etiqueta columna izquierda", "maxLength": 18,
+      "required": true, "default": "Plantilla"
+    },
+    {
+      "id": "leftItems", "type": "list", "label": "Ítems columna izquierda (✕)",
+      "minItems": 2, "maxItems": 5, "itemMaxLength": 36,
+      "default": ["Igual que todas", "No es tuya del todo", "Suscripción mensual", "Cambios limitados"]
+    },
+    {
+      "id": "rightLabel", "type": "text", "label": "Etiqueta columna derecha", "maxLength": 18,
+      "required": true, "default": "A medida"
+    },
+    {
+      "id": "rightItems", "type": "list", "label": "Ítems columna derecha (✓)",
+      "minItems": 2, "maxItems": 5, "itemMaxLength": 36,
+      "default": ["Tu marca, tu personalidad", "Código a tu nombre", "Sin permanencias", "Cambias lo que quieras"]
+    },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "ebecerra.es" }
+  ]
+}

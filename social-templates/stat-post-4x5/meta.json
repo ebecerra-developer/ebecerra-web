@@ -1,0 +1,38 @@
+{
+  "id": "stat-post-4x5",
+  "name": "Cifra protagonista (post 4:5)",
+  "description": "Número o ratio gigantesco como protagonista visual, con frase explicativa y línea de contexto. Para resultados, datos, hitos.",
+  "format": "post-4x5",
+  "width": 1080,
+  "height": 1350,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Antetítulo (kicker)", "maxLength": 40, "default": "// resultados" },
+    {
+      "id": "bigNumber",
+      "type": "text",
+      "label": "Número o cifra protagonista",
+      "help": "Ej: '+150%', '1 de 3', '8/10', '€399'. Corto: 2-7 caracteres funciona mejor.",
+      "maxLength": 12,
+      "required": true,
+      "default": "+150%"
+    },
+    {
+      "id": "description",
+      "type": "textarea",
+      "label": "Qué significa esa cifra",
+      "help": "Explicación principal en 1-2 líneas.",
+      "maxLength": 140,
+      "required": true,
+      "default": "Más velocidad de carga tras migrar a Next.js"
+    },
+    {
+      "id": "contextLine",
+      "type": "text",
+      "label": "Línea de contexto (opcional)",
+      "help": "Detalle pequeño debajo: fuente, plazo, etc.",
+      "maxLength": 80,
+      "default": "Medido con Lighthouse · proyecto eCommerce 2025"
+    },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "ebecerra.es" }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "quote-post-4x5",
+  "name": "Cita editorial (post 4:5)",
+  "description": "Cita protagonista en serif gigante, comillas decorativas y atribución de autor al pie. Editorial, sobria, universal.",
+  "format": "post-4x5",
+  "width": 1080,
+  "height": 1350,
+  "fields": [
+    {
+      "id": "quote",
+      "type": "textarea",
+      "label": "Cita",
+      "help": "El texto protagonista. Una frase potente, 10-30 palabras suele funcionar mejor.",
+      "maxLength": 280,
+      "required": true,
+      "default": "El mejor diseño es el que nadie nota porque todo funciona como esperabas."
+    },
+    {
+      "id": "author",
+      "type": "text",
+      "label": "Autor",
+      "help": "Nombre de quien dice la cita.",
+      "maxLength": 50,
+      "required": true,
+      "default": "Enrique Becerra"
+    },
+    {
+      "id": "authorRole",
+      "type": "text",
+      "label": "Rol / contexto (opcional)",
+      "help": "Cargo, proyecto o contexto debajo del nombre.",
+      "maxLength": 60,
+      "default": "ebecerra.es"
+    },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "ebecerra.es" }
+  ]
+}

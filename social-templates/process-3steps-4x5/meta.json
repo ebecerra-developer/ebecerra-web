@@ -1,0 +1,19 @@
+{
+  "id": "process-3steps-4x5",
+  "name": "Proceso en 3 pasos (post 4:5)",
+  "description": "Layout de proceso con 3 cajas verticales numeradas, conectores y un título cabecera. Para 'Cómo trabajamos', '3 fases', onboarding.",
+  "format": "post-4x5",
+  "width": 1080,
+  "height": 1350,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Antetítulo (kicker)", "maxLength": 40, "default": "// proceso" },
+    { "id": "title", "type": "text", "label": "Título principal", "maxLength": 30, "required": true, "default": "Cómo trabajamos." },
+    { "id": "step1Title", "type": "text", "label": "Paso 1 — título", "maxLength": 26, "default": "Conversación inicial" },
+    { "id": "step1Desc", "type": "text", "label": "Paso 1 — descripción", "maxLength": 90, "default": "Te escucho sin prisa para entender qué necesitas de verdad." },
+    { "id": "step2Title", "type": "text", "label": "Paso 2 — título", "maxLength": 26, "default": "Diseño a tu medida" },
+    { "id": "step2Desc", "type": "text", "label": "Paso 2 — descripción", "maxLength": 90, "default": "Validamos cada bloque antes de avanzar. Sin sorpresas." },
+    { "id": "step3Title", "type": "text", "label": "Paso 3 — título", "maxLength": 26, "default": "Entrega y soporte" },
+    { "id": "step3Desc", "type": "text", "label": "Paso 3 — descripción", "maxLength": 90, "default": "Te entrego con dominio y código a tu nombre. Sigo disponible." },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "ebecerra.es" }
+  ]
+}

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --brand-bg: #047857;
+    --brand-fg: #fafaf9;
+    --brand-primary: #065f46;
+    --brand-accent: #ff6f59;
+    --brand-font-display: 'Inter', sans-serif;
+    --brand-font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; font-family: var(--brand-font-body); }
+  .post {
+    width: 1080px; height: 1350px;
+    background: var(--brand-bg);
+    color: var(--brand-fg);
+    padding: 90px 70px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kicker {
+    color: var(--brand-fg); opacity: 0.6;
+    margin-bottom: 16px; text-align: center;
+    font-size: 19px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  h1 {
+    font-family: var(--brand-font-display);
+    font-size: 70px; line-height: 1; letter-spacing: -0.035em;
+    font-weight: 900; margin-bottom: 56px; text-align: center;
+  }
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .col {
+    border-radius: 24px;
+    padding: 36px 30px;
+  }
+  .col--left {
+    background: color-mix(in srgb, #000 22%, var(--brand-bg));
+    opacity: 0.92;
+  }
+  .col--right {
+    background: var(--brand-accent);
+    color: var(--brand-bg);
+  }
+  .col__label {
+    font-size: 24px; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 26px;
+    opacity: 0.85;
+  }
+  .col__list { display: flex; flex-direction: column; gap: 18px; }
+  .col__item {
+    display: flex; gap: 16px; align-items: flex-start;
+    font-size: 26px; line-height: 1.22;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .col__icon {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 20px;
+    line-height: 1;
+  }
+  .col--left .col__icon {
+    background: color-mix(in srgb, var(--brand-fg) 22%, transparent);
+    color: var(--brand-fg);
+  }
+  .col--right .col__icon {
+    background: var(--brand-bg);
+    color: var(--brand-accent);
+  }
+  .brand-mark {
+    position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+    color: var(--brand-fg); font-size: 22px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .brand-mark__logo { height: 36px; width: auto; display: block; }
+  .brand-mark__dot {
+    background: var(--brand-fg); color: var(--brand-bg);
+    width: 32px; height: 32px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px;
+  }
+</style>
+</head>
+<body>
+  <div class="post">
+    <p class="kicker">{{kicker}}</p>
+    <h1>{{title}}</h1>
+    <div class="split">
+      <div class="col col--left">
+        <div class="col__label">{{leftLabel}}</div>
+        <div class="col__list">
+          {{#each leftItems}}
+          <div class="col__item">
+            <span class="col__icon">&#x2715;</span>
+            <span>{{this}}</span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="col col--right">
+        <div class="col__label">{{rightLabel}}</div>
+        <div class="col__list">
+          {{#each rightItems}}
+          <div class="col__item">
+            <span class="col__icon">&#x2713;</span>
+            <span>{{this}}</span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <span class="brand-mark">{{{brand.markHtml}}}{{handle}}</span>
+  </div>
+</body>
+</html>

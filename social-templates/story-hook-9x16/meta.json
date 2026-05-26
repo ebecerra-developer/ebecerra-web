@@ -1,0 +1,29 @@
+{
+  "id": "story-hook-9x16",
+  "name": "Story — Hook gigante (9:16)",
+  "description": "Story de Instagram/Reels con un mensaje hook protagonista centrado. Una sola idea, máximo impacto. Para abrir una serie, lanzar pregunta, anunciar.",
+  "format": "story-9x16",
+  "width": 1080,
+  "height": 1920,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Etiqueta superior (opcional)", "maxLength": 40, "default": "// pregunta del día" },
+    {
+      "id": "hook",
+      "type": "textarea",
+      "label": "Hook protagonista",
+      "help": "El mensaje grande. Una sola idea, 5-15 palabras.",
+      "maxLength": 130,
+      "required": true,
+      "default": "¿Tu web ya cuenta lo que haces o sigue siendo un escaparate plano?"
+    },
+    {
+      "id": "subline",
+      "type": "text",
+      "label": "Línea de cierre (opcional)",
+      "help": "Acompañamiento debajo del hook.",
+      "maxLength": 60,
+      "default": "Te lo pongo bonito y vivo."
+    },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "ebecerra.es" }
+  ]
+}

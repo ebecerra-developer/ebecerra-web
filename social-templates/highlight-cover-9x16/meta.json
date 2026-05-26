@@ -1,0 +1,27 @@
+{
+  "id": "highlight-cover-9x16",
+  "name": "Highlight cover (destacada IG 9:16)",
+  "description": "Cover para destacadas de Instagram. Una palabra grande centrada con framing minimal. Sin handle al pie — las destacadas se ven recortadas en círculo.",
+  "format": "story-9x16",
+  "width": 1080,
+  "height": 1920,
+  "fields": [
+    {
+      "id": "word",
+      "type": "text",
+      "label": "Palabra protagonista",
+      "help": "1-2 palabras cortas. Se ve dentro del círculo de la destacada — todo lo demás se recorta.",
+      "maxLength": 14,
+      "required": true,
+      "default": "Servicios"
+    },
+    {
+      "id": "sublabel",
+      "type": "text",
+      "label": "Etiqueta inferior (opcional)",
+      "help": "Detalle pequeño debajo de la palabra.",
+      "maxLength": 22,
+      "default": "01"
+    }
+  ]
+}

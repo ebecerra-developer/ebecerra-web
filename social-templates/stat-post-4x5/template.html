@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --brand-bg: #047857;
+    --brand-fg: #fafaf9;
+    --brand-primary: #065f46;
+    --brand-accent: #ff6f59;
+    --brand-font-display: 'Inter', sans-serif;
+    --brand-font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; font-family: var(--brand-font-body); }
+  .post {
+    width: 1080px; height: 1350px;
+    background: var(--brand-bg);
+    color: var(--brand-fg);
+    padding: 100px 100px 90px;
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .kicker {
+    color: var(--brand-fg); opacity: 0.6;
+    margin-bottom: 16px;
+    font-size: 22px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .big-number {
+    font-family: var(--brand-font-display);
+    font-size: 360px; line-height: 0.88; letter-spacing: -0.06em;
+    font-weight: 900;
+    color: var(--brand-accent);
+    margin: 30px 0 80px;
+    word-break: keep-all;
+  }
+  .description {
+    font-size: 56px; line-height: 1.12; letter-spacing: -0.022em;
+    font-weight: 800; max-width: 880px;
+  }
+  .context-line {
+    margin-top: auto;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    border-top: 2px solid color-mix(in srgb, var(--brand-fg) 30%, transparent);
+    font-size: 22px; font-weight: 500;
+    opacity: 0.75;
+  }
+  .brand-mark {
+    position: absolute; bottom: 60px; right: 100px;
+    color: var(--brand-fg); font-size: 22px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .brand-mark__logo { height: 36px; width: auto; display: block; }
+  .brand-mark__dot {
+    background: var(--brand-fg); color: var(--brand-bg);
+    width: 32px; height: 32px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px;
+  }
+</style>
+</head>
+<body>
+  <div class="post">
+    <p class="kicker">{{kicker}}</p>
+    <div class="big-number">{{bigNumber}}</div>
+    <div class="description">{{description}}</div>
+    <div class="context-line">{{contextLine}}</div>
+    <span class="brand-mark">{{{brand.markHtml}}}{{handle}}</span>
+  </div>
+</body>
+</html>

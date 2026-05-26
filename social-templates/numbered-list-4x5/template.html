@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --brand-bg: #047857;
+    --brand-fg: #fafaf9;
+    --brand-primary: #065f46;
+    --brand-accent: #ff6f59;
+    --brand-font-display: 'Inter', sans-serif;
+    --brand-font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; font-family: var(--brand-font-body); }
+  .post {
+    width: 1080px; height: 1350px;
+    background: var(--brand-bg);
+    color: var(--brand-fg);
+    padding: 100px 90px 90px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kicker {
+    color: var(--brand-fg); opacity: 0.6;
+    margin-bottom: 26px;
+    font-size: 19px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  h1 {
+    font-family: var(--brand-font-display);
+    font-size: 110px; line-height: 0.95; letter-spacing: -0.04em;
+    font-weight: 900; margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 38px; font-weight: 500;
+    color: var(--brand-fg); opacity: 0.78;
+    margin-bottom: 60px;
+    letter-spacing: -0.01em;
+  }
+  .list {
+    display: flex; flex-direction: column; gap: 22px;
+    counter-reset: list-num;
+  }
+  .item {
+    display: flex; gap: 26px; align-items: baseline;
+    border-top: 1.5px solid color-mix(in srgb, var(--brand-fg) 20%, transparent);
+    padding-top: 18px;
+    counter-increment: list-num;
+  }
+  .item__num::before {
+    content: counter(list-num, decimal-leading-zero);
+  }
+  .item__num {
+    font-family: var(--brand-font-display);
+    font-size: 72px;
+    line-height: 1;
+    font-weight: 900;
+    color: var(--brand-accent);
+    flex-shrink: 0;
+    min-width: 90px;
+    letter-spacing: -0.04em;
+  }
+  .item__text {
+    font-size: 32px; line-height: 1.18; font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .brand-mark {
+    position: absolute; bottom: 56px; left: 90px;
+    color: var(--brand-fg); font-size: 22px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .brand-mark__logo { height: 36px; width: auto; display: block; }
+  .brand-mark__dot {
+    background: var(--brand-fg); color: var(--brand-bg);
+    width: 32px; height: 32px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px;
+  }
+</style>
+</head>
+<body>
+  <div class="post">
+    <p class="kicker">{{kicker}}</p>
+    <h1>{{hook}}</h1>
+    <h2>{{subhook}}</h2>
+    <div class="list">
+      {{#each items}}
+      <div class="item">
+        <span class="item__num"></span>
+        <span class="item__text">{{this}}</span>
+      </div>
+      {{/each}}
+    </div>
+    <span class="brand-mark">{{{brand.markHtml}}}{{handle}}</span>
+  </div>
+</body>
+</html>

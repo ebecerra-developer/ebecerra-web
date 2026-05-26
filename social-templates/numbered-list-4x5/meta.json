@@ -1,0 +1,45 @@
+{
+  "id": "numbered-list-4x5",
+  "name": "Lista numerada (post 4:5)",
+  "description": "Hook tipo '5 razones para X' con ítems numerados grandes a la izquierda en color acento. Estructura tradicional de carrusel pero en single image.",
+  "format": "post-4x5",
+  "width": 1080,
+  "height": 1350,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Antetítulo (kicker)", "maxLength": 40, "default": "// guía rápida" },
+    {
+      "id": "hook",
+      "type": "text",
+      "label": "Hook principal",
+      "help": "El gancho grande. Ej: '5 razones', '4 errores', '3 cosas que'.",
+      "maxLength": 22,
+      "required": true,
+      "default": "5 razones"
+    },
+    {
+      "id": "subhook",
+      "type": "text",
+      "label": "Hook complementario",
+      "help": "Lo que cierra la frase. Ej: 'para tener web', 'que cometes'.",
+      "maxLength": 40,
+      "default": "para tener web propia"
+    },
+    {
+      "id": "items",
+      "type": "list",
+      "label": "Ítems numerados",
+      "help": "Se numeran automáticamente desde 1. Recomendado 3-5.",
+      "minItems": 2,
+      "maxItems": 6,
+      "itemMaxLength": 60,
+      "default": [
+        "El dominio y el código son tuyos.",
+        "Cambias lo que quieras cuando quieras.",
+        "Sin permanencias absurdas.",
+        "Velocidad y SEO bajo control.",
+        "Look único, no plantilla."
+      ]
+    },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "ebecerra.es" }
+  ]
+}
