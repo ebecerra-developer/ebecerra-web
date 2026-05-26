@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@500;700;800;900&display=swap" />
+<style>
+  :root {
+    --green: #047857;
+    --green-light: #6EE7B7;
+    --cream: #FAFAF9;
+    --cream-warm: #F4F1EB;
+    --ink: #0A0A0A;
+    --ink-soft: #1a1a1a;
+    --muted: #525252;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1080px; height: 1920px;
+    overflow: hidden;
+    background: #000;
+    font-family: "DM Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage {
+    position: relative;
+    width: 1080px; height: 1920px;
+    background: var(--cream);
+    overflow: hidden;
+  }
+  /* Sutil grano */
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none; opacity: 0.14;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(0,0,0,0.5) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 50;
+  }
+
+  /* Brand corner top-left, estable en toda la pieza */
+  .corner {
+    position: absolute; top: 72px; left: 80px;
+    display: flex; align-items: center; gap: 14px;
+    z-index: 40;
+    font-family: "Inter", sans-serif;
+    color: var(--ink);
+    font-weight: 800; font-size: 24px;
+  }
+  .corner .dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--green); color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+  }
+  .corner .label { color: var(--muted); font-weight: 600; font-size: 22px; letter-spacing: -0.005em; }
+
+  /* Cada escena ocupa todo el stage; animadas opacity via GSAP */
+  .scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 200px 88px 220px;
+    z-index: 10;
+    opacity: 0;
+  }
+
+  /* Top block: emoji + time + activity */
+  .top {
+    display: flex; flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .emoji {
+    font-size: 240px;
+    line-height: 1;
+    margin-bottom: 24px;
+    /* Use system emoji */
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", system-ui;
+  }
+  .time {
+    font-family: "DM Sans", sans-serif;
+    font-size: 28px; font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .activity {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 130px; font-weight: 500;
+    font-style: italic;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--green);
+  }
+
+  /* Divider */
+  .divider {
+    width: 140px; height: 4px;
+    background: var(--ink);
+    margin: 72px 0 56px;
+    border-radius: 2px;
+    transform-origin: center;
+  }
+
+  /* Bottom block: tu web: + action + ✓ */
+  .bottom {
+    display: flex; flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .tuweb {
+    font-family: "DM Sans", sans-serif;
+    font-size: 28px; font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 26px;
+  }
+  .action {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 78px; font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    color: var(--ink);
+    text-align: center;
+  }
+  .check {
+    width: 78px; height: 78px;
+    border-radius: 50%;
+    background: var(--green);
+    color: var(--cream);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter", sans-serif;
+    font-weight: 900;
+    font-size: 42px;
+    flex-shrink: 0;
+    box-shadow: 0 10px 24px rgba(4,120,87,0.35);
+  }
+
+  /* ---------- SCENE 4 — CTA cierre ---------- */
+  #s4 {
+    background: var(--green);
+    color: var(--cream);
+    padding: 200px 88px 200px;
+  }
+  #s4 .recap {
+    display: flex;
+    gap: 22px;
+    margin-bottom: 64px;
+  }
+  #s4 .recap .check {
+    width: 64px; height: 64px;
+    font-size: 32px;
+    background: var(--cream);
+    color: var(--green);
+    box-shadow: none;
+  }
+  #s4 .big {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 130px; font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 0.96;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  #s4 .big em {
+    font-style: italic;
+    color: var(--green-light);
+  }
+  #s4 .handle {
+    margin-top: 56px;
+    display: inline-block;
+    background: var(--cream);
+    color: var(--green);
+    font-family: "Inter", sans-serif;
+    font-size: 46px; font-weight: 800;
+    padding: 22px 42px;
+    border-radius: 999px;
+    letter-spacing: -0.005em;
+  }
+  #s4 .corner { color: var(--cream); }
+  #s4 .corner .dot { background: var(--cream); color: var(--green); }
+  #s4 .corner .label { color: rgba(250,250,249,0.7); }
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+
+    <!-- SCENE 1 — Desayunas -->
+    <div class="scene" id="s1">
+      <div class="corner"><span class="dot">eB</span><span class="label">mientras tú vives</span></div>
+      <div class="top">
+        <div class="emoji">☕</div>
+        <div class="time">8:34 a.m.</div>
+        <div class="activity">Desayunas.</div>
+      </div>
+      <div class="divider" id="d1"></div>
+      <div class="bottom">
+        <div class="tuweb">tu web:</div>
+        <div class="action">
+          <span>Captó un lead.</span>
+          <span class="check" id="c1">✓</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 2 — Comes -->
+    <div class="scene" id="s2">
+      <div class="corner"><span class="dot">eB</span><span class="label">mientras tú vives</span></div>
+      <div class="top">
+        <div class="emoji">🍽️</div>
+        <div class="time">14:12</div>
+        <div class="activity">Comes.</div>
+      </div>
+      <div class="divider" id="d2"></div>
+      <div class="bottom">
+        <div class="tuweb">tu web:</div>
+        <div class="action">
+          <span>Programó una cita.</span>
+          <span class="check" id="c2">✓</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 3 — Duermes -->
+    <div class="scene" id="s3">
+      <div class="corner"><span class="dot">eB</span><span class="label">mientras tú vives</span></div>
+      <div class="top">
+        <div class="emoji">🌙</div>
+        <div class="time">23:47</div>
+        <div class="activity">Duermes.</div>
+      </div>
+      <div class="divider" id="d3"></div>
+      <div class="bottom">
+        <div class="tuweb">tu web:</div>
+        <div class="action">
+          <span>Respondió 3 dudas.</span>
+          <span class="check" id="c3">✓</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 4 — CTA -->
+    <div class="scene" id="s4">
+      <div class="corner"><span class="dot">eB</span><span class="label">mientras tú vives</span></div>
+      <div class="recap" id="recap">
+        <span class="check">✓</span>
+        <span class="check">✓</span>
+        <span class="check">✓</span>
+      </div>
+      <div class="big">Una web que <em>curra</em><br/>contigo.</div>
+      <div class="handle">@ebecerra.es</div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    gsap.defaults({ ease: "power3.out", immediateRender: true });
+    const FADE_OUT = { immediateRender: false };
+    const tl = gsap.timeline({ paused: true });
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+
+    // Thumbnail-safe: scene 1 visible desde t=0
+    gsap.set("#s1", { opacity: 1 });
+    gsap.set("#s1 .emoji", { opacity: 1, scale: 1 });
+    gsap.set("#s1 .time", { opacity: 1 });
+    gsap.set("#s1 .activity", { opacity: 1, y: 0 });
+    gsap.set("#s1 .divider", { scaleX: 0, opacity: 1 });
+    gsap.set("#s1 .tuweb", { opacity: 0 });
+    gsap.set("#s1 .action span:first-child", { opacity: 0 });
+    gsap.set("#s1 .check", { opacity: 0, scale: 0.5 });
+
+    // ── FRAME 1 reveal (0 → 2.8s) ───────────────────────────────────
+    tl.to("#s1 .divider", { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 0.6);
+    tl.fromTo("#s1 .tuweb", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 1.0);
+    tl.fromTo("#s1 .action span:first-child", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 1.3);
+    tl.fromTo("#c1", { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.3)" }, 1.85);
+
+    // ── CROSSFADE 1→2 (@ 3.2s) ──────────────────────────────────────
+    tl.to("#s1", { opacity: 0, duration: 0.4, ...FADE_OUT }, 3.2);
+    tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 3.2);
+
+    // ── FRAME 2 reveal ───────────────────────────────────────────────
+    gsap.set("#s2 .divider", { scaleX: 0 });
+    gsap.set("#s2 .tuweb", { opacity: 0 });
+    gsap.set("#s2 .action span:first-child", { opacity: 0 });
+    gsap.set("#c2", { opacity: 0, scale: 0.5 });
+    gsap.set("#s2 .emoji", { scale: 0.6, opacity: 0 });
+    gsap.set("#s2 .activity", { y: 24, opacity: 0 });
+    gsap.set("#s2 .time", { opacity: 0 });
+
+    tl.fromTo("#s2 .emoji", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.2)" }, 3.5);
+    tl.fromTo("#s2 .time", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 3.85);
+    tl.fromTo("#s2 .activity", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 4.0);
+    tl.to("#s2 .divider", { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 4.6);
+    tl.fromTo("#s2 .tuweb", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 5.0);
+    tl.fromTo("#s2 .action span:first-child", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 5.3);
+    tl.fromTo("#c2", { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.3)" }, 5.85);
+
+    // ── CROSSFADE 2→3 (@ 7.2s) ──────────────────────────────────────
+    tl.to("#s2", { opacity: 0, duration: 0.4, ...FADE_OUT }, 7.2);
+    tl.fromTo("#s3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 7.2);
+
+    // ── FRAME 3 reveal ───────────────────────────────────────────────
+    gsap.set("#s3 .divider", { scaleX: 0 });
+    gsap.set("#s3 .tuweb", { opacity: 0 });
+    gsap.set("#s3 .action span:first-child", { opacity: 0 });
+    gsap.set("#c3", { opacity: 0, scale: 0.5 });
+    gsap.set("#s3 .emoji", { scale: 0.6, opacity: 0 });
+    gsap.set("#s3 .activity", { y: 24, opacity: 0 });
+    gsap.set("#s3 .time", { opacity: 0 });
+
+    tl.fromTo("#s3 .emoji", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.2)" }, 7.5);
+    tl.fromTo("#s3 .time", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 7.85);
+    tl.fromTo("#s3 .activity", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 8.0);
+    tl.to("#s3 .divider", { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 8.6);
+    tl.fromTo("#s3 .tuweb", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 9.0);
+    tl.fromTo("#s3 .action span:first-child", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 9.3);
+    tl.fromTo("#c3", { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.3)" }, 9.85);
+
+    // ── CROSSFADE 3→4 (@ 11.2s) ─────────────────────────────────────
+    tl.to("#s3", { opacity: 0, duration: 0.4, ...FADE_OUT }, 11.2);
+    tl.fromTo("#s4", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 11.2);
+
+    // ── FRAME 4 reveal — recap checks + big text + handle ────────────
+    gsap.set("#s4 .recap .check", { opacity: 0, scale: 0.4 });
+    gsap.set("#s4 .big", { opacity: 0, y: 30 });
+    gsap.set("#s4 .handle", { opacity: 0, y: 20 });
+
+    tl.fromTo("#s4 .recap .check:nth-child(1)", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.4)" }, 11.5);
+    tl.fromTo("#s4 .recap .check:nth-child(2)", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.4)" }, 11.7);
+    tl.fromTo("#s4 .recap .check:nth-child(3)", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.4)" }, 11.9);
+    tl.fromTo("#s4 .big", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 12.2);
+    tl.fromTo("#s4 .handle", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 12.8);
+
+    // Hold final 14 → 14 (timeline duration > anim end)
+    tl.to({}, { duration: 1.0 }, 13.5);
+  </script>
+</body>
+</html>

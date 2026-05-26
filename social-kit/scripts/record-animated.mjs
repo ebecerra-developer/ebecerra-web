@@ -39,6 +39,10 @@ const TARGETS = [
   { name: "0019-reel-reservas-equilibrio", folder: "personal/0019-reel-reservas-equilibrio", duration: 20 },
   // Story 0020: animada con screenshots REALES del widget de reservas (6 frames + hold)
   { name: "0020-story-reservas-real", folder: "personal/0020-story-reservas-real", duration: 15 },
+  // Story 0022: pregunta abierta + sticker Questions IG (10s, hold 2.5s)
+  { name: "0022-story-pregunta-ideas", folder: "personal/0022-story-pregunta-ideas", duration: 10 },
+  // Reel 0023: tu web es un currante más (3 escenas + CTA, 14s)
+  { name: "0023-reel-web-currante", folder: "personal/0023-reel-web-currante", duration: 14 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,

@@ -37,6 +37,11 @@ Ordenadas por intuición de impacto, no por prioridad inmediata. Mover a "En pro
 - [ ] Carrusel — **N señales de que tu web necesita un rescate** (formato probado, dispara DMs)
 - [ ] Post single — **cuánto tarda una web (de verdad)** sin precios, con tiempos
 
+### Tipo · Humor / distendido
+
+- [ ] Reel — **Cosas raras que me preguntan** (4 frases tipo "mi sobrino hace webs", "¿no es eso gratis con WordPress?", "¿cuánto cuesta una web?"). Autoirónico, micro-respuestas con cara de paciencia.
+- [ ] Reel — **Lo que cree mi madre que hago** (split-screen meme: vacaciones vs terminal con 100 tabs). Autoirónico, audio trend friendly.
+
 ### Tipo · Diferenciación / valores
 
 - [x] Post "Lo que NO hago" → [`0001-post-lo-que-no-hago`](personal/0001-post-lo-que-no-hago/) (publicado 13-may)
@@ -96,6 +101,8 @@ Pendiente:
 | **sábado 23 (mañana)** | **[`0019-reel-reservas-equilibrio`](personal/0019-reel-reservas-equilibrio/)** | Reel 20s sobre reservas online. Coordinado con despliegue real del sistema en `demos.ebecerra.es/equilibrio`. Cross-post FB auto. Añadir a highlight `servicios`. |
 | **sábado 23 (unas horas después)** | **[`0020-story-reservas-real`](personal/0020-story-reservas-real/)** | Story ANIMADA 15s con 6 capturas reales del widget (portada → sección → servicio → día → hora → cita solicitada). MP4 grabado con `record-animated.mjs`. Link sticker manual a `https://demos.ebecerra.es/equilibrio` sobre la zona indicada. Añadir a highlight `servicios`. |
 | **lunes 25 ~10:00** | **[`0021-post-cuentamela`](personal/0021-post-cuentamela/)** | Post single 4:5 con foto del estudio + invitación al DM ("puerta abierta"). Primera vez que sale la cara en feed. Cross-post FB auto. Sin highlight. |
+| **miércoles 27 mañana** | **[`0022-story-pregunta-ideas`](personal/0022-story-pregunta-ideas/)** | Story 10s con pregunta abierta "¿qué te gustaría que tu web hiciera por ti?". Sticker IG **Preguntas** (texto libre) manual sobre la zona indicada. Sin highlight. |
+| **miércoles 27 tarde** | **[`0023-reel-web-currante`](personal/0023-reel-web-currante/)** | Reel 14s tono distendido: 3 escenas (☕ 🍽️ 🌙) mostrando lo que tu web hace mientras tú vives + CTA "Una web que curra contigo". Buscar **audio lo-fi/jazzy trending** al subir. Cross-post FB auto. Añadir a highlight `servicios`. |
 
 ## ❌ Producidas pero descartadas
 

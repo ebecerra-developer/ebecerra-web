@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@500;700;800;900&display=swap" />
+<style>
+  :root {
+    --green: #047857;
+    --green-light: #6EE7B7;
+    --cream: #FAFAF9;
+    --ink: #0A0A0A;
+    --ink-soft: #2a2a2a;
+    --muted: #525252;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1080px; height: 1920px;
+    overflow: hidden;
+    background: #000;
+    font-family: "DM Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage {
+    position: relative; width: 1080px; height: 1920px;
+    background: var(--cream); overflow: hidden;
+  }
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none; opacity: 0.16; mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(0,0,0,0.5) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 50;
+  }
+
+  /* Brand corner */
+  .corner {
+    position: absolute; top: 80px; left: 80px;
+    display: flex; align-items: center; gap: 14px;
+    font-family: "Inter", sans-serif;
+    color: var(--ink); font-weight: 800; font-size: 26px;
+    z-index: 40;
+  }
+  .corner .dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--green); color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+  }
+
+  /* Scene en tercio superior — tercio inferior libre para el sticker Questions */
+  .scene {
+    position: absolute;
+    top: 220px; left: 80px; right: 80px;
+    z-index: 11;
+    display: flex; flex-direction: column;
+    align-items: flex-start;
+  }
+  .kicker {
+    font-family: "DM Sans", sans-serif;
+    font-size: 28px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 32px;
+  }
+  .pregunta {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 90px; font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.0;
+    color: var(--ink);
+  }
+  .pregunta em {
+    font-style: italic;
+    color: var(--green);
+    font-weight: 500;
+  }
+  .pregunta .uppercase {
+    font-style: normal;
+    text-transform: uppercase;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 800;
+    font-size: 82px;
+    letter-spacing: 0.04em;
+    color: var(--green);
+    display: inline-block;
+    transform: translateY(-6px);
+  }
+  .sub {
+    margin-top: 38px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 30px; font-weight: 500;
+    line-height: 1.4;
+    color: var(--muted);
+    max-width: 880px;
+  }
+
+  /* Hint sutil de la zona del sticker IG Questions (~y=1300-1700) */
+  .sticker-hint {
+    position: absolute;
+    top: 1240px;
+    left: 80px; right: 80px;
+    text-align: center;
+    z-index: 11;
+    color: var(--muted);
+    font-family: "DM Sans", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .sticker-hint__arrow {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 40px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .sticker-hint__label {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  /* Marca pequeña al pie */
+  .handle {
+    position: absolute;
+    bottom: 80px; left: 0; right: 0;
+    text-align: center;
+    z-index: 12;
+    font-family: "Inter", sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="corner"><span class="dot">eB</span> pregunto</div>
+
+    <div class="scene" id="scene">
+      <div class="kicker">pregunto en serio</div>
+      <div class="pregunta" id="pregunta">
+        Si tu web<br/>
+        pudiera hacer<br/>
+        <span class="uppercase">una cosa</span><br/>
+        por ti,<br/>
+        <em>¿cuál sería?</em>
+      </div>
+      <div class="sub" id="sub">Cita, pago, captar leads —<br/>la idea más rara que se te ocurra vale.</div>
+    </div>
+
+    <div class="sticker-hint" id="hint">
+      <span class="sticker-hint__arrow">déjala caer aquí ↓</span>
+      <span class="sticker-hint__label">sticker preguntas</span>
+    </div>
+
+    <div class="handle">@ebecerra.es</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    gsap.defaults({ ease: "power3.out", immediateRender: true });
+    const tl = gsap.timeline({ paused: true });
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+
+    // Thumbnail-safe: kicker + pregunta visible desde t=0
+    gsap.set("#scene", { opacity: 1 });
+    gsap.set(".kicker", { opacity: 1 });
+    gsap.set("#pregunta", { opacity: 1, y: 0 });
+
+    // Sub line entra después
+    gsap.set("#sub", { opacity: 0, y: 24 });
+    tl.to("#sub", { opacity: 1, y: 0, duration: 0.8 }, 1.6);
+
+    // Hint del sticker entra y pulsa
+    gsap.set("#hint", { opacity: 0, y: 24 });
+    tl.to("#hint", { opacity: 1, y: 0, duration: 0.7 }, 3.2);
+    tl.to(".sticker-hint__arrow", { y: 10, duration: 0.8, yoyo: true, repeat: 3, ease: "sine.inOut" }, 4.4);
+
+    // Handle entra suave al final
+    gsap.set(".handle", { opacity: 0 });
+    tl.to(".handle", { opacity: 1, duration: 0.6 }, 5.0);
+
+    // Hold final hasta t=10 (timeline duration > anim end)
+    tl.to({}, { duration: 2.5 }, 7.5);
+  </script>
+</body>
+</html>
