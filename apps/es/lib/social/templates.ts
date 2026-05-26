@@ -50,10 +50,7 @@ function templatesRoot(): string {
   return candidates[0]; // En Vercel monorepo, cwd = apps/es, ../../ = repo root.
 }
 
-let cache: TemplateMeta[] | null = null;
-
 export async function listTemplates(): Promise<TemplateMeta[]> {
-  if (cache) return cache;
   const dir = templatesRoot();
   let entries: string[] = [];
   try {
@@ -72,7 +69,6 @@ export async function listTemplates(): Promise<TemplateMeta[]> {
       // ignore folders without meta.json
     }
   }
-  cache = out;
   return out;
 }
 
