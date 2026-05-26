@@ -13,6 +13,11 @@ concurrency:
   group: social-render-${{ inputs.job_id }}
   cancel-in-progress: false
 
+# Versión de Playwright. Cuando bumpees @supabase/supabase-js o playwright en
+# social-templates/package.json, actualiza este número para invalidar el cache.
+env:
+  PLAYWRIGHT_VERSION: "1.48.0"
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -36,23 +41,26 @@ jobs:
           cache-dependency-path: social-templates/package.json
 
       - name: Install dependencies
-        run: |
-          npm install --no-package-lock --loglevel=info
-          echo "--- node_modules contents ---"
-          ls node_modules/ 2>/dev/null | head -30 || echo "NO node_modules/"
-          echo "--- check key modules ---"
-          [ -d node_modules/@supabase/supabase-js ] && echo "✓ @supabase/supabase-js" || echo "❌ MISSING @supabase/supabase-js"
-          [ -d node_modules/playwright ] && echo "✓ playwright" || echo "❌ MISSING playwright"
+        run: npm install --no-package-lock
 
-      - name: Try imports (diagnostic)
-        run: |
-          node --version
-          node -e "import('@supabase/supabase-js').then(m=>console.log('✓ supabase-js:',Object.keys(m).slice(0,3))).catch(e=>{console.error('❌ supabase-js:',e.message);process.exit(1)})"
-          node -e "import('playwright').then(m=>console.log('✓ playwright:',Object.keys(m).slice(0,3))).catch(e=>{console.error('❌ playwright:',e.message);process.exit(1)})"
-          node -e "import('./engine.mjs').then(m=>console.log('✓ engine.mjs:',Object.keys(m))).catch(e=>{console.error('❌ engine.mjs:',e.message);process.exit(1)})"
+      - name: Cache Playwright browser
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          # Key estable mientras no cambiemos la versión de Playwright. El cache
+          # guarda solo el binario de Chromium (~150MB) — sus deps del SO se
+          # instalan en cada run con install-deps (apt, ~5-10s).
+          key: playwright-chromium-${{ env.PLAYWRIGHT_VERSION }}-${{ runner.os }}
 
-      - name: Install Playwright browser (Chromium only)
-        run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium (si cache miss)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install chromium
+
+      - name: Install Playwright system deps
+        # Las deps apt no se pueden cachear razonablemente; siempre se instalan.
+        # Si ya están en la VM (no es nuestro caso) este step es near-instant.
+        run: npx playwright install-deps chromium
 
       - name: Check secrets are present
         env:
@@ -60,44 +68,10 @@ jobs:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
         run: |
           missing=0
-          if [ -z "$SUPABASE_URL" ]; then
-            echo "::error::Missing secret SUPABASE_URL (repo Settings → Secrets and variables → Actions)"
-            missing=1
-          else
-            echo "✓ SUPABASE_URL present (${#SUPABASE_URL} chars)"
-          fi
-          if [ -z "$SUPABASE_SECRET_KEY" ]; then
-            echo "::error::Missing secret SUPABASE_SECRET_KEY"
-            missing=1
-          else
-            echo "✓ SUPABASE_SECRET_KEY present (${#SUPABASE_SECRET_KEY} chars)"
-          fi
-          if [ -z "${{ inputs.job_id }}" ]; then
-            echo "::error::workflow input job_id is empty"
-            missing=1
-          else
-            echo "✓ job_id input: ${{ inputs.job_id }}"
-          fi
+          [ -z "$SUPABASE_URL" ] && { echo "::error::Missing secret SUPABASE_URL"; missing=1; }
+          [ -z "$SUPABASE_SECRET_KEY" ] && { echo "::error::Missing secret SUPABASE_SECRET_KEY"; missing=1; }
+          [ -z "${{ inputs.job_id }}" ] && { echo "::error::Empty job_id input"; missing=1; }
           exit $missing
-
-      - name: Ping Supabase REST (aisla red/auth del script)
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
-        run: |
-          # Trim posibles \n por copy-paste
-          URL="$(echo -n "$SUPABASE_URL" | tr -d '[:space:]')"
-          KEY="$(echo -n "$SUPABASE_SECRET_KEY" | tr -d '[:space:]')"
-          echo "URL hash: $(echo -n "$URL" | sha256sum | cut -c1-12)"
-          echo "KEY hash: $(echo -n "$KEY" | sha256sum | cut -c1-12)"
-          code="$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
-            "$URL/rest/v1/social_render_jobs?select=id&limit=1")"
-          echo "Supabase REST status: $code"
-          if [ "$code" != "200" ]; then
-            echo "::error::Supabase REST devolvió $code — revisa URL/KEY"
-            exit 1
-          fi
 
       - name: Render job
         id: render
@@ -109,14 +83,11 @@ jobs:
           set +e
           node render-job.mjs 2>&1 | tee render-output.log
           EXIT=${PIPESTATUS[0]}
-          echo "::group::Render output (also uploaded as artifact)"
-          cat render-output.log
-          echo "::endgroup::"
           echo "Exit code: $EXIT"
           exit $EXIT
 
-      - name: Upload render log artifact
-        if: always()
+      - name: Upload render log on failure
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: render-output-${{ inputs.job_id }}
