@@ -20,86 +20,85 @@
     color: var(--brand-fg);
     overflow: hidden;
   }
+
+  /* Blobs decorativos sutiles — viven detrás de todas las escenas. */
   .blob1, .blob2 {
     position: absolute; border-radius: 50%; pointer-events: none;
+    z-index: 1;
   }
   .blob1 {
-    width: 620px; height: 620px;
+    width: 560px; height: 560px;
     background: var(--brand-primary);
     top: -200px; right: -180px;
-    opacity: 0.65;
-    z-index: 1;
+    opacity: 0.45;
   }
   .blob2 {
-    width: 380px; height: 380px;
+    width: 360px; height: 360px;
     background: var(--brand-accent);
-    bottom: -130px; left: -100px;
-    opacity: 0.22;
-    z-index: 1;
-  }
-  .corner {
-    position: absolute;
-    top: 80px; left: 80px;
-    display: inline-flex; align-items: center; gap: 14px;
-    color: var(--brand-fg);
-    font-weight: 800; font-size: 24px;
-    z-index: 12;
-  }
-  .corner .dot {
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    background: var(--brand-fg);
-    color: var(--brand-bg);
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 900;
+    bottom: -140px; left: -120px;
+    opacity: 0.14;
   }
 
-  /* Cada scene ocupa toda la stage y se overlapa con z-index */
+  /* Cada escena ocupa toda la stage y se overlapan. Top-aligned para que el
+     título caiga al mismo y en las 3 escenas — sin saltos al hacer crossfade. */
   .scene {
     position: absolute;
     inset: 0;
-    padding: 260px 90px 240px;
-    z-index: 11;
+    padding: 280px 90px 260px;
+    z-index: 10;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: flex-start;
   }
+
+  /* Slot del kicker — alto fijo aunque algunas escenas no lo usen (mantiene
+     el título al mismo y baseline). */
+  .kicker-slot {
+    height: 60px;
+    margin-bottom: 36px;
+  }
   .kicker {
-    font-size: 26px; font-weight: 600;
+    font-size: 28px; font-weight: 700;
     letter-spacing: 0.18em; text-transform: uppercase;
     color: var(--brand-accent);
-    margin-bottom: 40px;
+    line-height: 1;
+  }
+
+  /* Slot del título — alto fijo (~450px) para que .sub/.handle-pill empiecen
+     siempre desde el mismo offset. */
+  .title-slot {
+    min-height: 450px;
+    display: flex; align-items: flex-start;
   }
   .big {
     font-family: var(--brand-font-display);
-    font-size: 130px; font-weight: 900;
-    letter-spacing: -0.045em; line-height: 0.92;
-    text-shadow: 0 4px 24px rgba(0,0,0,0.32);
+    font-size: 116px; font-weight: 900;
+    letter-spacing: -0.045em; line-height: 0.95;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.28);
   }
   .big em {
     font-style: normal;
     color: var(--brand-accent);
   }
+
   .sub {
-    margin-top: 50px;
-    font-size: 38px; font-weight: 500;
+    margin-top: 24px;
+    font-size: 36px; font-weight: 500;
     letter-spacing: -0.01em; line-height: 1.32;
     opacity: 0.92;
-    color: var(--brand-fg);
+    max-width: 880px;
   }
-  #s2 .big { font-size: 104px; }
-  #s3 .big { font-size: 120px; }
 
   .handle-pill {
-    margin-top: 60px;
+    margin-top: 24px;
     display: inline-block;
     background: var(--brand-fg);
     color: var(--brand-bg);
-    font-size: 48px; font-weight: 800;
+    font-size: 46px; font-weight: 800;
     letter-spacing: -0.01em;
     padding: 22px 42px;
     border-radius: 999px;
+    transform-origin: left center;
   }
 </style>
 </head>
@@ -107,25 +106,28 @@
   <div class="stage">
     <span class="blob1"></span>
     <span class="blob2"></span>
-    <div class="corner"><span class="dot">{{brand.monogram}}</span> {{handle}}</div>
 
     <div class="scene" id="s1">
-      <div class="kicker">{{kicker}}</div>
-      <div class="big js-emify" data-text="{{scene1Title}}"></div>
+      <div class="kicker-slot"><div class="kicker">{{kicker}}</div></div>
+      <div class="title-slot"><div class="big js-emify" data-text="{{scene1Title}}"></div></div>
     </div>
+
     <div class="scene" id="s2">
-      <div class="big js-emify" data-text="{{scene2Title}}"></div>
+      <div class="kicker-slot"></div>
+      <div class="title-slot"><div class="big js-emify" data-text="{{scene2Title}}"></div></div>
       <div class="sub">{{scene2Sub}}</div>
     </div>
+
     <div class="scene" id="s3">
-      <div class="big js-emify" data-text="{{scene3Title}}"></div>
+      <div class="kicker-slot"></div>
+      <div class="title-slot"><div class="big js-emify" data-text="{{scene3Title}}"></div></div>
       <span class="handle-pill">{{handle}}</span>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script>
-    // Sustituye *palabras* del campo por <em>palabras</em> para énfasis inline.
+    // Sustituye *palabras* por <em>palabras</em>.
     function emify(text) {
       return text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
     }
@@ -137,28 +139,29 @@
     const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
     window.__tl = tl;
 
-    // Estado inicial: S1 visible, S2/S3 ocultas. S1 frame 0 = thumbnail safe.
+    // ── Estado inicial (frame 0 thumbnail-safe: S1 100% visible) ──
     gsap.set("#s1", { opacity: 1 });
+    gsap.set("#s1 .kicker", { y: 0, opacity: 1 });
+    gsap.set("#s1 .big",    { y: 0, opacity: 1 });
     gsap.set("#s2", { opacity: 0 });
     gsap.set("#s3", { opacity: 0 });
 
-    // S1 (0 → 3.0s) — fade-out al final
-    tl.fromTo("#s1 .kicker", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.0);
-    tl.fromTo("#s1 .big",    { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.3);
+    // ── S1 (visible 0 → 2.7s, fade-out 2.7 → 3.2s) ──
     tl.fromTo("#s1", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FADE_OUT }, 2.7);
 
-    // S2 (3.2 → 6.8s)
-    tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 3.2);
-    tl.fromTo("#s2 .big",  { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 3.4);
-    tl.fromTo("#s2 .sub",  { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 },  4.4);
+    // ── S2 (in 3.2 → 6.6s, fade-out 6.6 → 7.1s) ──
+    tl.fromTo("#s2",      { opacity: 0 }, { opacity: 1, duration: 0.4 }, 3.2);
+    tl.fromTo("#s2 .big", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 3.4);
+    tl.fromTo("#s2 .sub", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 },  4.4);
     tl.fromTo("#s2", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FADE_OUT }, 6.6);
 
-    // S3 (6.9 → 8.0s) — luego hold 2s hasta 10s
-    tl.fromTo("#s3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 6.9);
-    tl.fromTo("#s3 .big",         { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 7.1);
-    tl.fromTo("#s3 .handle-pill", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55 }, 7.9);
-    // Hold final hasta 10s: la timeline no necesita más tweens, basta con que la
-    // duración total seekable cubra 10s. Truco: tween dummy invisible.
+    // ── S3 (in 7.1 → 8.5s, hold 8.5 → 10s) ──
+    tl.fromTo("#s3",              { opacity: 0 }, { opacity: 1, duration: 0.4 }, 7.1);
+    tl.fromTo("#s3 .big",         { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 7.3);
+    tl.fromTo("#s3 .handle-pill", { scale: 0.78, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55 }, 8.1);
+
+    // Tween dummy invisible para que la timeline tenga duración total = 10s
+    // (hold final de 1.5s para que el usuario lea el CTA).
     tl.to({}, { duration: 1.5 }, 8.5);
   </script>
 </body>
