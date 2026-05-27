@@ -1,6 +1,8 @@
 /* Admin: hoja con utilidades de tabla, pill, message, filtros y login.
    El layout (shell / header / sub-nav / footer / user menu) viene del SDK
-   @ebecerra/client-admin-sdk vía admin-base.css + brand-bridge.css. */
+   @ebecerra/client-admin-sdk vía admin-base.css + brand-bridge.css.
+   Todos los colores aquí salen de var(--admin-*) — no hardcodear hex,
+   o brand-bridge.css deja de surtir efecto en estos componentes. */
 
 .admin-body {
   margin: 0;
@@ -14,7 +16,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #a8a29e;
+  color: var(--admin-text-muted);
   margin: 0 0 12px;
 }
 
@@ -28,24 +30,28 @@
 .admin-table td {
   text-align: left;
   padding: 10px 12px;
-  border-bottom: 1px solid #1c1917;
+  border-bottom: 1px solid var(--admin-border);
   vertical-align: top;
 }
 
 .admin-table th {
-  color: #78716c;
+  color: var(--admin-text-muted);
   font-weight: 500;
   text-transform: uppercase;
   font-size: 11px;
   letter-spacing: 0.05em;
 }
 
+.admin-table tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--admin-surface) 40%, transparent);
+}
+
 .admin-table tr:hover td {
-  background: #141312;
+  background: var(--admin-surface);
 }
 
 .admin-table a {
-  color: #84cc16;
+  color: var(--admin-primary);
   text-decoration: none;
 }
 
@@ -58,8 +64,8 @@
   padding: 2px 8px;
   border-radius: 999px;
   font-size: 11px;
-  background: #292524;
-  color: #d6d3d1;
+  background: var(--admin-border-strong);
+  color: var(--admin-text-soft);
 }
 
 .admin-pill[data-app="es"] { background: #1e3a8a; color: #dbeafe; }
@@ -80,21 +86,22 @@
 
 .admin-btn {
   background: transparent;
-  border: 1px solid #44403c;
-  color: #d6d3d1;
+  border: 1px solid var(--admin-border-strong);
+  color: var(--admin-text-soft);
   font-family: inherit;
   font-size: 12px;
   padding: 6px 14px;
   border-radius: 4px;
   cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
 }
 .admin-btn:hover {
-  border-color: #84cc16;
-  color: #84cc16;
+  border-color: var(--admin-primary);
+  color: var(--admin-primary);
 }
 .admin-btn-danger:hover {
-  border-color: #ef4444;
-  color: #fecaca;
+  border-color: var(--admin-error);
+  color: var(--admin-error);
 }
 
 .admin-filters {
@@ -104,14 +111,14 @@
   flex-wrap: wrap;
   margin-bottom: 16px;
   padding: 12px;
-  background: #141312;
-  border: 1px solid #1c1917;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
   border-radius: 6px;
 }
 
 .admin-filters label {
   font-size: 12px;
-  color: #a8a29e;
+  color: var(--admin-text-muted);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -119,9 +126,9 @@
 
 .admin-filters input,
 .admin-filters select {
-  background: #0a0a0a;
-  border: 1px solid #44403c;
-  color: #e7e5e4;
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border-strong);
+  color: var(--admin-text);
   padding: 4px 8px;
   border-radius: 4px;
   font-family: inherit;
@@ -131,36 +138,38 @@
 .admin-filters input:focus,
 .admin-filters select:focus {
   outline: none;
-  border-color: #84cc16;
+  border-color: var(--admin-primary);
+  box-shadow: 0 0 0 3px var(--admin-primary-soft);
 }
 
 .admin-empty {
   padding: 40px;
   text-align: center;
-  color: #78716c;
-  border: 1px dashed #292524;
+  color: var(--admin-text-muted);
+  border: 1px dashed var(--admin-border-strong);
   border-radius: 6px;
+  background: color-mix(in srgb, var(--admin-surface) 50%, transparent);
 }
 
 .admin-message {
   padding: 12px;
   border-radius: 6px;
-  background: #141312;
-  border: 1px solid #1c1917;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
   margin-bottom: 8px;
 }
 
 .admin-message[data-role="user"] {
-  border-left: 3px solid #38bdf8;
+  border-left: 3px solid var(--admin-accent);
 }
 
 .admin-message[data-role="assistant"] {
-  border-left: 3px solid #84cc16;
+  border-left: 3px solid var(--admin-primary);
 }
 
 .admin-message-meta {
   font-size: 11px;
-  color: #78716c;
+  color: var(--admin-text-muted);
   margin-bottom: 6px;
   display: flex;
   gap: 12px;
@@ -181,12 +190,13 @@
 }
 
 .login-card {
-  background: #141312;
-  border: 1px solid #292524;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border-strong);
   border-radius: 8px;
   padding: 32px;
   max-width: 380px;
   width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
 
 .login-card h1 {
@@ -195,12 +205,12 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0 0 8px;
-  color: #fafaf9;
+  color: var(--admin-text);
 }
 
 .login-card p {
   font-size: 13px;
-  color: #a8a29e;
+  color: var(--admin-text-soft);
   margin: 0 0 24px;
 }
 
@@ -217,25 +227,27 @@
   gap: 10px;
   padding: 12px;
   border-radius: 6px;
-  border: 1px solid #44403c;
-  background: #0a0a0a;
-  color: #fafaf9;
+  border: 1px solid var(--admin-border-strong);
+  background: var(--admin-bg);
+  color: var(--admin-text);
   font-family: inherit;
   font-size: 14px;
   cursor: pointer;
   width: 100%;
+  transition: border-color 120ms ease, background 120ms ease;
 }
 
 .login-button:hover {
-  border-color: #84cc16;
+  border-color: var(--admin-primary);
+  background: color-mix(in srgb, var(--admin-primary-soft) 60%, var(--admin-bg));
 }
 
 .login-error {
   margin-top: 16px;
   padding: 10px 12px;
-  background: #2a0e0e;
-  border: 1px solid #7f1d1d;
-  color: #fecaca;
+  background: color-mix(in srgb, var(--admin-error) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--admin-error) 35%, transparent);
+  color: var(--admin-error);
   border-radius: 4px;
   font-size: 12px;
 }
@@ -251,14 +263,15 @@
 
 .admin-actions button {
   background: transparent;
-  border: 1px solid #44403c;
-  color: #d6d3d1;
+  border: 1px solid var(--admin-border-strong);
+  color: var(--admin-text-soft);
   font-family: inherit;
   font-size: 12px;
   padding: 3px 8px;
   border-radius: 4px;
   cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease;
 }
 
-.admin-actions button[data-variant="approve"]:hover { border-color: #84cc16; color: #d9f99d; }
-.admin-actions button[data-variant="reject"]:hover { border-color: #7f1d1d; color: #fecaca; }
+.admin-actions button[data-variant="approve"]:hover { border-color: var(--admin-success); color: var(--admin-success); }
+.admin-actions button[data-variant="reject"]:hover { border-color: var(--admin-error); color: var(--admin-error); }

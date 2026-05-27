@@ -1,29 +1,30 @@
 /* ==========================================================================
-   ebecerra.es · brand-bridge.css — admin operador (dark stone + verde bosque)
+   ebecerra.es · brand-bridge.css — admin operador (graphite + verde bosque)
    --------------------------------------------------------------------------
    El admin de apps/es es la consola interna del operador (Enrique). Mantiene
-   estética dark/herramienta, distinta del sitio público (pro mode claro).
+   estética dark/herramienta pero respira: paleta graphite cálido en lugar
+   de negro puro, para reducir fatiga visual en sesiones largas.
    Comparte estructura (header / sub-nav / footer) con el resto de admins del
    ecosistema vía @ebecerra/client-admin-sdk.
    ========================================================================== */
 
 .admin-shell {
-  --admin-bg: #0a0a0a;
-  --admin-bg-deep: #050505;
-  --admin-surface: #141312;
-  --admin-surface-2: #0d0d0d;
-  --admin-border: #1c1917;
-  --admin-border-strong: #292524;
-  --admin-text: #e7e5e4;
+  --admin-bg: #1a1a1a;
+  --admin-bg-deep: #141414;
+  --admin-surface: #232323;
+  --admin-surface-2: #1f1f1f;
+  --admin-border: #2a2a2a;
+  --admin-border-strong: #3a3a3a;
+  --admin-text: #f5f5f4;
   --admin-text-soft: #d6d3d1;
-  --admin-text-muted: #78716c;
-  --admin-primary: #84cc16;
-  --admin-primary-strong: #65a30d;
-  --admin-primary-soft: rgba(132, 204, 22, 0.14);
+  --admin-text-muted: #a8a29e;
+  --admin-primary: #a3e635;
+  --admin-primary-strong: #84cc16;
+  --admin-primary-soft: rgba(163, 230, 53, 0.12);
   --admin-on-primary: #14210a;
   --admin-accent: #38bdf8;
-  --admin-error: #ef4444;
-  --admin-success: #84cc16;
+  --admin-error: #f87171;
+  --admin-success: #a3e635;
 
   --admin-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --admin-font-display: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;

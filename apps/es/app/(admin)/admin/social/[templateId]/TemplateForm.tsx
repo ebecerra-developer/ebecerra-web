@@ -69,6 +69,11 @@ export default function TemplateForm({ template, tenants, isOperator }: Props) {
   const [previewLoading, setPreviewLoading] = useState(false);
   const previewAbortRef = useRef<AbortController | null>(null);
 
+  // AI suggestion
+  const [topic, setTopic] = useState<string>("");
+  const [suggesting, setSuggesting] = useState(false);
+  const [suggestError, setSuggestError] = useState<string | null>(null);
+
   function setField(id: string, value: unknown) {
     setValues((prev) => ({ ...prev, [id]: value }));
   }
@@ -131,6 +136,34 @@ export default function TemplateForm({ template, tenants, isOperator }: Props) {
     };
   }, [values, tenantId, template.id, isOperator]);
 
+  async function handleSuggest() {
+    setSuggestError(null);
+    setSuggesting(true);
+    try {
+      const res = await fetch("/api/admin/social/suggest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          templateId: template.id,
+          tenantId: isOperator ? (tenantId || null) : undefined,
+          topic: topic.trim() || undefined,
+        }),
+      });
+      const data = (await res.json().catch(() => null)) as
+        | { fields?: Record<string, unknown>; error?: { code: string; message: string } }
+        | null;
+      if (!res.ok || !data?.fields) {
+        throw new Error(data?.error?.message ?? `Error ${res.status}`);
+      }
+      // Merge IA suggestions encima de los valores actuales — solo campos devueltos
+      setValues((prev) => ({ ...prev, ...data.fields }));
+    } catch (err) {
+      setSuggestError(err instanceof Error ? err.message : "Error desconocido");
+    } finally {
+      setSuggesting(false);
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
@@ -164,8 +197,11 @@ export default function TemplateForm({ template, tenants, isOperator }: Props) {
         {isOperator && tenants.length > 0 && (
           <div style={fieldGroupStyle}>
             <label htmlFor="tenantId" style={labelStyle}>
-              Tenant (opcional — vacío = render personal)
+              Tenant
             </label>
+            <div style={helpStyle}>
+              La IA usará la voz y el contexto de este tenant. Vacío = ebecerra.es por defecto.
+            </div>
             <select
               id="tenantId"
               value={tenantId}
@@ -181,6 +217,53 @@ export default function TemplateForm({ template, tenants, isOperator }: Props) {
             </select>
           </div>
         )}
+
+        <div
+          style={{
+            border: "1px solid #44403c",
+            borderRadius: 6,
+            padding: 16,
+            background: "linear-gradient(135deg, #1a0c0c 0%, #0c0a09 100%)",
+            marginBottom: 28,
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <span style={{ fontSize: 16 }}>✨</span>
+            <strong style={{ fontSize: 14 }}>Sugerir copy con IA</strong>
+          </div>
+          <div style={{ ...helpStyle, marginBottom: 10 }}>
+            Groq genera los textos respetando la voz y el contexto del tenant (lo que tienes
+            cargado en su chatbot config). Puedes guiar la sugerencia con un tema concreto
+            o dejarlo libre.
+          </div>
+          <textarea
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+            placeholder="Tema del post (opcional). Ej: 'beneficios del entrenamiento de fuerza para mujeres'"
+            rows={2}
+            style={{ ...inputStyle, fontFamily: "inherit", resize: "vertical", marginBottom: 10 }}
+          />
+          <button
+            type="button"
+            onClick={handleSuggest}
+            disabled={suggesting}
+            style={{
+              background: suggesting ? "#44403c" : "#7c3aed",
+              border: "none",
+              color: "#fafaf9",
+              fontSize: 14,
+              fontWeight: 600,
+              padding: "9px 20px",
+              borderRadius: 4,
+              cursor: suggesting ? "wait" : "pointer",
+            }}
+          >
+            {suggesting ? "Pensando…" : "✨ Sugerir con IA"}
+          </button>
+          {suggestError && (
+            <div style={{ marginTop: 10, fontSize: 13, color: "#fca5a5" }}>{suggestError}</div>
+          )}
+        </div>
 
         {template.fields.map((f) => {
           const value = values[f.id];
