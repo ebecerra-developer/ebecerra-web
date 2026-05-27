@@ -103,6 +103,7 @@ Pendiente:
 | **lunes 25 ~10:00** | **[`0021-post-cuentamela`](personal/0021-post-cuentamela/)** | Post single 4:5 con foto del estudio + invitación al DM ("puerta abierta"). Primera vez que sale la cara en feed. Cross-post FB auto. Sin highlight. |
 | **miércoles 27 mañana** | **[`0022-story-pregunta-ideas`](personal/0022-story-pregunta-ideas/)** | Story 10s con pregunta abierta "¿qué te gustaría que tu web hiciera por ti?". Sticker IG **Preguntas** (texto libre) manual sobre la zona indicada. Sin highlight. |
 | **miércoles 27 tarde** | **[`0023-reel-web-currante`](personal/0023-reel-web-currante/)** | Reel 14s tono distendido: 3 escenas (☕ 🍽️ 🌙) mostrando lo que tu web hace mientras tú vives + CTA "Una web que curra contigo". Buscar **audio lo-fi/jazzy trending** al subir. Cross-post FB auto. Añadir a highlight `servicios`. |
+| **jueves 28 ~mañana** | **[`0024-triptico-currante`](personal/0024-triptico-currante/)** | TRÍPTICO panorámico — 3 posts feed que se alinean en el grid IG como mural continuo. Subir en orden inverso: `panel-3.png` primero, `panel-2.png` segundo, `panel-1.png` último, espaciados 30-60 min. Cada uno con su caption propia. Cross-post FB auto. Sin highlight. Cierra el arco temático "currante / equipo". |
 
 ## ❌ Producidas pero descartadas
 

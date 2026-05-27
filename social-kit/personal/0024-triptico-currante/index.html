@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@500;700;800;900&display=swap" />
+<style>
+  :root {
+    --green: #047857;
+    --green-light: #6EE7B7;
+    --cream: #FAFAF9;
+    --cream-warm: #F4F1EB;
+    --cream-deep: #ECE6D6;
+    --ink: #0A0A0A;
+    --ink-soft: #1a1a1a;
+    --walnut: #2a1f12;
+    --muted: #6b6354;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 3240px;
+    height: 1350px;
+    overflow: hidden;
+    font-family: "DM Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #000;
+  }
+
+  /* Canvas panorámico */
+  .panorama {
+    position: relative;
+    width: 3240px; height: 1350px;
+    background:
+      linear-gradient(
+        90deg,
+        var(--cream) 0%,
+        var(--cream-warm) 50%,
+        var(--cream) 100%
+      );
+    overflow: hidden;
+  }
+
+  /* Sutil grano sobre el cream */
+  .panorama::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0.12;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(42,31,18,0.5) 1px, transparent 1px);
+    background-size: 4px 4px;
+    z-index: 60;
+  }
+
+  /* Marco editorial — líneas horizontales sutiles arriba y abajo */
+  .frame-line {
+    position: absolute;
+    left: 96px; right: 96px;
+    height: 2px;
+    background: var(--walnut);
+    opacity: 0.18;
+    z-index: 5;
+  }
+  .frame-line--top    { top: 130px; }
+  .frame-line--bottom { bottom: 130px; }
+
+  /* Línea horizonte sutil, casi imperceptible, atraviesa los 3 paneles */
+  .horizon {
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 220px;
+    height: 1px;
+    background: var(--walnut);
+    opacity: 0.10;
+    z-index: 6;
+  }
+
+  /* ─── Brand corner (en zona Panel 1) ─── */
+  .corner {
+    position: absolute;
+    top: 180px; left: 144px;
+    display: flex; align-items: center; gap: 18px;
+    font-family: "Inter", sans-serif;
+    color: var(--walnut);
+    font-weight: 800; font-size: 30px;
+    z-index: 40;
+  }
+  .corner .dot {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--green); color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 21px; font-weight: 900;
+  }
+  .corner .label {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* ─── Handle (en zona Panel 3) ─── */
+  .handle {
+    position: absolute;
+    bottom: 180px;
+    right: 144px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-family: "Inter", sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--walnut);
+    letter-spacing: -0.005em;
+    z-index: 40;
+  }
+  .handle .dot {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--green);
+    color: var(--cream);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 900;
+  }
+
+  /* ─── Manifiesto tipográfico ─── */
+  /* Linea única de texto, baseline alineada para los 3 paneles.
+     Posición vertical: ~ y=720 (centro óptico ligeramente bajo). */
+  .manifesto {
+    position: absolute;
+    top: 0; left: 0;
+    width: 3240px; height: 1350px;
+    z-index: 20;
+  }
+
+  /* Cada fragmento posicionado absolutamente para control pixel-perfect.
+     Las x se calculan para que el conjunto lea como una sola frase. */
+
+  .frag {
+    position: absolute;
+    font-family: "Fraunces", Georgia, serif;
+    color: var(--walnut);
+    letter-spacing: -0.025em;
+    line-height: 0.95;
+    white-space: nowrap;
+  }
+
+  /* Panel 1 (x: 0-1080) — fragmento "Una web es" */
+  .frag--1 {
+    left: 144px;
+    top: 600px;
+    font-size: 180px;
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  /* Panel 2 (x: 1080-2160) — climax en DOS líneas:
+     "un currante" (línea 1, regular) + "más" (línea 2, hero italic verde) */
+  .frag--2a {
+    position: absolute;
+    left: 1200px;
+    top: 460px;
+    font-family: "Fraunces", Georgia, serif;
+    color: var(--walnut);
+    font-size: 180px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 0.95;
+    white-space: nowrap;
+  }
+  .frag--2b {
+    position: absolute;
+    left: 1450px;
+    top: 680px;
+    font-family: "Fraunces", Georgia, serif;
+    color: var(--green);
+    font-size: 260px;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    white-space: nowrap;
+  }
+
+  /* Panel 3 (x: 2160-3240) — fragmento "en tu equipo." */
+  .frag--3 {
+    left: 2240px;
+    top: 600px;
+    font-size: 180px;
+    font-weight: 500;
+    font-style: italic;
+  }
+  .frag--3 .period {
+    color: var(--green);
+    font-style: normal;
+  }
+
+  /* Underline sutil bajo "más" — refuerza la palabra hero */
+  .underline {
+    position: absolute;
+    left: 1470px;
+    top: 950px;
+    width: 360px;
+    height: 8px;
+    background: var(--green);
+    opacity: 0.4;
+    border-radius: 4px;
+    transform: rotate(-0.4deg);
+    z-index: 19;
+  }
+
+  /* ─── Marcas tonales pequeñas por panel (continuidad sutil) ─── */
+  .small-mark {
+    position: absolute;
+    font-family: "DM Sans", sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 30;
+  }
+  .small-mark--p2 {
+    /* Centro panel 2 — "·" or kicker */
+    bottom: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--green);
+  }
+  .small-mark--p1 {
+    /* Mantra superior panel 1 — kicker */
+    top: 1100px;
+    left: 144px;
+  }
+  .small-mark--p3 {
+    /* Panel 3 — texto pequeño que cierra */
+    top: 180px;
+    right: 144px;
+    color: var(--green);
+  }
+
+</style>
+</head>
+<body>
+  <div class="panorama">
+
+    <!-- Líneas decorativas -->
+    <div class="frame-line frame-line--top"></div>
+    <div class="frame-line frame-line--bottom"></div>
+    <div class="horizon"></div>
+
+    <!-- Brand corner top-left (Panel 1) -->
+    <div class="corner">
+      <span class="dot">eB</span>
+      <span class="label">manifiesto</span>
+    </div>
+
+    <!-- Marca pequeña en panel 3 top-right -->
+    <div class="small-mark small-mark--p3">no.&nbsp;001</div>
+
+    <!-- Manifiesto principal -->
+    <div class="manifesto">
+      <div class="frag frag--1">Una web es</div>
+      <div class="frag--2a">un currante</div>
+      <div class="frag--2b">más</div>
+      <div class="underline"></div>
+      <div class="frag frag--3">en tu <span class="period">equipo.</span></div>
+    </div>
+
+    <!-- Marca pequeña centro panel 2 (kicker) -->
+    <div class="small-mark small-mark--p2">· no una vitrina ·</div>
+
+    <!-- Mantra superior panel 1 (debajo del corner, opcional) -->
+    <div class="small-mark small-mark--p1">pieza · 03</div>
+
+    <!-- Handle en bottom-right (Panel 3) -->
+    <div class="handle">
+      <span class="dot">eB</span>
+      @ebecerra.es
+    </div>
+
+  </div>
+</body>
+</html>

@@ -44,6 +44,23 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 0024 · Tríptico panorámico "Una web es un currante más en tu equipo." ──
+  // 1 HTML 3240×1350 → 3 paneles 1080×1350 cortados con clip pixel-perfect.
+  // ORDEN DE SUBIDA A IG: panel-3 primero, panel-2 segundo, panel-1 último,
+  // para que en el grid de IG queden izquierda→derecha como mural continuo.
+  {
+    html: "personal/0024-triptico-currante/index.html",
+    out:  "personal/0024-triptico-currante/panorama-full.png",
+    w: 3240, h: 1350,
+  },
+  ...[1, 2, 3].map((n) => ({
+    html: "personal/0024-triptico-currante/index.html",
+    out:  `personal/0024-triptico-currante/panel-${n}.png`,
+    w: 1080, h: 1350,
+    viewport: { w: 3240, h: 1350 },
+    clip: { x: (n - 1) * 1080, y: 0, width: 1080, height: 1350 },
+  })),
+
   // ── 0004 · Story eco estática (1080×1920) ────────────────────────────
   {
     html: "personal/0004-story-eco/index.html",
@@ -109,16 +126,22 @@ async function main() {
 
     fs.mkdirSync(path.dirname(outPath), { recursive: true });
 
+    // Viewport puede ser distinto del output (caso tríptico: viewport 3240x1350,
+    // output 1080x1350 con clip x offset). Por defecto = output size.
+    const viewportW = job.viewport?.w ?? job.w;
+    const viewportH = job.viewport?.h ?? job.h;
+    const clip = job.clip ?? { x: 0, y: 0, width: job.w, height: job.h };
+
     const ctx = await browser.newContext({
-      viewport: { width: job.w, height: job.h },
+      viewport: { width: viewportW, height: viewportH },
       deviceScaleFactor: 1,
     });
     const page = await ctx.newPage();
     const url = pathToFileURL(htmlPath).href;
-    console.log(`→ ${job.html}`);
+    console.log(`→ ${job.html} → ${job.out}`);
     await page.goto(url, { waitUntil: "networkidle" });
     await page.waitForTimeout(2500); // fonts
-    await page.screenshot({ path: outPath, clip: { x: 0, y: 0, width: job.w, height: job.h } });
+    await page.screenshot({ path: outPath, clip });
     console.log(`  ✓ ${job.out}`);
     await ctx.close();
   }
