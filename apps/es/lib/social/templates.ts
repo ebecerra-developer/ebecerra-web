@@ -30,9 +30,11 @@ export interface TemplateMeta {
   id: string;
   name: string;
   description: string;
-  format: "post-4x5" | "story-9x16" | "square-1x1" | "fb-cover" | "gbp-cover";
+  format: "post-4x5" | "story-9x16" | "reel-9x16" | "square-1x1" | "fb-cover" | "gbp-cover";
   width: number;
   height: number;
+  /** Solo para format empezando por "reel-*". Segundos totales del vídeo (incluye hold final). */
+  durationSeconds?: number;
   fields: TemplateField[];
 }
 

@@ -23,8 +23,16 @@ console.log("[render-job] node booted, loading modules…");
 import { createClient } from "@supabase/supabase-js";
 import { chromium } from "playwright";
 import path from "node:path";
+import fs from "node:fs";
+import os from "node:os";
+import { spawnSync } from "node:child_process";
+import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
-import { render, injectBrandTokens, loadTemplate, validateFields } from "./engine.mjs";
+import { render, injectBrandTokens, injectPreviewAutoplay, loadTemplate, validateFields } from "./engine.mjs";
+
+const require = createRequire(import.meta.url);
+const FFMPEG = require("ffmpeg-static");
+const FPS = 30;
 
 console.log("[render-job] modules loaded");
 
@@ -163,35 +171,102 @@ async function main() {
   // 7) Renderizar HTML
   let html = injectBrandTokens(tpl.html, brand);
   html = render(html, { ...validation.value, brand });
+  html = injectPreviewAutoplay(html); // no-op aquí porque __capturing=true
 
-  // 7) Playwright → PNG (o vídeo cuando llegue la fase animada)
+  // 7) Render — diverge según formato (imagen estática o vídeo animado)
+  const isVideo = tpl.meta.format === "reel-9x16";
   const browser = await chromium.launch({ headless: true });
-  let buf;
+  let storagePath, contentType, buf;
+
   try {
     const ctx = await browser.newContext({
       viewport: { width: tpl.meta.width, height: tpl.meta.height },
       deviceScaleFactor: 1,
     });
     const page = await ctx.newPage();
+
+    // El flag __capturing evita que el script de autoplay del preview arranque
+    // la timeline antes de que tomemos control desde aquí.
+    await page.addInitScript(() => { window.__capturing = true; });
+
     await page.setContent(html, { waitUntil: "networkidle" });
-    await page.waitForTimeout(2500); // dejar que Google Fonts cargue
-    buf = await page.screenshot({
-      type: "png",
-      clip: { x: 0, y: 0, width: tpl.meta.width, height: tpl.meta.height },
-    });
-    await ctx.close();
+    await page.waitForTimeout(2500); // fonts + libs (GSAP) settle
+
+    if (isVideo) {
+      const duration = Number(tpl.meta.durationSeconds) || 10;
+      const totalFrames = Math.round(FPS * duration);
+      console.log(`[render-job] video ${duration}s = ${totalFrames} frames`);
+
+      // Verifica que la plantilla expone window.__tl
+      const hasTl = await page.evaluate(() => Boolean(window.__tl));
+      if (!hasTl) {
+        await browser.close();
+        return fail("Plantilla reel-9x16 sin window.__tl — define una gsap.timeline({ paused: true }) y asígnala a window.__tl");
+      }
+
+      await page.evaluate(() => {
+        if (window.gsap) window.gsap.ticker.lagSmoothing(0);
+        window.__tl.pause();
+      });
+
+      const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "social-frames-"));
+      console.log(`[render-job] tmp frames: ${tmpDir}`);
+
+      for (let i = 0; i < totalFrames; i++) {
+        const t = i / FPS;
+        await page.evaluate((time) => window.__tl.seek(time, false), t);
+        // doble rAF para que GSAP termine de pintar antes del screenshot
+        await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
+        const file = path.join(tmpDir, `frame-${String(i).padStart(4, "0")}.png`);
+        await page.screenshot({ path: file, clip: { x: 0, y: 0, width: tpl.meta.width, height: tpl.meta.height } });
+        if (i % 30 === 0) console.log(`  frame ${i}/${totalFrames}`);
+      }
+      await ctx.close();
+      await browser.close();
+
+      // ffmpeg: frames → mp4 H.264 con poster en frame ~1.2s
+      const mp4Path = path.join(tmpDir, "out.mp4");
+      console.log("[render-job] encoding mp4…");
+      const r = spawnSync(FFMPEG, [
+        "-y",
+        "-framerate", String(FPS),
+        "-i", path.join(tmpDir, "frame-%04d.png"),
+        "-c:v", "libx264",
+        "-pix_fmt", "yuv420p",
+        "-crf", "20",
+        "-preset", "medium",
+        "-movflags", "+faststart",
+        mp4Path,
+      ], { stdio: "inherit" });
+      if (r.status !== 0) return fail(`ffmpeg encoding failed (exit ${r.status})`);
+
+      buf = fs.readFileSync(mp4Path);
+      storagePath = `${tenantSlug}/${JOB_ID}.mp4`;
+      contentType = "video/mp4";
+
+      // Cleanup
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    } else {
+      // STATIC: screenshot único
+      buf = await page.screenshot({
+        type: "png",
+        clip: { x: 0, y: 0, width: tpl.meta.width, height: tpl.meta.height },
+      });
+      await ctx.close();
+      await browser.close();
+      storagePath = `${tenantSlug}/${JOB_ID}.png`;
+      contentType = "image/png";
+    }
   } catch (e) {
-    await browser.close();
-    return fail("Playwright render error", e);
+    await browser.close().catch(() => {});
+    return fail("Render error", e);
   }
-  await browser.close();
 
   // 8) Subir a Storage
-  const storagePath = `${tenantSlug}/${JOB_ID}.png`;
   const { error: upErr } = await supabase.storage
     .from("social-renders")
     .upload(storagePath, buf, {
-      contentType: "image/png",
+      contentType,
       upsert: true,
     });
   if (upErr) return fail("Storage upload error", upErr);
@@ -210,7 +285,7 @@ async function main() {
     .eq("id", JOB_ID);
   if (doneErr) return fail("DB update error", doneErr);
 
-  console.log(`[render-job] ✓ done — ${storagePath} (${Date.now() - t0}ms)`);
+  console.log(`[render-job] ✓ done — ${storagePath} (${Date.now() - t0}ms, ${(buf.length / 1024).toFixed(0)}KB)`);
 }
 
 function monogramFor(name) {

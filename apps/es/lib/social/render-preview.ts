@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { SupabaseClient } from "@supabase/supabase-js";
 // @ts-ignore — engine.mjs es JavaScript puro consumido en runtime.
-import { render, injectBrandTokens } from "../../../../social-templates/engine.mjs";
+import { render, injectBrandTokens, injectPreviewAutoplay } from "../../../../social-templates/engine.mjs";
 
 /**
  * Replica server-side el branding + render que hace el worker (sin Playwright).
@@ -89,6 +89,7 @@ export async function renderTemplateHtml(
   const tplHtml = await fs.readFile(tplPath, "utf8");
   let html: string = injectBrandTokens(tplHtml, brand);
   html = render(html, { ...fields, brand });
+  html = injectPreviewAutoplay(html);
   return html;
 }
 

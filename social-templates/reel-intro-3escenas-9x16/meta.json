@@ -1,0 +1,61 @@
+{
+  "id": "reel-intro-3escenas-9x16",
+  "name": "Reel — Intro 3 escenas animado (9:16)",
+  "description": "Story/Reel animado con 3 escenas: hook inicial, mensaje principal y CTA con handle pill. Animación GSAP determinista, 10s total (incluye 2s de hold final).",
+  "format": "reel-9x16",
+  "width": 1080,
+  "height": 1920,
+  "durationSeconds": 10,
+  "fields": [
+    {
+      "id": "kicker",
+      "type": "text",
+      "label": "Antetítulo (escena 1)",
+      "help": "Tag en mayúsculas arriba en la primera escena.",
+      "maxLength": 32,
+      "default": "QUIÉN HAY DETRÁS"
+    },
+    {
+      "id": "scene1Title",
+      "type": "text",
+      "label": "Escena 1 — título",
+      "help": "Mensaje protagonista de la primera escena. Una palabra en énfasis se separa con * (ej: 'Hola, soy *Enrique*.')",
+      "maxLength": 60,
+      "required": true,
+      "default": "Hola, soy *Enrique*."
+    },
+    {
+      "id": "scene2Title",
+      "type": "text",
+      "label": "Escena 2 — mensaje principal",
+      "help": "El gancho central. Usa * para resaltar palabras (ej: 'Hago *webs* a medida').",
+      "maxLength": 80,
+      "required": true,
+      "default": "Hago *webs* a medida para autónomos."
+    },
+    {
+      "id": "scene2Sub",
+      "type": "text",
+      "label": "Escena 2 — línea de apoyo",
+      "maxLength": 80,
+      "default": "Sin agencia, sin equipo. El trabajo lo hago yo."
+    },
+    {
+      "id": "scene3Title",
+      "type": "text",
+      "label": "Escena 3 — pregunta CTA",
+      "help": "Cierre con pregunta o llamada a acción. Usa * para resaltar.",
+      "maxLength": 50,
+      "required": true,
+      "default": "¿Hablamos de la *tuya*?"
+    },
+    {
+      "id": "handle",
+      "type": "text",
+      "label": "Handle pill (escena 3)",
+      "help": "Aparece como pastilla blanca al pie de la última escena.",
+      "maxLength": 30,
+      "default": "@ebecerra.es"
+    }
+  ]
+}

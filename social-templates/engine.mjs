@@ -68,6 +68,29 @@ export function render(html, scope) {
 }
 
 /**
+ * Inyecta script de autoplay del timeline para la PREVIEW (iframe del admin).
+ * El worker establece window.__capturing = true antes de cargar la página,
+ * así que en el worker este script no auto-arranca.
+ *
+ * Solo afecta a plantillas que definen window.__tl. Las estáticas lo ignoran.
+ */
+export function injectPreviewAutoplay(html) {
+  const script = `<script>
+    setTimeout(function() {
+      if (window.__capturing) return;
+      var tl = window.__tl;
+      if (!tl || typeof tl.play !== 'function') return;
+      tl.play(0);
+      // Loop infinito para preview
+      tl.repeat(-1);
+      tl.repeatDelay(0.5);
+    }, 200);
+  </script>`;
+  if (html.includes("</body>")) return html.replace("</body>", `${script}</body>`);
+  return html + script;
+}
+
+/**
  * Inyecta tokens de marca como CSS vars + carga las fuentes de Google.
  * @param {string} html
  * @param {object} brand — { bg, fg, primary, accent, logoUrl, logoInverseUrl, monogram, fontDisplay, fontBody }

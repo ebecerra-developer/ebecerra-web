@@ -60,6 +60,7 @@ export default async function JobPage({
 
       <JobStatusPoller
         jobId={job.id}
+        format={job.format}
         initialStatus={job.status}
         initialSignedUrl={signedUrl}
         initialError={job.error_message}

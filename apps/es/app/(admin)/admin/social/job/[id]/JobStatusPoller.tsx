@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 interface Props {
   jobId: string;
+  format: string;
   initialStatus: string;
   initialSignedUrl: string | null;
   initialError: string | null;
@@ -31,12 +32,14 @@ const ROTATE_MS = 2500;
 
 export default function JobStatusPoller({
   jobId,
+  format,
   initialStatus,
   initialSignedUrl,
   initialError,
   initialRunUrl,
   isOperator,
 }: Props) {
+  const isVideo = format.startsWith("reel-");
   const [status, setStatus] = useState(initialStatus);
   const [signedUrl, setSignedUrl] = useState(initialSignedUrl);
   const [error, setError] = useState(initialError);
@@ -171,21 +174,33 @@ export default function JobStatusPoller({
               border: "1px solid #44403c",
               borderRadius: 4,
               overflow: "hidden",
-              maxWidth: 540,
+              maxWidth: isVideo ? 360 : 540,
               marginBottom: 16,
               background: "#000",
             }}
           >
-            <img
-              src={signedUrl}
-              alt="Render"
-              style={{ width: "100%", display: "block" }}
-            />
+            {isVideo ? (
+              <video
+                src={signedUrl}
+                controls
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{ width: "100%", display: "block" }}
+              />
+            ) : (
+              <img
+                src={signedUrl}
+                alt="Render"
+                style={{ width: "100%", display: "block" }}
+              />
+            )}
           </div>
           <div style={{ display: "flex", gap: 12 }}>
             <a
               href={signedUrl}
-              download={`${jobId}.png`}
+              download={`${jobId}.${isVideo ? "mp4" : "png"}`}
               style={{
                 background: "#047857",
                 color: "#fafaf9",
@@ -196,7 +211,7 @@ export default function JobStatusPoller({
                 fontWeight: 600,
               }}
             >
-              Descargar PNG
+              Descargar {isVideo ? "MP4" : "PNG"}
             </a>
             <a
               href={signedUrl}
