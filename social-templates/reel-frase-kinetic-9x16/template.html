@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --brand-bg: #047857; --brand-fg: #fafaf9;
+    --brand-primary: #065f46; --brand-accent: #ff6f59;
+    --brand-font-display: 'Inter', sans-serif; --brand-font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; font-family: var(--brand-font-body); overflow: hidden; }
+  .stage {
+    position: relative; width: 1080px; height: 1920px;
+    background: var(--brand-bg); color: var(--brand-fg); overflow: hidden;
+  }
+  .kicker {
+    position: absolute; top: 200px; left: 0; right: 0; text-align: center; z-index: 3;
+    font-size: 28px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--brand-accent);
+  }
+  .center {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 90px;
+  }
+  .phrase, .closing {
+    position: absolute; text-align: center;
+    font-family: var(--brand-font-display);
+    font-size: 130px; font-weight: 900; line-height: 0.98; letter-spacing: -0.04em;
+    width: 900px;
+  }
+  .phrase em, .closing em { font-style: normal; color: var(--brand-accent); }
+  .handle-pill {
+    position: absolute; bottom: 240px; left: 50%; transform: translateX(-50%); z-index: 3;
+    background: var(--brand-fg); color: var(--brand-bg);
+    font-size: 44px; font-weight: 800; letter-spacing: -0.01em;
+    padding: 20px 40px; border-radius: 999px; white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="kicker">{{kicker}}</div>
+    <div class="center">
+      {{#each phrases}}
+      <div class="phrase js-emify" data-text="{{this}}"></div>
+      {{/each}}
+      <div class="closing js-emify" data-text="{{closingPhrase}}"></div>
+    </div>
+    <span class="handle-pill">{{handle}}</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    function emify(t){ return t.replace(/\*([^*]+)\*/g,'<em>$1</em>'); }
+    document.querySelectorAll('.js-emify').forEach(function(el){ el.innerHTML = emify(el.getAttribute('data-text')||''); });
+
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
+    window.__tl = tl;
+    const FADE_OUT = { immediateRender: false };
+
+    const phrases = gsap.utils.toArray(".phrase");
+    const closing = document.querySelector(".closing");
+
+    // Estado inicial: primera frase visible (thumbnail-safe), resto oculto.
+    gsap.set(phrases, { opacity: 0, scale: 0.9 });
+    gsap.set(phrases[0], { opacity: 1, scale: 1 });
+    gsap.set(closing, { opacity: 0, scale: 0.9 });
+    gsap.set(".handle-pill", { opacity: 0, y: 20 });
+
+    const STEP = 1.4;
+    let t = 0;
+    phrases.forEach((el, i) => {
+      if (i === 0) {
+        // visible desde 0; solo programamos su salida
+        tl.fromTo(el, { opacity: 1, scale: 1 }, { opacity: 0, scale: 1.06, duration: 0.4, ...FADE_OUT }, STEP - 0.1);
+      } else {
+        tl.fromTo(el, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.45 }, t);
+        tl.fromTo(el, { opacity: 1, scale: 1 }, { opacity: 0, scale: 1.06, duration: 0.4, ...FADE_OUT }, t + STEP - 0.1);
+      }
+      t += STEP;
+    });
+
+    // Cierre + handle, se quedan
+    tl.fromTo(closing, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6 }, t + 0.1);
+    tl.fromTo(".handle-pill", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, t + 0.7);
+    tl.to({}, { duration: 2.2 }, t + 1.2); // hold final
+  </script>
+</body>
+</html>

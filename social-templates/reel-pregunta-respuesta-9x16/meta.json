@@ -1,0 +1,29 @@
+{
+  "id": "reel-pregunta-respuesta-9x16",
+  "name": "Reel — Pregunta y respuesta (9:16)",
+  "description": "Una pregunta aparece y se mantiene (suspense), luego sube y se revela la respuesta. Gran hook de retención. 10s con hold final.",
+  "format": "reel-9x16",
+  "width": 1080,
+  "height": 1920,
+  "durationSeconds": 10,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Antetítulo (kicker)", "maxLength": 32, "default": "PREGUNTA RÁPIDA" },
+    {
+      "id": "question", "type": "text", "label": "Pregunta",
+      "help": "El gancho inicial. Usa *palabra* para resaltar.",
+      "maxLength": 70, "required": true,
+      "default": "¿Cuánto debería costar una *web*?"
+    },
+    {
+      "id": "answer", "type": "text", "label": "Respuesta",
+      "help": "La respuesta protagonista. Usa *palabra* para resaltar.",
+      "maxLength": 60, "required": true,
+      "default": "Lo que valga *para tu negocio*."
+    },
+    {
+      "id": "answerSub", "type": "text", "label": "Matiz de la respuesta (opcional)",
+      "maxLength": 90, "default": "No es gasto: es la herramienta que trabaja por ti 24/7."
+    },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "@ebecerra.es" }
+  ]
+}

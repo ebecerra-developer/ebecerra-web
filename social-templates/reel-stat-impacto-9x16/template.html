@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --brand-bg: #047857; --brand-fg: #fafaf9;
+    --brand-primary: #065f46; --brand-accent: #ff6f59;
+    --brand-font-display: 'Inter', sans-serif; --brand-font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; font-family: var(--brand-font-body); overflow: hidden; }
+  .stage {
+    position: relative; width: 1080px; height: 1920px;
+    background: var(--brand-bg); color: var(--brand-fg); overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 0 80px;
+  }
+  .blob {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    width: 700px; height: 700px; background: var(--brand-primary);
+    top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.3; z-index: 0;
+  }
+  .kicker {
+    position: relative; z-index: 2;
+    font-size: 30px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--brand-accent); margin-bottom: 30px;
+  }
+  .big-number {
+    position: relative; z-index: 2;
+    font-family: var(--brand-font-display);
+    font-size: 400px; font-weight: 900; line-height: 0.85; letter-spacing: -0.06em;
+    color: var(--brand-accent); margin-bottom: 50px;
+    text-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  }
+  .description {
+    position: relative; z-index: 2;
+    font-size: 56px; font-weight: 800; line-height: 1.12; letter-spacing: -0.02em;
+    max-width: 880px; margin-bottom: 30px;
+  }
+  .context {
+    position: relative; z-index: 2;
+    font-size: 28px; font-weight: 500; opacity: 0.72;
+  }
+  .handle-pill {
+    position: absolute; bottom: 200px; left: 50%; transform: translateX(-50%); z-index: 3;
+    background: var(--brand-fg); color: var(--brand-bg);
+    font-size: 42px; font-weight: 800; padding: 18px 38px; border-radius: 999px;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <span class="blob"></span>
+    <div class="kicker">{{kicker}}</div>
+    <div class="big-number">{{bigNumber}}</div>
+    <div class="description">{{description}}</div>
+    <div class="context">{{contextLine}}</div>
+    <span class="handle-pill">{{handle}}</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power4.out" }, paused: true });
+    window.__tl = tl;
+
+    // Frame 0: kicker + número visibles (thumbnail-safe), resto oculto.
+    gsap.set(".kicker", { opacity: 1 });
+    gsap.set(".big-number", { opacity: 1, scale: 1 });
+    gsap.set(".description", { opacity: 0, y: 30 });
+    gsap.set(".context", { opacity: 0 });
+    gsap.set(".handle-pill", { opacity: 0, y: 20 });
+
+    // Pequeño "punch" del número al inicio (sutil, sin back.out exagerado)
+    tl.fromTo(".big-number", { scale: 0.82, opacity: 0.4 }, { scale: 1, opacity: 1, duration: 0.7 }, 0.0);
+    tl.fromTo(".description", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65 }, 1.4);
+    tl.fromTo(".context", { opacity: 0 }, { opacity: 0.72, duration: 0.5 }, 2.2);
+    tl.fromTo(".handle-pill", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 2.8);
+    tl.to({}, { duration: 2.5 }, 3.3); // hold final
+  </script>
+</body>
+</html>

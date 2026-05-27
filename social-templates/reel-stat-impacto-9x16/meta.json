@@ -1,0 +1,25 @@
+{
+  "id": "reel-stat-impacto-9x16",
+  "name": "Reel — Cifra de impacto (9:16)",
+  "description": "Una cifra entra con fuerza al centro, luego aparece la explicación y el contexto. Para datos, resultados, hitos. 9s con hold final.",
+  "format": "reel-9x16",
+  "width": 1080,
+  "height": 1920,
+  "durationSeconds": 9,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Antetítulo (kicker)", "maxLength": 32, "default": "EL DATO" },
+    {
+      "id": "bigNumber", "type": "text", "label": "Cifra protagonista",
+      "help": "Ej: '+150%', '3 de 4', '24h'. Corta.",
+      "maxLength": 10, "required": true, "default": "+150%"
+    },
+    {
+      "id": "description", "type": "text", "label": "Qué significa",
+      "help": "1 línea explicando la cifra.",
+      "maxLength": 70, "required": true, "default": "más rápido tras rehacer la web" },
+    {
+      "id": "contextLine", "type": "text", "label": "Contexto (opcional)",
+      "maxLength": 60, "default": "Medido con Lighthouse" },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "@ebecerra.es" }
+  ]
+}

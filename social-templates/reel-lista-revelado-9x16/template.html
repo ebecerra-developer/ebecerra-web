@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --brand-bg: #047857; --brand-fg: #fafaf9;
+    --brand-primary: #065f46; --brand-accent: #ff6f59;
+    --brand-font-display: 'Inter', sans-serif; --brand-font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; font-family: var(--brand-font-body); overflow: hidden; }
+  .stage {
+    position: relative; width: 1080px; height: 1920px;
+    background: var(--brand-bg); color: var(--brand-fg);
+    overflow: hidden; padding: 200px 90px 200px;
+  }
+  .blob {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    width: 520px; height: 520px; background: var(--brand-primary);
+    top: -180px; right: -160px; opacity: 0.4; z-index: 0;
+  }
+  .header { position: relative; z-index: 2; margin-bottom: 70px; }
+  .kicker {
+    font-size: 26px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--brand-accent); margin-bottom: 24px;
+  }
+  .hook {
+    font-family: var(--brand-font-display);
+    font-size: 96px; font-weight: 900; line-height: 0.98; letter-spacing: -0.04em;
+  }
+  .hook em { font-style: normal; color: var(--brand-accent); }
+  .list { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 34px; }
+  .item { display: flex; gap: 28px; align-items: flex-start; }
+  .item__num {
+    width: 70px; height: 70px; border-radius: 18px; flex-shrink: 0;
+    background: var(--brand-accent); color: var(--brand-bg);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--brand-font-display); font-weight: 900; font-size: 38px;
+    counter-increment: li;
+  }
+  .item__num::before { content: counter(li); }
+  .list { counter-reset: li; }
+  .item__text {
+    font-size: 38px; line-height: 1.18; font-weight: 700;
+    letter-spacing: -0.01em; padding-top: 10px;
+  }
+  .brand-mark {
+    position: absolute; bottom: 90px; left: 90px; z-index: 3;
+    color: var(--brand-fg); font-size: 26px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 14px;
+  }
+  .brand-mark__logo { height: 44px; width: auto; display: block; }
+  .brand-mark__dot {
+    background: var(--brand-fg); color: var(--brand-bg);
+    width: 38px; height: 38px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 16px;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <span class="blob"></span>
+    <div class="header">
+      <div class="kicker">{{kicker}}</div>
+      <div class="hook js-emify" data-text="{{hook}}"></div>
+    </div>
+    <div class="list" id="list">
+      {{#each items}}
+      <div class="item"><span class="item__num"></span><span class="item__text">{{this}}</span></div>
+      {{/each}}
+    </div>
+    <span class="brand-mark">{{{brand.markHtml}}}{{handle}}</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    function emify(t){ return t.replace(/\*([^*]+)\*/g,'<em>$1</em>'); }
+    document.querySelectorAll('.js-emify').forEach(function(el){ el.innerHTML = emify(el.getAttribute('data-text')||''); });
+
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
+    window.__tl = tl;
+
+    // Header visible desde t=0 (thumbnail-safe)
+    gsap.set(".header", { opacity: 1, y: 0 });
+    const items = gsap.utils.toArray("#list .item");
+    gsap.set(items, { opacity: 0, y: 40 });
+
+    // Items aparecen uno a uno desde 0.8s, cada 1.5s
+    items.forEach((el, i) => {
+      tl.fromTo(el, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.65 }, 0.8 + i * 1.5);
+    });
+
+    // Hold final: el último item entra y se mantiene ~2.5s
+    const lastStart = 0.8 + (items.length - 1) * 1.5 + 0.65;
+    tl.to({}, { duration: 2.5 }, lastStart);
+  </script>
+</body>
+</html>

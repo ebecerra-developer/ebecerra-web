@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --brand-bg: #047857; --brand-fg: #fafaf9;
+    --brand-primary: #065f46; --brand-accent: #ff6f59;
+    --brand-font-display: 'Inter', sans-serif; --brand-font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; font-family: var(--brand-font-body); overflow: hidden; }
+  .stage {
+    position: relative; width: 1080px; height: 1920px;
+    background: var(--brand-bg); color: var(--brand-fg); overflow: hidden;
+    padding: 0 90px;
+  }
+  .kicker {
+    position: absolute; top: 220px; left: 90px; right: 90px; z-index: 3;
+    font-size: 28px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--brand-accent);
+  }
+  /* Pregunta: arranca centrada, luego sube */
+  .question {
+    position: absolute; left: 90px; right: 90px; z-index: 2;
+    font-family: var(--brand-font-display);
+    font-size: 92px; font-weight: 900; line-height: 1.0; letter-spacing: -0.035em;
+    top: 760px;
+  }
+  .question em { font-style: normal; color: var(--brand-accent); }
+  /* Respuesta: aparece debajo */
+  .answer-wrap {
+    position: absolute; left: 90px; right: 90px; z-index: 2;
+    top: 1080px;
+  }
+  .answer {
+    font-family: var(--brand-font-display);
+    font-size: 104px; font-weight: 900; line-height: 0.98; letter-spacing: -0.04em;
+    margin-bottom: 30px;
+  }
+  .answer em { font-style: normal; color: var(--brand-accent); }
+  .answer-sub {
+    font-size: 38px; font-weight: 500; line-height: 1.3; opacity: 0.9; max-width: 880px;
+  }
+  .handle-pill {
+    position: absolute; bottom: 200px; left: 50%; transform: translateX(-50%); z-index: 3;
+    background: var(--brand-fg); color: var(--brand-bg);
+    font-size: 42px; font-weight: 800; padding: 18px 38px; border-radius: 999px;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="kicker">{{kicker}}</div>
+    <div class="question js-emify" data-text="{{question}}"></div>
+    <div class="answer-wrap">
+      <div class="answer js-emify" data-text="{{answer}}"></div>
+      <div class="answer-sub">{{answerSub}}</div>
+    </div>
+    <span class="handle-pill">{{handle}}</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    function emify(t){ return t.replace(/\*([^*]+)\*/g,'<em>$1</em>'); }
+    document.querySelectorAll('.js-emify').forEach(function(el){ el.innerHTML = emify(el.getAttribute('data-text')||''); });
+
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
+    window.__tl = tl;
+
+    // Frame 0: kicker + pregunta visibles centradas (thumbnail-safe)
+    gsap.set(".kicker", { opacity: 1 });
+    gsap.set(".question", { opacity: 1, y: 0 });
+    gsap.set(".answer-wrap", { opacity: 0, y: 30 });
+    gsap.set(".handle-pill", { opacity: 0, y: 20 });
+
+    // Suspense: la pregunta se queda quieta 0 → 3s.
+    // A los 3s la pregunta sube (de top:760 a ~top:430 vía translateY -330)
+    tl.to(".question", { y: -330, scale: 0.82, duration: 0.7 }, 3.0);
+    // Respuesta entra
+    tl.fromTo(".answer-wrap", { y: 30, opacity: 0 }, { y: -150, opacity: 1, duration: 0.7 }, 3.5);
+    tl.fromTo(".handle-pill", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 4.6);
+    tl.to({}, { duration: 2.8 }, 5.1); // hold final
+  </script>
+</body>
+</html>

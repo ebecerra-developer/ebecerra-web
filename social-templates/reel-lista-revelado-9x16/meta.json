@@ -1,0 +1,31 @@
+{
+  "id": "reel-lista-revelado-9x16",
+  "name": "Reel — Lista revelada (9:16)",
+  "description": "Hook fijo arriba y los ítems van apareciendo uno a uno con stagger. Para 'X razones', 'X errores', 'X cosas que'. 13s con hold final.",
+  "format": "reel-9x16",
+  "width": 1080,
+  "height": 1920,
+  "durationSeconds": 13,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Antetítulo (kicker)", "maxLength": 32, "default": "GUÍA RÁPIDA" },
+    {
+      "id": "hook", "type": "text", "label": "Hook (título fijo)",
+      "help": "Encabezado que se queda visible. Usa *palabra* para resaltar.",
+      "maxLength": 48, "required": true,
+      "default": "5 *errores* al hacer tu web"
+    },
+    {
+      "id": "items", "type": "list", "label": "Ítems (aparecen uno a uno)",
+      "help": "3-5 recomendado. Cada uno entra con un retardo.",
+      "minItems": 2, "maxItems": 5, "itemMaxLength": 56,
+      "default": [
+        "Copiar la web de la competencia.",
+        "No pensar en el móvil primero.",
+        "Olvidarte del SEO desde el día uno.",
+        "Meter mil cosas en la home.",
+        "No tener una llamada a la acción clara."
+      ]
+    },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "@ebecerra.es" }
+  ]
+}

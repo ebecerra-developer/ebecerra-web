@@ -1,0 +1,20 @@
+{
+  "id": "reel-cita-9x16",
+  "name": "Reel — Cita que se construye (9:16)",
+  "description": "Una cita se revela línea a línea con ritmo dramático y cierra con la atribución del autor. Editorial y con peso. 11s con hold final.",
+  "format": "reel-9x16",
+  "width": 1080,
+  "height": 1920,
+  "durationSeconds": 11,
+  "fields": [
+    {
+      "id": "quoteLines", "type": "list", "label": "Líneas de la cita",
+      "help": "Cada línea aparece una tras otra. Reparte la frase en 2-4 líneas para ritmo. Usa *palabra* para resaltar.",
+      "minItems": 2, "maxItems": 4, "itemMaxLength": 32,
+      "default": ["Tu web no es", "un *folleto*.", "Es tu mejor", "*comercial*."]
+    },
+    { "id": "author", "type": "text", "label": "Autor", "maxLength": 40, "required": true, "default": "Enrique Becerra" },
+    { "id": "authorRole", "type": "text", "label": "Rol / contexto", "maxLength": 50, "default": "Desarrollo web · ebecerra.es" },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "@ebecerra.es" }
+  ]
+}

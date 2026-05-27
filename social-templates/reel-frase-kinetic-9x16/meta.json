@@ -1,0 +1,25 @@
+{
+  "id": "reel-frase-kinetic-9x16",
+  "name": "Reel — Tipografía kinética (9:16)",
+  "description": "Frases cortas que se reemplazan en el centro, una tras otra, y cierran con una frase final que se queda. Punchy y moderno. Ideal para manifiestos y claims.",
+  "format": "reel-9x16",
+  "width": 1080,
+  "height": 1920,
+  "durationSeconds": 11,
+  "fields": [
+    { "id": "kicker", "type": "text", "label": "Antetítulo (kicker)", "maxLength": 32, "default": "LO QUE OFREZCO" },
+    {
+      "id": "phrases", "type": "list", "label": "Frases (se suceden en el centro)",
+      "help": "Cortas y potentes. Cada una aparece ~1.4s. 3-5 recomendado. Usa *palabra* para resaltar.",
+      "minItems": 2, "maxItems": 5, "itemMaxLength": 28,
+      "default": ["Sin *plantillas*.", "Sin *permanencias*.", "Sin *sorpresas*.", "Sin *letra pequeña*."]
+    },
+    {
+      "id": "closingPhrase", "type": "text", "label": "Frase de cierre (se queda)",
+      "help": "La frase final que permanece. Usa *palabra* para resaltar.",
+      "maxLength": 40, "required": true,
+      "default": "Solo tu *web*, bien hecha."
+    },
+    { "id": "handle", "type": "text", "label": "Handle al pie", "maxLength": 30, "default": "@ebecerra.es" }
+  ]
+}
