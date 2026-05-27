@@ -23,7 +23,7 @@ function ScaledPreview({ html, width, height }: { html: string; width: number; h
       <iframe
         title="Preview"
         srcDoc={html}
-        sandbox="allow-same-origin"
+        sandbox="allow-scripts allow-same-origin"
         style={{
           position: "absolute",
           top: 0,
