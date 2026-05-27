@@ -62,6 +62,8 @@ social-kit/piezas-game/assets/captures/
 social-kit/personal/00*/final.*
 social-kit/personal/00*/poster.png
 social-kit/personal/00*/slide-*.png
+social-kit/personal/00*/panel-*.png
+social-kit/personal/00*/panorama-*.png
 
 # Highlights covers y covers de perfil (renderizados desde sus HTML)
 social-kit/personal/highlights/*.png
