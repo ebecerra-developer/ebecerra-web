@@ -1,8 +1,17 @@
 # Plan social — ebecerra.es
 
-Fuente única de verdad para producción de contenido IG/FB. Se edita a mano según va saliendo material.
+> **📌 Desde junio 2026 la fuente operativa vive en Notion:**
+> **https://www.notion.so/36e11165126381a1b27dec2483277c56**
+>
+> Aquí se mantiene el **backlog histórico de ideas**, los **cooldowns** y el **log de publicado** (mayo 2026 y anteriores). Para qué subir esta semana / mes → mirar el calendario de Notion.
 
-**Convención:** este archivo guía qué se produce y qué no se repite. Cada pieza vive en su propia carpeta numerada `personal/NNNN-tipo-slug/` con `index.html` (fuente) + `captions.md` (textos) + outputs renderizados. Ver [`README.md`](README.md) para la estructura completa.
+Fuente única de verdad para producción de contenido IG/FB hasta mayo 2026. Se edita a mano según va saliendo material.
+
+**Convención de carpetas:**
+- **Mayo 2026 y antes:** `personal/NNNN-tipo-slug/` (numeración correlativa 0001-0024)
+- **Junio 2026 en adelante:** `personal/YYYY-MM/DD-tipo-slug/` (subcarpeta por mes, numeración por día)
+
+Cada pieza lleva `index.html` (fuente) + `captions.md` (textos) + outputs renderizados. Ver [`README.md`](README.md) para la estructura completa.
 
 Acompañar siempre con [CATEGORIES.md](CATEGORIES.md) (5 categorías, no publicar dos seguidas de la misma).
 
