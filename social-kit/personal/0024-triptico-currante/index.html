@@ -3,284 +3,160 @@
 <head>
 <meta charset="utf-8" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@500;700;800;900&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@600;700;800;900&family=Syne:wght@700;800&display=swap" />
 <style>
+  /*
+    TRÍPTICO MURAL v5 — verde corporativo (degradado sutil, sin pinceladas) +
+    foto recortada grande izquierda + marco grande interior blanco con borde
+    walnut + filete dorado + frase centrada en panel 2 + panel 3 outline +
+    destellos + logo arriba-izquierda. Master 3240×1350.
+  */
   :root {
-    --green: #047857;
+    --green:       #047857;
+    --green-deep:  #024d33;
     --green-light: #6EE7B7;
-    --cream: #FAFAF9;
-    --cream-warm: #F4F1EB;
-    --cream-deep: #ECE6D6;
-    --ink: #0A0A0A;
-    --ink-soft: #1a1a1a;
-    --walnut: #2a1f12;
-    --muted: #6b6354;
+    --gold:        #C2A15A;
+    --cream:       #FAF6EE;
+    --white:       #ffffff;
+    --walnut:      #2a1f12;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
-    width: 3240px;
-    height: 1350px;
-    overflow: hidden;
-    font-family: "DM Sans", system-ui, sans-serif;
+    width: 3240px; height: 1350px;
+    overflow: hidden; background: #000;
+    font-family: "Inter", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    background: #000;
   }
 
-  /* Canvas panorámico */
-  .panorama {
-    position: relative;
-    width: 3240px; height: 1350px;
-    background:
-      linear-gradient(
-        90deg,
-        var(--cream) 0%,
-        var(--cream-warm) 50%,
-        var(--cream) 100%
-      );
+  .mural {
+    position: relative; width: 3240px; height: 1350px;
+    background: radial-gradient(130% 100% at 30% 26%, #058a63 0%, #047857 48%, #02583c 100%);
     overflow: hidden;
   }
-
-  /* Sutil grano sobre el cream */
-  .panorama::after {
-    content: ""; position: absolute; inset: 0;
-    pointer-events: none;
-    opacity: 0.12;
-    mix-blend-mode: multiply;
-    background-image: radial-gradient(rgba(42,31,18,0.5) 1px, transparent 1px);
+  /* Grano sutil global */
+  .mural::after {
+    content: ""; position: absolute; inset: 0; z-index: 22;
+    pointer-events: none; opacity: 0.07; mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(0,0,0,0.6) 1px, transparent 1px);
     background-size: 4px 4px;
-    z-index: 60;
   }
 
-  /* Marco editorial — líneas horizontales sutiles arriba y abajo */
-  .frame-line {
-    position: absolute;
-    left: 96px; right: 96px;
-    height: 2px;
-    background: var(--walnut);
-    opacity: 0.18;
-    z-index: 5;
+  /* ── Marco grande interior blanco, borde VERDE + filete dorado, girado ── */
+  /* Marco + texto agrupados para girarlos juntos (giro sutil + sombra) */
+  .frame-group {
+    position: absolute; inset: 0; z-index: 6;
+    transform: rotate(-1.4deg);
+    transform-origin: 1620px 700px;
   }
-  .frame-line--top    { top: 130px; }
-  .frame-line--bottom { bottom: 130px; }
+  .frame {
+    position: absolute;
+    left: 510px; top: 280px;
+    width: 1900px; height: 820px;
+    background: var(--white);
+    /* Sombra marcada SOLO hacia abajo (spread negativo recorta los lados) */
+    box-shadow: 0 64px 64px -30px rgba(2,40,26,0.62);
+  }
+  /* Borde verde "suelto" desplazado abajo-derecha (detrás del rectángulo) */
+  .frame::before {
+    content: ""; position: absolute; inset: 0;
+    border: 6px solid var(--green-deep);
+    transform: translate(28px, 30px);
+    z-index: -1;
+    pointer-events: none;
+  }
 
-  /* Línea horizonte sutil, casi imperceptible, atraviesa los 3 paneles */
-  .horizon {
-    position: absolute;
-    left: 0; right: 0;
-    bottom: 220px;
-    height: 1px;
-    background: var(--walnut);
-    opacity: 0.10;
-    z-index: 6;
-  }
-
-  /* ─── Brand corner (en zona Panel 1) ─── */
-  .corner {
-    position: absolute;
-    top: 180px; left: 144px;
-    display: flex; align-items: center; gap: 18px;
-    font-family: "Inter", sans-serif;
-    color: var(--walnut);
-    font-weight: 800; font-size: 30px;
-    z-index: 40;
-  }
-  .corner .dot {
-    width: 48px; height: 48px; border-radius: 50%;
-    background: var(--green); color: var(--cream);
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 21px; font-weight: 900;
-  }
-  .corner .label {
-    color: var(--muted);
+  /* Frase gancho — CENTRADA en el panel 2 (x 1080–2160, centro 1620) */
+  .hook {
+    position: absolute; z-index: 10;
+    left: 1090px; width: 1060px;
+    top: 410px;
+    text-align: center;
+    font-family: "Fraunces", Georgia, serif;
     font-weight: 600;
-    font-size: 26px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    font-size: 152px;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--walnut);
+  }
+  .hook em { font-style: italic; color: var(--green); }
+
+  /* ── Foto recortada grande (izquierda), centrada en panel 1 ── */
+  .photo {
+    position: absolute; z-index: 8;
+    left: 50px; top: -50px;
+    height: 1860px;
+  }
+  .photo img { height: 1860px; width: auto; display: block; }
+
+  /* ── Panel 3: texto outline + destellos ── */
+  .outline-text {
+    position: absolute; z-index: 9;
+    /* Alineado a la izquierda en el espacio libre del panel 3 */
+    left: 2500px; top: 355px;
+    text-align: left;
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 700;
+    font-size: 188px;
+    line-height: 1.08;
+    /* Relleno = color del fondo (letras sólidas, sin cruces raros) + borde cream */
+    color: var(--green);
+    -webkit-text-stroke: 4px var(--cream);
+    paint-order: stroke fill;
+  }
+  .outline-text .solid {
+    display: block;
+    -webkit-text-stroke: 0;
+    color: var(--green-light);
+    font-style: italic;
   }
 
-  /* ─── Handle (en zona Panel 3) ─── */
-  .handle {
-    position: absolute;
-    bottom: 180px;
-    right: 144px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
+  .spark { position: absolute; z-index: 11; }
+  .spark--a { left: 3050px; top: 250px; width: 130px; }
+  .spark--b { left: 2440px; top: 1010px; width: 92px; }
+  .spark--c { left: 3110px; top: 980px; width: 64px; }
+
+  /* ── Logo arriba-izquierda, grande ── */
+  .brand {
+    position: absolute; z-index: 14;
+    left: 96px; top: 84px;
+    display: flex; align-items: center; gap: 20px;
     font-family: "Inter", sans-serif;
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--walnut);
-    letter-spacing: -0.005em;
-    z-index: 40;
-  }
-  .handle .dot {
-    width: 48px; height: 48px;
-    border-radius: 50%;
-    background: var(--green);
     color: var(--cream);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 21px;
-    font-weight: 900;
+    font-weight: 700; font-size: 46px;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.35);
   }
-
-  /* ─── Manifiesto tipográfico ─── */
-  /* Linea única de texto, baseline alineada para los 3 paneles.
-     Posición vertical: ~ y=720 (centro óptico ligeramente bajo). */
-  .manifesto {
-    position: absolute;
-    top: 0; left: 0;
-    width: 3240px; height: 1350px;
-    z-index: 20;
+  .brand .dot {
+    width: 76px; height: 76px; border-radius: 50%;
+    background: var(--cream); color: var(--green);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 34px; font-weight: 900;
   }
-
-  /* Cada fragmento posicionado absolutamente para control pixel-perfect.
-     Las x se calculan para que el conjunto lea como una sola frase. */
-
-  .frag {
-    position: absolute;
-    font-family: "Fraunces", Georgia, serif;
-    color: var(--walnut);
-    letter-spacing: -0.025em;
-    line-height: 0.95;
-    white-space: nowrap;
-  }
-
-  /* Panel 1 (x: 0-1080) — fragmento "Una web es" */
-  .frag--1 {
-    left: 144px;
-    top: 600px;
-    font-size: 180px;
-    font-weight: 500;
-    font-style: italic;
-  }
-
-  /* Panel 2 (x: 1080-2160) — climax en DOS líneas:
-     "un currante" (línea 1, regular) + "más" (línea 2, hero italic verde) */
-  .frag--2a {
-    position: absolute;
-    left: 1200px;
-    top: 460px;
-    font-family: "Fraunces", Georgia, serif;
-    color: var(--walnut);
-    font-size: 180px;
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    line-height: 0.95;
-    white-space: nowrap;
-  }
-  .frag--2b {
-    position: absolute;
-    left: 1450px;
-    top: 680px;
-    font-family: "Fraunces", Georgia, serif;
-    color: var(--green);
-    font-size: 260px;
-    font-weight: 600;
-    font-style: italic;
-    letter-spacing: -0.035em;
-    line-height: 0.95;
-    white-space: nowrap;
-  }
-
-  /* Panel 3 (x: 2160-3240) — fragmento "en tu equipo." */
-  .frag--3 {
-    left: 2240px;
-    top: 600px;
-    font-size: 180px;
-    font-weight: 500;
-    font-style: italic;
-  }
-  .frag--3 .period {
-    color: var(--green);
-    font-style: normal;
-  }
-
-  /* Underline sutil bajo "más" — refuerza la palabra hero */
-  .underline {
-    position: absolute;
-    left: 1470px;
-    top: 950px;
-    width: 360px;
-    height: 8px;
-    background: var(--green);
-    opacity: 0.4;
-    border-radius: 4px;
-    transform: rotate(-0.4deg);
-    z-index: 19;
-  }
-
-  /* ─── Marcas tonales pequeñas por panel (continuidad sutil) ─── */
-  .small-mark {
-    position: absolute;
-    font-family: "DM Sans", sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    z-index: 30;
-  }
-  .small-mark--p2 {
-    /* Centro panel 2 — "·" or kicker */
-    bottom: 180px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--green);
-  }
-  .small-mark--p1 {
-    /* Mantra superior panel 1 — kicker */
-    top: 1100px;
-    left: 144px;
-  }
-  .small-mark--p3 {
-    /* Panel 3 — texto pequeño que cierra */
-    top: 180px;
-    right: 144px;
-    color: var(--green);
-  }
-
 </style>
 </head>
 <body>
-  <div class="panorama">
+  <div class="mural">
 
-    <!-- Líneas decorativas -->
-    <div class="frame-line frame-line--top"></div>
-    <div class="frame-line frame-line--bottom"></div>
-    <div class="horizon"></div>
+    <!-- Logo arriba izquierda -->
+    <div class="brand"><span class="dot">eB</span>ebecerra.es</div>
 
-    <!-- Brand corner top-left (Panel 1) -->
-    <div class="corner">
-      <span class="dot">eB</span>
-      <span class="label">manifiesto</span>
+    <!-- Marco grande interior blanco + frase (girados juntos) -->
+    <div class="frame-group">
+      <div class="frame"></div>
+      <div class="hook">Hago webs<br/>que dan<br/><em>resultados</em>.</div>
     </div>
 
-    <!-- Marca pequeña en panel 3 top-right -->
-    <div class="small-mark small-mark--p3">no.&nbsp;001</div>
-
-    <!-- Manifiesto principal -->
-    <div class="manifesto">
-      <div class="frag frag--1">Una web es</div>
-      <div class="frag--2a">un currante</div>
-      <div class="frag--2b">más</div>
-      <div class="underline"></div>
-      <div class="frag frag--3">en tu <span class="period">equipo.</span></div>
+    <!-- Foto recortada grande -->
+    <div class="photo">
+      <img src="../assets/yo/Quique-corporativo-sin-fondo.png" alt="Enrique Becerra" />
     </div>
 
-    <!-- Marca pequeña centro panel 2 (kicker) -->
-    <div class="small-mark small-mark--p2">· no una vitrina ·</div>
+    <!-- Panel 3: outline + destellos -->
+    <div class="outline-text">¿lo<br/>vemos<br/><span class="solid">juntos?</span></div>
 
-    <!-- Mantra superior panel 1 (debajo del corner, opcional) -->
-    <div class="small-mark small-mark--p1">pieza · 03</div>
-
-    <!-- Handle en bottom-right (Panel 3) -->
-    <div class="handle">
-      <span class="dot">eB</span>
-      @ebecerra.es
-    </div>
+    <svg class="spark spark--a" viewBox="0 0 100 100" fill="#6EE7B7"><path d="M50 0 C54 38 62 46 100 50 C62 54 54 62 50 100 C46 62 38 54 0 50 C38 46 46 38 50 0Z"/></svg>
+    <svg class="spark spark--b" viewBox="0 0 100 100" fill="#FAF6EE"><path d="M50 0 C54 38 62 46 100 50 C62 54 54 62 50 100 C46 62 38 54 0 50 C38 46 46 38 50 0Z"/></svg>
+    <svg class="spark spark--c" viewBox="0 0 100 100" fill="#C2A15A"><path d="M50 0 C54 38 62 46 100 50 C62 54 54 62 50 100 C46 62 38 54 0 50 C38 46 46 38 50 0Z"/></svg>
 
   </div>
 </body>
