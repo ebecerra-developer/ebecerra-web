@@ -8,20 +8,20 @@ Dos caminos de contratación × tres tiers de complejidad. El cliente elige cóm
 
 ## Camino A — Contrato de servicio (recomendado para entrada al mercado)
 
-### Esencial — 399 € + 49 €/mes
+### Landing — 199 € + 19 €/mes
 Permanencia mínima: 12 meses
 
-- Diseño a medida, sin plantillas
-- Responsive + formulario de contacto
-- Hosting + SSL + seguridad
-- Hasta 1 h de cambios al mes
-- Dominio incluido (primer año)
+- Una página con un CTA claro (formulario o WhatsApp)
+- Diseño a medida, mobile-first
+- SEO técnico básico (meta, sitemap, datos estructurados)
+- Hosting + SSL + dominio incluido (primer año)
+- 30 min de cambios al mes
 
 ### Profesional — 699 € + 69 €/mes ⭐ más contratado
 Permanencia mínima: 12 meses
 
-- Todo lo de Esencial
-- Panel CMS (el cliente edita solo)
+- Todo lo de Landing
+- Web a medida multi-sección con panel CMS (el cliente edita solo)
 - Hasta 2 h de cambios al mes
 - 1 h de formación al entregar
 - Soporte con respuesta en 24 h
@@ -41,32 +41,32 @@ Permanencia mínima: 12 meses
 
 ## Camino B — Pago único
 
-### Esencial — 900 €
-Incluye 3 meses de soporte post-entrega
+### Landing — 399 €
+Incluye 1 mes de soporte post-entrega
 
-- Diseño a medida, sin plantillas
-- Responsive + formulario de contacto
-- Código y dominio 100% del cliente
-- Traspaso completo de cuentas
-- Mantenimiento opcional: +49 €/mes
+- Una página con un CTA claro (formulario o WhatsApp)
+- Diseño a medida, mobile-first
+- SEO técnico básico
+- Código y dominio 100 % del cliente
+- Mantenimiento opcional: +29 €/mes
 
 ### Profesional — 1.500 € ⭐ más contratado
 Incluye 3 meses de soporte post-entrega
 
-- Todo lo de Esencial
-- Panel CMS (el cliente edita solo)
+- Todo lo de Landing
+- Web multi-sección con panel CMS (el cliente edita solo)
 - 1 h de formación de uso incluida
-- Código y dominio 100% del cliente
+- Código y dominio 100 % del cliente
 - Mantenimiento opcional: +69 €/mes
 - **Migración de contenido de hasta 5 páginas incluida**
 
-### Avanzado — 2.200 €
+### Avanzado — 2.000 €
 Incluye 3 meses de soporte post-entrega
 
 - Todo lo de Profesional
 - Integración de reservas / citas online
 - 1 add-on incluido
-- Código y dominio 100% del cliente
+- Código y dominio 100 % del cliente
 - Mantenimiento opcional: +89 €/mes
 - **Migración de contenido de hasta 10 páginas incluida**
 
@@ -76,8 +76,8 @@ Incluye 3 meses de soporte post-entrega
 
 | Add-on | Precio |
 |---|---|
-| Chatbot con IA | 199 € setup + 29 €/mes |
-| Sistema de reservas | 249 € setup, sin cuota |
+| Chatbot con IA | 49 € setup + 9 €/mes |
+| Sistema de reservas | 199 € setup, sin cuota |
 | Renovación de web existente | desde 1.200 € (pago único) |
 
 ---
@@ -92,7 +92,7 @@ Incluye 3 meses de soporte post-entrega
 
 ## Cláusula de rescisión anticipada (Contrato de servicio)
 
-El valor base de la web equivale al precio de pago único del tier correspondiente (900 / 1.500 / 2.200 €). Si el cliente cancela antes de cumplir los 12 meses, se liquida la diferencia entre lo abonado hasta ese momento y ese valor base. Esta cláusula se comunica al cliente antes de firmar, nunca en letra pequeña.
+El valor base de la web equivale al precio de pago único del tier correspondiente (399 / 1.500 / 2.000 €). Si el cliente cancela antes de cumplir los 12 meses, se liquida la diferencia entre lo abonado hasta ese momento y ese valor base. Esta cláusula se comunica al cliente antes de firmar, nunca en letra pequeña.
 
 ---
 
@@ -100,12 +100,12 @@ El valor base de la web equivale al precio de pago único del tier correspondien
 
 | Clientes | Recurrente aprox. |
 |---|---|
-| 3 clientes | ~200 €/mes |
-| 6 clientes | ~410 €/mes |
-| 8 clientes | ~550 €/mes |
-| 10 clientes | ~690 €/mes |
+| 3 clientes | ~165 €/mes |
+| 6 clientes | ~330 €/mes |
+| 8 clientes | ~440 €/mes |
+| 10 clientes | ~550 €/mes |
 
-Calculado con mix de tiers: 60% Profesional (69 €/mes), 40% Esencial (49 €/mes).
+Calculado con mix de tiers: 50 % Profesional (69 €/mes), 30 % Landing (19 €/mes), 20 % Avanzado (89 €/mes).
 
 ---
 

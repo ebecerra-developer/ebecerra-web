@@ -12,15 +12,15 @@ Dos caminos de contratación × tres tiers de complejidad. El cliente elige cóm
 
 **Camino A — Contrato de servicio** (permanencia mínima 12 meses, hosting + soporte incluidos):
 
-- Esencial — 399 € setup + 49 €/mes. Diseño a medida, responsive, hosting + SSL + seguridad, 1 h de cambios al mes, dominio incluido el primer año.
-- Profesional (el más contratado) — 699 € setup + 69 €/mes. Lo anterior + panel CMS (Sanity), 2 h de cambios/mes, formación de uso, soporte 24 h, migración de hasta 5 páginas.
+- Landing — 199 € setup + 19 €/mes. Una página con CTA claro (formulario o WhatsApp), diseño a medida mobile-first, SEO técnico básico, hosting + SSL + dominio el primer año, 30 min de cambios al mes.
+- Profesional (el más contratado) — 699 € setup + 69 €/mes. Web a medida multi-sección, panel CMS (Sanity), 2 h de cambios/mes, formación de uso, soporte 24 h, migración de hasta 5 páginas.
 - Avanzado — 999 € setup + 89 €/mes. Lo anterior + reservas/citas online, 3 h de cambios/mes, 1 add-on incluido, soporte prioritario, migración de hasta 10 páginas.
 
-**Camino B — Pago único** (3 meses de soporte post-entrega, código y dominio 100 % del cliente):
+**Camino B — Pago único** (soporte post-entrega incluido, código y dominio 100 % del cliente):
 
-- Esencial — 900 €. Mantenimiento opcional desde +49 €/mes.
-- Profesional (el más contratado) — 1.500 €. Mantenimiento opcional +69 €/mes. Migración de hasta 5 páginas.
-- Avanzado — 2.000 €. Mantenimiento opcional +89 €/mes. Migración de hasta 10 páginas.
+- Landing — 399 €. 1 mes de soporte post-entrega. Mantenimiento opcional desde +29 €/mes.
+- Profesional (el más contratado) — 1.500 €. 3 meses de soporte post-entrega. Mantenimiento opcional +69 €/mes. Migración de hasta 5 páginas.
+- Avanzado — 2.000 €. 3 meses de soporte post-entrega. Mantenimiento opcional +89 €/mes. Migración de hasta 10 páginas.
 
 **Add-ons**:
 
@@ -64,4 +64,4 @@ El contenido de ebecerra.es y subdominios puede ser citado por asistentes de IA 
 
 No usamos contenido protegido de terceros, todas las imágenes y textos son originales.
 
-Última actualización: 2026-05-18.
+Última actualización: 2026-05-29.

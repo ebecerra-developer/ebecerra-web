@@ -2,18 +2,20 @@ import type { Locale } from "@/i18n/routing";
 
 export type FaqItem = { q: string; a: string };
 
+// Fallback estático para /faq cuando Sanity está vacío o caído.
+// Mantener en sync con los faqItem publicados en el workspace ebecerra-web.
 const es: FaqItem[] = [
   {
-    q: "¿Cuál es la diferencia entre la web de 900 € y la de 1.500 €?",
-    a: "La web profesional (900 €) está pensada para negocios que necesitan presencia online limpia y rápida pero no van a actualizarla a menudo: clínicas, despachos, estudios, servicios locales. La hago a medida y tú me pides cambios puntuales cuando toque. La web editable (1.500 €) añade un CMS profesional encima para que tu equipo publique noticias, casos, novedades o fichas sin llamarme. Si vas a tocar contenido más de una vez al trimestre, la editable se amortiza en pocos meses.",
+    q: "¿Cuál es la diferencia entre los tiers Landing, Profesional y Avanzado?",
+    a: "Landing es una página única con un CTA claro (formulario o WhatsApp): ideal para autónomos que quieren estar online rápido y captar contactos sin invertir mucho. Profesional añade web a medida con más secciones, un CMS propio para que tu equipo publique sin llamarme, formación de uso y FAQ marcado para Google. Avanzado incluye además sistema de reservas online sincronizado con Google Calendar (o Doctoralia) y un add-on a elegir (chatbot, pagos, etc.). En el camino Compra directa los precios son 399 / 1.500 / 2.000 €; en Contrato de servicio son 199 / 699 / 999 € de alta + 19 / 69 / 89 €/mes.",
   },
   {
     q: "¿Cuánto tarda un proyecto web?",
-    a: "Depende del servicio. Una web de presencia (900 €) se entrega en 2-3 semanas. Una web editable con CMS (1.500 €) en 4-6 semanas. Un rescate de una web antigua puede ir a 2-3 meses según lo que haya que mover y reescribir. En la primera conversación te doy un plazo concreto con hitos semanales, no un rango vago.",
+    a: "Depende del tier. Landing se entrega en 1-2 semanas. Profesional y Avanzado en 4-6 semanas. Un rescate de una web antigua (proyecto a medida fuera de catálogo) puede ir a 2-3 meses según lo que haya que mover y reescribir. En la primera conversación te doy un plazo concreto con hitos semanales, no un rango vago.",
   },
   {
     q: "¿Cómo se paga un proyecto?",
-    a: "30 % al firmar el presupuesto (reserva de calendario y arranque), 40 % al alcanzar el hito intermedio acordado y 30 % a la entrega en producción. Facturas con IVA y sin adelantos del 100 %. El mantenimiento mensual (60 €/mes) se factura aparte, sin permanencia: te das de baja cuando quieras. Todo por transferencia.",
+    a: "En Compra directa: 50 % al firmar el presupuesto (reserva de calendario y arranque) y 50 % a la entrega en producción. En Contrato de servicio: pago de alta (199 / 699 / 999 €) al firmar y cuota mensual (19 / 69 / 89 €) facturada al inicio de cada mes, con permanencia mínima de 12 meses. En proyectos a medida largos (rescates de webs antiguas, intranets): 30 / 40 / 30 con hitos acordados. Todo por transferencia, con factura e IVA incluido en el precio mostrado.",
   },
   {
     q: "¿Qué pasa si no me gusta el diseño?",
@@ -25,7 +27,7 @@ const es: FaqItem[] = [
   },
   {
     q: "¿Quién mantiene la web después de entregarla?",
-    a: "Depende de lo que prefieras. Si contratas la web editable (1.500 €), tu equipo publica y actualiza sin llamarme: incluyo formación y 3 meses de soporte técnico tras la entrega. Si no quieres preocuparte por nada, está el plan de mantenimiento mensual (60 €/mes): alojamiento, copias de seguridad, pequeños cambios y alguien a quien llamar cuando algo no funciona. Sin permanencia, bajas cuando quieras.",
+    a: "Si has elegido Compra directa, tu web es 100 % tuya desde el día 1. Landing incluye 1 mes de soporte post-entrega; Profesional y Avanzado, 3 meses. Después puedes contratar mantenimiento opcional aparte (29 / 69 / 89 €/mes según el tier) o gestionarla por tu cuenta. Si has elegido Contrato de servicio, el mantenimiento ya va incluido en la cuota mensual durante toda la vigencia del contrato (mínimo 12 meses).",
   },
   {
     q: "¿Tu web entra en el Kit Digital?",
@@ -36,23 +38,23 @@ const es: FaqItem[] = [
     a: "Sí, sin problema. En proyectos donde se maneja información sensible o estratégica firmo NDA antes de la primera reunión técnica. En proyectos menores basta con las cláusulas de confidencialidad del contrato de servicios.",
   },
   {
-    q: "¿Te encargas del hosting y del dominio?",
-    a: "Puedo gestionar la contratación técnica y el despliegue en Vercel, Netlify o similar, con recomendación adaptada al caso. El dominio y el hosting se contratan siempre a tu nombre: tú eres el propietario, nunca yo. Así no dependes de mí para nada operativo.",
+    q: "¿De quién son el dominio y las cuentas de hosting?",
+    a: "El dominio es siempre tuyo, desde el día 1, registrado a tu nombre. Si llegas con uno, ni lo toco. Si lo damos de alta nuevo, va directamente a tu nombre y yo solo figuro como administrador técnico. Las cuentas técnicas (hosting en Vercel, CMS Sanity, base de datos, monitorización) se gestionan desde mi cuenta mientras dura el servicio, porque me permite desplegar, dar soporte y monitorizar sin fricciones. Cuando termina la relación, te transfiero esas cuentas o te entrego las credenciales para que asumas la gestión. El código fuente, si has elegido Compra directa, es tuyo desde el día 1; si has elegido Contrato de servicio, te lo entrego al terminar el contrato o antes si lo pides por escrito.",
   },
 ];
 
 const en: FaqItem[] = [
   {
-    q: "What's the difference between the €900 site and the €1,500 one?",
-    a: "The professional website (€900) is designed for businesses that need clean, fast online presence but won't update it often: clinics, law firms, studios, local services. I build it custom and you reach out when you need a change. The editable website (€1,500) adds a professional CMS on top so your team can publish news, cases, updates or product pages without calling me. If you'll touch content more than once a quarter, the editable one pays for itself in a few months.",
+    q: "What's the difference between Landing, Professional and Advanced tiers?",
+    a: "Landing is a single page with a clear CTA (form or WhatsApp): ideal for freelancers who want to be online fast and capture leads without investing much. Professional adds a custom multi-section website with a CMS so your team can publish without calling me, usage training and a Google-ready FAQ. Advanced also includes an online booking system synced with Google Calendar (or Doctoralia) and one add-on of your choice (chatbot, payments, etc.). In the Direct purchase path prices are €399 / €1,500 / €2,000; in Service contract they are €199 / €699 / €999 setup + €19 / €69 / €89/mo.",
   },
   {
     q: "How long does a web project take?",
-    a: "It depends on the service. A presence site (€900) ships in 2-3 weeks. An editable site with a CMS (€1,500) in 4-6 weeks. A rescue of a legacy site can go to 2-3 months depending on what needs to be moved and rewritten. On our first call I give you a concrete timeline with weekly milestones, not a vague range.",
+    a: "Depends on the tier. Landing ships in 1-2 weeks. Professional and Advanced in 4-6 weeks. Rescuing an old site (custom project off-catalogue) can take 2-3 months depending on what needs to be moved and rewritten. In the first conversation I give you a concrete timeline with weekly milestones, not a vague range.",
   },
   {
-    q: "How do payments work?",
-    a: "30% on signing the quote (schedule reserved, work starts), 40% on the agreed mid-project milestone and 30% on live delivery. Invoices include VAT and there are no 100% upfront payments. Monthly maintenance (€60/month) is billed separately, no lock-in, cancel whenever you want. All by bank transfer.",
+    q: "How is a project paid?",
+    a: "Direct purchase: 50% on quote acceptance (calendar reservation and kick-off) and 50% on production delivery. Service contract: setup payment (€199 / €699 / €999) on signing plus monthly fee (€19 / €69 / €89) invoiced at the start of each month, with a 12-month minimum term. Custom long projects (legacy rescues, intranets): 30 / 40 / 30 with agreed milestones. Everything by bank transfer, with an invoice — VAT is included in the prices shown.",
   },
   {
     q: "What if I don't like the design?",
@@ -63,8 +65,8 @@ const en: FaqItem[] = [
     a: "Yes, the real content (copy, team photos, logos, catalog) is yours to provide: no one knows your business better. If you need help with copywriting or professional photography, I can recommend trusted collaborators — but it isn't subcontracted inside the quote unless you ask for it.",
   },
   {
-    q: "Who maintains the site after delivery?",
-    a: "It depends on what you prefer. If you pick the editable site (€1,500), your team publishes and updates without calling me: I include training and 3 months of technical support after delivery. If you'd rather not worry about anything, there's the monthly maintenance plan (€60/month): hosting, backups, small changes and someone to call when something breaks. No lock-in, cancel whenever you want.",
+    q: "Who maintains the website after delivery?",
+    a: "If you chose Direct purchase, your site is 100% yours from day 1. Landing includes 1 month of post-delivery support; Professional and Advanced, 3 months. After that you can contract optional maintenance separately (€29 / €69 / €89/mo by tier) or manage it yourself. If you chose Service contract, maintenance is already included in the monthly fee for the entire contract duration (12-month minimum).",
   },
   {
     q: "Does your work qualify for Spain's Kit Digital grant?",
@@ -75,8 +77,8 @@ const en: FaqItem[] = [
     a: "Yes, no problem. For projects handling sensitive or strategic information, I sign an NDA before the first technical meeting. For smaller projects, the confidentiality clauses in the services contract are enough.",
   },
   {
-    q: "Do you handle hosting and domain?",
-    a: "I can handle the technical setup and deployment on Vercel, Netlify or similar, with a recommendation adapted to your case. The domain and hosting are always contracted under your name: you own them, never me. That way you don't depend on me for anything operational.",
+    q: "Who owns the domain and hosting accounts?",
+    a: "The domain is always yours, from day 1, registered in your name. If you already have one, I don't touch it. If we register a new one, it goes directly in your name and I only appear as technical administrator. Technical accounts (Vercel hosting, Sanity CMS, database, monitoring) are managed from my account while the service lasts, because that lets me deploy, support and monitor without friction. When the relationship ends, I transfer those accounts to you or hand over the credentials so you can take over. Source code, if you chose Direct purchase, is yours from day 1; if you chose Service contract, I hand it over when the contract ends or earlier on written request.",
   },
 ];
 

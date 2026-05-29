@@ -594,7 +594,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettingsFull = {
     title: "Enrique Becerra — Desarrollo web freelance para autónomos y PYMEs",
     titleTemplate: "%s · eBecerra",
     description:
-      "Webs a medida para autónomos y PYMEs. Web profesional desde 900 €, web editable con CMS desde 1.500 €, rescate de webs antiguas y mantenimiento mensual.",
+      "Webs a medida para autónomos y PYMEs. Landing con CTA desde 199 €, web editable con CMS desde 699 €, sistema de reservas y mantenimiento mensual incluido.",
     ogDescription: null,
     twitterDescription: null,
     keywords: [],
