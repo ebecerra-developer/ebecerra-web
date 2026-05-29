@@ -152,6 +152,12 @@ export default function Footer({ footerData }: Props) {
             <Link href="/privacidad" className={styles.legalLink}>
               {t("legalPrivacy")}
             </Link>
+            <Link href="/aviso-legal" className={styles.legalLink}>
+              {t("legalNotice")}
+            </Link>
+            <Link href="/terminos" className={styles.legalLink}>
+              {t("legalTerms")}
+            </Link>
           </div>
         </div>
       </div>
