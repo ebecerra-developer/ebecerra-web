@@ -3,17 +3,16 @@ import {
   type PresentationPluginOptions,
 } from "sanity/presentation";
 
-// Origin por defecto donde abre el iframe de Presentation. En dev usamos
-// localhost; en producción, ebecerra.es. Los demás fronts (ebecerra.tech,
-// demos.ebecerra.es) los alcanza el iframe siguiendo hrefs absolutos
-// devueltos por defineLocations — cada front es responsable de implementar
-// /api/draft-mode/enable bajo su propio origin para que el Studio reactive
-// draft mode al navegar.
-const previewOrigin =
-  process.env.NEXT_PUBLIC_SANITY_PREVIEW_ORIGIN_ES ||
-  (process.env.NODE_ENV === "production"
-    ? "https://ebecerra.es"
-    : "http://localhost:3000");
+// El Studio vive en apps/es y sirve a tres fronts.
+//
+// Para los docTypes de apps/es (ebecerra.es), el Studio y el front comparten
+// origen → hrefs relativos, el Presentation Tool resuelve contra el dominio
+// donde corre el Studio. Funciona en vercel.app, branch previews y dominio
+// custom sin tocar env vars.
+//
+// Para apps/tech (ebecerra.tech) y apps/demos (demos.ebecerra.es), el front
+// vive en otro origin → hrefs absolutos. Los origins pueden overridearse
+// con env vars (útil cuando esos fronts cambien de dominio).
 
 const techOrigin =
   process.env.NEXT_PUBLIC_SANITY_PREVIEW_ORIGIN_TECH ||
@@ -29,49 +28,37 @@ const demosOrigin =
 
 export const resolve: PresentationPluginOptions["resolve"] = {
   locations: {
-    // ───── ebecerra.es (apps/es) ─────
+    // ───── ebecerra.es (apps/es) — hrefs relativos ─────
     heroSection: defineLocations({
       message: "Aparece en la home.",
       locations: [
-        { title: "Home", href: `${previewOrigin}/` },
-        { title: "Home (EN)", href: `${previewOrigin}/en/` },
+        { title: "Home", href: "/" },
+        { title: "Home (EN)", href: "/en/" },
       ],
     }),
     servicesPricing: defineLocations({
       message: "Sección 01 · Servicios.",
-      locations: [
-        { title: "Home — Servicios", href: `${previewOrigin}/#servicios` },
-      ],
+      locations: [{ title: "Home — Servicios", href: "/#servicios" }],
     }),
     serviceSectionMeta: defineLocations({
-      locations: [
-        { title: "Home — Servicios (meta)", href: `${previewOrigin}/#servicios` },
-      ],
+      locations: [{ title: "Home — Servicios (meta)", href: "/#servicios" }],
     }),
     processSectionMeta: defineLocations({
-      locations: [
-        { title: "Home — Proceso", href: `${previewOrigin}/#proceso` },
-      ],
+      locations: [{ title: "Home — Proceso", href: "/#proceso" }],
     }),
     casesSectionMeta: defineLocations({
-      locations: [
-        { title: "Home — Casos", href: `${previewOrigin}/#casos` },
-      ],
+      locations: [{ title: "Home — Casos", href: "/#casos" }],
     }),
     contactSectionMeta: defineLocations({
-      locations: [
-        { title: "Home — Contacto", href: `${previewOrigin}/#contacto` },
-      ],
+      locations: [{ title: "Home — Contacto", href: "/#contacto" }],
     }),
     siteSettings: defineLocations({
       message: "Aplica a todo el sitio.",
-      locations: [{ title: "Home", href: `${previewOrigin}/` }],
+      locations: [{ title: "Home", href: "/" }],
     }),
     profile: defineLocations({
       message: "Aparece en la home y en la sección Sobre mí.",
-      locations: [
-        { title: "Home — Sobre mí", href: `${previewOrigin}/#sobre-mi` },
-      ],
+      locations: [{ title: "Home — Sobre mí", href: "/#sobre-mi" }],
     }),
     caseStudy: defineLocations({
       select: { title: "title", slug: "slug.current" },
@@ -79,28 +66,26 @@ export const resolve: PresentationPluginOptions["resolve"] = {
         locations: [
           {
             title: (doc?.title as string) || "Caso",
-            href: `${previewOrigin}/casos/${doc?.slug}`,
+            href: `/casos/${doc?.slug}`,
           },
-          { title: "Home — Casos", href: `${previewOrigin}/#casos` },
+          { title: "Home — Casos", href: "/#casos" },
         ],
       }),
     }),
     processStep: defineLocations({
-      locations: [
-        { title: "Home — Proceso", href: `${previewOrigin}/#proceso` },
-      ],
+      locations: [{ title: "Home — Proceso", href: "/#proceso" }],
     }),
     faqPage: defineLocations({
-      locations: [{ title: "FAQ", href: `${previewOrigin}/faq` }],
+      locations: [{ title: "FAQ", href: "/faq" }],
     }),
     faqItem: defineLocations({
       select: { question: "question" },
       resolve: () => ({
-        locations: [{ title: "FAQ", href: `${previewOrigin}/faq` }],
+        locations: [{ title: "FAQ", href: "/faq" }],
       }),
     }),
     examplesPage: defineLocations({
-      locations: [{ title: "Ejemplos", href: `${previewOrigin}/ejemplos` }],
+      locations: [{ title: "Ejemplos", href: "/ejemplos" }],
     }),
     legalPage: defineLocations({
       select: { title: "title", slug: "slug.current" },
@@ -108,7 +93,7 @@ export const resolve: PresentationPluginOptions["resolve"] = {
         locations: [
           {
             title: (doc?.title as string) || "Legal",
-            href: `${previewOrigin}/${doc?.slug}`,
+            href: `/${doc?.slug}`,
           },
         ],
       }),
@@ -119,14 +104,14 @@ export const resolve: PresentationPluginOptions["resolve"] = {
         locations: [
           {
             title: (doc?.title as string) || "Post",
-            href: `${previewOrigin}/blog/${doc?.slug}`,
+            href: `/blog/${doc?.slug}`,
           },
-          { title: "Blog", href: `${previewOrigin}/blog` },
+          { title: "Blog", href: "/blog" },
         ],
       }),
     }),
     author: defineLocations({
-      locations: [{ title: "Blog", href: `${previewOrigin}/blog` }],
+      locations: [{ title: "Blog", href: "/blog" }],
     }),
     blogCategory: defineLocations({
       select: { title: "title", slug: "slug.current" },
@@ -134,17 +119,17 @@ export const resolve: PresentationPluginOptions["resolve"] = {
         locations: [
           {
             title: `Categoría · ${doc?.title || ""}`,
-            href: `${previewOrigin}/blog/categoria/${doc?.slug}`,
+            href: `/blog/categoria/${doc?.slug}`,
           },
-          { title: "Blog", href: `${previewOrigin}/blog` },
+          { title: "Blog", href: "/blog" },
         ],
       }),
     }),
     blogTag: defineLocations({
-      locations: [{ title: "Blog", href: `${previewOrigin}/blog` }],
+      locations: [{ title: "Blog", href: "/blog" }],
     }),
 
-    // ───── ebecerra.tech (apps/tech) ─────
+    // ───── ebecerra.tech (apps/tech) — hrefs absolutos (otro origen) ─────
     project: defineLocations({
       select: { title: "title" },
       resolve: (doc) => ({
@@ -168,7 +153,7 @@ export const resolve: PresentationPluginOptions["resolve"] = {
       locations: [{ title: "Tech", href: `${techOrigin}/` }],
     }),
 
-    // ───── demos.ebecerra.es (apps/demos) ─────
+    // ───── demos.ebecerra.es (apps/demos) — hrefs absolutos (otro origen) ─────
     demoSite: defineLocations({
       select: { title: "title", slug: "slug.current" },
       resolve: (doc) => ({
@@ -187,4 +172,4 @@ export const resolve: PresentationPluginOptions["resolve"] = {
   },
 };
 
-export { previewOrigin, techOrigin, demosOrigin };
+export { techOrigin, demosOrigin };

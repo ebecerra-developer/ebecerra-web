@@ -3,7 +3,7 @@ import { structureTool, type StructureResolver } from "sanity/structure";
 import { presentationTool } from "sanity/presentation";
 import { visionTool } from "@sanity/vision";
 import { languageFilter } from "@sanity/language-filter";
-import { resolve as presentationResolve, previewOrigin } from "./lib/sanity/presentation";
+import { resolve as presentationResolve } from "./lib/sanity/presentation";
 // TODO: re-añadir plugin Unsplash cuando publiquen versión compatible con
 // sanity v5. El último (3.1.0) sólo soporta sanity ^3 || ^4. Mientras tanto,
 // los editores pueden subir imágenes manualmente al asset library de Sanity.
@@ -205,8 +205,11 @@ export default defineConfig({
     structureTool({ structure }),
     presentationTool({
       resolve: presentationResolve,
+      // Sin `origin` — el Studio infiere el origin del propio dominio donde
+      // corre (apps/es), así que para docTypes de apps/es el iframe carga ahí
+      // mismo. Para apps/tech y apps/demos, defineLocations devuelve hrefs
+      // absolutos que llevan el iframe a otros orígenes.
       previewUrl: {
-        origin: previewOrigin,
         previewMode: {
           enable: "/api/draft-mode/enable",
         },
