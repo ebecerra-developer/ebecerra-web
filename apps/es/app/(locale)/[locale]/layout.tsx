@@ -5,10 +5,13 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity/visual-editing";
 import { routing } from "@/i18n/routing";
 import StructuredData from "@/components/StructuredData";
 import ChatbotLoader from "@/components/ChatbotLoader";
-import { getSiteSettingsFull, getProfile, getServicesPricing } from "@ebecerra/sanity-client";
+import { DisableDraftMode } from "@/components/DisableDraftMode";
+import { getSiteSettingsFull, getProfile, getServicesPricing, SanityLive } from "@ebecerra/sanity-client";
 import type { Locale } from "@/i18n/routing";
 import "../../globals.css";
 
@@ -205,6 +208,13 @@ export default async function LocaleLayout({
                 : []),
             ]}
           />
+        )}
+        <SanityLive />
+        {(await draftMode()).isEnabled && (
+          <>
+            <VisualEditing />
+            <DisableDraftMode />
+          </>
         )}
         <Analytics />
         <SpeedInsights />

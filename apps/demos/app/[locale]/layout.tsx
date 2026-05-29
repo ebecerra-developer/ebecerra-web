@@ -14,7 +14,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity/visual-editing";
 import { routing } from "@/i18n/routing";
+import { SanityLive } from "@ebecerra/sanity-client";
+import { DisableDraftMode } from "@/components/DisableDraftMode";
 import "../globals.css";
 
 const dmSans = DM_Sans({
@@ -116,6 +120,13 @@ export default async function LocaleLayout({
           {t("skipToContent")}
         </a>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <SanityLive />
+        {(await draftMode()).isEnabled && (
+          <>
+            <VisualEditing />
+            <DisableDraftMode />
+          </>
+        )}
         <Analytics />
         <SpeedInsights />
       </body>

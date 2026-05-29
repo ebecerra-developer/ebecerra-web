@@ -1,7 +1,9 @@
 import { defineConfig } from "sanity";
 import { structureTool, type StructureResolver } from "sanity/structure";
+import { presentationTool } from "sanity/presentation";
 import { visionTool } from "@sanity/vision";
 import { languageFilter } from "@sanity/language-filter";
+import { resolve as presentationResolve, previewOrigin } from "./lib/sanity/presentation";
 // TODO: re-añadir plugin Unsplash cuando publiquen versión compatible con
 // sanity v5. El último (3.1.0) sólo soporta sanity ^3 || ^4. Mientras tanto,
 // los editores pueden subir imágenes manualmente al asset library de Sanity.
@@ -201,6 +203,15 @@ export default defineConfig({
   basePath: "/studio",
   plugins: [
     structureTool({ structure }),
+    presentationTool({
+      resolve: presentationResolve,
+      previewUrl: {
+        origin: previewOrigin,
+        previewMode: {
+          enable: "/api/draft-mode/enable",
+        },
+      },
+    }),
     visionTool(),
     languageFilter({
       supportedLanguages: [

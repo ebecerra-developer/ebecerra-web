@@ -1,4 +1,4 @@
-import { client } from "./client";
+import { sanityFetch } from "./live";
 import type {
   ExperienceItem,
   Skill,
@@ -60,12 +60,24 @@ const normalizeChatbot = (raw: RawChatbot | null): ChatbotConfig | null => {
 const loc = (field: string) =>
   `coalesce(${field}[$locale], ${field}.es, ${field})`;
 
+// Wrapper que preserva la firma de client.fetch<T>(query, params) pero pasa por
+// sanityFetch del defineLive: en Draft Mode las strings llegan con stega
+// encoding para los overlays de Visual Editing, y SanityLive puede invalidar
+// las queries vivas al detectar mutaciones.
+async function runFetch<T>(
+  query: string,
+  params: Record<string, unknown> = {}
+): Promise<T> {
+  const { data } = await sanityFetch({ query, params });
+  return data as T;
+}
+
 export async function getSiteData(locale: Locale) {
   const params = { locale };
 
   const [experienceItemsRaw, skillItems, techTagItems, projectItems, profileData] =
     await Promise.all([
-      client.fetch<Array<Omit<ExperienceItem, "tech"> & { tech: { v: string }[] | null }>>(
+      runFetch<Array<Omit<ExperienceItem, "tech"> & { tech: { v: string }[] | null }>>(
         `*[_type == "experience"] | order(order asc) {
           company,
           "role": ${loc("role")},
@@ -76,20 +88,20 @@ export async function getSiteData(locale: Locale) {
         }`,
         params
       ),
-      client.fetch<Skill[]>(
+      runFetch<Skill[]>(
         `*[_type == "skill"] | order(order asc) {
           "name": ${loc("name")},
           level
         }`,
         params
       ),
-      client.fetch<{ name: string }[]>(
+      runFetch<{ name: string }[]>(
         `*[_type == "techTag"] | order(order asc) {
           "name": ${loc("name")}
         }`,
         params
       ),
-      client.fetch<(Omit<Project, "id"> & { id: { current: string } })[]>(
+      runFetch<(Omit<Project, "id"> & { id: { current: string } })[]>(
         `*[_type == "project"] | order(order asc) {
           "id": id.current,
           label,
@@ -106,7 +118,7 @@ export async function getSiteData(locale: Locale) {
         }`,
         params
       ),
-      client.fetch<{ aboutFeatures: Feature[] } | null>(
+      runFetch<{ aboutFeatures: Feature[] } | null>(
         `*[_type == "profile"][0] {
           "aboutFeatures": aboutFeatures[]{
             icon,
@@ -141,7 +153,7 @@ export async function getSiteData(locale: Locale) {
 
 export async function getHeroSection(locale: Locale): Promise<HeroSection | null> {
   type Raw = Omit<HeroSection, "trustBadges"> & { trustBadges: { v: string }[] | null };
-  const raw = await client.fetch<Raw | null>(
+  const raw = await runFetch<Raw | null>(
     `*[_type == "heroSection"][0] {
       "kicker": ${loc("kicker")},
       "title": ${loc("title")},
@@ -158,7 +170,7 @@ export async function getHeroSection(locale: Locale): Promise<HeroSection | null
 
 export async function getSiteSettings(locale: Locale): Promise<SiteSettingsMeta | null> {
   type Raw = Omit<SiteSettingsMeta, "keywords"> & { keywords: { v: string }[] | null };
-  const raw = await client.fetch<Raw | null>(
+  const raw = await runFetch<Raw | null>(
     `*[_type == "siteSettings"][0].metadata {
       "title": ${loc("title")},
       titleTemplate,
@@ -175,7 +187,7 @@ export async function getSiteSettings(locale: Locale): Promise<SiteSettingsMeta 
 
 export async function getSiteSettingsFooter(locale: Locale): Promise<SiteSettingsFooter | null> {
   type Raw = Omit<SiteSettingsFooter, "socialLinks"> & { socialLinks: { name: string; url: string; external: boolean }[] | null };
-  const raw = await client.fetch<Raw | null>(
+  const raw = await runFetch<Raw | null>(
     `*[_type == "siteSettings"][0].footer {
       "tagline": ${loc("tagline")},
       "availability": ${loc("availability")},
@@ -189,7 +201,7 @@ export async function getSiteSettingsFooter(locale: Locale): Promise<SiteSetting
 }
 
 export async function getProfileContact(locale: Locale): Promise<ProfileContact | null> {
-  return client.fetch<ProfileContact | null>(
+  return runFetch<ProfileContact | null>(
     `*[_type == "profile"][0].contact {
       email,
       linkedinUrl,
@@ -203,7 +215,7 @@ export async function getProfileContact(locale: Locale): Promise<ProfileContact 
 // --- Fase 6+: processSteps, caseStudies ---
 
 export async function getProcessSteps(locale: Locale): Promise<ProcessStep[]> {
-  return client.fetch<ProcessStep[]>(
+  return runFetch<ProcessStep[]>(
     `*[_type == "processStep"] | order(order asc) {
       "_id": _id,
       "title": ${loc("title")},
@@ -228,7 +240,7 @@ const caseStudySummaryProjection = `{
 }`;
 
 export async function getCaseStudies(locale: Locale): Promise<CaseStudySummary[]> {
-  return client.fetch<CaseStudySummary[]>(
+  return runFetch<CaseStudySummary[]>(
     `*[_type == "caseStudy"] | order(coalesce(order, 9999) asc, year desc) ${caseStudySummaryProjection}`,
     { locale }
   );
@@ -238,7 +250,7 @@ export async function getFeaturedCaseStudies(
   locale: Locale,
   limit = 3
 ): Promise<CaseStudySummary[]> {
-  return client.fetch<CaseStudySummary[]>(
+  return runFetch<CaseStudySummary[]>(
     `*[_type == "caseStudy" && featured == true] | order(coalesce(order, 9999) asc, year desc) [0...$limit] ${caseStudySummaryProjection}`,
     { locale, limit }
   );
@@ -252,7 +264,7 @@ export async function getFeaturedCaseStudies(
 export async function getFeaturedCaseForHome(
   locale: Locale
 ): Promise<(CaseStudySummary & { metrics: CaseStudyMetric[] }) | null> {
-  const result = await client.fetch<
+  const result = await runFetch<
     (CaseStudySummary & { metrics: CaseStudyMetric[] }) | null
   >(
     `*[_type == "caseStudy" && featured == true] | order(coalesce(order, 9999) asc, year desc) [0] {
@@ -283,7 +295,7 @@ export async function getFeaturedCaseForHome(
 export async function getProfileFeatures(
   locale: Locale
 ): Promise<Feature[] | null> {
-  const profile = await client.fetch<{ aboutFeatures: Feature[] } | null>(
+  const profile = await runFetch<{ aboutFeatures: Feature[] } | null>(
     `*[_type == "profile"][0] {
       "aboutFeatures": aboutFeatures[]{
         icon,
@@ -300,7 +312,7 @@ export async function getCaseStudyBySlug(
   slug: string,
   locale: Locale
 ): Promise<CaseStudy | null> {
-  return client.fetch<CaseStudy | null>(
+  return runFetch<CaseStudy | null>(
     `*[_type == "caseStudy" && slug.current == $slug][0] {
       "_id": _id,
       "title": ${loc("title")},
@@ -329,7 +341,7 @@ export async function getCaseStudyBySlug(
 }
 
 export async function getCaseStudySlugs(): Promise<string[]> {
-  return client.fetch<string[]>(
+  return runFetch<string[]>(
     `*[_type == "caseStudy" && defined(slug.current)].slug.current`
   );
 }
@@ -340,8 +352,7 @@ export async function getSectionMeta(
   type: "processSectionMeta" | "casesSectionMeta" | "contactSectionMeta",
   locale: Locale
 ): Promise<SectionMeta | null> {
-  return client
-    .fetch<SectionMeta | null>(
+  return runFetch<SectionMeta | null>(
       `*[_type == $type][0] {
         "kicker": ${loc("kicker")},
         "title": ${loc("title")},
@@ -355,8 +366,7 @@ export async function getSectionMeta(
 export async function getServiceSectionMeta(
   locale: Locale
 ): Promise<ServiceSectionMeta | null> {
-  return client
-    .fetch<ServiceSectionMeta | null>(
+  return runFetch<ServiceSectionMeta | null>(
       `*[_type == "serviceSectionMeta"][0] {
         "kicker": ${loc("kicker")},
         "title": ${loc("title")},
@@ -403,8 +413,7 @@ export async function getServicesPricing(
     addOns: ServicesPricing["addOns"] | null;
   };
 
-  const raw = await client
-    .fetch<Raw | null>(
+  const raw = await runFetch<Raw | null>(
       `*[_type == "servicesPricing"][0] {
         "kicker": ${loc("kicker")},
         "title": ${loc("title")},
@@ -467,8 +476,7 @@ export async function getServicesPricing(
 }
 
 export async function getFaqPage(locale: Locale): Promise<FaqPageData | null> {
-  return client
-    .fetch<FaqPageData | null>(
+  return runFetch<FaqPageData | null>(
       `*[_type == "faqPage"][0] {
         "metaTitle": ${loc("metaTitle")},
         "metaDescription": ${loc("metaDescription")},
@@ -485,8 +493,7 @@ export async function getFaqPage(locale: Locale): Promise<FaqPageData | null> {
 }
 
 export async function getFaqItems(locale: Locale): Promise<FaqItem[]> {
-  return client
-    .fetch<FaqItem[]>(
+  return runFetch<FaqItem[]>(
       `*[_type == "faqItem"] | order(order asc) {
         "_id": _id,
         "question": ${loc("question")},
@@ -503,8 +510,7 @@ export async function getLegalPage(
   slug: string,
   locale: Locale
 ): Promise<LegalPageData | null> {
-  return client
-    .fetch<LegalPageData | null>(
+  return runFetch<LegalPageData | null>(
       `*[_type == "legalPage" && slug.current == $slug][0] {
         "slug": slug.current,
         "title": ${loc("title")},
@@ -518,8 +524,7 @@ export async function getLegalPage(
 }
 
 export async function getLegalPageSlugs(): Promise<string[]> {
-  return client
-    .fetch<string[]>(
+  return runFetch<string[]>(
       `*[_type == "legalPage" && defined(slug.current)].slug.current`
     )
     .catch(() => []);
@@ -527,8 +532,7 @@ export async function getLegalPageSlugs(): Promise<string[]> {
 
 export async function getProfile(locale: Locale): Promise<ProfileFull | null> {
   type Raw = Omit<ProfileFull, "chatbot"> & { chatbot: RawChatbot | null };
-  const raw = await client
-    .fetch<Raw | null>(
+  const raw = await runFetch<Raw | null>(
       `*[_type == "profile"][0] {
         name,
         "jobTitle": ${loc("jobTitle")},
@@ -569,8 +573,7 @@ export async function getProfileChatbot(
   locale: Locale,
   field: "chatbot" | "chatbotTech" = "chatbot"
 ): Promise<ChatbotConfig | null> {
-  const raw = await client
-    .fetch<RawChatbot | null>(
+  const raw = await runFetch<RawChatbot | null>(
       `*[_type == "profile"][0].${field} {
         "enabled": coalesce(enabled, false),
         "label": ${loc("label")},
@@ -753,8 +756,7 @@ export async function getDemoSiteBySlug(
   slug: string,
   locale: Locale
 ): Promise<DemoSite | null> {
-  const raw = await client
-    .fetch<RawDemoSite | null>(
+  const raw = await runFetch<RawDemoSite | null>(
       `*[_type == "demoSite" && slug.current == $slug][0] ${demoSiteProjection}`,
       { slug, locale }
     )
@@ -806,8 +808,7 @@ export async function getDemoSiteBySlug(
 }
 
 export async function getDemoSiteSlugs(): Promise<string[]> {
-  return client
-    .fetch<string[]>(
+  return runFetch<string[]>(
       `*[_type == "demoSite" && defined(slug.current)].slug.current`
     )
     .catch(() => []);
@@ -816,8 +817,7 @@ export async function getDemoSiteSlugs(): Promise<string[]> {
 export async function getPublishedDemoSites(
   locale: Locale
 ): Promise<DemoSiteSummary[]> {
-  return client
-    .fetch<DemoSiteSummary[]>(
+  return runFetch<DemoSiteSummary[]>(
       `*[_type == "demoSite" && publishedToGallery == true]
         | order(coalesce(galleryOrder, 9999) asc) {
           "_id": _id,
@@ -846,8 +846,7 @@ export async function getSiteSettingsFull(
     footer: SiteSettingsFooter | null;
   };
 
-  const raw = await client
-    .fetch<Raw | null>(
+  const raw = await runFetch<Raw | null>(
       `*[_type == "siteSettings"][0] {
         "metadata": metadata {
           "title": ${loc("title")},
@@ -957,16 +956,14 @@ export async function getPosts(
     ${postListProjection}
   }`;
 
-  const raw = await client
-    .fetch<RawPostListItem[]>(query, { locale, categorySlug, tagSlug })
+  const raw = await runFetch<RawPostListItem[]>(query, { locale, categorySlug, tagSlug })
     .catch(() => [] as RawPostListItem[]);
 
   return raw.map(normalizePostListItem);
 }
 
 export async function getPostSlugs(): Promise<string[]> {
-  const raw = await client
-    .fetch<{ slug: string | null }[]>(
+  const raw = await runFetch<{ slug: string | null }[]>(
       `*[_type == "post" && noindex != true]{ "slug": slug.current }`
     )
     .catch(() => [] as { slug: string | null }[]);
@@ -978,8 +975,7 @@ export async function getPostBySlug(
   locale: Locale
 ): Promise<PostFull | null> {
   const params = { slug, locale };
-  const raw = await client
-    .fetch<
+  const raw = await runFetch<
       | (RawPostListItem & {
           body: PostFull["body"] | null;
           seoTitle: string | null;
@@ -1056,8 +1052,7 @@ export async function getRelatedPostsAuto(
 ): Promise<PostListItem[]> {
   // Heurística: posts en la misma categoría o que comparten al menos un tag,
   // excluyendo el actual. Ordenados por publishedAt desc.
-  const raw = await client
-    .fetch<RawPostListItem[]>(
+  const raw = await runFetch<RawPostListItem[]>(
       `*[
         _type == "post"
         && _id != $postId
@@ -1077,8 +1072,7 @@ export async function getRelatedPostsAuto(
 }
 
 export async function getCategories(locale: Locale): Promise<BlogCategory[]> {
-  return client
-    .fetch<BlogCategory[]>(
+  return runFetch<BlogCategory[]>(
       `*[_type == "blogCategory"] | order(order asc) {
         _id,
         "title": ${loc("title")},
@@ -1095,8 +1089,7 @@ export async function getCategoryBySlug(
   slug: string,
   locale: Locale
 ): Promise<BlogCategory | null> {
-  return client
-    .fetch<BlogCategory | null>(
+  return runFetch<BlogCategory | null>(
       `*[_type == "blogCategory" && slug.current == $slug][0] {
         _id,
         "title": ${loc("title")},
@@ -1110,8 +1103,7 @@ export async function getCategoryBySlug(
 }
 
 export async function getTags(locale: Locale): Promise<BlogTag[]> {
-  return client
-    .fetch<BlogTag[]>(
+  return runFetch<BlogTag[]>(
       `*[_type == "blogTag"] | order(title.es asc) {
         _id,
         "title": ${loc("title")},
@@ -1127,8 +1119,7 @@ export async function getTagBySlug(
   slug: string,
   locale: Locale
 ): Promise<BlogTag | null> {
-  return client
-    .fetch<BlogTag | null>(
+  return runFetch<BlogTag | null>(
       `*[_type == "blogTag" && slug.current == $slug][0] {
         _id,
         "title": ${loc("title")},
@@ -1144,8 +1135,7 @@ export async function getAuthorBySlug(
   slug: string,
   locale: Locale
 ): Promise<BlogAuthor | null> {
-  return client
-    .fetch<BlogAuthor | null>(
+  return runFetch<BlogAuthor | null>(
       `*[_type == "author" && slug.current == $slug][0] {
         _id,
         name,
