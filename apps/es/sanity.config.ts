@@ -26,6 +26,7 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "processStep",
   "caseStudy",
   "heroSection",
+  "capabilitiesSection",
   "siteSettings",
   "serviceSectionMeta",
   "processSectionMeta",
@@ -80,6 +81,14 @@ const structure: StructureResolver = (S) =>
                   S.document()
                     .schemaType("servicesPricing")
                     .documentId("148cf08a-bfe2-4188-ad31-79784ca11853")
+                ),
+              S.listItem()
+                .title("Sección · Capacidades (03)")
+                .id("capabilitiesSection")
+                .child(
+                  S.document()
+                    .schemaType("capabilitiesSection")
+                    .documentId("capabilitiesSection-singleton")
                 ),
               S.listItem()
                 .title("Sección · Proceso")

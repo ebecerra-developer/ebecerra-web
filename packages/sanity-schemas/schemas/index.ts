@@ -7,6 +7,7 @@ import servicesPricing from "./servicesPricing";
 import processStep from "./processStep";
 import caseStudy from "./caseStudy";
 import heroSection from "./heroSection";
+import capabilitiesSection from "./capabilitiesSection";
 import siteSettings from "./siteSettings";
 import {
   serviceSectionMeta,
@@ -35,6 +36,7 @@ export const schemaTypes = [
   chatbot,
   // Singletons — home + settings
   heroSection,
+  capabilitiesSection,
   siteSettings,
   serviceSectionMeta,
   servicesPricing,
@@ -63,6 +65,7 @@ export const schemaTypes = [
 
 export const SINGLETON_TYPES = [
   "heroSection",
+  "capabilitiesSection",
   "siteSettings",
   "serviceSectionMeta",
   "servicesPricing",

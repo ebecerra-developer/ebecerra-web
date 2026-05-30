@@ -1,51 +1,14 @@
-import { getTranslations } from "next-intl/server";
+import type { CapabilitiesSection } from "@ebecerra/sanity-client";
+import { DEFAULT_CAPABILITIES_SECTION } from "@ebecerra/sanity-client";
 import styles from "./Capabilities.module.css";
 
-type Cap = {
-  key: string;
-  icon: string;
-  badge?: string;
-  featured?: boolean;
-  titleKey: string;
-  descKey: string;
-  bulletKeys: string[];
+type Props = {
+  section?: CapabilitiesSection | null;
 };
 
-const CAPS: Cap[] = [
-  {
-    key: "ai",
-    icon: "🤖",
-    badge: "Nuevo",
-    featured: true,
-    titleKey: "aiTitle",
-    descKey: "aiDesc",
-    bulletKeys: ["aiB1", "aiB2", "aiB3"],
-  },
-  {
-    key: "booking",
-    icon: "📅",
-    titleKey: "bookingTitle",
-    descKey: "bookingDesc",
-    bulletKeys: ["bookB1", "bookB2", "bookB3"],
-  },
-  {
-    key: "integrations",
-    icon: "🔌",
-    titleKey: "intTitle",
-    descKey: "intDesc",
-    bulletKeys: ["intB1", "intB2", "intB3"],
-  },
-  {
-    key: "analytics",
-    icon: "📊",
-    titleKey: "anTitle",
-    descKey: "anDesc",
-    bulletKeys: ["anB1", "anB2", "anB3"],
-  },
-];
-
-export default async function Capabilities() {
-  const t = await getTranslations("capabilities");
+export default function Capabilities({ section }: Props) {
+  const data = section ?? DEFAULT_CAPABILITIES_SECTION;
+  const items = data.items.length > 0 ? data.items : DEFAULT_CAPABILITIES_SECTION.items;
 
   return (
     <section
@@ -58,18 +21,18 @@ export default async function Capabilities() {
           <div className={styles.kicker}>
             {"// "}
             <span className={styles.kickerAccent}>03.</span>{" "}
-            {t("kicker")}
+            {data.kicker ?? ""}
           </div>
           <h2 id="capabilities-heading" className={styles.heading}>
-            {t("title")}
+            {data.title ?? ""}
           </h2>
-          <p className={`lead ${styles.lead}`}>{t("lead")}</p>
+          {data.lead && <p className={`lead ${styles.lead}`}>{data.lead}</p>}
         </header>
 
         <div className={styles.grid}>
-          {CAPS.map((cap) => (
+          {items.map((cap, idx) => (
             <article
-              key={cap.key}
+              key={`${cap.title}-${idx}`}
               className={
                 cap.featured ? `${styles.card} ${styles.cardFeatured}` : styles.card
               }
@@ -80,23 +43,31 @@ export default async function Capabilities() {
                 </span>
                 {cap.badge && <span className={styles.badge}>{cap.badge}</span>}
               </div>
-              <h3 className={styles.cardTitle}>{t(cap.titleKey)}</h3>
-              <p className={styles.cardDesc}>{t(cap.descKey)}</p>
-              <ul className={styles.bullets}>
-                {cap.bulletKeys.map((bk) => (
-                  <li key={bk} className={styles.bullet}>
-                    {t(bk)}
-                  </li>
-                ))}
-              </ul>
+              <h3 className={styles.cardTitle}>{cap.title}</h3>
+              <p className={styles.cardDesc}>{cap.description}</p>
+              {cap.bullets.length > 0 && (
+                <ul className={styles.bullets}>
+                  {cap.bullets.map((b, bi) => (
+                    <li key={bi} className={styles.bullet}>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </article>
           ))}
         </div>
 
-        <div className={styles.note}>
-          <span className={styles.noteLabel}>{t("noteLabel")}</span>
-          <p className={styles.noteText}>{t("noteText")}</p>
-        </div>
+        {(data.noteLabel || data.noteText) && (
+          <div className={styles.note}>
+            {data.noteLabel && (
+              <span className={styles.noteLabel}>{data.noteLabel}</span>
+            )}
+            {data.noteText && (
+              <p className={styles.noteText}>{data.noteText}</p>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

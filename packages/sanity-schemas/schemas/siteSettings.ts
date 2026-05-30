@@ -6,6 +6,7 @@ export default defineType({
   type: "document",
   groups: [
     { name: "metadata", title: "Metadata / SEO" },
+    { name: "nav", title: "Nav" },
     { name: "footer", title: "Footer" },
   ],
   fields: [
@@ -54,6 +55,84 @@ export default defineType({
       ],
     }),
     defineField({
+      name: "nav",
+      title: "Nav",
+      type: "object",
+      group: "nav",
+      fields: [
+        defineField({
+          name: "items",
+          title: "Enlaces del nav",
+          description:
+            "Items del nav top (orden = visual). Anchor = sección de la home (id sin #). Page = URL a otra página del sitio.",
+          type: "array",
+          of: [
+            {
+              name: "navAnchor",
+              type: "object",
+              title: "Anchor de sección",
+              fields: [
+                defineField({
+                  name: "key",
+                  title: "Key (id de la sección)",
+                  description:
+                    "Ej: servicios, sobre-mi, capacidades, proceso, ejemplos, contacto.",
+                  type: "string",
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: "label",
+                  title: "Etiqueta",
+                  type: "localeString",
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+              preview: {
+                select: { title: "label.es", subtitle: "key" },
+                prepare: ({ title, subtitle }) => ({
+                  title: title ?? "—",
+                  subtitle: `#${subtitle ?? ""}`,
+                }),
+              },
+            },
+            {
+              name: "navPage",
+              type: "object",
+              title: "Página",
+              fields: [
+                defineField({
+                  name: "href",
+                  title: "Href",
+                  description: "Ej: /blog/, /faq, /ejemplos.",
+                  type: "string",
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: "label",
+                  title: "Etiqueta",
+                  type: "localeString",
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+              preview: {
+                select: { title: "label.es", subtitle: "href" },
+                prepare: ({ title, subtitle }) => ({
+                  title: title ?? "—",
+                  subtitle,
+                }),
+              },
+            },
+          ],
+        }),
+        defineField({
+          name: "ctaLabel",
+          title: "CTA del nav",
+          description: "Ej: Hablemos.",
+          type: "localeString",
+        }),
+      ],
+    }),
+    defineField({
       name: "footer",
       title: "Footer",
       type: "object",
@@ -76,6 +155,85 @@ export default defineType({
           description:
             "Aparece como enlace en la columna 'Síguenos' del footer. Ej: contacto@ebecerra.es",
           type: "string",
+        }),
+        defineField({
+          name: "colNavTitle",
+          title: "Título columna Navegación",
+          description: "Ej: navegación",
+          type: "localeString",
+        }),
+        defineField({
+          name: "colSocialTitle",
+          title: "Título columna Social",
+          description: "Ej: social",
+          type: "localeString",
+        }),
+        defineField({
+          name: "colCrossTitle",
+          title: "Título columna Ecosistema",
+          description: "Ej: ecosistema ebecerra",
+          type: "localeString",
+        }),
+        defineField({
+          name: "navColumn",
+          title: "Columna Navegación",
+          description:
+            "Enlaces del footer (anchors o páginas). Si está vacío, se reutilizan los items del nav top.",
+          type: "array",
+          of: [
+            {
+              name: "footerAnchor",
+              type: "object",
+              title: "Anchor de sección",
+              fields: [
+                defineField({
+                  name: "key",
+                  title: "Key (id de la sección)",
+                  type: "string",
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: "label",
+                  title: "Etiqueta",
+                  type: "localeString",
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+              preview: {
+                select: { title: "label.es", subtitle: "key" },
+                prepare: ({ title, subtitle }) => ({
+                  title: title ?? "—",
+                  subtitle: `#${subtitle ?? ""}`,
+                }),
+              },
+            },
+            {
+              name: "footerPage",
+              type: "object",
+              title: "Página",
+              fields: [
+                defineField({
+                  name: "href",
+                  title: "Href",
+                  type: "string",
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: "label",
+                  title: "Etiqueta",
+                  type: "localeString",
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+              preview: {
+                select: { title: "label.es", subtitle: "href" },
+                prepare: ({ title, subtitle }) => ({
+                  title: title ?? "—",
+                  subtitle,
+                }),
+              },
+            },
+          ],
         }),
         defineField({
           name: "socialLinks",
@@ -112,6 +270,88 @@ export default defineType({
               },
             },
           ],
+        }),
+        defineField({
+          name: "crossLinks",
+          title: "Ecosistema (cross-links)",
+          description:
+            "Enlaces a otras webs del ecosistema (ebecerra.tech, piezas-game, etc.).",
+          type: "array",
+          of: [
+            {
+              name: "crossLink",
+              type: "object",
+              fields: [
+                {
+                  name: "label",
+                  title: "Etiqueta",
+                  type: "localeString",
+                  validation: (Rule) => Rule.required(),
+                },
+                {
+                  name: "href",
+                  title: "URL",
+                  type: "string",
+                  validation: (Rule) => Rule.required(),
+                },
+                {
+                  name: "external",
+                  title: "Abrir en nueva pestaña",
+                  type: "boolean",
+                  initialValue: true,
+                },
+              ],
+              preview: {
+                select: { title: "label.es", subtitle: "href" },
+                prepare: ({ title, subtitle }) => ({
+                  title: title ?? "—",
+                  subtitle,
+                }),
+              },
+            },
+          ],
+        }),
+        defineField({
+          name: "legalLinks",
+          title: "Enlaces legales",
+          description:
+            "Línea inferior del footer (FAQ, privacidad, aviso legal, términos).",
+          type: "array",
+          of: [
+            {
+              name: "legalLink",
+              type: "object",
+              fields: [
+                {
+                  name: "label",
+                  title: "Etiqueta",
+                  type: "localeString",
+                  validation: (Rule) => Rule.required(),
+                },
+                {
+                  name: "href",
+                  title: "Href interno",
+                  description: "Ej: /faq, /privacidad, /aviso-legal, /terminos.",
+                  type: "string",
+                  validation: (Rule) => Rule.required(),
+                },
+              ],
+              preview: {
+                select: { title: "label.es", subtitle: "href" },
+                prepare: ({ title, subtitle }) => ({
+                  title: title ?? "—",
+                  subtitle,
+                }),
+              },
+            },
+          ],
+        }),
+        defineField({
+          name: "copyrightTemplate",
+          title: "Plantilla copyright",
+          description:
+            "Usa {year} para el año actual. Ej: © {year} Enrique Becerra · Madrid.",
+          type: "localeString",
         }),
       ],
     }),

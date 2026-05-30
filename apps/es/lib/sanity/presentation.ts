@@ -40,6 +40,10 @@ export const resolve: PresentationPluginOptions["resolve"] = {
       message: "Sección 01 · Servicios.",
       locations: [{ title: "Home — Servicios", href: "/#servicios" }],
     }),
+    capabilitiesSection: defineLocations({
+      message: "Sección 03 · Capacidades.",
+      locations: [{ title: "Home — Capacidades", href: "/#capacidades" }],
+    }),
     serviceSectionMeta: defineLocations({
       locations: [{ title: "Home — Servicios (meta)", href: "/#servicios" }],
     }),

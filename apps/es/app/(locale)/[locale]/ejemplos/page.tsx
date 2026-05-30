@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import {
-  getPublishedDemoSites,
-  getSiteSettingsFooter,
-} from "@ebecerra/sanity-client";
+import { getPublishedDemoSites } from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import type { Locale } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
@@ -53,10 +50,9 @@ export default async function EjemplosPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [t, demos, footerData] = await Promise.all([
+  const [t, demos] = await Promise.all([
     getTranslations("examples"),
     getPublishedDemoSites(locale as Locale),
-    getSiteSettingsFooter(locale).catch(() => null),
   ]);
 
   const demoUrl = (slug: string) =>
@@ -170,7 +166,7 @@ export default async function EjemplosPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
       />
       </main>
-      <Footer footerData={footerData} />
+      <Footer />
     </>
   );
 }

@@ -124,6 +124,26 @@ export type HeroSection = {
   trustBadges: string[];
 };
 
+// ---------- Capabilities (sección 03) ----------
+
+export type CapabilityCard = {
+  icon: string;
+  badge: string | null;
+  featured: boolean;
+  title: string;
+  description: string;
+  bullets: string[];
+};
+
+export type CapabilitiesSection = {
+  kicker: string | null;
+  title: string | null;
+  lead: string | null;
+  items: CapabilityCard[];
+  noteLabel: string | null;
+  noteText: string | null;
+};
+
 export type SiteSettingsMeta = {
   title: string | null;
   titleTemplate: string | null;
@@ -160,6 +180,28 @@ export type ServiceSectionMeta = SectionMeta & {
   auditStrip: { kicker: string | null; body: string | null } | null;
 };
 
+export type CasesSectionLabels = {
+  context: string | null;
+  solution: string | null;
+  result: string | null;
+  translates: string | null;
+};
+
+export type CasesSectionMeta = SectionMeta & {
+  labels: CasesSectionLabels | null;
+};
+
+export type ContactSectionLabels = {
+  email: string | null;
+  linkedin: string | null;
+  location: string | null;
+  response: string | null;
+};
+
+export type ContactSectionMeta = SectionMeta & {
+  labels: ContactSectionLabels | null;
+};
+
 export type FaqPageData = {
   metaTitle: string | null;
   metaDescription: string | null;
@@ -187,11 +229,42 @@ export type LegalPageData = {
   updatedAt: string | null;
 };
 
+export type FooterNavItem =
+  | { type: "anchor"; key: string; label: string }
+  | { type: "page"; href: string; label: string };
+
+export type FooterCrossLink = {
+  label: string;
+  href: string;
+  external: boolean;
+};
+
+export type FooterLegalLink = {
+  label: string;
+  href: string;
+};
+
 export type SiteSettingsFooter = {
   tagline: string | null;
   availability: string | null;
   email: string | null;
+  colNavTitle: string | null;
+  colSocialTitle: string | null;
+  colCrossTitle: string | null;
+  navColumn: FooterNavItem[];
   socialLinks: { name: string; url: string; external: boolean }[];
+  crossLinks: FooterCrossLink[];
+  legalLinks: FooterLegalLink[];
+  copyrightTemplate: string | null;
+};
+
+export type SiteSettingsNavItem =
+  | { type: "anchor"; key: string; label: string }
+  | { type: "page"; href: string; label: string };
+
+export type SiteSettingsNav = {
+  items: SiteSettingsNavItem[];
+  ctaLabel: string | null;
 };
 
 export type ProfileStat = { value: string; label: string };
@@ -221,6 +294,7 @@ export type ChatbotConfig = {
 
 export type SiteSettingsFull = {
   metadata: SiteSettingsMeta;
+  nav: SiteSettingsNav;
   footer: SiteSettingsFooter;
 };
 

@@ -2,40 +2,58 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import type { ProfileContact, SectionMeta } from "@ebecerra/sanity-client";
+import type {
+  ContactSectionMeta,
+  ProfileFull,
+} from "@ebecerra/sanity-client";
 import styles from "./Contact.module.css";
 
 type Status = "idle" | "sending" | "success" | "error";
 
 type Props = {
-  contactData?: ProfileContact | null;
-  sectionMeta?: SectionMeta | null;
+  contactMeta: ContactSectionMeta;
+  profile?: ProfileFull | null;
 };
 
-export default function Contact({ contactData, sectionMeta }: Props) {
+export default function Contact({ contactMeta, profile }: Props) {
+  // messages/*.json conserva solo lo del formulario (labels, placeholders,
+  // estados, honeypot). El resto del copy editorial — kicker/title/lead +
+  // labels internas — vive en contactMeta de Sanity.
   const t = useTranslations("contact");
 
-  const sectionKicker = sectionMeta?.kicker ?? t("kicker");
-  const sectionTitle = sectionMeta?.title ?? t("title");
-  const sectionLead = sectionMeta?.lead ?? t("lead");
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
 
-  const email = contactData?.email ?? "contacto@ebecerra.es";
-  const linkedinUrl = contactData?.linkedinUrl ?? "https://www.linkedin.com/in/enrique-becerra-garcia/";
-  const location = contactData?.location ?? "Madrid · España · remoto";
-  const responseTime = contactData?.responseTime ?? t("infoResponseValue");
+  const labels = contactMeta.labels;
+  const email = profile?.contact?.email ?? "contacto@ebecerra.es";
+  const linkedinUrl =
+    profile?.contact?.linkedinUrl ??
+    "https://www.linkedin.com/in/enrique-becerra-garcia/";
+  const location = profile?.contact?.location ?? "Madrid · España · remoto";
+  const responseTime = profile?.contact?.responseTime ?? "24 h laborables";
 
   type InfoItem = {
-    labelKey: "infoEmail" | "infoLinkedin" | "infoLocation";
+    label: string;
     value: string;
     href?: string;
     external?: boolean;
   };
   const INFO: InfoItem[] = [
-    { labelKey: "infoEmail", value: email, href: `mailto:${email}` },
-    { labelKey: "infoLinkedin", value: "/in/enriquebecerra", href: linkedinUrl, external: true },
-    { labelKey: "infoLocation", value: location },
+    {
+      label: labels?.email ?? "Email",
+      value: email,
+      href: `mailto:${email}`,
+    },
+    {
+      label: labels?.linkedin ?? "LinkedIn",
+      value: "/in/enriquebecerra",
+      href: linkedinUrl,
+      external: true,
+    },
+    {
+      label: labels?.location ?? "Ubicación",
+      value: location,
+    },
   ];
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -68,20 +86,22 @@ export default function Contact({ contactData, sectionMeta }: Props) {
         <div className={styles.kicker}>
           {"// "}
           <span className={styles.kickerAccent}>06.</span>{" "}
-          {sectionKicker.replace(/^\/\/\s*\d*\.?\s*/i, "")}
+          {(contactMeta.kicker ?? "").replace(/^\/\/\s*\d*\.?\s*/i, "")}
         </div>
 
         <div className={styles.split}>
           <div>
             <h2 id="contact-heading" className={styles.heading}>
-              {sectionTitle}
+              {contactMeta.title}
             </h2>
-            <p className={styles.lead}>{sectionLead}</p>
+            {contactMeta.lead && (
+              <p className={styles.lead}>{contactMeta.lead}</p>
+            )}
 
             <ul className={styles.infoList}>
-              {INFO.map((item) => (
-                <li key={item.labelKey} className={styles.infoItem}>
-                  <span className={styles.infoItemLabel}>{t(item.labelKey)}</span>
+              {INFO.map((item, i) => (
+                <li key={i} className={styles.infoItem}>
+                  <span className={styles.infoItemLabel}>{item.label}</span>
                   {item.href ? (
                     <a
                       href={item.href}
@@ -97,7 +117,9 @@ export default function Contact({ contactData, sectionMeta }: Props) {
                 </li>
               ))}
               <li className={styles.infoItem}>
-                <span className={styles.infoItemLabel}>{t("infoResponse")}</span>
+                <span className={styles.infoItemLabel}>
+                  {labels?.response ?? "Respuesta"}
+                </span>
                 <span className={styles.responseStatus}>
                   <span className={styles.statusDot} aria-hidden="true" />
                   {responseTime}
@@ -156,7 +178,6 @@ export default function Contact({ contactData, sectionMeta }: Props) {
               className={styles.textarea}
             />
 
-            {/* Honeypot anti-bot: invisible para humanos, visible para scrapers. */}
             <label aria-hidden="true" className={styles.honeypot}>
               Website (no rellenar)
               <input

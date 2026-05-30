@@ -9,9 +9,16 @@ import type {
   CaseStudySummary,
   CaseStudyMetric,
   HeroSection,
+  CapabilitiesSection,
+  CapabilityCard,
   SiteSettingsMeta,
   SiteSettingsFooter,
   SiteSettingsFull,
+  SiteSettingsNavItem,
+  FooterCrossLink,
+  FooterLegalLink,
+  CasesSectionMeta,
+  ContactSectionMeta,
   ProfileContact,
   Locale,
   SectionMeta,
@@ -381,6 +388,236 @@ export async function getServiceSectionMeta(
     .catch(() => null);
 }
 
+// --- Cases / Contact section meta con labels ---
+
+export const DEFAULT_CASES_SECTION_META: CasesSectionMeta = {
+  kicker: "// Casos destacados",
+  title: "Proyectos reales, problemas resueltos",
+  lead: "Tres patrones de solución que he llevado de entornos enterprise a negocios de cualquier escala. Los clientes finales se mantienen bajo confidencialidad; puedo dar referencias concretas tras una primera conversación.",
+  labels: {
+    context: "Contexto",
+    solution: "Solución",
+    result: "Resultado",
+    translates: "Traducible a tu negocio",
+  },
+};
+
+export async function getCasesSectionMeta(
+  locale: Locale
+): Promise<CasesSectionMeta> {
+  const raw = await runFetch<CasesSectionMeta | null>(
+      `*[_type == "casesSectionMeta"][0] {
+        "kicker": ${loc("kicker")},
+        "title": ${loc("title")},
+        "lead": ${loc("lead")},
+        "labels": labels {
+          "context": ${loc("context")},
+          "solution": ${loc("solution")},
+          "result": ${loc("result")},
+          "translates": ${loc("translates")}
+        }
+      }`,
+      { locale }
+    )
+    .catch(() => null);
+  if (!raw) return DEFAULT_CASES_SECTION_META;
+  return {
+    kicker: raw.kicker ?? DEFAULT_CASES_SECTION_META.kicker,
+    title: raw.title ?? DEFAULT_CASES_SECTION_META.title,
+    lead: raw.lead ?? DEFAULT_CASES_SECTION_META.lead,
+    labels: {
+      context:
+        raw.labels?.context ?? DEFAULT_CASES_SECTION_META.labels!.context,
+      solution:
+        raw.labels?.solution ?? DEFAULT_CASES_SECTION_META.labels!.solution,
+      result:
+        raw.labels?.result ?? DEFAULT_CASES_SECTION_META.labels!.result,
+      translates:
+        raw.labels?.translates ??
+        DEFAULT_CASES_SECTION_META.labels!.translates,
+    },
+  };
+}
+
+export const DEFAULT_CONTACT_SECTION_META: ContactSectionMeta = {
+  kicker: "// Contacto",
+  title: "Hablemos de tu proyecto",
+  lead: "Cuéntame qué necesitas y te respondo en 24 h laborables con una primera idea del alcance.",
+  labels: {
+    email: "Email",
+    linkedin: "LinkedIn",
+    location: "Ubicación",
+    response: "Respuesta",
+  },
+};
+
+export async function getContactSectionMeta(
+  locale: Locale
+): Promise<ContactSectionMeta> {
+  const raw = await runFetch<ContactSectionMeta | null>(
+      `*[_type == "contactSectionMeta"][0] {
+        "kicker": ${loc("kicker")},
+        "title": ${loc("title")},
+        "lead": ${loc("lead")},
+        "labels": labels {
+          "email": ${loc("email")},
+          "linkedin": ${loc("linkedin")},
+          "location": ${loc("location")},
+          "response": ${loc("response")}
+        }
+      }`,
+      { locale }
+    )
+    .catch(() => null);
+  if (!raw) return DEFAULT_CONTACT_SECTION_META;
+  return {
+    kicker: raw.kicker ?? DEFAULT_CONTACT_SECTION_META.kicker,
+    title: raw.title ?? DEFAULT_CONTACT_SECTION_META.title,
+    lead: raw.lead ?? DEFAULT_CONTACT_SECTION_META.lead,
+    labels: {
+      email:
+        raw.labels?.email ?? DEFAULT_CONTACT_SECTION_META.labels!.email,
+      linkedin:
+        raw.labels?.linkedin ??
+        DEFAULT_CONTACT_SECTION_META.labels!.linkedin,
+      location:
+        raw.labels?.location ??
+        DEFAULT_CONTACT_SECTION_META.labels!.location,
+      response:
+        raw.labels?.response ??
+        DEFAULT_CONTACT_SECTION_META.labels!.response,
+    },
+  };
+}
+
+// --- Capabilities section (03) ---
+
+export const DEFAULT_CAPABILITIES_SECTION: CapabilitiesSection = {
+  kicker: "Más que una web",
+  title: "Tecnología que te lleva ventaja",
+  lead: "Tu web puede hacer mucho más que estar online. Hablamos de lo que mueve la aguja en tu negocio: atender mejor, ganar tiempo, decidir con datos.",
+  items: [
+    {
+      icon: "🤖",
+      badge: "Nuevo",
+      featured: true,
+      title: "Asistente con IA",
+      description:
+        "Un chatbot 24/7 entrenado con tu información. Atiende preguntas frecuentes, agenda citas, recoge leads y los manda a tu correo o CRM.",
+      bullets: [
+        "Responde en tu tono, en varios idiomas",
+        "Asistente en el panel para crear textos y traducir",
+        "Resúmenes automáticos de reseñas y feedback",
+      ],
+    },
+    {
+      icon: "📅",
+      badge: null,
+      featured: false,
+      title: "Reservas online",
+      description:
+        "Calendario integrado o conexión con Doctoralia, Cal.com, Calendly o el sistema que ya uses. El cliente reserva sin llamar.",
+      bullets: [
+        "Recordatorios por SMS y WhatsApp",
+        "Bloqueos de tiempo entre citas",
+        "Pagos online si los necesitas",
+      ],
+    },
+    {
+      icon: "🔌",
+      badge: null,
+      featured: false,
+      title: "Integra con todo",
+      description:
+        "Tu web hablando con las herramientas que ya usas. Sin abrir 5 pestañas para hacer una cosa.",
+      bullets: [
+        "WhatsApp Business, email marketing, CRM",
+        "Pasarelas de pago, Google Maps, redes sociales",
+        "Conexión con tu software de gestión",
+      ],
+    },
+    {
+      icon: "📊",
+      badge: null,
+      featured: false,
+      title: "Datos para decidir",
+      description:
+        "Analytics privados (sin Google si no quieres). Sabes qué páginas funcionan, de dónde llegan tus clientes y qué cambiar.",
+      bullets: [
+        "Panel mensual fácil de leer",
+        "Cumplimiento RGPD por defecto",
+        "Sin cookies invasivas",
+      ],
+    },
+  ],
+  noteLabel: "Importante",
+  noteText:
+    "Estas capacidades son opcionales y modulares. No tienes que tenerlas todas: empezamos por lo que necesitas hoy y crecemos cuando tu negocio lo pida.",
+};
+
+export async function getCapabilitiesSection(
+  locale: Locale
+): Promise<CapabilitiesSection> {
+  type RawCard = {
+    icon: string | null;
+    badge: string | null;
+    featured: boolean | null;
+    title: string | null;
+    description: string | null;
+    bullets: { v: string }[] | null;
+  };
+  type Raw = Omit<CapabilitiesSection, "items"> & {
+    items: RawCard[] | null;
+  };
+
+  const raw = await runFetch<Raw | null>(
+      `*[_type == "capabilitiesSection"][0] {
+        "kicker": ${loc("kicker")},
+        "title": ${loc("title")},
+        "lead": ${loc("lead")},
+        "items": items[]{
+          icon,
+          "badge": ${loc("badge")},
+          "featured": coalesce(featured, false),
+          "title": ${loc("title")},
+          "description": ${loc("description")},
+          "bullets": bullets[]{ "v": coalesce(@[$locale], @.es, @) }
+        },
+        "noteLabel": ${loc("noteLabel")},
+        "noteText": ${loc("noteText")}
+      }`,
+      { locale }
+    )
+    .catch(() => null);
+
+  if (!raw) return DEFAULT_CAPABILITIES_SECTION;
+
+  const items: CapabilityCard[] =
+    raw.items && raw.items.length > 0
+      ? raw.items
+          .filter((it): it is RawCard & { icon: string; title: string; description: string } =>
+            !!it.icon && !!it.title && !!it.description
+          )
+          .map((it) => ({
+            icon: it.icon,
+            badge: it.badge,
+            featured: it.featured ?? false,
+            title: it.title,
+            description: it.description,
+            bullets: (it.bullets ?? []).map((b) => b.v).filter(Boolean),
+          }))
+      : DEFAULT_CAPABILITIES_SECTION.items;
+
+  return {
+    kicker: raw.kicker ?? DEFAULT_CAPABILITIES_SECTION.kicker,
+    title: raw.title ?? DEFAULT_CAPABILITIES_SECTION.title,
+    lead: raw.lead ?? DEFAULT_CAPABILITIES_SECTION.lead,
+    items,
+    noteLabel: raw.noteLabel ?? DEFAULT_CAPABILITIES_SECTION.noteLabel,
+    noteText: raw.noteText ?? DEFAULT_CAPABILITIES_SECTION.noteText,
+  };
+}
+
 /**
  * Singleton con la sección completa de Servicios y precios:
  * caminos × tiers, add-ons, cláusula de rescisión y footnote.
@@ -591,19 +828,64 @@ export async function getProfileChatbot(
 
 export const DEFAULT_SITE_SETTINGS: SiteSettingsFull = {
   metadata: {
-    title: "Enrique Becerra — Desarrollo web freelance para autónomos y PYMEs",
+    title: "Enrique Becerra — Desarrollo web para autónomos y PYMEs",
     titleTemplate: "%s · eBecerra",
     description:
-      "Webs a medida para autónomos y PYMEs. Landing con CTA desde 199 €, web editable con CMS desde 699 €, sistema de reservas y mantenimiento mensual incluido.",
-    ogDescription: null,
-    twitterDescription: null,
+      "Webs a medida para clínicas, despachos, autónomos y PYMEs. Sin plantillas ni humo. Rápidas, accesibles y pensadas para que tu equipo las mantenga solo.",
+    ogDescription:
+      "Webs a medida para clínicas, despachos, autónomos y PYMEs. Sin plantillas genéricas ni agencias. Rápidas, accesibles y fáciles de mantener.",
+    twitterDescription:
+      "Webs a medida para clínicas, despachos y pequeños negocios. Sin plantillas ni humo.",
     keywords: [],
   },
+  nav: {
+    items: [
+      { type: "anchor", key: "servicios", label: "Servicios" },
+      { type: "anchor", key: "sobre-mi", label: "Sobre mí" },
+      { type: "anchor", key: "capacidades", label: "Capacidades" },
+      { type: "anchor", key: "proceso", label: "Proceso" },
+      { type: "anchor", key: "ejemplos", label: "Ejemplos" },
+      { type: "page", href: "/blog/", label: "Blog" },
+      { type: "page", href: "/faq", label: "FAQ" },
+      { type: "anchor", key: "contacto", label: "Contacto" },
+    ],
+    ctaLabel: "Hablemos",
+  },
   footer: {
-    tagline: null,
-    availability: null,
-    email: null,
-    socialLinks: [],
+    tagline:
+      "Webs a medida para negocios que no se conforman con una plantilla. Rápidas, accesibles, fáciles de mantener y pensadas para que tu equipo opere sin depender de nadie.",
+    availability: "disponible para que trabajemos juntos",
+    email: "contacto@ebecerra.es",
+    colNavTitle: "navegación",
+    colSocialTitle: "social",
+    colCrossTitle: "ecosistema ebecerra",
+    navColumn: [
+      { type: "anchor", key: "servicios", label: "Servicios" },
+      { type: "anchor", key: "sobre-mi", label: "Sobre mí" },
+      { type: "anchor", key: "capacidades", label: "Capacidades" },
+      { type: "anchor", key: "proceso", label: "Proceso" },
+      { type: "anchor", key: "ejemplos", label: "Ejemplos" },
+      { type: "page", href: "/blog/", label: "Blog" },
+      { type: "anchor", key: "contacto", label: "Contacto" },
+    ],
+    socialLinks: [
+      {
+        name: "LinkedIn",
+        url: "https://www.linkedin.com/in/enrique-becerra-garcia/",
+        external: true,
+      },
+    ],
+    crossLinks: [
+      { label: "ebecerra.tech ↗", href: "https://ebecerra.tech", external: true },
+      { label: "piezas · game ↗", href: "/piezas-game/", external: true },
+    ],
+    legalLinks: [
+      { label: "preguntas frecuentes", href: "/faq" },
+      { label: "privacidad", href: "/privacidad" },
+      { label: "aviso legal", href: "/aviso-legal" },
+      { label: "términos de contratación", href: "/terminos" },
+    ],
+    copyrightTemplate: "© {year} Enrique Becerra · Madrid",
   },
 };
 
@@ -835,15 +1117,52 @@ export async function getPublishedDemoSites(
     .catch(() => []);
 }
 
+type RawNavItem =
+  | { _type: "navAnchor"; key: string; label: string | null }
+  | { _type: "navPage"; href: string; label: string | null };
+
+type RawFooterNavItem =
+  | { _type: "footerAnchor"; key: string; label: string | null }
+  | { _type: "footerPage"; href: string; label: string | null };
+
+type RawCrossLink = {
+  label: string | null;
+  href: string;
+  external: boolean | null;
+};
+
+type RawLegalLink = {
+  label: string | null;
+  href: string;
+};
+
 export async function getSiteSettingsFull(
   locale: Locale
 ): Promise<SiteSettingsFull> {
   type RawMeta = Omit<SiteSettingsMeta, "keywords"> & {
     keywords: { v: string }[] | null;
   };
+  type RawNav = {
+    items: RawNavItem[] | null;
+    ctaLabel: string | null;
+  } | null;
+  type RawFooter = {
+    tagline: string | null;
+    availability: string | null;
+    email: string | null;
+    colNavTitle: string | null;
+    colSocialTitle: string | null;
+    colCrossTitle: string | null;
+    navColumn: RawFooterNavItem[] | null;
+    socialLinks: { name: string; url: string; external: boolean | null }[] | null;
+    crossLinks: RawCrossLink[] | null;
+    legalLinks: RawLegalLink[] | null;
+    copyrightTemplate: string | null;
+  } | null;
   type Raw = {
     metadata: RawMeta;
-    footer: SiteSettingsFooter | null;
+    nav: RawNav;
+    footer: RawFooter;
   };
 
   const raw = await runFetch<Raw | null>(
@@ -856,11 +1175,39 @@ export async function getSiteSettingsFull(
           "twitterDescription": ${loc("twitterDescription")},
           "keywords": keywords[]{ "v": coalesce(@[$locale], @.es, @) }
         },
+        "nav": nav {
+          "items": items[]{
+            _type,
+            key,
+            href,
+            "label": ${loc("label")}
+          },
+          "ctaLabel": ${loc("ctaLabel")}
+        },
         "footer": footer {
           "tagline": ${loc("tagline")},
           "availability": ${loc("availability")},
           email,
-          "socialLinks": socialLinks[]{ name, url, external }
+          "colNavTitle": ${loc("colNavTitle")},
+          "colSocialTitle": ${loc("colSocialTitle")},
+          "colCrossTitle": ${loc("colCrossTitle")},
+          "navColumn": navColumn[]{
+            _type,
+            key,
+            href,
+            "label": ${loc("label")}
+          },
+          "socialLinks": socialLinks[]{ name, url, external },
+          "crossLinks": crossLinks[]{
+            "label": ${loc("label")},
+            href,
+            external
+          },
+          "legalLinks": legalLinks[]{
+            "label": ${loc("label")},
+            href
+          },
+          "copyrightTemplate": ${loc("copyrightTemplate")}
         }
       }`,
       { locale }
@@ -869,16 +1216,89 @@ export async function getSiteSettingsFull(
 
   if (!raw) return DEFAULT_SITE_SETTINGS;
 
+  const mapNavItems = (
+    items: RawNavItem[] | RawFooterNavItem[] | null,
+    fallback: SiteSettingsNavItem[]
+  ): SiteSettingsNavItem[] => {
+    if (!items || items.length === 0) return fallback;
+    return items
+      .map((item): SiteSettingsNavItem | null => {
+        if (!item.label) return null;
+        if (item._type === "navAnchor" || item._type === "footerAnchor") {
+          return { type: "anchor", key: item.key, label: item.label };
+        }
+        if (item._type === "navPage" || item._type === "footerPage") {
+          return { type: "page", href: item.href, label: item.label };
+        }
+        return null;
+      })
+      .filter((x): x is SiteSettingsNavItem => x !== null);
+  };
+
+  const navItems = mapNavItems(
+    raw.nav?.items ?? null,
+    DEFAULT_SITE_SETTINGS.nav.items
+  );
+
+  const footerNavColumn = mapNavItems(
+    raw.footer?.navColumn ?? null,
+    DEFAULT_SITE_SETTINGS.footer.navColumn
+  );
+
+  const footerCrossLinks: FooterCrossLink[] =
+    raw.footer?.crossLinks && raw.footer.crossLinks.length > 0
+      ? raw.footer.crossLinks
+          .filter((l): l is RawCrossLink & { label: string } => !!l.label)
+          .map((l) => ({
+            label: l.label,
+            href: l.href,
+            external: l.external ?? true,
+          }))
+      : DEFAULT_SITE_SETTINGS.footer.crossLinks;
+
+  const footerLegalLinks: FooterLegalLink[] =
+    raw.footer?.legalLinks && raw.footer.legalLinks.length > 0
+      ? raw.footer.legalLinks
+          .filter((l): l is RawLegalLink & { label: string } => !!l.label)
+          .map((l) => ({ label: l.label, href: l.href }))
+      : DEFAULT_SITE_SETTINGS.footer.legalLinks;
+
   return {
     metadata: {
       ...raw.metadata,
       keywords: (raw.metadata.keywords ?? []).map((k) => k.v).filter(Boolean),
     },
+    nav: {
+      items: navItems,
+      ctaLabel: raw.nav?.ctaLabel ?? DEFAULT_SITE_SETTINGS.nav.ctaLabel,
+    },
     footer: {
-      tagline: raw.footer?.tagline ?? null,
-      availability: raw.footer?.availability ?? null,
-      email: raw.footer?.email ?? null,
-      socialLinks: raw.footer?.socialLinks ?? [],
+      tagline: raw.footer?.tagline ?? DEFAULT_SITE_SETTINGS.footer.tagline,
+      availability:
+        raw.footer?.availability ?? DEFAULT_SITE_SETTINGS.footer.availability,
+      email: raw.footer?.email ?? DEFAULT_SITE_SETTINGS.footer.email,
+      colNavTitle:
+        raw.footer?.colNavTitle ?? DEFAULT_SITE_SETTINGS.footer.colNavTitle,
+      colSocialTitle:
+        raw.footer?.colSocialTitle ??
+        DEFAULT_SITE_SETTINGS.footer.colSocialTitle,
+      colCrossTitle:
+        raw.footer?.colCrossTitle ??
+        DEFAULT_SITE_SETTINGS.footer.colCrossTitle,
+      navColumn: footerNavColumn,
+      socialLinks:
+        raw.footer?.socialLinks && raw.footer.socialLinks.length > 0
+          ? raw.footer.socialLinks.map((s) => ({
+              name: s.name,
+              url: s.url,
+              external: s.external ?? true,
+            }))
+          : DEFAULT_SITE_SETTINGS.footer.socialLinks,
+      crossLinks: footerCrossLinks,
+      legalLinks: footerLegalLinks,
+      copyrightTemplate:
+        raw.footer?.copyrightTemplate ??
+        DEFAULT_SITE_SETTINGS.footer.copyrightTemplate,
     },
   };
 }

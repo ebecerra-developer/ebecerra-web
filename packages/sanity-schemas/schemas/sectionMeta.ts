@@ -57,7 +57,37 @@ export const casesSectionMeta = defineType({
   name: "casesSectionMeta",
   title: "Sección Casos (meta)",
   type: "document",
-  fields: baseSectionMetaFields(),
+  fields: [
+    ...baseSectionMetaFields(),
+    defineField({
+      name: "labels",
+      title: "Etiquetas internas",
+      description: "Labels que aparecen dentro de cada card de caso.",
+      type: "object",
+      fields: [
+        defineField({
+          name: "context",
+          title: "Contexto",
+          type: "localeString",
+        }),
+        defineField({
+          name: "solution",
+          title: "Solución",
+          type: "localeString",
+        }),
+        defineField({
+          name: "result",
+          title: "Resultado",
+          type: "localeString",
+        }),
+        defineField({
+          name: "translates",
+          title: "Traducible a tu negocio",
+          type: "localeString",
+        }),
+      ],
+    }),
+  ],
   preview: { prepare: () => ({ title: "Sección Casos (meta)" }) },
 });
 
@@ -65,6 +95,36 @@ export const contactSectionMeta = defineType({
   name: "contactSectionMeta",
   title: "Sección Contacto (meta)",
   type: "document",
-  fields: baseSectionMetaFields(),
+  fields: [
+    ...baseSectionMetaFields(),
+    defineField({
+      name: "labels",
+      title: "Etiquetas internas",
+      description: "Labels que aparecen en el bloque de info de contacto.",
+      type: "object",
+      fields: [
+        defineField({
+          name: "email",
+          title: "Email",
+          type: "localeString",
+        }),
+        defineField({
+          name: "linkedin",
+          title: "LinkedIn",
+          type: "localeString",
+        }),
+        defineField({
+          name: "location",
+          title: "Ubicación",
+          type: "localeString",
+        }),
+        defineField({
+          name: "response",
+          title: "Respuesta",
+          type: "localeString",
+        }),
+      ],
+    }),
+  ],
   preview: { prepare: () => ({ title: "Sección Contacto (meta)" }) },
 });
