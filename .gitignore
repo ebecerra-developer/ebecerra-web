@@ -58,19 +58,20 @@ social-kit/**/_tmp-*/
 social-kit/personal/assets/captures/
 social-kit/piezas-game/assets/captures/
 
-# Outputs de cada pieza numerada (regenerables desde index.html)
-social-kit/personal/00*/final.*
-social-kit/personal/00*/poster.png
-social-kit/personal/00*/slide-*.png
-social-kit/personal/00*/panel-*.png
-social-kit/personal/00*/panorama-*.png
+# Outputs de cada pieza (regenerables desde index.html)
+# Cubre la estructura por año/mes: personal/YYYY/MM/<pieza>/...
+social-kit/personal/**/final.*
+social-kit/personal/**/poster.png
+social-kit/personal/**/slide-*.png
+social-kit/personal/**/panel-*.png
+social-kit/personal/**/panorama-*.png
 
 # Highlights covers y covers de perfil (renderizados desde sus HTML)
 social-kit/personal/highlights/*.png
 social-kit/personal/covers/*.png
 
-# Renderizados legacy (preservamos HTML/MD, no PNG/MP4)
-social-kit/personal/legacy/**/*.png
-social-kit/personal/legacy/**/*.mp4
+# Renderizados de drafts archivados (preservamos HTML/MD, no PNG/MP4)
+social-kit/personal/2026/04/**/*.png
+social-kit/personal/2026/04/**/*.mp4
 social-kit/piezas-game/legacy/**/*.png
 social-kit/piezas-game/legacy/**/*.mp4

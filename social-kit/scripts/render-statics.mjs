@@ -14,8 +14,8 @@ const ROOT = path.resolve("..");
 const JOBS = [
   // ── 0001 · Post Lo que NO hago (1080×1350) ───────────────────────────
   {
-    html: "personal/0001-post-lo-que-no-hago/index.html",
-    out:  "personal/0001-post-lo-que-no-hago/final.png",
+    html: "personal/2026/05/0001-post-lo-que-no-hago/index.html",
+    out:  "personal/2026/05/0001-post-lo-que-no-hago/final.png",
     w: 1080, h: 1350,
   },
 
@@ -25,29 +25,29 @@ const JOBS = [
   // post ya publicado, y los slides en pantalla seguirían siendo 1:1.
   // Los CARRUSELES NUEVOS deben usar 1080×1350 (4:5) — ver skill canónica.
   ...[1,2,3,4,5,6,7].map((n) => ({
-    html: `personal/0002-carrusel-4-demos/slide-${n}.html`,
-    out:  `personal/0002-carrusel-4-demos/slide-${n}.png`,
+    html: `personal/2026/05/0002-carrusel-4-demos/slide-${n}.html`,
+    out:  `personal/2026/05/0002-carrusel-4-demos/slide-${n}.png`,
     w: 1080, h: 1080,
   })),
 
   // ── 0018 · Carrusel "4 cosas que tu cliente nota" · 7 slides 1080×1350 (4:5) ──
   ...[1,2,3,4,5,6,7].map((n) => ({
-    html: `personal/0018-carrusel-4-cosas-nota/slide-${n}.html`,
-    out:  `personal/0018-carrusel-4-cosas-nota/slide-${n}.png`,
+    html: `personal/2026/05/0018-carrusel-4-cosas-nota/slide-${n}.html`,
+    out:  `personal/2026/05/0018-carrusel-4-cosas-nota/slide-${n}.png`,
     w: 1080, h: 1350,
   })),
 
   // ── 0021 · Post "Cuéntamela" (single image, foto estudio + invitación DM) ──
   {
-    html: "personal/0021-post-cuentamela/index.html",
-    out:  "personal/0021-post-cuentamela/final.png",
+    html: "personal/2026/05/0021-post-cuentamela/index.html",
+    out:  "personal/2026/05/0021-post-cuentamela/final.png",
     w: 1080, h: 1350,
   },
 
   // ── 2026-05-31 · Post "Hago webs y también monté Piezas" ──
   {
-    html: "personal/2026-05/31-post-piezas/index.html",
-    out:  "personal/2026-05/31-post-piezas/final.png",
+    html: "personal/2026/05/31-post-piezas/index.html",
+    out:  "personal/2026/05/31-post-piezas/final.png",
     w: 1080, h: 1350,
   },
 
@@ -56,13 +56,13 @@ const JOBS = [
   // ORDEN DE SUBIDA A IG: panel-3 primero, panel-2 segundo, panel-1 último,
   // para que en el grid de IG queden izquierda→derecha como mural continuo.
   {
-    html: "personal/0024-triptico-currante/index.html",
-    out:  "personal/0024-triptico-currante/panorama-full.png",
+    html: "personal/2026/05/0024-triptico-currante/index.html",
+    out:  "personal/2026/05/0024-triptico-currante/panorama-full.png",
     w: 3240, h: 1350,
   },
   ...[1, 2, 3].map((n) => ({
-    html: "personal/0024-triptico-currante/index.html",
-    out:  `personal/0024-triptico-currante/panel-${n}.png`,
+    html: "personal/2026/05/0024-triptico-currante/index.html",
+    out:  `personal/2026/05/0024-triptico-currante/panel-${n}.png`,
     w: 1080, h: 1350,
     viewport: { w: 3240, h: 1350 },
     clip: { x: (n - 1) * 1080, y: 0, width: 1080, height: 1350 },
@@ -70,15 +70,15 @@ const JOBS = [
 
   // ── 0004 · Story eco estática (1080×1920) ────────────────────────────
   {
-    html: "personal/0004-story-eco/index.html",
-    out:  "personal/0004-story-eco/final.png",
+    html: "personal/2026/05/0004-story-eco/index.html",
+    out:  "personal/2026/05/0004-story-eco/final.png",
     w: 1080, h: 1920,
   },
 
   // ── 0005 · Story pruébalos estática (1080×1920) ──────────────────────
   {
-    html: "personal/0005-story-pruebalos/index.html",
-    out:  "personal/0005-story-pruebalos/final.png",
+    html: "personal/2026/05/0005-story-pruebalos/index.html",
+    out:  "personal/2026/05/0005-story-pruebalos/final.png",
     w: 1080, h: 1920,
   },
 

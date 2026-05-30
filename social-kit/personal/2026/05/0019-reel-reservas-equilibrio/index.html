@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@500;700;800;900&display=swap" />
+<style>
+  /* Paleta eB (verde marca) — solo para frames de marca eB */
+  :root {
+    --green: #047857;
+    --green-light: #6EE7B7;
+    --cream: #FAFAF9;
+    --ink: #0A0A0A;
+  }
+  /* Paleta equilibrio fisio — para todo el flujo dentro del demo */
+  :root {
+    --eq-bg: #f7f0e3;
+    --eq-bg-deep: #ede1cb;
+    --eq-surface: #ffffff;
+    --eq-ink: #2a1f12;
+    --eq-text: #2a1f12;
+    --eq-muted: #6d573c;
+    --eq-cta: #1e5f6e;
+    --eq-cta-hover: #154855;
+    --eq-accent: #b86a44;
+    --eq-border: #e0cfaf;
+    --eq-success: #1e5f6e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: "DM Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .stage {
+    position: relative;
+    width: 1080px; height: 1920px;
+    background: var(--eq-bg);
+    overflow: hidden;
+  }
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none; opacity: 0.14;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(42,31,18,0.5) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 50;
+  }
+
+  /* Brand corner eB */
+  .eb-corner {
+    position: absolute; top: 80px; left: 80px;
+    display: flex; align-items: center; gap: 14px;
+    z-index: 40;
+    font-family: "Inter", sans-serif;
+    color: var(--eq-text);
+    font-weight: 800; font-size: 26px;
+  }
+  .eb-corner .dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--green); color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+  }
+
+  /* ---------- SCENE 1 · HOOK ---------- */
+  #s1 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center;
+    padding: 0 88px;
+    z-index: 12;
+  }
+  #s1 .kicker {
+    font-family: "DM Sans", sans-serif;
+    font-size: 30px; font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--eq-muted);
+    margin-bottom: 32px;
+  }
+  #s1 .big {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 180px; font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 0.95;
+    color: var(--eq-text);
+  }
+  #s1 .big em {
+    font-style: italic;
+    color: var(--eq-cta);
+  }
+  #s1 .sub {
+    margin-top: 50px;
+    font-size: 42px; font-weight: 500;
+    color: var(--eq-muted);
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+  }
+
+  /* ---------- SCENE 2 · DEMO + click ---------- */
+  #s2 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 220px 0 200px;
+    z-index: 12;
+  }
+  .scene-title {
+    font-family: "DM Sans", sans-serif;
+    font-size: 36px; font-weight: 700;
+    color: var(--eq-text);
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: -0.01em;
+  }
+  .scene-title em {
+    font-style: normal;
+    color: var(--eq-cta);
+  }
+
+  /* Phone mockup — base */
+  .phone {
+    width: 540px;
+    height: 1100px;
+    border-radius: 56px;
+    background: #111;
+    padding: 14px;
+    box-shadow:
+      0 36px 80px rgba(42,31,18,0.25),
+      0 0 0 4px #222;
+    position: relative;
+  }
+  .phone::before {
+    content: "";
+    position: absolute;
+    top: 22px; left: 50%;
+    transform: translateX(-50%);
+    width: 160px; height: 28px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 3;
+  }
+  .phone__screen {
+    width: 100%; height: 100%;
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+  }
+  .phone__screen img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  /* Click ring sobre el CTA "Pide tu primera sesión" */
+  .click-ring {
+    position: absolute;
+    /* en pantalla mobile equilibrio el botón "Pide tu primera sesión" cae ~75% vertical */
+    bottom: 280px;
+    left: 50%;
+    transform: translate(-50%, 0) scale(0);
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 6px solid var(--eq-cta);
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  /* ---------- SCENE 3 · MODAL CALENDAR ---------- */
+  #s3 {
+    position: absolute; inset: 0;
+    background: var(--eq-bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 200px 64px 160px;
+    z-index: 13;
+  }
+  .modal {
+    width: 100%;
+    max-width: 920px;
+    background: var(--eq-surface);
+    border: 3px solid var(--eq-border);
+    border-radius: 32px;
+    padding: 56px 48px;
+    box-shadow:
+      0 24px 80px rgba(42,31,18,0.15),
+      0 2px 0 rgba(42,31,18,0.05);
+  }
+  .modal__head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 36px;
+  }
+  .modal__title {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 56px; font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--eq-text);
+  }
+  .modal__close {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--eq-bg-deep);
+    color: var(--eq-muted);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px; font-weight: 700;
+  }
+  .modal__sub {
+    font-size: 28px;
+    color: var(--eq-muted);
+    margin-bottom: 36px;
+  }
+
+  /* Calendar */
+  .cal {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+  .cal__head {
+    font-family: "DM Sans", sans-serif;
+    font-size: 22px; font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--eq-muted);
+    text-align: center;
+    padding: 12px 0;
+  }
+  .cal__day {
+    aspect-ratio: 1 / 1;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 14px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 32px; font-weight: 600;
+    color: var(--eq-text);
+    background: transparent;
+    transition: background 0.18s ease;
+  }
+  .cal__day--out { color: var(--eq-border); }
+  .cal__day--available { background: var(--eq-bg-deep); cursor: pointer; }
+  .cal__day--selected {
+    background: var(--eq-cta);
+    color: #fff;
+    font-weight: 800;
+    box-shadow: 0 6px 16px rgba(30,95,110,0.35);
+  }
+
+  /* Hours grid */
+  .hours {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 40px;
+    opacity: 0;
+  }
+  .hour {
+    padding: 22px 0;
+    border-radius: 16px;
+    border: 2px solid var(--eq-border);
+    background: var(--eq-surface);
+    font-family: "DM Sans", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--eq-text);
+    text-align: center;
+  }
+  .hour--selected {
+    background: var(--eq-cta);
+    color: #fff;
+    border-color: var(--eq-cta);
+    box-shadow: 0 6px 16px rgba(30,95,110,0.35);
+  }
+
+  /* Modal CTA button */
+  .modal__cta {
+    width: 100%;
+    padding: 28px;
+    background: var(--eq-cta);
+    color: #fff;
+    border-radius: 999px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(30,95,110,0.35);
+  }
+
+  /* ---------- SCENE 4 · CONFIRMACIÓN ---------- */
+  #s4 {
+    position: absolute; inset: 0;
+    background: var(--eq-bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 0 88px;
+    z-index: 14;
+    text-align: center;
+  }
+  .check-wrap {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--eq-cta);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 60px;
+    box-shadow: 0 24px 60px rgba(30,95,110,0.35);
+  }
+  .check-wrap svg {
+    width: 120px; height: 120px;
+    stroke: #fff;
+    stroke-width: 5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  #s4 .title {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 110px; font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--eq-text);
+    margin-bottom: 32px;
+  }
+  #s4 .meta {
+    font-family: "DM Sans", sans-serif;
+    font-size: 44px;
+    font-weight: 600;
+    color: var(--eq-muted);
+    letter-spacing: -0.005em;
+  }
+  #s4 .meta strong {
+    color: var(--eq-text);
+    font-weight: 700;
+  }
+
+  /* ---------- SCENE 5 · CTA eB ---------- */
+  #s5 {
+    position: absolute; inset: 0;
+    background: var(--green);
+    color: var(--cream);
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center;
+    padding: 0 88px;
+    z-index: 15;
+    font-family: "Inter", sans-serif;
+  }
+  #s5 .kicker {
+    font-size: 30px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 36px;
+  }
+  #s5 .big {
+    font-size: 130px; font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+  }
+  #s5 .big em {
+    font-style: normal;
+    color: var(--green-light);
+  }
+  #s5 .handle {
+    margin-top: 56px;
+    display: inline-block;
+    background: var(--cream);
+    color: var(--green);
+    font-size: 50px; font-weight: 800;
+    padding: 22px 42px;
+    border-radius: 999px;
+  }
+  #s5 .sub {
+    margin-top: 36px;
+    font-size: 28px; font-weight: 600;
+    opacity: 0.9;
+  }
+
+  /* eb corner on green */
+  #s5 .eb-corner { color: var(--cream); }
+  #s5 .eb-corner .dot { background: var(--cream); color: var(--green); }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <!-- SCENE 1 — Hook -->
+    <div id="s1">
+      <div class="eb-corner"><span class="dot">eB</span> reservas</div>
+      <div class="kicker">Tu cliente quiere cita</div>
+      <div class="big">Y son las<br/><em>23:14</em><br/>de un martes.</div>
+      <div class="sub">¿Va a esperar a mañana<br/>para llamarte?</div>
+    </div>
+
+    <!-- SCENE 2 — Demo phone + click -->
+    <div id="s2">
+      <div class="eb-corner"><span class="dot">eB</span> reservas</div>
+      <div class="scene-title">Si tu web sabe coger <em>citas</em>, no.</div>
+      <div class="phone">
+        <div class="phone__screen">
+          <img src="../../../assets/captures/demo-equilibrio-mobile.png" alt="demo equilibrio" />
+        </div>
+        <div class="click-ring" id="clickRing"></div>
+      </div>
+    </div>
+
+    <!-- SCENE 3 — Modal calendar -->
+    <div id="s3">
+      <div class="eb-corner"><span class="dot">eB</span> reservas</div>
+      <div class="modal">
+        <div class="modal__head">
+          <div class="modal__title">Pide tu cita</div>
+          <div class="modal__close">×</div>
+        </div>
+        <div class="modal__sub">Equilibrio Fisio · Madrid centro</div>
+
+        <div class="cal">
+          <!-- Encabezados días -->
+          <div class="cal__head">L</div>
+          <div class="cal__head">M</div>
+          <div class="cal__head">X</div>
+          <div class="cal__head">J</div>
+          <div class="cal__head">V</div>
+          <div class="cal__head">S</div>
+          <div class="cal__head">D</div>
+          <!-- Semana 1 -->
+          <div class="cal__day cal__day--out">28</div>
+          <div class="cal__day cal__day--out">29</div>
+          <div class="cal__day cal__day--out">30</div>
+          <div class="cal__day cal__day--available">1</div>
+          <div class="cal__day cal__day--available">2</div>
+          <div class="cal__day cal__day--available">3</div>
+          <div class="cal__day cal__day--available">4</div>
+          <!-- Semana 2 -->
+          <div class="cal__day cal__day--available">5</div>
+          <div class="cal__day cal__day--available">6</div>
+          <div class="cal__day cal__day--available">7</div>
+          <div class="cal__day cal__day--available">8</div>
+          <div class="cal__day cal__day--available">9</div>
+          <div class="cal__day cal__day--available">10</div>
+          <div class="cal__day cal__day--available">11</div>
+          <!-- Semana 3 -->
+          <div class="cal__day cal__day--available">12</div>
+          <div class="cal__day cal__day--available">13</div>
+          <div class="cal__day cal__day--available">14</div>
+          <div class="cal__day cal__day--available">15</div>
+          <div class="cal__day cal__day--available">16</div>
+          <div class="cal__day cal__day--available">17</div>
+          <div class="cal__day cal__day--available">18</div>
+          <!-- Semana 4 — día 21 selected (jueves) -->
+          <div class="cal__day cal__day--available">19</div>
+          <div class="cal__day cal__day--available">20</div>
+          <div class="cal__day cal__day--available" id="day21">21</div>
+          <div class="cal__day cal__day--available">22</div>
+          <div class="cal__day cal__day--available">23</div>
+          <div class="cal__day cal__day--available">24</div>
+          <div class="cal__day cal__day--available">25</div>
+        </div>
+
+        <div class="hours" id="hours">
+          <div class="hour">9:00</div>
+          <div class="hour">10:00</div>
+          <div class="hour">11:00</div>
+          <div class="hour">12:00</div>
+          <div class="hour">16:00</div>
+          <div class="hour" id="hour17">17:00</div>
+          <div class="hour">18:00</div>
+          <div class="hour">19:00</div>
+        </div>
+
+        <div class="modal__cta" id="modalCta">Confirmar cita</div>
+      </div>
+    </div>
+
+    <!-- SCENE 4 — Confirmación -->
+    <div id="s4">
+      <div class="eb-corner"><span class="dot">eB</span> reservas</div>
+      <div class="check-wrap" id="checkWrap">
+        <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+      </div>
+      <div class="title">Cita confirmada.</div>
+      <div class="meta"><strong>Miércoles 21</strong> · 17:00</div>
+    </div>
+
+    <!-- SCENE 5 — CTA eB -->
+    <div id="s5">
+      <div class="eb-corner"><span class="dot">eB</span> reservas</div>
+      <div class="kicker">tu web puede</div>
+      <div class="big">Coger citas<br/>mientras<br/><em>duermes</em>.</div>
+      <div class="handle">@ebecerra.es</div>
+      <div class="sub">demos.ebecerra.es/equilibrio · DM si te encaja.</div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
+    const FADE_OUT = { immediateRender: false };
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+
+    // ESCENA 1 visible desde t=0
+    gsap.set("#s1", { opacity: 1 });
+    gsap.set("#s1 .kicker", { y: 0, opacity: 1 });
+    gsap.set("#s1 .big", { y: 0, opacity: 1 });
+    gsap.set("#s1 .sub", { y: 0, opacity: 1 });
+    tl.fromTo("#s1", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FADE_OUT }, 2.8);
+
+    // ESCENA 2 — demo phone + click ring (3.0 → 6.5)
+    tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 3.0);
+    tl.fromTo("#s2 .scene-title", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 3.2);
+    tl.fromTo("#s2 .phone", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 3.5);
+    // Click ring aparece dos veces (ripple)
+    tl.fromTo("#clickRing",
+      { scale: 0, opacity: 0.9, transformOrigin: "center center" },
+      { scale: 1.4, opacity: 0, duration: 0.9, ease: "power2.out" }, 5.0);
+    tl.fromTo("#s2", { opacity: 1 }, { opacity: 0, duration: 0.4, ...FADE_OUT }, 6.4);
+
+    // ESCENA 3 — Modal calendar (6.6 → 11.5)
+    tl.fromTo("#s3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 6.6);
+    tl.fromTo("#s3 .modal", { y: 200, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 6.8);
+    // Día 21 se selecciona
+    tl.to("#day21", { backgroundColor: "#1e5f6e", color: "#fff", duration: 0.25 }, 8.0);
+    tl.to("#day21", { className: "cal__day cal__day--selected", duration: 0 }, 8.2);
+    // Hours grid aparece
+    tl.fromTo("#hours", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, 8.4);
+    // Hora 17:00 se selecciona
+    tl.to("#hour17", { backgroundColor: "#1e5f6e", color: "#fff", borderColor: "#1e5f6e", duration: 0.3 }, 9.4);
+    // Modal CTA pulse
+    tl.fromTo("#modalCta",
+      { scale: 1 },
+      { scale: 1.04, duration: 0.4, yoyo: true, repeat: 1, ease: "power2.inOut" }, 10.0);
+    tl.fromTo("#s3", { opacity: 1 }, { opacity: 0, duration: 0.4, ...FADE_OUT }, 11.4);
+
+    // ESCENA 4 — Confirmación (11.5 → 14)
+    tl.fromTo("#s4", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 11.5);
+    tl.fromTo("#checkWrap", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.5)" }, 11.7);
+    tl.fromTo("#s4 .title", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 12.1);
+    tl.fromTo("#s4 .meta", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 12.6);
+    tl.fromTo("#s4", { opacity: 1 }, { opacity: 0, duration: 0.4, ...FADE_OUT }, 14.0);
+
+    // ESCENA 5 — CTA eB (14.2 → 17)
+    tl.fromTo("#s5", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 14.2);
+    tl.fromTo("#s5 .kicker", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 14.4);
+    tl.fromTo("#s5 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 14.7);
+    tl.fromTo("#s5 .handle", { scale: 0.75, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6 }, 15.5);
+    tl.fromTo("#s5 .sub", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 16.1);
+  </script>
+</body>
+</html>

@@ -18,31 +18,31 @@ const ROOT = path.resolve("..");
 // El recorder solo necesita la carpeta + duración. html/out/poster se infieren.
 
 const TARGETS = [
-  { name: "0003-story-chatbot",       folder: "personal/0003-story-chatbot",       duration: 12 },
-  { name: "0006-reel-rescate",        folder: "personal/0006-reel-rescate",        duration: 18 },
-  { name: "0007-reel-3puertas",       folder: "personal/0007-reel-3puertas",       duration: 18 },
-  { name: "0008-story-velocidad",     folder: "personal/0008-story-velocidad",     duration: 12 },
-  { name: "0009-story-aeo",           folder: "personal/0009-story-aeo",           duration: 12 },
-  { name: "0010-story-quien-soy",     folder: "personal/0010-story-quien-soy",     duration: 10 },
-  { name: "0011-story-por-que-ahora", folder: "personal/0011-story-por-que-ahora", duration: 10 },
-  { name: "0012-story-lo-que-cuesta", folder: "personal/0012-story-lo-que-cuesta", duration: 10 },
-  { name: "0013-story-madrid",        folder: "personal/0013-story-madrid",        duration: 8  },
+  { name: "0003-story-chatbot",       folder: "personal/2026/05/0003-story-chatbot",       duration: 12 },
+  { name: "0006-reel-rescate",        folder: "personal/2026/05/0006-reel-rescate",        duration: 18 },
+  { name: "0007-reel-3puertas",       folder: "personal/2026/05/0007-reel-3puertas",       duration: 18 },
+  { name: "0008-story-velocidad",     folder: "personal/2026/05/0008-story-velocidad",     duration: 12 },
+  { name: "0009-story-aeo",           folder: "personal/2026/05/0009-story-aeo",           duration: 12 },
+  { name: "0010-story-quien-soy",     folder: "personal/2026/05/0010-story-quien-soy",     duration: 10 },
+  { name: "0011-story-por-que-ahora", folder: "personal/2026/05/0011-story-por-que-ahora", duration: 10 },
+  { name: "0012-story-lo-que-cuesta", folder: "personal/2026/05/0012-story-lo-que-cuesta", duration: 10 },
+  { name: "0013-story-madrid",        folder: "personal/2026/05/0013-story-madrid",        duration: 8  },
   // NOTA: el `duration` total = duración animación + 2-3 s de "hold" al final
   // para que el usuario tenga tiempo de leer el CTA y tocar el sticker.
   // Si la animación termina en T s, poner T+3.
-  { name: "0014-story-seo-glosario",  folder: "personal/0014-story-seo-glosario",  duration: 14 },
-  { name: "0015-story-blog-announce", folder: "personal/0015-story-blog-announce", duration: 12 },
-  { name: "0016-story-servicios-2-caminos", folder: "personal/0016-story-servicios-2-caminos", duration: 13 },
+  { name: "0014-story-seo-glosario",  folder: "personal/2026/05/0014-story-seo-glosario",  duration: 14 },
+  { name: "0015-story-blog-announce", folder: "personal/2026/05/0015-story-blog-announce", duration: 12 },
+  { name: "0016-story-servicios-2-caminos", folder: "personal/2026/05/0016-story-servicios-2-caminos", duration: 13 },
   // Pregunta + sticker IG nativo (hold largo final para que voten antes del auto-advance)
-  { name: "0017-story-pregunta-pago", folder: "personal/0017-story-pregunta-pago", duration: 12 },
+  { name: "0017-story-pregunta-pago", folder: "personal/2026/05/0017-story-pregunta-pago", duration: 12 },
   // Reel 0019: reservas online (18s anim + 3s hold final sobre CTA)
-  { name: "0019-reel-reservas-equilibrio", folder: "personal/0019-reel-reservas-equilibrio", duration: 20 },
+  { name: "0019-reel-reservas-equilibrio", folder: "personal/2026/05/0019-reel-reservas-equilibrio", duration: 20 },
   // Story 0020: animada con screenshots REALES del widget de reservas (6 frames + hold)
-  { name: "0020-story-reservas-real", folder: "personal/0020-story-reservas-real", duration: 15 },
+  { name: "0020-story-reservas-real", folder: "personal/2026/05/0020-story-reservas-real", duration: 15 },
   // Story 0022: pregunta abierta + sticker Questions IG (10s, hold 2.5s)
-  { name: "0022-story-pregunta-ideas", folder: "personal/0022-story-pregunta-ideas", duration: 10 },
+  { name: "0022-story-pregunta-ideas", folder: "personal/2026/05/0022-story-pregunta-ideas", duration: 10 },
   // Reel 0023: tu web es un currante más (3 escenas + CTA, 14s)
-  { name: "0023-reel-web-currante", folder: "personal/0023-reel-web-currante", duration: 14 },
+  { name: "0023-reel-web-currante", folder: "personal/2026/05/0023-reel-web-currante", duration: 14 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,

@@ -7,9 +7,10 @@
 
 Fuente única de verdad para producción de contenido IG/FB hasta mayo 2026. Se edita a mano según va saliendo material.
 
-**Convención de carpetas:**
-- **Mayo 2026 y antes:** `personal/NNNN-tipo-slug/` (numeración correlativa 0001-0024)
-- **Junio 2026 en adelante:** `personal/YYYY-MM/DD-tipo-slug/` (subcarpeta por mes, numeración por día)
+**Convención de carpetas** (jerarquía por año/mes):
+- **Todas las piezas:** `personal/YYYY/MM/<slug>/`
+- **Mayo 2026 (legacy):** `personal/2026/05/NNNN-tipo-slug/` (numeración correlativa 0001-0024)
+- **A partir del 31-may-2026:** `personal/2026/MM/DD-tipo-slug/` (numeración por día del mes)
 
 Cada pieza lleva `index.html` (fuente) + `captions.md` (textos) + outputs renderizados. Ver [`README.md`](README.md) para la estructura completa.
 
@@ -23,7 +24,7 @@ Ordenadas por intuición de impacto, no por prioridad inmediata. Mover a "En pro
 
 ### Tipo · Producto / capacidades
 
-- [x] Story velocidad → [`0008-story-velocidad`](personal/0008-story-velocidad/) (MP4 listo, cifras pendientes)
+- [x] Story velocidad → [`0008-story-velocidad`](personal/2026/05/0008-story-velocidad/) (MP4 listo, cifras pendientes)
 - [ ] Story animada — **formulario que sí llega** (próxima: `0014-`)
 - [ ] Post single — **tu web en ChatGPT** (mockup respuesta IA + CTA "¿la miramos?")
 - [ ] Story serie animada — **glosario** (dominio, hosting, SSL) con metáforas físicas animadas
@@ -31,14 +32,14 @@ Ordenadas por intuición de impacto, no por prioridad inmediata. Mover a "En pro
 ### Tipo · Portfolio / demos
 
 - [ ] Story individual de cada demo (eco, equilibrio, marta, claudia) — una al mes para no quemar (próxima: Marta → `0015-`)
-- [x] Reel rescate → [`0006-reel-rescate`](personal/0006-reel-rescate/) (publicado 15-may)
-- [x] Reel reservas online (equilibrio) → [`0019-reel-reservas-equilibrio`](personal/0019-reel-reservas-equilibrio/) (subir 23-may)
-- [x] Story ANIMADA reservas real (equilibrio + link sticker, 6 capturas reales del widget) → [`0020-story-reservas-real`](personal/0020-story-reservas-real/) (subir 23-may unas horas después del 0019)
+- [x] Reel rescate → [`0006-reel-rescate`](personal/2026/05/0006-reel-rescate/) (publicado 15-may)
+- [x] Reel reservas online (equilibrio) → [`0019-reel-reservas-equilibrio`](personal/2026/05/0019-reel-reservas-equilibrio/) (subir 23-may)
+- [x] Story ANIMADA reservas real (equilibrio + link sticker, 6 capturas reales del widget) → [`0020-story-reservas-real`](personal/2026/05/0020-story-reservas-real/) (subir 23-may unas horas después del 0019)
 
 ### Tipo · Educativo / mitos / proceso
 
-- [x] Reel 3 puertas → [`0007-reel-3puertas`](personal/0007-reel-3puertas/) (publicado 15-may)
-- [x] Story AEO → [`0009-story-aeo`](personal/0009-story-aeo/) (MP4 listo, pendiente subir)
+- [x] Reel 3 puertas → [`0007-reel-3puertas`](personal/2026/05/0007-reel-3puertas/) (publicado 15-may)
+- [x] Story AEO → [`0009-story-aeo`](personal/2026/05/0009-story-aeo/) (MP4 listo, pendiente subir)
 - [ ] Story SEO glosario (próxima: `0016-`, complementa serie glosario AEO)
 - [ ] Carrusel — **proceso paso a paso** (briefing → propuesta → trabajo → lanzamiento → soporte)
 - [ ] Carrusel — **mitos sobre tener una web** (5 mitos → 5 verdades)
@@ -53,8 +54,8 @@ Ordenadas por intuición de impacto, no por prioridad inmediata. Mover a "En pro
 
 ### Tipo · Diferenciación / valores
 
-- [x] Post "Lo que NO hago" → [`0001-post-lo-que-no-hago`](personal/0001-post-lo-que-no-hago/) (publicado 13-may)
-- [x] Post "Cuéntamela" — puerta abierta + foto estudio → [`0021-post-cuentamela`](personal/0021-post-cuentamela/) (subir lunes 25-may)
+- [x] Post "Lo que NO hago" → [`0001-post-lo-que-no-hago`](personal/2026/05/0001-post-lo-que-no-hago/) (publicado 13-may)
+- [x] Post "Cuéntamela" — puerta abierta + foto estudio → [`0021-post-cuentamela`](personal/2026/05/0021-post-cuentamela/) (subir lunes 25-may)
 - [ ] Post single — "Lo que SÍ hago de serie" (versión positiva, esperar ≥6 semanas)
 - [ ] Carrusel — "Sin agencia. Sin equipo. Sin packs." (3 cards)
 
@@ -64,13 +65,13 @@ Tipología documentada en [`SKILL.md`](../../.claude/skills/social-media-kit/SKI
 
 Pareja 1 (sábado 16):
 
-- [x] [`0010-story-quien-soy`](personal/0010-story-quien-soy/) · presentación
-- [x] [`0011-story-por-que-ahora`](personal/0011-story-por-que-ahora/) · motivación
+- [x] [`0010-story-quien-soy`](personal/2026/05/0010-story-quien-soy/) · presentación
+- [x] [`0011-story-por-que-ahora`](personal/2026/05/0011-story-por-que-ahora/) · motivación
 
 Pareja 2 (domingo 17):
 
-- [x] [`0012-story-lo-que-cuesta`](personal/0012-story-lo-que-cuesta/) · vulnerabilidad
-- [x] [`0013-story-madrid`](personal/0013-story-madrid/) · pregunta + sticker
+- [x] [`0012-story-lo-que-cuesta`](personal/2026/05/0012-story-lo-que-cuesta/) · vulnerabilidad
+- [x] [`0013-story-madrid`](personal/2026/05/0013-story-madrid/) · pregunta + sticker
 
 Backlog Sobre mí (próximas tandas):
 
@@ -90,10 +91,10 @@ Mini-serie **"Sobre mí · Capítulos"** (highlight homónimo):
 
 | Fecha publicación | Pieza | Estado |
 |---|---|---|
-| 2026-05-16 (sáb) ~10:00 | [`0010-story-quien-soy`](personal/0010-story-quien-soy/) — presentación | MP4 listo |
-| 2026-05-16 (sáb) ~10:05 | [`0011-story-por-que-ahora`](personal/0011-story-por-que-ahora/) — motivación | MP4 listo |
-| 2026-05-17 (dom) ~10:00 | [`0012-story-lo-que-cuesta`](personal/0012-story-lo-que-cuesta/) — vulnerabilidad | MP4 listo |
-| 2026-05-17 (dom) ~10:05 | [`0013-story-madrid`](personal/0013-story-madrid/) — pregunta + sticker | MP4 listo |
+| 2026-05-16 (sáb) ~10:00 | [`0010-story-quien-soy`](personal/2026/05/0010-story-quien-soy/) — presentación | MP4 listo |
+| 2026-05-16 (sáb) ~10:05 | [`0011-story-por-que-ahora`](personal/2026/05/0011-story-por-que-ahora/) — motivación | MP4 listo |
+| 2026-05-17 (dom) ~10:00 | [`0012-story-lo-que-cuesta`](personal/2026/05/0012-story-lo-que-cuesta/) — vulnerabilidad | MP4 listo |
+| 2026-05-17 (dom) ~10:05 | [`0013-story-madrid`](personal/2026/05/0013-story-madrid/) — pregunta + sticker | MP4 listo |
 
 Estado real (al 21 may):
 
@@ -105,21 +106,21 @@ Pendiente:
 
 | Día | Pieza | Acción |
 |---|---|---|
-| jueves 21 | [`0017-story-pregunta-pago`](personal/0017-story-pregunta-pago/) | Sticker encuesta IG: `Cuota mensual` vs `Pago único`. Sin highlight. |
-| viernes 23 ~10:00 | [`0018-carrusel-4-cosas-nota`](personal/0018-carrusel-4-cosas-nota/) | Primer carrusel en formato 4:5. 7 slides. Sin sticker. Cross-post FB auto. |
-| **sábado 23 (mañana)** | **[`0019-reel-reservas-equilibrio`](personal/0019-reel-reservas-equilibrio/)** | Reel 20s sobre reservas online. Coordinado con despliegue real del sistema en `demos.ebecerra.es/equilibrio`. Cross-post FB auto. Añadir a highlight `servicios`. |
-| **sábado 23 (unas horas después)** | **[`0020-story-reservas-real`](personal/0020-story-reservas-real/)** | Story ANIMADA 15s con 6 capturas reales del widget (portada → sección → servicio → día → hora → cita solicitada). MP4 grabado con `record-animated.mjs`. Link sticker manual a `https://demos.ebecerra.es/equilibrio` sobre la zona indicada. Añadir a highlight `servicios`. |
-| **lunes 25 ~10:00** | **[`0021-post-cuentamela`](personal/0021-post-cuentamela/)** | Post single 4:5 con foto del estudio + invitación al DM ("puerta abierta"). Primera vez que sale la cara en feed. Cross-post FB auto. Sin highlight. |
-| **miércoles 27 mañana** | **[`0022-story-pregunta-ideas`](personal/0022-story-pregunta-ideas/)** | Story 10s con pregunta abierta "¿qué te gustaría que tu web hiciera por ti?". Sticker IG **Preguntas** (texto libre) manual sobre la zona indicada. Sin highlight. |
-| **miércoles 27 tarde** | **[`0023-reel-web-currante`](personal/0023-reel-web-currante/)** | Reel 14s tono distendido: 3 escenas (☕ 🍽️ 🌙) mostrando lo que tu web hace mientras tú vives + CTA "Una web que curra contigo". Buscar **audio lo-fi/jazzy trending** al subir. Cross-post FB auto. Añadir a highlight `servicios`. |
-| **jueves 28 ~mañana** | **[`0024-triptico-currante`](personal/0024-triptico-currante/)** | TRÍPTICO panorámico — 3 posts feed que se alinean en el grid IG como mural continuo. Subir en orden inverso: `panel-3.png` primero, `panel-2.png` segundo, `panel-1.png` último, espaciados 30-60 min. Cada uno con su caption propia. Cross-post FB auto. Sin highlight. Cierra el arco temático "currante / equipo". |
+| jueves 21 | [`0017-story-pregunta-pago`](personal/2026/05/0017-story-pregunta-pago/) | Sticker encuesta IG: `Cuota mensual` vs `Pago único`. Sin highlight. |
+| viernes 23 ~10:00 | [`0018-carrusel-4-cosas-nota`](personal/2026/05/0018-carrusel-4-cosas-nota/) | Primer carrusel en formato 4:5. 7 slides. Sin sticker. Cross-post FB auto. |
+| **sábado 23 (mañana)** | **[`0019-reel-reservas-equilibrio`](personal/2026/05/0019-reel-reservas-equilibrio/)** | Reel 20s sobre reservas online. Coordinado con despliegue real del sistema en `demos.ebecerra.es/equilibrio`. Cross-post FB auto. Añadir a highlight `servicios`. |
+| **sábado 23 (unas horas después)** | **[`0020-story-reservas-real`](personal/2026/05/0020-story-reservas-real/)** | Story ANIMADA 15s con 6 capturas reales del widget (portada → sección → servicio → día → hora → cita solicitada). MP4 grabado con `record-animated.mjs`. Link sticker manual a `https://demos.ebecerra.es/equilibrio` sobre la zona indicada. Añadir a highlight `servicios`. |
+| **lunes 25 ~10:00** | **[`0021-post-cuentamela`](personal/2026/05/0021-post-cuentamela/)** | Post single 4:5 con foto del estudio + invitación al DM ("puerta abierta"). Primera vez que sale la cara en feed. Cross-post FB auto. Sin highlight. |
+| **miércoles 27 mañana** | **[`0022-story-pregunta-ideas`](personal/2026/05/0022-story-pregunta-ideas/)** | Story 10s con pregunta abierta "¿qué te gustaría que tu web hiciera por ti?". Sticker IG **Preguntas** (texto libre) manual sobre la zona indicada. Sin highlight. |
+| **miércoles 27 tarde** | **[`0023-reel-web-currante`](personal/2026/05/0023-reel-web-currante/)** | Reel 14s tono distendido: 3 escenas (☕ 🍽️ 🌙) mostrando lo que tu web hace mientras tú vives + CTA "Una web que curra contigo". Buscar **audio lo-fi/jazzy trending** al subir. Cross-post FB auto. Añadir a highlight `servicios`. |
+| **jueves 28 ~mañana** | **[`0024-triptico-currante`](personal/2026/05/0024-triptico-currante/)** | TRÍPTICO panorámico — 3 posts feed que se alinean en el grid IG como mural continuo. Subir en orden inverso: `panel-3.png` primero, `panel-2.png` segundo, `panel-1.png` último, espaciados 30-60 min. Cada uno con su caption propia. Cross-post FB auto. Sin highlight. Cierra el arco temático "currante / equipo". |
 
 ## ❌ Producidas pero descartadas
 
 | Pieza | Razón |
 |---|---|
-| [`0008-story-velocidad`](personal/0008-story-velocidad/) | Cifras 7,4/1,2 inventadas nunca resueltas; el Reel 0006 rescate ya cubre producto/velocidad con más fuerza. Material preservado por si se recicla con cifras medidas. |
-| [`0009-story-aeo`](personal/0009-story-aeo/) | El Reel 0007 (3 puertas) ya cubre AEO con más alcance. Material preservado por si arranca la serie glosario con otra pieza inaugural. |
+| [`0008-story-velocidad`](personal/2026/05/0008-story-velocidad/) | Cifras 7,4/1,2 inventadas nunca resueltas; el Reel 0006 rescate ya cubre producto/velocidad con más fuerza. Material preservado por si se recicla con cifras medidas. |
+| [`0009-story-aeo`](personal/2026/05/0009-story-aeo/) | El Reel 0007 (3 puertas) ya cubre AEO con más alcance. Material preservado por si arranca la serie glosario con otra pieza inaugural. |
 
 ---
 
@@ -127,18 +128,18 @@ Pendiente:
 
 ### 2026-05-13 · miércoles · día 1 fuerte
 
-- [`0001-post-lo-que-no-hago`](personal/0001-post-lo-que-no-hago/) · cat: **diferenciación**
-- [`0002-carrusel-4-demos`](personal/0002-carrusel-4-demos/) (7 slides) · cat: **portfolio**
-- [`0003-story-chatbot`](personal/0003-story-chatbot/) (animada 12s, captura lead) · cat: **producto**
-- [`0004-story-eco`](personal/0004-story-eco/) (estática) · cat: **portfolio**
-- [`0005-story-pruebalos`](personal/0005-story-pruebalos/) (estática "5 webs, 5 chatbots") · cat: **portfolio**
+- [`0001-post-lo-que-no-hago`](personal/2026/05/0001-post-lo-que-no-hago/) · cat: **diferenciación**
+- [`0002-carrusel-4-demos`](personal/2026/05/0002-carrusel-4-demos/) (7 slides) · cat: **portfolio**
+- [`0003-story-chatbot`](personal/2026/05/0003-story-chatbot/) (animada 12s, captura lead) · cat: **producto**
+- [`0004-story-eco`](personal/2026/05/0004-story-eco/) (estática) · cat: **portfolio**
+- [`0005-story-pruebalos`](personal/2026/05/0005-story-pruebalos/) (estática "5 webs, 5 chatbots") · cat: **portfolio**
 - Highlights asignados: chatbot animado → **servicios** · 4 demos + eco + pruébalos → **imagina**
 
 ### 2026-05-15 · jueves · día 2
 
-- [`0006-reel-rescate`](personal/0006-reel-rescate/) (18s, antes feo → demo eco real) · cat: **producto / diferenciación**
-- [`0007-reel-3puertas`](personal/0007-reel-3puertas/) (18s, mockups SERP + chat + maps con Equilibrio Fisio) · cat: **educativo / diferenciación / AEO**
-- Stories velocidad ([`0008`](personal/0008-story-velocidad/)) y AEO ([`0009`](personal/0009-story-aeo/)) **NO subidas** — decisión consciente: con 2 reels el mismo día, añadir 2 stories de los mismos temas habría saturado y sonaba a contradicción de mensaje. Se redistribuyen.
+- [`0006-reel-rescate`](personal/2026/05/0006-reel-rescate/) (18s, antes feo → demo eco real) · cat: **producto / diferenciación**
+- [`0007-reel-3puertas`](personal/2026/05/0007-reel-3puertas/) (18s, mockups SERP + chat + maps con Equilibrio Fisio) · cat: **educativo / diferenciación / AEO**
+- Stories velocidad ([`0008`](personal/2026/05/0008-story-velocidad/)) y AEO ([`0009`](personal/2026/05/0009-story-aeo/)) **NO subidas** — decisión consciente: con 2 reels el mismo día, añadir 2 stories de los mismos temas habría saturado y sonaba a contradicción de mensaje. Se redistribuyen.
 - Hito técnico paralelo: añadidos `llms.txt` + `.well-known/ai.txt` + robots con AI agents explícitos (commit `8cf94b2`) para que el reel 3 puertas tenga AEO real detrás cuando los crawlers IA lleguen.
 
 ---
