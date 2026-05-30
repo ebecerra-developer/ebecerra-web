@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
@@ -12,6 +12,7 @@ import {
   getPosts,
   getCategoryBySlug,
   getCategories,
+  getBlogPage,
 } from "@ebecerra/sanity-client";
 import styles from "../../Blog.module.css";
 
@@ -30,7 +31,7 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const t = await getTranslations({ locale, namespace: "blog" });
+  const blogPage = await getBlogPage(locale);
   const category = await getCategoryBySlug(slug, locale);
   if (!category) return {};
 
@@ -38,9 +39,9 @@ export async function generateMetadata({
     locale === "es"
       ? `/blog/categoria/${slug}/`
       : `/${locale}/blog/categoria/${slug}/`;
-  const title = `${category.title} · ${t("title")}`;
+  const title = `${category.title} · ${blogPage.title}`;
   const description =
-    category.description ?? `${t("title")} · ${category.title}`;
+    category.description ?? `${blogPage.title} · ${category.title}`;
 
   return {
     title,
@@ -64,9 +65,9 @@ export default async function CategoryPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "blog" });
 
-  const [category, posts, categories] = await Promise.all([
+  const [blogPage, category, posts, categories] = await Promise.all([
+    getBlogPage(locale),
     getCategoryBySlug(slug, locale),
     getPosts(locale, { categorySlug: slug, order: "newest" }),
     getCategories(locale),
@@ -84,7 +85,7 @@ export default async function CategoryPage({
             { label: "Blog", href: locale === "es" ? "/blog/" : `/${locale}/blog/` },
             { label: category.title },
           ]}
-          kicker={`// ${t("filterCategory").toUpperCase()}`}
+          kicker={`// ${blogPage.filterCategory.toUpperCase()}`}
           title={category.title}
           lead={category.description ?? ""}
         />
@@ -96,7 +97,7 @@ export default async function CategoryPage({
         />
 
         {posts.length === 0 ? (
-          <p className={styles.empty}>{t("empty")}</p>
+          <p className={styles.empty}>{blogPage.empty}</p>
         ) : (
           <div className={styles.rows}>
             {posts.map((post) => (

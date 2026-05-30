@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
@@ -18,16 +18,12 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "faq" });
   const faqPage = await getFaqPage(locale);
   const canonical = locale === "es" ? "/faq/" : "/en/faq/";
 
-  const title = faqPage?.metaTitle || t("metaTitle");
-  const description = faqPage?.metaDescription || t("metaDescription");
-
   return {
-    title,
-    description,
+    title: faqPage.metaTitle,
+    description: faqPage.metaDescription,
     robots: { index: true, follow: true },
     alternates: {
       canonical,
@@ -37,8 +33,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title,
-      description,
+      title: faqPage.metaTitle,
+      description: faqPage.metaDescription,
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
       url: canonical,
@@ -53,7 +49,6 @@ export default async function FaqPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "faq" });
 
   const [faqPage, faqItemsRaw] = await Promise.all([
     getFaqPage(locale),
@@ -90,17 +85,17 @@ export default async function FaqPage({
         <PageHero
           breadcrumbs={[
             { label: locale === "es" ? "Inicio" : "Home", href: locale === "es" ? "/" : `/${locale}/` },
-            { label: faqPage?.title || t("title") },
+            { label: faqPage.title ?? "FAQ" },
           ]}
-          kicker={faqPage?.kicker || t("kicker")}
-          title={faqPage?.title || t("title")}
-          lead={faqPage?.lead || t("lead")}
+          kicker={faqPage.kicker ?? ""}
+          title={faqPage.title ?? ""}
+          lead={faqPage.lead ?? ""}
         />
         <FaqList items={items} />
         <FaqContactBlock
-          title={faqPage?.contactSectionTitle || t("contactTitle")}
-          lead={faqPage?.contactSectionLead || t("contactLead")}
-          cta={faqPage?.contactCta || t("contactCta")}
+          title={faqPage.contactSectionTitle ?? ""}
+          lead={faqPage.contactSectionLead ?? ""}
+          cta={faqPage.contactCta ?? ""}
           href={locale === "es" ? "/#contacto" : "/en#contacto"}
         />
       </main>

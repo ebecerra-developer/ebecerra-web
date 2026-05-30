@@ -28,6 +28,7 @@ import {
   getPostBySlug,
   getPostSlugs,
   getRelatedPostsAuto,
+  getBlogPage,
 } from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import styles from "../Blog.module.css";
@@ -99,6 +100,7 @@ export default async function PostPage({
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "blog" });
+  const blogPage = await getBlogPage(locale);
 
   const post = await getPostBySlug(slug, locale);
   if (!post) notFound();
@@ -236,57 +238,57 @@ export default async function PostPage({
             <ShareButtons
               url={absoluteUrl}
               title={post.title}
-              label={t("shareLabel")}
+              label={blogPage.shareLabel}
             />
 
             <div className={styles.likesRow}>
               <PostLikes
                 slug={slug}
                 initialCount={likeCount}
-                label={t("likeLabel")}
-                thanksLabel={t("likeThanks")}
+                label={blogPage.likeLabel}
+                thanksLabel={blogPage.likeThanks}
               />
             </div>
 
             {post.authorFull && (
-              <AuthorBio author={post.authorFull} byLabel={t("byPrefix")} />
+              <AuthorBio author={post.authorFull} byLabel={blogPage.byPrefix} />
             )}
 
             <section className={styles.commentsSection} aria-labelledby="comments-heading">
               <h2 id="comments-heading" className={styles.commentsHeading}>
-                {t("commentsHeading")}
+                {blogPage.commentsHeading}
               </h2>
               <CommentList
                 comments={approvedComments}
                 locale={locale}
-                emptyLabel={t("commentsEmpty")}
+                emptyLabel={blogPage.commentsEmpty}
                 countLabel={(n) => t("commentsCount", { count: n })}
               />
               <CommentForm
                 postSlug={slug}
                 labels={{
-                  title: t("commentFormTitle"),
-                  name: t("commentFormName"),
-                  email: t("commentFormEmail"),
-                  emailHint: t("commentFormEmailHint"),
-                  body: t("commentFormBody"),
-                  submit: t("commentFormSubmit"),
-                  submitting: t("commentFormSubmitting"),
-                  success: t("commentFormSuccess"),
-                  error: t("commentFormError"),
-                  privacyNote: t("commentFormPrivacy"),
+                  title: blogPage.commentForm.title,
+                  name: blogPage.commentForm.name,
+                  email: blogPage.commentForm.email,
+                  emailHint: blogPage.commentForm.emailHint,
+                  body: blogPage.commentForm.body,
+                  submit: blogPage.commentForm.submit,
+                  submitting: blogPage.commentForm.submitting,
+                  success: blogPage.commentForm.success,
+                  error: blogPage.commentForm.error,
+                  privacyNote: blogPage.commentForm.privacy,
                 }}
               />
             </section>
           </article>
 
-          <TableOfContents blocks={post.body} label={t("tocLabel")} />
+          <TableOfContents blocks={post.body} label={blogPage.tocLabel} />
         </div>
 
         <RelatedPosts
           posts={related}
           locale={locale}
-          label={t("relatedHeading")}
+          label={blogPage.relatedHeading}
         />
       </main>
       <Footer />

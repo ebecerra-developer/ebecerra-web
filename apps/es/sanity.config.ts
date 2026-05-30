@@ -40,6 +40,7 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "techContactFormStep",
   "demosIndexPage",
   "demosBannerSettings",
+  "blogPage",
   "faqPage",
   "examplesPage",
   "faqItem",
@@ -166,6 +167,12 @@ const structure: StructureResolver = (S) =>
                 .id("examplesPage")
                 .child(
                   S.document().schemaType("examplesPage").documentId("examplesPage-singleton")
+                ),
+              S.listItem()
+                .title("Página Blog (meta)")
+                .id("blogPage")
+                .child(
+                  S.document().schemaType("blogPage").documentId("blogPage-singleton")
                 ),
             ])
         ),

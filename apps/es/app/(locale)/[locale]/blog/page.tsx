@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
 import PageHero from "@/components/sections/PageHero";
 import PostRow from "@/components/blog/PostRow";
 import CategoryPills from "@/components/blog/CategoryPills";
-import { getPosts, getCategories } from "@ebecerra/sanity-client";
+import {
+  getPosts,
+  getCategories,
+  getBlogPage,
+} from "@ebecerra/sanity-client";
 import styles from "./Blog.module.css";
 
 export const revalidate = 1800;
@@ -17,12 +21,12 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "blog" });
+  const page = await getBlogPage(locale);
   const canonical = locale === "es" ? "/blog/" : "/en/blog/";
 
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title: page.metaTitle,
+    description: page.metaDescription,
     robots: { index: true, follow: true },
     alternates: {
       canonical,
@@ -32,8 +36,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: t("metaTitle"),
-      description: t("metaDescription"),
+      title: page.metaTitle,
+      description: page.metaDescription,
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
       url: canonical,
@@ -48,9 +52,9 @@ export default async function BlogPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "blog" });
 
-  const [posts, categories] = await Promise.all([
+  const [page, posts, categories] = await Promise.all([
+    getBlogPage(locale),
     getPosts(locale, { order: "newest" }),
     getCategories(locale),
   ]);
@@ -64,9 +68,9 @@ export default async function BlogPage({
             { label: locale === "es" ? "Inicio" : "Home", href: locale === "es" ? "/" : `/${locale}/` },
             { label: locale === "es" ? "Blog" : "Blog" },
           ]}
-          kicker={t("kicker")}
-          title={t("title")}
-          lead={t("lead")}
+          kicker={page.kicker}
+          title={page.title}
+          lead={page.lead}
         />
 
         <CategoryPills
@@ -76,7 +80,7 @@ export default async function BlogPage({
         />
 
         {posts.length === 0 ? (
-          <p className={styles.empty}>{t("empty")}</p>
+          <p className={styles.empty}>{page.empty}</p>
         ) : (
           <div className={styles.rows}>
             {posts.map((post) => (

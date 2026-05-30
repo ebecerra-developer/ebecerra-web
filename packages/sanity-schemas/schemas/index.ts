@@ -16,6 +16,7 @@ import techContactFormStep from "./techContactFormStep";
 import techContactFormSettings from "./techContactFormSettings";
 import demosIndexPage from "./demosIndexPage";
 import demosBannerSettings from "./demosBannerSettings";
+import blogPage from "./blogPage";
 import siteSettings from "./siteSettings";
 import {
   serviceSectionMeta,
@@ -61,6 +62,7 @@ export const schemaTypes = [
   // Demos-specific singletons (demos.ebecerra.es)
   demosIndexPage,
   demosBannerSettings,
+  blogPage,
   faqPage,
   examplesPage,
   profile,
@@ -96,6 +98,7 @@ export const SINGLETON_TYPES = [
   "techContactFormSettings",
   "demosIndexPage",
   "demosBannerSettings",
+  "blogPage",
   "faqPage",
   "examplesPage",
   "profile",

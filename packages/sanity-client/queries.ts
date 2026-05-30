@@ -24,6 +24,8 @@ import type {
   DemosIndexPage,
   DemosBannerSettings,
   ExamplesPageData,
+  BlogPageData,
+  BlogCommentForm,
   SiteSettingsMeta,
   SiteSettingsFooter,
   SiteSettingsFull,
@@ -1331,6 +1333,135 @@ export async function getDemosBannerSettings(
 }
 
 // =====================================================
+// BLOG PAGE
+// =====================================================
+
+export const DEFAULT_BLOG_PAGE: BlogPageData = {
+  metaTitle: "Blog · Web profesional, IA y SEO para autónomos y PYMEs",
+  metaDescription:
+    "Artículos sobre web profesional, chatbots con IA, SEO y decisiones técnicas para autónomos y PYMEs. Sin jerga, con criterio.",
+  kicker: "// BLOG",
+  title: "Artículos",
+  lead: "Sobre web profesional, IA aplicada al negocio, SEO y decisiones técnicas. Sin jerga, con criterio.",
+  empty: "Aún no hay artículos publicados.",
+  filterAll: "Todas",
+  filterCategory: "Categoría",
+  sortNewest: "Más recientes",
+  sortOldest: "Más antiguos",
+  backToList: "← Volver al blog",
+  byPrefix: "por",
+  byAuthor: "por {name}",
+  publishedOn: "Publicado el {date}",
+  updatedOn: "Actualizado el {date}",
+  tocLabel: "En este artículo",
+  shareLabel: "Compartir",
+  relatedHeading: "Artículos relacionados",
+  likeLabel: "Me ha gustado",
+  likeThanks: "¡Gracias!",
+  commentsHeading: "Comentarios",
+  commentsEmpty: "Sé el primero en comentar.",
+  commentForm: {
+    title: "Deja un comentario",
+    name: "Nombre",
+    email: "Email",
+    emailHint: "(opcional, no se publica)",
+    body: "Comentario",
+    submit: "Enviar",
+    submitting: "Enviando…",
+    success: "Tu comentario está pendiente de moderación. ¡Gracias!",
+    error: "No se pudo enviar. Inténtalo en un momento.",
+    privacy: "Los comentarios se revisan antes de publicarse.",
+  },
+};
+
+export async function getBlogPage(locale: Locale): Promise<BlogPageData> {
+  type RawCF = Partial<BlogCommentForm> | null;
+  type Raw = Partial<Omit<BlogPageData, "commentForm">> & {
+    commentForm: RawCF;
+  };
+
+  const raw = await runFetch<Raw | null>(
+    `*[_type == "blogPage"][0] {
+      "metaTitle": ${loc("metaTitle")},
+      "metaDescription": ${loc("metaDescription")},
+      "kicker": ${loc("kicker")},
+      "title": ${loc("title")},
+      "lead": ${loc("lead")},
+      "empty": ${loc("empty")},
+      "filterAll": ${loc("filterAll")},
+      "filterCategory": ${loc("filterCategory")},
+      "sortNewest": ${loc("sortNewest")},
+      "sortOldest": ${loc("sortOldest")},
+      "backToList": ${loc("backToList")},
+      "byPrefix": ${loc("byPrefix")},
+      "byAuthor": ${loc("byAuthor")},
+      "publishedOn": ${loc("publishedOn")},
+      "updatedOn": ${loc("updatedOn")},
+      "tocLabel": ${loc("tocLabel")},
+      "shareLabel": ${loc("shareLabel")},
+      "relatedHeading": ${loc("relatedHeading")},
+      "likeLabel": ${loc("likeLabel")},
+      "likeThanks": ${loc("likeThanks")},
+      "commentsHeading": ${loc("commentsHeading")},
+      "commentsEmpty": ${loc("commentsEmpty")},
+      "commentForm": commentForm {
+        "title": ${loc("title")},
+        "name": ${loc("name")},
+        "email": ${loc("email")},
+        "emailHint": ${loc("emailHint")},
+        "body": ${loc("body")},
+        "submit": ${loc("submit")},
+        "submitting": ${loc("submitting")},
+        "success": ${loc("success")},
+        "error": ${loc("error")},
+        "privacy": ${loc("privacy")}
+      }
+    }`,
+    { locale }
+  ).catch(() => null);
+
+  const d = DEFAULT_BLOG_PAGE;
+  if (!raw) return d;
+  const cf = raw.commentForm;
+  return {
+    metaTitle: raw.metaTitle ?? d.metaTitle,
+    metaDescription: raw.metaDescription ?? d.metaDescription,
+    kicker: raw.kicker ?? d.kicker,
+    title: raw.title ?? d.title,
+    lead: raw.lead ?? d.lead,
+    empty: raw.empty ?? d.empty,
+    filterAll: raw.filterAll ?? d.filterAll,
+    filterCategory: raw.filterCategory ?? d.filterCategory,
+    sortNewest: raw.sortNewest ?? d.sortNewest,
+    sortOldest: raw.sortOldest ?? d.sortOldest,
+    backToList: raw.backToList ?? d.backToList,
+    byPrefix: raw.byPrefix ?? d.byPrefix,
+    byAuthor: raw.byAuthor ?? d.byAuthor,
+    publishedOn: raw.publishedOn ?? d.publishedOn,
+    updatedOn: raw.updatedOn ?? d.updatedOn,
+    tocLabel: raw.tocLabel ?? d.tocLabel,
+    shareLabel: raw.shareLabel ?? d.shareLabel,
+    relatedHeading: raw.relatedHeading ?? d.relatedHeading,
+    likeLabel: raw.likeLabel ?? d.likeLabel,
+    likeThanks: raw.likeThanks ?? d.likeThanks,
+    commentsHeading: raw.commentsHeading ?? d.commentsHeading,
+    commentsEmpty: raw.commentsEmpty ?? d.commentsEmpty,
+    commentForm: {
+      title: cf?.title ?? d.commentForm.title,
+      name: cf?.name ?? d.commentForm.name,
+      email: cf?.email ?? d.commentForm.email,
+      emailHint: cf?.emailHint ?? d.commentForm.emailHint,
+      body: cf?.body ?? d.commentForm.body,
+      submit: cf?.submit ?? d.commentForm.submit,
+      submitting: cf?.submitting ?? d.commentForm.submitting,
+      success: cf?.success ?? d.commentForm.success,
+      error: cf?.error ?? d.commentForm.error,
+      privacy: cf?.privacy ?? d.commentForm.privacy,
+    },
+  };
+}
+
+// =====================================================
 // EXAMPLES PAGE
 // =====================================================
 
@@ -1672,8 +1803,21 @@ export async function getServicesPricing(
   };
 }
 
-export async function getFaqPage(locale: Locale): Promise<FaqPageData | null> {
-  return runFetch<FaqPageData | null>(
+export const DEFAULT_FAQ_PAGE: FaqPageData = {
+  metaTitle: "Preguntas frecuentes",
+  metaDescription:
+    "Plazos, formas de pago, revisiones de diseño, mantenimiento, Kit Digital, NDA y hosting. Lo que suelen preguntarme autónomos y PYMEs antes de arrancar un proyecto web.",
+  kicker: "// FAQ",
+  title: "Preguntas frecuentes",
+  lead: "Lo que suelen preguntarme antes de arrancar. Si lo tuyo no está aquí, escríbeme y te respondo en 24 h laborables.",
+  contactSectionTitle: "¿Sigues con dudas?",
+  contactSectionLead:
+    "Cuéntame tu caso y te doy una primera idea del alcance sin compromiso.",
+  contactCta: "Escribirme",
+};
+
+export async function getFaqPage(locale: Locale): Promise<FaqPageData> {
+  const raw = await runFetch<Partial<FaqPageData> | null>(
       `*[_type == "faqPage"][0] {
         "metaTitle": ${loc("metaTitle")},
         "metaDescription": ${loc("metaDescription")},
@@ -1687,6 +1831,18 @@ export async function getFaqPage(locale: Locale): Promise<FaqPageData | null> {
       { locale }
     )
     .catch(() => null);
+  const d = DEFAULT_FAQ_PAGE;
+  if (!raw) return d;
+  return {
+    metaTitle: raw.metaTitle ?? d.metaTitle,
+    metaDescription: raw.metaDescription ?? d.metaDescription,
+    kicker: raw.kicker ?? d.kicker,
+    title: raw.title ?? d.title,
+    lead: raw.lead ?? d.lead,
+    contactSectionTitle: raw.contactSectionTitle ?? d.contactSectionTitle,
+    contactSectionLead: raw.contactSectionLead ?? d.contactSectionLead,
+    contactCta: raw.contactCta ?? d.contactCta,
+  };
 }
 
 export async function getFaqItems(locale: Locale): Promise<FaqItem[]> {

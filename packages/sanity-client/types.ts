@@ -387,6 +387,49 @@ export type DemosBannerSettings = {
 };
 
 // =====================================================
+// BLOG PAGE (chrome del blog)
+// =====================================================
+
+export type BlogCommentForm = {
+  title: string;
+  name: string;
+  email: string;
+  emailHint: string;
+  body: string;
+  submit: string;
+  submitting: string;
+  success: string;
+  error: string;
+  privacy: string;
+};
+
+export type BlogPageData = {
+  metaTitle: string;
+  metaDescription: string;
+  kicker: string;
+  title: string;
+  lead: string;
+  empty: string;
+  filterAll: string;
+  filterCategory: string;
+  sortNewest: string;
+  sortOldest: string;
+  backToList: string;
+  byPrefix: string;
+  byAuthor: string;
+  publishedOn: string;
+  updatedOn: string;
+  tocLabel: string;
+  shareLabel: string;
+  relatedHeading: string;
+  likeLabel: string;
+  likeThanks: string;
+  commentsHeading: string;
+  commentsEmpty: string;
+  commentForm: BlogCommentForm;
+};
+
+// =====================================================
 // EXAMPLES PAGE
 // =====================================================
 
@@ -409,14 +452,14 @@ export type ExamplesPageData = {
 };
 
 export type FaqPageData = {
-  metaTitle: string | null;
-  metaDescription: string | null;
-  kicker: string | null;
-  title: string | null;
-  lead: string | null;
-  contactSectionTitle: string | null;
-  contactSectionLead: string | null;
-  contactCta: string | null;
+  metaTitle: string;
+  metaDescription: string;
+  kicker: string;
+  title: string;
+  lead: string;
+  contactSectionTitle: string;
+  contactSectionLead: string;
+  contactCta: string;
 };
 
 export type FaqItem = {

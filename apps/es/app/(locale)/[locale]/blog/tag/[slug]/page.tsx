@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
@@ -13,6 +13,7 @@ import {
   getTagBySlug,
   getTags,
   getCategories,
+  getBlogPage,
 } from "@ebecerra/sanity-client";
 import styles from "../../Blog.module.css";
 
@@ -31,14 +32,14 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const t = await getTranslations({ locale, namespace: "blog" });
+  const blogPage = await getBlogPage(locale);
   const tag = await getTagBySlug(slug, locale);
   if (!tag) return {};
 
   const canonical =
     locale === "es" ? `/blog/tag/${slug}/` : `/${locale}/blog/tag/${slug}/`;
-  const title = `#${tag.title} · ${t("title")}`;
-  const description = tag.description ?? `${t("title")} · ${tag.title}`;
+  const title = `#${tag.title} · ${blogPage.title}`;
+  const description = tag.description ?? `${blogPage.title} · ${tag.title}`;
 
   return {
     title,
@@ -62,9 +63,9 @@ export default async function TagPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "blog" });
 
-  const [tag, posts, categories] = await Promise.all([
+  const [blogPage, tag, posts, categories] = await Promise.all([
+    getBlogPage(locale),
     getTagBySlug(slug, locale),
     getPosts(locale, { tagSlug: slug, order: "newest" }),
     getCategories(locale),
@@ -94,7 +95,7 @@ export default async function TagPage({
         />
 
         {posts.length === 0 ? (
-          <p className={styles.empty}>{t("empty")}</p>
+          <p className={styles.empty}>{blogPage.empty}</p>
         ) : (
           <div className={styles.rows}>
             {posts.map((post) => (
