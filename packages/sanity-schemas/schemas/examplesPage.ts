@@ -61,6 +61,27 @@ export default defineType({
       description: "Cuando no hay demos publicadas.",
       type: "localeString",
     }),
+    defineField({
+      name: "viewDemoLabel",
+      title: "Texto botón 'Ver demo'",
+      type: "localeString",
+    }),
+    defineField({
+      name: "openInNewTabLabel",
+      title: "Texto a11y '(se abre en pestaña nueva)'",
+      description: "Solo se lee con lectores de pantalla.",
+      type: "localeString",
+    }),
+    defineField({
+      name: "prevLabel",
+      title: "Texto a11y carrusel anterior",
+      type: "localeString",
+    }),
+    defineField({
+      name: "nextLabel",
+      title: "Texto a11y carrusel siguiente",
+      type: "localeString",
+    }),
   ],
   preview: { prepare: () => ({ title: "Página Ejemplos (meta)" }) },
 });

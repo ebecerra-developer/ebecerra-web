@@ -23,6 +23,7 @@ import type {
   TechContactFormBackend,
   DemosIndexPage,
   DemosBannerSettings,
+  ExamplesPageData,
   SiteSettingsMeta,
   SiteSettingsFooter,
   SiteSettingsFull,
@@ -1329,6 +1330,75 @@ export async function getDemosBannerSettings(
   };
 }
 
+// =====================================================
+// EXAMPLES PAGE
+// =====================================================
+
+export const DEFAULT_EXAMPLES_PAGE: ExamplesPageData = {
+  metaTitle: "Ejemplos de webs · Enrique Becerra",
+  metaDescription:
+    "Demos navegables de webs profesionales para autónomos, PYMEs y pequeños negocios. Mira lo que puedes tener antes de encargar.",
+  kicker: "// EJEMPLOS",
+  title: "Ejemplos de webs reales para tu negocio",
+  lead: "Demos completas para que veas qué puedes tener: agencia de marketing, coaching, clínica de fisioterapia… Cada una con su personalidad y su tono. La tuya nace de una conversación contigo, no de una plantilla.",
+  ctaContact: "Empieza con la tuya",
+  homeKicker: "// 05. Ejemplos",
+  homeTitle: "Mira lo que puedes tener",
+  homeLead:
+    "Demos completas y navegables de webs como las que entrego a autónomos, pequeños negocios y proyectos personales. Para que veas el resultado antes de encargar.",
+  homeViewAll: "Ver todos los ejemplos",
+  emptyState: "Demos en preparación. Vuelve pronto.",
+  viewDemoLabel: "Ver demo",
+  openInNewTabLabel: "(se abre en pestaña nueva)",
+  prevLabel: "Ejemplo anterior",
+  nextLabel: "Siguiente ejemplo",
+};
+
+export async function getExamplesPage(
+  locale: Locale
+): Promise<ExamplesPageData> {
+  const raw = await runFetch<Partial<ExamplesPageData> | null>(
+    `*[_type == "examplesPage"][0] {
+      "metaTitle": ${loc("metaTitle")},
+      "metaDescription": ${loc("metaDescription")},
+      "kicker": ${loc("kicker")},
+      "title": ${loc("title")},
+      "lead": ${loc("lead")},
+      "ctaContact": ${loc("ctaContact")},
+      "homeKicker": ${loc("homeKicker")},
+      "homeTitle": ${loc("homeTitle")},
+      "homeLead": ${loc("homeLead")},
+      "homeViewAll": ${loc("homeViewAll")},
+      "emptyState": ${loc("emptyState")},
+      "viewDemoLabel": ${loc("viewDemoLabel")},
+      "openInNewTabLabel": ${loc("openInNewTabLabel")},
+      "prevLabel": ${loc("prevLabel")},
+      "nextLabel": ${loc("nextLabel")}
+    }`,
+    { locale }
+  ).catch(() => null);
+
+  const d = DEFAULT_EXAMPLES_PAGE;
+  if (!raw) return d;
+  return {
+    metaTitle: raw.metaTitle ?? d.metaTitle,
+    metaDescription: raw.metaDescription ?? d.metaDescription,
+    kicker: raw.kicker ?? d.kicker,
+    title: raw.title ?? d.title,
+    lead: raw.lead ?? d.lead,
+    ctaContact: raw.ctaContact ?? d.ctaContact,
+    homeKicker: raw.homeKicker ?? d.homeKicker,
+    homeTitle: raw.homeTitle ?? d.homeTitle,
+    homeLead: raw.homeLead ?? d.homeLead,
+    homeViewAll: raw.homeViewAll ?? d.homeViewAll,
+    emptyState: raw.emptyState ?? d.emptyState,
+    viewDemoLabel: raw.viewDemoLabel ?? d.viewDemoLabel,
+    openInNewTabLabel: raw.openInNewTabLabel ?? d.openInNewTabLabel,
+    prevLabel: raw.prevLabel ?? d.prevLabel,
+    nextLabel: raw.nextLabel ?? d.nextLabel,
+  };
+}
+
 export const DEFAULT_CONTACT_SECTION_META: ContactSectionMeta = {
   kicker: "// Contacto",
   title: "Hablemos de tu proyecto",
@@ -1663,6 +1733,9 @@ export async function getProfile(locale: Locale): Promise<ProfileFull | null> {
       `*[_type == "profile"][0] {
         name,
         "jobTitle": ${loc("jobTitle")},
+        "aboutKicker": ${loc("aboutKicker")},
+        "aboutTitle": ${loc("aboutTitle")},
+        "aboutViewProfileCta": ${loc("aboutViewProfileCta")},
         "bio1": ${loc("bio1")},
         "bio2": ${loc("bio2")},
         "stats": stats[]{

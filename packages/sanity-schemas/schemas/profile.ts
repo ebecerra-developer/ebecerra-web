@@ -29,6 +29,25 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "aboutKicker",
+      title: "Kicker (sección Sobre mí)",
+      description: 'Ej: "// 02. Sobre mí". Incluye el numbering completo.',
+      type: "localeString",
+      group: "about",
+    }),
+    defineField({
+      name: "aboutTitle",
+      title: "Título (sección Sobre mí)",
+      type: "localeString",
+      group: "about",
+    }),
+    defineField({
+      name: "aboutViewProfileCta",
+      title: "CTA 'Ver perfil completo'",
+      type: "localeString",
+      group: "about",
+    }),
+    defineField({
       name: "bio1",
       title: "Bio — párrafo 1",
       type: "localeText",

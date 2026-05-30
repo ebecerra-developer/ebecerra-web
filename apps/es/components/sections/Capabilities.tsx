@@ -18,11 +18,7 @@ export default function Capabilities({ section }: Props) {
     >
       <div className={styles.inner}>
         <header className={styles.header}>
-          <div className={styles.kicker}>
-            {"// "}
-            <span className={styles.kickerAccent}>03.</span>{" "}
-            {data.kicker ?? ""}
-          </div>
+          <div className={styles.kicker}>{data.kicker ?? ""}</div>
           <h2 id="capabilities-heading" className={styles.heading}>
             {data.title ?? ""}
           </h2>

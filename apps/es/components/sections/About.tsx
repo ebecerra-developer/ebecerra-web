@@ -1,4 +1,3 @@
-import { getTranslations } from "next-intl/server";
 import type { Feature, ProfileFull } from "@ebecerra/sanity-client";
 import styles from "./About.module.css";
 
@@ -9,17 +8,21 @@ type Props = {
   profile?: ProfileFull | null;
 };
 
-export default async function About({ features, profile }: Props) {
-  const t = await getTranslations("about");
-
-  const bio1 = profile?.bio1 ?? t("bio1");
-  const bio2 = profile?.bio2 ?? t("bio2");
+// Todo el copy de la sección viene de Sanity (profile). El editor controla
+// kicker (incluyendo el "// 02." si lo quiere), title, bio1, bio2, stats y
+// el CTA. Sin numbering hardcoded en JSX.
+export default function About({ features, profile }: Props) {
+  const kicker = profile?.aboutKicker ?? "// 02. Sobre mí";
+  const title = profile?.aboutTitle ?? "Hola, soy Enrique Becerra";
+  const bio1 = profile?.bio1 ?? "";
+  const bio2 = profile?.bio2 ?? "";
+  const viewProfile = profile?.aboutViewProfileCta ?? "Ver perfil completo";
   const stats: Stat[] = profile?.stats?.length
     ? profile.stats
     : [
-        { value: "8+", label: t("statYears") },
-        { value: "13", label: t("statProjects") },
-        { value: "6", label: t("statPublicSector") },
+        { value: "8+", label: "años de oficio" },
+        { value: "13", label: "proyectos entregados" },
+        { value: "6", label: "proyectos AAPP" },
       ];
 
   return (
@@ -29,19 +32,15 @@ export default async function About({ features, profile }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <div className={styles.kicker}>
-          {"// "}
-          <span className={styles.kickerAccent}>02.</span>{" "}
-          {t("kicker").replace(/^\/\/\s*/i, "")}
-        </div>
+        <div className={styles.kicker}>{kicker}</div>
         <h2 id="about-heading" className={styles.heading}>
-          {t("title")}
+          {title}
         </h2>
 
         <div className={styles.split}>
           <div className={styles.bio}>
-            <p className={styles.bioPara}>{bio1}</p>
-            <p className={styles.bioParaLast}>{bio2}</p>
+            {bio1 && <p className={styles.bioPara}>{bio1}</p>}
+            {bio2 && <p className={styles.bioParaLast}>{bio2}</p>}
 
             <div
               className={styles.stats}
@@ -49,7 +48,7 @@ export default async function About({ features, profile }: Props) {
             >
               {stats.map((s, i) => (
                 <div
-                  key={s.label}
+                  key={`${s.label}-${i}`}
                   className={i > 0 ? styles.statItemBordered : styles.statItem}
                 >
                   <div className={styles.statValue}>{s.value}</div>
@@ -59,7 +58,7 @@ export default async function About({ features, profile }: Props) {
             </div>
 
             <a href="#contacto" className={`link-accent ${styles.viewProfileLink}`}>
-              {t("viewProfile")} →
+              {viewProfile} →
             </a>
           </div>
 

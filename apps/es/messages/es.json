@@ -64,38 +64,6 @@
     "placeholderTitle": "Caso detallado disponible bajo petición",
     "placeholderBody": "Los clientes con los que trabajo lo hacen bajo contrato y no puedo mostrarlos aquí públicamente. Te doy referencias concretas por el canal que prefieras tras una primera conversación."
   },
-  "about": {
-    "kicker": "// Sobre mí",
-    "title": "Hola, soy Enrique Becerra",
-    "bio1": "Soy Enrique Becerra. Llevo más de 8 años construyendo webs corporativas, portales institucionales e intranets para organizaciones que no pueden permitirse que su web falle.",
-    "bio2": "Ahora aplico ese mismo rigor a autónomos y PYMEs: webs que tu equipo mantiene solo, que se integran con tus herramientas y que siguen funcionando cuando crezcas. La diferencia es el tamaño, no la forma de trabajar.",
-    "viewProfile": "Ver perfil completo",
-    "statYears": "años de oficio",
-    "statProjects": "proyectos entregados",
-    "statPublicSector": "proyectos AAPP"
-  },
-  "process": {
-    "kicker": "// 02. Cómo trabajamos juntos",
-    "title": "De idea a sitio vivo en 4 pasos",
-    "lead": "Sin consultoría interminable ni sorpresas en la factura. Un camino corto, honesto y medible desde la primera llamada hasta que tu equipo opera la web solo."
-  },
-  "examples": {
-    "metaTitle": "Ejemplos de webs · Enrique Becerra",
-    "metaDescription": "Demos navegables de webs profesionales para autónomos, PYMEs y pequeños negocios. Mira lo que puedes tener antes de encargar.",
-    "kicker": "// EJEMPLOS",
-    "title": "Ejemplos de webs reales para tu negocio",
-    "lead": "Demos completas para que veas qué puedes tener: agencia de marketing, coaching, clínica de fisioterapia… Cada una con su personalidad y su tono. La tuya nace de una conversación contigo, no de una plantilla.",
-    "ctaContact": "Empieza con la tuya",
-    "homeKicker": "// Ejemplos",
-    "homeTitle": "Mira lo que puedes tener",
-    "homeLead": "Demos completas y navegables de webs como las que entrego a autónomos, pequeños negocios y proyectos personales. Para que veas el resultado antes de encargar.",
-    "homeViewAll": "Ver todos los ejemplos",
-    "viewDemo": "Ver demo",
-    "openInNewTab": "(se abre en pestaña nueva)",
-    "emptyState": "Demos en preparación. Vuelve pronto.",
-    "prev": "Ejemplo anterior",
-    "next": "Siguiente ejemplo"
-  },
   "faq": {
     "metaTitle": "Preguntas frecuentes",
     "metaDescription": "Plazos, formas de pago, revisiones de diseño, mantenimiento, Kit Digital, NDA y hosting. Lo que suelen preguntarme autónomos y PYMEs antes de arrancar un proyecto web.",

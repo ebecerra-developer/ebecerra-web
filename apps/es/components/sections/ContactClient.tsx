@@ -256,11 +256,7 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <div className={styles.kicker}>
-          {"// "}
-          <span className={styles.kickerAccent}>06.</span>{" "}
-          {(contactMeta.kicker ?? "").replace(/^\/\/\s*\d*\.?\s*/i, "")}
-        </div>
+        <div className={styles.kicker}>{contactMeta.kicker ?? ""}</div>
 
         <div className={styles.split}>
           <div>

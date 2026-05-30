@@ -1,6 +1,8 @@
-import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { getPublishedDemoSites } from "@ebecerra/sanity-client";
+import {
+  getPublishedDemoSites,
+  getExamplesPage,
+} from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import type { Locale } from "@/i18n/routing";
 import ExamplesCarousel from "./ExamplesCarousel";
@@ -13,8 +15,8 @@ type Props = {
 };
 
 export default async function Examples({ locale }: Props) {
-  const [t, demos] = await Promise.all([
-    getTranslations("examples"),
+  const [page, demos] = await Promise.all([
+    getExamplesPage(locale),
     getPublishedDemoSites(locale),
   ]);
 
@@ -32,20 +34,13 @@ export default async function Examples({ locale }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <div className={styles.kicker}>
-          {"// "}
-          <span className={styles.kickerAccent}>05.</span>{" "}
-          {t("homeKicker").replace(/^\/\/\s*\d*\.?\s*/i, "")}
-        </div>
+        <div className={styles.kicker}>{page.homeKicker}</div>
         <h2 id="examples-heading" className={styles.heading}>
-          {t("homeTitle")}
+          {page.homeTitle}
         </h2>
-        <p className={`lead ${styles.lead}`}>{t("homeLead")}</p>
+        <p className={`lead ${styles.lead}`}>{page.homeLead}</p>
 
-        <ExamplesCarousel
-          prevLabel={t("prev")}
-          nextLabel={t("next")}
-        >
+        <ExamplesCarousel prevLabel={page.prevLabel} nextLabel={page.nextLabel}>
           {demos.map((demo) => {
             const thumbnail = demo.thumbnail;
             const thumb = thumbnail
@@ -66,7 +61,7 @@ export default async function Examples({ locale }: Props) {
                 target="_blank"
                 rel="noopener"
                 className={styles.card}
-                aria-label={`${t("viewDemo")}: ${demo.businessName} ${t("openInNewTab")}`}
+                aria-label={`${page.viewDemoLabel}: ${demo.businessName} ${page.openInNewTabLabel}`}
               >
                 <div className={styles.thumb}>
                   {thumb && (
@@ -93,7 +88,7 @@ export default async function Examples({ locale }: Props) {
                     <p className={styles.cardDesc}>{demo.shortDescription}</p>
                   )}
                   <span className={styles.cardCta}>
-                    {t("viewDemo")} →
+                    {page.viewDemoLabel} →
                   </span>
                 </div>
               </a>
@@ -103,7 +98,7 @@ export default async function Examples({ locale }: Props) {
 
         <div className={styles.viewAllWrap}>
           <Link href="/ejemplos" className={styles.viewAll}>
-            {t("homeViewAll")} →
+            {page.homeViewAll} →
           </Link>
         </div>
       </div>

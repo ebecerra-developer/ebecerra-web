@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { setRequestLocale, getTranslations } from "next-intl/server";
-import { getPublishedDemoSites } from "@ebecerra/sanity-client";
+import { setRequestLocale } from "next-intl/server";
+import {
+  getPublishedDemoSites,
+  getExamplesPage,
+} from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import type { Locale } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
@@ -16,14 +19,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "examples" });
+  const page = await getExamplesPage(locale as Locale);
   const baseUrl = "https://ebecerra.es";
   const canonical =
     locale === "es" ? `${baseUrl}/ejemplos/` : `${baseUrl}/${locale}/ejemplos/`;
 
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title: page.metaTitle,
+    description: page.metaDescription,
     alternates: {
       canonical,
       languages: {
@@ -35,8 +38,8 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       url: canonical,
-      title: t("metaTitle"),
-      description: t("metaDescription"),
+      title: page.metaTitle,
+      description: page.metaDescription,
     },
   };
 }
@@ -50,8 +53,8 @@ export default async function EjemplosPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [t, demos] = await Promise.all([
-    getTranslations("examples"),
+  const [page, demos] = await Promise.all([
+    getExamplesPage(locale as Locale),
     getPublishedDemoSites(locale as Locale),
   ]);
 
@@ -81,13 +84,13 @@ export default async function EjemplosPage({
             { label: locale === "es" ? "Inicio" : "Home", href: locale === "es" ? "/" : `/${locale}/` },
             { label: locale === "es" ? "Ejemplos" : "Examples" },
           ]}
-          kicker={t("kicker")}
-          title={t("title")}
-          lead={t("lead")}
+          kicker={page.kicker}
+          title={page.title}
+          lead={page.lead}
         />
 
         {demos.length === 0 ? (
-          <p className={styles.empty}>{t("emptyState")}</p>
+          <p className={styles.empty}>{page.emptyState}</p>
         ) : (
           <ul className={styles.grid}>
             {demos.map((demo, i) => {
@@ -111,7 +114,7 @@ export default async function EjemplosPage({
                     href={demoUrl(demo.slug)}
                     target="_blank"
                     rel="noopener"
-                    aria-label={`${t("viewDemo")}: ${demo.businessName} ${t("openInNewTab")}`}
+                    aria-label={`${page.viewDemoLabel}: ${demo.businessName} ${page.openInNewTabLabel}`}
                   >
                     <div className={styles.thumb}>
                       {thumb && (
@@ -139,7 +142,7 @@ export default async function EjemplosPage({
                         <p className={styles.cardDesc}>{demo.shortDescription}</p>
                       )}
                       <span className={styles.cardFooter}>
-                        {t("viewDemo")} →
+                        {page.viewDemoLabel} →
                       </span>
                     </div>
                   </a>
@@ -156,7 +159,7 @@ export default async function EjemplosPage({
               : "Does any of these fit? Yours starts with a conversation."}
           </p>
           <a href={`${locale === "es" ? "" : "/" + locale}/#contacto`}>
-            {t("ctaContact")} →
+            {page.ctaContact} →
           </a>
         </div>
       </div>

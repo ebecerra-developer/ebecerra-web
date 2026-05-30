@@ -1,4 +1,3 @@
-import { getTranslations } from "next-intl/server";
 import type { ProcessStep, SectionMeta } from "@ebecerra/sanity-client";
 import styles from "./Process.module.css";
 
@@ -11,11 +10,12 @@ function StepCircle({ number }: { number: string }) {
   return <div className={styles.stepCircle}>{number}</div>;
 }
 
-export default async function Process({ steps, sectionMeta }: Props) {
-  const t = await getTranslations("process");
-
-  const title = sectionMeta?.title ?? t("title");
-  const lead = sectionMeta?.lead ?? t("lead");
+export default function Process({ steps, sectionMeta }: Props) {
+  const kicker = sectionMeta?.kicker ?? "// 04. Cómo trabajamos juntos";
+  const title = sectionMeta?.title ?? "De idea a sitio vivo en 4 pasos";
+  const lead =
+    sectionMeta?.lead ??
+    "Sin consultoría interminable ni sorpresas en la factura. Un camino corto, honesto y medible desde la primera llamada hasta que tu equipo opera la web solo.";
   const ordered = [...steps].sort((a, b) => a.order - b.order);
 
   return (
@@ -25,11 +25,7 @@ export default async function Process({ steps, sectionMeta }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <div className={styles.kicker}>
-          {"// "}
-          <span className={styles.kickerAccent}>04.</span>{" "}
-          {t("kicker").replace(/^\/\/\s*\d+\.\s*/i, "")}
-        </div>
+        <div className={styles.kicker}>{kicker}</div>
         <h2 id="process-heading" className={styles.heading}>
           {title}
         </h2>

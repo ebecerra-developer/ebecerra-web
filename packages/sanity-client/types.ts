@@ -386,6 +386,28 @@ export type DemosBannerSettings = {
   ctaHref: string;
 };
 
+// =====================================================
+// EXAMPLES PAGE
+// =====================================================
+
+export type ExamplesPageData = {
+  metaTitle: string;
+  metaDescription: string;
+  kicker: string;
+  title: string;
+  lead: string;
+  ctaContact: string;
+  homeKicker: string;
+  homeTitle: string;
+  homeLead: string;
+  homeViewAll: string;
+  emptyState: string;
+  viewDemoLabel: string;
+  openInNewTabLabel: string;
+  prevLabel: string;
+  nextLabel: string;
+};
+
 export type FaqPageData = {
   metaTitle: string | null;
   metaDescription: string | null;
@@ -456,6 +478,9 @@ export type ProfileStat = { value: string; label: string };
 export type ProfileFull = {
   name: string | null;
   jobTitle: string | null;
+  aboutKicker: string | null;
+  aboutTitle: string | null;
+  aboutViewProfileCta: string | null;
   bio1: string | null;
   bio2: string | null;
   stats: ProfileStat[];
