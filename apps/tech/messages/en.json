@@ -3,99 +3,22 @@
     "title": "Enrique Becerra — Tech Architect Lead · Magnolia CMS, Java, Next.js",
     "titleTemplate": "%s · ebecerra.tech",
     "description": "Tech Architect Lead at VASS with 8+ years of experience in Magnolia CMS, Java/Spring, Next.js and enterprise-scale web architectures. Coordinator of the VassNolia guild.",
-    "ogDescription": "Tech Architect Lead · Magnolia CMS · Java · Next.js. 8+ years designing web architectures for public administration and large enterprises.",
+    "ogDescription": "Tech Architect Lead · Magnolia CMS · Java · Next.js. 8+ years designing web architectures for public sector and large corporations.",
     "twitterDescription": "Tech Architect Lead · Magnolia CMS · Java · Next.js. Enterprise web architectures."
   },
   "a11y": {
     "skipToContent": "Skip to main content"
   },
   "nav": {
-    "home": "./home",
-    "about": "./who_am_i",
-    "experience": "./career",
-    "skills": "./stack",
-    "projects": "./projects",
-    "contact": "./get_in_touch",
     "menu": "Menu",
     "language": "Change language",
-    "langEs": "Español",
+    "langEs": "Spanish",
     "langEn": "English"
-  },
-  "hero": {
-    "available": "AVAILABLE",
-    "firstName": "Enrique",
-    "lastName": "Becerra",
-    "tagline": "Tech Architect Lead — I build software that works, trains teams and lasts.",
-    "ctaContact": "→ get in touch",
-    "ctaProjects": "→ view projects",
-    "terminal": {
-      "title": "~/portfolio",
-      "placeholder": "type a command...",
-      "cdBlocked": "bash: cd: you can't escape from here 🔒",
-      "sudoBlocked": "this portfolio doesn't run as root 🙅",
-      "rmBlocked": "rm: operation not permitted (nice try) 😅",
-      "notFound": "command not found: {cmd}. Type 'help' to see available commands.",
-      "lines": {
-        "whoamiOut": "enrique becerra — tech architect",
-        "roleOut": "software architect @ VASS",
-        "skillsOut": "magnolia_cms, java, architecture",
-        "statusOut": "open to freelance projects"
-      },
-      "commands": {
-        "help": "Commands: whoami, cat role.txt, ./skills --top, echo $status, pwd, ls, exit, git blame",
-        "whoami": "enrique becerra — tech architect @ VASS",
-        "role": "software architect, trainer, lifelong geek",
-        "skills": "magnolia_cms [98%], java [95%], architecture [90%]",
-        "status": "open to freelance projects",
-        "pwd": "/home/enrique/universe/earth/spain/madrid",
-        "ls": "projects/  skills/  experience/  contact/  easter_eggs/",
-        "exit": "nice try 😏",
-        "gitBlame": "all the good → enrique, all the bad → the coffee"
-      }
-    }
-  },
-  "about": {
-    "eyebrow": "// 01. about me",
-    "title": "A bit about me 📖",
-    "bio1": "I'm a <strong>Tech Architect Leader</strong> with 8+ years of experience, specialized in <strong>Magnolia CMS</strong>, Java and Spring. I currently lead technical teams at VASS and coordinate the <strong>VassNolia</strong> guild at VASS University.",
-    "bio2": "My work spans requirement gathering, analysis, estimation and end-to-end development, making sure technical objectives align with client needs. I've designed scalable templates and components in Magnolia, integrated systems via REST and modernized legacy through migrations — mostly for government and large corporate sectors.",
-    "bio3": "Outside of work: geek, chronically curious, and someone who also knows there's life beyond the keyboard."
-  },
-  "experience": {
-    "eyebrow": "// 02. experience",
-    "title": "Career path 🚀"
-  },
-  "skills": {
-    "eyebrow": "// 03. skills",
-    "title": "Tech stack 💡"
-  },
-  "projects": {
-    "eyebrow": "// 04. projects",
-    "title": "Personal projects"
-  },
-  "contact": {
-    "eyebrow": "// 05. contact",
-    "title": "Let's talk 💌",
-    "description": "Got an interesting project, an idea, or just want to connect? Drop me a line.",
-    "form": {
-      "name": "Your name",
-      "email": "you@email.com",
-      "message": "Tell me...",
-      "submit": "$ send_message →",
-      "sending": "Sending...",
-      "success": "Message sent successfully. Thanks!",
-      "error": "Error sending message. Please try again."
-    }
-  },
-  "footer": {
-    "copyright": "© {year} ebecerra.tech — built with ❤️ and a bit of 🔍 and 🧪",
-    "online": "online",
-    "version": "v2.0.0"
   },
   "errors": {
     "generic": {
       "title": "Something went wrong",
-      "description": "An unexpected error occurred. We're looking into it.",
+      "description": "Unexpected error. We're already looking into it.",
       "retry": "Retry",
       "home": "Back to home"
     },

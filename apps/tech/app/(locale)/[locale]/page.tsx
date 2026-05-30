@@ -6,7 +6,11 @@ import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
-import { getSiteData } from "@ebecerra/sanity-client";
+import {
+  getSiteData,
+  getTechHomeSections,
+  getTechContactForm,
+} from "@ebecerra/sanity-client";
 import { getFallback } from "@/lib/content";
 import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
@@ -21,7 +25,11 @@ export default async function Home({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const sanity = await getSiteData(locale).catch(() => null);
+  const [sanity, home, contactForm] = await Promise.all([
+    getSiteData(locale).catch(() => null),
+    getTechHomeSections(locale),
+    getTechContactForm(locale),
+  ]);
   const fallback = getFallback(locale);
 
   const experienceItems = sanity?.experience ?? fallback.experience;
@@ -34,14 +42,14 @@ export default async function Home({
     <>
       <Nav />
       <main id="main">
-        <Hero />
-        <About features={featureItems} />
-        <Experience items={experienceItems} />
-        <Skills skills={skillItems} tags={tagItems} />
-        <Projects items={projectItems} />
-        <Contact />
+        <Hero hero={home.hero} />
+        <About chrome={home.about} features={featureItems} />
+        <Experience chrome={home.experience} items={experienceItems} />
+        <Skills chrome={home.skills} skills={skillItems} tags={tagItems} />
+        <Projects chrome={home.projects} items={projectItems} />
+        <Contact chrome={home.contact} form={contactForm} />
       </main>
-      <Footer links={fallback.footerLinks} />
+      <Footer />
     </>
   );
 }

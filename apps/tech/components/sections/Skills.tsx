@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import type { TechSectionChrome } from "@ebecerra/sanity-client";
 import type { Skill } from "@/lib/content";
 
 interface SkillsProps {
+  chrome: TechSectionChrome;
   skills: Skill[];
   tags: string[];
 }
@@ -36,26 +37,29 @@ function SkillBar({ name, level, index }: Skill & { index: number }) {
   );
 }
 
-export default function Skills({ skills, tags }: SkillsProps) {
-  const t = useTranslations("skills");
+export default function Skills({ chrome, skills, tags }: SkillsProps) {
   const [hoveredTag, setHoveredTag] = useState<string | null>(null);
 
   return (
     <section
-      id="skills"
+      id="stack"
       aria-labelledby="skills-heading"
       className="py-[64px] px-[clamp(20px,5vw,80px)]"
     >
       <div className="max-w-[1100px] mx-auto">
-        <span className="text-[#00ff88] font-mono text-xs tracking-[0.15em] uppercase block mb-3">
-          {t("eyebrow")}
-        </span>
-        <h2
-          id="skills-heading"
-          className="text-[clamp(28px,4vw,40px)] font-bold text-white tracking-tight mb-12"
-        >
-          {t("title")}
-        </h2>
+        {chrome.eyebrow && (
+          <span className="text-[#00ff88] font-mono text-xs tracking-[0.15em] uppercase block mb-3">
+            {chrome.eyebrow}
+          </span>
+        )}
+        {chrome.title && (
+          <h2
+            id="skills-heading"
+            className="text-[clamp(28px,4vw,40px)] font-bold text-white tracking-tight mb-12"
+          >
+            {chrome.title}
+          </h2>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
           {skills.map((s, i) => (
             <SkillBar key={s.name} {...s} index={i} />

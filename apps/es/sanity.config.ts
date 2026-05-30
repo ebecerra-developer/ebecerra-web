@@ -34,6 +34,10 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "contactSectionMeta",
   "contactFormSettings",
   "contactFormStep",
+  "techHomeSections",
+  "techSiteSettings",
+  "techContactFormSettings",
+  "techContactFormStep",
   "faqPage",
   "examplesPage",
   "faqItem",
@@ -184,6 +188,47 @@ const structure: StructureResolver = (S) =>
         .title("Páginas legales")
         .schemaType("legalPage")
         .child(S.documentTypeList("legalPage").title("Páginas legales")),
+      S.divider(),
+      S.listItem()
+        .title("ebecerra.tech")
+        .child(
+          S.list()
+            .title("ebecerra.tech")
+            .items([
+              S.listItem()
+                .title("Home (copy)")
+                .id("techHomeSections")
+                .child(
+                  S.document()
+                    .schemaType("techHomeSections")
+                    .documentId("techHomeSections-singleton")
+                ),
+              S.listItem()
+                .title("Ajustes del sitio")
+                .id("techSiteSettings")
+                .child(
+                  S.document()
+                    .schemaType("techSiteSettings")
+                    .documentId("techSiteSettings-singleton")
+                ),
+              S.listItem()
+                .title("Contacto · Formulario")
+                .id("techContactFormSettings")
+                .child(
+                  S.document()
+                    .schemaType("techContactFormSettings")
+                    .documentId("techContactFormSettings-singleton")
+                ),
+              S.listItem()
+                .title("Contacto · Pasos")
+                .schemaType("techContactFormStep")
+                .child(
+                  S.documentTypeList("techContactFormStep").title(
+                    "Pasos del wizard"
+                  )
+                ),
+            ])
+        ),
       S.divider(),
       S.listItem()
         .title("Demos de webs")

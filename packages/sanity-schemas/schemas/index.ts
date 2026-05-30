@@ -10,6 +10,10 @@ import heroSection from "./heroSection";
 import capabilitiesSection from "./capabilitiesSection";
 import contactFormStep from "./contactFormStep";
 import contactFormSettings from "./contactFormSettings";
+import techHomeSections from "./techHomeSections";
+import techSiteSettings from "./techSiteSettings";
+import techContactFormStep from "./techContactFormStep";
+import techContactFormSettings from "./techContactFormSettings";
 import siteSettings from "./siteSettings";
 import {
   serviceSectionMeta,
@@ -47,6 +51,11 @@ export const schemaTypes = [
   contactSectionMeta,
   contactFormSettings,
   contactFormStep,
+  // Tech-specific singletons (ebecerra.tech)
+  techHomeSections,
+  techSiteSettings,
+  techContactFormSettings,
+  techContactFormStep,
   faqPage,
   examplesPage,
   profile,
@@ -76,6 +85,10 @@ export const SINGLETON_TYPES = [
   "processSectionMeta",
   "casesSectionMeta",
   "contactSectionMeta",
+  "contactFormSettings",
+  "techHomeSections",
+  "techSiteSettings",
+  "techContactFormSettings",
   "faqPage",
   "examplesPage",
   "profile",

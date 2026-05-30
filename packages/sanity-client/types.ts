@@ -272,6 +272,103 @@ export type ContactFormBackend = {
   fields: ContactFormFieldBackend[];
 };
 
+// =====================================================
+// TECH (ebecerra.tech)
+// =====================================================
+
+export type TechTerminalLines = {
+  whoamiOut: string | null;
+  roleOut: string | null;
+  skillsOut: string | null;
+  statusOut: string | null;
+};
+
+export type TechTerminalCommands = {
+  help: string | null;
+  whoami: string | null;
+  role: string | null;
+  skills: string | null;
+  status: string | null;
+  pwd: string | null;
+  ls: string | null;
+  exit: string | null;
+  gitBlame: string | null;
+};
+
+export type TechTerminal = {
+  title: string | null;
+  placeholder: string | null;
+  cdBlocked: string | null;
+  sudoBlocked: string | null;
+  rmBlocked: string | null;
+  notFound: string | null;
+  lines: TechTerminalLines;
+  commands: TechTerminalCommands;
+};
+
+export type TechHero = {
+  available: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  tagline: string | null;
+  ctaContact: string | null;
+  ctaProjects: string | null;
+  terminal: TechTerminal;
+};
+
+export type TechSectionChrome = {
+  eyebrow: string | null;
+  title: string | null;
+};
+
+export type TechAboutSection = TechSectionChrome & {
+  bio1: string | null;
+  bio2: string | null;
+  bio3: string | null;
+};
+
+export type TechContactChrome = TechSectionChrome & {
+  description: string | null;
+};
+
+export type TechHomeSections = {
+  hero: TechHero;
+  about: TechAboutSection;
+  experience: TechSectionChrome;
+  skills: TechSectionChrome;
+  projects: TechSectionChrome;
+  contact: TechContactChrome;
+};
+
+export type TechSiteSettingsMeta = {
+  title: string | null;
+  titleTemplate: string | null;
+  description: string | null;
+  ogDescription: string | null;
+  twitterDescription: string | null;
+  keywords: string[];
+};
+
+export type TechNavItem = {
+  key: string;
+  label: string;
+};
+
+export type TechFooterSettings = {
+  copyrightTemplate: string | null;
+  online: string | null;
+  version: string | null;
+};
+
+export type TechSiteSettings = {
+  metadata: TechSiteSettingsMeta;
+  nav: { items: TechNavItem[] };
+  footer: TechFooterSettings;
+};
+
+export type TechContactForm = ContactForm;
+export type TechContactFormBackend = ContactFormBackend;
+
 export type FaqPageData = {
   metaTitle: string | null;
   metaDescription: string | null;

@@ -10,87 +10,10 @@
     "skipToContent": "Saltar al contenido principal"
   },
   "nav": {
-    "home": "./home",
-    "about": "./quien_soy",
-    "experience": "./trayectoria",
-    "skills": "./stack",
-    "projects": "./proyectos",
-    "contact": "./contactar",
     "menu": "Menú",
     "language": "Cambiar idioma",
     "langEs": "Español",
     "langEn": "English"
-  },
-  "hero": {
-    "available": "DISPONIBLE",
-    "firstName": "Enrique",
-    "lastName": "Becerra",
-    "tagline": "Tech Architect Lead — construyo software que funciona, forma equipos y perdura.",
-    "ctaContact": "→ contactar",
-    "ctaProjects": "→ ver proyectos",
-    "terminal": {
-      "title": "~/portfolio",
-      "placeholder": "escribe un comando...",
-      "cdBlocked": "bash: cd: no puedes escapar de aquí 🔒",
-      "sudoBlocked": "este portfolio no ejecuta como root 🙅",
-      "rmBlocked": "rm: operation not permitted (nice try) 😅",
-      "notFound": "comando no encontrado: {cmd}. Escribe 'help' para ver los comandos.",
-      "lines": {
-        "whoamiOut": "enrique becerra — tech architect",
-        "roleOut": "arquitecto de software @ VASS",
-        "skillsOut": "magnolia_cms, java, architecture",
-        "statusOut": "abierto a proyectos freelance"
-      },
-      "commands": {
-        "help": "Comandos: whoami, cat role.txt, ./skills --top, echo $status, pwd, ls, exit, git blame",
-        "whoami": "enrique becerra — tech architect @ VASS",
-        "role": "arquitecto de software, formador, geek empedernido",
-        "skills": "magnolia_cms [98%], java [95%], architecture [90%]",
-        "status": "abierto a proyectos freelance",
-        "pwd": "/home/enrique/universe/earth/spain/madrid",
-        "ls": "proyectos/  skills/  experiencia/  contacto/  easter_eggs/",
-        "exit": "nice try 😏",
-        "gitBlame": "todo lo bueno → enrique, todo lo malo → el café"
-      }
-    }
-  },
-  "about": {
-    "eyebrow": "// 01. sobre mí",
-    "title": "Un poco sobre mí 📖",
-    "bio1": "Soy <strong>Tech Architect Leader</strong> con más de 8 años de experiencia, especializado en <strong>Magnolia CMS</strong>, Java y Spring. Actualmente lidero equipos técnicos en VASS y coordino el gremio <strong>VassNolia</strong> en VASS University.",
-    "bio2": "Mi trabajo abarca toma de requisitos, análisis, estimación y desarrollo end-to-end, asegurando que lo técnico encaje con lo que el cliente necesita. He diseñado plantillas y componentes escalables en Magnolia, integrado sistemas vía REST y modernizado legacy con migraciones — mayoritariamente para administración pública y grandes corporaciones.",
-    "bio3": "Fuera del trabajo: geek, curioso crónico, y alguien que también sabe que hay vida más allá del teclado."
-  },
-  "experience": {
-    "eyebrow": "// 02. experiencia",
-    "title": "Trayectoria 🚀"
-  },
-  "skills": {
-    "eyebrow": "// 03. skills",
-    "title": "Stack técnico 💡"
-  },
-  "projects": {
-    "eyebrow": "// 04. proyectos",
-    "title": "Proyectos propios"
-  },
-  "contact": {
-    "eyebrow": "// 05. contacto",
-    "title": "Hablemos 💌",
-    "description": "¿Tienes un proyecto interesante, una idea o simplemente quieres conectar? Escríbeme.",
-    "form": {
-      "name": "Tu nombre",
-      "email": "tu@email.com",
-      "message": "Cuéntame...",
-      "submit": "$ enviar_mensaje →",
-      "sending": "Enviando...",
-      "success": "Mensaje enviado correctamente. ¡Gracias!",
-      "error": "Error al enviar el mensaje. Inténtalo de nuevo."
-    }
-  },
-  "footer": {
-    "copyright": "© {year} ebecerra.tech — hecho con ❤️ y con un poco de 🔍 y 🧪",
-    "online": "online",
-    "version": "v2.0.0"
   },
   "errors": {
     "generic": {

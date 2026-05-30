@@ -1,29 +1,32 @@
-import { useTranslations } from "next-intl";
+import type { TechSectionChrome } from "@ebecerra/sanity-client";
 import type { ExperienceItem } from "@/lib/content";
 
 interface ExperienceProps {
+  chrome: TechSectionChrome;
   items: ExperienceItem[];
 }
 
-export default function Experience({ items }: ExperienceProps) {
-  const t = useTranslations("experience");
-
+export default function Experience({ chrome, items }: ExperienceProps) {
   return (
     <section
-      id="experiencia"
+      id="trayectoria"
       aria-labelledby="experience-heading"
       className="py-[64px] px-[clamp(20px,5vw,80px)]"
     >
       <div className="max-w-[1100px] mx-auto">
-        <span className="text-[#00ff88] font-mono text-xs tracking-[0.15em] uppercase block mb-3">
-          {t("eyebrow")}
-        </span>
-        <h2
-          id="experience-heading"
-          className="text-[clamp(28px,4vw,40px)] font-bold text-white tracking-tight mb-12"
-        >
-          {t("title")}
-        </h2>
+        {chrome.eyebrow && (
+          <span className="text-[#00ff88] font-mono text-xs tracking-[0.15em] uppercase block mb-3">
+            {chrome.eyebrow}
+          </span>
+        )}
+        {chrome.title && (
+          <h2
+            id="experience-heading"
+            className="text-[clamp(28px,4vw,40px)] font-bold text-white tracking-tight mb-12"
+          >
+            {chrome.title}
+          </h2>
+        )}
         <div className="relative pl-8">
           <div className="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-[#00ff88] to-transparent" />
           {items.map((exp, i) => (

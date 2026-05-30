@@ -16,6 +16,11 @@ import type {
   ContactField,
   ContactFormBackend,
   ContactFormFieldBackend,
+  TechHomeSections,
+  TechSiteSettings,
+  TechNavItem,
+  TechContactForm,
+  TechContactFormBackend,
   SiteSettingsMeta,
   SiteSettingsFooter,
   SiteSettingsFull,
@@ -671,6 +676,572 @@ export async function getContactFormBackend(): Promise<ContactFormBackend> {
   if (!raw || !raw.steps) {
     return {
       fields: DEFAULT_CONTACT_FORM.steps.flatMap((s) =>
+        s.fields.map((f) => ({
+          key: f.key,
+          type: f.type,
+          required: f.required,
+          options: f.options.map((o) => ({ code: o.code })),
+        }))
+      ),
+    };
+  }
+
+  const fields: ContactFormFieldBackend[] = raw.steps
+    .flatMap((s) => s.fields ?? [])
+    .filter(
+      (f): f is RawField & { key: string; type: ContactField["type"] } =>
+        !!f.key && !!f.type
+    )
+    .map((f) => ({
+      key: f.key,
+      type: f.type,
+      required: f.required ?? false,
+      options: (f.options ?? [])
+        .map((o) => ({ code: o.code ?? o.value ?? "" }))
+        .filter((o) => o.code),
+    }));
+
+  return { fields };
+}
+
+// =====================================================
+// TECH (ebecerra.tech)
+// =====================================================
+
+export const DEFAULT_TECH_HOME_SECTIONS: TechHomeSections = {
+  hero: {
+    available: "DISPONIBLE",
+    firstName: "Enrique",
+    lastName: "Becerra",
+    tagline:
+      "Tech Architect Lead — construyo software que funciona, forma equipos y perdura.",
+    ctaContact: "→ contactar",
+    ctaProjects: "→ ver proyectos",
+    terminal: {
+      title: "~/portfolio",
+      placeholder: "escribe un comando...",
+      cdBlocked: "bash: cd: no puedes escapar de aquí 🔒",
+      sudoBlocked: "este portfolio no ejecuta como root 🙅",
+      rmBlocked: "rm: operation not permitted (nice try) 😅",
+      notFound:
+        "comando no encontrado: {cmd}. Escribe 'help' para ver los comandos.",
+      lines: {
+        whoamiOut: "enrique becerra — tech architect",
+        roleOut: "arquitecto de software @ VASS",
+        skillsOut: "magnolia_cms, java, architecture",
+        statusOut: "abierto a proyectos freelance",
+      },
+      commands: {
+        help: "Comandos: whoami, cat role.txt, ./skills --top, echo $status, pwd, ls, exit, git blame",
+        whoami: "enrique becerra — tech architect @ VASS",
+        role: "arquitecto de software, formador, geek empedernido",
+        skills: "magnolia_cms [98%], java [95%], architecture [90%]",
+        status: "abierto a proyectos freelance",
+        pwd: "/home/enrique/universe/earth/spain/madrid",
+        ls: "proyectos/  skills/  experiencia/  contacto/  easter_eggs/",
+        exit: "nice try 😏",
+        gitBlame: "todo lo bueno → enrique, todo lo malo → el café",
+      },
+    },
+  },
+  about: {
+    eyebrow: "// 01. sobre mí",
+    title: "Un poco sobre mí 📖",
+    bio1:
+      "Soy <strong>Tech Architect Leader</strong> con más de 8 años de experiencia, especializado en <strong>Magnolia CMS</strong>, Java y Spring. Actualmente lidero equipos técnicos en VASS y coordino el gremio <strong>VassNolia</strong> en VASS University.",
+    bio2:
+      "Mi trabajo abarca toma de requisitos, análisis, estimación y desarrollo end-to-end, asegurando que lo técnico encaje con lo que el cliente necesita. He diseñado plantillas y componentes escalables en Magnolia, integrado sistemas vía REST y modernizado legacy con migraciones — mayoritariamente para administración pública y grandes corporaciones.",
+    bio3:
+      "Fuera del trabajo: geek, curioso crónico, y alguien que también sabe que hay vida más allá del teclado.",
+  },
+  experience: {
+    eyebrow: "// 02. experiencia",
+    title: "Trayectoria 🚀",
+  },
+  skills: {
+    eyebrow: "// 03. skills",
+    title: "Stack técnico 💡",
+  },
+  projects: {
+    eyebrow: "// 04. proyectos",
+    title: "Proyectos propios",
+  },
+  contact: {
+    eyebrow: "// 05. contacto",
+    title: "Hablemos 💌",
+    description:
+      "¿Tienes un proyecto interesante, una idea o simplemente quieres conectar? Escríbeme.",
+  },
+};
+
+export async function getTechHomeSections(
+  locale: Locale
+): Promise<TechHomeSections> {
+  const raw = await runFetch<TechHomeSections | null>(
+    `*[_type == "techHomeSections"][0] {
+      "hero": hero {
+        "available": ${loc("available")},
+        firstName,
+        lastName,
+        "tagline": ${loc("tagline")},
+        "ctaContact": ${loc("ctaContact")},
+        "ctaProjects": ${loc("ctaProjects")},
+        "terminal": terminal {
+          title,
+          "placeholder": ${loc("placeholder")},
+          "cdBlocked": ${loc("cdBlocked")},
+          "sudoBlocked": ${loc("sudoBlocked")},
+          "rmBlocked": ${loc("rmBlocked")},
+          "notFound": ${loc("notFound")},
+          "lines": lines {
+            "whoamiOut": ${loc("whoamiOut")},
+            "roleOut": ${loc("roleOut")},
+            "skillsOut": ${loc("skillsOut")},
+            "statusOut": ${loc("statusOut")}
+          },
+          "commands": commands {
+            "help": ${loc("help")},
+            "whoami": ${loc("whoami")},
+            "role": ${loc("role")},
+            "skills": ${loc("skills")},
+            "status": ${loc("status")},
+            "pwd": ${loc("pwd")},
+            "ls": ${loc("ls")},
+            "exit": ${loc("exit")},
+            "gitBlame": ${loc("gitBlame")}
+          }
+        }
+      },
+      "about": about {
+        "eyebrow": ${loc("eyebrow")},
+        "title": ${loc("title")},
+        "bio1": ${loc("bio1")},
+        "bio2": ${loc("bio2")},
+        "bio3": ${loc("bio3")}
+      },
+      "experience": experience {
+        "eyebrow": ${loc("eyebrow")},
+        "title": ${loc("title")}
+      },
+      "skills": skills {
+        "eyebrow": ${loc("eyebrow")},
+        "title": ${loc("title")}
+      },
+      "projects": projects {
+        "eyebrow": ${loc("eyebrow")},
+        "title": ${loc("title")}
+      },
+      "contact": contact {
+        "eyebrow": ${loc("eyebrow")},
+        "title": ${loc("title")},
+        "description": ${loc("description")}
+      }
+    }`,
+    { locale }
+  ).catch(() => null);
+
+  if (!raw) return DEFAULT_TECH_HOME_SECTIONS;
+  // Merge campo a campo con el fallback (cada campo vacío en Sanity cae al fallback)
+  const d = DEFAULT_TECH_HOME_SECTIONS;
+  return {
+    hero: {
+      available: raw.hero?.available ?? d.hero.available,
+      firstName: raw.hero?.firstName ?? d.hero.firstName,
+      lastName: raw.hero?.lastName ?? d.hero.lastName,
+      tagline: raw.hero?.tagline ?? d.hero.tagline,
+      ctaContact: raw.hero?.ctaContact ?? d.hero.ctaContact,
+      ctaProjects: raw.hero?.ctaProjects ?? d.hero.ctaProjects,
+      terminal: {
+        title: raw.hero?.terminal?.title ?? d.hero.terminal.title,
+        placeholder:
+          raw.hero?.terminal?.placeholder ?? d.hero.terminal.placeholder,
+        cdBlocked: raw.hero?.terminal?.cdBlocked ?? d.hero.terminal.cdBlocked,
+        sudoBlocked:
+          raw.hero?.terminal?.sudoBlocked ?? d.hero.terminal.sudoBlocked,
+        rmBlocked: raw.hero?.terminal?.rmBlocked ?? d.hero.terminal.rmBlocked,
+        notFound: raw.hero?.terminal?.notFound ?? d.hero.terminal.notFound,
+        lines: {
+          whoamiOut:
+            raw.hero?.terminal?.lines?.whoamiOut ??
+            d.hero.terminal.lines.whoamiOut,
+          roleOut:
+            raw.hero?.terminal?.lines?.roleOut ?? d.hero.terminal.lines.roleOut,
+          skillsOut:
+            raw.hero?.terminal?.lines?.skillsOut ??
+            d.hero.terminal.lines.skillsOut,
+          statusOut:
+            raw.hero?.terminal?.lines?.statusOut ??
+            d.hero.terminal.lines.statusOut,
+        },
+        commands: {
+          help: raw.hero?.terminal?.commands?.help ?? d.hero.terminal.commands.help,
+          whoami:
+            raw.hero?.terminal?.commands?.whoami ??
+            d.hero.terminal.commands.whoami,
+          role: raw.hero?.terminal?.commands?.role ?? d.hero.terminal.commands.role,
+          skills:
+            raw.hero?.terminal?.commands?.skills ??
+            d.hero.terminal.commands.skills,
+          status:
+            raw.hero?.terminal?.commands?.status ??
+            d.hero.terminal.commands.status,
+          pwd: raw.hero?.terminal?.commands?.pwd ?? d.hero.terminal.commands.pwd,
+          ls: raw.hero?.terminal?.commands?.ls ?? d.hero.terminal.commands.ls,
+          exit: raw.hero?.terminal?.commands?.exit ?? d.hero.terminal.commands.exit,
+          gitBlame:
+            raw.hero?.terminal?.commands?.gitBlame ??
+            d.hero.terminal.commands.gitBlame,
+        },
+      },
+    },
+    about: {
+      eyebrow: raw.about?.eyebrow ?? d.about.eyebrow,
+      title: raw.about?.title ?? d.about.title,
+      bio1: raw.about?.bio1 ?? d.about.bio1,
+      bio2: raw.about?.bio2 ?? d.about.bio2,
+      bio3: raw.about?.bio3 ?? d.about.bio3,
+    },
+    experience: {
+      eyebrow: raw.experience?.eyebrow ?? d.experience.eyebrow,
+      title: raw.experience?.title ?? d.experience.title,
+    },
+    skills: {
+      eyebrow: raw.skills?.eyebrow ?? d.skills.eyebrow,
+      title: raw.skills?.title ?? d.skills.title,
+    },
+    projects: {
+      eyebrow: raw.projects?.eyebrow ?? d.projects.eyebrow,
+      title: raw.projects?.title ?? d.projects.title,
+    },
+    contact: {
+      eyebrow: raw.contact?.eyebrow ?? d.contact.eyebrow,
+      title: raw.contact?.title ?? d.contact.title,
+      description: raw.contact?.description ?? d.contact.description,
+    },
+  };
+}
+
+export const DEFAULT_TECH_SITE_SETTINGS: TechSiteSettings = {
+  metadata: {
+    title:
+      "Enrique Becerra — Tech Architect Lead · Magnolia CMS, Java, Next.js",
+    titleTemplate: "%s · ebecerra.tech",
+    description:
+      "Tech Architect Lead en VASS con 8+ años de experiencia en Magnolia CMS, Java/Spring, Next.js y arquitecturas web a escala enterprise. Coordinador del gremio VassNolia.",
+    ogDescription:
+      "Tech Architect Lead · Magnolia CMS · Java · Next.js. 8+ años diseñando arquitecturas web para administración pública y grandes corporaciones.",
+    twitterDescription:
+      "Tech Architect Lead · Magnolia CMS · Java · Next.js. Arquitecturas web enterprise.",
+    keywords: [],
+  },
+  nav: {
+    items: [
+      { key: "home", label: "./home" },
+      { key: "quien_soy", label: "./quien_soy" },
+      { key: "trayectoria", label: "./trayectoria" },
+      { key: "stack", label: "./stack" },
+      { key: "proyectos", label: "./proyectos" },
+      { key: "contactar", label: "./contactar" },
+    ],
+  },
+  footer: {
+    copyrightTemplate:
+      "© {year} ebecerra.tech — hecho con ❤️ y con un poco de 🔍 y 🧪",
+    online: "online",
+    version: "v2.0.0",
+  },
+};
+
+export async function getTechSiteSettings(
+  locale: Locale
+): Promise<TechSiteSettings> {
+  type RawNav = { key: string; label: string | null };
+  type Raw = {
+    metadata: {
+      title: string | null;
+      titleTemplate: string | null;
+      description: string | null;
+      ogDescription: string | null;
+      twitterDescription: string | null;
+      keywords: { v: string }[] | null;
+    } | null;
+    nav: { items: RawNav[] | null } | null;
+    footer: {
+      copyrightTemplate: string | null;
+      online: string | null;
+      version: string | null;
+    } | null;
+  };
+
+  const raw = await runFetch<Raw | null>(
+    `*[_type == "techSiteSettings"][0] {
+      "metadata": metadata {
+        "title": ${loc("title")},
+        titleTemplate,
+        "description": ${loc("description")},
+        "ogDescription": ${loc("ogDescription")},
+        "twitterDescription": ${loc("twitterDescription")},
+        "keywords": keywords[]{ "v": coalesce(@[$locale], @.es, @) }
+      },
+      "nav": nav {
+        "items": items[]{
+          key,
+          "label": ${loc("label")}
+        }
+      },
+      "footer": footer {
+        "copyrightTemplate": ${loc("copyrightTemplate")},
+        "online": ${loc("online")},
+        version
+      }
+    }`,
+    { locale }
+  ).catch(() => null);
+
+  if (!raw) return DEFAULT_TECH_SITE_SETTINGS;
+  const d = DEFAULT_TECH_SITE_SETTINGS;
+  const navItems: TechNavItem[] =
+    raw.nav?.items && raw.nav.items.length > 0
+      ? raw.nav.items
+          .filter((it): it is RawNav & { label: string } => !!it.label)
+          .map((it) => ({ key: it.key, label: it.label }))
+      : d.nav.items;
+
+  return {
+    metadata: {
+      title: raw.metadata?.title ?? d.metadata.title,
+      titleTemplate: raw.metadata?.titleTemplate ?? d.metadata.titleTemplate,
+      description: raw.metadata?.description ?? d.metadata.description,
+      ogDescription: raw.metadata?.ogDescription ?? d.metadata.ogDescription,
+      twitterDescription:
+        raw.metadata?.twitterDescription ?? d.metadata.twitterDescription,
+      keywords: (raw.metadata?.keywords ?? []).map((k) => k.v).filter(Boolean),
+    },
+    nav: { items: navItems },
+    footer: {
+      copyrightTemplate:
+        raw.footer?.copyrightTemplate ?? d.footer.copyrightTemplate,
+      online: raw.footer?.online ?? d.footer.online,
+      version: raw.footer?.version ?? d.footer.version,
+    },
+  };
+}
+
+// Tech contact form — mismo shape que ContactForm, query separada para
+// el documento techContactFormSettings con refs a techContactFormStep.
+export const DEFAULT_TECH_CONTACT_FORM: TechContactForm = {
+  steps: [
+    {
+      _id: "default-tech-step-1",
+      stepIndex: 1,
+      title: null,
+      description: null,
+      kind: "fields",
+      note: null,
+      footnote: null,
+      fields: [
+        {
+          key: "s1_name",
+          type: "text",
+          label: "Tu nombre",
+          helper: null,
+          placeholder: "Tu nombre",
+          required: true,
+          columns: 1,
+          autoComplete: "name",
+          inputMode: "text",
+          options: [],
+        },
+        {
+          key: "s1_email",
+          type: "email",
+          label: "Email",
+          helper: null,
+          placeholder: "tu@email.com",
+          required: true,
+          columns: 1,
+          autoComplete: "email",
+          inputMode: "email",
+          options: [],
+        },
+        {
+          key: "s1_message",
+          type: "textarea",
+          label: "Mensaje",
+          helper: null,
+          placeholder: "Cuéntame...",
+          required: true,
+          columns: 1,
+          autoComplete: null,
+          inputMode: null,
+          options: [],
+        },
+      ],
+    },
+  ],
+  submitLabel: "$ enviar_mensaje →",
+  sendingLabel: "Enviando...",
+  gdprLabel:
+    "Al enviar este formulario aceptas la política de privacidad. Tus datos solo se usan para responderte.",
+  honeypotLabel: "Website (no rellenar)",
+  successMessage: "Mensaje enviado correctamente. ¡Gracias!",
+  errorMessage: "Error al enviar el mensaje. Inténtalo de nuevo.",
+  missingRequiredMessage: "Faltan campos obligatorios.",
+};
+
+export async function getTechContactForm(
+  locale: Locale
+): Promise<TechContactForm> {
+  type RawOption = { value: string | null; code: string | null; sub: string | null };
+  type RawField = {
+    key: string | null;
+    type: ContactField["type"] | null;
+    label: string | null;
+    helper: string | null;
+    placeholder: string | null;
+    required: boolean | null;
+    columns: number | null;
+    autoComplete: string | null;
+    inputMode: string | null;
+    options: RawOption[] | null;
+  };
+  type RawStep = {
+    _id: string;
+    stepIndex: number | null;
+    title: string | null;
+    description: string | null;
+    kind: ContactFormStep["kind"] | null;
+    note: string | null;
+    footnote: string | null;
+    fields: RawField[] | null;
+  };
+  type Raw = {
+    steps: RawStep[] | null;
+    submitLabel: string | null;
+    sendingLabel: string | null;
+    gdprLabel: string | null;
+    honeypotLabel: string | null;
+    successMessage: string | null;
+    errorMessage: string | null;
+    missingRequiredMessage: string | null;
+  };
+
+  const raw = await runFetch<Raw | null>(
+    `*[_type == "techContactFormSettings"][0] {
+      "steps": steps[]->{
+        _id,
+        stepIndex,
+        "title": ${loc("title")},
+        "description": ${loc("description")},
+        kind,
+        "note": ${loc("note")},
+        "footnote": ${loc("footnote")},
+        "fields": fields[]{
+          key,
+          type,
+          "label": ${loc("label")},
+          "helper": ${loc("helper")},
+          "placeholder": ${loc("placeholder")},
+          "required": coalesce(required, false),
+          "columns": coalesce(columns, 1),
+          autoComplete,
+          inputMode,
+          "options": options[]{
+            "value": ${loc("value")},
+            code,
+            "sub": ${loc("sub")}
+          }
+        }
+      },
+      "submitLabel": ${loc("submitLabel")},
+      "sendingLabel": ${loc("sendingLabel")},
+      "gdprLabel": ${loc("gdprLabel")},
+      "honeypotLabel": ${loc("honeypotLabel")},
+      "successMessage": ${loc("successMessage")},
+      "errorMessage": ${loc("errorMessage")},
+      "missingRequiredMessage": ${loc("missingRequiredMessage")}
+    }`,
+    { locale }
+  ).catch(() => null);
+
+  if (!raw) return DEFAULT_TECH_CONTACT_FORM;
+  const d = DEFAULT_TECH_CONTACT_FORM;
+
+  const steps: ContactFormStep[] =
+    raw.steps && raw.steps.length > 0
+      ? raw.steps.map((s) => ({
+          _id: s._id,
+          stepIndex: s.stepIndex ?? 1,
+          title: s.title,
+          description: s.description,
+          kind: s.kind ?? "fields",
+          note: s.note,
+          footnote: s.footnote,
+          fields: (s.fields ?? [])
+            .filter(
+              (f): f is RawField & { key: string; type: ContactField["type"]; label: string } =>
+                !!f.key && !!f.type && !!f.label
+            )
+            .map((f) => ({
+              key: f.key,
+              type: f.type,
+              label: f.label,
+              helper: f.helper,
+              placeholder: f.placeholder,
+              required: f.required ?? false,
+              columns: ((f.columns ?? 1) as 1 | 2 | 3),
+              autoComplete: f.autoComplete,
+              inputMode: f.inputMode,
+              options: (f.options ?? [])
+                .filter((o): o is RawOption & { value: string } => !!o.value)
+                .map((o) => ({ value: o.value, code: o.code ?? o.value, sub: o.sub })),
+            })),
+        }))
+      : d.steps;
+
+  return {
+    steps,
+    submitLabel: raw.submitLabel ?? d.submitLabel,
+    sendingLabel: raw.sendingLabel ?? d.sendingLabel,
+    gdprLabel: raw.gdprLabel ?? d.gdprLabel,
+    honeypotLabel: raw.honeypotLabel ?? d.honeypotLabel,
+    successMessage: raw.successMessage ?? d.successMessage,
+    errorMessage: raw.errorMessage ?? d.errorMessage,
+    missingRequiredMessage:
+      raw.missingRequiredMessage ?? d.missingRequiredMessage,
+  };
+}
+
+export async function getTechContactFormBackend(): Promise<TechContactFormBackend> {
+  type RawOpt = { code: string | null; value: string | null };
+  type RawField = {
+    key: string | null;
+    type: ContactField["type"] | null;
+    required: boolean | null;
+    options: RawOpt[] | null;
+  };
+  type Raw = { steps: { fields: RawField[] | null }[] | null };
+
+  const raw = await runFetch<Raw | null>(
+    `*[_type == "techContactFormSettings"][0] {
+      "steps": steps[]->{
+        "fields": fields[]{
+          key,
+          type,
+          "required": coalesce(required, false),
+          "options": options[]{
+            code,
+            "value": value.es
+          }
+        }
+      }
+    }`,
+    {}
+  ).catch(() => null);
+
+  if (!raw || !raw.steps) {
+    return {
+      fields: DEFAULT_TECH_CONTACT_FORM.steps.flatMap((s) =>
         s.fields.map((f) => ({
           key: f.key,
           type: f.type,
