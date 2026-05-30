@@ -202,6 +202,76 @@ export type ContactSectionMeta = SectionMeta & {
   labels: ContactSectionLabels | null;
 };
 
+// ---------- Contact form (wizard editable) ----------
+
+export type ContactFieldType =
+  | "text"
+  | "textarea"
+  | "email"
+  | "tel"
+  | "url"
+  | "date"
+  | "number"
+  | "select"
+  | "multiselect"
+  | "cards";
+
+export type ContactOption = {
+  value: string;
+  code: string;
+  sub: string | null;
+};
+
+export type ContactField = {
+  key: string;
+  type: ContactFieldType;
+  label: string;
+  helper: string | null;
+  placeholder: string | null;
+  required: boolean;
+  columns: 1 | 2 | 3;
+  autoComplete: string | null;
+  inputMode: string | null;
+  options: ContactOption[];
+};
+
+export type ContactFormStepKind = "fields";
+
+export type ContactFormStep = {
+  _id: string;
+  stepIndex: number;
+  title: string | null;
+  description: string | null;
+  kind: ContactFormStepKind;
+  note: string | null;
+  footnote: string | null;
+  fields: ContactField[];
+};
+
+export type ContactForm = {
+  steps: ContactFormStep[];
+  submitLabel: string;
+  sendingLabel: string;
+  gdprLabel: string;
+  honeypotLabel: string;
+  successMessage: string;
+  errorMessage: string;
+  missingRequiredMessage: string;
+};
+
+// Proyección barata para el backend (solo lo que /api/contact necesita
+// para validar required y mapear options.code).
+export type ContactFormFieldBackend = {
+  key: string;
+  type: ContactFieldType;
+  required: boolean;
+  options: { code: string }[];
+};
+
+export type ContactFormBackend = {
+  fields: ContactFormFieldBackend[];
+};
+
 export type FaqPageData = {
   metaTitle: string | null;
   metaDescription: string | null;

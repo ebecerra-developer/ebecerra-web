@@ -11,6 +11,11 @@ import type {
   HeroSection,
   CapabilitiesSection,
   CapabilityCard,
+  ContactForm,
+  ContactFormStep,
+  ContactField,
+  ContactFormBackend,
+  ContactFormFieldBackend,
   SiteSettingsMeta,
   SiteSettingsFooter,
   SiteSettingsFull,
@@ -437,6 +442,261 @@ export async function getCasesSectionMeta(
         DEFAULT_CASES_SECTION_META.labels!.translates,
     },
   };
+}
+
+// --- Contact form (wizard editable) ---
+
+export const DEFAULT_CONTACT_FORM: ContactForm = {
+  steps: [
+    {
+      _id: "default-step-1",
+      stepIndex: 1,
+      title: null,
+      description: null,
+      kind: "fields",
+      note: null,
+      footnote: null,
+      fields: [
+        {
+          key: "s1_name",
+          type: "text",
+          label: "Nombre",
+          helper: null,
+          placeholder: "Cómo te llamas",
+          required: true,
+          columns: 1,
+          autoComplete: "name",
+          inputMode: "text",
+          options: [],
+        },
+        {
+          key: "s1_email",
+          type: "email",
+          label: "Email",
+          helper: null,
+          placeholder: "tu@correo.com",
+          required: true,
+          columns: 1,
+          autoComplete: "email",
+          inputMode: "email",
+          options: [],
+        },
+        {
+          key: "s1_message",
+          type: "textarea",
+          label: "Mensaje",
+          helper: null,
+          placeholder: "Cuéntame brevemente qué necesitas",
+          required: true,
+          columns: 1,
+          autoComplete: null,
+          inputMode: null,
+          options: [],
+        },
+      ],
+    },
+  ],
+  submitLabel: "Enviar mensaje",
+  sendingLabel: "Enviando…",
+  gdprLabel:
+    "Al enviar este formulario aceptas la política de privacidad. Tus datos solo se usan para responderte.",
+  honeypotLabel: "Website (no rellenar)",
+  successMessage: "Mensaje enviado. Te respondo en 24 h laborables.",
+  errorMessage:
+    "Error al enviar. Prueba escribiéndome a contacto@ebecerra.es.",
+  missingRequiredMessage: "Faltan campos obligatorios.",
+};
+
+export async function getContactForm(locale: Locale): Promise<ContactForm> {
+  type RawOption = {
+    value: string | null;
+    code: string | null;
+    sub: string | null;
+  };
+  type RawField = {
+    key: string | null;
+    type: ContactField["type"] | null;
+    label: string | null;
+    helper: string | null;
+    placeholder: string | null;
+    required: boolean | null;
+    columns: number | null;
+    autoComplete: string | null;
+    inputMode: string | null;
+    options: RawOption[] | null;
+  };
+  type RawStep = {
+    _id: string;
+    stepIndex: number | null;
+    title: string | null;
+    description: string | null;
+    kind: ContactFormStep["kind"] | null;
+    note: string | null;
+    footnote: string | null;
+    fields: RawField[] | null;
+  };
+  type Raw = {
+    steps: RawStep[] | null;
+    submitLabel: string | null;
+    sendingLabel: string | null;
+    gdprLabel: string | null;
+    honeypotLabel: string | null;
+    successMessage: string | null;
+    errorMessage: string | null;
+    missingRequiredMessage: string | null;
+  };
+
+  const raw = await runFetch<Raw | null>(
+      `*[_type == "contactFormSettings"][0] {
+        "steps": steps[]->{
+          _id,
+          stepIndex,
+          "title": ${loc("title")},
+          "description": ${loc("description")},
+          kind,
+          "note": ${loc("note")},
+          "footnote": ${loc("footnote")},
+          "fields": fields[]{
+            key,
+            type,
+            "label": ${loc("label")},
+            "helper": ${loc("helper")},
+            "placeholder": ${loc("placeholder")},
+            "required": coalesce(required, false),
+            "columns": coalesce(columns, 1),
+            autoComplete,
+            inputMode,
+            "options": options[]{
+              "value": ${loc("value")},
+              code,
+              "sub": ${loc("sub")}
+            }
+          }
+        },
+        "submitLabel": ${loc("submitLabel")},
+        "sendingLabel": ${loc("sendingLabel")},
+        "gdprLabel": ${loc("gdprLabel")},
+        "honeypotLabel": ${loc("honeypotLabel")},
+        "successMessage": ${loc("successMessage")},
+        "errorMessage": ${loc("errorMessage")},
+        "missingRequiredMessage": ${loc("missingRequiredMessage")}
+      }`,
+      { locale }
+    )
+    .catch(() => null);
+
+  if (!raw) return DEFAULT_CONTACT_FORM;
+
+  const steps: ContactFormStep[] =
+    raw.steps && raw.steps.length > 0
+      ? raw.steps.map((s) => ({
+          _id: s._id,
+          stepIndex: s.stepIndex ?? 1,
+          title: s.title,
+          description: s.description,
+          kind: s.kind ?? "fields",
+          note: s.note,
+          footnote: s.footnote,
+          fields: (s.fields ?? [])
+            .filter(
+              (f): f is RawField & { key: string; type: ContactField["type"]; label: string } =>
+                !!f.key && !!f.type && !!f.label
+            )
+            .map((f) => ({
+              key: f.key,
+              type: f.type,
+              label: f.label,
+              helper: f.helper,
+              placeholder: f.placeholder,
+              required: f.required ?? false,
+              columns: ((f.columns ?? 1) as 1 | 2 | 3),
+              autoComplete: f.autoComplete,
+              inputMode: f.inputMode,
+              options: (f.options ?? [])
+                .filter((o): o is RawOption & { value: string } => !!o.value)
+                .map((o) => ({
+                  value: o.value,
+                  code: o.code ?? o.value,
+                  sub: o.sub,
+                })),
+            })),
+        }))
+      : DEFAULT_CONTACT_FORM.steps;
+
+  return {
+    steps,
+    submitLabel: raw.submitLabel ?? DEFAULT_CONTACT_FORM.submitLabel,
+    sendingLabel: raw.sendingLabel ?? DEFAULT_CONTACT_FORM.sendingLabel,
+    gdprLabel: raw.gdprLabel ?? DEFAULT_CONTACT_FORM.gdprLabel,
+    honeypotLabel:
+      raw.honeypotLabel ?? DEFAULT_CONTACT_FORM.honeypotLabel,
+    successMessage:
+      raw.successMessage ?? DEFAULT_CONTACT_FORM.successMessage,
+    errorMessage: raw.errorMessage ?? DEFAULT_CONTACT_FORM.errorMessage,
+    missingRequiredMessage:
+      raw.missingRequiredMessage ??
+      DEFAULT_CONTACT_FORM.missingRequiredMessage,
+  };
+}
+
+// Proyección barata para el backend: solo lo necesario para validar
+// required y mapear options.code. Sin labels, sin stega. Cacheable.
+export async function getContactFormBackend(): Promise<ContactFormBackend> {
+  type RawOpt = { code: string | null; value: string | null };
+  type RawField = {
+    key: string | null;
+    type: ContactField["type"] | null;
+    required: boolean | null;
+    options: RawOpt[] | null;
+  };
+  type Raw = { steps: { fields: RawField[] | null }[] | null };
+
+  const raw = await runFetch<Raw | null>(
+    `*[_type == "contactFormSettings"][0] {
+      "steps": steps[]->{
+        "fields": fields[]{
+          key,
+          type,
+          "required": coalesce(required, false),
+          "options": options[]{
+            code,
+            "value": value.es
+          }
+        }
+      }
+    }`,
+    {}
+  ).catch(() => null);
+
+  if (!raw || !raw.steps) {
+    return {
+      fields: DEFAULT_CONTACT_FORM.steps.flatMap((s) =>
+        s.fields.map((f) => ({
+          key: f.key,
+          type: f.type,
+          required: f.required,
+          options: f.options.map((o) => ({ code: o.code })),
+        }))
+      ),
+    };
+  }
+
+  const fields: ContactFormFieldBackend[] = raw.steps
+    .flatMap((s) => s.fields ?? [])
+    .filter(
+      (f): f is RawField & { key: string; type: ContactField["type"] } =>
+        !!f.key && !!f.type
+    )
+    .map((f) => ({
+      key: f.key,
+      type: f.type,
+      required: f.required ?? false,
+      options: (f.options ?? [])
+        .map((o) => ({ code: o.code ?? o.value ?? "" }))
+        .filter((o) => o.code),
+    }));
+
+  return { fields };
 }
 
 export const DEFAULT_CONTACT_SECTION_META: ContactSectionMeta = {

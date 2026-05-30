@@ -8,6 +8,8 @@ import processStep from "./processStep";
 import caseStudy from "./caseStudy";
 import heroSection from "./heroSection";
 import capabilitiesSection from "./capabilitiesSection";
+import contactFormStep from "./contactFormStep";
+import contactFormSettings from "./contactFormSettings";
 import siteSettings from "./siteSettings";
 import {
   serviceSectionMeta,
@@ -43,6 +45,8 @@ export const schemaTypes = [
   processSectionMeta,
   casesSectionMeta,
   contactSectionMeta,
+  contactFormSettings,
+  contactFormStep,
   faqPage,
   examplesPage,
   profile,

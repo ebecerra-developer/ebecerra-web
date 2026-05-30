@@ -79,26 +79,6 @@
     "title": "From idea to live site in 4 steps",
     "lead": "No endless consulting, no invoice surprises. A short, honest and measurable path from first call to the point where your team runs the site on its own."
   },
-  "contact": {
-    "kicker": "// Contact",
-    "title": "Let's talk about your project",
-    "lead": "Tell me what you need and I'll reply within 24 business hours with a first take on scope.",
-    "formName": "Name",
-    "formNamePlaceholder": "What's your name",
-    "formEmail": "Email",
-    "formEmailPlaceholder": "you@email.com",
-    "formMessage": "Message",
-    "formMessagePlaceholder": "Tell me briefly what you need",
-    "formSubmit": "Send message",
-    "formSending": "Sending…",
-    "formSuccess": "Message sent. I'll reply within 24 business hours.",
-    "formError": "Failed to send. Try emailing me at contacto@ebecerra.es instead.",
-    "infoEmail": "Email",
-    "infoLinkedin": "LinkedIn",
-    "infoLocation": "Location",
-    "infoResponse": "Response",
-    "infoResponseValue": "24 business hours"
-  },
   "examples": {
     "metaTitle": "Website examples · Enrique Becerra",
     "metaDescription": "Browsable demos of professional websites for freelancers, SMBs and small businesses. See what you can have before commissioning yours.",

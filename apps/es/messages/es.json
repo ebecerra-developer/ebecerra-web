@@ -79,26 +79,6 @@
     "title": "De idea a sitio vivo en 4 pasos",
     "lead": "Sin consultoría interminable ni sorpresas en la factura. Un camino corto, honesto y medible desde la primera llamada hasta que tu equipo opera la web solo."
   },
-  "contact": {
-    "kicker": "// Contacto",
-    "title": "Hablemos de tu proyecto",
-    "lead": "Cuéntame qué necesitas y te respondo en 24 h laborables con una primera idea del alcance.",
-    "formName": "Nombre",
-    "formNamePlaceholder": "Cómo te llamas",
-    "formEmail": "Email",
-    "formEmailPlaceholder": "tu@correo.com",
-    "formMessage": "Mensaje",
-    "formMessagePlaceholder": "Cuéntame brevemente qué necesitas",
-    "formSubmit": "Enviar mensaje",
-    "formSending": "Enviando…",
-    "formSuccess": "Mensaje enviado. Te respondo en 24 h laborables.",
-    "formError": "Error al enviar. Prueba escribiéndome a contacto@ebecerra.es.",
-    "infoEmail": "Email",
-    "infoLinkedin": "LinkedIn",
-    "infoLocation": "Ubicación",
-    "infoResponse": "Respuesta",
-    "infoResponseValue": "24 h laborables"
-  },
   "examples": {
     "metaTitle": "Ejemplos de webs · Enrique Becerra",
     "metaDescription": "Demos navegables de webs profesionales para autónomos, PYMEs y pequeños negocios. Mira lo que puedes tener antes de encargar.",

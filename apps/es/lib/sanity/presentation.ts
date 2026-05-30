@@ -44,6 +44,13 @@ export const resolve: PresentationPluginOptions["resolve"] = {
       message: "Sección 03 · Capacidades.",
       locations: [{ title: "Home — Capacidades", href: "/#capacidades" }],
     }),
+    contactFormSettings: defineLocations({
+      message: "Wizard del formulario de contacto.",
+      locations: [{ title: "Home — Contacto", href: "/#contacto" }],
+    }),
+    contactFormStep: defineLocations({
+      locations: [{ title: "Home — Contacto", href: "/#contacto" }],
+    }),
     serviceSectionMeta: defineLocations({
       locations: [{ title: "Home — Servicios (meta)", href: "/#servicios" }],
     }),

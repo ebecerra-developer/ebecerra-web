@@ -32,6 +32,8 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "processSectionMeta",
   "casesSectionMeta",
   "contactSectionMeta",
+  "contactFormSettings",
+  "contactFormStep",
   "faqPage",
   "examplesPage",
   "faqItem",
@@ -113,6 +115,14 @@ const structure: StructureResolver = (S) =>
                   S.document()
                     .schemaType("contactSectionMeta")
                     .documentId("b2746aef-0e12-44a1-83b3-9ffe84551f32")
+                ),
+              S.listItem()
+                .title("Formulario de contacto (wizard)")
+                .id("contactFormSettings")
+                .child(
+                  S.document()
+                    .schemaType("contactFormSettings")
+                    .documentId("contactFormSettings-singleton")
                 ),
             ])
         ),
