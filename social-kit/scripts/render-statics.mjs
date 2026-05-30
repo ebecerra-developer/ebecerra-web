@@ -44,6 +44,13 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-05-31 · Post "Hago webs y también monté Piezas" ──
+  {
+    html: "personal/2026-05/31-post-piezas/index.html",
+    out:  "personal/2026-05/31-post-piezas/final.png",
+    w: 1080, h: 1350,
+  },
+
   // ── 0024 · Tríptico panorámico "Una web es un currante más en tu equipo." ──
   // 1 HTML 3240×1350 → 3 paneles 1080×1350 cortados con clip pixel-perfect.
   // ORDEN DE SUBIDA A IG: panel-3 primero, panel-2 segundo, panel-1 último,
