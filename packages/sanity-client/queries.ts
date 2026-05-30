@@ -21,6 +21,8 @@ import type {
   TechNavItem,
   TechContactForm,
   TechContactFormBackend,
+  DemosIndexPage,
+  DemosBannerSettings,
   SiteSettingsMeta,
   SiteSettingsFooter,
   SiteSettingsFull,
@@ -1268,6 +1270,63 @@ export async function getTechContactFormBackend(): Promise<TechContactFormBacken
     }));
 
   return { fields };
+}
+
+// =====================================================
+// DEMOS (demos.ebecerra.es)
+// =====================================================
+
+export const DEFAULT_DEMOS_INDEX_PAGE: DemosIndexPage = {
+  title: "Demos de webs",
+  lead: "Ejemplos navegables de lo que podemos construir para tu negocio.",
+  ctaBack: "Volver a ebecerra.es",
+};
+
+export async function getDemosIndexPage(
+  locale: Locale
+): Promise<DemosIndexPage> {
+  const raw = await runFetch<Partial<DemosIndexPage> | null>(
+    `*[_type == "demosIndexPage"][0] {
+      "title": ${loc("title")},
+      "lead": ${loc("lead")},
+      "ctaBack": ${loc("ctaBack")}
+    }`,
+    { locale }
+  ).catch(() => null);
+
+  return {
+    title: raw?.title ?? DEFAULT_DEMOS_INDEX_PAGE.title,
+    lead: raw?.lead ?? DEFAULT_DEMOS_INDEX_PAGE.lead,
+    ctaBack: raw?.ctaBack ?? DEFAULT_DEMOS_INDEX_PAGE.ctaBack,
+  };
+}
+
+export const DEFAULT_DEMOS_BANNER: DemosBannerSettings = {
+  label: "Demo",
+  text: "Esta web es un ejemplo. No representa un negocio real.",
+  ctaLabel: "Ver más demos",
+  ctaHref: "https://ebecerra.es/ejemplos",
+};
+
+export async function getDemosBannerSettings(
+  locale: Locale
+): Promise<DemosBannerSettings> {
+  const raw = await runFetch<Partial<DemosBannerSettings> | null>(
+    `*[_type == "demosBannerSettings"][0] {
+      "label": ${loc("label")},
+      "text": ${loc("text")},
+      "ctaLabel": ${loc("ctaLabel")},
+      ctaHref
+    }`,
+    { locale }
+  ).catch(() => null);
+
+  return {
+    label: raw?.label ?? DEFAULT_DEMOS_BANNER.label,
+    text: raw?.text ?? DEFAULT_DEMOS_BANNER.text,
+    ctaLabel: raw?.ctaLabel ?? DEFAULT_DEMOS_BANNER.ctaLabel,
+    ctaHref: raw?.ctaHref ?? DEFAULT_DEMOS_BANNER.ctaHref,
+  };
 }
 
 export const DEFAULT_CONTACT_SECTION_META: ContactSectionMeta = {

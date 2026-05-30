@@ -369,6 +369,23 @@ export type TechSiteSettings = {
 export type TechContactForm = ContactForm;
 export type TechContactFormBackend = ContactFormBackend;
 
+// =====================================================
+// DEMOS (demos.ebecerra.es)
+// =====================================================
+
+export type DemosIndexPage = {
+  title: string;
+  lead: string;
+  ctaBack: string;
+};
+
+export type DemosBannerSettings = {
+  label: string;
+  text: string;
+  ctaLabel: string;
+  ctaHref: string;
+};
+
 export type FaqPageData = {
   metaTitle: string | null;
   metaDescription: string | null;

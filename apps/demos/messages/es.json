@@ -7,21 +7,10 @@
   "a11y": {
     "skipToContent": "Saltar al contenido principal"
   },
-  "demoBanner": {
-    "label": "Demo",
-    "text": "Esta web es un ejemplo. No representa un negocio real.",
-    "ctaLabel": "Ver más demos",
-    "ctaHref": "https://ebecerra.es/ejemplos"
-  },
   "languageSwitcher": {
     "label": "Idioma",
     "es": "Español",
     "en": "English"
-  },
-  "indexPage": {
-    "title": "Demos de webs",
-    "lead": "Ejemplos navegables de lo que podemos construir para tu negocio.",
-    "ctaBack": "Volver a ebecerra.es"
   },
   "notFound": {
     "code": "404",

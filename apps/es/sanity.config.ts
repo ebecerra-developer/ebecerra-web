@@ -38,6 +38,8 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "techSiteSettings",
   "techContactFormSettings",
   "techContactFormStep",
+  "demosIndexPage",
+  "demosBannerSettings",
   "faqPage",
   "examplesPage",
   "faqItem",
@@ -226,6 +228,31 @@ const structure: StructureResolver = (S) =>
                   S.documentTypeList("techContactFormStep").title(
                     "Pasos del wizard"
                   )
+                ),
+            ])
+        ),
+      S.divider(),
+      S.listItem()
+        .title("demos.ebecerra.es")
+        .child(
+          S.list()
+            .title("demos.ebecerra.es")
+            .items([
+              S.listItem()
+                .title("Página índice")
+                .id("demosIndexPage")
+                .child(
+                  S.document()
+                    .schemaType("demosIndexPage")
+                    .documentId("demosIndexPage-singleton")
+                ),
+              S.listItem()
+                .title("Banner global")
+                .id("demosBannerSettings")
+                .child(
+                  S.document()
+                    .schemaType("demosBannerSettings")
+                    .documentId("demosBannerSettings-singleton")
                 ),
             ])
         ),
