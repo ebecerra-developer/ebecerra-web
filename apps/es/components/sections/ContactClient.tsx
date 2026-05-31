@@ -257,7 +257,7 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <Kicker>{contactMeta.kicker}</Kicker>
+        <Kicker tone="dark">{contactMeta.kicker}</Kicker>
 
         <div className={styles.split}>
           <div>
@@ -401,7 +401,7 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className={`${styles.submitBtn}${status === "success" ? ` ${styles.submitBtnSuccess}` : ""}${status === "sending" ? ` ${styles.submitBtnSending}` : ""}`}
+                className={`${styles.submitBtn} fx-ripple${status === "success" ? ` ${styles.submitBtnSuccess}` : ""}${status === "sending" ? ` ${styles.submitBtnSending}` : ""}`}
               >
                 {status === "success"
                   ? `${form.successMessage.split(".")[0]} ✓`

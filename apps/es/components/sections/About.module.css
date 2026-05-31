@@ -95,8 +95,16 @@
 .photoWrap {
   position: relative;
   width: 100%;
-  max-width: 360px;
+  max-width: 260px;
   margin: 0 auto;
+}
+
+/* Monograma eB de 3 colores — vuelve a lucir sobre la crema */
+.monogram {
+  width: clamp(112px, 16vw, 172px);
+  height: auto;
+  display: block;
+  margin: 0 0 24px;
 }
 
 .photo {
@@ -159,7 +167,6 @@
 }
 
 .featureCard:hover {
-  transform: translateY(-2px);
   border-color: var(--cta);
   background: var(--cta-soft);
   box-shadow: var(--sh-2);

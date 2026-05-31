@@ -1,0 +1,79 @@
+"use client";
+
+import { useRef, type ReactNode, type MouseEvent } from "react";
+import styles from "./TiltCard.module.css";
+
+type Props = {
+  as?: "div" | "a";
+  href?: string;
+  target?: string;
+  rel?: string;
+  ariaLabel?: string;
+  className?: string;
+  children: ReactNode;
+};
+
+const MAX_DEG = 6.5;
+
+// Card con inclinación 3D que sigue al cursor (parallax sutil). Degrada a estático
+// con prefers-reduced-motion. Polimórfico: <div> o <a> (cards-enlace).
+export default function TiltCard({
+  as = "div",
+  href,
+  target,
+  rel,
+  ariaLabel,
+  className = "",
+  children,
+}: Props) {
+  const ref = useRef<HTMLElement>(null);
+
+  function handleMove(e: MouseEvent<HTMLElement>) {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    el.style.setProperty("--ry", `${(px - 0.5) * 2 * MAX_DEG}deg`);
+    el.style.setProperty("--rx", `${(0.5 - py) * 2 * MAX_DEG}deg`);
+    el.style.setProperty("--gx", `${px * 100}%`);
+    el.style.setProperty("--gy", `${py * 100}%`);
+  }
+
+  function handleLeave() {
+    const el = ref.current;
+    if (!el) return;
+    el.style.setProperty("--rx", "0deg");
+    el.style.setProperty("--ry", "0deg");
+  }
+
+  const cls = `${styles.tilt} ${className}`.trim();
+
+  if (as === "a") {
+    return (
+      <a
+        ref={ref as React.RefObject<HTMLAnchorElement>}
+        className={cls}
+        href={href}
+        target={target}
+        rel={rel}
+        aria-label={ariaLabel}
+        onMouseMove={handleMove}
+        onMouseLeave={handleLeave}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className={cls}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+    >
+      {children}
+    </div>
+  );
+}

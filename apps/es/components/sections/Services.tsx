@@ -4,6 +4,7 @@ import { useId, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import type { ServicesPricing } from "@ebecerra/sanity-client";
 import Kicker from "@/components/Kicker";
+import TiltCard from "@/components/TiltCard";
 import styles from "./Services.module.css";
 
 type Props = {
@@ -94,7 +95,7 @@ export default function Services({ pricing }: Props) {
             className={styles.grid}
           >
             {activePath.tiers.map((tier) => (
-              <article
+              <TiltCard
                 key={`${activePath.id}-${tier.id}`}
                 className={`${styles.card} ${
                   tier.highlighted ? styles.cardHighlighted : ""
@@ -145,12 +146,14 @@ export default function Services({ pricing }: Props) {
                 <a
                   href={tier.ctaHref || "#contacto"}
                   className={`${styles.cardCta} ${
-                    tier.highlighted ? styles.cardCtaPrimary : ""
+                    tier.highlighted
+                      ? `${styles.cardCtaPrimary} fx-ripple`
+                      : "fx-soft"
                   }`}
                 >
                   {tier.ctaLabel || defaultCtaLabel} →
                 </a>
-              </article>
+              </TiltCard>
             ))}
           </div>
         )}

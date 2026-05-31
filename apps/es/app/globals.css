@@ -144,6 +144,83 @@ a:hover {
   line-height: var(--lh-lead);
 }
 
+/* ---------- Efectos de botón compartidos ----------
+   Onda radial que ENTRA por el centro y SALE (no se queda). fx-ripple = cálida
+   (botones verdes); fx-soft = verde suave y más sutil (botones blancos). */
+.fx-ripple,
+.fx-soft {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.fx-ripple::before,
+.fx-soft::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.fx-ripple::before {
+  background: radial-gradient(
+    circle,
+    rgba(216, 146, 63, 0.6) 0%,
+    rgba(216, 146, 63, 0) 68%
+  );
+}
+.fx-soft::before {
+  background: radial-gradient(circle, var(--cta-soft-strong) 0%, transparent 66%);
+}
+.fx-ripple:hover::before,
+.fx-ripple:focus-visible::before {
+  animation: fxRipple 760ms var(--ease-out);
+}
+.fx-soft:hover::before,
+.fx-soft:focus-visible::before {
+  animation: fxRippleSoft 760ms var(--ease-out);
+}
+
+@keyframes fxRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  22% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(34);
+    opacity: 0;
+  }
+}
+
+@keyframes fxRippleSoft {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  22% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(30);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-ripple:hover::before,
+  .fx-soft:hover::before {
+    animation: none;
+  }
+}
+
 .container {
   max-width: var(--container-max);
   margin-inline: auto;

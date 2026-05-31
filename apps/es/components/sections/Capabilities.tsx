@@ -1,13 +1,19 @@
-import type { CapabilitiesSection } from "@ebecerra/sanity-client";
+import type {
+  CapabilitiesSection,
+  IntegrationsStrip,
+} from "@ebecerra/sanity-client";
 import { DEFAULT_CAPABILITIES_SECTION } from "@ebecerra/sanity-client";
 import Kicker from "@/components/Kicker";
+import TiltCard from "@/components/TiltCard";
+import Integrations from "./Integrations";
 import styles from "./Capabilities.module.css";
 
 type Props = {
   section?: CapabilitiesSection | null;
+  integrations?: IntegrationsStrip | null;
 };
 
-export default function Capabilities({ section }: Props) {
+export default function Capabilities({ section, integrations }: Props) {
   const data = section ?? DEFAULT_CAPABILITIES_SECTION;
   const items = data.items.length > 0 ? data.items : DEFAULT_CAPABILITIES_SECTION.items;
 
@@ -28,7 +34,7 @@ export default function Capabilities({ section }: Props) {
 
         <div className={styles.grid}>
           {items.map((cap, idx) => (
-            <article
+            <TiltCard
               key={`${cap.title}-${idx}`}
               className={
                 cap.featured ? `${styles.card} ${styles.cardFeatured}` : styles.card
@@ -51,7 +57,7 @@ export default function Capabilities({ section }: Props) {
                   ))}
                 </ul>
               )}
-            </article>
+            </TiltCard>
           ))}
         </div>
 
@@ -65,6 +71,8 @@ export default function Capabilities({ section }: Props) {
             )}
           </div>
         )}
+
+        {integrations && <Integrations data={integrations} />}
       </div>
     </section>
   );

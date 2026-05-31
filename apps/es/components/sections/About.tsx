@@ -1,6 +1,8 @@
 import type { Feature, ProfileFull } from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import Kicker from "@/components/Kicker";
+import TiltCard from "@/components/TiltCard";
+import LogoMark from "@/components/LogoMark";
 import styles from "./About.module.css";
 
 type Stat = { value: string; label: string };
@@ -84,6 +86,12 @@ export default function About({ features, profile }: Props) {
             </div>
           )}
           <div className={styles.bio}>
+            <LogoMark
+              variant="scaleDeep"
+              height="auto"
+              alt="eB"
+              className={styles.monogram}
+            />
             {bio1 && <p className={styles.bioPara}>{bio1}</p>}
             {bio2 && <p className={styles.bioParaLast}>{bio2}</p>}
 
@@ -95,7 +103,7 @@ export default function About({ features, profile }: Props) {
 
         <div className={styles.featureGrid}>
           {features.map((feature, i) => (
-            <div key={`${feature.label}-${i}`} className={styles.featureCard}>
+            <TiltCard key={`${feature.label}-${i}`} className={styles.featureCard}>
               <span className={styles.featureIndex}>
                 {String(i + 1).padStart(2, "0")}
               </span>
@@ -103,7 +111,7 @@ export default function About({ features, profile }: Props) {
                 <div className={styles.featureLabel}>{feature.label}</div>
                 <div className={styles.featureDesc}>{feature.desc}</div>
               </div>
-            </div>
+            </TiltCard>
           ))}
         </div>
       </div>

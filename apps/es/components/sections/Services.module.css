@@ -124,7 +124,6 @@
 }
 
 .card:hover {
-  transform: translateY(-2px);
   border-color: var(--cta);
   box-shadow: var(--sh-2);
 }
@@ -256,7 +255,6 @@
 }
 
 .cardCta:hover {
-  background: var(--surface-subtle);
   border-color: var(--cta);
   color: var(--cta);
 }
@@ -271,7 +269,6 @@
   background: var(--cta-hover);
   color: var(--text-on-accent);
   border-color: var(--cta-hover);
-  box-shadow: 0 0 0 4px var(--accent-warm-soft);
 }
 
 /* ---------- Cláusula de rescisión ---------- */

@@ -7,6 +7,7 @@ import { urlFor } from "@/lib/sanity-image";
 import type { Locale } from "@/i18n/routing";
 import ExamplesCarousel from "./ExamplesCarousel";
 import Kicker from "@/components/Kicker";
+import TiltCard from "@/components/TiltCard";
 import styles from "./Examples.module.css";
 
 const DEMOS_BASE_URL = "https://demos.ebecerra.es";
@@ -56,13 +57,14 @@ export default async function Examples({ locale }: Props) {
                 }
               : null;
             return (
-              <a
+              <TiltCard
+                as="a"
                 key={demo._id}
                 href={demoUrl(demo.slug)}
                 target="_blank"
                 rel="noopener"
                 className={styles.card}
-                aria-label={`${page.viewDemoLabel}: ${demo.businessName} ${page.openInNewTabLabel}`}
+                ariaLabel={`${page.viewDemoLabel}: ${demo.businessName} ${page.openInNewTabLabel}`}
               >
                 <div className={styles.thumb}>
                   {thumb && (
@@ -92,7 +94,7 @@ export default async function Examples({ locale }: Props) {
                     {page.viewDemoLabel} →
                   </span>
                 </div>
-              </a>
+              </TiltCard>
             );
           })}
         </ExamplesCarousel>

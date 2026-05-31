@@ -1,21 +1,25 @@
-/* Marquee.module.css — cinta de valor a sangre */
+/* Marquee.module.css — letras grandes verdes desfilando (sin banda) */
 .marquee {
   overflow: hidden;
-  background: var(--cta);
-  color: var(--text-on-accent);
-  padding: 15px 0;
+  background: var(--bg);
+  color: var(--cta);
+  padding: clamp(20px, 3.5vw, 40px) 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
+/* Variante opcional sobre banda oscura */
 .dark {
   background: var(--ink-warm);
-  color: var(--cream);
+  color: var(--on-dark-accent);
+  border-color: var(--on-warm-border);
 }
 
 .track {
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
-  animation: marqueeScroll 36s linear infinite;
+  animation: marqueeScroll 42s linear infinite;
   will-change: transform;
 }
 
@@ -27,16 +31,18 @@
   display: inline-flex;
   align-items: center;
   font-family: var(--font-sans);
-  font-size: clamp(15px, 2vw, 21px);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  padding-right: clamp(22px, 3.4vw, 44px);
+  font-size: clamp(22px, 4vw, 46px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  padding-right: clamp(28px, 4vw, 60px);
 }
 
 .star {
-  color: var(--accent-warm-2);
-  font-size: 0.72em;
-  margin-right: clamp(22px, 3.4vw, 44px);
+  color: var(--accent-warm);
+  font-size: 0.46em;
+  margin-right: clamp(28px, 4vw, 60px);
+  transform: translateY(-0.12em);
 }
 
 @keyframes marqueeScroll {
@@ -51,7 +57,6 @@
 @media (prefers-reduced-motion: reduce) {
   .track {
     animation: none;
-    /* sin animación, mostrar el primer tramo centrado-ish */
     transform: translateX(0);
   }
 }

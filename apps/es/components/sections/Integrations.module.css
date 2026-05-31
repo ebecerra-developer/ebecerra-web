@@ -1,13 +1,8 @@
-/* Integrations.module.css — franja de herramientas (home apps/es) */
-.section {
-  padding: clamp(32px, 4vw, 56px) clamp(20px, 4vw, 56px);
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-}
-
-.inner {
-  max-width: var(--container-max, 1100px);
-  margin: 0 auto;
+/* Integrations.module.css — bloque embebido al final de Capacidades */
+.embed {
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: clamp(28px, 4vw, 44px);
+  border-top: 1px solid var(--border);
   text-align: center;
 }
 

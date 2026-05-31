@@ -38,13 +38,13 @@ export default async function Hero({ sanityData }: Props) {
           <p className={`lead ${styles.lead}`}>{lead}</p>
 
           <div className={styles.ctas}>
-            <a href="#contacto" className={styles.ctaPrimary}>
+            <a href="#contacto" className={`${styles.ctaPrimary} fx-ripple`}>
               <span className={styles.ctaLabel}>{ctaPrimary}</span>
               <span className={styles.ctaArrow} aria-hidden="true">
                 →
               </span>
             </a>
-            <a href="#servicios" className={styles.ctaSecondary}>
+            <a href="#servicios" className={`${styles.ctaSecondary} fx-soft`}>
               {ctaSecondary}
             </a>
           </div>
