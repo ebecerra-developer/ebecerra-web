@@ -165,12 +165,13 @@
   border-radius: var(--r-md);
   text-decoration: none;
   border: 1.5px solid #fafaf9;
-  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+  transition: background var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
 }
 
 .ctaButton:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  background: var(--cream, #f6f1e9);
+  border-color: var(--cream, #f6f1e9);
 }
 
 /* Mobile nav strip */
@@ -223,6 +224,13 @@
   text-align: center;
   text-decoration: none;
   border: 1.5px solid #fafaf9;
+  transition: background var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+
+.mobileCta:hover {
+  background: var(--cream, #f6f1e9);
+  border-color: var(--cream, #f6f1e9);
 }
 
 /* NavLink subcomponent */

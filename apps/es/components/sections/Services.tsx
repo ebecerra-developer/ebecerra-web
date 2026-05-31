@@ -72,7 +72,6 @@ export default function Services({ pricing }: Props) {
                 } as CSSProperties
               }
             >
-              <span aria-hidden="true" className={styles.pathIndicator} />
               {paths.map((p) => {
                 const isActive = p.id === activePathId;
                 return (
@@ -92,6 +91,7 @@ export default function Services({ pricing }: Props) {
                   </button>
                 );
               })}
+              <span aria-hidden="true" className={styles.pathIndicator} />
             </div>
             {activePath?.tagline && (
               <p className={styles.pathTagline}>{activePath.tagline}</p>
@@ -157,10 +157,8 @@ export default function Services({ pricing }: Props) {
 
                 <a
                   href={tier.ctaHref || "#contacto"}
-                  className={`${styles.cardCta} ${
-                    tier.highlighted
-                      ? `${styles.cardCtaPrimary} fx-ripple`
-                      : "fx-soft"
+                  className={`${styles.cardCta} fx-ripple ${
+                    tier.highlighted ? styles.cardCtaPrimary : ""
                   }`}
                 >
                   {tier.ctaLabel || defaultCtaLabel} →

@@ -367,3 +367,12 @@
   cursor: pointer;
 }
 
+.gdprRow input[type="checkbox"] {
+  accent-color: var(--cta);
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+  flex: none;
+  cursor: pointer;
+}
+

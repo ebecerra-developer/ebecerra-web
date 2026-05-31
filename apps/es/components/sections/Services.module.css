@@ -98,21 +98,18 @@
   white-space: nowrap;
 }
 
-/* Hover de todo el toggle: el indicador se oscurece y el borde se marca */
-.pathTabs:hover {
-  border-color: var(--border-strong);
-}
-
-.pathTabs:hover .pathIndicator {
-  background: var(--cta-hover);
-}
-
 .pathTab:hover {
   color: var(--text);
 }
 
+/* Hover individual: la inactiva muestra verde suave; la activa oscurece su
+   indicador (el indicador es el último hijo, por eso el ~ funciona). */
 .pathTab[aria-selected="false"]:hover {
   background: var(--cta-soft);
+}
+
+.pathTabActive:hover ~ .pathIndicator {
+  background: var(--cta-hover);
 }
 
 .pathTabActive {

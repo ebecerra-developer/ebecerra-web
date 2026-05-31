@@ -201,7 +201,10 @@ export default function NavClient({ items, ctaLabel }: Props) {
               <LangSwitch align="right" />
             </span>
             {contactAnchor && (
-              <a href={anchor(contactAnchor.key)} className={styles.ctaButton}>
+              <a
+                href={anchor(contactAnchor.key)}
+                className={`${styles.ctaButton} fx-ripple`}
+              >
                 → {ctaLabel}
               </a>
             )}
@@ -276,7 +279,7 @@ export default function NavClient({ items, ctaLabel }: Props) {
             <a
               href={anchor(contactAnchor.key)}
               onClick={() => setOpen(false)}
-              className={styles.mobileCta}
+              className={`${styles.mobileCta} fx-ripple`}
             >
               → {ctaLabel}
             </a>
