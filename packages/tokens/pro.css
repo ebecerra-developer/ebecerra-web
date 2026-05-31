@@ -15,9 +15,9 @@
 
 :root {
   /* ---------- Color — Structure ---------- */
-  --bg:              #fafaf9;  /* stone-50 — fondo principal, warm white */
-  --surface:         #ffffff;  /* cards, modales, inputs */
-  --surface-subtle:  #f5f5f4;  /* stone-100 — secciones alternas, zebra */
+  --bg:              #f6f1e9;  /* crema cálida — fondo principal (ebecerra 2.0) */
+  --surface:         #ffffff;  /* cards, modales, inputs (contraste cálido) */
+  --surface-subtle:  #efe6d8;  /* crema tostada — secciones alternas, zebra cálida */
   --border:          #e7e5e4;  /* stone-200 — divisores sutiles */
   --border-strong:   #d6d3d1;  /* stone-300 — inputs, tablas */
   --overlay:         rgba(12, 10, 9, 0.04);
@@ -60,6 +60,23 @@
   --on-accent-text:       var(--text-on-accent);     /* #fafaf9 */
   --on-accent-muted:      rgba(250, 250, 249, 0.78); /* labels sobre verde */
   --on-accent-border:     rgba(250, 250, 249, 0.22); /* hairlines sobre verde */
+
+  /* ---------- ebecerra 2.0 — base cálida + serif display + gesto cálido + oscuro cálido ----------
+     Rediseño 2026-05-31: verde protagonista, base crema cálida (no blanco frío),
+     secciones oscuras CÁLIDAS con letra crema, y un gesto cálido (arcilla/ámbar)
+     para estrellas, stickers e iconos. Coherente con la línea de Instagram. */
+  --bg-warm:          #f6f1e9;  /* crema cálida — hero y bandas claras */
+  --bg-warm-soft:     #efe6d8;  /* crema un punto más tostada (zebra cálida) */
+  --cream:            #f6f1e9;  /* texto/elementos crema sobre oscuro cálido */
+
+  --accent-warm:      #c2703d;  /* arcilla/terracota — gesto cálido (✦, stickers, iconos) */
+  --accent-warm-2:    #d8923f;  /* ámbar más claro */
+  --accent-warm-soft: rgba(194, 112, 61, 0.12);
+
+  --ink-warm:         #17211c;  /* verde-negro cálido — secciones oscuras, letra crema */
+  --ink-warm-2:       #1e2a23;  /* un nivel por encima (cards sobre oscuro) */
+  --on-warm-muted:    rgba(246, 241, 233, 0.72);  /* texto secundario sobre oscuro cálido */
+  --on-warm-border:   rgba(246, 241, 233, 0.16);  /* hairlines sobre oscuro cálido */
 
   /* ---------- Color — Semantic (un solo verde; info stone-700 neutro) ---------- */
   --success:         #047857;  /* = --cta */

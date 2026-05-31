@@ -175,7 +175,10 @@ export async function getSiteData(locale: Locale) {
 // --- Fase A2: heroSection, siteSettings, profileContact ---
 
 export async function getHeroSection(locale: Locale): Promise<HeroSection | null> {
-  type Raw = Omit<HeroSection, "trustBadges"> & { trustBadges: { v: string }[] | null };
+  type Raw = Omit<HeroSection, "trustBadges" | "marqueeItems"> & {
+    trustBadges: { v: string }[] | null;
+    marqueeItems: { v: string }[] | null;
+  };
   const raw = await runFetch<Raw | null>(
     `*[_type == "heroSection"][0] {
       "kicker": ${loc("kicker")},
@@ -183,12 +186,17 @@ export async function getHeroSection(locale: Locale): Promise<HeroSection | null
       "lead": ${loc("lead")},
       "ctaPrimary": ${loc("ctaPrimary")},
       "ctaSecondary": ${loc("ctaSecondary")},
-      "trustBadges": trustBadges[]{ "v": coalesce(@[$locale], @.es, @) }
+      "trustBadges": trustBadges[]{ "v": coalesce(@[$locale], @.es, @) },
+      "marqueeItems": marqueeItems[]{ "v": coalesce(@[$locale], @.es, @) }
     }`,
     { locale }
   );
   if (!raw) return null;
-  return { ...raw, trustBadges: (raw.trustBadges ?? []).map((b) => b.v).filter(Boolean) };
+  return {
+    ...raw,
+    trustBadges: (raw.trustBadges ?? []).map((b) => b.v).filter(Boolean),
+    marqueeItems: (raw.marqueeItems ?? []).map((m) => m.v).filter(Boolean),
+  };
 }
 
 export async function getSiteSettings(locale: Locale): Promise<SiteSettingsMeta | null> {

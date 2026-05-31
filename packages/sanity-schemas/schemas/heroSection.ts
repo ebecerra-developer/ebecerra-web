@@ -48,6 +48,15 @@ export default defineType({
       of: [{ type: "localeString" }],
       validation: (Rule) => Rule.max(6),
     }),
+    defineField({
+      name: "marqueeItems",
+      title: "Cinta de valor (marquee)",
+      description:
+        "Frases cortas que desfilan en la cinta verde bajo el hero. Ej: Sin plantillas · Web que convierte · Código tuyo. Sin jerga.",
+      type: "array",
+      of: [{ type: "localeString" }],
+      validation: (Rule) => Rule.max(12),
+    }),
   ],
   preview: {
     prepare: () => ({ title: "Hero" }),
