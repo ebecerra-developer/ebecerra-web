@@ -2,7 +2,6 @@ import type { Feature, ProfileFull } from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import Kicker from "@/components/Kicker";
 import TiltCard from "@/components/TiltCard";
-import LogoMark from "@/components/LogoMark";
 import styles from "./About.module.css";
 
 type Stat = { value: string; label: string };
@@ -47,7 +46,7 @@ export default function About({ features, profile }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <Kicker>{kicker}</Kicker>
+        <Kicker tone="dark">{kicker}</Kicker>
         <h2 id="about-heading" className={styles.heading}>
           {title}
         </h2>
@@ -86,12 +85,6 @@ export default function About({ features, profile }: Props) {
             </div>
           )}
           <div className={styles.bio}>
-            <LogoMark
-              variant="scaleDeep"
-              height="auto"
-              alt="eB"
-              className={styles.monogram}
-            />
             {bio1 && <p className={styles.bioPara}>{bio1}</p>}
             {bio2 && <p className={styles.bioParaLast}>{bio2}</p>}
 

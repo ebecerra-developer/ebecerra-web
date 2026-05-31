@@ -55,15 +55,35 @@
 }
 
 .pathTabs {
-  display: inline-flex;
+  position: relative;
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   padding: 4px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 999px;
-  gap: 2px;
+}
+
+/* Indicador verde que se desliza bajo la pestaña activa (CSS puro por índice) */
+.pathIndicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / var(--count, 2));
+  transform: translateX(calc(var(--idx, 0) * 100%));
+  border-radius: 999px;
+  background: var(--cta);
+  box-shadow: var(--sh-1);
+  transition: transform 340ms var(--ease);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .pathTab {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 600;
@@ -73,9 +93,8 @@
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  transition:
-    background 160ms var(--ease),
-    color 160ms var(--ease);
+  text-align: center;
+  transition: color 220ms var(--ease);
   white-space: nowrap;
 }
 
@@ -84,12 +103,17 @@
 }
 
 .pathTabActive {
-  background: var(--cta);
   color: var(--text-on-accent);
 }
 
 .pathTabActive:hover {
   color: var(--text-on-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pathIndicator {
+    transition: none;
+  }
 }
 
 .pathTagline {

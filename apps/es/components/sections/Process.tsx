@@ -32,9 +32,8 @@ export default function Process({ steps, sectionMeta }: Props) {
         </h2>
         <p className={`lead ${styles.lead}`}>{lead}</p>
 
-        {/* Desktop: horizontal with connector */}
+        {/* Desktop: horizontal con línea conectora por paso */}
         <div className={styles.desktopLayout}>
-          <div className={styles.connector} aria-hidden="true" />
           <div
             className={styles.desktopGrid}
             style={{ gridTemplateColumns: `repeat(${ordered.length}, 1fr)` }}

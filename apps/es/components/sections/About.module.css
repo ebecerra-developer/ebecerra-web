@@ -1,10 +1,24 @@
-/* About.module.css */
+/* About.module.css — banda OSCURA cálida (estilo brunette) */
 .section {
-  padding: clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px);
-  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(56px, 7vw, 96px) clamp(20px, 4vw, 56px);
+  background: var(--ink-warm);
+  color: var(--cream);
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 50% at 4% 0%, rgba(4, 120, 87, 0.26), transparent 55%),
+    radial-gradient(42% 52% at 100% 100%, rgba(194, 112, 61, 0.13), transparent 55%);
 }
 
 .inner {
+  position: relative;
   max-width: var(--container-max, 1100px);
   margin: 0 auto;
 }
@@ -29,6 +43,7 @@
   letter-spacing: -0.03em;
   margin: 0 0 clamp(24px, 4vw, 40px);
   max-width: 760px;
+  color: var(--cream);
 }
 
 /* ---------- Panel verde de contraste (momento firma) ---------- */
@@ -114,7 +129,7 @@
   object-position: center 22%;
   border-radius: var(--r-xl);
   display: block;
-  border: 1px solid var(--border);
+  border: 1px solid var(--on-warm-border);
   box-shadow: var(--sh-3);
 }
 
@@ -131,7 +146,7 @@
 .bio {
   font-size: 17.5px;
   line-height: 1.75;
-  color: var(--text-secondary);
+  color: var(--on-warm-muted);
 }
 
 .bioPara {
@@ -148,6 +163,7 @@
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 500;
+  color: var(--on-dark-accent);
 }
 
 .featureGrid {

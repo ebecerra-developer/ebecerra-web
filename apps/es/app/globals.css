@@ -171,19 +171,19 @@ a:hover {
   background: radial-gradient(
     circle,
     rgba(216, 146, 63, 0.6) 0%,
-    rgba(216, 146, 63, 0) 68%
+    rgba(216, 146, 63, 0) 70%
   );
 }
 .fx-soft::before {
-  background: radial-gradient(circle, var(--cta-soft-strong) 0%, transparent 66%);
+  background: radial-gradient(circle, rgba(4, 120, 87, 0.34) 0%, transparent 70%);
 }
 .fx-ripple:hover::before,
 .fx-ripple:focus-visible::before {
-  animation: fxRipple 760ms var(--ease-out);
+  animation: fxRipple 1500ms var(--ease-out);
 }
 .fx-soft:hover::before,
 .fx-soft:focus-visible::before {
-  animation: fxRippleSoft 760ms var(--ease-out);
+  animation: fxRippleSoft 1500ms var(--ease-out);
 }
 
 @keyframes fxRipple {
@@ -191,7 +191,7 @@ a:hover {
     transform: translate(-50%, -50%) scale(0);
     opacity: 0;
   }
-  22% {
+  18% {
     opacity: 1;
   }
   100% {
@@ -205,8 +205,8 @@ a:hover {
     transform: translate(-50%, -50%) scale(0);
     opacity: 0;
   }
-  22% {
-    opacity: 0.7;
+  18% {
+    opacity: 1;
   }
   100% {
     transform: translate(-50%, -50%) scale(30);

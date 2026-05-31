@@ -257,7 +257,7 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <Kicker tone="dark">{contactMeta.kicker}</Kicker>
+        <Kicker>{contactMeta.kicker}</Kicker>
 
         <div className={styles.split}>
           <div>

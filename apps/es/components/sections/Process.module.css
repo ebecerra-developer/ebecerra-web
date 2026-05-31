@@ -44,21 +44,10 @@
   position: relative;
 }
 
-.connector {
-  position: absolute;
-  top: 11px;
-  left: 12.5%;
-  right: 12.5%;
-  height: 1px;
-  background: var(--on-warm-border);
-  z-index: 0;
-}
-
 .desktopGrid {
   display: grid;
   gap: 24px;
   position: relative;
-  z-index: 1;
 }
 
 /* Mobile layout */
@@ -93,7 +82,25 @@
   top: 4px;
 }
 
+.step {
+  position: relative;
+}
+
+/* Línea conectora: de este círculo al del paso siguiente (exacta con el gap) */
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  width: calc(100% + 24px);
+  height: 1px;
+  background: var(--on-warm-border);
+  z-index: 0;
+}
+
 .stepCircleWrapper {
+  position: relative;
+  z-index: 1;
   margin-bottom: 24px;
 }
 

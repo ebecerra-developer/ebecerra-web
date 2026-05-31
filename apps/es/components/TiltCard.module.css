@@ -5,7 +5,9 @@
   position: relative;
   transform: perspective(820px) rotateX(var(--rx)) rotateY(var(--ry));
   transform-style: preserve-3d;
-  transition: transform 260ms var(--ease-out);
+  /* Solo se usa para el reset suave al salir; durante el movimiento se anula
+     inline (transition: 0s) para que siga al cursor sin retraso. */
+  transition: transform 500ms var(--ease-out);
   will-change: transform;
 }
 

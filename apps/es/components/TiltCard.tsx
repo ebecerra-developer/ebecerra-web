@@ -31,6 +31,8 @@ export default function TiltCard({
   function handleMove(e: MouseEvent<HTMLElement>) {
     const el = ref.current;
     if (!el) return;
+    // Sin transición mientras se mueve → sigue al cursor al instante (fluido).
+    el.style.transition = "transform 0s";
     const r = el.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
@@ -43,6 +45,8 @@ export default function TiltCard({
   function handleLeave() {
     const el = ref.current;
     if (!el) return;
+    // Vuelve a la transición CSS para que el reset sea suave.
+    el.style.transition = "";
     el.style.setProperty("--rx", "0deg");
     el.style.setProperty("--ry", "0deg");
   }

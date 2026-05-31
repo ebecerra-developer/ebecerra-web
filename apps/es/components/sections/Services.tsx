@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useId, useMemo, useState, type CSSProperties } from "react";
 import { useTranslations } from "next-intl";
 import type { ServicesPricing } from "@ebecerra/sanity-client";
 import Kicker from "@/components/Kicker";
@@ -26,6 +26,11 @@ export default function Services({ pricing }: Props) {
 
   const activePath =
     paths.find((p) => p.id === activePathId) ?? paths[0] ?? null;
+  // Índice activo para el indicador deslizante del toggle (CSS puro, sin medir).
+  const activeIndex = Math.max(
+    0,
+    paths.findIndex((p) => p.id === activePathId)
+  );
 
   const cancellation = pricing?.cancellationClause ?? null;
   const showCancellation =
@@ -60,7 +65,14 @@ export default function Services({ pricing }: Props) {
               role="tablist"
               aria-label={t("pathTabsAriaLabel")}
               className={styles.pathTabs}
+              style={
+                {
+                  "--count": paths.length,
+                  "--idx": activeIndex,
+                } as CSSProperties
+              }
             >
+              <span aria-hidden="true" className={styles.pathIndicator} />
               {paths.map((p) => {
                 const isActive = p.id === activePathId;
                 return (
