@@ -42,6 +42,25 @@
   --cta-soft:        rgba(4, 120, 87, 0.08);
   --cta-soft-strong: rgba(4, 120, 87, 0.2);
 
+  /* ---------- Color — On-dark / on-accent (footer + panel verde Sobre mí) ----------
+     Texto y acentos sobre fondos oscuros (--ink) o sobre el verde profundo del
+     panel de Sobre mí. Mismo verde de marca, sin colores nuevos fuera de paleta. */
+  --on-dark-text:         var(--text-on-ink);   /* #fafaf9 — texto principal sobre oscuro */
+  --on-dark-muted:        #a8a29e;              /* stone-400 — body/meta sobre oscuro */
+  --on-dark-subtle:       #d6d3d1;              /* stone-300 — links sobre oscuro */
+  --on-dark-accent:       #34d399;              /* emerald-400 — acento verde sobre oscuro */
+  --on-dark-accent-hover: #6ee7b7;              /* emerald-300 */
+  --on-dark-border:       #292524;              /* stone-800 — divisores sobre oscuro */
+  --on-dark-dot:          #10b981;              /* emerald-500 — punto disponibilidad */
+
+  /* Panel verde profundo (Sobre mí) — emerald-900, más profundo que --cta para
+     que la camisa marino de la foto separe del fondo. */
+  --panel-green:          #064e3b;              /* emerald-900 */
+  --panel-green-deep:     #053d2e;              /* círculo/acento decorativo más oscuro */
+  --on-accent-text:       var(--text-on-accent);     /* #fafaf9 */
+  --on-accent-muted:      rgba(250, 250, 249, 0.78); /* labels sobre verde */
+  --on-accent-border:     rgba(250, 250, 249, 0.22); /* hairlines sobre verde */
+
   /* ---------- Color — Semantic (un solo verde; info stone-700 neutro) ---------- */
   --success:         #047857;  /* = --cta */
   --warning:         #b45309;  /* amber-700 */

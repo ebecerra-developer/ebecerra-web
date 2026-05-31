@@ -8,6 +8,7 @@ import processStep from "./processStep";
 import caseStudy from "./caseStudy";
 import heroSection from "./heroSection";
 import capabilitiesSection from "./capabilitiesSection";
+import integrationsStrip from "./integrationsStrip";
 import contactFormStep from "./contactFormStep";
 import contactFormSettings from "./contactFormSettings";
 import techHomeSections from "./techHomeSections";
@@ -46,6 +47,7 @@ export const schemaTypes = [
   // Singletons — home + settings
   heroSection,
   capabilitiesSection,
+  integrationsStrip,
   siteSettings,
   serviceSectionMeta,
   servicesPricing,
@@ -86,6 +88,7 @@ export const schemaTypes = [
 export const SINGLETON_TYPES = [
   "heroSection",
   "capabilitiesSection",
+  "integrationsStrip",
   "siteSettings",
   "serviceSectionMeta",
   "servicesPricing",

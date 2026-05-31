@@ -43,6 +43,7 @@ import type {
   FaqItem,
   LegalPageData,
   ProfileFull,
+  IntegrationsStrip,
   DemoSite,
   DemoSiteSummary,
   ChatbotConfig,
@@ -1710,6 +1711,36 @@ export async function getCapabilitiesSection(
 }
 
 /**
+ * Franja de integraciones (herramientas que integro) de la home apps/es.
+ * Singleton. Si no hay documento o está deshabilitado / vacío, el componente
+ * Integrations no se renderiza (enabled=false o items=[]).
+ */
+export async function getIntegrationsStrip(
+  locale: Locale
+): Promise<IntegrationsStrip> {
+  const raw = await runFetch<IntegrationsStrip | null>(
+      `*[_type == "integrationsStrip"][0] {
+        "enabled": coalesce(enabled, false),
+        "heading": ${loc("heading")},
+        "items": items[]{
+          name,
+          "logo": logo{ ..., "alt": alt },
+          url
+        }
+      }`,
+      { locale }
+    )
+    .catch(() => null);
+
+  if (!raw) return { enabled: false, heading: null, items: [] };
+  return {
+    enabled: raw.enabled ?? false,
+    heading: raw.heading ?? null,
+    items: (raw.items ?? []).filter((it) => !!it && !!it.name && !!it.logo),
+  };
+}
+
+/**
  * Singleton con la sección completa de Servicios y precios:
  * caminos × tiers, add-ons, cláusula de rescisión y footnote.
  *
@@ -1891,6 +1922,7 @@ export async function getProfile(locale: Locale): Promise<ProfileFull | null> {
         "jobTitle": ${loc("jobTitle")},
         "aboutKicker": ${loc("aboutKicker")},
         "aboutTitle": ${loc("aboutTitle")},
+        "aboutPhoto": aboutPhoto{ ..., "alt": alt },
         "aboutViewProfileCta": ${loc("aboutViewProfileCta")},
         "bio1": ${loc("bio1")},
         "bio2": ${loc("bio2")},

@@ -523,6 +523,7 @@ export type ProfileFull = {
   jobTitle: string | null;
   aboutKicker: string | null;
   aboutTitle: string | null;
+  aboutPhoto: SanityImage | null;
   aboutViewProfileCta: string | null;
   bio1: string | null;
   bio2: string | null;
@@ -530,6 +531,20 @@ export type ProfileFull = {
   aboutFeatures: Feature[] | null;
   contact: ProfileContact | null;
   chatbot: ChatbotConfig | null;
+};
+
+// ---------- Integraciones (franja de herramientas, home apps/es) ----------
+
+export type IntegrationItem = {
+  name: string;
+  logo: SanityImage | null;
+  url: string | null;
+};
+
+export type IntegrationsStrip = {
+  enabled: boolean;
+  heading: string | null;
+  items: IntegrationItem[];
 };
 
 // ---------- Chatbot ----------

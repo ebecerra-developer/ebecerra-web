@@ -42,6 +42,18 @@ export default defineType({
       group: "about",
     }),
     defineField({
+      name: "aboutPhoto",
+      title: "Foto (sección Sobre mí)",
+      description:
+        "Retrato PNG con fondo transparente (~cintura hacia arriba). Se muestra sobre el panel verde. Usa el hotspot para encuadrar la cara.",
+      type: "image",
+      group: "about",
+      options: { hotspot: true },
+      fields: [
+        { name: "alt", title: "Texto alternativo", type: "string" },
+      ],
+    }),
+    defineField({
       name: "aboutViewProfileCta",
       title: "CTA 'Ver perfil completo'",
       type: "localeString",
