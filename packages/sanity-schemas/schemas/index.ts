@@ -26,6 +26,7 @@ import {
   contactSectionMeta,
 } from "./sectionMeta";
 import faqPage from "./faqPage";
+import aboutPage from "./aboutPage";
 import faqItem from "./faqItem";
 import legalPage from "./legalPage";
 import demoSite from "./demoSite";
@@ -67,6 +68,7 @@ export const schemaTypes = [
   blogPage,
   faqPage,
   examplesPage,
+  aboutPage,
   profile,
   // Colecciones
   experience,
@@ -104,6 +106,7 @@ export const SINGLETON_TYPES = [
   "blogPage",
   "faqPage",
   "examplesPage",
+  "aboutPage",
   "profile",
 ] as const;
 

@@ -40,6 +40,7 @@ import type {
   ServiceSectionMeta,
   ServicesPricing,
   FaqPageData,
+  AboutPageData,
   FaqItem,
   LegalPageData,
   ProfileFull,
@@ -1537,6 +1538,81 @@ export async function getExamplesPage(
     openInNewTabLabel: raw.openInNewTabLabel ?? d.openInNewTabLabel,
     prevLabel: raw.prevLabel ?? d.prevLabel,
     nextLabel: raw.nextLabel ?? d.nextLabel,
+  };
+}
+
+export const DEFAULT_ABOUT_PAGE: AboutPageData = {
+  metaTitle:
+    "Sobre mí — Enrique Becerra, desarrollo web para negocios pequeños",
+  metaDescription:
+    "Más de 8 años haciendo webs para grandes empresas, ahora al servicio de autónomos y PYMEs. Webs a medida, fáciles de mantener y con personalidad — nada de plantillas.",
+  kicker: "Sobre mí",
+  title: "Hola, soy Enrique Becerra",
+  lead: "Llevo más de 8 años haciendo webs para grandes empresas. Ahora ayudo a negocios pequeños a tener una web que de verdad sea suya — hecha a medida, no sacada de una plantilla.",
+  intro: [
+    {
+      text: "Durante más de ocho años me he dedicado a crear y mantener webs para grandes empresas: sitios que reciben miles de visitas al día y que no se pueden permitir fallar. Ahí aprendí a hacer las cosas con cuidado, a pensar antes de tocar y a dejarlo todo de forma que cualquiera pueda seguir trabajando sin que nada se rompa.",
+    },
+    {
+      text: "En algún momento me di cuenta de que ese mismo cuidado es justo lo que le falta a la mayoría de webs de negocios pequeños. Y de ahí nació esta aventura por mi cuenta: coger todo lo que he aprendido en el mundo empresarial y ponerlo al servicio de autónomos y PYMEs, de tú a tú, sin intermediarios ni comerciales por medio.",
+    },
+    {
+      text: "Mi forma de trabajar parte de una idea sencilla: la web se adapta a tu negocio, no al revés. En los últimos años se ha abusado tanto de las plantillas que media internet parece la misma página repintada. Yo prefiero empezar de cero y entender cómo funciona lo tuyo, para que el resultado tenga personalidad y te represente de verdad.",
+    },
+  ],
+  pillarsTitle: "Cómo trabajo",
+  pillars: [
+    {
+      title: "Hecho a medida, desde cero",
+      body: "Nada de plantillas que se repiten en miles de webs. Entiendo tu negocio y construyo algo que solo encaja contigo: tu tono, tu manera de trabajar, tus clientes.",
+    },
+    {
+      title: "Fácil de mantener, sin atarte a mí",
+      body: "Te entrego una web que puedes actualizar tú, sin llamarme cada vez que cambia un texto. Y si algún día quieres seguir por tu cuenta, todo es tuyo.",
+    },
+    {
+      title: "La IA acelera, el oficio decide",
+      body: "La inteligencia artificial ha avanzado muchísimo y es tentador pedirle que te haga la web entera. Pero sin saber lo que estás montando acabas con un sitio difícil de mantener y sin alma. Yo me apoyo en la IA para ir más rápido, pero quien decide y da el acabado soy yo: por eso el resultado funciona, atrae clientes y dura.",
+    },
+  ],
+  closingTitle: "¿Hablamos de la tuya?",
+  closingBody:
+    "Si quieres una web hecha a tu medida, fácil de mantener y que de verdad te represente, cuéntame tu proyecto. La primera conversación es de 30 minutos y sin compromiso.",
+  closingCtaLabel: "Hablemos",
+};
+
+export async function getAboutPage(locale: Locale): Promise<AboutPageData> {
+  const raw = await runFetch<Partial<AboutPageData> | null>(
+    `*[_type == "aboutPage"][0] {
+      "metaTitle": ${loc("metaTitle")},
+      "metaDescription": ${loc("metaDescription")},
+      "kicker": ${loc("kicker")},
+      "title": ${loc("title")},
+      "lead": ${loc("lead")},
+      "intro": intro[]{ "text": ${loc("text")} },
+      "pillarsTitle": ${loc("pillarsTitle")},
+      "pillars": pillars[]{ "title": ${loc("title")}, "body": ${loc("body")} },
+      "closingTitle": ${loc("closingTitle")},
+      "closingBody": ${loc("closingBody")},
+      "closingCtaLabel": ${loc("closingCtaLabel")}
+    }`,
+    { locale }
+  ).catch(() => null);
+
+  const d = DEFAULT_ABOUT_PAGE;
+  if (!raw) return d;
+  return {
+    metaTitle: raw.metaTitle ?? d.metaTitle,
+    metaDescription: raw.metaDescription ?? d.metaDescription,
+    kicker: raw.kicker ?? d.kicker,
+    title: raw.title ?? d.title,
+    lead: raw.lead ?? d.lead,
+    intro: raw.intro && raw.intro.length > 0 ? raw.intro : d.intro,
+    pillarsTitle: raw.pillarsTitle ?? d.pillarsTitle,
+    pillars: raw.pillars && raw.pillars.length > 0 ? raw.pillars : d.pillars,
+    closingTitle: raw.closingTitle ?? d.closingTitle,
+    closingBody: raw.closingBody ?? d.closingBody,
+    closingCtaLabel: raw.closingCtaLabel ?? d.closingCtaLabel,
   };
 }
 

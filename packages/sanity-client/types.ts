@@ -464,6 +464,22 @@ export type FaqPageData = {
   contactCta: string;
 };
 
+export type AboutPagePillar = { title: string; body: string };
+
+export type AboutPageData = {
+  metaTitle: string;
+  metaDescription: string;
+  kicker: string;
+  title: string;
+  lead: string;
+  intro: { text: string }[];
+  pillarsTitle: string;
+  pillars: AboutPagePillar[];
+  closingTitle: string;
+  closingBody: string;
+  closingCtaLabel: string;
+};
+
 export type FaqItem = {
   _id: string;
   question: string;
