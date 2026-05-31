@@ -3,6 +3,7 @@
 import { useId, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import type { ServicesPricing } from "@ebecerra/sanity-client";
+import Kicker from "@/components/Kicker";
 import styles from "./Services.module.css";
 
 type Props = {
@@ -41,7 +42,7 @@ export default function Services({ pricing }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <div className={styles.kicker}>{kicker}</div>
+        <Kicker>{kicker}</Kicker>
         <h2 id={sectionTitleId} className={styles.heading}>
           {title}
         </h2>

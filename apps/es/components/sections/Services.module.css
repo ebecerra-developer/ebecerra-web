@@ -251,12 +251,14 @@
   transition:
     background 160ms var(--ease),
     border-color 160ms var(--ease),
+    box-shadow 200ms var(--ease),
     color 160ms var(--ease);
 }
 
 .cardCta:hover {
   background: var(--surface-subtle);
   border-color: var(--cta);
+  color: var(--cta);
 }
 
 .cardCtaPrimary {
@@ -269,6 +271,7 @@
   background: var(--cta-hover);
   color: var(--text-on-accent);
   border-color: var(--cta-hover);
+  box-shadow: 0 0 0 4px var(--accent-warm-soft);
 }
 
 /* ---------- Cláusula de rescisión ---------- */

@@ -14,6 +14,7 @@ import {
 } from "@ebecerra/sanity-client";
 import Nav from "@/components/sections/Nav";
 import Hero from "@/components/sections/Hero";
+import Marquee from "@/components/sections/Marquee";
 import Services from "@/components/sections/Services";
 import About from "@/components/sections/About";
 import Integrations from "@/components/sections/Integrations";
@@ -68,10 +69,11 @@ export default async function Home({
       <Nav />
       <main id="main">
         <Hero sanityData={heroData} />
+        <Marquee items={heroData?.marqueeItems ?? []} />
         <Services pricing={servicesPricing} />
         <About features={resolvedFeatures} profile={profileData} />
-        <Integrations data={integrationsStrip} />
         <Capabilities section={capabilitiesSection} />
+        <Integrations data={integrationsStrip} />
         <Process steps={resolvedProcess} sectionMeta={processMeta} />
         <Examples locale={locale} />
         <Contact contactMeta={contactMeta} profile={profileData} />

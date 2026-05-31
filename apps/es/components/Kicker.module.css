@@ -1,0 +1,42 @@
+/* Kicker.module.css — kicker de sección con estrella ✦ */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  max-width: 100%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.star {
+  color: var(--accent-warm);
+  font-size: 13px;
+  line-height: 1;
+  flex: none;
+}
+
+.text {
+  min-width: 0;
+}
+
+/* Sobre banda oscura cálida */
+.dark {
+  color: var(--on-warm-muted);
+}
+.dark .star {
+  color: var(--accent-warm-2);
+}
+
+/* Sobre verde */
+.accent {
+  color: var(--on-accent-muted);
+}
+.accent .star {
+  color: var(--accent-warm-2);
+}

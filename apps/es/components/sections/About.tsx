@@ -1,5 +1,6 @@
 import type { Feature, ProfileFull } from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
+import Kicker from "@/components/Kicker";
 import styles from "./About.module.css";
 
 type Stat = { value: string; label: string };
@@ -30,7 +31,7 @@ export default function About({ features, profile }: Props) {
   const photoSrc = photo
     ? {
         src: urlFor(photo).width(640).auto("format").url(),
-        srcSet: [320, 480, 640, 960]
+        srcSet: [320, 480, 640, 900]
           .map((w) => `${urlFor(photo).width(w).auto("format").url()} ${w}w`)
           .join(", "),
         alt: photo.alt ?? profile?.name ?? "Enrique Becerra",
@@ -44,30 +45,14 @@ export default function About({ features, profile }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <div className={styles.kicker}>{kicker}</div>
+        <Kicker>{kicker}</Kicker>
         <h2 id="about-heading" className={styles.heading}>
           {title}
         </h2>
 
-        {/* Panel verde de contraste — el momento firma de la home: foto + cifras */}
+        {/* Banda verde de contraste con las cifras (la foto va una sola vez, en el hero) */}
         <div className={styles.contrastPanel}>
           <span aria-hidden="true" className={styles.panelCircle} />
-          {photoSrc && (
-            <div className={styles.photoWrap}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={photoSrc.src}
-                srcSet={photoSrc.srcSet}
-                sizes="(min-width: 768px) 280px, 60vw"
-                alt={photoSrc.alt}
-                loading="lazy"
-                decoding="async"
-                width={640}
-                height={853}
-                className={styles.photo}
-              />
-            </div>
-          )}
           <div className={styles.bigStats}>
             {stats.map((s, i) => (
               <div key={`${s.label}-${i}`} className={styles.bigStat}>
@@ -78,7 +63,26 @@ export default function About({ features, profile }: Props) {
           </div>
         </div>
 
-        <div className={styles.split}>
+        <div className={styles.intro}>
+          {photoSrc && (
+            <div className={styles.photoWrap}>
+              <span aria-hidden="true" className={styles.photoStar}>
+                ✦
+              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photoSrc.src}
+                srcSet={photoSrc.srcSet}
+                sizes="(min-width: 768px) 340px, 80vw"
+                alt={photoSrc.alt}
+                loading="lazy"
+                decoding="async"
+                width={640}
+                height={800}
+                className={styles.photo}
+              />
+            </div>
+          )}
           <div className={styles.bio}>
             {bio1 && <p className={styles.bioPara}>{bio1}</p>}
             {bio2 && <p className={styles.bioParaLast}>{bio2}</p>}
@@ -87,20 +91,20 @@ export default function About({ features, profile }: Props) {
               {viewProfile} →
             </a>
           </div>
+        </div>
 
-          <div className={styles.featureGrid}>
-            {features.map((feature, i) => (
-              <div key={`${feature.label}-${i}`} className={styles.featureCard}>
-                <span className={styles.featureIndex}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <div className={styles.featureLabel}>{feature.label}</div>
-                  <div className={styles.featureDesc}>{feature.desc}</div>
-                </div>
+        <div className={styles.featureGrid}>
+          {features.map((feature, i) => (
+            <div key={`${feature.label}-${i}`} className={styles.featureCard}>
+              <span className={styles.featureIndex}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <div className={styles.featureLabel}>{feature.label}</div>
+                <div className={styles.featureDesc}>{feature.desc}</div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,116 +1,173 @@
-/* Hero.module.css */
+/* Hero.module.css — ebecerra 2.0: 50/50 cálido, serif-acento, foto real */
 .hero {
-  padding: clamp(32px, 5vw, 64px) clamp(20px, 4vw, 56px) clamp(32px, 4.5vw, 56px);
-  border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
-  background-image: radial-gradient(circle at 1px 1px, rgba(12, 10, 9, 0.15) 1.2px, transparent 0);
-  background-size: 22px 22px;
+  background: var(--bg-warm);
+  border-bottom: 1px solid var(--border);
+  padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 56px) clamp(48px, 6vw, 88px);
+}
+
+/* Glows: verde detrás del texto, cálido detrás de la foto. Sustituye la trama. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(42% 52% at 10% 16%, rgba(4, 120, 87, 0.16), transparent 70%),
+    radial-gradient(46% 54% at 94% 90%, rgba(194, 112, 61, 0.14), transparent 70%);
 }
 
 .grid {
+  position: relative;
   max-width: var(--container-max, 1100px);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(24px, 4vw, 48px);
+  gap: clamp(36px, 6vw, 56px);
   align-items: center;
-  position: relative;
 }
 
+.textCol {
+  min-width: 0;
+}
+
+/* ---------- Kicker (pill con punto verde de disponibilidad) ---------- */
 .kicker {
   display: inline-flex;
   align-items: center;
-  gap: var(--s-2);
+  gap: 9px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: 7px 15px 7px 13px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11.5px;
   line-height: 1;
-  color: var(--cta);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 20px;
-  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 22px;
 }
 
 .kickerDot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--cta);
   animation: heroKickerPulse 1.8s ease-in-out infinite;
-  transform-origin: center;
 }
 
 .kickerText {
   display: inline-block;
-  line-height: 1;
 }
 
+/* ---------- Titular display + palabra-acento serif ---------- */
 .heading {
-  font-size: clamp(44px, 6.2vw, 80px);
-  line-height: 1.03;
-  letter-spacing: -0.028em;
-  margin: 0 0 20px;
+  font-size: clamp(38px, 4.8vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin: 0 0 22px;
   text-wrap: balance;
 }
 
 .lead {
-  max-width: 560px;
-  margin: 0 0 28px;
+  max-width: 520px;
+  margin: 0 0 30px;
   color: var(--text-secondary);
 }
 
+/* ---------- CTAs con sombra física ---------- */
 .ctas {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
+/* Plano (sin 3D). Hover no típico: barrido cálido cruzando el verde + flecha
+   que se desliza + aro cálido sutil. */
 .ctaPrimary {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: var(--cta);
   color: var(--text-on-accent);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 15.5px;
   font-weight: 600;
-  padding: 14px 24px;
+  padding: 15px 26px;
   border-radius: var(--r-pill);
   text-decoration: none;
-  border: 1.5px solid var(--cta);
-  transition: background 180ms var(--ease), border-color 180ms var(--ease),
-    transform 180ms var(--ease);
+  transition: background 200ms var(--ease), box-shadow 240ms var(--ease);
+}
+
+.ctaPrimary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(216, 146, 63, 0.5) 50%,
+    transparent 65%
+  );
+  transform: translateX(-130%);
+  transition: transform 700ms var(--ease);
+  pointer-events: none;
 }
 
 .ctaPrimary:hover {
   background: var(--cta-hover);
-  border-color: var(--cta-hover);
   color: var(--text-on-accent);
   text-decoration: none;
-  transform: translateY(-1px);
+  box-shadow: 0 0 0 4px var(--accent-warm-soft);
+}
+
+.ctaPrimary:hover::before {
+  transform: translateX(130%);
+}
+
+.ctaLabel,
+.ctaArrow {
+  position: relative;
+  z-index: 1;
+}
+
+.ctaArrow {
+  transition: transform 200ms var(--ease);
+}
+
+.ctaPrimary:hover .ctaArrow {
+  transform: translateX(4px);
 }
 
 .ctaSecondary {
-  background: var(--surface);
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 15.5px;
   font-weight: 600;
-  padding: 14px 24px;
+  padding: 15px 26px;
   border-radius: var(--r-pill);
-  text-decoration: none;
   border: 1.5px solid var(--border-strong);
-  transition: border-color 180ms var(--ease), color 180ms var(--ease),
-    transform 180ms var(--ease);
+  text-decoration: none;
+  transition: border-color 200ms var(--ease), color 200ms var(--ease),
+    background 200ms var(--ease);
 }
 
 .ctaSecondary:hover {
   color: var(--cta);
   border-color: var(--cta);
+  background: var(--cta-soft);
   text-decoration: none;
-  transform: translateY(-1px);
 }
 
-/* Trust badges — mobile-first: rejilla limpia de filas con borde (no fila de
-   middots que se parte). En desktop vuelve a la fila aireada inline. */
+/* ---------- Trust badges (rejilla con borde en móvil, fila en desktop) ---------- */
 .metaStrip {
   list-style: none;
   margin: var(--s-6) 0 0;
@@ -124,12 +181,12 @@
   overflow: hidden;
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--text-muted);
   letter-spacing: 0.04em;
+  color: var(--text-muted);
 }
 
 .badge {
-  background: var(--bg);
+  background: var(--bg-warm);
   padding: 12px 14px;
   display: flex;
   align-items: center;
@@ -146,13 +203,112 @@
   flex: none;
 }
 
+/* ---------- Figura (cutout) de pie sobre panel verde ---------- */
+.photoCol {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.figurePanel {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 5 / 6;
+  background: var(--panel-green);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  box-shadow: var(--sh-3);
+}
+
+.figureGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    58% 46% at 50% 36%,
+    rgba(52, 211, 153, 0.22),
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: heroGlowBreathe 7s ease-in-out infinite;
+  transform-origin: 50% 38%;
+}
+
+.figure {
+  position: relative;
+  z-index: 1;
+  height: 96%;
+  width: auto;
+  max-width: 92%;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+}
+
+.photoStar {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  z-index: 2;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--accent-warm-2);
+  pointer-events: none;
+  animation: heroStarTwinkle 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heroGlowBreathe {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes heroStarTwinkle {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.18) rotate(45deg);
+  }
+}
+
+@keyframes heroKickerPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.35), 0 0 0 8px rgba(4, 120, 87, 0.12);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(4, 120, 87, 0.18), 0 0 0 14px rgba(4, 120, 87, 0);
+    transform: scale(1.15);
+  }
+}
+
 @media (max-width: 480px) {
   .metaStrip {
     grid-template-columns: 1fr;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(40px, 5vw, 72px);
+  }
+
   .metaStrip {
     margin-top: var(--s-6);
     padding-top: 20px;
@@ -175,59 +331,14 @@
   }
 }
 
-.monogramWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.monogramImg {
-  width: clamp(90px, 14vw, 130px);
-  height: auto;
-  aspect-ratio: 1024 / 768;
-  opacity: 0.85;
-  margin: 0 auto;
-  animation: heroMonogramFloat 6s ease-in-out infinite;
-  will-change: transform;
-}
-
-@keyframes heroMonogramFloat {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(-1.2deg);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .monogramImg {
+  .kickerDot,
+  .figureGlow,
+  .photoStar {
     animation: none;
   }
-  .kickerDot {
-    animation: none;
-  }
-}
-
-@keyframes heroKickerPulse {
-  0%, 100% {
-    box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.35), 0 0 0 8px rgba(4, 120, 87, 0.12);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 0 6px rgba(4, 120, 87, 0.18), 0 0 0 14px rgba(4, 120, 87, 0);
-    transform: scale(1.15);
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: 1.3fr 1fr;
-  }
-
-  .monogramImg {
-    width: min(380px, 100%);
-    opacity: 1;
+  .ctaPrimary::before,
+  .ctaArrow {
+    transition: none;
   }
 }

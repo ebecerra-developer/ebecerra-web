@@ -6,6 +6,7 @@ import {
 import { urlFor } from "@/lib/sanity-image";
 import type { Locale } from "@/i18n/routing";
 import ExamplesCarousel from "./ExamplesCarousel";
+import Kicker from "@/components/Kicker";
 import styles from "./Examples.module.css";
 
 const DEMOS_BASE_URL = "https://demos.ebecerra.es";
@@ -34,7 +35,7 @@ export default async function Examples({ locale }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <div className={styles.kicker}>{page.homeKicker}</div>
+        <Kicker>{page.homeKicker}</Kicker>
         <h2 id="examples-heading" className={styles.heading}>
           {page.homeTitle}
         </h2>

@@ -33,17 +33,12 @@
 
 /* ---------- Panel verde de contraste (momento firma) ---------- */
 .contrastPanel {
-  --panel-pad: clamp(28px, 5vw, 48px);
   position: relative;
   overflow: hidden;
   background: var(--panel-green);
   border-radius: var(--r-xl);
-  padding: var(--panel-pad);
+  padding: clamp(30px, 5vw, 52px);
   margin-bottom: clamp(32px, 5vw, 56px);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(24px, 4vw, 40px);
-  align-items: center;
 }
 
 .panelCircle {
@@ -57,46 +52,12 @@
   pointer-events: none;
 }
 
-.photoWrap {
-  position: relative;
-  z-index: 1;
-  justify-self: center;
-  align-self: end;
-  /* La foto "se planta" a ras del borde inferior del panel: el corte coincide
-     con el cambio de color, no flota a media altura. */
-  margin-bottom: calc(-1 * var(--panel-pad));
-  width: 100%;
-  max-width: 280px;
-  aspect-ratio: 4 / 5;
-}
-
-.photoWrap::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    62% 50% at 50% 34%,
-    rgba(52, 211, 153, 0.22),
-    transparent 70%
-  );
-  pointer-events: none;
-}
-
-.photo {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  display: block;
-}
-
 .bigStats {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(20px, 4vw, 32px);
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 4vw, 40px);
 }
 
 .bigStat {
@@ -122,12 +83,41 @@
   line-height: 1.3;
 }
 
-/* ---------- Bio + features ---------- */
-.split {
+/* ---------- Foto sonriente + bio ---------- */
+.intro {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(32px, 5vw, 72px);
-  align-items: start;
+  gap: clamp(28px, 5vw, 56px);
+  align-items: center;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.photoWrap {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 22%;
+  border-radius: var(--r-xl);
+  display: block;
+  border: 1px solid var(--border);
+  box-shadow: var(--sh-3);
+}
+
+.photoStar {
+  position: absolute;
+  top: -14px;
+  right: -8px;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--accent-warm);
+  pointer-events: none;
 }
 
 .bio {
@@ -154,6 +144,7 @@
 
 .featureGrid {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 12px;
 }
 
@@ -198,37 +189,29 @@
   line-height: 1.6;
 }
 
-@media (max-width: 767px) {
-  /* Móvil: stats arriba, foto de pie a ras del borde inferior del panel. */
+@media (min-width: 600px) {
   .bigStats {
-    order: 1;
-  }
-  .photoWrap {
-    order: 2;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 4vw, 40px);
   }
 }
 
 @media (max-width: 480px) {
   .bigStatValue {
-    font-size: clamp(36px, 13vw, 52px);
+    font-size: clamp(36px, 12vw, 56px);
   }
 }
 
-@media (min-width: 768px) {
-  .contrastPanel {
-    grid-template-columns: minmax(200px, 0.75fr) 1fr;
-    gap: clamp(32px, 5vw, 64px);
-  }
-
-  .bigStats {
-    grid-template-columns: 1fr;
-    gap: clamp(18px, 3vw, 28px);
+@media (min-width: 700px) {
+  .featureGrid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (min-width: 900px) {
-  .split {
-    grid-template-columns: 1.2fr 1fr;
+  .intro {
+    grid-template-columns: minmax(280px, 0.8fr) 1fr;
+    gap: clamp(40px, 5vw, 72px);
   }
 }
 

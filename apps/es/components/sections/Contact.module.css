@@ -183,14 +183,14 @@
   padding: 14px 24px;
   border-radius: var(--r-pill);
   cursor: pointer;
-  transition: background 180ms var(--ease), border-color 180ms var(--ease),
-    transform 180ms var(--ease);
+  transition: background 200ms var(--ease), border-color 200ms var(--ease),
+    box-shadow 220ms var(--ease);
 }
 
 .submitBtn:hover:not(:disabled) {
   background: var(--cta-hover);
   border-color: var(--cta-hover);
-  transform: translateY(-1px);
+  box-shadow: 0 0 0 4px var(--accent-warm-soft);
 }
 
 .submitBtnSuccess {

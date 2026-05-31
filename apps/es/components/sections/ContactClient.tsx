@@ -7,6 +7,7 @@ import type {
   ContactSectionMeta,
   ProfileFull,
 } from "@ebecerra/sanity-client";
+import Kicker from "@/components/Kicker";
 import styles from "./Contact.module.css";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -256,7 +257,7 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <div className={styles.kicker}>{contactMeta.kicker ?? ""}</div>
+        <Kicker>{contactMeta.kicker}</Kicker>
 
         <div className={styles.split}>
           <div>

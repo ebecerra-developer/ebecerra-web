@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import AnnotatedText from "@/components/AnnotatedText";
-import LogoMark from "@/components/LogoMark";
 import type { HeroSection } from "@ebecerra/sanity-client";
 import styles from "./Hero.module.css";
 
@@ -22,31 +21,28 @@ export default async function Hero({ sanityData }: Props) {
       : [t("metaExperience"), t("metaResponse"), t("metaQuality"), t("metaLocation")];
 
   return (
-    <section
-      id="inicio"
-      aria-labelledby="hero-heading"
-      className={styles.hero}
-    >
+    <section id="inicio" aria-labelledby="hero-heading" className={styles.hero}>
       <div className={styles.grid}>
-        <div>
+        <div className={styles.textCol}>
           <div className={styles.kicker}>
             <span className={styles.kickerDot} />
             <span className={styles.kickerText}>
               {kicker.replace(/^\/\/\s*/, "")}
             </span>
           </div>
-          <h1
-            id="hero-heading"
-            className={styles.heading}
-          >
+
+          <h1 id="hero-heading" className={styles.heading}>
             <AnnotatedText text={title} />
           </h1>
-          <p className={`lead ${styles.lead}`}>
-            {lead}
-          </p>
+
+          <p className={`lead ${styles.lead}`}>{lead}</p>
+
           <div className={styles.ctas}>
             <a href="#contacto" className={styles.ctaPrimary}>
-              {ctaPrimary} →
+              <span className={styles.ctaLabel}>{ctaPrimary}</span>
+              <span className={styles.ctaArrow} aria-hidden="true">
+                →
+              </span>
             </a>
             <a href="#servicios" className={styles.ctaSecondary}>
               {ctaSecondary}
@@ -62,13 +58,22 @@ export default async function Hero({ sanityData }: Props) {
           </ul>
         </div>
 
-        <div className={styles.monogramWrapper}>
-          <LogoMark
-            variant="scaleDeep"
-            height="auto"
-            alt="eB"
-            className={styles.monogramImg}
-          />
+        <div className={styles.photoCol}>
+          <div className={styles.figurePanel}>
+            <span aria-hidden="true" className={styles.figureGlow} />
+            <span aria-hidden="true" className={styles.photoStar}>
+              ✦
+            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/hero-figure.png"
+              alt="Enrique Becerra"
+              width={768}
+              height={1365}
+              className={styles.figure}
+              decoding="async"
+            />
+          </div>
         </div>
       </div>
     </section>

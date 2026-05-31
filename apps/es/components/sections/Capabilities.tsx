@@ -1,5 +1,6 @@
 import type { CapabilitiesSection } from "@ebecerra/sanity-client";
 import { DEFAULT_CAPABILITIES_SECTION } from "@ebecerra/sanity-client";
+import Kicker from "@/components/Kicker";
 import styles from "./Capabilities.module.css";
 
 type Props = {
@@ -18,7 +19,7 @@ export default function Capabilities({ section }: Props) {
     >
       <div className={styles.inner}>
         <header className={styles.header}>
-          <div className={styles.kicker}>{data.kicker ?? ""}</div>
+          <Kicker>{data.kicker}</Kicker>
           <h2 id="capabilities-heading" className={styles.heading}>
             {data.title ?? ""}
           </h2>

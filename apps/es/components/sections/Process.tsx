@@ -1,4 +1,5 @@
 import type { ProcessStep, SectionMeta } from "@ebecerra/sanity-client";
+import Kicker from "@/components/Kicker";
 import styles from "./Process.module.css";
 
 type Props = {
@@ -25,7 +26,7 @@ export default function Process({ steps, sectionMeta }: Props) {
       className={styles.section}
     >
       <div className={styles.inner}>
-        <div className={styles.kicker}>{kicker}</div>
+        <Kicker tone="dark">{kicker}</Kicker>
         <h2 id="process-heading" className={styles.heading}>
           {title}
         </h2>

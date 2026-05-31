@@ -1,40 +1,41 @@
-/* Process.module.css */
+/* Process.module.css — banda OSCURA cálida (ritmo de la home) */
 .section {
-  padding: clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px);
-  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(56px, 8vw, 104px) clamp(20px, 4vw, 56px);
+  background: var(--ink-warm);
+  color: var(--cream);
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(42% 52% at 6% 0%, rgba(4, 120, 87, 0.3), transparent 55%),
+    radial-gradient(46% 56% at 100% 100%, rgba(194, 112, 61, 0.14), transparent 55%);
 }
 
 .inner {
+  position: relative;
   max-width: var(--container-max, 1100px);
   margin: 0 auto;
 }
 
-.kicker {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-  font-weight: 500;
-}
-
-.kickerAccent {
-  color: var(--cta);
-}
-
 .heading {
-  font-size: clamp(32px, 4.2vw, 56px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   margin: 0 0 16px;
   max-width: 760px;
+  color: var(--cream);
 }
 
 .lead {
   max-width: 620px;
   margin: 0 0 48px;
-  color: var(--text-secondary);
+  color: var(--on-warm-muted);
 }
 
 /* Desktop layout */
@@ -49,7 +50,7 @@
   left: 12.5%;
   right: 12.5%;
   height: 1px;
-  background: var(--border-strong);
+  background: var(--on-warm-border);
   z-index: 0;
 }
 
@@ -73,7 +74,7 @@
   top: 6px;
   bottom: 6px;
   width: 1px;
-  background: var(--border-strong);
+  background: var(--on-warm-border);
 }
 
 .mobileStep {
@@ -92,11 +93,6 @@
   top: 4px;
 }
 
-/* Shared step content */
-.step {
-  /* container for desktop step */
-}
-
 .stepCircleWrapper {
   margin-bottom: 24px;
 }
@@ -107,6 +103,7 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.25;
+  color: var(--cream);
   transition: color 180ms var(--ease);
 }
 
@@ -115,27 +112,28 @@
   font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.01em;
+  color: var(--cream);
   transition: color 180ms var(--ease);
 }
 
 .stepDesc {
   margin: 0;
   font-size: 14.5px;
-  color: var(--text-secondary);
+  color: var(--on-warm-muted);
   line-height: 1.65;
 }
 
 .stepDescMobile {
   margin: 0;
   font-size: 15px;
-  color: var(--text-secondary);
+  color: var(--on-warm-muted);
   line-height: 1.65;
 }
 
 .step:hover .stepHeading,
 .mobileStep:hover .stepHeadingMobile,
 .mobileStepLast:hover .stepHeadingMobile {
-  color: var(--cta);
+  color: var(--on-dark-accent);
 }
 
 /* StepCircle subcomponent */
@@ -143,15 +141,15 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--bg);
-  border: 1.5px solid var(--cta);
+  background: var(--ink-warm-2);
+  border: 1.5px solid var(--on-dark-accent);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 600;
-  color: var(--cta);
+  color: var(--on-dark-accent);
 }
 
 @media (min-width: 900px) {
@@ -161,5 +159,12 @@
 
   .mobileLayout {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepHeading,
+  .stepHeadingMobile {
+    transition: none;
   }
 }
