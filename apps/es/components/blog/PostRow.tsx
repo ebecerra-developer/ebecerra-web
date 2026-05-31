@@ -30,7 +30,7 @@ export default function PostRow({ post, locale }: Props) {
       <div className={styles.body}>
         {post.category && (
           <Link href={categoryPath(locale, post.category.slug)} className={styles.category}>
-            // {post.category.title.toUpperCase()}
+            {post.category.title.toUpperCase()}
           </Link>
         )}
         <h2 className={styles.title}>

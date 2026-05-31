@@ -22,7 +22,9 @@
 }
 
 .category {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-family: var(--font-mono);
   font-size: var(--fs-mono-md);
   letter-spacing: var(--tr-kicker-sm);
@@ -31,6 +33,14 @@
   font-weight: var(--fw-medium);
   width: fit-content;
   transition: color var(--dur-fast) var(--ease);
+}
+
+/* Estrella ✦ cálida — mismo gesto que los kickers de sección */
+.category::before {
+  content: "✦";
+  color: var(--accent-warm);
+  font-size: 0.92em;
+  line-height: 1;
 }
 
 .category:hover {

@@ -34,7 +34,7 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    color-mix(in oklab, var(--accent), white 70%) 0%,
+    color-mix(in oklab, var(--accent-warm), white 78%) 0%,
     var(--surface-subtle, #f4f1ee) 100%
   );
 }
@@ -52,7 +52,7 @@
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--cta);
   text-decoration: none;
   font-weight: 600;
   width: fit-content;
@@ -60,6 +60,7 @@
 
 .category:hover {
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .title {
@@ -76,7 +77,7 @@
 }
 
 .title a:hover {
-  color: var(--accent);
+  color: var(--cta);
 }
 
 .excerpt {

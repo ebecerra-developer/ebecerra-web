@@ -14,7 +14,7 @@ export default function FaqContactBlock({ title, lead, cta, href }: Props) {
         {title}
       </h2>
       <p className={styles.lead}>{lead}</p>
-      <a href={href} className={styles.cta}>
+      <a href={href} className={`${styles.cta} fx-ripple`}>
         {cta} →
       </a>
     </section>

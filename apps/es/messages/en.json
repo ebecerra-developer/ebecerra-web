@@ -66,6 +66,11 @@
   },
   "blog": {
     "readingMinutes": "{minutes, plural, one {1 min read} other {# min read}}",
-    "commentsCount": "{count, plural, one {1 comment} other {# comments}}"
+    "commentsCount": "{count, plural, one {1 comment} other {# comments}}",
+    "filterCategory": "Filter by category",
+    "filterAll": "All",
+    "publishedOn": "Published on {date}",
+    "updatedOn": "Updated on {date}",
+    "byAuthor": "by {name}"
   }
 }

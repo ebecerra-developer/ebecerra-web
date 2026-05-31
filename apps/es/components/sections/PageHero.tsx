@@ -1,4 +1,5 @@
 import Breadcrumbs, { type BreadcrumbItem } from "./Breadcrumbs";
+import Kicker from "@/components/Kicker";
 import styles from "./PageHero.module.css";
 
 type Props = {
@@ -16,8 +17,8 @@ type Props = {
  * Hero canónico de páginas secundarias (no-home). Define el patrón visual
  * compartido por Blog, FAQ, Ejemplos y cualquier página secundaria futura.
  *
- * Spec: kicker mono uppercase muted · H1 con `--fs-h2` peso 600 izquierda ·
- * lead opcional con `.lead` global · breadcrumbs opcionales encima.
+ * Spec: kicker ✦ con estrella (componente Kicker compartido) · H1 con `--fs-h2`
+ * peso 600 izquierda · lead opcional con `.lead` global · breadcrumbs encima.
  *
  * No se crean heroes ad-hoc para páginas secundarias — todas pasan por aquí.
  * El hero de la home (Hero.tsx) es distinto a propósito.
@@ -26,7 +27,7 @@ export default function PageHero({ kicker, title, lead, breadcrumbs }: Props) {
   return (
     <header className={styles.header}>
       {breadcrumbs && breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
-      <div className={styles.kicker}>{kicker}</div>
+      <Kicker>{kicker}</Kicker>
       <h1 className={styles.title}>{title}</h1>
       {lead && <p className={`lead ${styles.lead}`}>{lead}</p>}
     </header>
