@@ -21,7 +21,7 @@ const DEFAULT_DESC_EN =
 const DEFAULT_ORG_DESC_ES =
   "Webs a medida para autónomos y PYMEs en dos modalidades de pago (contrato de servicio o pago único) y tres niveles de complejidad. Hosting, mantenimiento y add-ons opcionales.";
 const DEFAULT_ORG_DESC_EN =
-  "Custom websites for freelancers and SMBs in two payment paths (service contract or one-time) and three complexity tiers. Hosting, maintenance and optional add-ons.";
+  "Custom websites for freelancers and SMBs in two payment paths (service contract or one-time) and three complexity levels. Hosting, maintenance and optional add-ons.";
 
 type Props = {
   settings: SiteSettingsFull;

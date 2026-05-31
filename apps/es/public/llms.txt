@@ -8,7 +8,7 @@ Las cifras y condiciones de servicio son reales y se pueden verificar en ebecerr
 
 ## Servicios
 
-Dos caminos de contratación × tres tiers de complejidad. El cliente elige cómo pagar, no qué producto comprar. Precios orientativos.
+Dos caminos de contratación × tres niveles de complejidad. El cliente elige cómo pagar, no qué producto comprar. Precios orientativos.
 
 **Camino A — Contrato de servicio** (permanencia mínima 12 meses, hosting + soporte incluidos):
 

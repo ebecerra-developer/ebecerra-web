@@ -6,12 +6,12 @@ export type FaqItem = { q: string; a: string };
 // Mantener en sync con los faqItem publicados en el workspace ebecerra-web.
 const es: FaqItem[] = [
   {
-    q: "¿Cuál es la diferencia entre los tiers Landing, Profesional y Avanzado?",
+    q: "¿Cuál es la diferencia entre los planes Landing, Profesional y Avanzado?",
     a: "Landing es una página única con un CTA claro (formulario o WhatsApp): ideal para autónomos que quieren estar online rápido y captar contactos sin invertir mucho. Profesional añade web a medida con más secciones, un CMS propio para que tu equipo publique sin llamarme, formación de uso y FAQ marcado para Google. Avanzado incluye además sistema de reservas online sincronizado con Google Calendar (o Doctoralia) y un add-on a elegir (chatbot, pagos, etc.). En el camino Compra directa los precios son 399 / 1.500 / 2.000 €; en Contrato de servicio son 199 / 699 / 999 € de alta + 19 / 69 / 89 €/mes.",
   },
   {
     q: "¿Cuánto tarda un proyecto web?",
-    a: "Depende del tier. Landing se entrega en 1-2 semanas. Profesional y Avanzado en 4-6 semanas. Un rescate de una web antigua (proyecto a medida fuera de catálogo) puede ir a 2-3 meses según lo que haya que mover y reescribir. En la primera conversación te doy un plazo concreto con hitos semanales, no un rango vago.",
+    a: "Depende del plan. Landing se entrega en 1-2 semanas. Profesional y Avanzado en 4-6 semanas. Un rescate de una web antigua (proyecto a medida fuera de catálogo) puede ir a 2-3 meses según lo que haya que mover y reescribir. En la primera conversación te doy un plazo concreto con hitos semanales, no un rango vago.",
   },
   {
     q: "¿Cómo se paga un proyecto?",
@@ -27,7 +27,7 @@ const es: FaqItem[] = [
   },
   {
     q: "¿Quién mantiene la web después de entregarla?",
-    a: "Si has elegido Compra directa, tu web es 100 % tuya desde el día 1. Landing incluye 1 mes de soporte post-entrega; Profesional y Avanzado, 3 meses. Después puedes contratar mantenimiento opcional aparte (29 / 69 / 89 €/mes según el tier) o gestionarla por tu cuenta. Si has elegido Contrato de servicio, el mantenimiento ya va incluido en la cuota mensual durante toda la vigencia del contrato (mínimo 12 meses).",
+    a: "Si has elegido Compra directa, tu web es 100 % tuya desde el día 1. Landing incluye 1 mes de soporte post-entrega; Profesional y Avanzado, 3 meses. Después puedes contratar mantenimiento opcional aparte (29 / 69 / 89 €/mes según el plan) o gestionarla por tu cuenta. Si has elegido Contrato de servicio, el mantenimiento ya va incluido en la cuota mensual durante toda la vigencia del contrato (mínimo 12 meses).",
   },
   {
     q: "¿Tu web entra en el Kit Digital?",
@@ -45,12 +45,12 @@ const es: FaqItem[] = [
 
 const en: FaqItem[] = [
   {
-    q: "What's the difference between Landing, Professional and Advanced tiers?",
+    q: "What's the difference between the Landing, Professional and Advanced plans?",
     a: "Landing is a single page with a clear CTA (form or WhatsApp): ideal for freelancers who want to be online fast and capture leads without investing much. Professional adds a custom multi-section website with a CMS so your team can publish without calling me, usage training and a Google-ready FAQ. Advanced also includes an online booking system synced with Google Calendar (or Doctoralia) and one add-on of your choice (chatbot, payments, etc.). In the Direct purchase path prices are €399 / €1,500 / €2,000; in Service contract they are €199 / €699 / €999 setup + €19 / €69 / €89/mo.",
   },
   {
     q: "How long does a web project take?",
-    a: "Depends on the tier. Landing ships in 1-2 weeks. Professional and Advanced in 4-6 weeks. Rescuing an old site (custom project off-catalogue) can take 2-3 months depending on what needs to be moved and rewritten. In the first conversation I give you a concrete timeline with weekly milestones, not a vague range.",
+    a: "Depends on the plan. Landing ships in 1-2 weeks. Professional and Advanced in 4-6 weeks. Rescuing an old site (custom project off-catalogue) can take 2-3 months depending on what needs to be moved and rewritten. In the first conversation I give you a concrete timeline with weekly milestones, not a vague range.",
   },
   {
     q: "How is a project paid?",
@@ -66,7 +66,7 @@ const en: FaqItem[] = [
   },
   {
     q: "Who maintains the website after delivery?",
-    a: "If you chose Direct purchase, your site is 100% yours from day 1. Landing includes 1 month of post-delivery support; Professional and Advanced, 3 months. After that you can contract optional maintenance separately (€29 / €69 / €89/mo by tier) or manage it yourself. If you chose Service contract, maintenance is already included in the monthly fee for the entire contract duration (12-month minimum).",
+    a: "If you chose Direct purchase, your site is 100% yours from day 1. Landing includes 1 month of post-delivery support; Professional and Advanced, 3 months. After that you can contract optional maintenance separately (€29 / €69 / €89/mo by plan) or manage it yourself. If you chose Service contract, maintenance is already included in the monthly fee for the entire contract duration (12-month minimum).",
   },
   {
     q: "Does your work qualify for Spain's Kit Digital grant?",
