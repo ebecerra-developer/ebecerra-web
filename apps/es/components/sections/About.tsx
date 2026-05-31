@@ -1,4 +1,5 @@
 import type { Feature, ProfileFull } from "@ebecerra/sanity-client";
+import { Link } from "@/i18n/navigation";
 import { urlFor } from "@/lib/sanity-image";
 import Kicker from "@/components/Kicker";
 import TiltCard from "@/components/TiltCard";
@@ -88,9 +89,12 @@ export default function About({ features, profile }: Props) {
             {bio1 && <p className={styles.bioPara}>{bio1}</p>}
             {bio2 && <p className={styles.bioParaLast}>{bio2}</p>}
 
-            <a href="#contacto" className={`link-accent ${styles.viewProfileLink}`}>
+            <Link
+              href="/sobre-mi"
+              className={`link-accent ${styles.viewProfileLink}`}
+            >
               {viewProfile} →
-            </a>
+            </Link>
           </div>
         </div>
 

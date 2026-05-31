@@ -1,0 +1,180 @@
+.main {
+  /* width: 100% — <main> es flex-child del <body flex-col>. Sin esto se
+     encoge a content-size. Ver Faq.module.css / ejemplos page.module.css. */
+  width: 100%;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.inner {
+  max-width: calc(var(--container-max) + 2 * 56px);
+  margin-inline: auto;
+  padding-block: 48px 120px;
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+
+/* ---------- Historia + foto/cifras ---------- */
+
+.body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 5vw, 56px);
+}
+
+@media (min-width: 900px) {
+  .body {
+    grid-template-columns: 1.5fr 0.9fr;
+    align-items: start;
+  }
+}
+
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 66ch;
+}
+
+.para {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+.para:first-child {
+  font-size: 18.5px;
+  color: var(--text);
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+@media (min-width: 900px) {
+  .aside {
+    position: sticky;
+    top: 104px;
+  }
+}
+
+.photoWrap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+}
+
+.photoStar {
+  position: absolute;
+  top: -12px;
+  left: -10px;
+  z-index: 1;
+  color: var(--accent-warm);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--sh-2);
+}
+
+.stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px 16px;
+  max-width: 340px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statValue {
+  font-family: var(--font-mono);
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--cta);
+}
+
+.statLabel {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+/* ---------- Principios (cómo trabajo) ---------- */
+
+.pillars {
+  margin-top: clamp(48px, 7vw, 88px);
+}
+
+.pillarsTitle {
+  margin: 0 0 24px;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.pillarGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 760px) {
+  .pillarGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pillarCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--panel-green);
+  border-radius: var(--r-lg);
+  padding: clamp(24px, 3vw, 30px);
+  transition: background 200ms var(--ease);
+}
+
+.pillarCard:hover {
+  background: var(--panel-green-deep);
+}
+
+.pillarStar {
+  color: var(--accent-warm-2);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.pillarCardTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--on-accent-text);
+}
+
+.pillarCardBody {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--on-accent-muted);
+}
