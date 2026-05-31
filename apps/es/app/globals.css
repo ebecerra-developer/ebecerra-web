@@ -170,8 +170,8 @@ a:hover {
 .fx-ripple::before {
   background: radial-gradient(
     circle,
-    rgba(216, 146, 63, 0.6) 0%,
-    rgba(216, 146, 63, 0) 70%
+    rgba(235, 172, 96, 0.78) 0%,
+    rgba(235, 172, 96, 0) 70%
   );
 }
 .fx-soft::before {

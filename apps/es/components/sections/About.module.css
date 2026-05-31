@@ -126,7 +126,7 @@
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: center 22%;
+  object-position: center 32%;
   border-radius: var(--r-xl);
   display: block;
   border: 1px solid var(--on-warm-border);
@@ -173,28 +173,27 @@
 }
 
 .featureCard {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--panel-green);
+  border: 1px solid var(--on-accent-border);
   border-radius: var(--r-lg);
   padding: 20px 22px;
   display: flex;
   gap: 16px;
-  transition: transform 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease);
+  transition: background 200ms var(--ease), border-color 200ms var(--ease);
 }
 
 .featureCard:hover {
-  border-color: var(--cta);
-  background: var(--cta-soft);
-  box-shadow: var(--sh-2);
+  background: var(--panel-green-deep);
+  border-color: var(--on-accent-border);
 }
 
 .featureIndex {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--cta);
+  color: var(--accent-warm-2);
   letter-spacing: 0.04em;
   padding-top: 2px;
-  font-weight: 500;
+  font-weight: 600;
   min-width: 24px;
 }
 
@@ -202,13 +201,13 @@
   font-family: var(--font-sans);
   font-size: 15.5px;
   font-weight: 600;
-  color: var(--text);
+  color: var(--on-accent-text);
   margin-bottom: 4px;
 }
 
 .featureDesc {
   font-size: 14px;
-  color: var(--text-muted);
+  color: var(--on-accent-muted);
   line-height: 1.6;
 }
 

@@ -117,7 +117,7 @@ export default function FooterClient({ settings }: Props) {
         </div>
 
         <div className={styles.bottom}>
-          <span>{copyright}</span>
+          <span className={styles.copyright}>{copyright}</span>
           {footer.legalLinks.length > 0 && (
             <div className={styles.legalLinks}>
               {footer.legalLinks.map((l) => (

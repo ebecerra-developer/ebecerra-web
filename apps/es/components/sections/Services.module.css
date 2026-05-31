@@ -98,8 +98,21 @@
   white-space: nowrap;
 }
 
+/* Hover de todo el toggle: el indicador se oscurece y el borde se marca */
+.pathTabs:hover {
+  border-color: var(--border-strong);
+}
+
+.pathTabs:hover .pathIndicator {
+  background: var(--cta-hover);
+}
+
 .pathTab:hover {
   color: var(--text);
+}
+
+.pathTab[aria-selected="false"]:hover {
+  background: var(--cta-soft);
 }
 
 .pathTabActive {
@@ -108,6 +121,18 @@
 
 .pathTabActive:hover {
   color: var(--text-on-accent);
+}
+
+/* Móvil: toggle a ancho completo y fuente algo menor para que el texto centre bien */
+@media (max-width: 560px) {
+  .pathTabs {
+    display: grid;
+    width: 100%;
+  }
+  .pathTab {
+    padding: 9px 10px;
+    font-size: 13.5px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -362,6 +387,12 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  transition: border-color 180ms var(--ease), box-shadow 180ms var(--ease);
+}
+
+.addOnCard:hover {
+  border-color: var(--cta);
+  box-shadow: var(--sh-2);
 }
 
 .addOnTitle {
