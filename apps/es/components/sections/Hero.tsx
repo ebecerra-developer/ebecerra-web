@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { getTranslations } from "next-intl/server";
 import AnnotatedText from "@/components/AnnotatedText";
 import LogoMark from "@/components/LogoMark";
@@ -54,14 +53,13 @@ export default async function Hero({ sanityData }: Props) {
             </a>
           </div>
 
-          <div className={styles.metaStrip}>
+          <ul className={styles.metaStrip}>
             {trustBadges.map((badge, i) => (
-              <Fragment key={i}>
-                {i > 0 && <span aria-hidden="true">·</span>}
-                <span>{badge}</span>
-              </Fragment>
+              <li key={i} className={styles.badge}>
+                {badge}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div className={styles.monogramWrapper}>

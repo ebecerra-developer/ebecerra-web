@@ -1,4 +1,5 @@
 import type { Feature, ProfileFull } from "@ebecerra/sanity-client";
+import { urlFor } from "@/lib/sanity-image";
 import styles from "./About.module.css";
 
 type Stat = { value: string; label: string };
@@ -9,8 +10,8 @@ type Props = {
 };
 
 // Todo el copy de la sección viene de Sanity (profile). El editor controla
-// kicker (incluyendo el "// 02." si lo quiere), title, bio1, bio2, stats y
-// el CTA. Sin numbering hardcoded en JSX.
+// kicker (incluyendo el "// 02." si lo quiere), title, bio1, bio2, stats, foto
+// y el CTA. Sin numbering hardcoded en JSX.
 export default function About({ features, profile }: Props) {
   const kicker = profile?.aboutKicker ?? "// 02. Sobre mí";
   const title = profile?.aboutTitle ?? "Hola, soy Enrique Becerra";
@@ -25,6 +26,17 @@ export default function About({ features, profile }: Props) {
         { value: "6", label: "proyectos AAPP" },
       ];
 
+  const photo = profile?.aboutPhoto;
+  const photoSrc = photo
+    ? {
+        src: urlFor(photo).width(640).auto("format").url(),
+        srcSet: [320, 480, 640, 960]
+          .map((w) => `${urlFor(photo).width(w).auto("format").url()} ${w}w`)
+          .join(", "),
+        alt: photo.alt ?? profile?.name ?? "Enrique Becerra",
+      }
+    : null;
+
   return (
     <section
       id="sobre-mi"
@@ -37,25 +49,39 @@ export default function About({ features, profile }: Props) {
           {title}
         </h2>
 
+        {/* Panel verde de contraste — el momento firma de la home: foto + cifras */}
+        <div className={styles.contrastPanel}>
+          <span aria-hidden="true" className={styles.panelCircle} />
+          {photoSrc && (
+            <div className={styles.photoWrap}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photoSrc.src}
+                srcSet={photoSrc.srcSet}
+                sizes="(min-width: 768px) 280px, 60vw"
+                alt={photoSrc.alt}
+                loading="lazy"
+                decoding="async"
+                width={640}
+                height={853}
+                className={styles.photo}
+              />
+            </div>
+          )}
+          <div className={styles.bigStats}>
+            {stats.map((s, i) => (
+              <div key={`${s.label}-${i}`} className={styles.bigStat}>
+                <div className={styles.bigStatValue}>{s.value}</div>
+                <div className={styles.bigStatLabel}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className={styles.split}>
           <div className={styles.bio}>
             {bio1 && <p className={styles.bioPara}>{bio1}</p>}
             {bio2 && <p className={styles.bioParaLast}>{bio2}</p>}
-
-            <div
-              className={styles.stats}
-              style={{ gridTemplateColumns: `repeat(${stats.length}, 1fr)` }}
-            >
-              {stats.map((s, i) => (
-                <div
-                  key={`${s.label}-${i}`}
-                  className={i > 0 ? styles.statItemBordered : styles.statItem}
-                >
-                  <div className={styles.statValue}>{s.value}</div>
-                  <div className={styles.statLabel}>{s.label}</div>
-                </div>
-              ))}
-            </div>
 
             <a href="#contacto" className={`link-accent ${styles.viewProfileLink}`}>
               {viewProfile} →

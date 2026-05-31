@@ -8,6 +8,7 @@ import {
   getProfile,
   getServicesPricing,
   getCapabilitiesSection,
+  getIntegrationsStrip,
   getContactSectionMeta,
   getSectionMeta,
 } from "@ebecerra/sanity-client";
@@ -15,6 +16,7 @@ import Nav from "@/components/sections/Nav";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import About from "@/components/sections/About";
+import Integrations from "@/components/sections/Integrations";
 import Capabilities from "@/components/sections/Capabilities";
 import Process from "@/components/sections/Process";
 import Examples from "@/components/sections/Examples";
@@ -39,6 +41,7 @@ export default async function Home({
     profileFeatures,
     profileData,
     capabilitiesSection,
+    integrationsStrip,
     processMeta,
     contactMeta,
   ] = await Promise.all([
@@ -48,6 +51,11 @@ export default async function Home({
     getProfileFeatures(locale).catch(() => null),
     getProfile(locale).catch(() => null),
     getCapabilitiesSection(locale),
+    getIntegrationsStrip(locale).catch(() => ({
+      enabled: false,
+      heading: null,
+      items: [],
+    })),
     getSectionMeta("processSectionMeta", locale).catch(() => null),
     getContactSectionMeta(locale),
   ]);
@@ -62,6 +70,7 @@ export default async function Home({
         <Hero sanityData={heroData} />
         <Services pricing={servicesPricing} />
         <About features={resolvedFeatures} profile={profileData} />
+        <Integrations data={integrationsStrip} />
         <Capabilities section={capabilitiesSection} />
         <Process steps={resolvedProcess} sectionMeta={processMeta} />
         <Examples locale={locale} />

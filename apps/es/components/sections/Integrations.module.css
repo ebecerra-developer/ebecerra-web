@@ -1,0 +1,62 @@
+/* Integrations.module.css — franja de herramientas (home apps/es) */
+.section {
+  padding: clamp(32px, 4vw, 56px) clamp(20px, 4vw, 56px);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.inner {
+  max-width: var(--container-max, 1100px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heading {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 clamp(20px, 3vw, 32px);
+}
+
+.logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 5vw, 56px);
+}
+
+.logoItem {
+  display: flex;
+}
+
+.logoLink {
+  display: flex;
+}
+
+.logo {
+  height: 28px;
+  width: auto;
+  max-width: 124px;
+  object-fit: contain;
+  opacity: 0.55;
+  filter: grayscale(1);
+  transition: opacity 180ms var(--ease), filter 180ms var(--ease);
+}
+
+.logoLink:hover .logo,
+.logo:hover {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo {
+    transition: none;
+  }
+}
