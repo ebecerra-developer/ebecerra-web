@@ -187,7 +187,8 @@ export async function getHeroSection(locale: Locale): Promise<HeroSection | null
       "ctaPrimary": ${loc("ctaPrimary")},
       "ctaSecondary": ${loc("ctaSecondary")},
       "trustBadges": trustBadges[]{ "v": coalesce(@[$locale], @.es, @) },
-      "marqueeItems": marqueeItems[]{ "v": coalesce(@[$locale], @.es, @) }
+      "marqueeItems": marqueeItems[]{ "v": coalesce(@[$locale], @.es, @) },
+      "offerBadge": ${loc("offerBadge")}
     }`,
     { locale }
   );

@@ -17,7 +17,7 @@
   /* ---------- Color — Structure ---------- */
   --bg:              #f6f1e9;  /* crema cálida — fondo principal (ebecerra 2.0) */
   --surface:         #ffffff;  /* cards, modales, inputs (contraste cálido) */
-  --surface-subtle:  #efe6d8;  /* crema tostada — secciones alternas, zebra cálida */
+  --surface-subtle:  #ece0cb;  /* crema tostada — secciones alternas, zebra cálida (más visible) */
   --border:          #e7e5e4;  /* stone-200 — divisores sutiles */
   --border-strong:   #d6d3d1;  /* stone-300 — inputs, tablas */
   --overlay:         rgba(12, 10, 9, 0.04);

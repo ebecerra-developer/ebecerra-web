@@ -123,6 +123,7 @@ export type HeroSection = {
   ctaSecondary: string | null;
   trustBadges: string[];
   marqueeItems: string[];
+  offerBadge: string | null;
 };
 
 // ---------- Capabilities (sección 03) ----------

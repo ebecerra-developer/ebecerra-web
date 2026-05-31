@@ -52,10 +52,17 @@ export default defineType({
       name: "marqueeItems",
       title: "Cinta de valor (marquee)",
       description:
-        "Frases cortas que desfilan en la cinta verde bajo el hero. Ej: Sin plantillas · Web que convierte · Código tuyo. Sin jerga.",
+        "Frases cortas que desfilan bajo el hero. Ej: Sin plantillas · Web que convierte · Demo personalizada y gratuita. Sin jerga.",
       type: "array",
       of: [{ type: "localeString" }],
       validation: (Rule) => Rule.max(12),
+    }),
+    defineField({
+      name: "offerBadge",
+      title: "Reclamo / oferta (píldora del hero)",
+      description:
+        "Gancho destacado junto a los botones del hero. Ej: Demo personalizada y gratuita.",
+      type: "localeString",
     }),
   ],
   preview: {
