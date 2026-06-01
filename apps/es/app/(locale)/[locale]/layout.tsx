@@ -9,6 +9,7 @@ import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { routing } from "@/i18n/routing";
 import StructuredData from "@/components/StructuredData";
+import MetaPixel from "@/components/MetaPixel";
 import ChatbotLoader from "@/components/ChatbotLoader";
 import { DisableDraftMode } from "@/components/DisableDraftMode";
 import { getSiteSettingsFull, getProfile, getServicesPricing, SanityLive } from "@ebecerra/sanity-client";
@@ -218,6 +219,7 @@ export default async function LocaleLayout({
         )}
         <Analytics />
         <SpeedInsights />
+        <MetaPixel />
       </body>
     </html>
   );

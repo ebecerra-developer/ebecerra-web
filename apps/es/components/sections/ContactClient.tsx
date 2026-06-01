@@ -228,6 +228,8 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
       }
       setStatus("success");
       setAnswers({});
+      // Conversión para el Píxel de Meta: lead capturado vía formulario.
+      window.fbq?.("track", "Lead");
     } catch {
       setStatus("error");
     }
