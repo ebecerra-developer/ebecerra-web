@@ -51,6 +51,27 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-06-03 · Post "Cómo nace un proyecto" (retrato sonriendo + verde) ──
+  {
+    html: "personal/2026/06/03-post-como-nace-proyecto/index.html",
+    out:  "personal/2026/06/03-post-como-nace-proyecto/final.png",
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-06-07 · Post "Web ligera = sostenible" (Día del Medioambiente) ──
+  {
+    html: "personal/2026/06/07-post-web-ligera-sostenible/index.html",
+    out:  "personal/2026/06/07-post-web-ligera-sostenible/final.png",
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-06-02 · Carrusel "5 mitos sobre tener una web" · 7 slides 1080×1350 (4:5) ──
+  ...[1,2,3,4,5,6,7].map((n) => ({
+    html: `personal/2026/06/02-carrusel-mitos-web/slide-${n}.html`,
+    out:  `personal/2026/06/02-carrusel-mitos-web/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
   // ── 0024 · Tríptico panorámico "Una web es un currante más en tu equipo." ──
   // 1 HTML 3240×1350 → 3 paneles 1080×1350 cortados con clip pixel-perfect.
   // ORDEN DE SUBIDA A IG: panel-3 primero, panel-2 segundo, panel-1 último,
@@ -92,6 +113,12 @@ const JOBS = [
     html: "personal/covers/gbp-cover.html",
     out:  "personal/covers/gbp-cover.png",
     w: 2048, h: 1080,
+  },
+  // ── OBS background (1920×1080 Full HD) ───────────────────────────────
+  {
+    html: "personal/covers/obs-background.html",
+    out:  "personal/covers/obs-background.png",
+    w: 1920, h: 1080,
   },
 
   // ── Highlight covers (1080×1920) ─────────────────────────────────────

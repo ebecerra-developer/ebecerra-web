@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel 2026-06-04 "Lo que cree mi madre que hago" · 1080×1920 9:16
+     Humor: mito exagerado (hacker Matrix) vs realidad mundana (ChatGPT + 50
+     pestañas). Inter en todo, acento por color. GSAP seek-friendly (canon). */
+  :root {
+    --green:#047857; --green-deep:#024d33; --green-light:#6EE7B7;
+    --cream:#FAF6EE; --ink:#1f1810; --muted:#5b5247; --mtx:#54f7ab;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1080px; height: 1920px; overflow: hidden; background: #02583c;
+    font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased;
+  }
+  .stage {
+    position: relative; width: 1080px; height: 1920px; overflow: hidden;
+    background: radial-gradient(120% 80% at 30% 22%, #058a63 0%, #047857 50%, #02583c 100%);
+  }
+
+  .scene {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 150px 96px; text-align: center;
+  }
+  .scene--green { background: radial-gradient(120% 80% at 30% 22%, #058a63 0%, #047857 50%, #02583c 100%); color: var(--cream); }
+  .scene--cream { background: var(--cream); color: var(--ink); }
+
+  em { font-style: normal; }
+  .scene--green em { color: var(--green-light); }
+  .scene--cream em { color: var(--green); }
+
+  .brand-corner {
+    position: absolute; top: 60px; left: 60px; z-index: 50;
+    display: flex; align-items: center; gap: 13px;
+    background: rgba(2,40,26,0.62);
+    padding: 11px 24px 11px 11px; border-radius: 999px;
+    font-weight: 700; font-size: 26px; color: var(--cream);
+  }
+  .brand-corner .dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--cream); color: var(--green);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 18px;
+  }
+
+  .label {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-weight: 800; font-size: 32px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 16px 34px; border-radius: 999px; margin-bottom: 54px;
+  }
+  .label--green { background: var(--green); color: var(--cream); }
+  .label--cream { background: var(--green); color: var(--cream); }
+  .label--matrix { background: var(--mtx); color: #02100a; }
+
+  /* S1 hook */
+  .kick { font-weight:700; font-size:27px; letter-spacing:0.16em; text-transform:uppercase; color:var(--green-light); margin-bottom:36px; }
+  .s1-title { font-weight:900; font-size:98px; line-height:0.98; letter-spacing:-0.05em; color:var(--cream); }
+  .s1-sub { margin-top:44px; font-size:38px; font-weight:500; color:rgba(250,246,238,0.78); }
+
+  /* S2 — imagen "hacker de película" generada con Sanity AI */
+  .scene--matrix { background:#02100a; color: var(--cream); }
+  .scene--matrix .bg { position:absolute; inset:0; z-index:0; background-image:url("bg-hacker.jpg"); background-size:cover; background-position:center; }
+  .scene--matrix::before {
+    content:""; position:absolute; inset:0; z-index:1;
+    background: linear-gradient(180deg, rgba(2,16,10,0.72) 0%, rgba(2,16,10,0.30) 42%, rgba(2,16,10,0.30) 58%, rgba(2,16,10,0.88) 100%);
+  }
+  .scene--matrix .pop { position:relative; z-index:2; }
+  .s2-title { font-weight:900; font-size:96px; line-height:1.0; letter-spacing:-0.04em; color:var(--cream); text-shadow:0 3px 26px rgba(0,0,0,0.85); }
+  .s2-title em { color:var(--mtx); }
+
+  /* S3 chat */
+  .chat { background:#fff; border-radius:30px; max-width:760px; overflow:hidden; box-shadow:0 28px 56px -22px rgba(2,40,26,0.32); text-align:left; }
+  .chat__hd { display:flex; align-items:center; gap:16px; padding:26px 32px; border-bottom:2px solid #efeae0; font-weight:800; font-size:32px; color:var(--ink); }
+  .chat__hd .bot { width:54px; height:54px; border-radius:50%; background:#10a37f; color:#fff; display:flex; align-items:center; justify-content:center; font-size:30px; font-family:"Segoe UI Emoji","Noto Color Emoji",sans-serif; }
+  .chat__body { padding:36px 32px; display:flex; justify-content:flex-end; }
+  .chat__bubble { background:var(--green); color:var(--cream); border-radius:28px 28px 10px 28px; padding:28px 34px; font-size:42px; font-weight:600; line-height:1.22; max-width:600px; letter-spacing:-0.01em; }
+
+  /* S4 tabs */
+  .line { font-weight:700; font-size:62px; line-height:1.14; letter-spacing:-0.03em; margin-bottom:52px; max-width:900px; }
+  .tabs { display:flex; flex-wrap:wrap; gap:9px; justify-content:center; max-width:860px; background:rgba(250,246,238,0.14); padding:18px; border-radius:18px; }
+  .tab { width:74px; height:54px; background:rgba(250,246,238,0.74); border-radius:11px 11px 0 0; }
+  .tab--more { width:auto; padding:0 22px; height:54px; display:flex; align-items:center; background:var(--cream); color:var(--green); font-weight:800; font-size:27px; border-radius:11px; }
+
+  /* S5 CTA */
+  .cta-title { font-weight:900; font-size:82px; line-height:1.0; letter-spacing:-0.04em; color:var(--cream); max-width:900px; }
+  .cta-sub { margin-top:34px; font-size:46px; font-weight:700; color:var(--cream); }
+  .cta-pill { margin-top:48px; display:inline-block; background:var(--cream); color:var(--green); font-size:50px; font-weight:800; padding:24px 50px; border-radius:999px; box-shadow:0 18px 36px rgba(2,40,26,0.4); }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <!-- S1 · hook (visible en t=0) -->
+    <div class="scene scene--green" id="s1">
+      <div class="kick">de profesión: misterio</div>
+      <div class="s1-title">Lo que mi madre<br/>cree que <em>hago</em>.</div>
+      <div class="s1-sub">(agárrate)</div>
+    </div>
+
+    <!-- S2 · el mito (hacker Matrix) -->
+    <div class="scene scene--matrix" id="s2">
+      <div class="bg"></div>
+      <div class="pop label label--matrix">🕶️ lo que cree mamá</div>
+      <div class="pop s2-title">Hackeando<br/>el <em>Pentágono</em>.</div>
+    </div>
+
+    <!-- S3 · la realidad (ChatGPT) -->
+    <div class="scene scene--cream" id="s3">
+      <div class="pop label label--cream">💻 la realidad</div>
+      <div class="pop chat">
+        <div class="chat__hd"><span class="bot">🤖</span> ChatGPT</div>
+        <div class="chat__body">
+          <div class="chat__bubble">Oye… ¿me cambias este botón de color? 🙏</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S4 · y la otra realidad (50 pestañas) -->
+    <div class="scene scene--green" id="s4">
+      <div class="pop line">Ah, y 50 pestañas abiertas.<br/>Cerrar una, <em>jamás</em>.</div>
+      <div class="pop tabs">
+        <div class="tab"></div><div class="tab"></div><div class="tab"></div>
+        <div class="tab"></div><div class="tab"></div><div class="tab"></div>
+        <div class="tab"></div><div class="tab"></div><div class="tab"></div>
+        <div class="tab--more">+41</div>
+      </div>
+    </div>
+
+    <!-- S5 · CTA -->
+    <div class="scene scene--green" id="s5">
+      <div class="pop cta-title">Spoiler: la web te queda<br/>igual de <em>bien</em> 😏</div>
+      <div class="pop cta-sub">¿Hablamos?</div>
+      <div class="pop cta-pill">@ebecerra.es</div>
+    </div>
+
+    <div class="brand-corner"><span class="dot">eB</span>@ebecerra.es</div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
+    const FO = { immediateRender: false };
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+
+    gsap.set("#s1", { opacity: 1 });
+    gsap.set(["#s2", "#s3", "#s4", "#s5"], { opacity: 0 });
+
+    // S1
+    tl.fromTo("#s1", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FO }, 3.0);
+
+    // S2 (mito hacker)
+    tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.45 }, 3.2);
+    tl.fromTo("#s2 .pop", { y: 52, opacity: 0 }, { y: 0, opacity: 1, duration: 0.72, stagger: 0.14 }, 3.45);
+    tl.fromTo("#s2", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FO }, 6.3);
+
+    // S3 (ChatGPT)
+    tl.fromTo("#s3", { opacity: 0 }, { opacity: 1, duration: 0.45 }, 6.5);
+    tl.fromTo("#s3 .pop", { y: 52, opacity: 0 }, { y: 0, opacity: 1, duration: 0.72, stagger: 0.14 }, 6.75);
+    tl.fromTo("#s3", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FO }, 9.6);
+
+    // S4 (50 pestañas)
+    tl.fromTo("#s4", { opacity: 0 }, { opacity: 1, duration: 0.45 }, 9.8);
+    tl.fromTo("#s4 .pop", { y: 52, opacity: 0 }, { y: 0, opacity: 1, duration: 0.72, stagger: 0.14 }, 10.05);
+    tl.fromTo("#s4", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FO }, 12.8);
+
+    // S5 (CTA)
+    tl.fromTo("#s5", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 13.0);
+    tl.fromTo("#s5 .pop", { y: 46, opacity: 0 }, { y: 0, opacity: 1, duration: 0.82, stagger: 0.16 }, 13.3);
+  </script>
+</body>
+</html>

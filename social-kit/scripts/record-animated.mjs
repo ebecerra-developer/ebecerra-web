@@ -43,6 +43,8 @@ const TARGETS = [
   { name: "0022-story-pregunta-ideas", folder: "personal/2026/05/0022-story-pregunta-ideas", duration: 10 },
   // Reel 0023: tu web es un currante más (3 escenas + CTA, 14s)
   { name: "0023-reel-web-currante", folder: "personal/2026/05/0023-reel-web-currante", duration: 14 },
+  // Reel 2026-06-04: "Lo que cree mi madre que hago" (humor, 5 escenas + hold final ~2.4s)
+  { name: "04-reel-madre-cree", folder: "personal/2026/06/04-reel-madre-cree", duration: 17 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,
@@ -103,6 +105,10 @@ async function record(target) {
     "-y",
     "-framerate", String(FPS),
     "-i", path.join(tmpDir, "frame-%04d.png"),
+    // El paso a yuv420p (submuestreo croma + rango tv) dessatura un pelín el
+    // verde respecto a los PNG estáticos. Compensamos con un boost suave de
+    // saturación para que los Reels casen con los posts.
+    "-vf", "eq=saturation=1.12",
     "-c:v", "libx264",
     "-pix_fmt", "yuv420p",
     "-crf", "20",

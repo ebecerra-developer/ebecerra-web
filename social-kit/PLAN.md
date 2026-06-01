@@ -166,13 +166,18 @@ Reglas para no quemar temas. Si choca, pivotar a otra cosa del backlog.
 
 ## 🎯 Cadencia objetivo
 
-**3 piezas/semana de techo. Realista para side-gig.**
+**4 piezas/semana de techo. Realista para side-gig.** (Subido de 3 a 4 el 2026-05-31 — el ritmo de Notion sostiene 4 slots de descubrimiento.)
+
+Ritmo semanal canónico (coincide con la database de Notion):
 
 | Día | Slot | Tipo |
 |---|---|---|
-| Lunes | 10:00 | Post fuerte (carrusel o single image) |
-| Jueves | 13:00 | Story animada o carrusel ligero |
-| Sábado | (opcional) | Story-pregunta para engagement, sin curro |
+| Martes | 10–13 h | Carrusel |
+| Miércoles | 10–13 h | Post foto |
+| Jueves | 10–13 h | Reel |
+| Domingo | 11–13 h o 21–22 h | Post foto |
+
+Stories: libres, sin slot fijo (retención de comunidad, no descubrimiento).
 
 Si una semana no apetece, salta. No forzar.
 
