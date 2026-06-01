@@ -202,6 +202,13 @@
   cursor: wait;
 }
 
+/* Deshabilitado por falta de consentimiento (no durante el envío): se ve
+   inactivo para dejar claro que falta marcar la casilla de privacidad. */
+.submitBtn:disabled:not(.submitBtnSending) {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 @media (min-width: 900px) {
   .split {
     grid-template-columns: 1fr 1.2fr;

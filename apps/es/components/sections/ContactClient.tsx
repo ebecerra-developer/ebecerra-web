@@ -182,7 +182,7 @@ function groupFields(
 export default function ContactClient({ contactMeta, form, profile }: Props) {
   const [answers, setAnswers] = useState<Answers>({});
   const [website, setWebsite] = useState("");
-  const [gdpr, setGdpr] = useState(true);
+  const [gdpr, setGdpr] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [missing, setMissing] = useState<string[]>([]);
 
@@ -400,7 +400,7 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
               </span>
               <button
                 type="submit"
-                disabled={status === "sending"}
+                disabled={status === "sending" || !gdpr}
                 className={`${styles.submitBtn} fx-ripple${status === "success" ? ` ${styles.submitBtnSuccess}` : ""}${status === "sending" ? ` ${styles.submitBtnSending}` : ""}`}
               >
                 {status === "success"
