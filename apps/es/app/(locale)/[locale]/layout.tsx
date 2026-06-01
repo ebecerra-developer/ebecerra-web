@@ -10,6 +10,7 @@ import { VisualEditing } from "next-sanity/visual-editing";
 import { routing } from "@/i18n/routing";
 import StructuredData from "@/components/StructuredData";
 import MetaPixel from "@/components/MetaPixel";
+import CookieConsent from "@/components/CookieConsent";
 import ChatbotLoader from "@/components/ChatbotLoader";
 import { DisableDraftMode } from "@/components/DisableDraftMode";
 import { getSiteSettingsFull, getProfile, getServicesPricing, SanityLive } from "@ebecerra/sanity-client";
@@ -156,12 +157,14 @@ export default async function LocaleLayout({
     notFound();
   }
   setRequestLocale(locale);
-  const [t, settings, profile, pricing] = await Promise.all([
+  const [t, tCookies, settings, profile, pricing] = await Promise.all([
     getTranslations({ locale, namespace: "a11y" }),
+    getTranslations({ locale, namespace: "cookies" }),
     getSiteSettingsFull(locale),
     getProfile(locale),
     getServicesPricing(locale).catch(() => null),
   ]);
+  const privacyHref = locale === routing.defaultLocale ? "/privacidad" : `/${locale}/privacidad`;
 
   return (
     <html
@@ -220,6 +223,13 @@ export default async function LocaleLayout({
         <Analytics />
         <SpeedInsights />
         <MetaPixel />
+        <CookieConsent
+          message={tCookies("message")}
+          accept={tCookies("accept")}
+          reject={tCookies("reject")}
+          learnMore={tCookies("learnMore")}
+          privacyHref={privacyHref}
+        />
       </body>
     </html>
   );

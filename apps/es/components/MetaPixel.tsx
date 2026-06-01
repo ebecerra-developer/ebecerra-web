@@ -2,7 +2,8 @@
 
 import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { CONSENT_STORAGE_KEY, CONSENT_EVENT } from "./CookieConsent";
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
 
@@ -16,7 +17,11 @@ declare global {
  * Píxel de Meta (Facebook/Instagram Ads) para ebecerra.es.
  *
  * El ID se lee de NEXT_PUBLIC_FB_PIXEL_ID: si no está definida (dev, preview)
- * el componente no renderiza nada y no se ensucia el dataset.
+ * no renderiza nada y no se ensucia el dataset.
+ *
+ * RGPD: el píxel SOLO se carga si el usuario ha aceptado las cookies en el
+ * banner de consentimiento (CookieConsent). Sin consentimiento, no se dispara
+ * ni el script ni ninguna cookie de Meta.
  *
  * En App Router las navegaciones cliente no recargan la página, así que el
  * PageView inicial lo dispara el script de init y aquí emitimos uno por cada
@@ -25,17 +30,31 @@ declare global {
 export default function MetaPixel() {
   const pathname = usePathname();
   const firstLoad = useRef(true);
+  const [consented, setConsented] = useState(false);
 
   useEffect(() => {
-    if (!PIXEL_ID) return;
+    const read = () => {
+      try {
+        setConsented(localStorage.getItem(CONSENT_STORAGE_KEY) === "accepted");
+      } catch {
+        setConsented(false);
+      }
+    };
+    read();
+    window.addEventListener(CONSENT_EVENT, read);
+    return () => window.removeEventListener(CONSENT_EVENT, read);
+  }, []);
+
+  useEffect(() => {
+    if (!PIXEL_ID || !consented) return;
     if (firstLoad.current) {
       firstLoad.current = false;
       return;
     }
     window.fbq?.("track", "PageView");
-  }, [pathname]);
+  }, [pathname, consented]);
 
-  if (!PIXEL_ID) return null;
+  if (!PIXEL_ID || !consented) return null;
 
   return (
     <Script id="meta-pixel" strategy="afterInteractive">

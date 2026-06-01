@@ -72,5 +72,11 @@
     "publishedOn": "Published on {date}",
     "updatedOn": "Updated on {date}",
     "byAuthor": "by {name}"
+  },
+  "cookies": {
+    "message": "I use advertising measurement cookies (the Meta Pixel) to improve my ads. They only load if you accept.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "learnMore": "Learn more"
   }
 }

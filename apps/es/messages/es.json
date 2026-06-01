@@ -72,5 +72,11 @@
     "publishedOn": "Publicado el {date}",
     "updatedOn": "Actualizado el {date}",
     "byAuthor": "por {name}"
+  },
+  "cookies": {
+    "message": "Uso cookies de medición publicitaria (el Píxel de Meta) para mejorar mis anuncios. Solo se activan si las aceptas.",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "learnMore": "Más información"
   }
 }
