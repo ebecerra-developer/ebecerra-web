@@ -141,6 +141,11 @@ export async function generateMetadata({
       },
     },
     category: "technology",
+    verification: {
+      other: {
+        "facebook-domain-verification": "njjp6ey1sp0v07ciksqrycwvuekto7",
+      },
+    },
     formatDetection: { telephone: false, address: false, email: false },
   };
 }
