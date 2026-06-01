@@ -111,3 +111,43 @@ Invocar con `/nombre`. Para crear contenido (post, copy, SEO, AEO) entra por **`
 - **Infra y misc:** `/resend`, `/deploy-to-vercel`, `/simplify`.
 
 Añadir más: `npx skills add <owner/repo@skill> -g -y` (global) o sin `-g` para el proyecto.
+
+---
+
+## Agentes (subagentes de revisión y arquitectura)
+
+Subagentes en [.claude/agents/](.claude/agents/). **No son roles con los que se chatea** — el agente principal los **delega** para una tarea concreta y se queda con la conclusión. Tienen menos contexto que el principal (eso es una ventaja para revisar: ojos frescos e independientes). Los **testers son read-only por contrato**.
+
+### Testers — al cerrar una tarea
+
+Cuando el principal dé algo por terminado y verificado por sí mismo, lanza los testers que apliquen **antes de considerarlo cerrado**. Si un tester devuelve hallazgos, iterar y volver a pasar. Mapa por tipo de entrega:
+
+| Terminas… | Lanza |
+|---|---|
+| Post / pieza de IG/FB | `tester-copy` + `tester-visual-social` |
+| Desarrollo web / plantilla / demo / página pública | `tester-visual-web` + `tester-dev` + `tester-seo-a11y` |
+| Herramienta / feature con lógica | `tester-dev` + `/code-review high` (rendimiento/calidad) + `/security-review` (seguridad) |
+| Copy de una sección / landing | `tester-copy` (+ `tester-visual-web` si afecta al layout) |
+
+Los independientes se lanzan **en paralelo** (varias llamadas Agent en un mismo mensaje).
+
+### Arquitectos — antes de desarrollar, no después
+
+`arquitecto-escalabilidad`, `arquitecto-robustez`, `arquitecto-mantenibilidad`, `arquitecto-seguridad`. Invocar **solo en decisiones complejas de arquitectura o herramientas nuevas**, en paralelo, para:
+
+- **obtener ideas** desde lentes distintas, o
+- **contrastar como test** una arquitectura ya pensada antes de implementarla.
+
+**Nunca seguirlos a ciegas.** Son perspectivas a sintetizar — el principal decide, con su contexto del monorepo. Para revisar seguridad/rendimiento de código **ya escrito** (no diseño) usar `/security-review` y `/code-review`, no los arquitectos.
+
+### Contenido social: ideas + producción en paralelo
+
+`buscador-ideas-social` es un **scout de ideas**: rastrea fuentes externas (web/Tavily/tendencias/competencia) e internas (posts ya publicados, calendario de Notion, blog) y devuelve una lista distilada de ideas. No crea piezas ni inventa datos; su valor es aislar el ruido de la investigación fuera del hilo principal.
+
+`disenador-social` produce **una** pieza terminada siguiendo `/social-media-kit` + memoria. Su único valor es **paralelizar**.
+
+Flujo de "planifícame la semana": el principal lanza `buscador-ideas-social` para traer ideas → el user filtra/aprueba → el principal lanza N `disenador-social` en paralelo (uno por idea) → verifica → pasa cada pieza por `tester-copy` + `tester-visual-social` → reinyecta hallazgos al diseñador. Ninguno es un "agente de redes" general (eso lo cubren las skills + el principal): son un scout de investigación y un ejecutor paralelo de diseño.
+
+### Mejora continua de los agentes
+
+El **agente principal es el único que edita** los `.md` de `.claude/agents/`. Cuando observe (o un subagente le reporte) que la definición de un agente lleva a resultados mejorables — se le escapa una clase de fallo, da falsos positivos, o su salida es poco útil — el principal **corrige ese `.md`** de forma quirúrgica y deja constancia del cambio. Los subagentes **no se auto-editan**: los testers son read-only y un único escritor evita carreras cuando corren en paralelo. Cada agente puede cerrar su reporte con una sección «Mejora sugerida de mi definición» que el principal valora y aplica.
