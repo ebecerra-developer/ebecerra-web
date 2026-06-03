@@ -22,6 +22,12 @@ const DEFAULT_ORG_DESC_ES =
   "Webs a medida para autónomos y PYMEs en dos modalidades de pago (contrato de servicio o pago único) y tres niveles de complejidad. Hosting, mantenimiento y add-ons opcionales.";
 const DEFAULT_ORG_DESC_EN =
   "Custom websites for freelancers and SMBs in two payment paths (service contract or one-time) and three complexity levels. Hosting, maintenance and optional add-ons.";
+// Desambiguación de entidad: distingue a este Enrique Becerra (web freelance,
+// Madrid, founder de eBecerra) de homónimos (hostelero, académico, etc.).
+const DISAMBIG_ES =
+  "Desarrollador web freelance afincado en Madrid, especializado en webs a medida para autónomos y pequeñas empresas. Fundador de eBecerra (ebecerra.es).";
+const DISAMBIG_EN =
+  "Freelance web developer based in Madrid, specialized in custom websites for freelancers and small businesses. Founder of eBecerra (ebecerra.es).";
 
 type Props = {
   settings: SiteSettingsFull;
@@ -48,12 +54,17 @@ function buildPerson(
   locale: Locale
 ) {
   const sameAs = buildSameAs(profile, settings);
+  const aboutUrl =
+    locale === "es" ? `${SITE_URL}/sobre-mi/` : `${SITE_URL}/${locale}/sobre-mi/`;
   return {
     "@type": "Person",
     "@id": PERSON_URL,
     name: profile?.name ?? "Enrique Becerra",
+    givenName: "Enrique",
+    familyName: "Becerra García",
     alternateName: "eBecerra",
     url: SITE_URL,
+    mainEntityOfPage: aboutUrl,
     image: `${SITE_URL}/brand/web-app-manifest-512x512.png`,
     jobTitle:
       profile?.jobTitle ??
@@ -61,6 +72,7 @@ function buildPerson(
     description:
       profile?.bio1 ??
       (locale === "es" ? DEFAULT_DESC_ES : DEFAULT_DESC_EN),
+    disambiguatingDescription: locale === "es" ? DISAMBIG_ES : DISAMBIG_EN,
     address: {
       "@type": "PostalAddress",
       addressLocality: profile?.contact?.location ?? "Madrid",
