@@ -37,20 +37,33 @@
     background-size: 4px 4px;
   }
 
+  /* Contenedor de todo el contenido: en modo "padded" se escala hacia el
+     centro, dejando crecer el verde de fondo (con grano) alrededor. */
+  .content { position: absolute; inset: 0; z-index: 2; }
+  body.padded .content { transform: scale(0.66); transform-origin: center; }
+  /* Ajustes finos solo del modo padded: más apaisado + logo y url recolocados */
+  body.padded .photo { left: -7vmin; }
+  body.padded .outline { right: 3vmin; }
+  body.padded .logo { left: 1vmin; top: 9vmin; }
+  body.padded .url { bottom: 9vmin; right: 4vmin; }
+
   /* Marco blanco + hook = UNA pieza (el texto va dentro → se mueven juntos).
      Padding izquierdo grande: el texto centrado queda en la zona despejada,
      y el brazo solapa el margen blanco izquierdo (ancla el cuadro). */
-  .frame-group { position: absolute; z-index: 6; inset: 0; transform: rotate(-1.4deg); }
+  /* flex en el grupo centra el marco verticalmente SIN transform en .frame
+     → .frame no crea stacking context → el ::before (z-index -1) va de verdad
+     DETRÁS del fondo blanco. */
+  .frame-group { position: absolute; z-index: 6; inset: 0; transform: rotate(-1.4deg); display: flex; align-items: center; }
   .frame {
-    position: absolute;
-    left: 30vmin; top: 50%; transform: translateY(-50%);
+    position: relative;
+    margin-left: 30vmin;
     width: 60vmin;
     background: #fff;
     display: flex; align-items: center; justify-content: center;
     padding: 6vmin 6vmin 6vmin 16vmin;
     box-shadow: 0 5vmin 5vmin -2.4vmin rgba(2,40,26,0.55);
   }
-  /* Raya oscura DETRÁS del cuadro (offset abajo-derecha, z-index negativo) */
+  /* Raya oscura DETRÁS del cuadro (offset abajo-derecha) */
   .frame::before {
     content: ""; position: absolute; inset: 0; z-index: -1;
     border: 0.55vmin solid var(--green-deep);
@@ -112,15 +125,32 @@
   /* Cuadrado/estrecho: no caben los 3 elementos → ocultar 2º mensaje */
   @media (max-aspect-ratio: 6/5) {
     .outline { display: none; }
-    .frame { left: 29vmin; width: 64vmin; padding: 6vmin 6vmin 6vmin 17vmin; }
+    .frame { margin-left: 26vmin; width: 64vmin; padding: 6vmin 6vmin 6vmin 17vmin; }
     .hook { font-size: 7.6vmin; }
     .spark--a { right: 7vmin; top: 9vmin; }
     .spark--b { right: 8vmin; bottom: 14vmin; }
+  }
+
+  /* Intermedio (~3:2 → 1600x1040): juntar marco y 2º mensaje SIN que choquen */
+  @media (min-aspect-ratio: 3/2) and (max-aspect-ratio: 5/3) {
+    .frame { margin-left: 33vmin; width: 72vmin; padding: 6.5vmin 6.5vmin 6.5vmin 19vmin; }
+    .hook { font-size: 8vmin; }
+    .outline { font-size: 9.2vmin; right: 11vmin; }
+    .photo { height: 104vh; }
+  }
+
+  /* Ancho (16:9, 1.91:1): rellenar más, composición tipo 4:3 */
+  @media (min-aspect-ratio: 5/3) {
+    .frame { margin-left: 40vmin; width: 80vmin; padding: 6.5vmin 7vmin 6.5vmin 20vmin; }
+    .hook { font-size: 8.2vmin; }
+    .outline { font-size: 11vmin; right: 7vmin; }
+    .photo { height: 106vh; }
   }
 </style>
 </head>
 <body>
   <div class="cover">
+    <div class="content">
     <div class="frame-group">
       <div class="frame">
         <div class="hook">Hago webs<br/>que dan<br/><em>resultados</em>.</div>
@@ -142,6 +172,8 @@
     <svg class="spark spark--a" viewBox="0 0 100 100" fill="#6EE7B7"><path d="M50 0 C54 38 62 46 100 50 C62 54 54 62 50 100 C46 62 38 54 0 50 C38 46 46 38 50 0Z"/></svg>
     <svg class="spark spark--b" viewBox="0 0 100 100" fill="#FAF6EE"><path d="M50 0 C54 38 62 46 100 50 C62 54 54 62 50 100 C46 62 38 54 0 50 C38 46 46 38 50 0Z"/></svg>
     <svg class="spark spark--c" viewBox="0 0 100 100" fill="#C2A15A"><path d="M50 0 C54 38 62 46 100 50 C62 54 54 62 50 100 C46 62 38 54 0 50 C38 46 46 38 50 0Z"/></svg>
+    </div>
   </div>
+  <script>if (location.hash === "#padded") document.body.classList.add("padded");</script>
 </body>
 </html>

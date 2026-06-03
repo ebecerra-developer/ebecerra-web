@@ -11,6 +11,10 @@ const OUT_DIR = path.resolve("personal/covers");
 // viewport lógico × deviceScaleFactor 2 = px finales
 const SIZES = [
   { name: "16x9", w: 960, h: 540 },   // → 1920×1080
+  { name: "16x9-small", w: 640, h: 360 }, // → 1280×720 (más ligera)
+  { name: "1600x1040", w: 800, h: 520 },  // → 1600×1040
+  { name: "16x9-1600h", w: 1422, h: 800 }, // → 2844×1600 (16:9, alto 1600)
+  { name: "16x9-padded", w: 1200, h: 675, hash: "#padded" }, // → 2400×1350, contenido alejado
   { name: "4x3",  w: 800, h: 600 },   // → 1600×1200
   { name: "1x1",  w: 720, h: 720 },   // → 1440×1440
   { name: "191x1", w: 800, h: 419 },  // → 1600×838
@@ -22,7 +26,7 @@ for (const s of SIZES) {
     viewport: { width: s.w, height: s.h },
     deviceScaleFactor: 2,
   });
-  await page.goto(pathToFileURL(HTML).href, { waitUntil: "networkidle" });
+  await page.goto(pathToFileURL(HTML).href + (s.hash || ""), { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(500);
   const out = path.join(OUT_DIR, `gbp-${s.name}.png`);
