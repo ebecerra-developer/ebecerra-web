@@ -1,8 +1,8 @@
-# 2026-06-07 · POST · Web ligera = sostenible (Día del Medioambiente)
+# 2026-06-05 · POST · Web ligera = sostenible (Día del Medioambiente)
 
 - **Tipo**: post 1080×1350 (4:5)
-- **Estado**: lista — subir domingo 7-jun (11–13h o 21–22h)
-- **Categoría**: producto / temático (gancho Día del Medioambiente, 5-jun)
+- **Estado**: lista — subir **viernes 5-jun**, el propio Día del Medioambiente (sacarlo el 7 quedaba fuera de fecha)
+- **Categoría**: producto / temático (Día del Medioambiente, 5-jun)
 - **Ángulo (Notion)**: Producto
 - **Decisión visual**: CONCEPTO-PRIMERO, sin retrato (la idea pide metáfora, no cara). El slot era "post foto" — si prefieres tu cara aquí, lo cambio metiendo `enrique-retrato-sentado.jpg` enmarcado y reduciendo el badge de la hoja.
 - **Outputs**: `final.png`

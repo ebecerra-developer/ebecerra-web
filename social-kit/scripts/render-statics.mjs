@@ -60,8 +60,8 @@ const JOBS = [
 
   // ── 2026-06-07 · Post "Web ligera = sostenible" (Día del Medioambiente) ──
   {
-    html: "personal/2026/06/07-post-web-ligera-sostenible/index.html",
-    out:  "personal/2026/06/07-post-web-ligera-sostenible/final.png",
+    html: "personal/2026/06/05-post-web-ligera-sostenible/index.html",
+    out:  "personal/2026/06/05-post-web-ligera-sostenible/final.png",
     w: 1080, h: 1350,
   },
 
