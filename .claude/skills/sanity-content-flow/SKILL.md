@@ -18,12 +18,69 @@ Stack Sanity v5 compartido por ambas apps. **Project `gdtxcn4l`, dataset `produc
 **No añadir copy comercial nuevo solo en `messages/*.json` o hardcoded.** Si el editor querría poder cambiarlo sin redeploy, va a Sanity:
 
 1. Schema en `packages/sanity-schemas/schemas/` (singleton o colección según aplique).
-2. Deploy: `cd apps/es && npx sanity schema deploy`.
-3. Crear doc en Studio (o vía MCP) + publicar.
-4. Query en `packages/sanity-client/queries.ts`.
-5. Render con fallback: `queryFn(locale).catch(() => fallback)`.
+2. Registrar en `packages/sanity-schemas/schemas/index.ts` (schemaTypes + SINGLETON_TYPES si aplica) y en `apps/es/sanity.config.ts` (`LOCALIZED_DOCUMENT_TYPES` + entry en structure).
+3. Tipo en `packages/sanity-client/types.ts`.
+4. Query en `packages/sanity-client/queries.ts` con **`DEFAULT_X` rico** (copy actual como punto de partida) + merge campo a campo. Firma del query devuelve `X` (no `X | null`).
+5. Componente lee del singleton (`getX(locale)`) sin caer a `t()` de messages.
+6. Deploy: ver bloque "Schema deploy" abajo (requiere token "Deploy Studio (Token only)").
+7. Seed script `apps/es/scripts/seed-faseN-YYYY-MM-DD.mjs` con `createOrReplace` (idempotente, `--commit`).
 
-UI chrome (labels de form, placeholders, estados "Enviando…", aria-labels, separadores) se quedan en `messages/*.json`.
+Solo lo técnico se queda en `messages/*.json`: a11y labels, errors, ICU plurals (pluralización dinámica), fallbacks muy específicos de form.
+
+## Schema deploy — token "Deploy Studio (Token only)" (2026-05-30)
+
+El comando `npx sanity schema deploy` requiere el grant `sanity.project/deployStudio`. **Ningún rol estándar (Editor, Viewer, Access Manager) lo tiene** — solo el rol específico **"Deploy Studio (Token only)"** que aparece al crear un token nuevo en `sanity.io/manage/project/gdtxcn4l/api/tokens`.
+
+Guardado como `SANITY_DEPLOY_TOKEN` en `apps/es/.env.local` (NO va a Vercel — solo uso local). Workaround para inyectarlo en el CLI (Sanity exige específicamente la variable `SANITY_AUTH_TOKEN`):
+
+```bash
+cd apps/es
+SANITY_AUTH_TOKEN=$(grep "^SANITY_DEPLOY_TOKEN=" .env.local | cut -d= -f2-) \
+  npx sanity schema deploy --workspace ebecerra-web
+```
+
+## Patrón "DEFAULT_ rico + fallback campo a campo"
+
+```ts
+export const DEFAULT_X: X = {
+  field1: "copy actual",
+  // ... copy actual hardcoded como punto de partida
+};
+
+export async function getX(locale: Locale): Promise<X> {
+  const raw = await runFetch<Partial<X> | null>(
+    `*[_type == "x"][0] { "field1": ${loc("field1")}, ... }`,
+    { locale }
+  ).catch(() => null);
+
+  const d = DEFAULT_X;
+  if (!raw) return d;
+  return { field1: raw.field1 ?? d.field1 /* uno a uno */ };
+}
+```
+
+Ventajas: el componente recibe siempre `X`, la web no se rompe si Sanity está caído o el field vacío, permite migrar messages → Sanity sin tocar el componente.
+
+## Singletons editoriales (apps/es, post-Fase 6)
+
+| Singleton | Cubre |
+|---|---|
+| `heroSection` | Sección 00 — hero del home |
+| `servicesPricing` + `serviceSectionMeta` | Sección 01 — Servicios |
+| `profile` | Sobre mí: aboutKicker, aboutTitle, aboutViewProfileCta, bio1, bio2, stats, aboutFeatures, contact, chatbot, chatbotTech |
+| `capabilitiesSection` | Sección 03 — items[] con icon/badge/featured/title/description/bullets[] + noteLabel/noteText |
+| `processSectionMeta` | Sección 04 — kicker/title/lead |
+| `examplesPage` | Sección 05 home + página /ejemplos completa |
+| `contactSectionMeta` | Sección 06 — kicker/title/lead + labels (email/linkedin/location/response) |
+| `contactFormStep` + `contactFormSettings` | Wizard de form editable (10 types de field, mensajes globales) |
+| `siteSettings` | Nav (items[] + ctaLabel) + footer ampliado (navColumn/socialLinks/crossLinks/legalLinks/colTitles/copyrightTemplate) |
+| `faqPage` | Página /faq completa |
+| `blogPage` | Chrome del blog. Ver blog-system.md |
+| `casesSectionMeta` | Sección Cases (legacy, no renderizada) — kicker/title/lead + labels |
+
+**Tech (singletons paralelos prefijados `tech*`):** `techHomeSections`, `techSiteSettings`, `techContactFormStep`, `techContactFormSettings`.
+
+**Demos:** `demosIndexPage`, `demosBannerSettings`.
 
 ## Política: listas como arrays, no campos nombrados
 

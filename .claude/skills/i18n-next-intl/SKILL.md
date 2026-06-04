@@ -44,7 +44,28 @@ app/
    - **Client Component**: `const t = useTranslations("namespace");`
 3. Interpolación: `t("key", { var: value })`. Rich text: `t.rich("key", { strong: (c) => <strong>{c}</strong> })`.
 
-Namespaces actuales: `metadata`, `nav`, `hero`, `about`, `experience`, `skills`, `projects`, `contact`, `footer`.
+## Política — qué va a messages vs qué va a Sanity (apps/es, actualizado 2026-05-30)
+
+Tras la migración de las Fases 1–6, **el copy editorial NO vive en messages**. Solo lo técnico se queda en `messages/*.json`:
+
+| Categoría | Dónde vive | Ejemplo |
+|---|---|---|
+| Copy editorial (kicker, title, lead, bullets, CTAs visibles, mensajes form) | Sanity (singleton del bloque) | `capabilitiesSection`, `blogPage`, `siteSettings.nav.items[]`, `contactFormSettings` |
+| Labels técnicos a11y (menuOpen, menuClose, language, langEs, langEn, skipToContent) | `messages/*.json` | `nav.menuOpen`, `a11y.skipToContent` |
+| Plurales ICU (pluralización dinámica) | `messages/*.json` (Sanity no los soporta nativo) | `blog.readingMinutes`, `blog.commentsCount` |
+| Mensajes de error genéricos (404, 500) | `messages/*.json` | `errors.notFound.title` |
+| Fallback de botones cuando el editor deja un campo vacío | DEFAULT_* en queries.ts (no en messages) | `DEFAULT_BLOG_PAGE.commentForm.submit` |
+
+**Namespaces vivos en `apps/es/messages/*.json` (2026-05-30):**
+- `metadata` — fallback de generateMetadata (Sanity también lo cubre vía `siteSettings.metadata`).
+- `a11y` — `skipToContent`.
+- `nav` — solo labels a11y (`menuOpen`, `menuClose`, `language`, `langEs`, `langEn`, `homeSections`).
+- `case` — kicker + placeholder del componente legacy Case.tsx (no usado en home).
+- `blog` — **solo** `readingMinutes` y `commentsCount` (ICU plurals).
+
+**Regla práctica**: si el editor querría poder cambiarlo sin redeploy → Sanity. Si es a11y/error técnico/pluralización ICU → messages. Patrón `DEFAULT_* rico en queries.ts` + fallback campo a campo evita que la web se rompa si Sanity está caído o un campo vacío.
+
+Los namespaces históricos `hero`, `about`, `services`, `capabilities`, `process`, `cases`, `contact`, `examples`, `faq`, `footer`, `blog.*editorial`, `commentForm.*` **ya no existen**. Si encuentras `t("blog.title")` o similar en un componente nuevo, es bug — debe leer del singleton correspondiente (ver tabla en blog-system.md, sanity-content-flow.md).
 
 ## Pattern: campo Sanity traducible
 

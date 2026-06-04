@@ -19,9 +19,28 @@ Vivo desde 2026-05-15. Detalles completos en memoria [project_blog_system].
 
 `post.ts`, `author.ts`, `blogCategory.ts`, `blogTag.ts`. Post bilingüe (`body` ES + `bodyEn` EN), Portable Text con marks custom `roughUnderline`/`roughCircle`, code block, callout, imagen.
 
+**`blogPage.ts` (singleton, desde 2026-05-30)** — todo el chrome editorial del blog: metaTitle/Description, kicker/title/lead del listado, empty, filterAll/filterCategory, sortNewest/Oldest, backToList, byPrefix/byAuthor, publishedOn/updatedOn (con `{date}` y `{name}` como placeholders), tocLabel, shareLabel, relatedHeading, likeLabel/likeThanks, commentsHeading/commentsEmpty, y `commentForm.*` (10 labels del form de comentarios). Document ID: `blogPage-singleton`. Editable desde Studio sin redeploy.
+
 ## Queries (packages/sanity-client/queries.ts)
 
 `getPosts`, `getPostBySlug`, `getPostSlugs`, `getRelatedPostsAuto`, `getCategories`, `getCategoryBySlug`, `getTags`, `getTagBySlug`, `getAuthorBySlug`. Reading time se calcula en JS desde `length(pt::text(body))`.
+
+**`getBlogPage(locale)`** — devuelve `BlogPageData` siempre (no `null`). Si Sanity está caído o el doc vacío, cae a `DEFAULT_BLOG_PAGE` (copy actual hardcoded en el package). Cada campo individual también hace fallback al DEFAULT.
+
+## Copy editorial: 100% Sanity desde 2026-05-30 (Fase 6)
+
+El chrome editorial del blog se migró completo a Sanity. En `messages/*.json` SOLO quedan los ICU plurals que `next-intl` necesita para pluralización (formato que Sanity no soporta nativamente):
+
+```json
+{
+  "blog": {
+    "readingMinutes": "{minutes, plural, one {1 min de lectura} other {# min de lectura}}",
+    "commentsCount": "{count, plural, one {1 comentario} other {# comentarios}}"
+  }
+}
+```
+
+Cuando refactorices una página del blog, **lee `blogPage.*` (no `t("blog.xxx")`)** salvo para esos dos plurales.
 
 **Decisión 2026-05-15**: las queries NO filtran por `publishedAt <= now()`. Lo publicado en Sanity = lo que se ve. No tocar este filtro a no ser que se quiera reactivar el "scheduling" (publicar en futuro).
 
