@@ -27,6 +27,7 @@ import {
 } from "./sectionMeta";
 import faqPage from "./faqPage";
 import aboutPage from "./aboutPage";
+import landingMadrid from "./landingMadrid";
 import faqItem from "./faqItem";
 import legalPage from "./legalPage";
 import demoSite from "./demoSite";
@@ -69,6 +70,7 @@ export const schemaTypes = [
   faqPage,
   examplesPage,
   aboutPage,
+  landingMadrid,
   profile,
   // Colecciones
   experience,
@@ -107,6 +109,7 @@ export const SINGLETON_TYPES = [
   "faqPage",
   "examplesPage",
   "aboutPage",
+  "landingMadrid",
   "profile",
 ] as const;
 

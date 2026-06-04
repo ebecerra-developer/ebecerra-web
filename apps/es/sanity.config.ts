@@ -45,6 +45,7 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "faqPage",
   "examplesPage",
   "aboutPage",
+  "landingMadrid",
   "faqItem",
   "legalPage",
   "demoSite",
@@ -189,6 +190,14 @@ const structure: StructureResolver = (S) =>
                 .id("blogPage")
                 .child(
                   S.document().schemaType("blogPage").documentId("blogPage-singleton")
+                ),
+              S.listItem()
+                .title("Landing · Diseño web Madrid")
+                .id("landingMadrid")
+                .child(
+                  S.document()
+                    .schemaType("landingMadrid")
+                    .documentId("landingMadrid-singleton")
                 ),
             ])
         ),

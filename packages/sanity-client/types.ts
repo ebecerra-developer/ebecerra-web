@@ -466,6 +466,32 @@ export type FaqPageData = {
 
 export type AboutPagePillar = { title: string; body: string };
 
+export type LandingMadridItem = { title: string; body: string };
+export type LandingMadridQa = { question: string; answer: string };
+
+export type LandingMadridData = {
+  metaTitle: string;
+  metaDescription: string;
+  kicker: string;
+  title: string;
+  lead: string;
+  intro: { text: string }[];
+  servicesTitle: string;
+  services: LandingMadridItem[];
+  reachTitle: string;
+  reachBody: { text: string }[];
+  diffTitle: string;
+  diffItems: LandingMadridItem[];
+  examplesTitle: string;
+  examplesBody: string;
+  examplesCtaLabel: string;
+  faqTitle: string;
+  faqItems: LandingMadridQa[];
+  closingTitle: string;
+  closingBody: string;
+  closingCtaLabel: string;
+};
+
 export type AboutPageData = {
   metaTitle: string;
   metaDescription: string;

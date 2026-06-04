@@ -41,6 +41,7 @@ import type {
   ServicesPricing,
   FaqPageData,
   AboutPageData,
+  LandingMadridData,
   FaqItem,
   LegalPageData,
   ProfileFull,
@@ -1610,6 +1611,163 @@ export async function getAboutPage(locale: Locale): Promise<AboutPageData> {
     intro: raw.intro && raw.intro.length > 0 ? raw.intro : d.intro,
     pillarsTitle: raw.pillarsTitle ?? d.pillarsTitle,
     pillars: raw.pillars && raw.pillars.length > 0 ? raw.pillars : d.pillars,
+    closingTitle: raw.closingTitle ?? d.closingTitle,
+    closingBody: raw.closingBody ?? d.closingBody,
+    closingCtaLabel: raw.closingCtaLabel ?? d.closingCtaLabel,
+  };
+}
+
+// --- Landing /diseno-web-madrid (captación SEO local) ---
+
+export const DEFAULT_LANDING_MADRID: LandingMadridData = {
+  metaTitle: "Diseño web en Madrid para autónomos y pymes",
+  metaDescription:
+    "Diseño web a medida en Madrid para autónomos y pymes: webs rápidas, fáciles de mantener y sin plantillas. Trato cercano en Madrid y en remoto para toda España.",
+  kicker: "Madrid",
+  title: "Diseño web a medida en Madrid para autónomos y pymes",
+  lead: "Soy Enrique Becerra, desarrollador web afincado en Madrid (Moratalaz). Hago webs hechas a medida, rápidas y fáciles de mantener — con trato cercano si eres de Madrid y en remoto para toda España.",
+  intro: [
+    {
+      text: "Si buscas a alguien que te haga la web y esté cerca, soy de Madrid y nos podemos ver. Pero no trabajo solo aquí: la mayoría de mis proyectos los llevo en remoto con clientes de toda España, con la misma cercanía por videollamada, teléfono y WhatsApp.",
+    },
+    {
+      text: "Trabajo de tú a tú, sin comerciales ni intermediarios. Hablas siempre conmigo, la persona que pica el código de tu web — no con una cuenta que va pasando tu proyecto de mano en mano.",
+    },
+  ],
+  servicesTitle: "Qué incluye tu web",
+  services: [
+    {
+      title: "Web a medida, sin plantillas",
+      body: "Nada de plantillas repintadas que ves en mil sitios iguales. Entiendo tu negocio y construyo algo que solo encaja contigo: tu tono, tus servicios, tus clientes.",
+    },
+    {
+      title: "Rápida y fácil de mantener",
+      body: "Una web que carga rápido, se ve bien en el móvil y que puedes actualizar tú sin llamarme cada vez que cambia un texto o una foto.",
+    },
+    {
+      title: "Asistente con IA",
+      body: "Un chatbot 24/7 entrenado con tu información: responde dudas frecuentes, recoge contactos y te los manda al correo. Opcional, si encaja con tu negocio.",
+    },
+    {
+      title: "Reservas online",
+      body: "Que tus clientes reserven cita sin llamarte, con calendario propio o conectado a la herramienta que ya uses (Google Calendar, Doctoralia, Calendly…).",
+    },
+    {
+      title: "SEO desde el primer día",
+      body: "La web nace pensada para que Google la entienda: estructura limpia, velocidad y los textos preparados para aparecer cuando te buscan.",
+    },
+    {
+      title: "El dominio y el contenido, tuyos",
+      body: "Tu dominio se registra a tu nombre desde el día 1. Y si algún día quieres seguir por tu cuenta, todo es tuyo: nada de quedarte atrapado.",
+    },
+  ],
+  reachTitle: "En Madrid y en toda España",
+  reachBody: [
+    {
+      text: "Estar en Madrid tiene su punto: si te viene bien, nos tomamos un café y vemos tu proyecto en persona. A algunos clientes les da tranquilidad poner cara a quien les hace la web.",
+    },
+    {
+      text: "Pero la distancia no es un problema. Trabajo igual de cerca en remoto, con reuniones por videollamada y respuesta rápida por correo o WhatsApp. Tengas tu negocio en Madrid o en cualquier otro punto de España, el resultado es el mismo.",
+    },
+  ],
+  diffTitle: "Por qué trabajar conmigo",
+  diffItems: [
+    {
+      title: "Sin plantillas",
+      body: "Cada web parte de cero, pensada para tu negocio. No vas a tener la misma página que otros mil.",
+    },
+    {
+      title: "Sin permanencias obligatorias",
+      body: "Puedes comprar tu web de una vez y que sea 100% tuya, o elegir un contrato con cuota mensual. Tú decides, sin letra pequeña.",
+    },
+    {
+      title: "Trato 1:1",
+      body: "Hablas siempre conmigo. Quien diseña, programa y mantiene tu web es la misma persona, de principio a fin.",
+    },
+  ],
+  examplesTitle: "Mira algunos ejemplos",
+  examplesBody:
+    "Estas son webs de muestra que he montado para enseñar cómo trabajo en distintos sectores. La tuya parte de una conversación, no de una plantilla.",
+  examplesCtaLabel: "Ver ejemplos",
+  faqTitle: "Preguntas frecuentes",
+  faqItems: [
+    {
+      question: "¿Cuánto cuesta una web en Madrid?",
+      answer:
+        "Depende de lo que necesites. Una landing (página única para captar contactos) parte de 399 € de pago único; una web profesional con varias secciones y panel propio ronda los 1.500 €, y una avanzada con reservas o IA, los 2.000 €. Si prefieres no pagarlo de golpe, hay contrato de servicio desde 199 € de alta + 19 €/mes. En la primera conversación te doy un precio cerrado, sin sorpresas.",
+    },
+    {
+      question: "¿Trabajas solo en Madrid?",
+      answer:
+        "No. Estoy en Madrid y, si eres de aquí, nos podemos ver en persona. Pero la mayoría de mis proyectos los llevo en remoto para clientes de toda España, con la misma cercanía por videollamada y WhatsApp.",
+    },
+    {
+      question: "¿Cuánto tarda en estar lista?",
+      answer:
+        "Una landing, 1-2 semanas. Una web profesional o avanzada, entre 4 y 6 semanas. En la primera conversación te doy un plazo concreto con hitos, no un rango vago.",
+    },
+    {
+      question: "¿Tengo que entender de tecnología?",
+      answer:
+        "Para nada. Yo me encargo de la parte técnica y te entrego algo que puedes manejar tú con normalidad. Si surge una duda, me preguntas y ya está — sin tecnicismos.",
+    },
+  ],
+  closingTitle: "¿Hablamos de tu web?",
+  closingBody:
+    "Cuéntame qué necesitas y te respondo con una primera idea del alcance y un presupuesto cerrado. La primera conversación es sin compromiso, estés en Madrid o donde estés.",
+  closingCtaLabel: "Hablemos",
+};
+
+export async function getLandingMadrid(
+  locale: Locale
+): Promise<LandingMadridData> {
+  const raw = await runFetch<Partial<LandingMadridData> | null>(
+    `*[_type == "landingMadrid"][0] {
+      "metaTitle": ${loc("metaTitle")},
+      "metaDescription": ${loc("metaDescription")},
+      "kicker": ${loc("kicker")},
+      "title": ${loc("title")},
+      "lead": ${loc("lead")},
+      "intro": intro[]{ "text": ${loc("text")} },
+      "servicesTitle": ${loc("servicesTitle")},
+      "services": services[]{ "title": ${loc("title")}, "body": ${loc("body")} },
+      "reachTitle": ${loc("reachTitle")},
+      "reachBody": reachBody[]{ "text": ${loc("text")} },
+      "diffTitle": ${loc("diffTitle")},
+      "diffItems": diffItems[]{ "title": ${loc("title")}, "body": ${loc("body")} },
+      "examplesTitle": ${loc("examplesTitle")},
+      "examplesBody": ${loc("examplesBody")},
+      "examplesCtaLabel": ${loc("examplesCtaLabel")},
+      "faqTitle": ${loc("faqTitle")},
+      "faqItems": faqItems[]{ "question": ${loc("question")}, "answer": ${loc("answer")} },
+      "closingTitle": ${loc("closingTitle")},
+      "closingBody": ${loc("closingBody")},
+      "closingCtaLabel": ${loc("closingCtaLabel")}
+    }`,
+    { locale }
+  ).catch(() => null);
+
+  const d = DEFAULT_LANDING_MADRID;
+  if (!raw) return d;
+  return {
+    metaTitle: raw.metaTitle ?? d.metaTitle,
+    metaDescription: raw.metaDescription ?? d.metaDescription,
+    kicker: raw.kicker ?? d.kicker,
+    title: raw.title ?? d.title,
+    lead: raw.lead ?? d.lead,
+    intro: raw.intro && raw.intro.length > 0 ? raw.intro : d.intro,
+    servicesTitle: raw.servicesTitle ?? d.servicesTitle,
+    services: raw.services && raw.services.length > 0 ? raw.services : d.services,
+    reachTitle: raw.reachTitle ?? d.reachTitle,
+    reachBody: raw.reachBody && raw.reachBody.length > 0 ? raw.reachBody : d.reachBody,
+    diffTitle: raw.diffTitle ?? d.diffTitle,
+    diffItems:
+      raw.diffItems && raw.diffItems.length > 0 ? raw.diffItems : d.diffItems,
+    examplesTitle: raw.examplesTitle ?? d.examplesTitle,
+    examplesBody: raw.examplesBody ?? d.examplesBody,
+    examplesCtaLabel: raw.examplesCtaLabel ?? d.examplesCtaLabel,
+    faqTitle: raw.faqTitle ?? d.faqTitle,
+    faqItems: raw.faqItems && raw.faqItems.length > 0 ? raw.faqItems : d.faqItems,
     closingTitle: raw.closingTitle ?? d.closingTitle,
     closingBody: raw.closingBody ?? d.closingBody,
     closingCtaLabel: raw.closingCtaLabel ?? d.closingCtaLabel,
