@@ -119,6 +119,22 @@ Añadir más: `npx skills add <owner/repo@skill> -g -y` (global) o sin `-g` para
 
 Subagentes en [.claude/agents/](.claude/agents/). **No son roles con los que se chatea** — el agente principal los **delega** para una tarea concreta y se queda con la conclusión. Tienen menos contexto que el principal (eso es una ventaja para revisar: ojos frescos e independientes). Los **testers son read-only por contrato**.
 
+### Qué hace cada uno
+
+| Agente | Para qué |
+|---|---|
+| `arquitecto-escalabilidad` | Lente de escala/multi-tenant/free-tier: dónde se rompe al crecer y umbral de migración. |
+| `arquitecto-robustez` | Tolerancia a fallos: qué pasa si Sanity/Supabase/Groq/Resend caen, fallbacks, fallos de 2º orden (reputación de dominio, cuotas). |
+| `arquitecto-mantenibilidad` | Simplicidad y coste futuro: duplicación, convenciones rotas, la versión más simple que cumple. |
+| `arquitecto-seguridad` | Seguridad de diseño: aislamiento entre tenants, secretos, RGPD/consentimiento, exposición de datos. |
+| `tester-copy` | Copy en español de España para PYME: sentido, jerga, veracidad, coherencia interna. |
+| `tester-visual-web` | Defectos visuales de UI web (render o estático): desbordes, solapes, paleta/tokens, responsive, foco. |
+| `tester-visual-social` | Defectos visuales de piezas IG/FB: SOLO Inter (ni Fraunces ni DM Sans), acento por color, recortes. |
+| `tester-dev` | QA funcional: reproduce casos de uso, errores de consola/red; entrega plan de pruebas si no puede arrancar. |
+| `tester-seo-a11y` | Accesibilidad (WCAG) + SEO técnico y de posicionamiento de páginas/plantillas. |
+| `buscador-ideas-social` | Scout de ideas de contenido: cooldowns (PLAN.md), calendario Notion, tendencias; devuelve lista, no piezas. |
+| `disenador-social` | Produce UNA pieza social terminada siguiendo `/social-media-kit`; se lanza N a la vez para paralelizar. |
+
 ### Testers — al cerrar una tarea
 
 Cuando el principal dé algo por terminado y verificado por sí mismo, lanza los testers que apliquen **antes de considerarlo cerrado**. Si un tester devuelve hallazgos, iterar y volver a pasar. Mapa por tipo de entrega:
@@ -131,6 +147,8 @@ Cuando el principal dé algo por terminado y verificado por sí mismo, lanza los
 | Copy de una sección / landing | `tester-copy` (+ `tester-visual-web` si afecta al layout) |
 
 Los independientes se lanzan **en paralelo** (varias llamadas Agent en un mismo mensaje).
+
+> Un hook local (`.claude/settings.json` + `.claude/hooks/social-review-reminder.ps1`, no versionados) **recuerda automáticamente** pasar las piezas de `social-kit/` (`index.html`/`captions.md`) por `tester-copy` + `tester-visual-social` al escribirlas. El resto se lanza por criterio según este mapa.
 
 ### Arquitectos — antes de desarrollar, no después
 
