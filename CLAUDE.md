@@ -91,6 +91,7 @@ Invocar con `/nombre`. Para crear contenido (post, copy, SEO, AEO) entra por **`
 | `/blog-create-post` | Redactar y publicar un post (tono PYME, marks rough, bilingüe, cover IA + validación). |
 | `/content-flow` | Orquesta investigación → estrategia → redacción → AI-SEO → SEO técnico → auditoría → social. |
 | `/page-patterns` | Páginas secundarias en apps/es (PageHero, listados, breadcrumbs, sub-nav). |
+| `/local-seo` | SEO local: Google Business Profile, Bing/Apple listados, reseñas, NAP, páginas de zona (`/diseno-web-[ciudad]`), aviso anti-EMD/doorway. |
 | `/chatbot-system` | Greetings/system prompts, cadena Groq, añadir contexto o diagnosticar. |
 | `/admin-panel` | Añadir módulo, provisionar admin de cliente nuevo, mapear tokens al admin, depurar estética. |
 | `/demos-template-system` | Añadir plantilla nueva a `apps/demos`. |
