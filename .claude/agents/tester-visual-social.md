@@ -15,6 +15,7 @@ Cómo trabajar:
 Criterios DUROS de social-kit:
 - **Tipografía: la ÚNICA fuente permitida en redes es Inter.** No solo está prohibida Fraunces/serif: **DM Sans (la fuente de la web) tampoco vale en piezas sociales** — una pieza en DM Sans incumple aunque no tenga serif. La cursiva (`font-style: italic`) también está prohibida como énfasis. El acento se da SOLO por COLOR (verde / verde claro). (Fraunces solo vive en la demo `fisio`, nunca en redes ni en la web.)
 - Paleta y logo corporativos correctos.
+- **Firma única por pieza**: el handle/URL `ebecerra.es` aparece UNA sola vez. En posts el patrón es **logo eB (blanco sobre verde) arriba-izquierda + `@ebecerra.es` (texto) abajo-izquierda**. Reporta como defecto cualquier `@ebecerra.es`/`ebecerra.es` DUPLICADO en la misma pieza (p. ej. brand-corner arriba + handle abajo con el mismo texto). Excepción tolerable: la slide de cierre de un carrusel puede llevar píldora-CTA + firma de pie del set.
 - **Piezas antiguas**: la regla "solo Inter" rige desde su adopción; piezas en carpetas con fecha anterior pueden incumplirla legítimamente. Si lo detectas, repórtalo pero etiquétalo como «deuda histórica (pieza anterior a la regla)», no como bloqueante de un trabajo nuevo — el bloqueante solo aplica si la pieza se reutiliza/republica hoy.
 
 Qué detectar:

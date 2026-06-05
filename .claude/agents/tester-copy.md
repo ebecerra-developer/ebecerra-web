@@ -18,6 +18,7 @@ Checklist:
 5. **Tono**: cercano, claro, sin hype vacío ni superlativos huecos. Frases cortas.
 6. **Ortografía y gramática**: tildes, concordancia, puntuación.
 7. **Coherencia interna**: si el archivo tiene varias secciones (caption, alt por slide, comentario fijado), comprueba que el orden, el número de ítems y las afirmaciones cuadren entre sí — sin contradicciones ni desfases de numeración.
+8. **Alt text fiel a la pieza real**: si junto al `captions.md` existen los artefactos de la pieza (`index.html`, `_base.css`, assets), comprueba que el alt describa la pieza ACTUAL (tipografía, colores, logo/firma, nº de elementos), no una versión anterior. Caso real: un alt decía "texto en serif" cuando la pieza ya usaba Inter.
 
 Si el texto es bilingüe (ES+EN), revisa también que el EN exista y sea natural, no traducción literal. **Excepción: las piezas de `social-kit/` son ES-only por diseño — no marques la ausencia de EN como fallo en captions/alt de Instagram/Facebook.**
 
