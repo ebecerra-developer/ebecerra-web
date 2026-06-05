@@ -16,6 +16,7 @@ Si dos demos comparten estructura, componentes y paleta familiar (aunque cambien
 - `fisio` — clínica/salud calmada (Equilibrio).
 - `coach-editorial` — premium femenino sofisticado (Marta Solana).
 - `coach-vibrant` — marca personal joven (Claudia Entrena).
+- `expedicion` — turismo de aventura/naturaleza (marca demo **Bravío**, slug `bravio`). **Plantilla INMERSIVA**: fondo POV (canvas) que avanza con el scroll + escenas cross-fade ("ir hacia delante"). No sigue el patrón de las otras (Hero/Services/About apilados): tiene un motor propio (`ExpedicionImmersiveStage`) con escenas fijas. En móvil las secciones altas panean. **Antes de tocarla, lee `/immersive-scroll`** (motor, modelo desktop vs móvil, y los gotchas caros: rueda capturada por sticky, scroll-behavior smooth, medición tras fuentes + ResizeObserver, etc.).
 
 Antes de crear `dental` o `asesoria`: pregúntate cuántos avatares distintos vas a representar. Si una asesoría boutique premium y una asesoría online low-cost van a coexistir, son dos plantillas, no una con paleta.
 

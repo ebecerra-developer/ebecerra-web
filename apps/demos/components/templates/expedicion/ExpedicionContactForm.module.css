@@ -1,0 +1,160 @@
+.formCard {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  padding: clamp(1.5rem, 3.4vw, 2.4rem);
+  box-shadow: var(--sh-md);
+}
+
+.formHeader {
+  margin-bottom: 1.6rem;
+}
+.formTitle {
+  font-size: var(--fs-h3);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--text);
+}
+.formLead {
+  margin-top: 0.5rem;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--text-secondary);
+}
+
+.row {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 520px) {
+  .row {
+    grid-template-columns: 1.4fr 0.6fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.required {
+  color: var(--cta);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  font: inherit;
+  font-size: var(--fs-body);
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-sm);
+  padding: 0.75rem 0.9rem;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--cta);
+  /* anillo sólido (no clay al 10%, que era invisible): ≥3:1 contra el campo */
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--cta);
+}
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-disabled);
+}
+
+.submit {
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.95rem 1.5rem;
+  font: inherit;
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: var(--cta);
+  border: none;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+.submit:hover:not(:disabled) {
+  background: var(--cta-hover);
+  transform: translateY(-1px);
+}
+.submit:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+.submit:focus-visible {
+  outline: none;
+  box-shadow: var(--sh-focus);
+}
+
+.bookingLink {
+  display: block;
+  text-align: center;
+  margin-top: 0.9rem;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--accent-strong);
+}
+
+.note {
+  margin-top: 1rem;
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.success {
+  text-align: center;
+  padding: 1.5rem 0;
+}
+.successIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+.successTitle {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  font-size: var(--fs-h3);
+  color: var(--text);
+}
+.successText {
+  margin-top: 0.6rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-secondary);
+  max-width: 40ch;
+  margin-inline: auto;
+}

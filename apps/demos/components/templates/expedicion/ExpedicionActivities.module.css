@@ -1,0 +1,168 @@
+.section {
+  padding-block: var(--section-py);
+  padding-inline: var(--gutter);
+  background: transparent;
+}
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+.head {
+  max-width: 720px;
+  margin-bottom: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+.kicker {
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-kicker);
+  text-transform: uppercase;
+  color: var(--cta);
+  margin-bottom: 1rem;
+}
+.title {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-tight);
+  color: var(--text-on-ink);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+}
+.lead {
+  margin-top: 1.1rem;
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-on-ink-muted);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+  max-width: 54ch;
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(1.1rem, 2.4vw, 1.75rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 620px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition:
+    transform var(--dur-base) var(--ease),
+    box-shadow var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease);
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-md);
+  border-color: var(--cta);
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  background: var(--bg-block);
+}
+.mediaImg {
+  object-fit: cover;
+}
+
+.cardBody {
+  padding: clamp(1.3rem, 2.4vw, 1.8rem);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.num {
+  font-family: var(--font-display-stack);
+  font-size: 1.05rem;
+  font-weight: var(--fw-bold);
+  color: var(--cta);
+  letter-spacing: 0.08em;
+}
+.icon {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+.cardTitle {
+  font-size: var(--fs-h4);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--text);
+}
+.cardText {
+  margin-top: 0.6rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-secondary);
+}
+
+.meta {
+  margin-top: auto;
+  padding-top: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+}
+.metaLabel {
+  font-size: 0.7rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+/* ---- Modo inmersivo: la escena debe caber de una en pantalla. Compactamos la
+   rejilla (cabecera, gaps, padding de tarjeta) para que el auto-fit apenas tenga
+   que escalar → se ve grande, no encogido. ---- */
+:global(html.exp-immersive) .head {
+  margin-bottom: clamp(0.9rem, 2vw, 1.4rem);
+}
+:global(html.exp-immersive) .lead {
+  margin-top: 0.7rem;
+}
+:global(html.exp-immersive) .grid {
+  gap: clamp(0.8rem, 1.6vw, 1.15rem);
+}
+:global(html.exp-immersive) .cardBody {
+  padding: clamp(1rem, 1.8vw, 1.35rem);
+}
+:global(html.exp-immersive) .cardTop {
+  margin-bottom: 0.7rem;
+}
+:global(html.exp-immersive) .cardText {
+  margin-top: 0.45rem;
+}
+:global(html.exp-immersive) .meta {
+  padding-top: 0.85rem;
+}

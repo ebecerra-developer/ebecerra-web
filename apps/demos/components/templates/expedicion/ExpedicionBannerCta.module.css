@@ -1,0 +1,67 @@
+.banner {
+  position: relative;
+  padding-block: clamp(4rem, 9vw, 7rem);
+  padding-inline: var(--gutter);
+  background: transparent; /* texto sobre el metraje, como el resto de escenas */
+  color: var(--text-on-ink);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+}
+.inner {
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  text-align: center;
+  position: relative;
+}
+.kicker {
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-kicker);
+  text-transform: uppercase;
+  color: var(--cta);
+  margin-bottom: 1rem;
+}
+.title {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-tight);
+  color: var(--text-on-ink);
+}
+.hl {
+  color: var(--cta);
+}
+.sub {
+  margin: 1.2rem auto 0;
+  max-width: 48ch;
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-on-ink-muted);
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 2.2rem;
+  padding: 1rem 2rem;
+  border-radius: var(--r-pill);
+  background: var(--cta);
+  color: #fff;
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.6);
+  transition:
+    background var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+.cta:hover {
+  background: var(--cta-hover);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.66);
+}
+.cta:focus-visible {
+  outline: none;
+  box-shadow: var(--sh-focus);
+}

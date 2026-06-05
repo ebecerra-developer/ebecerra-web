@@ -8,6 +8,7 @@ import {
   Manrope,
   Bricolage_Grotesque,
   Instrument_Serif,
+  Oswald,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -64,6 +65,13 @@ const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
 });
 
+// Expedición — turismo activo / aventura (señalética condensada de sendero)
+const oswald = Oswald({
+  variable: "--font-oswald",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
 // interactiveWidget: "resizes-content" → cuando el teclado virtual se abre, la
 // layout viewport se reduce (no solo la visual). Necesario para que el
 // drawer del chatbot se adapte en in-app browsers (IG, FB) que no respetan
@@ -110,12 +118,15 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${dmSans.variable} ${fraunces.variable} ${cormorant.variable} ${inter.variable} ${spaceGrotesk.variable} ${manrope.variable} ${bricolage.variable} ${instrumentSerif.variable}`}
+      className={`${dmSans.variable} ${fraunces.variable} ${cormorant.variable} ${inter.variable} ${spaceGrotesk.variable} ${manrope.variable} ${bricolage.variable} ${instrumentSerif.variable} ${oswald.variable}`}
     >
       <body>
+        {/* style inline: la regla base `a{color:var(--cta)}` gana a las
+            utilidades de Tailwind; inline garantiza texto visible en el skip-link */}
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[999] focus:rounded-md focus:bg-[var(--cta)] focus:px-4 focus:py-2 focus:text-white focus:shadow-lg focus:outline-none"
+          style={{ color: "#fff" }}
+          className="sr-only focus:not-sr-only focus:fixed focus:top-16 focus:left-3 focus:z-[999] focus:rounded-md focus:bg-[var(--cta)] focus:px-4 focus:py-2 focus:shadow-lg focus:outline-none"
         >
           {t("skipToContent")}
         </a>

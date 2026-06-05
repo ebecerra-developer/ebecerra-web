@@ -1,0 +1,107 @@
+.section {
+  padding-block: var(--section-py);
+  padding-inline: var(--gutter);
+  background: transparent;
+}
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 920px) {
+  .inner {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+}
+
+.kicker {
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-kicker);
+  text-transform: uppercase;
+  color: var(--cta);
+  margin-bottom: 1rem;
+}
+.title {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-tight);
+  color: var(--text-on-ink);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+}
+.lead {
+  margin-top: 1.1rem;
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-on-ink-muted);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+  max-width: 46ch;
+}
+
+.details {
+  margin: 2.2rem 0 0;
+  display: grid;
+  gap: 1.4rem;
+}
+.detail {
+  margin: 0;
+}
+.detailLabel {
+  font-size: 0.72rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cta);
+  margin-bottom: 0.3rem;
+}
+.detailValue {
+  margin: 0;
+  font-size: var(--fs-body);
+  color: var(--text-on-ink);
+}
+.detailValue a {
+  color: var(--text-on-ink);
+  text-decoration: none;
+}
+.detailValue a:hover {
+  color: var(--cta);
+}
+.hours {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.social {
+  margin: 1.8rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.social a {
+  display: inline-flex;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid rgba(238, 232, 218, 0.3);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-on-ink);
+  text-decoration: none;
+  background: rgba(20, 32, 26, 0.35);
+  backdrop-filter: blur(4px);
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+.social a:hover {
+  border-color: var(--cta);
+  color: var(--cta);
+}

@@ -8,6 +8,7 @@ import FisioTemplate from "@/components/templates/fisio/FisioTemplate";
 import EditorialTemplate from "@/components/templates/coach-editorial/EditorialTemplate";
 import VibrantTemplate from "@/components/templates/coach-vibrant/VibrantTemplate";
 import TandemTemplate from "@/components/templates/tandem/TandemTemplate";
+import ExpedicionTemplate from "@/components/templates/expedicion/ExpedicionTemplate";
 import DemoBanner from "./DemoBanner";
 
 export const revalidate = 60;
@@ -57,6 +58,8 @@ export default async function DemoPage({
         <VibrantTemplate demo={demo} locale={locale as Locale} />
       ) : demo.template === "tandem" ? (
         <TandemTemplate demo={demo} locale={locale as Locale} />
+      ) : demo.template === "expedicion" ? (
+        <ExpedicionTemplate demo={demo} locale={locale as Locale} />
       ) : (
         <main id="main" style={{ padding: "4rem 1.5rem", textAlign: "center" }}>
           <p>

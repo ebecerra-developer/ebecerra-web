@@ -1,0 +1,158 @@
+.nav {
+  position: sticky; /* en flujo, debajo de la barra DEMO; no se solapa */
+  top: 0;
+  z-index: 40;
+  /* velo superior constante para legibilidad sobre el metraje (no cambia con scroll) */
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 14, 11, 0.72) 0%,
+    rgba(8, 14, 11, 0.32) 60%,
+    transparent 100%
+  );
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 0 var(--gutter);
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Marca */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: var(--text-on-ink);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+.brandMark {
+  width: 13px;
+  height: 13px;
+  border: 2.5px solid var(--cta);
+  border-radius: 50%;
+  flex: none;
+}
+
+/* Nav desktop */
+.desktopNav {
+  display: none;
+}
+.menu {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.link {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  color: var(--text-on-ink);
+  opacity: 0.9;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+  transition:
+    color var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease);
+}
+.link:hover {
+  color: var(--cta);
+  opacity: 1;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.langSwitch {
+  /* Regla 7: switcher de idioma SIEMPRE visible, fuera del hamburguesa */
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--r-pill);
+  background: rgba(238, 232, 218, 0.14);
+}
+.langBtn {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+  color: var(--text-on-ink);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  line-height: 1;
+}
+.langBtnActive {
+  background: var(--cta);
+  color: #fff !important;
+}
+
+.cta {
+  display: none;
+  align-items: center;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--r-pill);
+  background: var(--cta);
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.55);
+  transition:
+    background var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+.cta:hover {
+  background: var(--cta-hover);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.cta:focus-visible {
+  outline: none;
+  box-shadow: var(--sh-focus);
+}
+.link:focus-visible {
+  outline: none;
+  box-shadow: var(--sh-focus);
+  border-radius: 4px;
+}
+
+/* 768px = mismo punto donde FisioNavMobile oculta la hamburguesa → sin hueco */
+@media (min-width: 768px) {
+  .desktopNav {
+    display: block;
+  }
+  .langSwitch {
+    display: flex;
+  }
+  .cta {
+    display: inline-flex;
+  }
+}
+/* en la franja 768–879 apretamos un poco para que quepa todo */
+@media (min-width: 768px) and (max-width: 900px) {
+  .menu {
+    gap: 1.1rem;
+  }
+  .link {
+    font-size: var(--fs-xs);
+  }
+  .inner {
+    gap: 0.6rem;
+  }
+}

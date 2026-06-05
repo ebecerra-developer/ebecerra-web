@@ -1,0 +1,122 @@
+.section {
+  padding-block: var(--section-py);
+  padding-inline: var(--gutter);
+  background: transparent; /* texto sobre el metraje, como el resto de escenas */
+  color: var(--text-on-ink);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.7);
+}
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 920px) {
+  .inner {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+/* sin imagen → una sola columna centrada (evita la caja vacía) */
+.inner.noMedia {
+  grid-template-columns: minmax(0, 760px);
+  justify-content: center;
+  text-align: center;
+}
+/* la lista de bullets se alinea a la IZQUIERDA como bloque, pero el bloque
+   entero queda centrado bajo el texto (se ve ordenado, no \"ragged\") */
+.inner.noMedia .bullets {
+  justify-items: start;
+  max-width: 30rem;
+  margin-inline: auto;
+  text-align: left;
+}
+.inner.noMedia .bullet {
+  text-align: left;
+}
+
+.kicker {
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-kicker);
+  text-transform: uppercase;
+  color: var(--cta);
+  margin-bottom: 1rem;
+}
+.title {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-tight);
+  color: var(--text-on-ink);
+}
+.body {
+  margin-top: 1.3rem;
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-on-ink-muted);
+  max-width: 52ch;
+}
+
+.bullets {
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+}
+.bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  color: var(--text-on-ink);
+}
+.check {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  position: relative;
+}
+.check::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--accent);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--ink-soft);
+  box-shadow: var(--sh-lg);
+}
+.mediaImg {
+  object-fit: cover;
+}
+.mediaFallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 30% 10%, var(--accent-deep), transparent 60%),
+    linear-gradient(160deg, var(--ink-2), var(--ink));
+}
+.frameCorner {
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(238, 232, 218, 0.25);
+  border-radius: 6px;
+  pointer-events: none;
+}

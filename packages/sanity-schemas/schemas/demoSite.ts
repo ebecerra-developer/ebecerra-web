@@ -54,6 +54,7 @@ export default defineType({
           { title: "Coach editorial (premium)", value: "coach-editorial" },
           { title: "Coach vibrant (marca personal)", value: "coach-vibrant" },
           { title: "Agencia marketing (tándem)", value: "tandem" },
+          { title: "Aventura inmersiva (expedición)", value: "expedicion" },
         ],
         layout: "radio",
       },

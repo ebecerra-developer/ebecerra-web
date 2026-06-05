@@ -617,7 +617,8 @@ export type DemoTemplate =
   | "legal"
   | "coach-editorial"
   | "coach-vibrant"
-  | "tandem";
+  | "tandem"
+  | "expedicion";
 
 export type DemoCta = {
   label: string | null;

@@ -1,0 +1,160 @@
+/* ==========================================================================
+   demos.ebecerra.es — Plantilla Expedición — Design Tokens
+   --------------------------------------------------------------------------
+   Avatar: empresa de turismo activo / aventura en naturaleza (barranquismo,
+   ferratas, espeleología, escalada, trekking). Marca demo: "Cordada".
+   Lente visual: cinematográfico-outdoor. Hero inmersivo oscuro (vídeo POV +
+   parallax de follaje) que abre a secciones cálidas claras tipo cuaderno de
+   ruta. Tierra + pino profundo + arcilla de cuerda + agua de barranco.
+   Display condensado tipo señalética de sendero (Oswald) + cuerpo Manrope.
+
+   Scope: [data-template="expedicion"]. Sustituye TODOS los tokens.
+   NO depende de otros demos-*.css.
+   ========================================================================== */
+
+[data-template="expedicion"] {
+  /* ---------- Color — Structure ---------- */
+  --bg:              #f1ece1;  /* hueso/arena cálido */
+  --bg-deep:         #e7e0d1;
+  --bg-block:        #ddd4c1;
+  --bg-block-2:      #d2c8b2;
+  --surface:         #faf6ec;
+  --surface-subtle:  #f4eee2;
+  --surface-warm:    #fff5e6;
+  --border:          #16211c;
+  --border-strong:   #16211c;
+  --border-soft:     #d6ccb6;
+
+  --ink:             #14201a;  /* pino casi negro (bandas oscuras / hero / footer) */
+  --ink-soft:        #1d2c24;
+  --ink-2:           #233a30;
+
+  /* ---------- Color — Text ---------- */
+  --text:            #14201a;
+  --text-secondary:  #3a443c;
+  --text-muted:      #5b655a;  /* AA ≥4.5:1 sobre --bg */
+  --text-disabled:   #a7a290;
+  --text-on-accent:  #ffffff;
+  --text-on-ink:     #eee8da;
+  --text-on-ink-muted: #b9c2b4;
+
+  /* ---------- Color — CTA — arcilla de cuerda ---------- */
+  --cta:             #c75d34;
+  --cta-hover:       #a8481f;
+  --cta-soft:        rgba(199, 93, 52, 0.10);
+  --cta-soft-strong: rgba(199, 93, 52, 0.22);
+
+  /* ---------- Color — Accent — agua de barranco (teal) ---------- */
+  --accent:          #2f8f7e;
+  --accent-soft:     rgba(47, 143, 126, 0.16);
+  --accent-strong:   #237064;
+  --accent-deep:     #184f47;
+
+  /* ---------- Color — Tertiary — musgo ---------- */
+  --moss:            #6f8a4a;
+  --moss-soft:       rgba(111, 138, 74, 0.18);
+  --moss-strong:     #56702f;
+
+  /* ---------- Color — Semantic ---------- */
+  --success: #2a8055;
+  --warning: #c77f34;
+  --error:   #b1391f;
+
+  /* ---------- Typography ---------- */
+  --font-sans-stack: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display-stack: var(--font-oswald), "Oswald", "Arial Narrow", "Segoe UI", system-ui, sans-serif;
+  --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Scale — display de señalética (condensada, mayúsculas) */
+  --fs-display:   clamp(3rem, 10vw, 7.5rem);
+  --fs-h1:        clamp(2.5rem, 6.5vw, 5.25rem);
+  --fs-h2:        clamp(1.9rem, 4.4vw, 3.5rem);
+  --fs-h3:        clamp(1.45rem, 2.8vw, 2.15rem);
+  --fs-h4:        1.35rem;
+  --fs-body-lead: 1.22rem;
+  --fs-body:      1.0625rem;
+  --fs-sm:        0.9375rem;
+  --fs-xs:        0.8125rem;
+  --fs-kicker:    0.75rem;
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    800;
+
+  --lh-display:  0.95;
+  --lh-tight:    1.04;
+  --lh-heading:  1.14;
+  --lh-body:     1.62;
+  --lh-lead:     1.5;
+
+  --tr-tight:    -0.01em;
+  --tr-display:  0.005em;
+  --tr-kicker:   0.18em;
+
+  /* ---------- Spacing & sizing ---------- */
+  --gutter:        clamp(1.25rem, 4vw, 2.75rem);
+  --container-max: 1280px;
+  --container-narrow: 860px;
+  --section-py:    clamp(5rem, 10vw, 8.5rem);
+  --section-py-sm: clamp(3rem, 6vw, 5rem);
+
+  /* ---------- Radii — naturales, suaves ---------- */
+  --r-xs:  4px;
+  --r-sm:  8px;
+  --r-md:  14px;
+  --r-lg:  22px;
+  --r-xl:  34px;
+  --r-pill: 999px;
+
+  /* ---------- Borders ---------- */
+  --bw-1:  1.5px;
+  --bw-2:  2px;
+  --bw-3:  3px;
+
+  /* ---------- Shadows — profundidad cálida ---------- */
+  --sh-sm:  0 1px 2px rgba(20, 32, 26, 0.08);
+  --sh-md:  0 10px 30px -12px rgba(20, 32, 26, 0.30);
+  --sh-lg:  0 26px 60px -22px rgba(20, 32, 26, 0.42);
+  --sh-cta: 0 14px 30px -12px rgba(199, 93, 52, 0.55);
+  /* doble anillo (blanco interior + arcilla exterior): ≥3:1 sobre metraje oscuro
+     Y sobre tarjetas crema, en cualquier fotograma */
+  --sh-focus: 0 0 0 2px #ffffff, 0 0 0 4px var(--cta);
+
+  /* ---------- Motion ---------- */
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 520ms;
+  --ease:        cubic-bezier(0.22, 0.78, 0.24, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---------- Chatbot (plantilla Expedición) ---------- */
+  --chatbot-bg:                  var(--surface);
+  --chatbot-fg:                  var(--text);
+  --chatbot-muted:               var(--text-muted);
+  --chatbot-accent:              var(--cta);
+  --chatbot-accent-fg:           var(--text-on-accent);
+  --chatbot-border:              var(--border-soft);
+  --chatbot-bubble-user:         var(--cta);
+  --chatbot-bubble-user-fg:      #ffffff;
+  --chatbot-bubble-assistant:    var(--bg-block);
+  --chatbot-bubble-assistant-fg: var(--text);
+  --chatbot-radius:              20px;
+  --chatbot-radius-bubble:       14px;
+  --chatbot-font:                var(--font-sans-stack);
+  --chatbot-shadow:              var(--sh-lg);
+}
+
+/* En móvil (modo normal, sin inmersivo) las secciones se apilan y scrollean:
+   recortamos el padding vertical para que no ocupen tanto a lo alto. */
+@media (max-width: 768px) {
+  [data-template="expedicion"] {
+    --section-py: clamp(2.5rem, 7vw, 3.75rem);
+  }
+}
+
+/* El nav es sticky: al saltar a un ancla, deja hueco para que no tape el título. */
+[data-template="expedicion"] section[id] {
+  scroll-margin-top: 84px;
+}

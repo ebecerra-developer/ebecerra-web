@@ -114,7 +114,7 @@
 }
 
 .drawerBrand {
-  font-family: var(--font-display);
+  font-family: var(--font-display-stack);
   font-size: 1.125rem;
   font-weight: var(--fw-semibold);
   color: var(--text);
@@ -154,7 +154,7 @@
 .link {
   display: block;
   padding: 0.85rem 0.75rem;
-  font-family: var(--font-display);
+  font-family: var(--font-display-stack);
   font-size: 1.5rem;
   font-weight: var(--fw-semibold);
   color: var(--text);
@@ -209,4 +209,82 @@
 
 .cta:hover::after {
   transform: translateX(3px);
+}
+
+/* ==========================================================================
+   Expedición — drawer temático (señalética de sendero, oscuro). Scopeado a
+   [data-template="expedicion"] → no afecta a fisio ni a otras plantillas.
+   ========================================================================== */
+[data-template="expedicion"] .toggle {
+  background: rgba(238, 232, 218, 0.08);
+  border-color: rgba(238, 232, 218, 0.34);
+  color: var(--text-on-ink);
+}
+[data-template="expedicion"] .toggle:hover {
+  border-color: var(--cta);
+}
+
+[data-template="expedicion"] .backdrop {
+  background: color-mix(in srgb, #0a120e 74%, transparent);
+}
+
+[data-template="expedicion"] .drawer {
+  background: var(--ink);
+  background-image: radial-gradient(
+    130% 70% at 100% 0%,
+    rgba(199, 93, 52, 0.18),
+    transparent 60%
+  );
+  border-left: 1px solid color-mix(in srgb, var(--cta) 45%, transparent);
+}
+[data-template="expedicion"] .drawerHeader {
+  border-bottom-color: rgba(238, 232, 218, 0.14);
+}
+[data-template="expedicion"] .drawerBrand {
+  color: var(--text-on-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+[data-template="expedicion"] .close {
+  border-color: rgba(238, 232, 218, 0.3);
+  color: var(--text-on-ink);
+}
+[data-template="expedicion"] .close:hover {
+  border-color: var(--cta);
+  color: var(--cta);
+}
+
+[data-template="expedicion"] .menu {
+  counter-reset: navitem;
+  padding-top: 1.75rem;
+  gap: 0;
+}
+[data-template="expedicion"] .link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding-block: 1.05rem;
+  color: var(--text-on-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid rgba(238, 232, 218, 0.1);
+}
+/* número de ruta delante de cada ítem (01, 02, 03…) */
+[data-template="expedicion"] .link::before {
+  counter-increment: navitem;
+  content: "0" counter(navitem);
+  font-family: var(--font-sans-stack);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--cta);
+  transform: translateY(-0.15em);
+}
+[data-template="expedicion"] .link:hover,
+[data-template="expedicion"] .link:focus-visible {
+  color: var(--cta);
+  border-bottom-color: color-mix(in srgb, var(--cta) 55%, transparent);
+}
+[data-template="expedicion"] .footer {
+  border-top-color: rgba(238, 232, 218, 0.14);
 }

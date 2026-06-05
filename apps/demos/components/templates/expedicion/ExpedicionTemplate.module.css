@@ -1,0 +1,26 @@
+.shell {
+  position: relative;
+  /* oscuro: tapa cualquier hueco antes de que el stage sticky se fije al top y
+     evita franjas claras detrás del nav transparente */
+  background: var(--ink);
+  color: var(--text-on-ink);
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  /* clip (no hidden) → recorta overflow horizontal SIN romper position: sticky del nav */
+  overflow-x: clip;
+}
+
+/* El contenido va por encima del fondo fijo (z-index 0). */
+.main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Solo fija la tipografía display; el COLOR lo decide cada sección. */
+.shell :global(h1),
+.shell :global(h2),
+.shell :global(h3),
+.shell :global(h4) {
+  font-family: var(--font-display-stack);
+}

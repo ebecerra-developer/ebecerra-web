@@ -1,0 +1,174 @@
+/* Hero = contenido transparente sobre el fondo inmersivo persistente. */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 6rem var(--gutter) 4rem;
+}
+
+.overlay {
+  width: min(900px, 92vw);
+  color: var(--text-on-ink);
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-kicker);
+  text-transform: uppercase;
+  /* arcilla más luminosa + sombra: ≥4.5:1 sobre el metraje velado (el clay base
+     #c75d34 a 12px se queda en ~4.1:1) */
+  color: #ec8a5f;
+  text-shadow: 0 1px 3px rgba(8, 14, 11, 0.7);
+  margin-bottom: 1.4rem;
+}
+.kickerDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cta);
+  box-shadow: 0 0 12px var(--cta);
+}
+
+.heading {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  color: var(--text-on-ink);
+  text-shadow: 0 6px 44px rgba(0, 0, 0, 0.65);
+}
+.hl {
+  color: var(--cta);
+}
+
+/* en móviles estrechos, bajar el titular para que no roce el borde */
+@media (max-width: 480px) {
+  .heading {
+    font-size: clamp(2.2rem, 11vw, 3.2rem);
+  }
+}
+
+.sub {
+  margin: 1.6rem auto 0;
+  max-width: 44ch;
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-on-ink-muted);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.75);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  justify-content: center;
+  margin-top: 2.2rem;
+}
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.7rem;
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--r-pill);
+  transition:
+    transform var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+.ctaPrimary {
+  background: var(--cta);
+  color: #fff;
+  /* sombra oscura (no el brillo clay): separa el botón del metraje, incluso
+     sobre los tramos marrones del sendero */
+  box-shadow: 0 10px 26px -8px rgba(0, 0, 0, 0.6);
+}
+.ctaPrimary:hover {
+  background: var(--cta-hover);
+  color: #fff; /* la regla global a:hover lo pondría clay (invisible sobre clay) */
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.66);
+}
+.ctaSecondary {
+  /* cristal oscuro (no tinte claro casi invisible): legible sobre cualquier
+     fotograma, claro u oscuro */
+  background: rgba(8, 14, 11, 0.5);
+  color: var(--text-on-ink);
+  border: 1px solid rgba(238, 232, 218, 0.55);
+  box-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+}
+.ctaSecondary:hover {
+  background: rgba(8, 14, 11, 0.66);
+  border-color: rgba(238, 232, 218, 0.8);
+  color: var(--text-on-ink);
+  transform: translateY(-2px);
+}
+/* Anillo de foco visible (la box-shadow propia del botón pisaba el :focus-visible
+   global → se componen aquí con mayor especificidad). */
+.ctaPrimary:focus-visible,
+.ctaSecondary:focus-visible {
+  outline: none;
+  box-shadow: var(--sh-focus);
+}
+
+.scrollHint {
+  position: absolute;
+  bottom: clamp(34px, 6vh, 64px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-on-ink-muted);
+}
+.arrow {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(var(--cta), transparent);
+  animation: dropline 1.8s ease-in-out infinite;
+}
+@keyframes dropline {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    animation: none;
+  }
+}

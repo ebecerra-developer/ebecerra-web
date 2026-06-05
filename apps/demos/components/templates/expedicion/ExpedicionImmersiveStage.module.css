@@ -1,0 +1,257 @@
+.root {
+  position: relative;
+}
+
+/* ---- Capas inmersivas: siempre fijas al viewport (sin huecos, y la rueda del
+   ratón scrollea la ventana). `--stage-fade` las desvanece al final para que el
+   footer suba sobre el fondo oscuro. ---- */
+.poster {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: var(--stage-fade, 1);
+  background:
+    linear-gradient(180deg, rgba(10, 16, 13, 0.2), rgba(10, 16, 13, 0.5)),
+    url("/immersive/expedicion/poster.webp") center / cover no-repeat;
+}
+.canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  opacity: var(--stage-fade, 1);
+}
+.root[data-mode="immersive"] .canvas {
+  display: block;
+}
+
+/* Entrada suave: al activarse el inmersivo, las capas que APARECEN (metraje, marco
+   y escenas) se funden en vez de saltar de golpe. Sin `forwards` → al terminar,
+   vuelve a mandar `opacity: var(--stage-fade)` (el fundido del footer sigue ok). */
+.root[data-mode="immersive"] .canvas,
+.root[data-mode="immersive"] .frame,
+.root[data-mode="immersive"] .scenes {
+  animation: expLayerIn 0.45s var(--ease, ease-out);
+}
+@keyframes expLayerIn {
+  from {
+    opacity: 0;
+  }
+}
+
+/* al final, toda la capa inmersiva (fondo + marco + escenas) sube y se oculta
+   por arriba, dejando paso al footer (pie de alto normal) */
+.root[data-mode="immersive"] .poster,
+.root[data-mode="immersive"] .canvas,
+.root[data-mode="immersive"] .grade,
+.root[data-mode="immersive"] .frame {
+  transform: translateY(var(--stage-shift, 0));
+}
+
+/* ---- Ramas de primer plano (PNG con alpha). Parallax con el ratón; van entre
+   el metraje y el velo (el velo las oscurece → lectura de "primer plano"). ---- */
+.branches {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--stage-fade, 1);
+}
+.root[data-mode="immersive"] .branches {
+  display: block;
+  transform: translateY(var(--stage-shift, 0));
+}
+/* Una sola rama que rota por la secuencia (el JS le pone la imagen). Cada lado
+   PEGADO a su borde con transform-origin → al escalar crece desde ahí sin
+   despegarse. Cada regla fija TODA la caja para resetear al cambiar de lado. */
+.branch {
+  position: absolute;
+  background-repeat: no-repeat;
+  will-change: transform, opacity;
+}
+/* La rama llena la dimensión de su borde (alto para izq/der, ancho para arr/abj) y
+   la caja es MUY grande en la otra dimensión → la parte que sobra queda FUERA de
+   pantalla en vez de cortarse con una línea visible dentro del viewport. Anclada a
+   su lado + `transform-origin` ahí → al escalar crece desde ese borde (parallax). */
+.branch[data-edge="left"] {
+  top: -5%;
+  bottom: auto;
+  left: 0;
+  right: auto;
+  width: 240%;
+  height: 110%;
+  background-position: left center;
+  background-size: auto 100%;
+  transform-origin: left center;
+}
+.branch[data-edge="right"] {
+  top: -5%;
+  bottom: auto;
+  left: auto;
+  right: 0;
+  width: 240%;
+  height: 110%;
+  background-position: right center;
+  background-size: auto 100%;
+  transform-origin: right center;
+}
+.branch[data-edge="top"] {
+  top: 0;
+  bottom: auto;
+  left: -5%;
+  right: auto;
+  width: 110%;
+  height: 240%;
+  background-position: center top;
+  background-size: 100% auto;
+  transform-origin: center top;
+}
+.branch[data-edge="bottom"] {
+  top: auto;
+  bottom: 0;
+  left: -5%;
+  right: auto;
+  width: 110%;
+  height: 240%;
+  background-position: center bottom;
+  background-size: 100% auto;
+  transform-origin: center bottom;
+}
+/* todos los bordes (ramas_variadas / mediterraneas): crece desde el centro hacia
+   fuera → pasas a través del hueco */
+.branch[data-edge="all"] {
+  top: -5%;
+  bottom: auto;
+  left: -5%;
+  right: auto;
+  width: 110%;
+  height: 110%;
+  background-position: center;
+  background-size: cover;
+  transform-origin: center;
+}
+
+.grade {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--stage-fade, 1);
+  background:
+    linear-gradient(180deg, rgba(8, 14, 11, 0.55) 0%, rgba(8, 14, 11, 0.34) 38%, rgba(8, 14, 11, 0.62) 100%),
+    radial-gradient(ellipse at 50% 45%, rgba(8, 14, 11, 0.22) 0%, rgba(8, 14, 11, 0.55) 100%);
+}
+
+/* ---- Marco. El borde superior arranca por DEBAJO del nav (≈68px) para que la
+   línea no cruce por encima del texto del nav. ---- */
+.frame {
+  /* el marquito es un recurso del modo inmersivo (cada escena ocupa una pantalla
+     y encaja en el marco). En modo normal/móvil el contenido es largo y lo
+     atravesaría → solo se muestra en inmersivo. */
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: var(--stage-fade, 1);
+}
+.root[data-mode="immersive"] .frame {
+  display: block;
+}
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: var(--frame-top, 84px) clamp(12px, 2vw, 26px) clamp(12px, 2vw, 26px);
+  border: 1px solid rgba(238, 232, 218, 0.18);
+  border-radius: 3px;
+}
+.corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--cta);
+  opacity: 0.85;
+}
+.tl { top: var(--frame-top, 84px); left: clamp(12px, 2vw, 26px); border-right: none; border-bottom: none; }
+.tr { top: var(--frame-top, 84px); right: clamp(12px, 2vw, 26px); border-left: none; border-bottom: none; }
+.bl { bottom: clamp(12px, 2vw, 26px); left: clamp(12px, 2vw, 26px); border-right: none; border-top: none; }
+.br { bottom: clamp(12px, 2vw, 26px); right: clamp(12px, 2vw, 26px); border-left: none; border-top: none; }
+
+/* ---- Escenas ---- */
+.scenes {
+  position: relative;
+  z-index: 2;
+}
+.scene {
+  position: relative;
+}
+.root[data-mode="immersive"] .scenes {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: var(--stage-fade, 1);
+  transform: translateY(var(--stage-shift, 0));
+}
+.root[data-mode="immersive"] .scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  /* El contenido se centra DENTRO del marco: arriba la línea del marco
+     (--frame-top, que adapta al nav) y abajo el mismo inset → aire igual arriba y
+     abajo respecto a la línea del marco. */
+  padding: var(--frame-top, 84px) var(--gutter) clamp(12px, 2vw, 26px);
+  opacity: 0; /* el JS fija la opacidad real; evita flash de escenas apiladas */
+  /* hidden (sin scroll interno): la rueda nunca queda atrapada */
+  overflow: hidden;
+}
+.root[data-mode="immersive"] .scene > section {
+  width: 100%;
+  min-height: 0;
+  padding-block: 0;
+  padding-inline: 0;
+}
+
+/* ---- Spacer (da la distancia de scroll solo en inmersivo) ---- */
+.spacer {
+  height: 0;
+}
+
+/* ---- Pista de scroll (solo inmersivo, abajo) ---- */
+.scrollHint {
+  display: none;
+}
+.root[data-mode="immersive"] .scrollHint {
+  display: flex;
+  position: fixed;
+  bottom: clamp(30px, 6vh, 60px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 7;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-on-ink-muted);
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease);
+}
+.arrow {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(var(--cta), transparent);
+  animation: stagedrop 1.8s ease-in-out infinite;
+}
+@keyframes stagedrop {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}

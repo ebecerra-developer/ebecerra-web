@@ -10,6 +10,7 @@
 @import "../../../packages/tokens/demos-coach-editorial.css";
 @import "../../../packages/tokens/demos-coach-vibrant.css";
 @import "../../../packages/tokens/demos-tandem.css";
+@import "../../../packages/tokens/demos-expedicion.css";
 
 @theme inline {
   --font-sans: var(--font-dm-sans);
@@ -44,6 +45,20 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* En experiencias inmersivas (plantilla expedición) se oculta la barra de scroll
+   nativa para no romper el marco; el scroll sigue funcionando (rueda/teclado). */
+html.exp-immersive {
+  scrollbar-width: none;
+  /* En inmersivo el JS controla el scroll (rAF con easing propio). El
+     `scroll-behavior: smooth` global hace que cada window.scrollTo por frame
+     reinicie la animación nativa → el scroll se atasca y el click en el nav no
+     avanza. Aquí lo forzamos a auto. */
+  scroll-behavior: auto;
+}
+html.exp-immersive::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -101,6 +116,14 @@ a {
 a:hover {
   color: var(--cta-hover);
   text-decoration-color: var(--cta-hover);
+}
+
+/* Skip-link "saltar al contenido" (hijo directo de body): el `a` base lo pinta
+   del color del fondo (--cta) y queda invisible. Texto blanco. El selector
+   `body >` evita afectar a otros enlaces con href="#main" (p.ej. el logo). */
+body > a[href="#main"]:focus {
+  color: #fff;
+  text-decoration: none;
 }
 
 ::selection {

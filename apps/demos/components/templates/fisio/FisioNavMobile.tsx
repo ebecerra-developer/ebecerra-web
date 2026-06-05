@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./FisioNavMobile.module.css";
 
@@ -35,6 +35,8 @@ export default function FisioNavMobile({
 }: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
 
   // Mount detection for portal — solo despues de hidratar evitamos
   // mismatches React #418 entre SSR y cliente.
@@ -51,6 +53,40 @@ export default function FisioNavMobile({
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  // a11y: al abrir, llevar el foco DENTRO del drawer y ATRAPAR el Tab (que no se
+  // escape a la página de detrás); al cerrar, DEVOLVER el foco al botón hamburguesa.
+  useEffect(() => {
+    if (!open) return;
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+    const focusables = () =>
+      Array.from(
+        drawer.querySelectorAll<HTMLElement>(
+          'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])',
+        ),
+      );
+    (focusables()[0] ?? drawer).focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const f = focusables();
+      if (f.length === 0) return;
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    drawer.addEventListener("keydown", onKey);
+    return () => {
+      drawer.removeEventListener("keydown", onKey);
+      toggleRef.current?.focus(); // foco de vuelta al toggle al cerrar
+    };
   }, [open]);
 
   // Lock body scroll while open
@@ -72,9 +108,14 @@ export default function FisioNavMobile({
         aria-hidden="true"
       />
       <aside
+        ref={drawerRef}
         id="fisio-mobile-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label={ariaPrimaryNav}
         className={`${styles.drawer} ${open ? styles.drawerOpen : ""}`}
         aria-hidden={!open}
+        inert={!open || undefined}
       >
         <div className={styles.drawerHeader}>
           <span className={styles.drawerBrand}>{brand}</span>
@@ -120,6 +161,7 @@ export default function FisioNavMobile({
   return (
     <>
       <button
+        ref={toggleRef}
         type="button"
         className={`${styles.toggle} ${open ? styles.open : ""}`}
         onClick={() => setOpen((v) => !v)}

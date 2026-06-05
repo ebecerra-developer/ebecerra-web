@@ -95,6 +95,7 @@ Invocar con `/nombre`. Para crear contenido (post, copy, SEO, AEO) entra por **`
 | `/chatbot-system` | Greetings/system prompts, cadena Groq, añadir contexto o diagnosticar. |
 | `/admin-panel` | Añadir módulo, provisionar admin de cliente nuevo, mapear tokens al admin, depurar estética. |
 | `/demos-template-system` | Añadir plantilla nueva a `apps/demos`. |
+| `/immersive-scroll` | Efecto inmersivo "ir hacia delante" (POV en canvas + escenas cross-fade): motor, desktop vs móvil (paneo), gotchas. Plantilla `expedicion`/Bravío y prototipos `_immersive-proto`. |
 | `/css-conventions` | Estilos: CSS Modules co-located. |
 | `/design-tokens` | Paleta, tokens, rough-notation, handoff Claude Design. |
 | `/brand-identity` | Logos, favicons, OG images. |

@@ -1,0 +1,248 @@
+.footer {
+  position: relative;
+  /* por encima del stage inmersivo fijo (z 0–7) → sube y lo tapa al final,
+     como un pie tradicional */
+  z-index: 20;
+  background: var(--ink);
+  color: var(--text-on-ink);
+  padding-inline: var(--gutter);
+  padding-block: clamp(3rem, 6vw, 4.5rem) 1.5rem;
+}
+/* ---- Banda de cierre: gancho final + botón "volver arriba" ---- */
+.closing {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 3rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid rgba(238, 232, 218, 0.14);
+}
+.closingText {
+  min-width: 0;
+}
+.closingKicker {
+  font-size: var(--fs-kicker);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-kicker);
+  text-transform: uppercase;
+  color: var(--cta);
+  margin-bottom: 0.75rem;
+}
+.closingLine {
+  font-family: var(--font-display-stack);
+  font-size: clamp(1.9rem, 4.5vw, 3.1rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: var(--tr-tight);
+  color: var(--text-on-ink);
+}
+.hl {
+  color: var(--cta);
+}
+.closingCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.6rem;
+  padding: 0.95rem 1.9rem;
+  border-radius: var(--r-pill);
+  background: var(--cta);
+  color: #fff;
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: var(--fs-sm);
+  text-decoration: none;
+  box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.7);
+  transition:
+    background var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+.closingCta span {
+  transition: transform var(--dur-fast) var(--ease);
+}
+.closingCta:hover {
+  background: var(--cta-hover);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.closingCta:hover span {
+  transform: translateX(4px);
+}
+.closingCta:focus-visible {
+  outline: none;
+  box-shadow: var(--sh-focus);
+}
+
+/* botón circular "volver arriba" — rebobina el camino */
+.toTop {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--text-on-ink-muted);
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: color var(--dur-fast) var(--ease);
+}
+.toTopRing {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid rgba(238, 232, 218, 0.28);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--dur-base) var(--ease);
+}
+/* relleno clay que sube al hover */
+.toTopRing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--cta);
+  transform: translateY(100%);
+  transition: transform var(--dur-base) var(--ease);
+}
+.toTopArrow {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(-45deg);
+  margin-top: 3px;
+  color: var(--text-on-ink);
+  transition:
+    transform var(--dur-base) var(--ease),
+    color var(--dur-base) var(--ease);
+}
+.toTop:hover {
+  color: var(--text-on-ink);
+}
+.toTop:hover .toTopRing {
+  border-color: var(--cta);
+}
+.toTop:hover .toTopRing::before {
+  transform: translateY(0);
+}
+.toTop:hover .toTopArrow {
+  color: #fff;
+  transform: rotate(-45deg) translate(-3px, 3px);
+}
+.toTop:focus-visible {
+  outline: none;
+}
+.toTop:focus-visible .toTopRing {
+  box-shadow: var(--sh-focus);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(238, 232, 218, 0.14);
+}
+
+.brandCol {
+  max-width: 38ch;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 1.5rem;
+  color: var(--text-on-ink);
+}
+.brandMark {
+  width: 13px;
+  height: 13px;
+  border: 2.5px solid var(--cta);
+  border-radius: 50%;
+}
+.tagline {
+  margin-top: 0.8rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-on-ink-muted);
+}
+
+.nav {
+  flex: none;
+}
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.navLink {
+  position: relative;
+  font-size: var(--fs-sm);
+  color: var(--text-on-ink-muted);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease);
+}
+/* subrayado que crece de izquierda a derecha al hover */
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: var(--cta);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease);
+}
+.navLink:hover {
+  color: var(--cta);
+}
+.navLink:hover::after {
+  transform: scaleX(1);
+}
+
+.bottom {
+  max-width: var(--container-max);
+  margin: 1.5rem auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.demo,
+.copy {
+  font-size: var(--fs-xs);
+  color: var(--text-on-ink-muted);
+}
+.copy a {
+  color: var(--text-on-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.copy a:hover {
+  color: var(--cta);
+}
