@@ -26,7 +26,7 @@ Si quieres una web que vaya ligera de verdad, te leo. Sin compromiso.
 
 ## Alt text
 
-Sobre fondo verde, el logo eB en blanco arriba a la izquierda. Texto color crema: «Lo rápido también es más verde». A la derecha, un círculo crema con una hoja verde dentro y un borde verde claro desplazado. Debajo, un párrafo que explica que una web ligera gasta menos energía. Abajo a la izquierda, el handle @ebecerra.es.
+Sobre fondo verde, kicker «5 jun · día del medioambiente» y titular en crema «Lo rápido también es más verde». A la derecha, un círculo crema con una hoja verde dentro y un borde verde claro desplazado. Debajo, un párrafo que explica que una web ligera gasta menos energía. Abajo a la izquierda, la firma: círculo con «eB» y @ebecerra.es.
 
 ## Comentario fijado
 
@@ -39,5 +39,5 @@ La velocidad sería lo primero que miraría en tu web. Si te pica la curiosidad 
 - Honestidad explícita ("no salva el planeta, seamos honestos") para evitar greenwashing — coherente con la línea de franqueza del user.
 - Evita la palabra "código" (jerga) — se dice "sin peso de más, sin sobras".
 - Tipografía Inter + acento por color (no Fraunces). Ver [[feedback_tipografia_social_inter]].
-- Firma única: logo eB blanco arriba-izquierda + @ebecerra.es (texto) abajo-izquierda. NO duplicar el handle (era el fallo de la v1: salía arriba y abajo).
+- Firma única, estándar: círculo eB + @ebecerra.es abajo-izquierda (como todos los posts). NO duplicar (la v1 la sacaba arriba y abajo). El logo eB arriba es solo opcional en piezas concretas con foto donde encaje; aquí no.
 - Badge hoja = metáfora de ligereza, no demo. Emoji 🍃 renderiza color en el pipeline.

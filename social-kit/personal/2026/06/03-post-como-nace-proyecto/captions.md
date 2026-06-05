@@ -28,7 +28,7 @@ Si tienes una idea rondando —o solo la sensación de que tu web podría hacer 
 
 ## Alt text
 
-Sobre fondo verde, titular «Antes de la web, una conversación» en la parte de arriba a todo el ancho. Debajo, a la izquierda, retrato de Enrique sonriendo (camisa azul claro) enmarcado en una tarjeta color crema con borde verde claro. A la derecha, texto corto: «Lo primero no es la web. Es entender tu negocio. De ahí sale todo. ¿Tienes una idea? Te escucho.» Abajo, el handle @ebecerra.es.
+Sobre fondo verde, kicker «cómo trabajo» y titular en crema «Antes de la web, una conversación» arriba a la izquierda, en dos líneas (con «conversación» en verde claro). Debajo, a la izquierda, retrato de Enrique sonriendo (camisa azul claro) enmarcado en una tarjeta color crema con borde verde claro. A la derecha, texto corto: «Lo primero no es la web. Es entender tu negocio. De ahí sale todo. ¿Tienes una idea? Te escucho.» Abajo a la izquierda, la firma: círculo con «eB» y @ebecerra.es.
 
 ## Comentario fijado
 
