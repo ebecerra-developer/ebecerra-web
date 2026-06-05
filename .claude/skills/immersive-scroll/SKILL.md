@@ -21,6 +21,7 @@ Experiencia donde el contenido NO scrollea como un documento: un **fondo POV** (
 - **Canvas image-sequence**, NO vídeo: fotogramas WebP (~29 KB c/u, ~93 frames ≈ 2.8 MB) precargados; se scrubean con el scroll. Un `<video>` da saltos al hacer seek; los fotogramas no.
 - **Mejora progresiva**: SSR/fallback = `data-mode="normal"` (scroll normal, mismo DOM). El inmersivo se activa SOLO en cliente si hay capacidad (no `prefers-reduced-motion`, no `save-data`, ventana no demasiado baja) y tras precargar unos fotogramas. `mode` por `useState` → sin hydration mismatch.
 - **a11y**: escenas inactivas `inert` + `visibility:hidden`; la activa quita `inert`. Skip-link, focus rings de doble anillo sobre el metraje.
+- **Parallax de cursor** (solo ratón fino): un `pointermove` mueve el "punto de vista" — las ramas de primer plano se desplazan MÁS (`PAR_BRANCH`) que el contenido de las escenas (`PAR_SCENE`), opuesto al cursor → profundidad. Suavizado con lerp en el loop; el desplazamiento va ANTES del `scale` de la rama (sigue creciendo desde su borde, no se despega). El loop no se duerme hasta que el parallax converge.
 
 ## Desktop vs Móvil — la clave de tamaño
 

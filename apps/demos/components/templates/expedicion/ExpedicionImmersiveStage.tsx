@@ -108,6 +108,15 @@ export default function ExpedicionImmersiveStage({
     let lastBranchIdx = -1;
     let cancelled = false;
     let tooLate = false;
+    // Parallax de cursor: al mover el ratón se desplaza el "punto de vista". Las
+    // ramas (primer plano) se mueven más que las escenas (contenido) → profundidad.
+    // parT* = objetivo del ratón (-0.5..0.5 desde el centro); par* = valor suavizado.
+    let parTX = 0;
+    let parTY = 0;
+    let parX = 0;
+    let parY = 0;
+    const PAR_BRANCH = 52; // px de recorrido total de las ramas
+    const PAR_SCENE = 22; // px de recorrido total del contenido (menos = más al fondo)
 
     // ---- precarga con umbral + ventana de tiempo ----
     const images: HTMLImageElement[] = new Array(FRAME_COUNT);
@@ -320,6 +329,10 @@ export default function ExpedicionImmersiveStage({
       curFrame += (target - curFrame) * 0.2;
       if (Math.round(curFrame) !== lastDrawn) draw(curFrame);
 
+      // suavizado del parallax de cursor (lerp hacia el objetivo del ratón)
+      parX += (parTX - parX) * 0.09;
+      parY += (parTY - parY) * 0.09;
+
       if (hint) hint.style.opacity = p > 0.03 ? "0" : "1";
 
       let bestIdx = 0;
@@ -342,9 +355,11 @@ export default function ExpedicionImmersiveStage({
             const ty = (panDist[i] / 2) * (1 - 2 * panT);
             section.style.transform = ty ? `translateY(${ty.toFixed(1)}px)` : "";
           }
-          el.style.transform = "";
+          // parallax del contenido (móvil): pequeño desplazamiento con el cursor
+          el.style.transform = `translate(${(parX * -PAR_SCENE).toFixed(1)}px, ${(parY * -PAR_SCENE * 0.6).toFixed(1)}px)`;
         } else {
-          el.style.transform = `translateY(${(1 - vis) * 26}px)`;
+          // desktop: rise de entrada + parallax del contenido
+          el.style.transform = `translate(${(parX * -PAR_SCENE).toFixed(1)}px, ${((1 - vis) * 26 + parY * -PAR_SCENE * 0.6).toFixed(1)}px)`;
         }
         if (vis > bestVis) {
           bestVis = vis;
@@ -380,7 +395,10 @@ export default function ExpedicionImmersiveStage({
           branchEl.dataset.edge = cfg.edge;
           branchEl.style.backgroundImage = `url("${cfg.img}")`;
         }
-        branchEl.style.transform = `scale(${(1 + cyc * 0.6).toFixed(3)})`;
+        // parallax: las ramas (primer plano) se desplazan MÁS que el contenido con
+        // el cursor → el "punto de vista" se mueve respecto a las plantas. El
+        // translate va antes que el scale → la rama sigue creciendo desde su borde.
+        branchEl.style.transform = `translate(${(parX * -PAR_BRANCH).toFixed(1)}px, ${(parY * -PAR_BRANCH * 0.6).toFixed(1)}px) scale(${(1 + cyc * 0.6).toFixed(3)})`;
         branchEl.style.opacity = Math.sin(cyc * Math.PI).toFixed(3);
       }
 
@@ -405,8 +423,12 @@ export default function ExpedicionImmersiveStage({
         root.style.setProperty("--stage-fade", (1 - clamp(rise * 1.5, 0, 1)).toFixed(3));
       }
 
-      if (Math.abs(target - curFrame) < 0.01) {
-        running = false; // duerme hasta el próximo scroll
+      if (
+        Math.abs(target - curFrame) < 0.01 &&
+        Math.abs(parTX - parX) < 0.0006 &&
+        Math.abs(parTY - parY) < 0.0006
+      ) {
+        running = false; // duerme hasta el próximo scroll / movimiento de ratón
         return;
       }
       rafId = requestAnimationFrame(loop);
@@ -430,6 +452,20 @@ export default function ExpedicionImmersiveStage({
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize);
+
+    // Parallax de cursor: solo en dispositivos con ratón fino (en táctil no hay
+    // cursor → parX/parY quedan en 0 y no se aplica nada).
+    const finePointer = window.matchMedia(
+      "(hover: hover) and (pointer: fine)",
+    ).matches;
+    const onPointerMove = (e: PointerEvent) => {
+      parTX = e.clientX / window.innerWidth - 0.5;
+      parTY = e.clientY / window.innerHeight - 0.5;
+      wake();
+    };
+    if (finePointer) {
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+    }
 
     // Re-medir cuando cambian las alturas reales (webfonts, imágenes, reflow). Sin
     // esto, según el orden de carga (caché) la primera medición sale distinta y las
@@ -513,6 +549,7 @@ export default function ExpedicionImmersiveStage({
       window.removeEventListener("load", loadRest);
       window.removeEventListener("wheel", cancelScrollAnim);
       window.removeEventListener("touchstart", cancelScrollAnim);
+      window.removeEventListener("pointermove", onPointerMove);
       document.removeEventListener("click", onAnchorClick);
       if (branchEl) {
         branchEl.style.transform = "";
