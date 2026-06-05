@@ -74,12 +74,13 @@
 }
 /* La rama llena la dimensión de su borde (alto para izq/der, ancho para arr/abj) y
    la caja es MUY grande en la otra dimensión → la parte que sobra queda FUERA de
-   pantalla en vez de cortarse con una línea visible dentro del viewport. Anclada a
-   su lado + `transform-origin` ahí → al escalar crece desde ese borde (parallax). */
+   pantalla. Además se ancla 100px FUERA del borde (el borde recto del PNG, por
+   donde "entra" la rama, queda off-screen) → ni con el parallax (±26px) asoma ese
+   corte dentro del viewport. `transform-origin` en ese borde → crece desde ahí. */
 .branch[data-edge="left"] {
   top: -5%;
   bottom: auto;
-  left: 0;
+  left: -100px;
   right: auto;
   width: 240%;
   height: 110%;
@@ -91,7 +92,7 @@
   top: -5%;
   bottom: auto;
   left: auto;
-  right: 0;
+  right: -100px;
   width: 240%;
   height: 110%;
   background-position: right center;
@@ -99,7 +100,7 @@
   transform-origin: right center;
 }
 .branch[data-edge="top"] {
-  top: 0;
+  top: -100px;
   bottom: auto;
   left: -5%;
   right: auto;
@@ -111,7 +112,7 @@
 }
 .branch[data-edge="bottom"] {
   top: auto;
-  bottom: 0;
+  bottom: -100px;
   left: -5%;
   right: auto;
   width: 110%;

@@ -398,7 +398,10 @@ export default function ExpedicionImmersiveStage({
         // parallax: las ramas (primer plano) se desplazan MÁS que el contenido con
         // el cursor → el "punto de vista" se mueve respecto a las plantas. El
         // translate va antes que el scale → la rama sigue creciendo desde su borde.
-        branchEl.style.transform = `translate(${(parX * -PAR_BRANCH).toFixed(1)}px, ${(parY * -PAR_BRANCH * 0.6).toFixed(1)}px) scale(${(1 + cyc * 0.6).toFixed(3)})`;
+        // Escala generosa (1.35→2.15): la rama "sale más del plano" y el borde donde
+        // acaba el PNG queda FUERA de pantalla con margen, aunque el parallax la
+        // desplace (si no, según el cursor asomaba el corte de la imagen).
+        branchEl.style.transform = `translate(${(parX * -PAR_BRANCH).toFixed(1)}px, ${(parY * -PAR_BRANCH * 0.6).toFixed(1)}px) scale(${(1.35 + cyc * 0.8).toFixed(3)})`;
         branchEl.style.opacity = Math.sin(cyc * Math.PI).toFixed(3);
       }
 
@@ -514,10 +517,12 @@ export default function ExpedicionImmersiveStage({
     window.addEventListener("wheel", cancelScrollAnim, { passive: true });
     window.addEventListener("touchstart", cancelScrollAnim, { passive: true });
 
-    // anclas → scroll animado lento a la sección destino. Las escenas son fijas
-    // (el anchor nativo no tiene a dónde ir): movemos el scroll a la posición del
-    // spacer que corresponde al INICIO del tramo de esa escena (un pelín dentro,
-    // para que ya esté fundida y mostrando su parte de arriba).
+    // anclas → scroll animado lento a la sección destino. Las escenas son fijas (el
+    // anchor nativo no tiene a dónde ir): movemos el scroll a la posición del spacer
+    // donde la escena está PLENAMENTE visible: justo al acabar su fundido de entrada
+    // (`bounds[idx] + fadeW`) la opacidad llega a 1 y, en móvil, muestra su parte de
+    // arriba. (Antes aterrizaba al 18% del tramo → aún se estaba fundiendo y se veía
+    // a medias.)
     const onAnchorClick = (e: MouseEvent) => {
       const link = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
       if (!link) return;
@@ -530,8 +535,7 @@ export default function ExpedicionImmersiveStage({
       e.preventDefault();
       const total = spacer.offsetHeight - window.innerHeight;
       const spacerTop = window.scrollY + spacer.getBoundingClientRect().top;
-      const span = bounds[idx + 1] - bounds[idx];
-      const p = bounds[idx] + span * (idx === 0 ? 0 : 0.18);
+      const p = idx === 0 ? 0 : bounds[idx] + fadeW(idx);
       animateScrollTo(spacerTop + p * total);
     };
     document.addEventListener("click", onAnchorClick);
