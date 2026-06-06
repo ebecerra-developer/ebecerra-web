@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Prototipo inmersivo v3 · parallax fotográfico</title>
+<!--
+  PROTOTIPO DESECHABLE v3 — "parallax fotográfico 2.5D" (sin low-poly).
+  Mismo motor que v1/v2 (Lenis + cámara fly-through + marco fijo).
+  El mundo = capas de FOTO REAL a distinta profundidad. La cámara avanza y las capas
+  cercanas se desplazan más rápido que las lejanas → sensación de adentrarse en una escena real.
+  Fotos: Picsum (reales + CORS ok, genéricas) solo para demo. En real → fotos propias del negocio.
+  Servir: npm run dev:es → http://localhost:3000/_immersive-proto/v3.html
+-->
+<style>
+  :root {
+    --bg: #0a0f12;
+    --ink: #f2efe6;
+    --muted: #8f9aa0;
+    --accent: #4fd6c4;     /* turquesa agua/roca */
+    --accent-2: #ffb454;
+    --frame: rgba(242, 239, 230, 0.22);
+    --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scrollbar-width: none; }
+  html::-webkit-scrollbar { display: none; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font); height: 700vh; overflow-x: hidden; }
+
+  #scene { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; display: block; }
+
+  .frame { position: fixed; inset: 0; z-index: 30; pointer-events: none; box-shadow: inset 0 0 240px 50px rgba(0,0,0,0.7); }
+  .frame::before { content: ""; position: absolute; inset: 22px; border: 1px solid var(--frame); border-radius: 2px; }
+  .corner { position: absolute; width: 26px; height: 26px; border: 2px solid var(--accent); opacity: 0.85; }
+  .corner.tl { top: 22px; left: 22px; border-right: none; border-bottom: none; }
+  .corner.tr { top: 22px; right: 22px; border-left: none; border-bottom: none; }
+  .corner.bl { bottom: 22px; left: 22px; border-right: none; border-top: none; }
+  .corner.br { bottom: 22px; right: 22px; border-left: none; border-top: none; }
+  .frame .hud { position: absolute; bottom: 40px; left: 44px; right: 44px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .hud .label { display: flex; align-items: center; gap: 10px; }
+  .hud .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .progress-track { position: absolute; top: 50%; right: 30px; transform: translateY(-50%); width: 2px; height: 180px; background: rgba(242,239,230,0.12); border-radius: 2px; overflow: hidden; }
+  .progress-fill { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(var(--accent), var(--accent-2)); }
+
+  .content { position: fixed; inset: 0; z-index: 20; pointer-events: none; display: grid; place-items: center; padding: 8vw; text-align: center; }
+  .panel { position: absolute; max-width: 780px; opacity: 0; transform: translateY(40px) scale(0.96); will-change: opacity, transform; }
+  .kicker { font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); margin-bottom: 22px; display: inline-block; }
+  .kicker::before { content: "✦ "; }
+  h1 { font-size: clamp(2.4rem, 7vw, 5.6rem); line-height: 1.02; font-weight: 700; letter-spacing: -0.02em; text-shadow: 0 4px 40px rgba(0,0,0,0.7); }
+  h2 { font-size: clamp(1.8rem, 5vw, 3.6rem); line-height: 1.08; font-weight: 650; letter-spacing: -0.015em; text-shadow: 0 4px 40px rgba(0,0,0,0.7); }
+  .lead { margin-top: 22px; font-size: clamp(1rem, 2.2vw, 1.35rem); color: #d7d2c6; line-height: 1.5; text-shadow: 0 2px 24px rgba(0,0,0,0.8); }
+  .glow { color: var(--accent); }
+  .glow-2 { color: var(--accent-2); }
+
+  .scroll-hint { position: fixed; bottom: 76px; left: 50%; transform: translateX(-50%); z-index: 25; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 10px; transition: opacity 0.4s ease; }
+  .scroll-hint .arrow { width: 1px; height: 34px; background: linear-gradient(var(--accent), transparent); animation: drop 1.8s ease-in-out infinite; }
+  @keyframes drop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+  @media (prefers-reduced-motion: reduce) { .dot, .arrow { animation: none; } }
+</style>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <div class="content" id="content">
+    <section class="panel" data-start="0.0" data-end="0.10">
+      <span class="kicker">Aventura · Naturaleza</span>
+      <h1>Una ruta que<br />se <span class="glow">recorre con scroll.</span></h1>
+      <p class="lead">Capas de paisaje real que se abren a tu paso. Adéntrate.</p>
+    </section>
+    <section class="panel" data-start="0.11" data-end="0.21"><span class="kicker">Actividad 01</span><h2><span class="glow">Barranquismo</span></h2><p class="lead">Toboganes de roca, rápeles y saltos al agua.</p></section>
+    <section class="panel" data-start="0.25" data-end="0.35"><span class="kicker">Actividad 02</span><h2><span class="glow">Vías ferratas</span></h2><p class="lead">Pared vertical asegurada por cable. Vértigo controlado.</p></section>
+    <section class="panel" data-start="0.39" data-end="0.49"><span class="kicker">Actividad 03</span><h2><span class="glow">Espeleología</span></h2><p class="lead">Galerías, ríos subterráneos y silencio absoluto.</p></section>
+    <section class="panel" data-start="0.53" data-end="0.63"><span class="kicker">Actividad 04</span><h2><span class="glow">Escalada</span></h2><p class="lead">Roca real, presas naturales. Iniciación o vías exigentes.</p></section>
+    <section class="panel" data-start="0.69" data-end="0.79"><span class="kicker">Actividad 05</span><h2><span class="glow">Trekking</span></h2><p class="lead">Valles, cumbres y caminos que pocos conocen.</p></section>
+    <section class="panel" data-start="0.86" data-end="1.0"><span class="kicker">Tu próxima ruta</span><h1>¿Te vienes?<br /><span class="glow-2">Reserva tu aventura.</span></h1><p class="lead">Grupos reducidos, guías titulados, material incluido.</p></section>
+  </div>
+
+  <div class="scroll-hint" id="hint"><span>Scroll</span><span class="arrow"></span></div>
+
+  <div class="frame">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hud">
+      <span class="label"><span class="dot"></span> Prototipo v3 · parallax fotográfico 2.5D</span>
+      <span id="depthReadout">CAPA 0 / 5</span>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script type="importmap">
+  { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const TRAVEL = 200;
+
+    const canvas = document.getElementById('scene');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const scene = new THREE.Scene();
+    const FOG = 0x0a0f12;
+    scene.background = new THREE.Color(FOG);
+    scene.fog = new THREE.Fog(FOG, 14, 90);
+
+    const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 400);
+    camera.position.set(0, 0, 8);
+
+    // pseudo-random determinista
+    let seed = 99173;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+
+    const texLoader = new THREE.TextureLoader();
+    texLoader.setCrossOrigin('anonymous');
+
+    function fallbackTexture(label, tint) {
+      const c = document.createElement('canvas');
+      c.width = 512; c.height = 512;
+      const ctx = c.getContext('2d');
+      const g = ctx.createLinearGradient(0, 0, 0, 512);
+      g.addColorStop(0, tint); g.addColorStop(1, '#0a0f12');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 512);
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.font = '600 34px ui-sans-serif, system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(label, 256, 270);
+      const tex = new THREE.CanvasTexture(c);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      return tex;
+    }
+    // crea un plano con foto real (Picsum) y respaldo si falla
+    function photoPlane(seedStr, w, h, label, tint, opacity = 1) {
+      const mat = new THREE.MeshBasicMaterial({
+        map: fallbackTexture(label, tint), toneMapped: false,
+        transparent: opacity < 1, opacity,
+      });
+      texLoader.load(`https://picsum.photos/seed/${seedStr}/700/700`,
+        (tex) => { tex.colorSpace = THREE.SRGBColorSpace; mat.map = tex; mat.needsUpdate = true; });
+      return new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+    }
+
+    const activities = [
+      { name: 'Barranquismo', seed: 'canyon-river', tint: '#3fa7d6', p: 0.16 },
+      { name: 'Ferratas',     seed: 'cliff-rock',   tint: '#e0a458', p: 0.30 },
+      { name: 'Espeleo',      seed: 'cave-dark',    tint: '#6a5acd', p: 0.44 },
+      { name: 'Escalada',     seed: 'climb-wall',   tint: '#d65f5f', p: 0.58 },
+      { name: 'Trekking',     seed: 'mountain',     tint: '#5fb85f', p: 0.74 },
+    ];
+
+    // Cada actividad = CAPAS a distinta Z: vista de fondo (grande, lejos) + 2 capas cercanas
+    // (las cercanas parallaxean más rápido al avanzar → profundidad 2.5D)
+    const parallaxLayers = []; // {mesh, baseX, factor}
+    activities.forEach((act) => {
+      const zBase = 8 - act.p * TRAVEL;
+      // fondo: vista panorámica lejana
+      const back = photoPlane(act.seed, 16, 9, act.name, act.tint);
+      back.position.set((rnd() - 0.5) * 2, 0, zBase - 7);
+      scene.add(back);
+      parallaxLayers.push({ mesh: back, baseX: back.position.x, baseY: back.position.y, factor: 0.3 });
+      // capa media
+      const mid = photoPlane(act.seed + '-b', 6, 7.5, act.name, act.tint);
+      mid.position.set((rnd() < 0.5 ? -1 : 1) * (3.5 + rnd() * 2), -0.3, zBase - 1.5);
+      mid.rotation.y = (rnd() - 0.5) * 0.2;
+      scene.add(mid);
+      parallaxLayers.push({ mesh: mid, baseX: mid.position.x, baseY: mid.position.y, factor: 0.8 });
+      // capa cercana (primer plano, parallax fuerte)
+      const near = photoPlane(act.seed + '-c', 4, 5, act.name, act.tint);
+      near.position.set((rnd() < 0.5 ? -1 : 1) * (4 + rnd() * 2), 0.6, zBase + 1.5);
+      near.rotation.y = (rnd() - 0.5) * 0.25;
+      scene.add(near);
+      parallaxLayers.push({ mesh: near, baseX: near.position.x, baseY: near.position.y, factor: 1.5 });
+    });
+
+    // Bruma / motas para densidad atmosférica
+    const PCOUNT = 700;
+    const pPos = new Float32Array(PCOUNT * 3);
+    for (let i = 0; i < PCOUNT; i++) {
+      pPos[i * 3] = (rnd() - 0.5) * 44;
+      pPos[i * 3 + 1] = (rnd() - 0.5) * 24;
+      pPos[i * 3 + 2] = 6 - rnd() * TRAVEL;
+    }
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0x9fd6cc, size: 0.05, transparent: true, opacity: 0.5, depthWrite: false }));
+    scene.add(particles);
+
+    // Scroll suave
+    const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+    let progress = 0;
+    lenis.on('scroll', ({ scroll, limit }) => { progress = limit > 0 ? scroll / limit : 0; });
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // Parallax de ratón (clave para vender la profundidad 2.5D)
+    const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+    if (!prefersReduced) {
+      window.addEventListener('pointermove', (e) => { mouse.tx = e.clientX / window.innerWidth - 0.5; mouse.ty = e.clientY / window.innerHeight - 0.5; });
+    }
+
+    const panels = [...document.querySelectorAll('.panel')].map((el) => ({ el, start: parseFloat(el.dataset.start), end: parseFloat(el.dataset.end) }));
+    const progressFill = document.getElementById('progressFill');
+    const depthReadout = document.getElementById('depthReadout');
+    const hint = document.getElementById('hint');
+
+    function updateContent(p) {
+      for (const { el, start, end } of panels) {
+        const mid = (start + end) / 2, half = (end - start) / 2;
+        const vis = Math.max(0, 1 - Math.abs(p - mid) / half);
+        el.style.opacity = vis.toFixed(3);
+        el.style.transform = `translateY(${(1 - vis) * 36}px) scale(${0.96 + vis * 0.04})`;
+      }
+      progressFill.style.height = (p * 100).toFixed(1) + '%';
+      const layer = activities.filter((a) => p >= a.p - 0.05).length;
+      depthReadout.textContent = 'CAPA ' + layer + ' / 5';
+      hint.style.opacity = p > 0.03 ? '0' : '1';
+    }
+
+    let camZ = 8;
+    function render() {
+      const targetZ = 8 - progress * TRAVEL;
+      camZ += (targetZ - camZ) * 0.1;
+      camera.position.z = camZ;
+
+      mouse.x += (mouse.tx - mouse.x) * 0.05;
+      mouse.y += (mouse.ty - mouse.y) * 0.05;
+      camera.position.x = mouse.x * 1.4;
+      camera.position.y = -mouse.y * 1.0;
+
+      // parallax: cada capa se desplaza según su factor de profundidad y la posición de ratón
+      for (const L of parallaxLayers) {
+        L.mesh.position.x = L.baseX + mouse.x * L.factor * 2.2;
+        L.mesh.position.y = L.baseY - mouse.y * L.factor * 1.4;
+      }
+      camera.lookAt(mouse.x * 0.8, -mouse.y * 0.6, camZ - 10);
+
+      particles.rotation.z += 0.0002;
+      updateContent(progress);
+      renderer.render(scene, camera);
+      requestAnimationFrame(render);
+    }
+    render();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

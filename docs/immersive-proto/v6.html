@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Prototipo inmersivo v6 · Gaussian Splatting (lugar real)</title>
+<!--
+  PROTOTIPO DESECHABLE v6 — Gaussian Splatting.
+  Un LUGAR REAL capturado en 3D fotorrealista, por el que vuela la cámara EN TIEMPO REAL con el scroll.
+  Une la continuidad real de v4b + el tiempo real / control de v5. Es lo único que da "estoy dentro de un sitio real y avanzo".
+  Escena: captura pública de ejemplo de Luma (no es naturaleza; es solo para juzgar la TÉCNICA).
+  En real → capturarías tú un barranco/sendero con el móvil.
+  Caveats: pesa (varios MB la primera carga), tech nueva, exige GPU decente.
+  Servir: npm run dev:es → http://localhost:3000/_immersive-proto/v6.html
+-->
+<style>
+  :root {
+    --bg: #06070a; --ink: #f2efe6; --muted: #8f9aa0;
+    --accent: #4fd6c4; --accent-2: #ffb454; --frame: rgba(242,239,230,0.22);
+    --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scrollbar-width: none; } html::-webkit-scrollbar { display: none; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font); height: 700vh; overflow-x: hidden; }
+
+  #scene { position: fixed; inset: 0; z-index: 0; width: 100vw; height: 100vh; display: block; background: #06070a; }
+
+  .loader { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: #06070a; transition: opacity 0.8s ease; text-align: center; }
+  .loader.hidden { opacity: 0; pointer-events: none; }
+  .loader .ring { width: 38px; height: 38px; border: 2px solid rgba(255,255,255,0.15); border-top-color: var(--accent); border-radius: 50%; margin: 0 auto 16px; animation: spin 0.9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loader .t { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); }
+
+  .frame { position: fixed; inset: 0; z-index: 30; pointer-events: none; box-shadow: inset 0 0 240px 50px rgba(0,0,0,0.6); }
+  .frame::before { content: ""; position: absolute; inset: 22px; border: 1px solid var(--frame); border-radius: 2px; }
+  .corner { position: absolute; width: 26px; height: 26px; border: 2px solid var(--accent); opacity: 0.85; }
+  .corner.tl { top: 22px; left: 22px; border-right: none; border-bottom: none; }
+  .corner.tr { top: 22px; right: 22px; border-left: none; border-bottom: none; }
+  .corner.bl { bottom: 22px; left: 22px; border-right: none; border-top: none; }
+  .corner.br { bottom: 22px; right: 22px; border-left: none; border-top: none; }
+  .frame .hud { position: absolute; bottom: 40px; left: 44px; right: 44px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .hud .label { display: flex; align-items: center; gap: 10px; }
+  .hud .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .progress-track { position: absolute; top: 50%; right: 30px; transform: translateY(-50%); width: 2px; height: 180px; background: rgba(242,239,230,0.12); border-radius: 2px; overflow: hidden; }
+  .progress-fill { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(var(--accent), var(--accent-2)); }
+
+  .content { position: fixed; inset: 0; z-index: 20; pointer-events: none; display: grid; place-items: center; padding: 8vw; text-align: center; }
+  .panel { position: absolute; max-width: 780px; opacity: 0; transform: translateY(40px) scale(0.96); will-change: opacity, transform; }
+  .kicker { font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); margin-bottom: 22px; display: inline-block; }
+  .kicker::before { content: "✦ "; }
+  h1 { font-size: clamp(2.4rem, 7vw, 5.6rem); line-height: 1.02; font-weight: 700; letter-spacing: -0.02em; text-shadow: 0 4px 40px rgba(0,0,0,0.85); }
+  h2 { font-size: clamp(1.8rem, 5vw, 3.6rem); line-height: 1.08; font-weight: 650; letter-spacing: -0.015em; text-shadow: 0 4px 40px rgba(0,0,0,0.85); }
+  .lead { margin-top: 22px; font-size: clamp(1rem, 2.2vw, 1.35rem); color: #e8e4da; line-height: 1.5; text-shadow: 0 2px 24px rgba(0,0,0,0.9); }
+  .glow { color: var(--accent); } .glow-2 { color: var(--accent-2); }
+
+  .scroll-hint { position: fixed; bottom: 76px; left: 50%; transform: translateX(-50%); z-index: 25; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 10px; transition: opacity 0.4s ease; }
+  .scroll-hint .arrow { width: 1px; height: 34px; background: linear-gradient(var(--accent), transparent); animation: drop 1.8s ease-in-out infinite; }
+  @keyframes drop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+  @media (prefers-reduced-motion: reduce) { .dot, .arrow { animation: none; } }
+</style>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <div class="loader" id="loader">
+    <div>
+      <div class="ring"></div>
+      <div class="t">Cargando lugar real capturado en 3D…</div>
+    </div>
+  </div>
+
+  <div class="content" id="content">
+    <section class="panel" data-start="0.0" data-end="0.12">
+      <span class="kicker">Aventura · Naturaleza</span>
+      <h1>Esto no es una foto.<br /><span class="glow">Es un lugar real en 3D.</span></h1>
+      <p class="lead">Capturado con un móvil. Vuelas por dentro en tiempo real con el scroll.</p>
+    </section>
+    <section class="panel" data-start="0.18" data-end="0.34"><span class="kicker">El efecto</span><h2>Avanzas <span class="glow">de verdad</span><br />por un sitio que existe.</h2><p class="lead">No son fotos flotando: es geometría real con profundidad real.</p></section>
+    <section class="panel" data-start="0.40" data-end="0.58"><span class="kicker">Tu negocio</span><h2>Imagina <span class="glow">tu barranco</span><br />capturado así.</h2><p class="lead">El cliente recorre la ruta real antes de reservarla.</p></section>
+    <section class="panel" data-start="0.64" data-end="0.82"><span class="kicker">Tiempo real</span><h2>Infinito, ligero de control,<br /><span class="glow-2">sin metraje grabado.</span></h2><p class="lead">La cámara la mueves tú con el scroll. No hay vídeo que se acabe.</p></section>
+    <section class="panel" data-start="0.88" data-end="1.0"><span class="kicker">Tu próxima ruta</span><h1>¿Te vienes?<br /><span class="glow-2">Reserva tu aventura.</span></h1><p class="lead">Grupos reducidos, guías titulados, material incluido.</p></section>
+  </div>
+
+  <div class="scroll-hint" id="hint"><span>Scroll</span><span class="arrow"></span></div>
+
+  <div class="frame">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hud">
+      <span class="label"><span class="dot"></span> Prototipo v6 · Gaussian Splatting (lugar real)</span>
+      <span id="depthReadout">EXPLORANDO 0%</span>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "@lumaai/luma-web": "https://esm.sh/@lumaai/luma-web?external=three"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { LumaSplatsThree } from '@lumaai/luma-web';
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const canvas = document.getElementById('scene');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(64, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    // Escena real capturada (ejemplo público de Luma). Cambiar este source = cambiar de lugar.
+    const splats = new LumaSplatsThree({
+      source: 'https://lumalabs.ai/capture/ca9ea966-ca24-4ec1-ab0f-af665cb546ff',
+      enableThreeShaderIntegration: false,
+    });
+    scene.add(splats);
+
+    const loader = document.getElementById('loader');
+    let loaded = false;
+    function hideLoader() { if (!loaded) { loaded = true; loader.classList.add('hidden'); } }
+    // onLoad de la librería + red de seguridad por si no dispara
+    if (splats.onLoad !== undefined) splats.onLoad = hideLoader;
+    splats.addEventListener?.('load', hideLoader);
+    setTimeout(hideLoader, 6000);
+
+    // Scroll suave
+    const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+    let progress = 0;
+    lenis.on('scroll', ({ scroll, limit }) => { progress = limit > 0 ? scroll / limit : 0; });
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // Parallax de ratón
+    const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+    if (!prefersReduced) window.addEventListener('pointermove', (e) => { mouse.tx = e.clientX/window.innerWidth - 0.5; mouse.ty = e.clientY/window.innerHeight - 0.5; });
+
+    const panels = [...document.querySelectorAll('.panel')].map((el) => ({ el, start: parseFloat(el.dataset.start), end: parseFloat(el.dataset.end) }));
+    const progressFill = document.getElementById('progressFill');
+    const depthReadout = document.getElementById('depthReadout');
+    const hint = document.getElementById('hint');
+    function updateContent(p) {
+      for (const { el, start, end } of panels) {
+        const mid = (start+end)/2, half = (end-start)/2;
+        const vis = Math.max(0, 1 - Math.abs(p - mid) / half);
+        el.style.opacity = vis.toFixed(3);
+        el.style.transform = `translateY(${(1-vis)*36}px) scale(${0.96 + vis*0.04})`;
+      }
+      progressFill.style.height = (p*100).toFixed(1) + '%';
+      depthReadout.textContent = 'EXPLORANDO ' + Math.round(p*100) + '%';
+      hint.style.opacity = p > 0.03 ? '0' : '1';
+    }
+
+    // La cámara orbita y se acerca (dolly-in) según el scroll → "vuelo por el lugar real".
+    const target = new THREE.Vector3(0, 0, 0);
+    let cur = { ang: 0, rad: 5, y: 0.4 };
+    function render() {
+      const ang = progress * Math.PI * 0.9 + mouse.x * 0.6;
+      const rad = 5 - progress * 3.4;          // de lejos (5) a dentro (1.6)
+      const y = 0.4 - mouse.y * 0.8;
+      cur.ang += (ang - cur.ang) * 0.08;
+      cur.rad += (rad - cur.rad) * 0.08;
+      cur.y += (y - cur.y) * 0.08;
+      camera.position.set(Math.sin(cur.ang) * cur.rad, cur.y, Math.cos(cur.ang) * cur.rad);
+      camera.lookAt(target);
+
+      updateContent(progress);
+      renderer.render(scene, camera);
+      requestAnimationFrame(render);
+    }
+    render();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

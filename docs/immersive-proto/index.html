@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Prototipo inmersivo · scroll fly-through</title>
+<!--
+  PROTOTIPO DESECHABLE — evaluar el efecto "marco + adentrarse al hacer scroll".
+  Stack de prueba (CDN, sin build): Three.js + UnrealBloom + Lenis.
+  Demuestra el enfoque HÍBRIDO: WebGL fijo de fondo (el "wow") + DOM real por encima (texto indexable/nítido).
+  Servir con `npm run dev:es` → http://localhost:3000/_immersive-proto/
+  Borrar la carpeta entera cuando decidamos.
+-->
+<style>
+  :root {
+    --bg: #05060a;
+    --ink: #f4f1ea;
+    --muted: #9aa0ad;
+    --accent: #00ffae;
+    --accent-2: #7c5cff;
+    --frame: rgba(244, 241, 234, 0.22);
+    --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scrollbar-width: none; }
+  html::-webkit-scrollbar { display: none; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    /* La altura del body es lo que da "recorrido" al scroll → 700vh = viaje largo */
+    height: 700vh;
+    overflow-x: hidden;
+  }
+
+  /* ---- Canvas WebGL: fijo, a pantalla completa, detrás de todo ---- */
+  #scene {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    display: block;
+  }
+
+  /* ---- EL MARCO que engloba la web (queda quieto siempre) ---- */
+  .frame {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    pointer-events: none;
+    /* viñeta sutil para "meter" la mirada hacia el centro */
+    box-shadow: inset 0 0 220px 40px rgba(0, 0, 0, 0.65);
+  }
+  .frame::before {
+    content: "";
+    position: absolute;
+    inset: 22px;
+    border: 1px solid var(--frame);
+    border-radius: 2px;
+  }
+  .corner {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border: 2px solid var(--accent);
+    opacity: 0.85;
+  }
+  .corner.tl { top: 22px; left: 22px; border-right: none; border-bottom: none; }
+  .corner.tr { top: 22px; right: 22px; border-left: none; border-bottom: none; }
+  .corner.bl { bottom: 22px; left: 22px; border-right: none; border-top: none; }
+  .corner.br { bottom: 22px; right: 22px; border-left: none; border-top: none; }
+
+  .frame .hud {
+    position: absolute;
+    bottom: 40px;
+    left: 44px;
+    right: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hud .label { display: flex; align-items: center; gap: 10px; }
+  .hud .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  /* barra de progreso del viaje */
+  .progress-track {
+    position: absolute;
+    top: 50%; right: 30px;
+    transform: translateY(-50%);
+    width: 2px; height: 180px;
+    background: rgba(244, 241, 234, 0.12);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 0%;
+    background: linear-gradient(var(--accent), var(--accent-2));
+  }
+
+  /* ---- Capa de contenido DOM: secciones que aparecen "dentro" del marco ---- */
+  .content {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    display: grid;
+    place-items: center;
+    padding: 8vw;
+    text-align: center;
+  }
+  .panel {
+    position: absolute;
+    max-width: 760px;
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+    transition: opacity 0.1s linear;
+    will-change: opacity, transform;
+  }
+  .panel.is-active { /* JS gestiona opacity/transform por scroll, esto es respaldo */ }
+
+  .kicker {
+    font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+    display: inline-block;
+  }
+  .kicker::before { content: "✦ "; }
+  h1 {
+    font-size: clamp(2.4rem, 7vw, 5.6rem);
+    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 5vw, 3.6rem);
+    line-height: 1.08;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+  }
+  .lead {
+    margin-top: 22px;
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .glow { color: var(--accent); }
+  .glow-2 { color: var(--accent-2); }
+
+  .scroll-hint {
+    position: fixed;
+    bottom: 76px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 25;
+    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--muted);
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    transition: opacity 0.4s ease;
+  }
+  .scroll-hint .arrow {
+    width: 1px; height: 34px;
+    background: linear-gradient(var(--accent), transparent);
+    animation: drop 1.8s ease-in-out infinite;
+  }
+  @keyframes drop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dot, .arrow { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <!-- Contenido DOM real (indexable, seleccionable) por encima del WebGL -->
+  <div class="content" id="content">
+    <section class="panel" data-start="0.0" data-end="0.14">
+      <span class="kicker">Experiencia interactiva</span>
+      <h1>No leas la web.<br /><span class="glow">Atraviésala.</span></h1>
+      <p class="lead">Haz scroll y adéntrate. Cada gesto te lleva más adentro del espacio.</p>
+    </section>
+
+    <section class="panel" data-start="0.18" data-end="0.36">
+      <span class="kicker">Profundidad</span>
+      <h2>El scroll deja de ser una barra.<br />Pasa a ser <span class="glow">una cámara.</span></h2>
+      <p class="lead">Las cosas no suben: se acercan, crecen y te las cruzas.</p>
+    </section>
+
+    <section class="panel" data-start="0.40" data-end="0.58">
+      <span class="kicker">Híbrido</span>
+      <h2>WebGL donde impacta.<br /><span class="glow-2">DOM real</span> donde importa.</h2>
+      <p class="lead">Este texto es HTML nítido y seleccionable, no está atrapado en el canvas. Google lo lee. Tú también, con cualquier lector de pantalla.</p>
+    </section>
+
+    <section class="panel" data-start="0.62" data-end="0.80">
+      <span class="kicker">El marco</span>
+      <h2>Un solo marco<br />que <span class="glow">engloba todo.</span></h2>
+      <p class="lead">Queda quieto mientras el mundo se mueve por detrás. Estás mirando a través de una ventana, no a una página.</p>
+    </section>
+
+    <section class="panel" data-start="0.84" data-end="1.0">
+      <span class="kicker">Tu negocio aquí</span>
+      <h1>¿Lo notas?<br /><span class="glow">Eso es el wow.</span></h1>
+      <p class="lead">Ahora le buscamos el negocio que lo merezca.</p>
+    </section>
+  </div>
+
+  <div class="scroll-hint" id="hint">
+    <span>Scroll</span>
+    <span class="arrow"></span>
+  </div>
+
+  <!-- El marco fijo -->
+  <div class="frame">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hud">
+      <span class="label"><span class="dot"></span> Prototipo · híbrido WebGL + DOM</span>
+      <span id="depthReadout">PROFUNDIDAD 000</span>
+    </div>
+  </div>
+
+  <!-- Lenis (scroll suave) como UMD global -->
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <!-- Three.js + addons vía import map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---------- Escena ----------
+    const canvas = document.getElementById('scene');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x05060a);
+    scene.fog = new THREE.Fog(0x05060a, 12, 80);
+
+    const camera = new THREE.PerspectiveCamera(62, window.innerWidth / window.innerHeight, 0.1, 400);
+    camera.position.set(0, 0, 8);
+
+    // ---------- "Gates": marcos neón que recorres ----------
+    const TRAVEL = 200;          // distancia total recorrida en Z
+    const GATE_COUNT = 26;
+    const gateGroup = new THREE.Group();
+    scene.add(gateGroup);
+
+    function makeGate(z, hue) {
+      const g = new THREE.Group();
+      const color = new THREE.Color().setHSL(hue, 0.8, 0.55);
+      const mat = new THREE.MeshBasicMaterial({ color });
+      const w = 7 + Math.random() * 3;
+      const h = 4.2 + Math.random() * 2;
+      const t = 0.08; // grosor de las barras
+      const bars = [
+        [w, t, t, 0, h / 2, 0],
+        [w, t, t, 0, -h / 2, 0],
+        [t, h, t, w / 2, 0, 0],
+        [t, h, t, -w / 2, 0, 0],
+      ];
+      for (const [bw, bh, bd, x, y, zz] of bars) {
+        const m = new THREE.Mesh(new THREE.BoxGeometry(bw, bh, bd), mat);
+        m.position.set(x, y, zz);
+        g.add(m);
+      }
+      g.position.set((Math.random() - 0.5) * 3, (Math.random() - 0.5) * 2, z);
+      g.rotation.z = (Math.random() - 0.5) * 0.5;
+      g.userData.spin = (Math.random() - 0.5) * 0.0015;
+      gateGroup.add(g);
+      return g;
+    }
+    for (let i = 0; i < GATE_COUNT; i++) {
+      const z = 4 - (i / GATE_COUNT) * TRAVEL;
+      makeGate(z, (i / GATE_COUNT) * 0.5 + 0.38); // verde → violeta
+    }
+
+    // ---------- Campo de partículas (sensación de polvo estelar) ----------
+    const PCOUNT = 1400;
+    const pPos = new Float32Array(PCOUNT * 3);
+    for (let i = 0; i < PCOUNT; i++) {
+      pPos[i * 3] = (Math.random() - 0.5) * 40;
+      pPos[i * 3 + 1] = (Math.random() - 0.5) * 30;
+      pPos[i * 3 + 2] = 4 - Math.random() * TRAVEL;
+    }
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    const particles = new THREE.Points(
+      pGeo,
+      new THREE.PointsMaterial({ color: 0x88ffd6, size: 0.06, transparent: true, opacity: 0.7, depthWrite: false })
+    );
+    scene.add(particles);
+
+    // ---------- Bloom (neón de verdad) ----------
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+    const bloom = new UnrealBloomPass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      0.9,   // strength
+      0.6,   // radius
+      0.15   // threshold
+    );
+    composer.addPass(bloom);
+
+    // ---------- Scroll suave (Lenis) ----------
+    const lenis = new Lenis({ lerp: 0.08, wheelMultiplier: 1, smoothWheel: true });
+    let progress = 0;
+    lenis.on('scroll', ({ scroll, limit }) => {
+      progress = limit > 0 ? scroll / limit : 0;
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // ---------- Parallax de ratón ----------
+    const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+    if (!prefersReduced) {
+      window.addEventListener('pointermove', (e) => {
+        mouse.tx = (e.clientX / window.innerWidth - 0.5);
+        mouse.ty = (e.clientY / window.innerHeight - 0.5);
+      });
+    }
+
+    // ---------- Paneles DOM por rango de scroll ----------
+    const panels = [...document.querySelectorAll('.panel')].map((el) => ({
+      el,
+      start: parseFloat(el.dataset.start),
+      end: parseFloat(el.dataset.end),
+    }));
+    const progressFill = document.getElementById('progressFill');
+    const depthReadout = document.getElementById('depthReadout');
+    const hint = document.getElementById('hint');
+
+    function updateContent(p) {
+      for (const { el, start, end } of panels) {
+        const mid = (start + end) / 2;
+        const half = (end - start) / 2;
+        const d = Math.abs(p - mid) / half;          // 0 en el centro, 1 en los bordes
+        const vis = Math.max(0, 1 - d);
+        el.style.opacity = vis.toFixed(3);
+        el.style.transform = `translateY(${(1 - vis) * 36}px) scale(${0.96 + vis * 0.04})`;
+      }
+      progressFill.style.height = (p * 100).toFixed(1) + '%';
+      depthReadout.textContent = 'PROFUNDIDAD ' + String(Math.round(p * TRAVEL)).padStart(3, '0');
+      hint.style.opacity = p > 0.03 ? '0' : '1';
+    }
+
+    // ---------- Loop de render ----------
+    let camZ = 8;
+    function render() {
+      // cámara viaja hacia -Z según el progreso (con lerp para suavizar)
+      const targetZ = 8 - progress * TRAVEL;
+      camZ += (targetZ - camZ) * 0.1;
+      camera.position.z = camZ;
+
+      mouse.x += (mouse.tx - mouse.x) * 0.05;
+      mouse.y += (mouse.ty - mouse.y) * 0.05;
+      camera.position.x = mouse.x * 2.2;
+      camera.position.y = -mouse.y * 1.6;
+      camera.lookAt(0, 0, camZ - 10);
+
+      for (const g of gateGroup.children) g.rotation.z += g.userData.spin;
+      particles.rotation.z += 0.0004;
+
+      updateContent(progress);
+      composer.render();
+      requestAnimationFrame(render);
+    }
+    render();
+
+    // ---------- Resize ----------
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      composer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
