@@ -166,3 +166,55 @@
 :global(html.exp-immersive) .meta {
   padding-top: 0.85rem;
 }
+
+/* ---- Móvil/tablet HORIZONTAL (marco ~270px de alto): el modelo de escala
+   aplastaría las 5 tarjetas apiladas a un sello ilegible (escala ~0.29). En
+   landscape pasan a UNA fila, se oculta el lead y se acota la descripción → cabe
+   a tamaño legible. Solo en inmersivo (el fallback de scroll normal no escala).
+   Scopeado bajo html.exp-immersive para ganar a las reglas de compactado. ---- */
+@media (orientation: landscape) and (max-height: 560px) {
+  :global(html.exp-immersive) .grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.55rem;
+  }
+  :global(html.exp-immersive) .head {
+    margin-bottom: 0.5rem;
+  }
+  :global(html.exp-immersive) .lead {
+    display: none;
+  }
+  :global(html.exp-immersive) .cardBody {
+    padding: 0.7rem 0.75rem;
+  }
+  :global(html.exp-immersive) .cardTop {
+    margin-bottom: 0.4rem;
+  }
+  :global(html.exp-immersive) .num {
+    font-size: 0.9rem;
+  }
+  :global(html.exp-immersive) .icon {
+    font-size: 1.2rem;
+  }
+  :global(html.exp-immersive) .cardTitle {
+    font-size: 0.92rem;
+  }
+  :global(html.exp-immersive) .cardText {
+    margin-top: 0.3rem;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  :global(html.exp-immersive) .meta {
+    padding-top: 0.5rem;
+    gap: 0.25rem 0.8rem;
+  }
+  :global(html.exp-immersive) .metaItem {
+    font-size: 0.78rem;
+  }
+  :global(html.exp-immersive) .metaLabel {
+    font-size: 0.62rem;
+  }
+}

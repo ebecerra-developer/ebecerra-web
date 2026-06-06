@@ -34,7 +34,7 @@ import styles from "./ExpedicionImmersiveStage.module.css";
  *  - rAF on-demand. a11y: escenas inactivas `inert` + ocultas.
  */
 
-const FRAME_COUNT = 93;
+const FRAME_COUNT = 100;
 const framePath = (i: number) =>
   `/immersive/expedicion/frames/f_${String(i).padStart(3, "0")}.webp`;
 const SCENE_VH = 120; // distancia de scroll por escena
@@ -79,12 +79,25 @@ export default function ExpedicionImmersiveStage({
     // Caemos a scroll plano solo si: menos movimiento, ahorro de datos, o ventana
     // tan baja (móvil horizontal) que no luce.
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const short = window.matchMedia("(max-height: 480px)").matches;
+    const tiny = window.matchMedia("(max-height: 320px)").matches; // solo casos absurdos
     const conn = (navigator as { connection?: { saveData?: boolean } }).connection;
-    if (reduce || short || conn?.saveData) return;
-    const isMobile = window.matchMedia(
-      "(pointer: coarse), (max-width: 900px)",
-    ).matches;
+    if (reduce || tiny || conn?.saveData) return;
+    // El modelo de PANEO (secciones altas que se deslizan) solo tiene sentido en
+    // VERTICAL (pantalla estrecha y alta). En HORIZONTAL (ancha y baja) el paneo
+    // hace el spacer enorme (scroll lentísimo) y panea en una ventana mínima
+    // (saltos). Ahí usamos el modelo de ESCALA (como escritorio): uniforme, encaja
+    // a la altura, sin esos problemas. Así el inmersivo va en TODAS las orientaciones.
+    const portrait = window.matchMedia("(orientation: portrait)").matches;
+    const isMobile =
+      portrait &&
+      window.matchMedia("(pointer: coarse), (max-width: 900px)").matches;
+
+    // En una experiencia scroll-driven, restaurar el scroll al recargar/duplicar
+    // pestaña es un problema: el navegador deja la página a mitad (a veces en el
+    // PIE, porque el spacer cambia de alto). Lo desactivamos y arrancamos arriba
+    // (en el hero) — el inmersivo siempre debe empezar por el principio.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
 
     if (!rootRef.current || !canvasRef.current || !spacerRef.current) return;
     const root = rootRef.current;
@@ -228,26 +241,30 @@ export default function ExpedicionImmersiveStage({
       spacer.style.height = `${(unitsTotal * SCENE_VH).toFixed(1)}vh`;
     }
 
-    const frame0 = new Image();
-    frame0.setAttribute("fetchpriority", "high");
-    frame0.onload = frame0.onerror = () => {
+    // Cuenta cada frame UNA sola vez. CLAVE: al duplicar pestaña o recargar con
+    // caché, la imagen puede estar YA `complete` y su `onload` no dispararse →
+    // sin esto el inmersivo no se activaría y se quedaría en scroll normal. Por
+    // eso, además del onload, comprobamos `complete` tras asignar el src.
+    const counted = new Set<number>();
+    const settle = (i: number) => {
+      if (counted.has(i)) return;
+      counted.add(i);
       ok++;
       maybeActivate();
     };
-    frame0.src = framePath(1);
-    images[0] = frame0;
+    function track(img: HTMLImageElement, i: number) {
+      img.onload = img.onerror = () => settle(i);
+      img.src = framePath(i + 1);
+      images[i] = img;
+      if (img.complete) settle(i); // cacheada: el onload puede no llegar
+    }
+
+    const frame0 = new Image();
+    frame0.setAttribute("fetchpriority", "high");
+    track(frame0, 0);
 
     function loadRest() {
-      for (let i = 1; i < FRAME_COUNT; i++) {
-        const img = new Image();
-        img.onload = () => {
-          ok++;
-          maybeActivate();
-        };
-        img.onerror = () => maybeActivate();
-        img.src = framePath(i + 1);
-        images[i] = img;
-      }
+      for (let i = 1; i < FRAME_COUNT; i++) track(new Image(), i);
     }
     if (document.readyState === "complete") loadRest();
     else window.addEventListener("load", loadRest, { once: true });
@@ -456,6 +473,23 @@ export default function ExpedicionImmersiveStage({
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize);
 
+    // bfcache: al DUPLICAR pestaña o navegar atrás, el navegador restaura la página
+    // CONGELADA y este efecto NO se re-ejecuta → el modo se quedaría en "normal"
+    // (scroll plano, sin inmersivo). Al restaurarse, `pageshow` llega con
+    // `persisted=true`: forzamos una recarga para que el JS se ejecute de nuevo.
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) window.location.reload();
+    };
+    window.addEventListener("pageshow", onPageShow);
+
+    // Al ROTAR (portrait↔landscape) cambia el modelo (paneo↔escala) y el reparto
+    // del scroll. El efecto solo decide al montar, así que recargamos para un
+    // estado limpio (arranca arriba por scrollRestoration manual). Reinicializar a
+    // medias dejaría el scroll/spacer en un estado incoherente.
+    const orientationMq = window.matchMedia("(orientation: portrait)");
+    const onOrientation = () => window.location.reload();
+    orientationMq.addEventListener("change", onOrientation);
+
     // Parallax de cursor: solo en dispositivos con ratón fino (en táctil no hay
     // cursor → parX/parY quedan en 0 y no se aplica nada).
     const finePointer = window.matchMedia(
@@ -554,6 +588,8 @@ export default function ExpedicionImmersiveStage({
       window.removeEventListener("wheel", cancelScrollAnim);
       window.removeEventListener("touchstart", cancelScrollAnim);
       window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pageshow", onPageShow);
+      orientationMq.removeEventListener("change", onOrientation);
       document.removeEventListener("click", onAnchorClick);
       if (branchEl) {
         branchEl.style.transform = "";
@@ -564,6 +600,7 @@ export default function ExpedicionImmersiveStage({
       document.documentElement.classList.remove("exp-immersive");
       document.documentElement.classList.remove("exp-mobile");
       document.documentElement.style.scrollBehavior = "";
+      if ("scrollRestoration" in history) history.scrollRestoration = "auto";
       root.style.removeProperty("--stage-fade");
       root.style.removeProperty("--stage-shift");
       root.style.removeProperty("--frame-top");

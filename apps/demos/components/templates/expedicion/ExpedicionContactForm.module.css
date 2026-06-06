@@ -158,3 +158,42 @@
   max-width: 40ch;
   margin-inline: auto;
 }
+
+/* ---- Móvil/tablet HORIZONTAL (marco bajo): compactar el formulario (cabecera,
+   altura del textarea y márgenes entre campos) para que la escena de contacto
+   quepa legible junto a la columna de info. Solo inmersivo. ---- */
+@media (orientation: landscape) and (max-height: 560px) {
+  :global(html.exp-immersive) .formCard {
+    padding: 1rem 1.1rem;
+  }
+  :global(html.exp-immersive) .formHeader {
+    margin-bottom: 0.8rem;
+  }
+  :global(html.exp-immersive) .formLead {
+    display: none;
+  }
+  :global(html.exp-immersive) .field {
+    margin-bottom: 0.5rem;
+  }
+  :global(html.exp-immersive) .label {
+    margin-bottom: 0.2rem;
+    font-size: var(--fs-xs);
+  }
+  :global(html.exp-immersive) .input,
+  :global(html.exp-immersive) .select,
+  :global(html.exp-immersive) .textarea {
+    padding: 0.45rem 0.7rem;
+  }
+  :global(html.exp-immersive) .textarea {
+    min-height: 42px;
+  }
+  :global(html.exp-immersive) .submit {
+    padding: 0.6rem 1.2rem;
+  }
+  /* en landscape la nota legal y el enlace de reserva sobran (la nota sigue
+     visible en vertical y desktop) → ahorran alto para que la escena no encoja */
+  :global(html.exp-immersive) .note,
+  :global(html.exp-immersive) .bookingLink {
+    display: none;
+  }
+}

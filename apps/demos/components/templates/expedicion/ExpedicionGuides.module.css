@@ -113,3 +113,46 @@
   line-height: var(--lh-body);
   color: var(--text-secondary);
 }
+
+/* ---- Móvil/tablet HORIZONTAL (marco bajo): los 3 retratos a UNA fila, avatar y
+   cabecera compactos, sin lead → escala legible en vez de 0.34. Solo inmersivo. */
+@media (orientation: landscape) and (max-height: 560px) {
+  :global(html.exp-immersive) .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+  }
+  :global(html.exp-immersive) .head {
+    margin-bottom: 0.6rem;
+  }
+  :global(html.exp-immersive) .lead {
+    display: none;
+  }
+  :global(html.exp-immersive) .card {
+    padding: 0.85rem 0.9rem;
+  }
+  :global(html.exp-immersive) .avatar {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0.6rem;
+    border-width: 1.5px;
+  }
+  :global(html.exp-immersive) .initials {
+    font-size: 1.2rem;
+  }
+  :global(html.exp-immersive) .name {
+    font-size: 1rem;
+  }
+  :global(html.exp-immersive) .role {
+    margin-top: 0.15rem;
+    font-size: 0.75rem;
+  }
+  :global(html.exp-immersive) .bio {
+    margin-top: 0.5rem;
+    font-size: 0.76rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

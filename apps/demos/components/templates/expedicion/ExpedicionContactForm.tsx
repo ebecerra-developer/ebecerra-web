@@ -20,6 +20,14 @@ export default function ExpedicionContactForm({
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    // noValidate desactiva el bloqueo nativo (controlamos la UX), pero seguimos
+    // exigiendo los campos required: si no validan, mostramos los avisos del
+    // navegador y no marcamos "enviado".
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
     setStatus("submitting");
     setTimeout(() => setStatus("success"), 700);
   }

@@ -105,3 +105,30 @@
   border-color: var(--cta);
   color: var(--cta);
 }
+
+/* ---- Móvil/tablet HORIZONTAL (marco bajo): info y formulario LADO A LADO (a
+   844px aún sería 1 col) + detalles compactos → la escena más alta (1311px
+   apilada, escala 0.21) baja a ~max(columna) y cabe legible. Solo inmersivo. */
+@media (orientation: landscape) and (max-height: 560px) {
+  :global(html.exp-immersive) .inner {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(1.1rem, 3vw, 2rem);
+    align-items: start;
+  }
+  :global(html.exp-immersive) .title {
+    font-size: var(--fs-h3);
+  }
+  /* el lead es redundante con el del formulario → fuera en landscape para ganar alto */
+  :global(html.exp-immersive) .lead {
+    display: none;
+  }
+  /* los 4 detalles (ubicación, tel, email, horario) a 2×2 → mitad de alto */
+  :global(html.exp-immersive) .details {
+    margin-top: 1rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1.2rem;
+  }
+  :global(html.exp-immersive) .social {
+    margin-top: 0.9rem;
+  }
+}

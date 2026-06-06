@@ -120,3 +120,24 @@
   border-radius: 6px;
   pointer-events: none;
 }
+
+/* ---- Móvil/tablet HORIZONTAL (marco bajo): los bullets a 2 columnas (más ancho,
+   menos alto) y cuerpo compacto → de 0.64 a una escala holgada. Solo inmersivo. */
+@media (orientation: landscape) and (max-height: 560px) {
+  :global(html.exp-immersive) .body {
+    margin-top: 0.8rem;
+    font-size: var(--fs-body);
+  }
+  :global(html.exp-immersive) .bullets {
+    margin-top: 1.1rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1.6rem;
+  }
+  :global(html.exp-immersive) .inner.noMedia .bullets {
+    max-width: 44rem;
+  }
+  :global(html.exp-immersive) .bullet {
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+}

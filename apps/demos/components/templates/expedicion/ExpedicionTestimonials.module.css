@@ -96,3 +96,31 @@
   font-size: var(--fs-xs);
   color: var(--text-muted);
 }
+
+/* ---- Móvil/tablet HORIZONTAL (marco bajo): los 3 testimonios a UNA fila y
+   compactos → escala legible en vez de 0.47. Solo inmersivo. ---- */
+@media (orientation: landscape) and (max-height: 560px) {
+  :global(html.exp-immersive) .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+  }
+  :global(html.exp-immersive) .head {
+    margin-bottom: 0.7rem;
+  }
+  :global(html.exp-immersive) .card {
+    gap: 0.7rem;
+    padding: 0.9rem 1rem;
+  }
+  :global(html.exp-immersive) .quote {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  :global(html.exp-immersive) .avatar {
+    width: 36px;
+    height: 36px;
+  }
+}

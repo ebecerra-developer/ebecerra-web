@@ -23,11 +23,24 @@ Experiencia donde el contenido NO scrollea como un documento: un **fondo POV** (
 - **a11y**: escenas inactivas `inert` + `visibility:hidden`; la activa quita `inert`. Skip-link, focus rings de doble anillo sobre el metraje.
 - **Parallax de cursor** (solo ratón fino): un `pointermove` mueve el "punto de vista" — las ramas de primer plano se desplazan MÁS (`PAR_BRANCH`) que el contenido de las escenas (`PAR_SCENE`), opuesto al cursor → profundidad. Suavizado con lerp en el loop; el desplazamiento va ANTES del `scale` de la rama (sigue creciendo desde su borde, no se despega). El loop no se duerme hasta que el parallax converge.
 
-## Desktop vs Móvil — la clave de tamaño
+## Dos modelos de tamaño — la clave, POR ORIENTACIÓN (no por ancho)
 
-- **Desktop** (`(min-width:901px)` y alto suficiente): una sección = UNA pantalla. `fitScenes()` **solo REDUCE** una escena si a 100% no cabe en el marco; nunca agranda ni toca una que ya cabe.
-- **Móvil/táctil** (`(pointer:coarse), (max-width:900px)`): MISMO modelo cross-fade, pero meter 5 tarjetas + formulario en una pantalla legible es imposible → cada sección recibe **distancia de scroll proporcional a su alto** y **PANEA** verticalmente (la `<section>` se traslada de su parte de arriba a la de abajo dentro del marco fijo), revelando su contenido sin recortes; el **cross-fade se reserva para el paso ENTRE secciones**. Reparto con `bounds[]`/`panDist[]` ponderados por alto (`layout()`). Es "1 pantalla desktop = varias en móvil" sin marcadores manuales. (Se probó un modo "flow" = fondo avanza + scroll normal; RECHAZADO, se quiere el cross-fade también en móvil.)
-- **Alto interior del marco** (compartido por sizing y paneo): `innerH − (nav.offsetHeight+10) − inset − margin`. Se usa `offsetHeight` del nav para **ignorar barras de preview** (la franja "DEMO") que empujan el nav pero no existen en producción.
+El inmersivo se activa **en todas las orientaciones** (el user lo quiere "en todo"). El modelo se elige por ORIENTACIÓN, no por ancho de pantalla:
+`isMobile = portrait && ((pointer:coarse) || (max-width:900px))`.
+
+- **PORTRAIT (vertical) → modelo PANEO** (`isMobile=true`, clase `html.exp-mobile`): MISMO cross-fade, pero meter 5 tarjetas + formulario en una pantalla legible es imposible → cada sección recibe **distancia de scroll proporcional a su alto** y **PANEA** verticalmente (la `<section>` se traslada dentro del marco fijo), revelando su contenido sin recortes; el **cross-fade se reserva para el paso ENTRE secciones**. Reparto con `bounds[]`/`panDist[]` ponderados por alto (`layout()`). (Se probó un modo "flow" = fondo avanza + scroll normal; RECHAZADO.)
+- **LANDSCAPE + DESKTOP → modelo ESCALA** (`isMobile=false`): una sección = UNA pantalla; `fitScenes()` **solo REDUCE** una escena si a 100% no cabe; nunca agranda. **Por qué landscape va aquí y no en paneo:** el paneo en una ventana muy baja (móvil horizontal ~390px de alto) hace el spacer gigantesco → scroll lentísimo + "teletransportes" al cambiar de dirección. El modelo de escala da scroll proporcional y limpio.
+- **Recargar al ROTAR**: el modelo se decide al montar; un `matchMedia("(orientation: portrait)").onchange → location.reload()` reinicia limpio al girar (arranca arriba por `scrollRestoration:manual`).
+- **Alto interior del marco** (sizing y paneo): `innerH − (nav.offsetHeight+10) − inset − margin`. `offsetHeight` del nav **ignora barras de preview** (franja "DEMO").
+
+### Móvil HORIZONTAL: reflows de contenido (el modelo escala lo aplastaría)
+
+En un móvil en horizontal el alto útil del marco es ~270–290px. El modelo de escala mete las secciones altas a `scale ~0.2–0.3` → **texto de 3px, ilegible** (medido: actividades 0.29, contacto 0.21). NO caer a scroll normal (el user quiere el inmersivo); en su lugar **reflow del contenido a horizontal** para que quepa a `scale ~0.7–1` legible:
+
+- Patrón: `@media (orientation: landscape) and (max-height: 560px) { :global(html.exp-immersive) .grid { … } }`. Las altas pasan a UNA fila (actividades 5-col, guías/opiniones 3-col), contacto a 2-col (info | form), experiencia a bullets 2-col; se ocultan leads/notas redundantes y se acotan descripciones con `-webkit-line-clamp`. Resultado medido: todas a 0.63–1.15.
+- **Scopear bajo `:global(html.exp-immersive)`** es OBLIGATORIO por DOS razones: (a) **especificidad** — las reglas de compactado `html.exp-immersive .x` (0,2,1) ganan a un `.x` pelado en media query (0,1,0), así que el reflow debe igualar el scope o no aplica; (b) **solo en inmersivo** — en el fallback de scroll normal la página es larga y NO debe reflowear.
+- `max-height:560` separa móvil-landscape (~360–430px) de **tablet-landscape (~768px, que NO debe reflowear**: ya cabe a 0.8+ con su layout original). Verificado que portrait (paneo) y tablet-landscape (layout original) no se tocan.
+- Para saber qué escenas necesitan reflow: medir `section.scrollHeight` natural a ese viewport y `scale = availH / natural`; tratar las < ~0.7. El `nav` también se baja a 52px en landscape para recuperar alto (`frameInteriorH` lee `nav.offsetHeight`).
 
 ## GOTCHAS (oro — esto es lo que cuesta descubrir)
 
