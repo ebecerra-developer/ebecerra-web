@@ -70,6 +70,9 @@ social-kit/personal/**/panorama-*.png
 social-kit/personal/highlights/*.png
 social-kit/personal/covers/*.png
 
+# Carpeta de "para subir": exports manuales regenerables (no es fuente)
+social-kit/personal/para-subir/
+
 # Renderizados de drafts archivados (preservamos HTML/MD, no PNG/MP4)
 social-kit/personal/2026/04/**/*.png
 social-kit/personal/2026/04/**/*.mp4

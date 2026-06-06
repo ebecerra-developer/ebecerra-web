@@ -26,8 +26,10 @@ Sobre fondo verde, texto serif que dice "Hago webs. Pero también creé Piezas."
 ## Comentario fijado
 
 ```
-🎮 Piezas en Play Store: lo enlazo en bio. Y para apps a medida (web o móvil), DM abierto.
+🎮 Búscalo en Play Store como "Piezas" — puzles con tus propias fotos. Para apps a medida (web o móvil), DM abierto.
 ```
+
+(Nota: la versión original decía "lo enlazo en bio" — corregido el 2026-05-31 al subir porque no estaba enlazado en bio. Si en algún momento se mete Piezas en Linktree/bio, cambiar a "link en bio ⬆️".)
 
 ## Notas de diseño
 
