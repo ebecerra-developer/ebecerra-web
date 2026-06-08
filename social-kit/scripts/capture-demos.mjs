@@ -2,6 +2,7 @@ import { chromium } from "playwright";
 import path from "node:path";
 
 const DEMOS = [
+  { slug: "bravio",           file: "demo-bravio" },
   { slug: "eco",              file: "demo-eco" },
   { slug: "equilibrio",       file: "demo-equilibrio" },
   { slug: "marta-solana",     file: "demo-marta-solana" },
@@ -44,7 +45,7 @@ async function main() {
     hasTouch: true,
   });
 
-  const MOBILE_DEMOS = ["eco", "equilibrio", "marta-solana", "claudia-entrena"];
+  const MOBILE_DEMOS = ["bravio", "eco", "equilibrio", "marta-solana", "claudia-entrena"];
   for (const slug of MOBILE_DEMOS) {
     const mPage = await mobileCtx.newPage();
     await mPage.goto(`https://demos.ebecerra.es/${slug}/`, { waitUntil: "networkidle", timeout: 45000 });

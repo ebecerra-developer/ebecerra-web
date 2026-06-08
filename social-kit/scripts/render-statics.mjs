@@ -65,6 +65,20 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-06-14 · Post "¿Qué le pides a tu web?" (comment-bait positivo) ──
+  {
+    html: "personal/2026/06/14-post-que-le-pides-a-tu-web/index.html",
+    out:  "personal/2026/06/14-post-que-le-pides-a-tu-web/final.png",
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-06-10 · Carrusel "Adivina el año de estas webs" · 8 slides 1080×1350 (adivina→respuestas) ──
+  ...[1,2,3,4,5,6,7,8].map((n) => ({
+    html: `personal/2026/06/10-carrusel-adivina-el-ano/slide-${n}.html`,
+    out:  `personal/2026/06/10-carrusel-adivina-el-ano/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
   // ── 2026-06-02 · Carrusel "5 mitos sobre tener una web" · 7 slides 1080×1350 (4:5) ──
   ...[1,2,3,4,5,6,7].map((n) => ({
     html: `personal/2026/06/02-carrusel-mitos-web/slide-${n}.html`,

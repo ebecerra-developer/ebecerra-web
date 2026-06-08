@@ -45,6 +45,10 @@ const TARGETS = [
   { name: "0023-reel-web-currante", folder: "personal/2026/05/0023-reel-web-currante", duration: 14 },
   // Reel 2026-06-04: "Lo que cree mi madre que hago" (humor, 5 escenas + hold final ~2.4s)
   { name: "04-reel-madre-cree", folder: "personal/2026/06/04-reel-madre-cree", duration: 17 },
+  // Reel 2026-06-09: "Demos" (apertura de semana, lidera Bravío + 4 demos + CTA demo gratis)
+  { name: "09-reel-demos", folder: "personal/2026/06/09-reel-demos", duration: 20 },
+  // Reel 2026-06-11: "90 min = una demo" (gancho Mundial, conecta con el de demos)
+  { name: "11-reel-mundial-demo", folder: "personal/2026/06/11-reel-mundial-demo", duration: 17 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,

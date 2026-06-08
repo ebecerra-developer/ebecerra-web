@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel 2026-06-09 "Demos: mira lo que hago" · 1080×1920 9:16
+     Apertura de semana. Lidera Bravío (inmersiva) en mockup + 4 demos + CTA demo gratis.
+     Inter, acento por color. Capturas en ../../../assets/captures/ (regenerar con capture-demos.mjs).
+     MEJORA OPCIONAL: sustituir el mockup estático de Bravío por un clip OBS del scroll/cursor real. */
+  :root { --green:#047857; --green-deep:#024d33; --green-light:#6EE7B7; --cream:#FAF6EE; --ink:#1f1810; --amber:#d97a3d; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #02583c;
+    font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .stage { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+    background: radial-gradient(120% 80% at 30% 22%, #058a63 0%, #047857 50%, #02583c 100%); }
+
+  .scene { position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 130px 90px; text-align: center; }
+  .scene--green { background: radial-gradient(120% 80% at 30% 22%, #058a63 0%, #047857 50%, #02583c 100%); color: var(--cream); }
+  em { font-style: normal; }
+  .scene--green em { color: var(--green-light); }
+
+  .big { font-size: 86px; font-weight: 900; line-height: 1.02; letter-spacing: -0.04em; color: var(--cream); max-width: 920px; }
+  .sub { margin-top: 26px; font-size: 40px; font-weight: 600; color: rgba(250,246,238,0.9); }
+  .scene-tag { font-size: 27px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-light); margin-bottom: 44px; }
+
+  /* Mockups móvil */
+  .phones { display: flex; gap: 46px; align-items: center; justify-content: center; }
+  .phone { width: 360px; height: 760px; border-radius: 46px; background: #0c0c0c; padding: 12px;
+    box-shadow: 0 40px 70px -26px rgba(2,40,26,0.7); flex: 0 0 auto; }
+  .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: 36px; display: block; }
+  .phone--solo { width: 432px; height: 912px; }
+  .label { margin-top: 40px; font-size: 36px; font-weight: 700; color: var(--cream); letter-spacing: -0.01em; }
+  .label em { color: var(--green-light); }
+
+  /* Tarjeta captura desktop (landscape) */
+  .shotcard { width: 928px; border-radius: 22px; overflow: hidden; box-shadow: 0 46px 84px -34px rgba(2,40,26,0.7);
+    border: 3px solid rgba(250,246,238,0.14); }
+  .shotcard img { width: 100%; display: block; }
+
+  /* CTA */
+  .cta-title { font-size: 82px; font-weight: 900; line-height: 1.0; letter-spacing: -0.04em; color: var(--cream); max-width: 920px; }
+  .cta-title em { color: var(--green-light); }
+  .cta-sub { margin-top: 32px; font-size: 42px; font-weight: 600; color: rgba(250,246,238,0.92); max-width: 900px; }
+  .cta-pill { margin-top: 46px; display: inline-block; background: var(--cream); color: var(--green); font-size: 46px; font-weight: 800;
+    padding: 22px 46px; border-radius: 999px; box-shadow: 0 18px 36px rgba(2,40,26,0.4); }
+
+  .brand-corner { position: absolute; top: 58px; left: 58px; z-index: 50; display: flex; align-items: center; gap: 13px;
+    background: rgba(2,40,26,0.62); padding: 11px 24px 11px 11px; border-radius: 999px; font-weight: 700; font-size: 26px; color: var(--cream); }
+  .brand-corner .dot { width: 40px; height: 40px; border-radius: 50%; background: var(--cream); color: var(--green);
+    display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <!-- S1 · hook + Bravío móvil (visible en t=0) -->
+    <div class="scene scene--green" id="s1">
+      <div class="big">Esto no es<br/>una web <em>normal.</em></div>
+      <div class="phone phone--solo" style="margin-top:46px"><img src="../../../assets/captures/demo-bravio-mobile.png" alt="demo Bravío en móvil" /></div>
+    </div>
+
+    <!-- S2 · Bravío desktop + contexto -->
+    <div class="scene scene--green" id="s2">
+      <div class="scene-tag">demo · bravío</div>
+      <div class="shotcard"><img src="../../../assets/captures/demo-bravio-desktop.png" alt="demo Bravío en ordenador" /></div>
+      <div class="label">Aventura en la naturaleza · <em>100% interactiva</em></div>
+    </div>
+
+    <!-- S3 · transición -->
+    <div class="scene scene--green" id="s3">
+      <div class="big">Y no es la única.<br/>Mira <em>otras</em> 👇</div>
+    </div>
+
+    <!-- S4 · 2 demos -->
+    <div class="scene scene--green" id="s4">
+      <div class="phones">
+        <div class="phone"><img src="../../../assets/captures/demo-eco-mobile.png" alt="demo eco" /></div>
+        <div class="phone"><img src="../../../assets/captures/demo-equilibrio-mobile.png" alt="demo equilibrio" /></div>
+      </div>
+      <div class="label">Una tienda <em>eco</em> · una <em>fisio</em></div>
+    </div>
+
+    <!-- S5 · 2 demos -->
+    <div class="scene scene--green" id="s5">
+      <div class="phones">
+        <div class="phone"><img src="../../../assets/captures/demo-marta-solana-mobile.png" alt="demo coach" /></div>
+        <div class="phone"><img src="../../../assets/captures/demo-claudia-entrena-mobile.png" alt="demo entrenadora" /></div>
+      </div>
+      <div class="label">Una <em>coach</em> · una <em>entrenadora</em></div>
+    </div>
+
+    <!-- S6 · CTA -->
+    <div class="scene scene--green" id="s6">
+      <div class="scene-tag">tu turno</div>
+      <div class="cta-title">¿Tienes una marca?<br/>Te monto una <em>demo gratis</em>.</div>
+      <div class="cta-sub">Dime a qué te dedicas en comentarios 👇</div>
+      <div class="cta-pill">demos.ebecerra.es</div>
+    </div>
+
+    <div class="brand-corner"><span class="dot">eB</span>@ebecerra.es</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
+    const FO = { immediateRender: false };
+    window.__tl = tl; window.__startAnim = () => tl.play(0);
+
+    // S1 visible y estático en t=0 (thumbnail)
+    gsap.set("#s1", { opacity: 1 });
+    gsap.set(["#s2", "#s3", "#s4", "#s5", "#s6"], { opacity: 0 });
+
+    tl.fromTo("#s1", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FO }, 3.0);
+
+    // S2
+    tl.fromTo("#s2", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 3.2);
+    tl.fromTo("#s2 .scene-tag", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, 3.4);
+    tl.fromTo("#s2 .shotcard", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 3.6);
+    tl.fromTo("#s2 .label", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 4.0);
+    tl.fromTo("#s2", { opacity: 1 }, { opacity: 0, duration: 0.5, ...FO }, 6.7);
+
+    // S3
+    tl.fromTo("#s3", { opacity: 0 }, { opacity: 1, duration: 0.45 }, 6.9);
+    tl.fromTo("#s3 .big", { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 7.1);
+    tl.fromTo("#s3", { opacity: 1 }, { opacity: 0, duration: 0.45, ...FO }, 9.0);
+
+    // S4
+    tl.fromTo("#s4", { opacity: 0 }, { opacity: 1, duration: 0.45 }, 9.2);
+    tl.fromTo("#s4 .phone", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.16 }, 9.4);
+    tl.fromTo("#s4 .label", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 9.9);
+    tl.fromTo("#s4", { opacity: 1 }, { opacity: 0, duration: 0.45, ...FO }, 12.6);
+
+    // S5
+    tl.fromTo("#s5", { opacity: 0 }, { opacity: 1, duration: 0.45 }, 12.8);
+    tl.fromTo("#s5 .phone", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.16 }, 13.0);
+    tl.fromTo("#s5 .label", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 13.5);
+    tl.fromTo("#s5", { opacity: 1 }, { opacity: 0, duration: 0.45, ...FO }, 16.2);
+
+    // S6 CTA (se queda)
+    tl.fromTo("#s6", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 16.4);
+    tl.fromTo("#s6 > *", { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.16 }, 16.7);
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post 2026-06-14 "¿Qué le pides a tu web?" · 1080×1350 (4:5)
+     Comment-bait POSITIVO (completa la frase). Inter + acento color.
+     Firma estándar: círculo eB + @ebecerra.es abajo-izquierda. */
+  :root {
+    --green:#047857; --green-deep:#024d33; --green-light:#6EE7B7;
+    --cream:#FAF6EE; --cream-soft:#ECE3D0; --muted:#6b6256; --ink:#1f1810;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1080px; height: 1350px; overflow: hidden; background: #000;
+    font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased;
+  }
+  .post {
+    position: relative; width: 1080px; height: 1350px;
+    background: radial-gradient(125% 100% at 26% 20%, #058a63 0%, #047857 50%, #02583c 100%);
+    overflow: hidden;
+  }
+  .post::after {
+    content: ""; position: absolute; inset: 0; z-index: 20;
+    pointer-events: none; opacity: 0.06; mix-blend-mode: multiply;
+    background-image: radial-gradient(rgba(0,0,0,0.6) 1px, transparent 1px);
+    background-size: 4px 4px;
+  }
+
+  .kicker {
+    position: absolute; z-index: 12; left: 80px; top: 108px;
+    font-size: 23px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-light);
+  }
+
+  .headline {
+    position: absolute; z-index: 12; left: 80px; top: 176px; width: 940px;
+    font-weight: 900; font-size: 104px; line-height: 0.98;
+    letter-spacing: -0.05em; color: var(--cream);
+  }
+  .headline em { font-style: normal; color: var(--green-light); }
+
+  .hint {
+    position: absolute; z-index: 12; left: 80px; top: 600px; width: 860px;
+    font-size: 40px; font-weight: 500; line-height: 1.32; color: rgba(250,246,238,0.9);
+  }
+  .hint strong { font-weight: 700; color: var(--green-light); }
+
+  /* Campo de comentario falso (invita a comentar) */
+  .commentbar {
+    position: absolute; z-index: 12; left: 80px; right: 80px; top: 800px;
+    background: var(--cream); border-radius: 999px;
+    padding: 30px 40px; display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 30px 56px -26px rgba(2,40,26,0.5);
+  }
+  .commentbar .ph {
+    display: flex; align-items: center; gap: 16px;
+    color: var(--muted); font-size: 34px; font-weight: 500;
+  }
+  .commentbar .ph .ic {
+    font-family: "Segoe UI Emoji","Noto Color Emoji",sans-serif; font-size: 34px;
+  }
+  .commentbar .pub { color: var(--green); font-size: 32px; font-weight: 800; }
+
+  .handle {
+    position: absolute; z-index: 14; left: 80px; bottom: 76px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 27px; font-weight: 700; color: var(--cream);
+  }
+  .handle .dot {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--cream); color: var(--green);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 19px; font-weight: 900;
+  }
+
+  .spark { position: absolute; z-index: 11; pointer-events: none; }
+</style>
+</head>
+<body>
+  <div class="post">
+    <div class="kicker">completa la frase</div>
+    <h1 class="headline">Me gustaría<br/>que mi web<br/><em>pudiera…</em></h1>
+
+    <div class="hint">Termínala en comentarios <strong>👇</strong><br/>Sin filtros, sueña en grande.</div>
+
+    <div class="commentbar">
+      <span class="ph"><span class="ic">💬</span> Añade un comentario…</span>
+      <span class="pub">Publicar</span>
+    </div>
+
+    <div class="handle"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <svg class="spark" style="left:780px;top:230px;width:56px;" viewBox="0 0 100 100" fill="#6EE7B7"><path d="M50 0 C54 38 62 46 100 50 C62 54 54 62 50 100 C46 62 38 54 0 50 C38 46 46 38 50 0Z"/></svg>
+    <svg class="spark" style="left:120px;top:560px;width:38px;" viewBox="0 0 100 100" fill="#FAF6EE"><path d="M50 0 C54 38 62 46 100 50 C62 54 54 62 50 100 C46 62 38 54 0 50 C38 46 46 38 50 0Z"/></svg>
+  </div>
+</body>
+</html>

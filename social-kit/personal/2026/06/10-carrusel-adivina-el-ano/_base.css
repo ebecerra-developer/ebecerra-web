@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+/* Carrusel "Adivina el año de estas webs" · 7 slides 1080×1350 (4:5)
+   Nostalgia inclusiva (webs icónicas/defunct vía Wayback) — nunca negocios
+   pequeños. Inter + acento por color. Capturas reales: cap-*.png (mismo folder). */
+
+:root {
+  --green:#047857; --green-deep:#024d33; --green-light:#6EE7B7;
+  --cream:#FAF6EE; --cream-soft:#ECE3D0; --ink:#1f1810; --muted:#5b5247;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1350px; overflow: hidden; }
+body { font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+.slide { position: relative; width: 1080px; height: 1350px; padding: 88px; display: flex; flex-direction: column; overflow: hidden; }
+.slide--green { background: radial-gradient(125% 100% at 26% 18%, #058a63 0%, #047857 50%, #02583c 100%); color: var(--cream); }
+.slide--cream { background: var(--cream); color: var(--ink); }
+.slide::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 30; }
+.slide--cream::after { opacity: 0.12; mix-blend-mode: multiply; background-image: radial-gradient(rgba(0,0,0,0.5) 1px, transparent 1px); background-size: 3px 3px; }
+.slide--green::after { opacity: 0.06; mix-blend-mode: multiply; background-image: radial-gradient(rgba(0,0,0,0.6) 1px, transparent 1px); background-size: 4px 4px; }
+
+.tag { display: inline-flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.tag__num { width: 50px; height: 50px; border-radius: 50%; background: var(--ink); color: var(--cream); display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 24px; }
+.slide--green .tag__num { background: var(--cream); color: var(--green); }
+.tag__label { opacity: 0.6; }
+.page-num { position: absolute; top: 96px; right: 88px; font-size: 20px; font-weight: 700; opacity: 0.42; letter-spacing: 0.06em; }
+
+/* Ventana de navegador */
+.window { margin: 54px auto 0; width: 904px; border-radius: 20px; overflow: hidden;
+  background: #fff; box-shadow: 0 46px 80px -34px rgba(2,40,26,0.5); border: 1px solid rgba(0,0,0,0.08); }
+.window__bar { height: 66px; background: #e9e4d9; display: flex; align-items: center; gap: 26px; padding: 0 26px; }
+.window__dots { display: flex; gap: 12px; }
+.window__dots i { width: 18px; height: 18px; border-radius: 50%; display: block; }
+.window__dots i:nth-child(1){ background:#ff5f57; } .window__dots i:nth-child(2){ background:#febc2e; } .window__dots i:nth-child(3){ background:#28c840; }
+.window__url { flex: 1; background: #fff; border-radius: 9px; padding: 10px 22px; font-family: ui-monospace, "SF Mono", monospace; font-size: 23px; color: #8a8276; }
+.window__shot { width: 100%; height: 568px; object-fit: cover; object-position: top center; display: block; background: #fff; }
+
+/* Bloque "adivina" (marca conocida + pregunta de año) */
+.guess { margin-top: auto; margin-bottom: 92px; display: flex; align-items: flex-end; justify-content: space-between; }
+.guess__brand { font-size: 46px; font-weight: 800; letter-spacing: -0.01em; }
+.guess__brand small { display: block; font-size: 26px; font-weight: 600; color: var(--muted); margin-top: 6px; }
+.guess__q { font-size: 96px; font-weight: 900; line-height: 0.84; letter-spacing: -0.04em; color: var(--green); text-align: right; }
+.guess__q span { display: block; font-size: 30px; font-weight: 700; color: var(--muted); margin-top: 10px; letter-spacing: 0; }
+
+/* Slide de respuestas (recap) */
+.answers { margin-top: 40px; display: flex; flex-direction: column; gap: 22px; }
+.answers__row { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 2px solid rgba(250,246,238,0.18); padding-bottom: 18px; }
+.answers__brand { font-size: 44px; font-weight: 700; }
+.answers__year { font-size: 56px; font-weight: 900; color: var(--green-light); letter-spacing: -0.02em; }
+
+/* Portada / cierre */
+.big { font-size: 110px; font-weight: 900; line-height: 0.96; letter-spacing: -0.05em; color: var(--cream); }
+.big em { font-style: normal; color: var(--green-light); }
+.lead { margin-top: 36px; font-size: 40px; font-weight: 600; color: rgba(250,246,238,0.85); }
+.center { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.close__pill { margin-top: 50px; display: inline-block; background: var(--cream); color: var(--green); font-size: 44px; font-weight: 800; padding: 22px 44px; border-radius: 999px; }
+
+/* Marca abajo izquierda */
+.brand-mark { position: absolute; bottom: 64px; left: 88px; display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 700; }
+.brand-mark__dot { width: 42px; height: 42px; border-radius: 50%; background: var(--green); color: var(--cream); display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 19px; }
+.slide--green .brand-mark { color: var(--cream); }
+.slide--green .brand-mark__dot { background: var(--cream); color: var(--green); }
+.swipe { position: absolute; bottom: 66px; right: 88px; font-size: 22px; font-weight: 600; opacity: 0.8; }
+.spark { position: absolute; z-index: 5; pointer-events: none; }
