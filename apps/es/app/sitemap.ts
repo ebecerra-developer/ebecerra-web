@@ -79,7 +79,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getTags("es"),
   ]);
   const taxonomyEntries = [
-    ...categories.map((c) => ({ path: `/blog/categoria/${c.slug}` })),
+    // Solo categorías con al menos un post indexable: no anunciamos a Google
+    // páginas de listado vacías (se reincorporan solas al publicar un post).
+    ...categories
+      .filter((c) => (c.postCount ?? 0) > 0)
+      .map((c) => ({ path: `/blog/categoria/${c.slug}` })),
     ...tags.map((t) => ({ path: `/blog/tag/${t.slug}` })),
   ].flatMap(({ path }) =>
     routing.locales.map((locale) => ({

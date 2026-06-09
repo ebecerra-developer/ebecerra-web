@@ -827,6 +827,8 @@ export type BlogCategory = {
   slug: string;
   description: string | null;
   order: number;
+  /** Nº de posts indexables que referencian la categoría. Lo puebla getCategories; usado por el sitemap para no anunciar categorías vacías. */
+  postCount?: number;
 };
 
 export type BlogTag = {

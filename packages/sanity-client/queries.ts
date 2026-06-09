@@ -2892,7 +2892,8 @@ export async function getCategories(locale: Locale): Promise<BlogCategory[]> {
         "title": ${loc("title")},
         "slug": slug.current,
         "description": ${loc("description")},
-        "order": coalesce(order, 100)
+        "order": coalesce(order, 100),
+        "postCount": count(*[_type == "post" && noindex != true && references(^._id)])
       }`,
       { locale }
     )
