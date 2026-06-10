@@ -10,6 +10,7 @@ Experiencia donde el contenido NO scrollea como un documento: un **fondo POV** (
 ## Dónde vive
 
 - **Prototipos de referencia** (estáticos, fuera del deploy): `docs/immersive-proto/` — solo **3 técnicas distintas**: `index.html` (fly-through procedural en canvas), `v3.html` (parallax fotográfico), `v6.html` (Gaussian Splatting de un lugar real, vía Luma). El prototipo del efecto de producción (POV + frames, antiguo `v7`) ya NO se guarda: vive en la demo Bravío (`apps/demos`). Se descartaron v2/v4/v4b/v5/v7 + las secuencias de frames (~12 MB). Antes estaban en `apps/es/public/_immersive-proto/` (Next los servía en prod) → movidos. Ver `docs/immersive-proto/README.md`.
+- **Catálogo de OTROS efectos de motion/scroll** (candidatos a futuras demos o a `apps/es`: revelado con cursor, personaje por scroll, stacking cards, marquee divergente, parallax de nubes, coverflow, coreografía de secciones fijadas): `docs/motion-effects-catalog.md` — con técnica (CSS scroll-timeline vs GSAP vs canvas), coste, móvil y dónde encaja cada uno.
 - **Producción**: plantilla `expedicion` (marca demo **Bravío**, slug `bravio`) en `apps/demos/components/templates/expedicion/`. Motor: **`ExpedicionImmersiveStage.tsx`** (+ `.module.css`). Es una plantilla de `apps/demos` → ver también `/demos-template-system`.
 
 ## El motor (cómo funciona)
