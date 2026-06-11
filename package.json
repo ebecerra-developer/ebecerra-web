@@ -12,6 +12,7 @@
     "dev:tech": "npm run dev -w @ebecerra/tech",
     "build": "turbo run build",
     "lint": "turbo run lint",
+    "lint:marca": "node scripts/lint-marca.mjs",
     "typecheck": "turbo run typecheck",
     "clean": "turbo run clean && rm -rf node_modules"
   },

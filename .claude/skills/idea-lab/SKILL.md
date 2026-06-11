@@ -77,6 +77,8 @@ Cuántas lentes: en `mixta` hay 11 disponibles → coge 6-8 (completa) o 4-5 (r�
 
 El principal deduplica (semántico: variantes cosméticas = duplicado) contra la salida cruda y contra el ledger, y presenta a Enrique la lista compacta (título + 1 línea + lente). Enrique veta, marca favoritas y puede añadir ideas propias. **El research solo se gasta en lo que sobrevive a este filtro.**
 
+Aprendizajes de la sesión inaugural (2026-06-11): (a) en checkpoints y decisión final, las ideas se explican **en texto plano conversacional** ("qué es, cómo se ve en tu día a día, qué cojea") — las opciones escuetas de un formulario no le bastan a Enrique para opinar; (b) preguntar SIEMPRE "¿qué has hecho ya tú sobre esto?" — puede estar ejecutando una variante mejor; (c) su filtro de identidad ("a medida, nunca plantillas/SKUs de cara al público") es más duro que el fit de marca genérico.
+
 ### 4. Research (top-K)
 
 K≤6. Por idea: ≤3 búsquedas web. Regla dura: **sin fuente = hipótesis y se marca como tal** (la evidencia alucinada envenena el ledger para siempre). Cada idea sale con un **estado de evidencia** (`validada` / `sin-validar` / `contradicha`) que vive en la ficha y en su `ideas/NNN-slug.md` — NO es el `Estado` del ledger (ese sigue su propio enum: tras research la idea pasa a `investigada`, y el estado de evidencia se anota en la columna "Razón"). Si el research falla: 1 reintento y degradar a `sin-validar`, nunca bloquear la sesión. Consultar antes `research/` por si ya hay evidencia reutilizable.
