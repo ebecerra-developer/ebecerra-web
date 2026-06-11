@@ -60,6 +60,11 @@ export type ServicesPricingCancellationClause = {
   body: string | null;
 };
 
+export type ServicesPricingGuaranteeBadge = {
+  enabled: boolean;
+  text: string | null;
+};
+
 export type ServicesPricingAddOn = {
   title: string;
   price: string | null;
@@ -71,6 +76,7 @@ export type ServicesPricing = {
   title: string | null;
   lead: string | null;
   pathSelectorLabel: string | null;
+  guaranteeBadge: ServicesPricingGuaranteeBadge | null;
   paths: ServicesPricingPath[];
   cancellationClause: ServicesPricingCancellationClause | null;
   addOnsSectionTitle: string | null;

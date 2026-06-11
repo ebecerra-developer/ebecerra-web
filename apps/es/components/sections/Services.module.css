@@ -145,6 +145,36 @@
   font-style: italic;
 }
 
+/* Badge de garantía "Sin Cadenas" — ancla de confianza bajo el selector */
+.guarantee {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 var(--s-5, 32px);
+  padding: 9px 18px;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text);
+  background: var(--cta-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill, 999px);
+}
+
+.guaranteeMark {
+  flex: none;
+  color: var(--accent-warm);
+  font-size: 15px;
+  line-height: 1;
+}
+
+@media (max-width: 480px) {
+  .guarantee {
+    align-items: flex-start;
+    border-radius: var(--r-md, 12px);
+  }
+}
+
 /* ---------- Grid de tiers ---------- */
 
 .grid {

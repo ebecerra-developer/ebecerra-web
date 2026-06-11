@@ -2021,6 +2021,10 @@ export async function getServicesPricing(
         "title": ${loc("title")},
         "lead": ${loc("lead")},
         "pathSelectorLabel": ${loc("pathSelectorLabel")},
+        "guaranteeBadge": guaranteeBadge {
+          "enabled": coalesce(enabled, false),
+          "text": ${loc("text")}
+        },
         "paths": paths[]{
           id,
           "label": ${loc("label")},

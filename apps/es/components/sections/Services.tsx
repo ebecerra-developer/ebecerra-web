@@ -99,6 +99,15 @@ export default function Services({ pricing }: Props) {
           </div>
         )}
 
+        {pricing?.guaranteeBadge?.enabled && pricing.guaranteeBadge.text && (
+          <p className={styles.guarantee}>
+            <span aria-hidden="true" className={styles.guaranteeMark}>
+              ✦
+            </span>
+            {pricing.guaranteeBadge.text}
+          </p>
+        )}
+
         {activePath && (
           <div
             role="tabpanel"

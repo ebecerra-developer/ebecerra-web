@@ -40,6 +40,28 @@ export default defineType({
       description: "Texto pequeño sobre las pills. Ej: '¿Cómo prefieres pagarlo?'",
     }),
     defineField({
+      name: "guaranteeBadge",
+      title: "Garantía 'Sin Cadenas' (badge bajo el selector)",
+      type: "object",
+      description:
+        "Badge de confianza visible bajo el selector de caminos, en ambos caminos. Reduce la objeción de quedar atrapado. Desactívalo para ocultarlo sin perder el texto.",
+      fields: [
+        defineField({
+          name: "enabled",
+          title: "Mostrar el badge",
+          type: "boolean",
+          initialValue: true,
+        }),
+        defineField({
+          name: "text",
+          title: "Texto del badge",
+          type: "localeString",
+          description:
+            "Ej: 'Sin ataduras: cancelas cuando quieras y el código es tuyo'. El símbolo ✦ lo añade el diseño.",
+        }),
+      ],
+    }),
+    defineField({
       name: "paths",
       title: "Caminos de contratación",
       type: "array",

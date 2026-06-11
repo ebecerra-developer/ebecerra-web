@@ -30,6 +30,10 @@ const es: FaqItem[] = [
     a: "Si has elegido Compra directa, tu web es 100 % tuya desde el día 1. Landing incluye 1 mes de soporte post-entrega; Profesional y Avanzado, 3 meses. Después puedes contratar mantenimiento opcional aparte (29 / 69 / 89 €/mes según el plan) o gestionarla por tu cuenta. Si has elegido Contrato de servicio, el mantenimiento ya va incluido en la cuota mensual durante toda la vigencia del contrato (mínimo 12 meses).",
   },
   {
+    q: "¿Tengo que firmar permanencia? ¿La web acaba siendo mía?",
+    a: "Depende del camino que elijas. En Compra directa no hay permanencia: pagas la web y el código es 100% tuyo desde el primer día. En Contrato de servicio sí hay una permanencia mínima de 12 meses, porque reparte en cuotas el coste de la web más el mantenimiento; está pensada para que al cumplir el año no debas nada, y si cancelas antes solo liquidas la diferencia hasta el valor de la web (te lo explico antes de firmar, nunca en letra pequeña). En los dos casos te llevas tu web: nada de plantillas alquiladas ni quedarte sin nada si decides irte.",
+  },
+  {
     q: "¿Tu web entra en el Kit Digital?",
     a: "A día de hoy (2026), las convocatorias del programa Kit Digital están cerradas según la página oficial (acelerapyme.gob.es). Para que un cliente pueda usar el bono con un desarrollador, éste tiene que ser Agente Digitalizador Adherido registrado en red.es — figura que hoy no tengo dada de alta. Si tu caso depende de esa ayuda, te lo digo claro antes de presupuestar y buscamos una alternativa honesta.",
   },
@@ -67,6 +71,10 @@ const en: FaqItem[] = [
   {
     q: "Who maintains the website after delivery?",
     a: "If you chose Direct purchase, your site is 100% yours from day 1. Landing includes 1 month of post-delivery support; Professional and Advanced, 3 months. After that you can contract optional maintenance separately (€29 / €69 / €89/mo by plan) or manage it yourself. If you chose Service contract, maintenance is already included in the monthly fee for the entire contract duration (12-month minimum).",
+  },
+  {
+    q: "Do I have to sign a lock-in contract? Do I end up owning the website?",
+    a: "It depends on the path you choose. With Direct purchase there's no lock-in: you pay for the site and the code is 100% yours from day one. With a Service contract there is a 12-month minimum term, because it spreads the cost of the site plus maintenance into monthly payments; it's designed so that once the year is up you owe nothing, and if you cancel earlier you only settle the difference up to the site's value (I explain this before signing, never in fine print). Either way you keep your website: no rented templates, and you're never left with nothing if you decide to leave.",
   },
   {
     q: "Does your work qualify for Spain's Kit Digital grant?",
