@@ -96,6 +96,7 @@ Invocar con `/nombre`. Para crear contenido (post, copy, SEO, AEO) entra por **`
 | `/admin-panel` | Añadir módulo, provisionar admin de cliente nuevo, mapear tokens al admin, depurar estética. |
 | `/demos-template-system` | Añadir plantilla nueva a `apps/demos`. |
 | `/immersive-scroll` | Efecto inmersivo "ir hacia delante" (POV en canvas + escenas cross-fade): motor, modelo por orientación (paneo/escala + reflows landscape), gotchas. Plantilla `expedicion`/Bravío y prototipos de referencia en `docs/immersive-proto/`. |
+| `/idea-lab` | Sesión de ideas de negocio/automatización (divergencia con lentes → crítica adversarial → ledger). Datos en repo privado `ebecerra-business/idea-lab/`. NO para contenido social. |
 | `/css-conventions` | Estilos: CSS Modules co-located. |
 | `/design-tokens` | Paleta, tokens, rough-notation, handoff Claude Design. |
 | `/brand-identity` | Logos, favicons, OG images. |
@@ -135,6 +136,8 @@ Subagentes en [.claude/agents/](.claude/agents/). **No son roles con los que se 
 | `tester-seo-a11y` | Accesibilidad (WCAG) + SEO técnico y de posicionamiento de páginas/plantillas. |
 | `buscador-ideas-social` | Scout de ideas de contenido: cooldowns (PLAN.md), calendario Notion, tendencias; devuelve lista, no piezas. |
 | `disenador-social` | Produce UNA pieza social terminada siguiendo `/social-media-kit`; se lanza N a la vez para paralelizar. |
+| `ideador` | Generador divergente de ideas de negocio/automatización para UNA lente (la skill `/idea-lab` lanza N en paralelo). No contenido social. Read-only. |
+| `analista-viabilidad` | Crítico-selector adversarial de ideas (`/idea-lab`): rankea, mata las flojas, aplica vetos duros. Nunca fusiona. Read-only. |
 
 ### Testers — al cerrar una tarea
 
@@ -167,6 +170,10 @@ Los independientes se lanzan **en paralelo** (varias llamadas Agent en un mismo 
 `disenador-social` produce **una** pieza terminada siguiendo `/social-media-kit` + memoria. Su único valor es **paralelizar**.
 
 Flujo de "planifícame la semana": el principal lanza `buscador-ideas-social` para traer ideas → el user filtra/aprueba → el principal lanza N `disenador-social` en paralelo (uno por idea) → verifica → pasa cada pieza por `tester-copy` + `tester-visual-social` → reinyecta hallazgos al diseñador. Ninguno es un "agente de redes" general (eso lo cubren las skills + el principal): son un scout de investigación y un ejecutor paralelo de diseño.
+
+### Ideas de negocio: divergencia + crítica en paralelo (idea-lab)
+
+`ideador` y `analista-viabilidad` son el equivalente para **negocio/automatización**, no para contenido social. Los orquesta la skill `/idea-lab`: N `ideador` en paralelo (uno por lente) divergen, el user filtra, y `analista-viabilidad` rankea/mata. **Frontera dura con `buscador-ideas-social`**: idea-lab produce mecanismos de negocio (ingresos, oferta, ads, automatización, tooling); los ángulos y piezas concretas de contenido son del scout social y nunca entran al ledger de idea-lab. Los datos (ledger, contexto, sesiones) viven en el repo **privado** `ebecerra-business/idea-lab/`, nunca en este repo público.
 
 ### Mejora continua de los agentes
 
