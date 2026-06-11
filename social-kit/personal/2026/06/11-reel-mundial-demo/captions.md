@@ -8,11 +8,11 @@
 
 ## Caption (feed)
 
-Hoy arranca el Mundial ⚽ y medio país se va a parar a ver el partido. Y un partido dura 90 minutos.
+Hoy arranca el Mundial ⚽ y un partido dura 90 minutos.
 
-¿Sabes qué se puede hacer en esos 90 minutos? Una primera demo de cómo podría ser la web de tu negocio.
+¿Sabes qué más cabe en esos 90 minutos? Una primera demo de la web de tu negocio.
 
-Va en serio: dime a qué te dedicas en comentarios 👇 y te monto una demo. Gratis y sin compromiso — un primer vistazo, para que lo veas con tus ojos.
+Dime a qué te dedicas 👇 y te la monto. Gratis y sin compromiso.
 
 Y ya de paso… ¿con quién vas? 👀
 

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Portada animada del reel de demos: verde opaco + cards (demos) que se despliegan + textos.
+     GSAP seek-friendly. Render con record-animated.mjs → final.mp4 → usado como escena 0 del reel. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--amber:#d97a3d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 20%,#058a63 0%,#047857 50%,#02583c 100%)}
+  em{font-style:normal;color:var(--green-light)}
+  .chip{position:absolute;top:58px;left:58px;z-index:50;display:flex;align-items:center;gap:13px;background:rgba(2,40,26,.55);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:26px;color:var(--cream)}
+  .chip .dot{width:40px;height:40px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:18px}
+  .kick{position:absolute;top:250px;left:0;right:0;text-align:center;font-size:28px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green-light)}
+  .title{position:absolute;top:312px;left:0;right:0;text-align:center;font-size:92px;font-weight:900;line-height:1.04;letter-spacing:-.04em;color:var(--cream)}
+  /* abanico de cards */
+  .fan{position:absolute;left:540px;top:1010px;width:0;height:0}
+  .cardwrap{position:absolute;left:0;top:0}
+  .card{width:330px;height:684px;margin:-342px 0 0 -165px;border-radius:34px;overflow:hidden;background:#0c0c0c;border:6px solid #0c0c0c;box-shadow:0 30px 60px -24px rgba(2,40,26,.7);transform-origin:center bottom}
+  .card img{width:100%;height:100%;object-fit:cover;object-position:center 9%;display:block;border-radius:28px}
+  .sub{position:absolute;left:0;right:0;bottom:210px;text-align:center;font-size:46px;font-weight:700;color:var(--cream)}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="kick" id="kick">demos web · a medida</div>
+    <div class="title" id="title">Mira <em>nuestras</em><br/>demos.</div>
+    <div class="fan">
+      <div class="cardwrap" id="c0"><div class="card" style="transform:rotate(-24deg) translateY(-26px)"><img src="../../../../assets/captures/demo-claudia-entrena-mobile.png" alt=""/></div></div>
+      <div class="cardwrap" id="c1"><div class="card" style="transform:rotate(-12deg) translateY(-8px)"><img src="../../../../assets/captures/demo-marta-solana-mobile.png" alt=""/></div></div>
+      <div class="cardwrap" id="c2"><div class="card" style="transform:rotate(12deg) translateY(-8px)"><img src="../../../../assets/captures/demo-eco-mobile.png" alt=""/></div></div>
+      <div class="cardwrap" id="c3"><div class="card" style="transform:rotate(24deg) translateY(-26px)"><img src="../../../../assets/captures/demo-equilibrio-mobile.png" alt=""/></div></div>
+      <div class="cardwrap" id="c4"><div class="card" style="transform:rotate(0deg)"><img src="../../../../assets/captures/demo-bravio-mobile.png" alt=""/></div></div>
+    </div>
+    <div class="sub" id="sub">Y te monto una <em>gratis</em> 👇</div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }, paused: true });
+    const FO = { immediateRender: false };
+    window.__tl = tl; window.__startAnim = () => tl.play(0);
+    // estado inicial (no visible en t=0, pero el poster del reel se toma ya asentado)
+    gsap.set(["#kick", "#title", "#sub"], { opacity: 0, y: 30 });
+    gsap.set(".cardwrap", { opacity: 0, y: 150, scale: 0.7 });
+    tl.to("#kick", { opacity: 1, y: 0, duration: 0.6 }, 0.15);
+    tl.to("#title", { opacity: 1, y: 0, duration: 0.7 }, 0.3);
+    // las cards se despliegan en abanico (de centro a fuera), staggered
+    tl.to(["#c4", "#c2", "#c1", "#c3", "#c0"], { opacity: 1, y: 0, scale: 1, duration: 0.62, stagger: 0.1, ease: "back.out(1.2)" }, 0.6);
+    tl.to("#sub", { opacity: 1, y: 0, duration: 0.7 }, 1.7);
+  </script>
+</body>
+</html>

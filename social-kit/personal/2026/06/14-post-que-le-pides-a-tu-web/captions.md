@@ -9,18 +9,15 @@
 
 ## Caption (feed)
 
-Vamos a soñar un momento.
+Piensa en tu web. Si pudiera hacer algo que ahora no hace… ¿qué sería?
 
-Piensa en tu web. Si pudiera hacer ALGO que ahora no hace… ¿qué sería?
+— ¿Coger citas sola mientras trabajas?
+— ¿Salir la primera cuando te buscan?
+— ¿Cargar antes de que se aburran y se vayan?
 
-— ¿Coger citas sola mientras tú trabajas?
-— ¿Responderle a un cliente a las 3 de la mañana?
-— ¿Salir la primera cuando alguien busca lo que tú haces?
-— ¿O simplemente cargar antes de que se aburran y se vayan?
+Complétalo 👇 «Me gustaría que mi web pudiera ___»
 
-Complétalo aquí abajo: «Me gustaría que mi web pudiera ___» 👇
-
-Las leo todas. Y a quien le vea recorrido, le suelto alguna idea — sin compromiso.
+Las leo todas. Si veo recorrido en la tuya, te suelto una idea 🙌
 
 🌐 ebecerra.es
 

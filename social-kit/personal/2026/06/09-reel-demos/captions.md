@@ -5,28 +5,23 @@
 - **Categoría**: portfolio / producto
 - **Ángulo (Notion)**: Portfolio
 - **Outputs**: `final.mp4` + `poster.png` · capturas en `assets/captures/` (regenerar con capture-demos.mjs)
-- **Gate**: demo Bravío EN VIVO ✓ (verificado en demos.ebecerra.es/bravio).
-- **MEJORA OPCIONAL**: grabar con OBS un clip del scroll/cursor real de Bravío y sustituir el mockup estático de S1/S2 para máximo impacto.
+- **Montaje con SCROLL REAL** (no mockups): portada animada (`_cover/`, cards desplegándose) → Bravío = 2 clips de OBS de Enrique (móvil + desktop, su cursor real) → 4 demos con scroll Playwright limpio. Fisio lleva DOS escenas: hero ("Cuida tu cuerpo. Sin parches.") + sistema de reservas. Compuesto con ffmpeg desde `_overlays.html` (textos, render con `scripts/_renderov-tmp.mjs`) + `scripts/_buildreel-tmp.mjs` (10 escenas, crossfades). Bravío EN VIVO en demos.ebecerra.es/bravio.
 
 ## Caption (feed)
 
 ¿Y si tu web fuera una experiencia y no "una web más"?
 
-Llevo un tiempo montando demos para enseñar lo que se puede hacer, y con la última me he venido arriba: es para una empresa de aventuras en la naturaleza (Bravío) y quería que no se sintiera como una web normal. 100% interactiva.
+Te enseño unas demos que he montado. La última, Bravío, es 100% interactiva 🌿
 
-En el reel la ves a ella y unas cuantas más: una tienda eco, una fisio, una coach, una entrenadora.
+Dime a qué te dedicas en una frase 👇 y te monto una demo GRATIS.
 
-¿Lo mejor? Dime a qué te dedicas en una frase 👇 y te digo qué le montaría — y te hago una demo GRATIS, sin compromiso.
+👉 demos.ebecerra.es
 
-Pruébalas tú mismo en demos.ebecerra.es
-
-🌐 ebecerra.es
-
-#disenoweb #paginasweb #webparaautonomos #pymes #negociolocal #demoweb #webinteractiva #emprendedores #marca #ideasdenegocio
+#disenoweb #paginasweb #webparaautonomos #pymes #demoweb
 
 ## Alt text
 
-Vídeo vertical. Empieza con «Esto no es una web normal» y la demo Bravío (web de aventuras en la naturaleza, fondo de bosque oscuro) en un móvil. Luego la misma demo en ordenador con «aventura en la naturaleza · 100% interactiva». Después un montaje de cuatro demos más en móvil (una tienda eco, una fisio, una coach, una entrenadora). Cierra: «¿Tienes una marca? Te monto una demo gratis — dime a qué te dedicas en comentarios», con el handle @ebecerra.es.
+Vídeo vertical. Abre con una portada sobre fondo verde: «Mira nuestras demos» y un abanico de cinco móviles con webs. Luego la demo Bravío (web de aventuras en la naturaleza, bosque oscuro) en un móvil con «Esto no es una web normal», y la misma en ordenador con «100% interactiva». Tras «Y no es la única, mira otras», pasan más demos en móvil: una web de marketing digital, una de fisioterapia (primero su portada «Cuida tu cuerpo. Sin parches.» y después su sistema de reservas), una coach para mujeres y una entrenadora de fuerza. Cierra sobre verde: «¿Tienes una marca? Te monto una demo gratis — dime a qué te dedicas en comentarios», con el handle @ebecerra.es.
 
 ## Comentario fijado
 

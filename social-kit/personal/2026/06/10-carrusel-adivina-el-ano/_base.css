@@ -39,7 +39,7 @@ body { font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: anti
 .guess { margin-top: auto; margin-bottom: 92px; display: flex; align-items: flex-end; justify-content: space-between; }
 .guess__brand { font-size: 46px; font-weight: 800; letter-spacing: -0.01em; }
 .guess__brand small { display: block; font-size: 26px; font-weight: 600; color: var(--muted); margin-top: 6px; }
-.guess__q { font-size: 96px; font-weight: 900; line-height: 0.84; letter-spacing: -0.04em; color: var(--green); text-align: right; }
+.guess__q { font-size: 76px; font-weight: 900; line-height: 0.92; letter-spacing: -0.04em; color: var(--green); text-align: right; white-space: nowrap; }
 .guess__q span { display: block; font-size: 30px; font-weight: 700; color: var(--muted); margin-top: 10px; letter-spacing: 0; }
 
 /* Slide de respuestas (recap) */

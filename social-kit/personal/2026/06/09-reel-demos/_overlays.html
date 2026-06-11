@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Capas de texto (transparentes) + fondo verde para el reel de demos compuesto con ffmpeg.
+     ?s=bg → fondo verde opaco; ?s=1..8 → overlay transparente de cada escena. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--amber:#d97a3d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+  body{background:transparent}
+  body.bg{background:radial-gradient(120% 80% at 30% 22%,#058a63 0%,#047857 50%,#02583c 100%)}
+  .layer{position:absolute;inset:0;display:none}
+  .layer.on{display:block}
+  em{font-style:normal;color:var(--green-light)}
+  /* scrim para legibilidad sobre vídeo */
+  .scrim-b{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,16,10,.45) 0%,transparent 26%,transparent 56%,rgba(2,16,10,.82) 100%)}
+  .chip{position:absolute;top:54px;left:54px;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.62);padding:10px 22px 10px 10px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+  .topkick{position:absolute;top:150px;left:0;right:0;text-align:center;font-size:26px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green-light);text-shadow:0 2px 14px rgba(0,0,0,.7)}
+  .bottom{position:absolute;left:64px;right:64px;bottom:150px;text-align:center}
+  .bottom .t{font-size:74px;font-weight:900;line-height:1.16;letter-spacing:-.035em;color:var(--cream);text-shadow:0 3px 22px rgba(0,0,0,.85)}
+  .bottom .s{margin-top:28px;font-size:40px;font-weight:600;color:var(--cream);text-shadow:0 2px 16px rgba(0,0,0,.8)}
+  .label{position:absolute;left:80px;right:80px;bottom:132px;text-align:center;font-size:58px;font-weight:800;line-height:1.2;letter-spacing:-.02em;color:var(--cream);text-shadow:0 2px 18px rgba(0,0,0,.85)}
+  .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 90px}
+  .center .big{font-size:86px;font-weight:900;line-height:1.16;letter-spacing:-.035em;color:var(--cream)}
+  .center .sub{margin-top:36px;font-size:42px;font-weight:600;color:rgba(250,246,238,.92)}
+  .pill{margin-top:46px;display:inline-block;background:var(--cream);color:var(--green);font-size:46px;font-weight:800;padding:22px 46px;border-radius:999px}
+  .tag{font-size:27px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green-light);margin-bottom:40px}
+  /* portada (opaca, con imagen de fondo) */
+  .cover .cbg{position:absolute;inset:0;background-image:url("../../../assets/captures/demo-bravio-mobile.png");background-size:cover;background-position:center 8%;filter:blur(3px) saturate(1.05)}
+  .cover .cscrim{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 46%, rgba(2,16,10,.62) 0%, rgba(2,16,10,.78) 60%, rgba(2,16,10,.92) 100%)}
+  .cover .cwrap{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 80px}
+  .cover .ckick{font-size:28px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:34px;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+  .cover .ctitle{font-size:108px;font-weight:900;line-height:1.08;letter-spacing:-.04em;color:var(--cream);text-shadow:0 3px 26px rgba(0,0,0,.85)}
+  .cover .csub{margin-top:38px;font-size:46px;font-weight:700;color:var(--cream);text-shadow:0 2px 18px rgba(0,0,0,.8)}
+</style>
+</head>
+<body>
+  <!-- Portada (opaca) -->
+  <div class="layer cover" data-s="cover"><div class="cbg"></div><div class="cscrim"></div>
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="cwrap"><div class="ckick">demos web · a medida</div>
+      <div class="ctitle">5 webs que<br/>he <em>montado</em>.</div>
+      <div class="csub">Y te monto una gratis 👇</div></div></div>
+
+  <!-- S1 Bravío móvil + hook -->
+  <div class="layer" data-s="1"><div class="scrim-b"></div><div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="bottom"><div class="t">Esto no es<br/>una web <em>normal.</em></div></div></div>
+  <!-- S2 Bravío desktop -->
+  <div class="layer" data-s="2"><div class="scrim-b"></div><div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="topkick">demo · bravío</div>
+    <div class="bottom"><div class="s">Aventura en la naturaleza · <em>100% interactiva</em></div></div></div>
+  <!-- S3 transición (verde) -->
+  <div class="layer" data-s="3"><div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="center"><div class="big">Y no es<br/>la única.<br/>Mira <em>otras</em> 👇</div></div></div>
+  <!-- S4 eco -->
+  <div class="layer" data-s="4"><div class="scrim-b"></div><div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="label">Una web de <em>marketing digital</em></div></div>
+  <!-- S5 equilibrio -->
+  <div class="layer" data-s="5"><div class="scrim-b"></div><div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="label">Una web de <em>fisioterapia</em></div></div>
+  <!-- S6 marta -->
+  <div class="layer" data-s="6"><div class="scrim-b"></div><div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="label">Una coach especializada en <em>mujeres</em></div></div>
+  <!-- S7 claudia -->
+  <div class="layer" data-s="7"><div class="scrim-b"></div><div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="label">Una entrenadora de <em>fuerza</em></div></div>
+  <!-- S9 equilibrio · reservas (2ª escena fisio) -->
+  <div class="layer" data-s="9"><div class="scrim-b"></div><div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="label">Con sistema de <em>reservas</em> integrado</div></div>
+  <!-- S8 CTA (verde) -->
+  <div class="layer" data-s="8"><div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="center"><div class="tag">tu turno</div><div class="big">¿Tienes una marca?<br/>Te monto una <em>demo gratis</em>.</div>
+      <div class="sub">Dime a qué te dedicas en comentarios 👇</div><div class="pill">demos.ebecerra.es</div></div></div>
+  <script>
+    const s = new URLSearchParams(location.search).get("s");
+    if (s === "bg") document.body.classList.add("bg");
+    else { const el = document.querySelector(`.layer[data-s="${s}"]`); if (el) el.classList.add("on"); }
+  </script>
+</body>
+</html>

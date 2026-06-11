@@ -49,6 +49,8 @@ const TARGETS = [
   { name: "09-reel-demos", folder: "personal/2026/06/09-reel-demos", duration: 20 },
   // Reel 2026-06-11: "90 min = una demo" (gancho Mundial, conecta con el de demos)
   { name: "11-reel-mundial-demo", folder: "personal/2026/06/11-reel-mundial-demo", duration: 17 },
+  // Portada animada del reel de demos (cards desplegándose) → escena 0 del reel compuesto
+  { name: "09-cover", folder: "personal/2026/06/09-reel-demos/_cover", duration: 2.9 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,
