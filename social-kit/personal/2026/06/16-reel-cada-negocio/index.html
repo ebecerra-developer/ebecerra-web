@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel anuncio "Una web distinta para cada negocio" — collage orgánico:
+     ejemplos MIXTOS (móvil vertical + navegador horizontal) caen en posiciones
+     dispersas/aleatorias con inclinación, LENTO → rótulo sobre scrim → CTA.
+     GSAP seek-friendly. Render con record-animated.mjs → final.mp4 (sin ffmpeg). */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--amber:#d97a3d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 18%,#058a63 0%,#047857 50%,#02583c 100%)}
+  em{font-style:normal;color:var(--green-light)}
+  .chip{position:absolute;top:54px;left:54px;z-index:80;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.55);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  /* Apertura */
+  .opening{position:absolute;inset:0;z-index:70;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 90px}
+  .opening .t{font-size:88px;font-weight:900;line-height:1.06;letter-spacing:-.04em;color:var(--cream)}
+
+  /* Tarjetas (ejemplos) */
+  .card{position:absolute;border-radius:26px;overflow:hidden;background:#0c0c0c;box-shadow:0 28px 60px -22px rgba(2,16,10,.8);will-change:transform}
+  .card.phone{border:6px solid #0c0c0c}
+  .card.phone img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;border-radius:20px}
+  .card.win{background:#fff;border:1px solid rgba(0,0,0,.06)}
+  .card.win .bar{height:34px;background:#e9e4d9;display:flex;align-items:center;gap:9px;padding:0 16px}
+  .card.win .bar i{width:13px;height:13px;border-radius:50%;background:#cfc7b8;display:block}
+  .card.win .bar i:nth-child(1){background:#ff5f57}.card.win .bar i:nth-child(2){background:#febc2e}.card.win .bar i:nth-child(3){background:#28c840}
+  .card.win img{width:100%;height:auto;display:block}
+
+  /* Scrim + rótulo del clímax */
+  .scrim{position:absolute;inset:0;z-index:50;background:radial-gradient(120% 80% at 50% 50%,rgba(2,16,10,.34) 0%,rgba(2,16,10,.66) 70%,rgba(2,16,10,.82) 100%)}
+  .climaxT{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:55;text-align:center;padding:0 100px;font-size:84px;font-weight:900;line-height:1.04;letter-spacing:-.04em;color:var(--cream);text-shadow:0 4px 26px rgba(0,0,0,.6)}
+
+  /* CTA */
+  .cta{position:absolute;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 90px}
+  .cta .tag{font-size:27px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:34px}
+  .cta .big{font-size:90px;font-weight:900;line-height:1.05;letter-spacing:-.04em;color:var(--cream)}
+  .cta .sub{margin-top:34px;font-size:42px;font-weight:600;color:rgba(250,246,238,.92)}
+  .cta .pill{margin-top:46px;display:inline-block;background:var(--cream);color:var(--green);font-size:46px;font-weight:800;padding:22px 46px;border-radius:999px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <div class="opening" id="opening"><div class="t">Una web distinta<br/>para cada <em>negocio</em>.</div></div>
+
+    <!-- Collage: 6 ejemplos mixtos (win = horizontal/desktop, phone = vertical/móvil) -->
+    <div class="card win" id="c1" style="left:54px;top:236px;width:540px"><div class="bar"><i></i><i></i><i></i></div><img src="../../../assets/captures/demo-bravio-desktop.png" alt=""/></div>
+    <div class="card phone" id="c2" style="left:752px;top:118px;width:252px;height:520px"><img src="../../../assets/captures/demo-marta-solana-mobile.png" alt=""/></div>
+    <div class="card win" id="c3" style="left:498px;top:702px;width:520px"><div class="bar"><i></i><i></i><i></i></div><img src="../../../assets/captures/demo-eco-desktop.png" alt=""/></div>
+    <div class="card phone" id="c4" style="left:66px;top:700px;width:250px;height:516px"><img src="../../../assets/captures/demo-claudia-entrena-mobile.png" alt=""/></div>
+    <div class="card win" id="c5" style="left:104px;top:1346px;width:520px"><div class="bar"><i></i><i></i><i></i></div><img src="../../../assets/captures/demo-equilibrio-desktop.png" alt=""/></div>
+    <div class="card phone" id="c6" style="left:724px;top:1178px;width:252px;height:524px"><img src="../../../assets/captures/demo-bravio-mobile.png" alt=""/></div>
+
+    <div class="scrim" id="scrim"></div>
+    <div class="climaxT" id="climaxT">Cada negocio,<br/>su <em>web</em>.</div>
+
+    <div class="cta" id="cta">
+      <div class="tag">primera asesoría</div>
+      <div class="big">30 min <em>gratis</em>.</div>
+      <div class="sub">Y si encajamos, te presento una demo a medida.</div>
+      <div class="pill">demos.ebecerra.es</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl; window.__startAnim = () => tl.play(0);
+
+    gsap.set("#opening", { opacity: 0, y: 24 });
+    gsap.set(["#scrim"], { opacity: 0 });
+    gsap.set("#climaxT", { opacity: 0, scale: 0.94 });
+    gsap.set("#cta", { opacity: 0, scale: 0.92 });
+
+    // Apertura (lenta)
+    tl.to("#opening", { opacity: 1, y: 0, duration: 0.7 }, 0.3);
+    tl.to("#opening", { opacity: 0, y: -26, duration: 0.55, ...OUT }, 1.7);
+
+    // Collage: cada ejemplo ENTRA desde una dirección distinta (aleatorio) hasta su
+    // posición dispersa con inclinación, y SE QUEDA. Transiciones lentas (0.85s) y
+    // bien espaciadas (~0.85s) para un ritmo pausado.
+    // params: id, fromX, fromY, fromRot, restRot, tIn
+    const drop = (id, fx, fy, frot, rrot, tIn) => {
+      tl.fromTo(id,
+        { opacity: 0, x: fx, y: fy, rotation: frot, scale: 0.8 },
+        { opacity: 1, x: 0, y: 0, rotation: rrot, scale: 1, duration: 0.85, ease: "power3.out" }, tIn);
+    };
+    drop("#c1", -360, -180, -20,  -6, 2.05);  // desktop, entra desde arriba-izq
+    drop("#c2",  380, -120,  22,   7, 2.9);   // móvil, desde arriba-dcha
+    drop("#c3",  340,  220,  18,   5, 3.75);  // desktop, desde abajo-dcha
+    drop("#c4", -320,  120, -18,  -5, 4.6);   // móvil, desde izq
+    drop("#c5", -300,  260, -22,  -7, 5.45);  // desktop, desde abajo-izq
+    drop("#c6",  360,  200,  20,   6, 6.3);   // móvil, desde abajo-dcha
+
+    // Clímax: scrim oscurece el collage + rótulo
+    tl.to("#scrim", { opacity: 1, duration: 0.7 }, 7.45);
+    tl.to("#climaxT", { opacity: 1, scale: 1, duration: 0.6 }, 7.7);
+
+    // Salida → CTA
+    tl.to(["#c1","#c2","#c3","#c4","#c5","#c6","#scrim","#climaxT"], { opacity: 0, duration: 0.55, ...OUT }, 10.0);
+    tl.fromTo("#cta", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.65 }, 10.4);
+  </script>
+</body>
+</html>

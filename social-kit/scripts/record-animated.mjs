@@ -51,6 +51,10 @@ const TARGETS = [
   { name: "11-reel-mundial-demo", folder: "personal/2026/06/11-reel-mundial-demo", duration: 17 },
   // Portada animada del reel de demos (cards desplegándose) → escena 0 del reel compuesto
   { name: "09-cover", folder: "personal/2026/06/09-reel-demos/_cover", duration: 2.9 },
+  // Reel 2026-06-16: anuncio "Una web distinta para cada negocio" (collage mixto móvil+desktop, lento, 14.5s)
+  { name: "16-reel-cada-negocio", folder: "personal/2026/06/16-reel-cada-negocio", duration: 14.5 },
+  // Reel 2026-06-21: humor "anochece" (marca: ventana día→noche→amanecer + reloj 7-seg + bocadillos, 19.5s)
+  { name: "21-reel-anochece", folder: "personal/2026/06/21-reel-anochece", duration: 23.5 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,

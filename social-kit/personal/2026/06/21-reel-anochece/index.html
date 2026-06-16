@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.min.css" />
+<style>
+  /* Reel humor "anochece" 1080×1920 — en línea de marca: fondo verde + crema.
+     Ventana trabajada que pasa de día→atardecer→noche→amanecer (all-nighter perfeccionista),
+     reloj central en 7 segmentos (DSEG7) y frases en bocadillos de pensamiento con caras.
+     GSAP seek-friendly → record-animated.mjs. */
+  :root{--green:#047857;--green-deep:#024d33;--green-light:#6EE7B7;--cream:#FAF6EE;--clay:#c2703d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(125% 95% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .stage::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:multiply;background-image:radial-gradient(rgba(0,0,0,.6) 1px,transparent 1px);background-size:4px 4px}
+
+  .chip{position:absolute;top:54px;left:54px;z-index:40;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.5);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  /* Ventana trabajada */
+  .win{position:absolute;z-index:2;left:270px;top:166px;width:540px;height:486px;border-radius:30px;background:#efe7d6;
+    box-shadow:0 44px 90px -36px rgba(2,16,10,.6), 0 0 0 7px #efe7d6, inset 0 0 0 4px #d6c9b0}
+  .glass{position:absolute;inset:26px;border-radius:14px;overflow:hidden;box-shadow:inset 0 10px 26px rgba(0,0,0,.28)}
+  .sky{position:absolute;inset:0}
+  .sky.day{background:linear-gradient(180deg,#bfe6f5 0%,#e9f6fb 100%)}
+  .sky.dusk{background:linear-gradient(180deg,#fcc06b 0%,#f4845f 44%,#b1567a 76%,#5b4a86 100%)}
+  .sky.night{background:linear-gradient(180deg,#081530 0%,#13294f 100%)}
+  .sky.dawn{background:linear-gradient(180deg,#fcd9a8 0%,#f6a785 42%,#c98aa6 74%,#7d7bb0 100%)}
+  .sun{position:absolute;width:118px;height:118px;border-radius:50%;left:58%;top:14%;
+    background:radial-gradient(circle,#fff6d4,#ffd766);box-shadow:0 0 60px 22px rgba(255,216,107,.6)}
+  .moon{position:absolute;width:92px;height:92px;border-radius:50%;left:24%;top:18%;opacity:0;
+    background:radial-gradient(circle at 38% 36%,#f5f8fc,#cdd6e6);box-shadow:0 0 38px 8px rgba(220,230,250,.45)}
+  .dawnsun{position:absolute;width:150px;height:150px;border-radius:50%;left:50%;margin-left:-75px;top:86%;opacity:0;
+    background:radial-gradient(circle,#fff1cf,#ffb36b);box-shadow:0 0 80px 28px rgba(255,170,90,.55)}
+  .stars{position:absolute;inset:0;opacity:0}
+  .stars i{position:absolute;left:30px;top:28px;width:4px;height:4px;border-radius:50%;background:#fff;
+    box-shadow:60px 40px #fff,150px 90px #fff,250px 54px #fff,330px 150px #fff,420px 84px #fff,460px 200px #fff,
+      96px 210px #fff,300px 270px #fff,200px 160px #fff,390px 320px #fff,40px 300px #fff,150px 330px #fff}
+  .mull-v{position:absolute;z-index:5;top:26px;bottom:26px;left:50%;width:16px;margin-left:-8px;background:#efe7d6;border-radius:5px}
+  .mull-h{position:absolute;z-index:5;left:26px;right:26px;top:50%;height:16px;margin-top:-8px;background:#efe7d6;border-radius:5px}
+  .sill{position:absolute;z-index:4;left:-16px;right:-16px;bottom:-28px;height:28px;background:#d6c9b0;border-radius:7px;box-shadow:0 16px 26px -12px rgba(2,16,10,.55)}
+
+  /* Reloj 7 segmentos */
+  .clock{position:absolute;z-index:13;left:0;right:0;top:756px;text-align:center;opacity:0}
+  .clock .led{display:inline-block;position:relative;background:#0b1310;padding:34px 56px;border-radius:26px;
+    box-shadow:0 28px 56px -20px rgba(0,0,0,.7), inset 0 0 0 3px rgba(110,231,183,.12)}
+  .clock .ghost,.clock .time{font-family:"DSEG7-Classic",monospace;font-size:148px;line-height:1;letter-spacing:8px}
+  .clock .ghost{position:absolute;left:56px;top:34px;color:rgba(110,231,183,.12)}
+  .clock .time{position:relative;color:var(--green-light);text-shadow:0 0 28px rgba(110,231,183,.65)}
+
+  /* Bocadillos de pensamiento */
+  .think{position:absolute;z-index:14;left:80px;right:80px;bottom:286px;text-align:center;opacity:0}
+  .think .face{font-size:124px;line-height:1;margin-bottom:8px}
+  .bubble{display:inline-block;position:relative;background:var(--cream);color:var(--green);
+    border-radius:56px;padding:44px 56px;font-size:62px;font-weight:800;line-height:1.16;letter-spacing:-.02em;max-width:840px;
+    box-shadow:0 28px 56px -22px rgba(2,16,10,.55)}
+  .bubble b{font-weight:900;color:var(--green-deep)}
+  .bubble .d1,.bubble .d2{position:absolute;left:0;background:var(--cream);border-radius:50%;box-shadow:0 18px 36px -16px rgba(2,16,10,.45)}
+  .bubble .d1{width:44px;height:44px;left:140px;bottom:-30px}
+  .bubble .d2{width:26px;height:26px;left:96px;bottom:-70px}
+
+  /* Tarjetas de intro (portada) y cierre */
+  .card{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 100px;opacity:0;
+    background:radial-gradient(125% 95% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .card .ck{font-size:28px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:36px}
+  .card .cbig{font-size:90px;font-weight:900;line-height:1.07;letter-spacing:-.04em;color:var(--cream)}
+  .card .cbig b{color:var(--green-light)}
+  .card .curl{margin-top:48px;font-size:46px;font-weight:800;color:var(--cream)}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <div class="card" id="intro">
+      <div class="ck">un domingo cualquiera</div>
+      <div class="cbig">Cuando digo:<br/>«una cosita más<br/>y lo dejo» 😅</div>
+    </div>
+    <div class="card" id="closing">
+      <div class="cbig">Uno, que es <b>perfeccionista</b> 😎✨</div>
+      <div class="curl">🌐 ebecerra.es</div>
+    </div>
+
+    <div class="win">
+      <div class="glass">
+        <div class="sky dawn"  id="sDawn"></div>
+        <div class="sky night" id="sNight"></div>
+        <div class="sky dusk"  id="sDusk"></div>
+        <div class="sky day"   id="sDay"></div>
+        <div class="stars" id="stars"><i></i></div>
+        <div class="moon" id="moon"></div>
+        <div class="dawnsun" id="dawnsun"></div>
+        <div class="sun" id="sun"></div>
+      </div>
+      <div class="mull-v"></div>
+      <div class="mull-h"></div>
+      <div class="sill"></div>
+    </div>
+
+    <div class="clock" id="clk1"><div class="led"><span class="ghost">88:88</span><span class="time">10:42</span></div></div>
+    <div class="clock" id="clk2"><div class="led"><span class="ghost">88:88</span><span class="time">18:20</span></div></div>
+    <div class="clock" id="clk3"><div class="led"><span class="ghost">88:88</span><span class="time">23:58</span></div></div>
+    <div class="clock" id="clk4"><div class="led"><span class="ghost">88:88</span><span class="time">03:30</span></div></div>
+    <div class="clock" id="clk5"><div class="led"><span class="ghost">88:88</span><span class="time">06:12</span></div></div>
+
+    <div class="think" id="th1"><div class="face">😐</div><div class="bubble">"Solo muevo este botón 2 píxeles."<span class="d1"></span><span class="d2"></span></div></div>
+    <div class="think" id="th2"><div class="face">😏</div><div class="bubble">"Y ya que estoy, le cambio el <b>verde</b>."<span class="d1"></span><span class="d2"></span></div></div>
+    <div class="think" id="th3"><div class="face">😬</div><div class="bubble">"Una cosita más y lo dejo."<span class="d1"></span><span class="d2"></span></div></div>
+    <div class="think" id="th4"><div class="face">😅</div><div class="bubble">"Vale, ahora sí."<span class="d1"></span><span class="d2"></span></div></div>
+    <div class="think" id="th5"><div class="face">😌</div><div class="bubble">…ya está. Y ha quedado <b>redondo</b>.<span class="d1"></span><span class="d2"></span></div></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.inOut" }, paused: true });
+    const IR = { immediateRender: false };
+    window.__tl = tl; window.__startAnim = () => tl.play(0);
+
+    const OFF = 1.6; // desplazamiento por la tarjeta de intro
+
+    gsap.set("#sDay", { opacity: 1 });
+    gsap.set(["#sDusk","#sNight","#sDawn","#stars","#moon","#dawnsun"], { opacity: 0 });
+    gsap.set("#sun", { opacity: 1, top: "14%" });
+    gsap.set(["#clk1","#clk2","#clk3","#clk4","#clk5"], { opacity: 0 });
+    gsap.set(["#th1","#th2","#th3","#th4","#th5"], { opacity: 0 });
+    gsap.set("#intro", { opacity: 1 });   // visible desde el frame 0 (es la portada)
+    gsap.set("#closing", { opacity: 0 });
+    gsap.set(".chip", { opacity: 1 });
+
+    // ── Intro (portada/hook) → se mantiene y sale ──
+    tl.to("#intro", { opacity: 0, duration: 0.5, ...IR }, 1.5);
+
+    // ── Cielo de la ventana: día → atardecer → noche → amanecer ──
+    tl.to("#sun", { top: "76%", duration: 5.0, ease: "power1.in" }, 1.4 + OFF);
+    tl.to("#sun", { opacity: 0, duration: 1.2, ...IR }, 5.6 + OFF);
+    tl.to("#sDay", { opacity: 0, duration: 1.8 }, 4.0 + OFF);
+    tl.fromTo("#sDusk", { opacity: 0 }, { opacity: 1, duration: 1.8, ...IR }, 4.0 + OFF);
+    tl.to("#sDusk", { opacity: 0, duration: 1.6, ...IR }, 8.0 + OFF);
+    tl.fromTo("#sNight", { opacity: 0 }, { opacity: 1, duration: 1.8, ...IR }, 8.0 + OFF);
+    tl.fromTo("#stars", { opacity: 0 }, { opacity: 1, duration: 2.0, ...IR }, 8.4 + OFF);
+    tl.fromTo("#moon", { opacity: 0 }, { opacity: 1, duration: 1.8, ...IR }, 8.2 + OFF);
+    tl.to("#sNight", { opacity: 0, duration: 1.8, ...IR }, 15.2 + OFF);
+    tl.to(["#stars","#moon"], { opacity: 0, duration: 1.4, ...IR }, 15.2 + OFF);
+    tl.fromTo("#sDawn", { opacity: 0 }, { opacity: 1, duration: 1.8, ...IR }, 15.2 + OFF);
+    tl.fromTo("#dawnsun", { opacity: 0, top: "88%" }, { opacity: 1, top: "62%", duration: 2.6, ...IR }, 15.4 + OFF);
+
+    // ── Relojes (flash) + bocadillos ──
+    const clock = (id, tIn) => {
+      tl.fromTo(id, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.3)" }, tIn + OFF);
+      tl.to(id, { opacity: 0, duration: 0.4, ...IR }, tIn + OFF + 1.1);
+    };
+    const think = (id, tIn, hold) => {
+      tl.fromTo(id, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, tIn + OFF);
+      tl.to(id, { opacity: 0, duration: 0.4, ...IR }, tIn + OFF + hold);
+    };
+
+    clock("#clk1", 0.8);  think("#th1", 2.2, 2.0);
+    clock("#clk2", 4.6);  think("#th2", 6.0, 2.0);
+    clock("#clk3", 8.4);  think("#th3", 9.8, 2.0);
+    clock("#clk4", 12.2); think("#th4", 13.6, 1.8);
+    clock("#clk5", 15.8); think("#th5", 17.2, 2.2);
+
+    // ── Cierre (mensaje de marca) ──
+    tl.to("#closing", { opacity: 1, duration: 0.7 }, 17.2 + OFF + 2.2);
+  </script>
+</body>
+</html>

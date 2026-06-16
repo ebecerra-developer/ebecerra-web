@@ -72,6 +72,20 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-06-17 · Post humor "cookies" (internet sabe más de mí que mi familia) ──
+  {
+    html: "personal/2026/06/17-post-cookies/index.html",
+    out:  "personal/2026/06/17-post-cookies/final.png",
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-06-18 · Carrusel "Tu web y una buena tapa" · 6 slides 1080×1350 (Día de la Tapa) ──
+  ...[1,2,3,4,5,6].map((n) => ({
+    html: `personal/2026/06/18-carrusel-tapas-web/slide-${n}.html`,
+    out:  `personal/2026/06/18-carrusel-tapas-web/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
   // ── 2026-06-10 · Carrusel "Adivina el año de estas webs" · 8 slides 1080×1350 (adivina→respuestas) ──
   ...[1,2,3,4,5,6,7,8].map((n) => ({
     html: `personal/2026/06/10-carrusel-adivina-el-ano/slide-${n}.html`,
