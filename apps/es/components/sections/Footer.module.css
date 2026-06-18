@@ -90,40 +90,37 @@
   color: var(--on-dark-accent-hover);
 }
 
-/* Iconos de redes sociales (fila de círculos, color heredado del footer) */
-.socialRow {
+/* Redes sociales: lista icono + texto (uno debajo de otro). El texto aclara
+   cuál es cada uno aunque el icono se repita (p. ej. LinkedIn personal/empresa). */
+.socialList {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
+  flex-direction: column;
+  gap: 11px;
 }
 
-.socialIcon {
+.socialItem {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  border: 1px solid var(--on-warm-border);
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 14px;
   color: var(--on-dark-subtle);
-  transition: color 160ms var(--ease), border-color 160ms var(--ease),
-    transform 160ms var(--ease);
+  text-decoration: none;
+  transition: color 150ms var(--ease);
 }
 
-.socialIcon svg {
-  width: 18px;
-  height: 18px;
+.socialItem svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
   display: block;
 }
 
-.socialIcon:hover {
+.socialItem:hover {
   color: var(--on-dark-text);
-  border-color: var(--on-dark-accent);
-  transform: translateY(-2px);
 }
 
 /* Bottom bar */

@@ -100,7 +100,7 @@ export default function FooterClient({ settings }: Props) {
 
           <div>
             <ColTitle>{footer.colSocialTitle ?? ""}</ColTitle>
-            <ul className={styles.socialRow}>
+            <ul className={styles.socialList}>
               {footer.socialLinks.map((s) => {
                 const platform = socialPlatform(s.name, s.url);
                 return (
@@ -109,11 +109,10 @@ export default function FooterClient({ settings }: Props) {
                       href={s.url}
                       target={s.external ? "_blank" : undefined}
                       rel={s.external ? "noopener noreferrer" : undefined}
-                      className={platform ? styles.socialIcon : styles.link}
-                      aria-label={s.name}
-                      title={s.name}
+                      className={styles.socialItem}
                     >
-                      {platform ? <SocialIcon platform={platform} /> : `${s.name} ↗`}
+                      {platform && <SocialIcon platform={platform} />}
+                      <span>{s.name}</span>
                     </a>
                   </li>
                 );
@@ -122,11 +121,10 @@ export default function FooterClient({ settings }: Props) {
                 <li>
                   <a
                     href={`mailto:${footer.email}`}
-                    className={styles.socialIcon}
-                    aria-label="Email"
-                    title="Email"
+                    className={styles.socialItem}
                   >
                     <SocialIcon platform="email" />
+                    <span>Email</span>
                   </a>
                 </li>
               )}
