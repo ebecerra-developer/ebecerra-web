@@ -24,6 +24,9 @@ export default async function Examples({ locale }: Props) {
 
   if (demos.length === 0) return null;
 
+  // En la home solo un selección curada (máx 5, por galleryOrder); todas en /ejemplos.
+  const homeDemos = demos.slice(0, 5);
+
   const demoUrl = (slug: string) =>
     locale === "es"
       ? `${DEMOS_BASE_URL}/${slug}/`
@@ -44,7 +47,7 @@ export default async function Examples({ locale }: Props) {
       </div>
 
       <ExamplesStage>
-          {demos.map((demo) => {
+          {homeDemos.map((demo) => {
             const thumbnail = demo.thumbnail;
             const thumb = thumbnail
               ? {

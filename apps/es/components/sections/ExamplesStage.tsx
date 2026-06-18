@@ -29,6 +29,9 @@ export default function ExamplesStage({ children }: Props) {
     // prefers-reduced-motion (accesibilidad).
     const activeMq = window.matchMedia("(prefers-reduced-motion: no-preference)");
 
+    // Cuánto scroll cuesta el paneo: <1 = el paneo avanza más por scroll (menos
+    // scroll total). 1 sería 1:1 px-scroll/px-pan.
+    const PAN_FACTOR = 0.6;
     let panRange = 0; // recorrido horizontal (centro de la 1ª al centro de la última)
     let tx0 = 0; // translateX con la primera centrada (progreso 0)
     let raf = 0;
@@ -51,8 +54,9 @@ export default function ExamplesStage({ children }: Props) {
       panRange = Math.max(0, lastCenter - firstCenter);
       const baseLeft = frameEl.getBoundingClientRect().left; // X del borde del track
       tx0 = window.innerWidth / 2 - baseLeft - firstCenter;
-      // Altura de la zona = una pantalla + el recorrido (pan 1:1 con el scroll).
-      stageEl.style.height = `${window.innerHeight + panRange}px`;
+      // Altura de la zona = una pantalla + el recorrido escalado por PAN_FACTOR
+      // (el paneo recorre todo el track en menos scroll).
+      stageEl.style.height = `${window.innerHeight + panRange * PAN_FACTOR}px`;
     }
 
     function update() {
