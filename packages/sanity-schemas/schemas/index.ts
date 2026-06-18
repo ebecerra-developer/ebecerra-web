@@ -28,6 +28,7 @@ import {
 import faqPage from "./faqPage";
 import aboutPage from "./aboutPage";
 import landingMadrid from "./landingMadrid";
+import sectorLanding from "./sectorLanding";
 import faqItem from "./faqItem";
 import legalPage from "./legalPage";
 import demoSite from "./demoSite";
@@ -82,6 +83,7 @@ export const schemaTypes = [
   faqItem,
   legalPage,
   demoSite,
+  sectorLanding,
   // Blog
   author,
   blogCategory,

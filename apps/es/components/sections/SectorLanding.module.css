@@ -1,0 +1,234 @@
+/* Landing de sector (reutilizable). Mismo lenguaje visual que la landing de
+   Madrid: contenido en .inner estrecho + Contact embebido a ancho completo. */
+.main {
+  width: 100%;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.inner {
+  max-width: calc(var(--container-max) + 2 * 56px);
+  margin-inline: auto;
+  padding-block: 48px 120px;
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+
+/* ---------- Intro ---------- */
+
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 66ch;
+}
+
+.para {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+.para:first-child {
+  font-size: 18.5px;
+  color: var(--text);
+}
+
+/* ---------- Bloques genéricos ---------- */
+
+.block {
+  margin-top: clamp(48px, 7vw, 88px);
+}
+
+.blockTitle {
+  margin: 0 0 24px;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+/* ---------- Servicios (tarjetas verdes) ---------- */
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 920px) {
+  .cardGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--panel-green);
+  border-radius: var(--r-lg);
+  padding: clamp(22px, 3vw, 28px);
+  height: 100%;
+  transition: background 200ms var(--ease);
+}
+
+.card:hover {
+  background: var(--panel-green-deep);
+}
+
+.cardStar {
+  color: var(--accent-warm-2);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--on-accent-text);
+}
+
+.cardBody {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--on-accent-muted);
+}
+
+/* ---------- Local + remoto (banda oscura cálida) ---------- */
+
+.reach {
+  margin-top: clamp(48px, 7vw, 88px);
+  background: var(--ink-warm);
+  border-radius: 20px;
+  padding: clamp(32px, 5vw, 56px) clamp(24px, 4vw, 48px);
+}
+
+.reachTitle {
+  margin: 0 0 18px;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--on-dark-text);
+  text-wrap: balance;
+}
+
+.reachBody {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 62ch;
+}
+
+.reachPara {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--on-dark-muted);
+}
+
+.reachPara:first-child {
+  color: var(--on-dark-subtle);
+}
+
+/* ---------- Diferenciación (lista) ---------- */
+
+.diffList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 760px) {
+  .diffList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.diffItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.diffStar {
+  color: var(--accent-warm);
+  font-size: 18px;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.diffTitle {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.diffBody {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* ---------- Ejemplos (bloque crema tostada) ---------- */
+
+.examples {
+  margin-top: clamp(48px, 7vw, 88px);
+  background: var(--surface-subtle);
+  border-radius: var(--r-lg);
+  padding: clamp(28px, 4vw, 40px) clamp(24px, 4vw, 44px);
+}
+
+.examplesTitle {
+  margin: 0 0 12px;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.examplesBody {
+  margin: 0 0 18px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 58ch;
+}
+
+.examplesLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--cta-hover);
+  text-decoration: none;
+}
+
+.examplesLink:hover {
+  color: var(--cta-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- FAQ ---------- */
+
+.faqSection {
+  margin-top: clamp(48px, 7vw, 88px);
+}
