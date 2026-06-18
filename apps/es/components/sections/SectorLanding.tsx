@@ -49,7 +49,10 @@ export default async function SectorLanding({ data, locale }: Props) {
   const demoUrl = (slug: string) =>
     isEs ? `${DEMOS_BASE_URL}/${slug}/` : `${DEMOS_BASE_URL}/${locale}/${slug}/`;
   const featuredThumb = featuredDemo?.thumbnail
-    ? urlFor(featuredDemo.thumbnail).width(960).auto("format").url()
+    ? urlFor(featuredDemo.thumbnail).width(1280).auto("format").url()
+    : null;
+  const demoHost = featuredDemo
+    ? `demos.ebecerra.es/${featuredDemo.slug}`
     : null;
 
   // Reutiliza el formulario de la home (campos desde Sanity), con el cierre
@@ -190,53 +193,59 @@ export default async function SectorLanding({ data, locale }: Props) {
                 <p className={styles.examplesBody}>{data.examplesBody}</p>
               )}
 
-              {featured && featuredDemo && (
+              {featured && featuredDemo ? (
                 <a
                   href={demoUrl(featuredDemo.slug)}
                   target="_blank"
                   rel="noopener"
-                  className={styles.demoCard}
+                  className={styles.showcase}
                   aria-label={`${featured.ctaLabel}: ${featuredDemo.businessName}`}
                 >
-                  <span className={styles.demoThumb}>
+                  <span className={styles.browserBar} aria-hidden="true">
+                    <span className={styles.browserDots}>
+                      <span />
+                      <span />
+                      <span />
+                    </span>
+                    {demoHost && (
+                      <span className={styles.browserUrl}>{demoHost}</span>
+                    )}
+                  </span>
+                  <span className={styles.browserViewport}>
                     {featuredThumb && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={featuredThumb}
-                        alt={featuredDemo.businessName}
+                        alt={`Demo de web para ${featuredDemo.businessName}`}
                         loading="lazy"
                         decoding="async"
-                        width={960}
-                        height={540}
-                        className={styles.demoThumbImg}
+                        width={1280}
+                        height={800}
+                        className={styles.browserImg}
                       />
                     )}
-                    <span className={styles.demoBadge}>Demo</span>
                   </span>
-                  <span className={styles.demoBody}>
-                    {featured.eyebrow && (
-                      <span className={styles.demoEyebrow}>
-                        {featured.eyebrow}
+                  <span className={styles.showcaseFooter}>
+                    <span className={styles.showcaseMeta}>
+                      {featured.eyebrow && (
+                        <span className={styles.showcaseEyebrow}>
+                          {featured.eyebrow}
+                        </span>
+                      )}
+                      <span className={styles.showcaseName}>
+                        {featuredDemo.businessName}
                       </span>
-                    )}
-                    <span className={styles.demoName}>
-                      {featuredDemo.businessName}
                     </span>
-                    {featuredDemo.tagline && (
-                      <span className={styles.demoTagline}>
-                        {featuredDemo.tagline}
-                      </span>
-                    )}
-                    <span className={styles.demoCta}>
+                    <span className={styles.showcaseCta}>
                       {featured.ctaLabel} →
                     </span>
                   </span>
                 </a>
+              ) : (
+                <a href={examplesHref} className={styles.examplesLink}>
+                  {data.examplesCtaLabel} →
+                </a>
               )}
-
-              <a href={examplesHref} className={styles.examplesLink}>
-                {data.examplesCtaLabel} →
-              </a>
             </section>
           )}
 
