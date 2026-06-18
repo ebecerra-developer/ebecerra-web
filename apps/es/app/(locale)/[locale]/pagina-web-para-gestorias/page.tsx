@@ -10,7 +10,7 @@ import SectorLanding from "@/components/sections/SectorLanding";
 export const revalidate = 1800;
 
 const SITE_URL = "https://ebecerra.es";
-const SLUG = "diseno-web-para-gestorias";
+const SLUG = "pagina-web-para-gestorias";
 
 export async function generateMetadata({
   params,

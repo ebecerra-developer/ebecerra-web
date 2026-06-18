@@ -21,7 +21,7 @@ export default defineType({
     defineField({
       name: "slug",
       title: "Slug (URL)",
-      description: 'Ruta final, ej: "diseno-web-para-gestorias".',
+      description: 'Ruta final, ej: "pagina-web-para-gestorias".',
       type: "slug",
       options: { source: "internalName", maxLength: 96 },
       validation: (Rule) => Rule.required(),

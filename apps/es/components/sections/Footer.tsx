@@ -22,7 +22,7 @@ export default async function Footer({ settings }: Props) {
     title: t("title"),
     links: [
       { href: "/diseno-web-madrid", label: t("madrid") },
-      { href: "/diseno-web-para-gestorias", label: t("gestorias") },
+      { href: "/pagina-web-para-gestorias", label: t("gestorias") },
     ],
   };
 
