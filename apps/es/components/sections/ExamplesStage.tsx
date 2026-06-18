@@ -31,7 +31,7 @@ export default function ExamplesStage({ children }: Props) {
 
     // Cuánto scroll cuesta el paneo: <1 = el paneo avanza más por scroll (menos
     // scroll total). 1 sería 1:1 px-scroll/px-pan.
-    const PAN_FACTOR = 0.6;
+    const PAN_FACTOR = 0.8;
     let panRange = 0; // recorrido horizontal (centro de la 1ª al centro de la última)
     let tx0 = 0; // translateX con la primera centrada (progreso 0)
     let raf = 0;
