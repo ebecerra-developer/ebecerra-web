@@ -21,6 +21,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-width: 0;
 }
 
 .item + .item::before {
@@ -45,8 +46,9 @@
 .current {
   color: var(--text-secondary);
   font-weight: var(--fw-medium);
-  /* Trunca títulos largos en mobile sin romper el layout. */
-  max-width: 60ch;
+  /* Trunca títulos largos en mobile sin romper el layout. El cap en vw evita
+     el scroll horizontal cuando 60ch supera el ancho del viewport (≤480px). */
+  max-width: min(60ch, 62vw);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
