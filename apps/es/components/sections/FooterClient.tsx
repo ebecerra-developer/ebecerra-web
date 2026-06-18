@@ -5,17 +5,18 @@ import type { SiteSettingsFull } from "@ebecerra/sanity-client";
 import LogoMark from "@/components/LogoMark";
 import styles from "./Footer.module.css";
 
+type Landings = {
+  title: string;
+  links: { href: string; label: string }[];
+};
+
 type Props = {
   settings: SiteSettingsFull;
+  landings?: Landings;
 };
 
 function ColTitle({ children }: { children: React.ReactNode }) {
-  return (
-    <div className={styles.colTitle}>
-      {"// "}
-      {children}
-    </div>
-  );
+  return <div className={styles.colTitle}>{children}</div>;
 }
 
 // Iconos de marca (un solo color vía currentColor) para el footer.
@@ -46,7 +47,7 @@ function SocialIcon({ platform }: { platform: string }) {
   );
 }
 
-export default function FooterClient({ settings }: Props) {
+export default function FooterClient({ settings, landings }: Props) {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
@@ -64,16 +65,10 @@ export default function FooterClient({ settings }: Props) {
         <div className={styles.grid}>
           <div>
             <div className={styles.logoWrapper}>
-              <LogoMark variant="negative" height={32} />
+              <LogoMark variant="negative" height={40} />
             </div>
             {footer.tagline && (
               <p className={styles.tagline}>{footer.tagline}</p>
-            )}
-            {footer.availability && (
-              <div className={styles.availabilityRow}>
-                <span className={styles.availabilityDot} />
-                {footer.availability}
-              </div>
             )}
           </div>
 
@@ -94,6 +89,21 @@ export default function FooterClient({ settings }: Props) {
                     </li>
                   );
                 })}
+              </ul>
+            </div>
+          )}
+
+          {landings && landings.links.length > 0 && (
+            <div>
+              <ColTitle>{landings.title}</ColTitle>
+              <ul className={styles.linkList}>
+                {landings.links.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className={styles.link}>
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           )}

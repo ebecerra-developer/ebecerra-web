@@ -30,31 +30,19 @@
   max-width: 320px;
 }
 
-.availabilityRow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--on-warm-muted);
-  letter-spacing: 0.04em;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.availabilityDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--on-dark-dot);
-}
-
 .colTitle {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--on-warm-muted);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  color: var(--on-dark-text);
+  letter-spacing: -0.01em;
   margin-bottom: 16px;
-  font-weight: 500;
+  font-weight: 700;
+}
+
+/* Capitaliza solo la primera letra; respeta el resto (Madrid con mayúscula,
+   la marca "ebecerra" en minúscula). */
+.colTitle::first-letter {
+  text-transform: uppercase;
 }
 
 .linkList {
@@ -167,8 +155,8 @@
 
 @media (min-width: 900px) {
   .grid {
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 48px;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr;
+    gap: 40px;
   }
 
   .bottom {
