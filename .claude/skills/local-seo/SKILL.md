@@ -43,6 +43,11 @@ Para captar "[servicio] [ciudad]" en orgánico:
   - **No sprawl**: solo ciudades creíbles (donde hay presencia/sentido). Decenas de páginas de ciudades = thin/doorway.
   - *(ebecerra.es: `/diseno-web-madrid` ya en producción — ver memoria `project_landing_madrid_seo`.)*
 
+## Landings de SECTOR (colección `sectorLanding`)
+Mismo carril long-tail que las páginas de zona, pero por **sector** (gestorías, fisios…). A diferencia de la de Madrid (singleton `landingMadrid`), es una **colección** `sectorLanding`: cada sector = un doc en Sanity, **sin tocar código**. Ruta `/{pagina|diseno}-web-para-{sector}`, render con `apps/es/components/sections/SectorLanding.tsx` (PageHero + bloques + Contact embebido + JSON-LD `Service`+`FAQPage`). Solo footer (columna **"Especialidades"**) + sitemap, nunca nav/hero (posicionamiento nacional intacto). Añadir un sector = doc en Sanity + carpeta-ruta `page.tsx` (con `const SLUG`) + línea en `Footer.tsx` (`messages.footerLandings`) + sitemap.
+- **Card directa a la demo del sector** (`featuredDemo`): objeto en el doc con `enabled` + `demoSlug` + `eyebrow` + `ctaLabel`. La card trae nombre/tagline/**miniatura** de la demo por slug (reusa `getPublishedDemoSites`, no hardcode) y enlaza a `demos.ebecerra.es/{slug}` (además del enlace genérico a `/ejemplos`). Se muestra como **mockup de ventana de navegador** con la captura del hero del demo. Gestorías → demo **Vega & Asociados** (`vega-asociados`).
+- **Naming "página web" vs "diseño web":** para autónomos/PYMEs **no técnicos**, *"página web para {sector}"* casa mejor con cómo buscan ("diseño web" es jerga de proveedor). Google agrupa sinónimos → la misma página rankea para ambas; basta liderar con una en H1/title y que la otra aparezca natural en el cuerpo. Gestorías migrada de `diseno-web-para-gestorias` → `pagina-web-para-gestorias` (H1/metaTitle "Página web…"). **Al renombrar un slug ya vivo: 301 del viejo al nuevo** (proxy.ts / next.config redirects) + actualizar slug en Sanity + `SLUG` en page.tsx + footer + sitemap + canonical.
+
 ## Entidad / desambiguación (si hay homónimos)
 En el JSON-LD del `Person`/negocio: `disambiguatingDescription`, `mainEntityOfPage` (→ la página "sobre"), `sameAs` (perfiles reales: LinkedIn, etc.). La entidad se refuerza con **menciones de terceros** (listados, prensa), no con dominios propios.
 
