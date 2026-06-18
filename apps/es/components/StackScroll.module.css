@@ -1,0 +1,46 @@
+/* StackScroll — secciones que se apilan al hacer scroll.
+   La sección actual queda fija (sticky) y la siguiente sube desde abajo y la tapa.
+   El FONDO de cada sección se queda opaco y a tamaño completo (tapa lo de detrás,
+   sin transparencias); solo el CONTENIDO se aleja (encoge + se atenúa).
+   El top de cada sticky lo ajusta el JS: 0 si la sección cabe en pantalla,
+   negativo (vh - alto) si es más alta → esa se scrollea normal hasta su fondo
+   antes de fijarse. */
+
+.stack {
+  position: relative;
+}
+
+/* Por defecto (y con reduced-motion) flujo normal: sin apilado ni transform. */
+.item {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .item {
+    position: sticky;
+    top: 0; /* el JS lo sobreescribe por sección */
+  }
+
+  /* Más aire al final de CADA sección apilada: la siguiente sube y cubre el borde
+     inferior enseguida, así que el contenido no debe quedar pegado abajo. Es
+     padding del <section> → fondo opaco, se cubre antes que el contenido. */
+  .item section {
+    padding-bottom: clamp(120px, 16vh, 240px);
+  }
+
+  /* Solo el contenido (los hijos del <section>: .inner y demás) se aleja.
+     El <section> conserva su fondo sólido y opaco, así al taparse no se
+     transparenta la sección de detrás. --p (0→1) lo pone el JS en el .item. */
+  .item section > *:not([data-stage]) {
+    transform-origin: 50% 32%;
+    scale: calc(1 - 0.06 * var(--p, 0));
+    opacity: calc(1 - 0.9 * var(--p, 0));
+    will-change: transform, opacity;
+  }
+
+  /* El carrusel fijado ([data-stage]) NO puede llevar transform: un scale (aun
+     scale:1) crea un containing block y rompe su pin. Solo se atenúa. */
+  .item section > [data-stage] {
+    opacity: calc(1 - 0.9 * var(--p, 0));
+  }
+}

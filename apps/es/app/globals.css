@@ -234,3 +234,48 @@ a:hover {
 .section--subtle {
   background: var(--surface-subtle);
 }
+
+/* ------------------------------------------------------------------ */
+/* Transición sutil entre secciones al hacer scroll.                   */
+/* La sección entrante sube desde abajo (revealRise) y la saliente se  */
+/* aleja un poco al irse por arriba (revealRecede). Sin JS: usa        */
+/* scroll-driven animations (view timeline).                          */
+/*                                                                     */
+/* Robustez:                                                           */
+/* - Las dos animaciones tocan propiedades INDEPENDIENTES (translate / */
+/*   scale + opacity solo en la de entrada) para no pisarse.           */
+/* - Guardado con @supports: navegadores sin soporte (Safari/FF a      */
+/*   2026) ignoran el bloque y muestran las secciones normales — nunca */
+/*   se quedan atenuadas ni encogidas.                                 */
+/* - Apagado con prefers-reduced-motion.                               */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: revealRise linear both, revealRecede linear both;
+      animation-timeline: view(), view();
+      animation-range: entry 0% entry 55%, exit 45% exit 100%;
+      transform-origin: 50% 0;
+    }
+  }
+}
+
+@keyframes revealRise {
+  from {
+    opacity: 0;
+    translate: 0 42px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes revealRecede {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 0.96;
+  }
+}

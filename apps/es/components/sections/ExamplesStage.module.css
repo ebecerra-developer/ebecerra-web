@@ -1,0 +1,79 @@
+/* ExamplesStage — carrusel de ejemplos atado al scroll: la zona se fija (pin) y,
+   al scrollear en vertical, las tarjetas panean en horizontal; la del centro
+   manda (grande y nítida), las de los lados encogen, se atenúan y desenfocan
+   (cover-flow). Fallback (móvil / reduced-motion / sin JS): swipe horizontal
+   normal. La clase .active la pone el JS solo cuando procede. */
+
+.stage {
+  position: relative;
+}
+
+.track {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(16px, 2vw, 28px);
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+
+/* ---------- Fallback: swipe horizontal (sin pin) ---------- */
+.track {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-block: 4px;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+.track > * {
+  flex: 0 0 min(85vw, 380px);
+  scroll-snap-align: center;
+}
+
+/* ---------- Activo: pin + pan horizontal + cover-flow ---------- */
+.stage.active {
+  /* la altura (el recorrido de scroll) la fija el JS en línea */
+}
+
+.stage.active .frame {
+  /* Se fija DEBAJO del nav y ocupa solo el espacio visible que queda, con el
+     carrusel centrado en él. Así no hace falta el padding-top gigante que metía
+     un hueco enorme. Móvil: barra superior (~80px). Desktop: barra + sub-nav. */
+  position: sticky;
+  top: 80px;
+  height: calc(100svh - 80px);
+  box-sizing: border-box;
+  padding-block: 16px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .stage.active .frame {
+    top: 136px;
+    height: calc(100svh - 136px);
+  }
+}
+
+.stage.active .track {
+  position: relative;
+  overflow: visible;
+  scroll-snap-type: none;
+  width: max-content;
+  align-items: center;
+  padding: 0;
+  transform: translate3d(var(--x, 0px), 0, 0);
+  will-change: transform;
+}
+
+.stage.active .track > * {
+  /* Ancho deseado, pero limitado por el alto disponible para que la tarjeta
+     entera (miniatura 16/10 + texto) quepa en pantalla sin cortarse arriba. */
+  flex: 0 0 min(clamp(300px, 40vw, 560px), calc((100svh - 360px) * 1.6));
+  scale: var(--s, 1);
+  opacity: var(--o, 1);
+  transition: none;
+  transform-origin: center center;
+}

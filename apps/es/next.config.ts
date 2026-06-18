@@ -48,8 +48,10 @@ const nextConfig: NextConfig = {
 
   experimental: {
     // Inlinea el CSS crítico en el HTML inicial para sacarlo de la ruta crítica
-    // (PSI marcaba ~600 ms de bloqueo por dos chunks .css).
-    inlineCss: true,
+    // (PSI marcaba ~600 ms de bloqueo por dos chunks .css). Solo en producción:
+    // en dev no aporta (no se mide PSI) y su worker (Beasties) puede agotar la
+    // memoria y morir con "Jest worker encountered child process exceptions".
+    inlineCss: process.env.NODE_ENV === "production",
   },
 
   async rewrites() {

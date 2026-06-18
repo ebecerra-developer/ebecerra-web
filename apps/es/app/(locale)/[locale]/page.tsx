@@ -12,6 +12,7 @@ import {
   getContactSectionMeta,
   getSectionMeta,
 } from "@ebecerra/sanity-client";
+import StackScroll from "@/components/StackScroll";
 import Nav from "@/components/sections/Nav";
 import Hero from "@/components/sections/Hero";
 import Marquee from "@/components/sections/Marquee";
@@ -67,17 +68,32 @@ export default async function Home({
     <>
       <Nav />
       <main id="main">
-        <Hero sanityData={heroData} />
-        <Marquee items={heroData?.marqueeItems ?? []} />
-        <Services pricing={servicesPricing} />
-        <About features={resolvedFeatures} profile={profileData} />
-        <Capabilities
-          section={capabilitiesSection}
-          integrations={integrationsStrip}
-        />
-        <Process steps={resolvedProcess} sectionMeta={processMeta} />
-        <Examples locale={locale} />
-        <Contact contactMeta={contactMeta} profile={profileData} />
+        {/* Secciones apiladas: cada una queda fija y se aleja mientras la
+            siguiente sube y la tapa (StackScroll). Las más altas que la pantalla
+            se scrollean normal hasta su fondo antes de fijarse. El hero entra
+            como primera sección del apilado (a pantalla completa, con su banda
+            anclada abajo), así Servicios también sube a taparlo. */}
+        <StackScroll>
+          <Hero sanityData={heroData} />
+          {/* La banda va pegada ARRIBA de Servicios: sube con esta sección
+              cuando se desliza sobre el hero (mismo item del stack). */}
+          <div className="bandedSection">
+            <Marquee items={heroData?.marqueeItems ?? []} />
+            <Services pricing={servicesPricing} />
+          </div>
+          <About features={resolvedFeatures} profile={profileData} />
+          <Capabilities
+            section={capabilitiesSection}
+            integrations={integrationsStrip}
+          />
+          <Process steps={resolvedProcess} sectionMeta={processMeta} />
+          {/* Ejemplos vuelve al apilado: se eleva tapando a Proceso (que se aleja)
+              como las demás. Su carrusel fijado (pin + cover-flow) convive porque
+              el recede solo le aplica opacidad, nunca transform (ver StackScroll
+              + data-stage). */}
+          <Examples locale={locale} />
+          <Contact contactMeta={contactMeta} profile={profileData} />
+        </StackScroll>
       </main>
       <Footer />
     </>

@@ -1,9 +1,10 @@
-/* Marquee.module.css — letras grandes verdes desfilando (sin banda) */
+/* Marquee.module.css — banda de valor pegada arriba de Servicios. Sube con esa
+   sección cuando se desliza sobre el hero (forma parte de su item en el stack). */
 .marquee {
   overflow: hidden;
   background: var(--bg);
   color: var(--cta);
-  padding: clamp(20px, 3.5vw, 40px) 0;
+  padding: clamp(8px, 1.4vw, 13px) 0;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -15,48 +16,51 @@
   border-color: var(--on-warm-border);
 }
 
+/* Por defecto estática: solo se desliza cuando el usuario hace scroll.
+   La cinta avanza ligada a la posición del scroll de la página (scroll-driven)
+   en navegadores que lo soportan; en el resto (Safari/FF a 2026) se queda
+   quieta — nunca se mueve sola de forma molesta. */
 .track {
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
-  animation: marqueeScroll 42s linear infinite;
-  will-change: transform;
 }
 
-.marquee:hover .track {
-  animation-play-state: paused;
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .track {
+      animation-name: marqueeScroll;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root block);
+      will-change: translate;
+    }
+  }
 }
 
 .item {
   display: inline-flex;
   align-items: center;
   font-family: var(--font-sans);
-  font-size: clamp(22px, 4vw, 46px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: clamp(12px, 1.5vw, 16px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
   line-height: 1;
-  padding-right: clamp(28px, 4vw, 60px);
+  padding-right: clamp(20px, 3vw, 40px);
 }
 
 .star {
   color: var(--accent-warm);
-  font-size: 0.46em;
-  margin-right: clamp(28px, 4vw, 60px);
-  transform: translateY(-0.12em);
+  font-size: 0.7em;
+  margin-right: clamp(20px, 3vw, 40px);
+  transform: translateY(-0.04em);
 }
 
 @keyframes marqueeScroll {
   from {
-    transform: translateX(0);
+    translate: 0 0;
   }
   to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .track {
-    animation: none;
-    transform: translateX(0);
+    translate: -50% 0;
   }
 }

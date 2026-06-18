@@ -11,7 +11,11 @@ type Props = {
 export default function Marquee({ items, tone = "green" }: Props) {
   const clean = (items ?? []).filter(Boolean);
   if (!clean.length) return null;
-  const seq = [...clean, ...clean];
+  // La cinta se desliza ligada al scroll con un barrido fijo de -50% del track.
+  // Cuantas más copias, más distancia recorre el texto por unidad de scroll →
+  // más rápida. 6 copias ≈ 3× la velocidad base (2 copias).
+  const COPIES = 6;
+  const seq = Array.from({ length: COPIES }, () => clean).flat();
 
   return (
     <div

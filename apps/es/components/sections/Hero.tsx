@@ -10,7 +10,6 @@ type Props = {
 export default async function Hero({ sanityData }: Props) {
   const t = await getTranslations("hero");
 
-  const kicker = sanityData?.kicker ?? t("kicker");
   const title = sanityData?.title ?? t("title");
   const lead = sanityData?.lead ?? t("lead");
   const ctaPrimary = sanityData?.ctaPrimary ?? t("ctaPrimary");
@@ -24,13 +23,6 @@ export default async function Hero({ sanityData }: Props) {
     <section id="inicio" aria-labelledby="hero-heading" className={styles.hero}>
       <div className={styles.grid}>
         <div className={styles.textCol}>
-          <div className={styles.kicker}>
-            <span className={styles.kickerDot} />
-            <span className={styles.kickerText}>
-              {kicker.replace(/^\/\/\s*/, "")}
-            </span>
-          </div>
-
           <h1 id="hero-heading" className={styles.heading}>
             <AnnotatedText text={title} />
           </h1>

@@ -34,7 +34,7 @@
 
 .lead {
   max-width: 720px;
-  margin: 0 0 40px;
+  margin: 0 0 18px;
   color: var(--text-secondary);
 }
 
@@ -150,6 +150,8 @@
 
 .viewAllWrap {
   margin-top: 36px;
+  /* Aire extra bajo el botón antes de que Contacto suba a cubrir la sección. */
+  margin-bottom: clamp(64px, 9vw, 150px);
   display: flex;
   justify-content: center;
 }

@@ -148,6 +148,11 @@ export default function NavClient({ items, ctaLabel }: Props) {
   // El último anchor (Contacto) se usa como CTA principal.
   const contactAnchor = anchorItems.find((a) => a.key === "contacto");
 
+  // Scroll-spy robusto al apilado (StackScroll): las secciones son sticky y se
+  // solapan, así que no vale ordenar por offsetTop (es 0 para todas dentro del
+  // .item). Elegimos la sección FRONTAL: la última en orden de documento cuya
+  // caja real cubre una línea de referencia del viewport (la que el apilado pone
+  // delante). Orden del array = orden de documento = orden de z-index.
   useEffect(() => {
     if (!isHome || anchorItems.length === 0) return;
     const ids = anchorItems.map((l) => l.key);
@@ -156,29 +161,54 @@ export default function NavClient({ items, ctaLabel }: Props) {
       .filter((el): el is HTMLElement => el !== null);
     if (sections.length === 0) return;
 
-    const visibleIds = new Set<string>();
+    let raf = 0;
+    const compute = () => {
+      const refY = window.innerHeight * 0.4;
+      let active: string | null = null;
+      sections.forEach((sec) => {
+        const r = sec.getBoundingClientRect();
+        if (r.top <= refY && r.bottom > refY) active = sec.id; // última que cubre
+      });
+      setActiveAnchor(active);
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        compute();
+      });
+    };
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isHome]);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const id = (entry.target as HTMLElement).id;
-          if (entry.isIntersecting) visibleIds.add(id);
-          else visibleIds.delete(id);
-        }
-        if (visibleIds.size === 0) {
-          setActiveAnchor(null);
-          return;
-        }
-        const topmost = Array.from(visibleIds)
-          .map((id) => document.getElementById(id))
-          .filter((el): el is HTMLElement => !!el)
-          .sort((a, b) => a.offsetTop - b.offsetTop)[0];
-        if (topmost) setActiveAnchor(topmost.id);
-      },
-      { rootMargin: "-30% 0px -55% 0px", threshold: 0 }
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+  // Corrección de scroll a ancla al llegar con hash: las secciones dinámicas
+  // (ExamplesStage fija su alto tras el primer paint) desplazan el destino, así
+  // que el scroll inicial se queda corto. Re-scrolleamos tras asentarse.
+  useEffect(() => {
+    if (!isHome) return;
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    const id = decodeURIComponent(hash.slice(1));
+    const doScroll = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView();
+    };
+    const r1 = requestAnimationFrame(() => requestAnimationFrame(doScroll));
+    const t1 = window.setTimeout(doScroll, 250);
+    const t2 = window.setTimeout(doScroll, 600);
+    return () => {
+      cancelAnimationFrame(r1);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHome]);
 

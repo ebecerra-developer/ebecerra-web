@@ -5,7 +5,7 @@ import {
 } from "@ebecerra/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import type { Locale } from "@/i18n/routing";
-import ExamplesCarousel from "./ExamplesCarousel";
+import ExamplesStage from "./ExamplesStage";
 import Kicker from "@/components/Kicker";
 import TiltCard from "@/components/TiltCard";
 import styles from "./Examples.module.css";
@@ -41,14 +41,15 @@ export default async function Examples({ locale }: Props) {
           {page.homeTitle}
         </h2>
         <p className={`lead ${styles.lead}`}>{page.homeLead}</p>
+      </div>
 
-        <ExamplesCarousel prevLabel={page.prevLabel} nextLabel={page.nextLabel}>
+      <ExamplesStage>
           {demos.map((demo) => {
             const thumbnail = demo.thumbnail;
             const thumb = thumbnail
               ? {
-                  src: urlFor(thumbnail).width(800).auto("format").url(),
-                  srcSet: [400, 600, 800, 1200]
+                  src: urlFor(thumbnail).width(1200).auto("format").url(),
+                  srcSet: [480, 640, 900, 1200, 1600]
                     .map(
                       (w) =>
                         `${urlFor(thumbnail).width(w).auto("format").url()} ${w}w`,
@@ -72,7 +73,7 @@ export default async function Examples({ locale }: Props) {
                     <img
                       src={thumb.src}
                       srcSet={thumb.srcSet}
-                      sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 90vw"
+                      sizes="(min-width: 900px) 560px, (min-width: 640px) 380px, 85vw"
                       alt={demo.businessName}
                       loading="lazy"
                       decoding="async"
@@ -97,8 +98,9 @@ export default async function Examples({ locale }: Props) {
               </TiltCard>
             );
           })}
-        </ExamplesCarousel>
+      </ExamplesStage>
 
+      <div className={styles.inner}>
         <div className={styles.viewAllWrap}>
           <Link href="/ejemplos" className={styles.viewAll}>
             {page.homeViewAll} →

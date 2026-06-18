@@ -27,13 +27,29 @@ export default function TiltCard({
   children,
 }: Props) {
   const ref = useRef<HTMLElement>(null);
+  // Rect capturado al entrar el cursor, con la card EN REPOSO (sin tilt). Se usa
+  // para todo el movimiento: así el cálculo no se realimenta con la propia
+  // rotación 3D ni con un scale heredado (p. ej. el wrapper .reveal del scroll),
+  // que deformarían la caja que devuelve getBoundingClientRect en cada frame.
+  const rectRef = useRef<DOMRect | null>(null);
+
+  function captureRect() {
+    const el = ref.current;
+    if (el) rectRef.current = el.getBoundingClientRect();
+  }
+
+  function handleEnter() {
+    captureRect();
+  }
 
   function handleMove(e: MouseEvent<HTMLElement>) {
     const el = ref.current;
     if (!el) return;
     // Sin transición mientras se mueve → sigue al cursor al instante (fluido).
     el.style.transition = "transform 0s";
-    const r = el.getBoundingClientRect();
+    // Rect de reposo capturado al entrar; si por lo que sea falta, leer ahora.
+    const r = rectRef.current ?? el.getBoundingClientRect();
+    if (!r.width || !r.height) return;
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
     el.style.setProperty("--ry", `${(px - 0.5) * 2 * MAX_DEG}deg`);
@@ -45,6 +61,7 @@ export default function TiltCard({
   function handleLeave() {
     const el = ref.current;
     if (!el) return;
+    rectRef.current = null;
     // Vuelve a la transición CSS para que el reset sea suave.
     el.style.transition = "";
     el.style.setProperty("--rx", "0deg");
@@ -62,6 +79,7 @@ export default function TiltCard({
         target={target}
         rel={rel}
         aria-label={ariaLabel}
+        onMouseEnter={handleEnter}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
       >
@@ -74,6 +92,7 @@ export default function TiltCard({
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
       className={cls}
+      onMouseEnter={handleEnter}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
     >
