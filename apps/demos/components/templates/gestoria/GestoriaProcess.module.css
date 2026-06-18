@@ -46,31 +46,26 @@
   --p: 0;
 }
 
-.line {
+/* Riel: del centro del primer marcador al del último (medido por JS). El relleno
+   verde crece en altura con --p. Sin SVG/dash → trazo siempre continuo. */
+.rail {
   position: absolute;
   left: 22px;
-  /* top/height medidos por JS para que la línea vaya del centro del primer
-     marcador al del último (sin sobresalir). Fallback razonable sin JS. */
   top: var(--line-top, 26px);
   height: var(--line-h, calc(100% - 52px));
   width: 4px;
-  overflow: visible;
+  border-radius: var(--r-pill);
+  background: var(--border-strong);
+  overflow: hidden;
 }
-.lineBg,
-.lineFg {
-  fill: none;
-  stroke-width: 3;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-.lineBg {
-  stroke: var(--border-strong);
-}
-.lineFg {
-  stroke: var(--accent);
-  stroke-dasharray: 1;
-  stroke-dashoffset: calc(1 - var(--p, 0));
-  transition: stroke-dashoffset 0.7s var(--ease);
+.railFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--p, 0) * 100%);
+  background: var(--accent);
+  border-radius: var(--r-pill);
 }
 
 .steps {
