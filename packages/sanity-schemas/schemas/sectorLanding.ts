@@ -160,6 +160,40 @@ export default defineType({
       type: "localeString",
     }),
     defineField({
+      name: "featuredDemo",
+      title: "Demo destacada del sector (card directa)",
+      description:
+        "Card que enlaza DIRECTAMENTE a una demo de demos.ebecerra.es (además del enlace genérico a /ejemplos). Indica el slug de la demo; el nombre, tagline y miniatura se traen solos del documento de la demo.",
+      type: "object",
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: "enabled",
+          title: "Mostrar card de demo",
+          type: "boolean",
+          initialValue: false,
+        }),
+        defineField({
+          name: "demoSlug",
+          title: "Slug de la demo",
+          description: 'Ej: "vega-asociados" (la demo de gestoría).',
+          type: "string",
+        }),
+        defineField({
+          name: "eyebrow",
+          title: "Antetítulo",
+          description: 'Ej: "La demo de gestoría".',
+          type: "localeString",
+        }),
+        defineField({
+          name: "ctaLabel",
+          title: "Texto del botón",
+          description: 'Ej: "Ver la demo en vivo".',
+          type: "localeString",
+        }),
+      ],
+    }),
+    defineField({
       name: "faqTitle",
       title: "FAQ — título",
       type: "localeString",

@@ -1809,6 +1809,13 @@ export async function getSectorLanding(
       "examplesTitle": ${loc("examplesTitle")},
       "examplesBody": ${loc("examplesBody")},
       "examplesCtaLabel": ${loc("examplesCtaLabel")},
+      "featuredDemo": select(
+        featuredDemo.enabled == true && defined(featuredDemo.demoSlug) => featuredDemo{
+          "demoSlug": demoSlug,
+          "eyebrow": coalesce(eyebrow[$locale], eyebrow.es, ""),
+          "ctaLabel": coalesce(ctaLabel[$locale], ctaLabel.es, "")
+        }
+      ),
       "faqTitle": ${loc("faqTitle")},
       "faqItems": faqItems[]{ "question": ${loc("question")}, "answer": ${loc("answer")} },
       "closingTitle": ${loc("closingTitle")},
@@ -1836,6 +1843,7 @@ export async function getSectorLanding(
     examplesTitle: raw.examplesTitle ?? "",
     examplesBody: raw.examplesBody ?? "",
     examplesCtaLabel: raw.examplesCtaLabel ?? "",
+    featuredDemo: raw.featuredDemo ?? null,
     faqTitle: raw.faqTitle ?? "",
     faqItems: raw.faqItems ?? [],
     closingTitle: raw.closingTitle ?? "",
@@ -2343,7 +2351,16 @@ export const DEFAULT_SITE_SETTINGS: SiteSettingsFull = {
         url: "https://www.facebook.com/profile.php?id=61575403535525",
         external: true,
       },
-      { name: "LinkedIn", url: "https://www.linkedin.com/company/ebecerra", external: true },
+      {
+        name: "LinkedIn personal",
+        url: "https://www.linkedin.com/in/enrique-becerra-garcia/",
+        external: true,
+      },
+      {
+        name: "LinkedIn empresa",
+        url: "https://www.linkedin.com/company/ebecerra",
+        external: true,
+      },
     ],
     crossLinks: [
       { label: "ebecerra.tech ↗", href: "https://ebecerra.tech", external: true },

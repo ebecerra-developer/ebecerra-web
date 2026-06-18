@@ -520,10 +520,17 @@ export type SectorLandingData = {
   examplesTitle: string;
   examplesBody: string;
   examplesCtaLabel: string;
+  featuredDemo: SectorFeaturedDemo | null;
   faqTitle: string;
   faqItems: LandingMadridQa[];
   closingTitle: string;
   closingBody: string;
+};
+
+export type SectorFeaturedDemo = {
+  demoSlug: string;
+  eyebrow: string;
+  ctaLabel: string;
 };
 
 export type AboutPageData = {

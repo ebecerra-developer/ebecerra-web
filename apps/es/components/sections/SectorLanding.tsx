@@ -1,9 +1,11 @@
 import {
   getContactSectionMeta,
   getProfile,
+  getPublishedDemoSites,
   type SectorLandingData,
 } from "@ebecerra/sanity-client";
 import type { Locale } from "@/i18n/routing";
+import { urlFor } from "@/lib/sanity-image";
 import PageHero from "@/components/sections/PageHero";
 import Contact from "@/components/sections/Contact";
 import FaqList from "@/components/faq/FaqList";
@@ -11,6 +13,7 @@ import TiltCard from "@/components/TiltCard";
 import styles from "./SectorLanding.module.css";
 
 const SITE_URL = "https://ebecerra.es";
+const DEMOS_BASE_URL = "https://demos.ebecerra.es";
 
 type Props = {
   data: SectorLandingData;
@@ -31,10 +34,23 @@ export default async function SectorLanding({ data, locale }: Props) {
     ? `${SITE_URL}/${data.slug}/`
     : `${SITE_URL}/${locale}/${data.slug}/`;
 
-  const [contactBase, profile] = await Promise.all([
+  const featured = data.featuredDemo;
+  const [contactBase, profile, demos] = await Promise.all([
     getContactSectionMeta(locale),
     getProfile(locale).catch(() => null),
+    featured
+      ? getPublishedDemoSites(locale).catch(() => [])
+      : Promise.resolve([]),
   ]);
+
+  const featuredDemo = featured
+    ? (demos.find((d) => d.slug === featured.demoSlug) ?? null)
+    : null;
+  const demoUrl = (slug: string) =>
+    isEs ? `${DEMOS_BASE_URL}/${slug}/` : `${DEMOS_BASE_URL}/${locale}/${slug}/`;
+  const featuredThumb = featuredDemo?.thumbnail
+    ? urlFor(featuredDemo.thumbnail).width(960).auto("format").url()
+    : null;
 
   // Reutiliza el formulario de la home (campos desde Sanity), con el cierre
   // propio del sector como título/lead.
@@ -165,12 +181,59 @@ export default async function SectorLanding({ data, locale }: Props) {
             </section>
           )}
 
-          {data.examplesBody && (
+          {(data.examplesBody || featuredDemo) && (
             <section className={styles.examples} aria-labelledby="sl-examples">
               <h2 id="sl-examples" className={styles.examplesTitle}>
                 {data.examplesTitle}
               </h2>
-              <p className={styles.examplesBody}>{data.examplesBody}</p>
+              {data.examplesBody && (
+                <p className={styles.examplesBody}>{data.examplesBody}</p>
+              )}
+
+              {featured && featuredDemo && (
+                <a
+                  href={demoUrl(featuredDemo.slug)}
+                  target="_blank"
+                  rel="noopener"
+                  className={styles.demoCard}
+                  aria-label={`${featured.ctaLabel}: ${featuredDemo.businessName}`}
+                >
+                  <span className={styles.demoThumb}>
+                    {featuredThumb && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={featuredThumb}
+                        alt={featuredDemo.businessName}
+                        loading="lazy"
+                        decoding="async"
+                        width={960}
+                        height={540}
+                        className={styles.demoThumbImg}
+                      />
+                    )}
+                    <span className={styles.demoBadge}>Demo</span>
+                  </span>
+                  <span className={styles.demoBody}>
+                    {featured.eyebrow && (
+                      <span className={styles.demoEyebrow}>
+                        {featured.eyebrow}
+                      </span>
+                    )}
+                    <span className={styles.demoName}>
+                      {featuredDemo.businessName}
+                    </span>
+                    {featuredDemo.tagline && (
+                      <span className={styles.demoTagline}>
+                        {featuredDemo.tagline}
+                      </span>
+                    )}
+                    <span className={styles.demoCta}>
+                      {featured.ctaLabel} →
+                    </span>
+                  </span>
+                </a>
+              )}
+
               <a href={examplesHref} className={styles.examplesLink}>
                 {data.examplesCtaLabel} →
               </a>
