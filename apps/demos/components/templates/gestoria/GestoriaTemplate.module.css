@@ -1,0 +1,10 @@
+.shell {
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  /* Aísla el stacking del nav sticky y sus capas dentro del scope. */
+  isolation: isolate;
+}

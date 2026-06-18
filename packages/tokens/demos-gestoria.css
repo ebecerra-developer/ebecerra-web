@@ -1,0 +1,143 @@
+/* ==========================================================================
+   demos.ebecerra.es — Plantilla Gestoría — Design Tokens
+   --------------------------------------------------------------------------
+   Filosofía: sobria e institucional. Azul marino de banca/seguros como base de
+   confianza, grises pizarra, mucho blanco y aire. UN acento verde "al día /
+   aprobado" para señales positivas (plazos cumplidos, cierre tranquilidad) y un
+   oro contenido para prestigio (sello colegiado, detalles). Serif con autoridad
+   (Source Serif 4) en titulares = tradición y solvencia; Inter en cuerpo =
+   legibilidad para todos los públicos, incluida gente mayor. Radios pequeños y
+   sombras sutiles: orden y seriedad, nada de "startup".
+
+   TODO el set se redefine bajo [data-template="gestoria"]; no hereda de fisio.
+   ========================================================================== */
+
+[data-template="gestoria"] {
+  /* ---------- Color — Structure ---------- */
+  --bg:              #f5f7fa;  /* cool institutional white */
+  --bg-deep:         #eef2f7;  /* slightly deeper for alternating bands */
+  --surface:         #ffffff;
+  --surface-subtle:  #f0f4f8;
+  --surface-navy:    #122745;  /* deep navy bands (footer, cierre) */
+  --surface-navy-2:  #0d1d36;  /* darker navy gradient end */
+  --border:          #dce3ec;
+  --border-strong:   #c3cedb;
+  --ink:             #122745;  /* deep navy — never pure black */
+  --ink-soft:        #1d3a5f;
+
+  /* ---------- Color — Text ---------- */
+  --text:            #15263c;  /* near-navy slate for headings/body strong */
+  --text-secondary:  #3a4a5e;  /* body */
+  --text-muted:      #586a7e;  /* WCAG AA ≥4.5:1 sobre --bg */
+  --text-disabled:   #97a6b6;
+  --text-on-accent:  #ffffff;
+  --text-on-ink:     #dce6f2;  /* text over navy bands */
+  --text-on-ink-muted: #9fb2c9;
+
+  /* ---------- Color — CTA — azul institucional ---------- */
+  --cta:             #1a4f86;  /* banking blue — autoridad, no chillón */
+  --cta-hover:       #143d68;
+  --cta-soft:        rgba(26, 79, 134, 0.10);
+  --cta-soft-strong: rgba(26, 79, 134, 0.20);
+
+  /* ---------- Color — Accent — verde "al día / aprobado" ---------- */
+  --accent:          #2f7d5b;  /* approved green — single positive accent */
+  --accent-soft:     rgba(47, 125, 91, 0.12);
+  --accent-strong:   #246348;
+  --accent-on:       #ffffff;
+
+  /* ---------- Color — Prestige gold (uso muy contenido: sello, detalles) ---- */
+  --gold:            #a9822f;
+  --gold-soft:       rgba(169, 130, 47, 0.14);
+
+  /* ---------- Color — Semantic ---------- */
+  --success: #2f7d5b;
+  --warning: #a9822f;
+  --error:   #a23b3b;
+
+  /* ---------- Typography ---------- */
+  /* Override de los theme-vars de Tailwind (definidos a Fraunces/DM Sans en
+     globals @theme inline) para que las reglas globales h1..h6 / body hereden
+     las fuentes de gestoría dentro de este scope. */
+  --font-sans:       var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display:    var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --font-sans-stack: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display-stack: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Escala sobria, algo más contenida que la editorial de fisio */
+  --fs-display:   clamp(2.75rem, 6.5vw, 4.75rem);  /* 44 → 76 */
+  --fs-h1:        clamp(2.25rem, 5vw, 3.5rem);      /* 36 → 56 */
+  --fs-h2:        clamp(1.85rem, 3.6vw, 2.75rem);   /* 30 → 44 */
+  --fs-h3:        clamp(1.4rem, 2.4vw, 1.85rem);    /* 22 → 30 */
+  --fs-h4:        1.25rem;                          /* 20 */
+  --fs-body-lead: 1.1875rem;                        /* 19 */
+  --fs-body:      1.0625rem;                        /* 17 */
+  --fs-sm:        0.9375rem;                         /* 15 */
+  --fs-xs:        0.8125rem;                         /* 13 */
+  --fs-mono-md:   0.75rem;                           /* 12 — kicker */
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  --lh-display:  1.06;
+  --lh-tight:    1.1;
+  --lh-heading:  1.2;
+  --lh-body:     1.68;
+  --lh-lead:     1.58;
+
+  --tr-tight:    -0.015em;
+  --tr-display:  -0.02em;
+  --tr-kicker:   0.16em;
+
+  /* ---------- Spacing & sizing ---------- */
+  --gutter:        clamp(1.25rem, 4vw, 2.5rem);
+  --container-max: 1180px;
+  --container-narrow: 760px;
+  --section-py:    clamp(4.5rem, 9vw, 7.5rem);
+  --section-py-sm: clamp(3rem, 6vw, 4.5rem);
+
+  /* ---------- Radii — pequeños, institucionales ---------- */
+  --r-xs:  3px;
+  --r-sm:  6px;
+  --r-md:  10px;
+  --r-lg:  14px;
+  --r-xl:  20px;
+  --r-pill: 999px;
+
+  /* ---------- Borders ---------- */
+  --bw-1: 1px;
+  --bw-2: 2px;
+
+  /* ---------- Shadows — sutiles, tinte frío ---------- */
+  --sh-sm:  0 1px 2px rgba(18, 39, 69, 0.06);
+  --sh-md:  0 6px 20px rgba(18, 39, 69, 0.09);
+  --sh-lg:  0 18px 44px rgba(18, 39, 69, 0.14);
+  --sh-card-hover: 0 18px 38px rgba(18, 39, 69, 0.16);
+  /* Anillo de foco con contraste ≥3:1 contra blanco/crema (WCAG 2.4.11). */
+  --sh-focus: 0 0 0 3px rgba(20, 61, 104, 0.9);
+
+  /* ---------- Motion ---------- */
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 520ms;
+  --ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* ---------- Chatbot (por si el doc activa chatbot) ---------- */
+  --chatbot-bg:                var(--surface);
+  --chatbot-fg:                var(--text);
+  --chatbot-muted:             var(--text-muted);
+  --chatbot-accent:            var(--cta);
+  --chatbot-accent-fg:         #ffffff;
+  --chatbot-border:            var(--border);
+  --chatbot-bubble-user:       var(--cta);
+  --chatbot-bubble-user-fg:    #ffffff;
+  --chatbot-bubble-assistant:  var(--surface-subtle);
+  --chatbot-bubble-assistant-fg: var(--text);
+  --chatbot-radius:            var(--r-lg);
+  --chatbot-radius-bubble:     var(--r-md);
+  --chatbot-font:              var(--font-sans-stack);
+  --chatbot-shadow:            0 20px 48px rgba(18, 39, 69, 0.20);
+}

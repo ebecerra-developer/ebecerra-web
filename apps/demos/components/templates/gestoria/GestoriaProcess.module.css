@@ -1,0 +1,190 @@
+.section {
+  padding-block: var(--section-py);
+  background: var(--bg-deep);
+  border-block: var(--bw-1) solid var(--border);
+}
+
+.inner {
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.head {
+  margin-bottom: 2.5rem;
+}
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-kicker);
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.kickerMark {
+  width: 26px;
+  height: 2px;
+  background: var(--accent);
+}
+.title {
+  font-size: var(--fs-h2);
+  color: var(--ink);
+}
+.lead {
+  margin-top: 1rem;
+  font-size: var(--fs-body-lead);
+  color: var(--text-secondary);
+  line-height: var(--lh-lead);
+}
+
+/* ---------- Timeline ---------- */
+.track {
+  position: relative;
+  --p: 0;
+}
+
+.line {
+  position: absolute;
+  left: 22px;
+  /* top/height medidos por JS para que la línea vaya del centro del primer
+     marcador al del último (sin sobresalir). Fallback razonable sin JS. */
+  top: var(--line-top, 26px);
+  height: var(--line-h, calc(100% - 52px));
+  width: 4px;
+  overflow: visible;
+}
+.lineBg,
+.lineFg {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.lineBg {
+  stroke: var(--border-strong);
+}
+.lineFg {
+  stroke: var(--accent);
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--p, 0));
+  transition: stroke-dashoffset 0.7s var(--ease);
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.step {
+  position: relative;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.marker {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--border-strong);
+  color: var(--text-muted);
+  transition: background var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease), color var(--dur-base) var(--ease);
+}
+.markerNum {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  font-size: 1.25rem;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.markerCheck {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease);
+  stroke-width: 2.5;
+}
+
+.stepOn .marker {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 0 6px var(--accent-soft);
+}
+.stepOn .markerNum {
+  opacity: 0;
+}
+.stepOn .markerCheck {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.stepBody {
+  padding-top: 0.25rem;
+  opacity: 0.62;
+  transform: translateY(4px);
+  transition: opacity var(--dur-slow) var(--ease),
+    transform var(--dur-slow) var(--ease);
+}
+.stepOn .stepBody {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stepTitle {
+  font-size: var(--fs-h3);
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.stepText {
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  line-height: var(--lh-body);
+  max-width: 48ch;
+}
+
+/* ---------- Footnote ---------- */
+.footnote {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: var(--bw-1) solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md);
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+}
+.footIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--accent-strong);
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marker,
+  .markerNum,
+  .markerCheck,
+  .stepBody {
+    transition: none;
+  }
+}

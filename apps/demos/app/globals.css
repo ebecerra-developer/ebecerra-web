@@ -11,6 +11,7 @@
 @import "../../../packages/tokens/demos-coach-vibrant.css";
 @import "../../../packages/tokens/demos-tandem.css";
 @import "../../../packages/tokens/demos-expedicion.css";
+@import "../../../packages/tokens/demos-gestoria.css";
 
 @theme inline {
   --font-sans: var(--font-dm-sans);

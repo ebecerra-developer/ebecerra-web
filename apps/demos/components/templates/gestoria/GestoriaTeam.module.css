@@ -1,0 +1,129 @@
+.section {
+  padding-block: var(--section-py);
+  background: var(--bg);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.head {
+  max-width: 54ch;
+  margin-bottom: 2.5rem;
+}
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-kicker);
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.kickerMark {
+  width: 26px;
+  height: 2px;
+  background: var(--accent);
+}
+.title {
+  font-size: var(--fs-h2);
+  color: var(--ink);
+}
+.lead {
+  margin-top: 1rem;
+  font-size: var(--fs-body-lead);
+  color: var(--text-secondary);
+  line-height: var(--lh-lead);
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.card {
+  height: 100%;
+  background: var(--surface);
+  border: var(--bw-1) solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--sh-sm);
+  transform-style: preserve-3d;
+  transition: box-shadow var(--dur-base) var(--ease);
+}
+.card:hover {
+  box-shadow: var(--sh-card-hover);
+}
+
+.avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--surface-navy), var(--surface-navy-2));
+  color: #fff;
+}
+.photo {
+  object-fit: cover;
+  object-position: center 25%;
+}
+.avatarInitials {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  font-size: clamp(2.5rem, 7vw, 3.5rem);
+  letter-spacing: 0.02em;
+  color: var(--text-on-ink);
+}
+.photoNote {
+  margin-top: 1.5rem;
+  font-size: var(--fs-xs);
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.cardBody {
+  padding: 1.25rem 1.4rem 1.6rem;
+}
+.name {
+  font-size: var(--fs-h4);
+  color: var(--ink);
+}
+.role {
+  margin-top: 0.25rem;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  font-weight: var(--fw-medium);
+}
+.areaPill {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.25rem 0.7rem;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--cta);
+  background: var(--cta-soft);
+  border-radius: var(--r-pill);
+}
+.note {
+  margin-top: 1rem;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  line-height: var(--lh-body);
+  font-style: italic;
+}
+
+@media (min-width: 560px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 980px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
+}

@@ -1,0 +1,161 @@
+.footer {
+  background: var(--surface-navy-2);
+  color: var(--text-on-ink);
+  padding-block: clamp(3rem, 6vw, 4.5rem) 1.5rem;
+  /* deja hueco para la barra sticky de llamada en móvil */
+  padding-bottom: calc(1.5rem + 64px);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: var(--bw-1) solid rgba(255, 255, 255, 0.12);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: #fff;
+}
+.monogram {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--r-sm);
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-bold);
+  font-size: 1.25rem;
+}
+.brandName {
+  font-family: var(--font-display-stack);
+  font-weight: var(--fw-semibold);
+  font-size: 1.2rem;
+  color: #fff;
+}
+.tagline {
+  margin-top: 1rem;
+  font-size: var(--fs-sm);
+  color: var(--text-on-ink-muted);
+  line-height: var(--lh-body);
+  max-width: 34ch;
+}
+.colegiado {
+  margin-top: 1rem;
+  font-size: var(--fs-xs);
+  color: var(--text-on-ink-muted);
+  font-style: italic;
+  max-width: 38ch;
+}
+
+.colTitle {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-on-ink-muted);
+  margin-bottom: 1rem;
+}
+.linkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.linkList a {
+  color: var(--text-on-ink);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+  transition: color var(--dur-fast) var(--ease);
+}
+.linkList a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.soon {
+  font-size: var(--fs-sm);
+  color: var(--text-on-ink-muted);
+  opacity: 0.6;
+}
+
+/* ---------- Fiscal ---------- */
+.fiscal {
+  padding-block: 2rem;
+  border-bottom: var(--bw-1) solid rgba(255, 255, 255, 0.12);
+}
+.fiscalTitle {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-on-ink-muted);
+  margin-bottom: 0.75rem;
+}
+.fiscalLines {
+  font-size: var(--fs-sm);
+  color: var(--text-on-ink);
+  line-height: 1.7;
+}
+.sep {
+  color: var(--text-on-ink-muted);
+}
+.confidentiality {
+  margin-top: 0.75rem;
+  font-size: var(--fs-xs);
+  color: var(--text-on-ink-muted);
+}
+
+/* ---------- Bottom ---------- */
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+}
+.copyright {
+  font-size: var(--fs-xs);
+  color: var(--text-on-ink-muted);
+}
+.backToTop {
+  font-size: var(--fs-xs);
+  color: var(--text-on-ink);
+  text-decoration: none;
+  font-weight: var(--fw-semibold);
+}
+.backToTop:hover {
+  color: #fff;
+}
+.demoNote {
+  margin-top: 1rem;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--text-on-ink-muted);
+  opacity: 0.75;
+}
+
+@media (min-width: 720px) {
+  .top {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 2rem;
+  }
+}
+@media (min-width: 940px) {
+  .footer {
+    padding-bottom: 1.5rem;
+  }
+}

@@ -1,0 +1,45 @@
+.wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.value {
+  font-family: var(--font-display-stack);
+  font-size: clamp(2.75rem, 7vw, 4rem);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: var(--tr-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.underline {
+  position: absolute;
+  left: -2%;
+  bottom: -0.35em;
+  width: 104%;
+  height: 0.5em;
+  overflow: visible;
+  color: var(--accent);
+}
+
+.underline path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+}
+
+.underline.drawn path {
+  transition: stroke-dashoffset 0.7s var(--ease);
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .underline path {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
+}

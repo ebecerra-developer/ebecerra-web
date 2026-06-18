@@ -9,6 +9,7 @@ import {
   Bricolage_Grotesque,
   Instrument_Serif,
   Oswald,
+  Source_Serif_4,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -72,6 +73,14 @@ const oswald = Oswald({
   subsets: ["latin"],
 });
 
+// Gestoría — despacho institucional (serif con autoridad "de toda la vida" +
+// Inter para cuerpo, ya cargada arriba). Banca/seguros: solvencia y tradición.
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
 // interactiveWidget: "resizes-content" → cuando el teclado virtual se abre, la
 // layout viewport se reduce (no solo la visual). Necesario para que el
 // drawer del chatbot se adapte en in-app browsers (IG, FB) que no respetan
@@ -118,7 +127,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${dmSans.variable} ${fraunces.variable} ${cormorant.variable} ${inter.variable} ${spaceGrotesk.variable} ${manrope.variable} ${bricolage.variable} ${instrumentSerif.variable} ${oswald.variable}`}
+      className={`${dmSans.variable} ${fraunces.variable} ${cormorant.variable} ${inter.variable} ${spaceGrotesk.variable} ${manrope.variable} ${bricolage.variable} ${instrumentSerif.variable} ${oswald.variable} ${sourceSerif.variable}`}
     >
       <body>
         {/* style inline: la regla base `a{color:var(--cta)}` gana a las

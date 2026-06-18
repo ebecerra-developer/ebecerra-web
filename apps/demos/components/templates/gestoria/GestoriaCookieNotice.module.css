@@ -1,0 +1,94 @@
+.bar {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  width: min(720px, calc(100% - 1.5rem));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: var(--bw-1) solid var(--border-strong);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-lg);
+  animation: rise 0.4s var(--ease) both;
+}
+
+.text {
+  flex: 1 1 280px;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.link {
+  color: var(--cta);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.accept,
+.reject {
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  padding: 0.55rem 1rem;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  border: var(--bw-1) solid transparent;
+  transition: background var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.accept {
+  background: var(--cta);
+  color: #fff;
+}
+.accept:hover {
+  background: var(--cta-hover);
+}
+
+.reject {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border-strong);
+}
+.reject:hover {
+  background: var(--surface-subtle);
+}
+
+/* En móvil la barra sticky de llamada ocupa los ~64px inferiores: subimos el
+   aviso por encima para que no se solapen. */
+@media (max-width: 939px) {
+  .bar {
+    bottom: calc(64px + 0.75rem);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    animation: none;
+  }
+}
