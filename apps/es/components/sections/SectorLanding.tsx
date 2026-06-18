@@ -193,7 +193,7 @@ export default async function SectorLanding({ data, locale }: Props) {
                 <p className={styles.examplesBody}>{data.examplesBody}</p>
               )}
 
-              {featured && featuredDemo ? (
+              {featured && featuredDemo && (
                 <a
                   href={demoUrl(featuredDemo.slug)}
                   target="_blank"
@@ -241,11 +241,13 @@ export default async function SectorLanding({ data, locale }: Props) {
                     </span>
                   </span>
                 </a>
-              ) : (
+              )}
+
+              <div className={styles.examplesMore}>
                 <a href={examplesHref} className={styles.examplesLink}>
                   {data.examplesCtaLabel} →
                 </a>
-              )}
+              </div>
             </section>
           )}
 

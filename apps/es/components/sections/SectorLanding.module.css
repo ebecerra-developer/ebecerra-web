@@ -215,7 +215,7 @@
    como una ventana de navegador para que se lea "web real en vivo". */
 .showcase {
   display: block;
-  max-width: 820px;
+  max-width: 680px;
   margin: 4px auto 0;
   background: var(--surface, #fffaf2);
   border: 1px solid var(--border, #e6ddcf);
@@ -340,6 +340,12 @@
   .showcase {
     transition: none;
   }
+}
+
+/* Acción secundaria bajo el showcase: ver más ejemplos, centrada. */
+.examplesMore {
+  margin-top: 22px;
+  text-align: center;
 }
 
 .examplesLink {
