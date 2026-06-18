@@ -78,5 +78,10 @@
     "accept": "Accept",
     "reject": "Reject",
     "learnMore": "Learn more"
+  },
+  "footerLandings": {
+    "title": "Web design",
+    "madrid": "Web design in Madrid",
+    "gestorias": "Web design for accounting firms"
   }
 }

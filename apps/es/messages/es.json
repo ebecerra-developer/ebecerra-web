@@ -78,5 +78,10 @@
     "accept": "Aceptar",
     "reject": "Rechazar",
     "learnMore": "Más información"
+  },
+  "footerLandings": {
+    "title": "Diseño web",
+    "madrid": "Diseño web en Madrid",
+    "gestorias": "Diseño web para gestorías"
   }
 }
