@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import { getLandingMadrid } from "@ebecerra/sanity-client";
+import {
+  getLandingMadrid,
+  getContactSectionMeta,
+  getProfile,
+} from "@ebecerra/sanity-client";
 import type { Locale } from "@/i18n/routing";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
 import PageHero from "@/components/sections/PageHero";
 import FaqList from "@/components/faq/FaqList";
-import FaqContactBlock from "@/components/faq/FaqContactBlock";
+import Contact from "@/components/sections/Contact";
 import TiltCard from "@/components/TiltCard";
 import styles from "./page.module.css";
 
@@ -53,11 +57,22 @@ export default async function DisenoWebMadridPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const page = await getLandingMadrid(locale as Locale);
+  const [page, contactBase, profile] = await Promise.all([
+    getLandingMadrid(locale as Locale),
+    getContactSectionMeta(locale as Locale),
+    getProfile(locale as Locale).catch(() => null),
+  ]);
+
+  // Reutiliza el formulario de la home (campos desde Sanity, un único sitio),
+  // pero con el titular/lead de cierre específicos de Madrid.
+  const contactMeta = {
+    ...contactBase,
+    title: page.closingTitle,
+    lead: page.closingBody,
+  };
 
   const isEs = locale === "es";
   const homeHref = isEs ? "/" : `/${locale}/`;
-  const contactHref = isEs ? "/#contacto" : `/${locale}/#contacto`;
   const examplesHref = isEs ? "/ejemplos/" : `/${locale}/ejemplos/`;
   const canonical = isEs ? `${SITE_URL}${PATH}/` : `${SITE_URL}/${locale}${PATH}/`;
 
@@ -205,13 +220,11 @@ export default async function DisenoWebMadridPage({
             </section>
           )}
 
-          <FaqContactBlock
-            title={page.closingTitle}
-            lead={page.closingBody}
-            cta={page.closingCtaLabel}
-            href={contactHref}
-          />
         </div>
+
+        {/* Mismo formulario que la home (campos desde Sanity), con cierre
+            específico de Madrid. Va fuera de .inner para ir a ancho completo. */}
+        <Contact contactMeta={contactMeta} profile={profile} />
       </main>
       <Footer />
     </>

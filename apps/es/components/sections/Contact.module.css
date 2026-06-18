@@ -45,6 +45,35 @@
   max-width: 420px;
 }
 
+/* Botón directo de WhatsApp — verde de marca para reconocimiento inmediato
+   (excepción deliberada a la paleta del sitio: es un canal externo). */
+.whatsappBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #25d366;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  margin-bottom: 28px;
+  transition: background 200ms var(--ease), transform 200ms var(--ease);
+}
+
+.whatsappBtn:hover {
+  background: #1ebe5a;
+  transform: translateY(-1px);
+}
+
+.whatsappIcon {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
 .infoList {
   list-style: none;
   padding: 0;

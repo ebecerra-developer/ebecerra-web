@@ -146,6 +146,13 @@ export default defineType({
           type: "url",
         }),
         defineField({
+          name: "whatsapp",
+          title: "WhatsApp",
+          description:
+            "Número con prefijo internacional para el botón de WhatsApp (ej: +34 674 76 49 37). El enlace wa.me se genera quitando los espacios y el +.",
+          type: "string",
+        }),
+        defineField({
           name: "location",
           title: "Ubicación",
           description: "Ej: Madrid · España",

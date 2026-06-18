@@ -164,6 +164,7 @@ export type SiteSettingsMeta = {
 export type ProfileContact = {
   email: string | null;
   linkedinUrl: string | null;
+  whatsapp: string | null;
   location: string | null;
   responseTime: string | null;
 };
@@ -496,6 +497,33 @@ export type LandingMadridData = {
   closingTitle: string;
   closingBody: string;
   closingCtaLabel: string;
+};
+
+// Landing por sector (colección reutilizable). Misma forma que la de Madrid
+// pero con slug propio y sin closingCtaLabel (el cierre alimenta el título/lead
+// del formulario de contacto embebido).
+export type SectorLandingData = {
+  slug: string;
+  internalName: string;
+  metaTitle: string;
+  metaDescription: string;
+  kicker: string;
+  title: string;
+  lead: string;
+  intro: { text: string }[];
+  servicesTitle: string;
+  services: LandingMadridItem[];
+  reachTitle: string;
+  reachBody: { text: string }[];
+  diffTitle: string;
+  diffItems: LandingMadridItem[];
+  examplesTitle: string;
+  examplesBody: string;
+  examplesCtaLabel: string;
+  faqTitle: string;
+  faqItems: LandingMadridQa[];
+  closingTitle: string;
+  closingBody: string;
 };
 
 export type AboutPageData = {

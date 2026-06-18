@@ -42,6 +42,7 @@ import type {
   FaqPageData,
   AboutPageData,
   LandingMadridData,
+  SectorLandingData,
   FaqItem,
   LegalPageData,
   ProfileFull,
@@ -1774,6 +1775,74 @@ export async function getLandingMadrid(
   };
 }
 
+/** Slugs de todas las landings de sector (para generateStaticParams). */
+export async function getSectorLandingSlugs(): Promise<string[]> {
+  return runFetch<string[]>(
+    `*[_type == "sectorLanding" && defined(slug.current)].slug.current`
+  ).catch(() => []);
+}
+
+/**
+ * Landing de sector por slug. Devuelve null si no existe o si Sanity falla
+ * (la página hace notFound). Colección reutilizable: cada sector es un doc.
+ */
+export async function getSectorLanding(
+  slug: string,
+  locale: Locale
+): Promise<SectorLandingData | null> {
+  const raw = await runFetch<Partial<SectorLandingData> | null>(
+    `*[_type == "sectorLanding" && slug.current == $slug][0] {
+      "slug": slug.current,
+      internalName,
+      "metaTitle": ${loc("metaTitle")},
+      "metaDescription": ${loc("metaDescription")},
+      "kicker": ${loc("kicker")},
+      "title": ${loc("title")},
+      "lead": ${loc("lead")},
+      "intro": intro[]{ "text": ${loc("text")} },
+      "servicesTitle": ${loc("servicesTitle")},
+      "services": services[]{ "title": ${loc("title")}, "body": ${loc("body")} },
+      "reachTitle": ${loc("reachTitle")},
+      "reachBody": reachBody[]{ "text": ${loc("text")} },
+      "diffTitle": ${loc("diffTitle")},
+      "diffItems": diffItems[]{ "title": ${loc("title")}, "body": ${loc("body")} },
+      "examplesTitle": ${loc("examplesTitle")},
+      "examplesBody": ${loc("examplesBody")},
+      "examplesCtaLabel": ${loc("examplesCtaLabel")},
+      "faqTitle": ${loc("faqTitle")},
+      "faqItems": faqItems[]{ "question": ${loc("question")}, "answer": ${loc("answer")} },
+      "closingTitle": ${loc("closingTitle")},
+      "closingBody": ${loc("closingBody")}
+    }`,
+    { slug, locale }
+  ).catch(() => null);
+
+  if (!raw || !raw.slug) return null;
+  return {
+    slug: raw.slug,
+    internalName: raw.internalName ?? "",
+    metaTitle: raw.metaTitle ?? "",
+    metaDescription: raw.metaDescription ?? "",
+    kicker: raw.kicker ?? "",
+    title: raw.title ?? "",
+    lead: raw.lead ?? "",
+    intro: raw.intro ?? [],
+    servicesTitle: raw.servicesTitle ?? "",
+    services: raw.services ?? [],
+    reachTitle: raw.reachTitle ?? "",
+    reachBody: raw.reachBody ?? [],
+    diffTitle: raw.diffTitle ?? "",
+    diffItems: raw.diffItems ?? [],
+    examplesTitle: raw.examplesTitle ?? "",
+    examplesBody: raw.examplesBody ?? "",
+    examplesCtaLabel: raw.examplesCtaLabel ?? "",
+    faqTitle: raw.faqTitle ?? "",
+    faqItems: raw.faqItems ?? [],
+    closingTitle: raw.closingTitle ?? "",
+    closingBody: raw.closingBody ?? "",
+  };
+}
+
 export const DEFAULT_CONTACT_SECTION_META: ContactSectionMeta = {
   kicker: "// Contacto",
   title: "Hablemos de tu proyecto",
@@ -2185,6 +2254,7 @@ export async function getProfile(locale: Locale): Promise<ProfileFull | null> {
         "contact": contact {
           email,
           linkedinUrl,
+          whatsapp,
           "location": ${loc("location")},
           "responseTime": ${loc("responseTime")}
         },
@@ -2267,11 +2337,13 @@ export const DEFAULT_SITE_SETTINGS: SiteSettingsFull = {
       { type: "anchor", key: "contacto", label: "Contacto" },
     ],
     socialLinks: [
+      { name: "Instagram", url: "https://www.instagram.com/ebecerra.es/", external: true },
       {
-        name: "LinkedIn",
-        url: "https://www.linkedin.com/in/enrique-becerra-garcia/",
+        name: "Facebook",
+        url: "https://www.facebook.com/profile.php?id=61575403535525",
         external: true,
       },
+      { name: "LinkedIn", url: "https://www.linkedin.com/company/ebecerra", external: true },
     ],
     crossLinks: [
       { label: "ebecerra.tech ↗", href: "https://ebecerra.tech", external: true },
