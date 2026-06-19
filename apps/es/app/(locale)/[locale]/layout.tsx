@@ -10,6 +10,7 @@ import { VisualEditing } from "next-sanity/visual-editing";
 import { routing } from "@/i18n/routing";
 import StructuredData from "@/components/StructuredData";
 import MetaPixel from "@/components/MetaPixel";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import CookieConsent from "@/components/CookieConsent";
 import ChatbotLoader from "@/components/ChatbotLoader";
 import { DisableDraftMode } from "@/components/DisableDraftMode";
@@ -228,6 +229,7 @@ export default async function LocaleLayout({
         <Analytics />
         <SpeedInsights />
         <MetaPixel />
+        <GoogleAnalytics />
         <CookieConsent
           message={tCookies("message")}
           accept={tCookies("accept")}

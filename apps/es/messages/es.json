@@ -74,7 +74,7 @@
     "byAuthor": "por {name}"
   },
   "cookies": {
-    "message": "Uso cookies de medición publicitaria (el Píxel de Meta) para mejorar mis anuncios. Solo se activan si las aceptas.",
+    "message": "Uso cookies de analítica y medición publicitaria (Google Analytics y el Píxel de Meta) para entender de dónde viene mi tráfico y mejorar mis anuncios. Solo se activan si las aceptas.",
     "accept": "Aceptar",
     "reject": "Rechazar",
     "learnMore": "Más información"

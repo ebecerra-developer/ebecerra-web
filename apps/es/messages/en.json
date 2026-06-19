@@ -74,7 +74,7 @@
     "byAuthor": "by {name}"
   },
   "cookies": {
-    "message": "I use advertising measurement cookies (the Meta Pixel) to improve my ads. They only load if you accept.",
+    "message": "I use analytics and advertising-measurement cookies (Google Analytics and the Meta Pixel) to understand where my traffic comes from and improve my ads. They only load if you accept.",
     "accept": "Accept",
     "reject": "Reject",
     "learnMore": "Learn more"
