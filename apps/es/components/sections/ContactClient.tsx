@@ -232,8 +232,10 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
       }
       setStatus("success");
       setAnswers({});
-      // Conversión para el Píxel de Meta: lead capturado vía formulario.
+      // Conversión: lead capturado vía formulario. Solo disparan si el script
+      // se ha cargado (con consentimiento); si no, son no-op.
       window.fbq?.("track", "Lead");
+      window.gtag?.("event", "generate_lead", { method: "form" });
     } catch {
       setStatus("error");
     }
@@ -280,6 +282,11 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.whatsappBtn} fx-ripple`}
+                onClick={() => {
+                  // Contacto vía WhatsApp = lead. No-op si no hay consentimiento.
+                  window.gtag?.("event", "generate_lead", { method: "whatsapp" });
+                  window.fbq?.("track", "Lead");
+                }}
               >
                 <svg
                   className={styles.whatsappIcon}
