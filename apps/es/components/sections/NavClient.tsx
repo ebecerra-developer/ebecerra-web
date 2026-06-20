@@ -136,6 +136,31 @@ export default function NavClient({ items, ctaLabel }: Props) {
   const isHome = pathname === "/";
   const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 
+  // Scroll a ancla en la home: el scroll nativo falla con el apilado (StackScroll)
+  // porque las secciones son sticky y se quedan pinchadas arriba (rect.top ~0), así
+  // que al subir el navegador cree que ya están arriba y se queda corto. Calculamos
+  // la posición de FLUJO real con offsetTop (inmune al sticky) y vamos ahí.
+  const scrollToAnchor = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    key: string
+  ) => {
+    if (!isHome) return; // entre páginas, deja que navegue a /#key
+    const el = document.getElementById(key);
+    if (!el) return;
+    e.preventDefault();
+    let y = 0;
+    let node: HTMLElement | null = el;
+    while (node) {
+      y += node.offsetTop;
+      node = node.offsetParent as HTMLElement | null;
+    }
+    const navOffset = window.matchMedia("(min-width: 900px)").matches ? 136 : 80;
+    window.scrollTo({ top: Math.max(0, y - navOffset), behavior: "smooth" });
+    if (typeof history.replaceState === "function") {
+      history.replaceState(null, "", `#${key}`);
+    }
+  };
+
   // Items separados: top muestra páginas, sub-nav muestra anchors (solo home).
   const pageItems = items.filter(
     (it): it is Extract<SiteSettingsNavItem, { type: "page" }> =>
@@ -216,7 +241,12 @@ export default function NavClient({ items, ctaLabel }: Props) {
     <nav className={styles.nav}>
       <div className={styles.topBar}>
         <div className={styles.inner}>
-          <a href={anchor("inicio")} className={styles.logoLink} aria-label="eBecerra">
+          <a
+            href={anchor("inicio")}
+            onClick={(e) => scrollToAnchor(e, "inicio")}
+            className={styles.logoLink}
+            aria-label="eBecerra"
+          >
             <LogoMark variant="negative" height={32} />
             <span className={styles.logoDomain}>ebecerra.es</span>
           </a>
@@ -233,6 +263,7 @@ export default function NavClient({ items, ctaLabel }: Props) {
             {contactAnchor && (
               <a
                 href={anchor(contactAnchor.key)}
+                onClick={(e) => scrollToAnchor(e, contactAnchor.key)}
                 className={`${styles.ctaButton} fx-ripple`}
               >
                 → {ctaLabel}
@@ -263,6 +294,7 @@ export default function NavClient({ items, ctaLabel }: Props) {
                 <li key={item.key}>
                   <a
                     href={anchor(item.key)}
+                    onClick={(e) => scrollToAnchor(e, item.key)}
                     className={styles.subNavLink}
                     data-active={activeAnchor === item.key}
                     aria-current={activeAnchor === item.key ? "true" : undefined}
@@ -296,7 +328,10 @@ export default function NavClient({ items, ctaLabel }: Props) {
                 <a
                   key={item.key}
                   href={anchor(item.key)}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => {
+                    setOpen(false);
+                    scrollToAnchor(e, item.key);
+                  }}
                   className={styles.mobileSubLink}
                 >
                   {item.label}
@@ -308,7 +343,10 @@ export default function NavClient({ items, ctaLabel }: Props) {
           {contactAnchor && (
             <a
               href={anchor(contactAnchor.key)}
-              onClick={() => setOpen(false)}
+              onClick={(e) => {
+                setOpen(false);
+                scrollToAnchor(e, contactAnchor.key);
+              }}
               className={`${styles.mobileCta} fx-ripple`}
             >
               → {ctaLabel}
