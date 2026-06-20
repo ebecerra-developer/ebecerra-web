@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { CONSENT_STORAGE_KEY, CONSENT_EVENT } from "./CookieConsent";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 
 declare global {
   interface Window {
@@ -70,7 +71,7 @@ export default function GoogleAnalytics() {
         {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${GA_ID}');`}
+gtag('config', '${GA_ID}');${ADS_ID ? `\ngtag('config', '${ADS_ID}');` : ""}`}
       </Script>
     </>
   );

@@ -192,6 +192,14 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
   const waHref = whatsapp
     ? `https://wa.me/${whatsapp.replace(/[^\d]/g, "")}`
     : null;
+  // Conversión de Google Ads (send_to = AW-ID/etiqueta) desde env vars, sin
+  // hardcodear. Solo dispara si gtag está cargado (con consentimiento) y las
+  // env existen; si no, no-op.
+  const adsSendTo =
+    process.env.NEXT_PUBLIC_GOOGLE_ADS_ID &&
+    process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL
+      ? `${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}/${process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL}`
+      : null;
   const linkedinUrl =
     profile?.contact?.linkedinUrl ??
     "https://www.linkedin.com/in/enrique-becerra-garcia/";
@@ -236,6 +244,7 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
       // se ha cargado (con consentimiento); si no, son no-op.
       window.fbq?.("track", "Lead");
       window.gtag?.("event", "generate_lead", { method: "form" });
+      if (adsSendTo) window.gtag?.("event", "conversion", { send_to: adsSendTo });
     } catch {
       setStatus("error");
     }
@@ -285,6 +294,8 @@ export default function ContactClient({ contactMeta, form, profile }: Props) {
                 onClick={() => {
                   // Contacto vía WhatsApp = lead. No-op si no hay consentimiento.
                   window.gtag?.("event", "generate_lead", { method: "whatsapp" });
+                  if (adsSendTo)
+                    window.gtag?.("event", "conversion", { send_to: adsSendTo });
                   window.fbq?.("track", "Lead");
                 }}
               >
