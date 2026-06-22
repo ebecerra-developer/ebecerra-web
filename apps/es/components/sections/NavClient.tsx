@@ -145,17 +145,38 @@ export default function NavClient({ items, ctaLabel }: Props) {
     key: string
   ) => {
     if (!isHome) return; // entre páginas, deja que navegue a /#key
-    const el = document.getElementById(key);
-    if (!el) return;
+    const section = document.getElementById(key);
+    if (!section) return;
     e.preventDefault();
-    let y = 0;
-    let node: HTMLElement | null = el;
-    while (node) {
-      y += node.offsetTop;
-      node = node.offsetParent as HTMLElement | null;
+
+    // Posición de FLUJO real de la sección, estable frente al sticky del apilado.
+    // OJO: offsetTop NO sirve — en elementos sticky refleja el desplazamiento
+    // pinchado y cambia con el scroll (desde abajo daba valores enormes). Sumamos
+    // el offsetHeight (sí estable) de los items anteriores dentro del .stack, + el
+    // offset de la sección dentro de su item (diferencia de rects, estable porque
+    // ambos se mueven juntos con el sticky).
+    let item: HTMLElement = section;
+    while (item.parentElement && getComputedStyle(item).position !== "sticky") {
+      item = item.parentElement;
     }
-    const navOffset = window.matchMedia("(min-width: 900px)").matches ? 136 : 80;
-    window.scrollTo({ top: Math.max(0, y - navOffset), behavior: "smooth" });
+    const stack = item.parentElement;
+    let y: number;
+    if (getComputedStyle(item).position === "sticky" && stack) {
+      y = stack.getBoundingClientRect().top + window.scrollY;
+      for (const sib of Array.from(stack.children)) {
+        if (sib === item) break;
+        y += (sib as HTMLElement).offsetHeight;
+      }
+      y +=
+        section.getBoundingClientRect().top - item.getBoundingClientRect().top;
+    } else {
+      // Fallback (página sin apilado): la sección no es sticky → su rect vale.
+      y = section.getBoundingClientRect().top + window.scrollY;
+    }
+
+    const nav = document.querySelector("nav");
+    const navH = nav ? nav.getBoundingClientRect().height : 80;
+    window.scrollTo({ top: Math.max(0, y - navH - 24), behavior: "smooth" });
     if (typeof history.replaceState === "function") {
       history.replaceState(null, "", `#${key}`);
     }
