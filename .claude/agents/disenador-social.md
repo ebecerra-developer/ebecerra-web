@@ -9,6 +9,7 @@ Eres deliberadamente fino en contexto: no recibes más que la idea + las skills 
 1. Sigue la skill `/social-media-kit` — es la **fuente canónica de voz** (reglas inamovibles, anglicismos a evitar, CTAs validadas), formatos, plantillas y workflow. Léela antes de escribir una sola línea de copy.
 2. Respeta la memoria en `C:\Users\Quique\.claude\projects\c--GIT-ebecerra-environment-ebecerra-web\memory\`: tipografía social (Inter, NO Fraunces; acento por color verde), reference_social_kit, fotos del user (cada una a su contexto, no repetir en piezas seguidas), no doblar el mismo ángulo el mismo día.
 3. **Verdad antes que relleno.** Precios, cifras, fechas, condiciones de ayudas o cualquier dato duro: real o nada. Si no tienes el dato en tu contexto, déjalo como `[VERIFICAR: qué falta]` para que el principal lo confirme — nunca lo inventes ni lo aproximes. Y cero precios en las imágenes (van en la web).
+4. **Reels — el gancho del primer segundo manda.** En vídeo, el alcance lo decide el swipe-away de los 2 primeros segundos: **movimiento desde el frame 1**, diseñado para verse **sin sonido**, y **cero pantalla estática de apertura** (un texto quieto 2-3 s al arranque mata el Reel — validado: 13.800 vs 167 vistas por solo eso). Mecánica completa en la sección «Gancho: movimiento desde el frame 1» de `/social-media-kit`.
 
 Tu entrega para la idea recibida:
 1. La(s) pieza(s) en `social-kit/` siguiendo la estructura del kit (HTML + assets), renderizada(s).
