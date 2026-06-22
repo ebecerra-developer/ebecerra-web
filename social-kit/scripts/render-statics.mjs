@@ -79,10 +79,31 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-06-24 · Post pregunta "¿Cómo te encuentran tus clientes?" ──
+  {
+    html: "personal/2026/06/24-post-como-te-encuentran/index.html",
+    out:  "personal/2026/06/24-post-como-te-encuentran/final.png",
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-06-28 · Post Orgullo (gesto, sin comercial) ──
+  {
+    html: "personal/2026/06/28-post-orgullo/index.html",
+    out:  "personal/2026/06/28-post-orgullo/final.png",
+    w: 1080, h: 1350,
+  },
+
   // ── 2026-06-18 · Carrusel "Tu web y una buena tapa" · 6 slides 1080×1350 (Día de la Tapa) ──
   ...[1,2,3,4,5,6].map((n) => ({
     html: `personal/2026/06/18-carrusel-tapas-web/slide-${n}.html`,
     out:  `personal/2026/06/18-carrusel-tapas-web/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
+  // ── 2026-06-25 · Carrusel "Las webs que espantan clientes" · 6 slides 1080×1350 (4 villanos) ──
+  ...[1,2,3,4,5,6].map((n) => ({
+    html: `personal/2026/06/25-carrusel-villanos/slide-${n}.html`,
+    out:  `personal/2026/06/25-carrusel-villanos/slide-${n}.png`,
     w: 1080, h: 1350,
   })),
 

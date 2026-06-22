@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel demos: las webs entran INCLINADAS y desordenadas (caos), y luego una a una se
+     enderezan, se amplían al centro y HACEN SCROLL real, y vuelven a su sitio. Cierre CTA.
+     Capturas de página completa (tall) → scroll = translateY. GSAP seek-friendly.
+     (Bravío es inmersiva: su scroll va por separado con el vídeo de OBS, vía ffmpeg.) */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 18%,#058a63 0%,#047857 50%,#02583c 100%)}
+  .chip{position:absolute;top:54px;left:54px;z-index:80;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.55);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  /* Pantalla inicial (portada / cover) */
+  .intro{position:absolute;inset:0;z-index:70;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 90px;
+    background:radial-gradient(120% 80% at 30% 18%,#058a63 0%,#047857 50%,#02583c 100%)}
+  .intro .k{font-size:28px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:34px}
+  .intro .t{font-size:84px;font-weight:900;line-height:1.05;letter-spacing:-.04em;color:var(--cream)}
+  .intro .t em{font-style:normal;color:var(--green-light)}
+
+  .scrim{position:absolute;inset:0;z-index:30;background:radial-gradient(120% 80% at 50% 50%,rgba(2,16,10,.5) 0%,rgba(2,16,10,.8) 100%);opacity:0}
+
+  /* Teléfonos (capturas de página completa → scroll por translateY del img) */
+  .ph{position:absolute;z-index:10;width:270px;height:500px;border-radius:30px;overflow:hidden;background:#0c0c0c;border:6px solid #0c0c0c;box-shadow:0 26px 54px -22px rgba(2,16,10,.85);will-change:transform}
+  .ph img{position:absolute;top:0;left:0;width:100%;height:auto;display:block}
+
+  .cta{position:absolute;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 90px;opacity:0}
+  .cta .tag{font-size:27px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:34px}
+  .cta .big{font-size:90px;font-weight:900;line-height:1.05;letter-spacing:-.04em;color:var(--cream)}
+  .cta .big em{font-style:normal;color:var(--green-light)}
+  .cta .sub{margin-top:34px;font-size:42px;font-weight:600;color:rgba(250,246,238,.92)}
+  .cta .pill{margin-top:46px;display:inline-block;background:var(--cream);color:var(--green);font-size:46px;font-weight:800;padding:22px 46px;border-radius:999px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+    <div class="scrim" id="scrim"></div>
+
+    <div class="intro" id="intro">
+      <div class="k">demos web · a medida</div>
+      <div class="t">Mira lo que le monto<br/>a <em>cada negocio</em> 👇</div>
+    </div>
+
+    <!-- Scatter inclinado (posición por CSS, rotación e inclinación por GSAP) -->
+    <div class="ph" id="c1" style="left:90px;top:210px"><img src="../../../assets/captures/demo-bravio-mobile-full.png" alt=""/></div>
+    <div class="ph" id="c2" style="left:640px;top:150px"><img src="../../../assets/captures/demo-marta-solana-mobile-full.png" alt=""/></div>
+    <div class="ph" id="c3" style="left:170px;top:760px"><img src="../../../assets/captures/demo-vega-asociados-mobile-full.png" alt=""/></div>
+    <div class="ph" id="c4" style="left:640px;top:720px"><img src="../../../assets/captures/demo-claudia-entrena-mobile-full.png" alt=""/></div>
+    <div class="ph" id="c5" style="left:110px;top:1320px"><img src="../../../assets/captures/demo-equilibrio-mobile-full.png" alt=""/></div>
+    <div class="ph" id="c6" style="left:650px;top:1280px"><img src="../../../assets/captures/demo-eco-mobile-full.png" alt=""/></div>
+
+    <div class="cta" id="cta">
+      <div class="tag">primera asesoría</div>
+      <div class="big">30 min <em>gratis</em>.</div>
+      <div class="sub">Y si encajamos, te presento una demo a medida.</div>
+      <div class="pill">demos.ebecerra.es</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl; window.__startAnim = () => tl.play(0);
+
+    // rotación de reposo (inclinación caótica) por tarjeta
+    const ROT = { c1:-8, c2:7, c3:5, c4:-6, c5:-7, c6:8 };
+    const LEFT = ["c1","c3","c5"]; // entran desde la izq; el resto desde la dcha
+    const ALL = ["#c1","#c2","#c3","#c4","#c5","#c6"];
+
+    const OFF = 1.5; // dura la portada antes de que entren las demos
+    gsap.set("#intro", { opacity: 1, scale: 1.06 });
+    gsap.set("#cta", { opacity: 0, scale: 0.92 });
+
+    // ── Portada (visible desde frame 0, con movimiento) → sale ──
+    tl.to("#intro", { scale: 1, duration: 0.9, ease: "power2.out" }, 0);
+    tl.to("#intro", { opacity: 0, scale: 0.97, duration: 0.5, ...OUT }, 1.4);
+
+    // ── Entrada: las 6 entran desde los lados, INCLINADAS, hasta su sitio (caos) ──
+    ["c1","c2","c3","c4","c5","c6"].forEach((id, i) => {
+      const fromLeft = LEFT.includes(id);
+      tl.fromTo("#" + id,
+        { x: fromLeft ? -640 : 640, rotation: ROT[id] + (fromLeft ? -14 : 14), opacity: 0, scale: 0.85 },
+        { x: 0, rotation: ROT[id], opacity: 1, scale: 1, duration: 0.72, ease: "power3.out" }, OFF + i * 0.12);
+    });
+
+    // ── Destacar una a una: se endereza + zoom al centro + (scroll real) + vuelve ──
+    const CX = 540, CY = 960, S = 2.55, FRAME_H = 500;
+    // bravío (c1) es inmersiva: no scrollea la captura; hueco más largo y QUIETO al centro
+    // para superponer su clip de OBS con ffmpeg después.
+    function highlight(id, t, opts) {
+      opts = opts || {};
+      const hold = opts.hold || 0.8;
+      const sel = "#" + id, el = document.querySelector(sel);
+      const dx = CX - (el.offsetLeft + el.offsetWidth / 2);
+      const dy = CY - (el.offsetTop + el.offsetHeight / 2);
+      const img = el.querySelector("img");
+      const range = opts.noScroll ? 0 : Math.min(Math.max(img.offsetHeight - FRAME_H, 0), 560);
+      tl.set(sel, { zIndex: 50 }, t);
+      tl.to("#scrim", { opacity: 1, duration: 0.4 }, t);
+      tl.to(sel, { x: dx, y: dy, rotation: 0, scale: S, duration: 0.55, ease: "power3.inOut" }, t);
+      if (range) tl.fromTo(img, { y: 0 }, { y: -range, duration: hold, ease: "power1.inOut" }, t + 0.6);
+      const tRet = t + 0.55 + hold + 0.1;
+      tl.to(sel, { x: 0, y: 0, rotation: ROT[id], scale: 1, duration: 0.55, ease: "power3.inOut" }, tRet);
+      if (range) tl.to(img, { y: 0, duration: 0.55, ease: "power1.inOut" }, tRet);
+      tl.to("#scrim", { opacity: 0, duration: 0.4, ...OUT }, tRet + 0.1);
+      tl.set(sel, { zIndex: 10 }, tRet + 0.6);
+      return tRet + 0.65; // fin
+    }
+    // orden con bravío en 2ª posición (hueco largo para su vídeo); acaba en Vega (la nueva)
+    const SEQ = [{ id: "c5" }, { id: "c1", noScroll: true, hold: 2.4 }, { id: "c2" }, { id: "c4" }, { id: "c6" }, { id: "c3" }];
+    let t = 3.1;
+    SEQ.forEach((s) => {
+      if (s.id === "c1") window.__bravioWin = { start: t + 0.55, end: t + 0.55 + (s.hold || 0.9) };
+      t = highlight(s.id, t, s) + 0.1;
+    });
+    const tEnd = t + 0.05;
+
+    // ── Salida → CTA ──
+    tl.to(ALL, { opacity: 0, duration: 0.5, ...OUT }, tEnd);
+    tl.fromTo("#cta", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.65 }, tEnd + 0.3);
+  </script>
+</body>
+</html>

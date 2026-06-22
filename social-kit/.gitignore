@@ -1,0 +1,15 @@
+# social-kit: solo fuentes en git (HTML/CSS/MD/JS). Los binarios (renders, vídeos,
+# audios, capturas, máscaras) se quedan en local — se regeneran con los scripts.
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.mp4
+*.mov
+*.webm
+*.mp3
+*.wav
+*.m4a
+_build/
+_tmp-frames/

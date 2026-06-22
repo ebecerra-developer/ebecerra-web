@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post pregunta "¿Cómo te encuentran tus clientes?" 1080×1350 (4:5). VERDE (protagonista).
+     Opciones como píldoras tipo "menú". Interacción amigable. Firma abajo-izq. render-statics.mjs. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#1f1810}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+  .post{position:relative;width:1080px;height:1350px;overflow:hidden;padding:96px 88px;display:flex;flex-direction:column;justify-content:center;
+    background:radial-gradient(125% 95% at 28% 16%,#058a63 0%,#047857 52%,#02583c 100%);color:var(--cream)}
+  .post::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:multiply;background-image:radial-gradient(rgba(0,0,0,.6) 1px,transparent 1px);background-size:4px 4px}
+  em{font-style:normal;color:var(--green-light)}
+
+  .kick{font-size:27px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green-light);margin-bottom:30px}
+  .big{font-size:80px;font-weight:900;line-height:1.04;letter-spacing:-.04em}
+
+  .opts{margin-top:62px;display:flex;flex-direction:column;gap:24px}
+  .opt{display:flex;align-items:center;gap:26px;background:var(--cream);color:var(--ink);border-radius:24px;padding:28px 34px;font-size:44px;font-weight:700;box-shadow:0 18px 38px -20px rgba(2,16,10,.5)}
+  .opt .ic{font-size:48px;line-height:1;flex:none}
+
+  .ask{margin-top:54px;font-size:48px;font-weight:800;color:var(--cream)}
+  .ask em{color:var(--green-light)}
+
+  .firma{position:absolute;left:88px;bottom:72px;display:flex;align-items:center;gap:15px;font-size:27px;font-weight:700;color:var(--cream)}
+  .firma .dot{width:46px;height:46px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:21px}
+</style>
+</head>
+<body>
+  <div class="post">
+    <div class="kick">pregunta del día</div>
+    <div class="big">¿Cómo te <em>encuentran</em> tus clientes?</div>
+
+    <div class="opts">
+      <div class="opt"><span class="ic">🏪</span> Pasan por delante del local</div>
+      <div class="opt"><span class="ic">🗣️</span> Boca a boca, toda la vida</div>
+      <div class="opt"><span class="ic">📸</span> Por Instagram</div>
+      <div class="opt"><span class="ic">🌐</span> Te buscan en Google</div>
+    </div>
+
+    <div class="ask">¿Cuál es <em>el tuyo</em>? Dímelo 👇</div>
+
+    <div class="firma"><span class="dot">eB</span> @ebecerra.es</div>
+  </div>
+</body>
+</html>

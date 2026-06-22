@@ -53,8 +53,10 @@ const TARGETS = [
   { name: "09-cover", folder: "personal/2026/06/09-reel-demos/_cover", duration: 2.9 },
   // Reel 2026-06-16: anuncio "Una web distinta para cada negocio" (collage mixto móvil+desktop, lento, 14.5s)
   { name: "16-reel-cada-negocio", folder: "personal/2026/06/16-reel-cada-negocio", duration: 14.5 },
-  // Reel 2026-06-21: humor "anochece" (marca: ventana día→noche→amanecer + reloj 7-seg + bocadillos, 19.5s)
-  { name: "21-reel-anochece", folder: "personal/2026/06/21-reel-anochece", duration: 23.5 },
+  // Reel "anochece" (marca: ventana día→noche→amanecer + reloj 7-seg + bocadillos, 23.5s). Subido 22-jun.
+  { name: "22-reel-anochece", folder: "personal/2026/06/22-reel-anochece", duration: 23.5 },
+  // Reel 2026-06-23: demos (rejilla entra desde lados → zoom+scroll real de cada demo → CTA, organic-first)
+  { name: "23-reel-demos-v2", folder: "personal/2026/06/23-reel-demos-v2", duration: 20 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,

@@ -1,7 +1,7 @@
-# 2026-06-21 · REEL · Anochece (humor, "ya casi lo tengo")
+# 2026-06-22 · REEL · Anochece (humor, "ya casi lo tengo")
 
-- **Tipo**: reel animado 1080×1920 (9:16) · ~19.5s
-- **Estado**: lista — subir domingo 21-jun
+- **Tipo**: reel animado 1080×1920 (9:16) · ~23.5s
+- **Estado**: subido lunes 22-jun (planificado para el 21, se subió el 22)
 - **Categoría**: humor / relatable
 - **Ángulo (Notion)**: Humor
 - **Outputs**: `final.mp4` + `poster.png`

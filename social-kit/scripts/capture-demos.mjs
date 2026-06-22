@@ -7,6 +7,7 @@ const DEMOS = [
   { slug: "equilibrio",       file: "demo-equilibrio" },
   { slug: "marta-solana",     file: "demo-marta-solana" },
   { slug: "claudia-entrena",  file: "demo-claudia-entrena" },
+  { slug: "vega-asociados",   file: "demo-vega-asociados" },
 ];
 
 const OUT_DIR = path.resolve("../personal/assets/captures");
@@ -45,7 +46,7 @@ async function main() {
     hasTouch: true,
   });
 
-  const MOBILE_DEMOS = ["bravio", "eco", "equilibrio", "marta-solana", "claudia-entrena"];
+  const MOBILE_DEMOS = ["bravio", "eco", "equilibrio", "marta-solana", "claudia-entrena", "vega-asociados"];
   for (const slug of MOBILE_DEMOS) {
     const mPage = await mobileCtx.newPage();
     await mPage.goto(`https://demos.ebecerra.es/${slug}/`, { waitUntil: "networkidle", timeout: 45000 });

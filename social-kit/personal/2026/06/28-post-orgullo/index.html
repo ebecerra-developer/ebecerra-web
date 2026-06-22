@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post Orgullo (28-jun) 1080×1350 — gesto sincero, SIN nada comercial. Fondo limpio,
+     toque arcoíris (barra CSS, no emoji bandera) + frase. Render con render-statics.mjs. */
+  :root{--cream:#FAF6EE;--ink:#1f1810;--green:#047857}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+  .post{position:relative;width:1080px;height:1350px;overflow:hidden;padding:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--cream);color:var(--ink)}
+  .post::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.1;mix-blend-mode:multiply;background-image:radial-gradient(rgba(0,0,0,.5) 1px,transparent 1px);background-size:3px 3px}
+
+  .rainbow{width:240px;height:16px;border-radius:999px;margin-bottom:58px;
+    background:linear-gradient(90deg,#e40303 0 16.6%,#ff8c00 16.6% 33.3%,#ffed00 33.3% 50%,#008026 50% 66.6%,#004dff 66.6% 83.3%,#750787 83.3% 100%)}
+  .msg{font-size:80px;font-weight:900;line-height:1.1;letter-spacing:-.035em;max-width:880px}
+  .msg em{font-style:normal;background:linear-gradient(90deg,#e40303,#ff8c00,#008026,#004dff,#750787);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .pride{margin-top:48px;font-size:46px;font-weight:800;color:var(--green)}
+
+  .firma{position:absolute;left:88px;bottom:72px;display:flex;align-items:center;gap:15px;font-size:26px;font-weight:700;color:var(--ink)}
+  .firma .dot{width:44px;height:44px;border-radius:50%;background:var(--green);color:var(--cream);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+</style>
+</head>
+<body>
+  <div class="post">
+    <div class="rainbow"></div>
+    <div class="msg">Hoy se celebran todas las formas de ser y de <em>querer</em>.</div>
+    <div class="pride">Feliz Orgullo 🌈</div>
+    <div class="firma"><span class="dot">eB</span> @ebecerra.es</div>
+  </div>
+</body>
+</html>

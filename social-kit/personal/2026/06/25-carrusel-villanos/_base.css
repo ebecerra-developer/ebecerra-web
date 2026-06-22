@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+/* Carrusel "Las webs que espantan clientes" · 6 slides 1080×1350 (4:5) · humor/relatable.
+   4 "villanos" (la web es la villana, nunca el cliente). Inter + acento por color. */
+
+:root {
+  --green:#047857; --green-deep:#024d33; --green-light:#6EE7B7;
+  --cream:#FAF6EE; --cream-soft:#ECE3D0; --ink:#1f1810; --muted:#5b5247;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1350px; overflow: hidden; }
+body { font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+.slide { position: relative; width: 1080px; height: 1350px; padding: 88px; display: flex; flex-direction: column; overflow: hidden; }
+.slide--green { background: radial-gradient(125% 100% at 26% 18%, #058a63 0%, #047857 50%, #02583c 100%); color: var(--cream); }
+.slide--cream { background: var(--cream); color: var(--ink); }
+.slide::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 30; }
+.slide--cream::after { opacity: 0.12; mix-blend-mode: multiply; background-image: radial-gradient(rgba(0,0,0,0.5) 1px, transparent 1px); background-size: 3px 3px; }
+.slide--green::after { opacity: 0.06; mix-blend-mode: multiply; background-image: radial-gradient(rgba(0,0,0,0.6) 1px, transparent 1px); background-size: 4px 4px; }
+
+em { font-style: normal; }
+.slide--cream em { color: var(--green); }
+.slide--green em { color: var(--green-light); }
+
+.tag { display: inline-flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.tag__num { width: 50px; height: 50px; border-radius: 50%; background: var(--ink); color: var(--cream); display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 24px; }
+.slide--green .tag__num { background: var(--cream); color: var(--green); }
+.tag__label { opacity: 0.6; }
+.page-num { position: absolute; top: 96px; right: 88px; font-size: 20px; font-weight: 700; opacity: 0.42; letter-spacing: 0.06em; }
+
+/* Ficha de villano */
+.villain { margin-top: auto; margin-bottom: auto; }
+.villain__emoji { font-size: 132px; line-height: 1; margin-bottom: 28px; }
+.villain__alias { font-size: 100px; font-weight: 900; line-height: 0.96; letter-spacing: -0.045em; }
+.slide--cream .villain__alias { color: var(--green); }
+.slide--green .villain__alias { color: var(--green-light); }
+.villain__crime { margin-top: 38px; font-size: 46px; font-weight: 600; line-height: 1.28; max-width: 880px; }
+.villain__crime b { display: block; font-size: 24px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; margin-bottom: 14px; }
+
+/* Portada / cierre */
+.big { font-size: 92px; font-weight: 900; line-height: 1.02; letter-spacing: -0.045em; }
+.lead { margin-top: 36px; font-size: 42px; font-weight: 600; }
+.slide--green .lead { color: rgba(250,246,238,0.85); }
+.slide--cream .lead { color: var(--muted); }
+.center { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.kick { font-size: 27px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 34px; }
+.slide--green .kick { color: var(--green-light); }
+.slide--cream .kick { color: var(--green); }
+
+/* Marca abajo izquierda */
+.brand-mark { position: absolute; bottom: 64px; left: 88px; display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 700; }
+.brand-mark__dot { width: 42px; height: 42px; border-radius: 50%; background: var(--green); color: var(--cream); display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 19px; }
+.slide--green .brand-mark { color: var(--cream); }
+.slide--green .brand-mark__dot { background: var(--cream); color: var(--green); }
+.swipe { position: absolute; bottom: 66px; right: 88px; font-size: 22px; font-weight: 600; opacity: 0.8; }
