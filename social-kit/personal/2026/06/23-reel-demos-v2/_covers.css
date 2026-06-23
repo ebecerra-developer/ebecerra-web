@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+/* Portadas (cover) para el reel demos v2 — 1080×1920. Varias versiones para elegir.
+   Lo importante va centrado (sobrevive al recorte cuadrado del grid de IG). */
+:root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0c0c0c}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+.cv{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 18%,#058a63 0%,#047857 50%,#02583c 100%);color:var(--cream)}
+.cv::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:multiply;background-image:radial-gradient(rgba(0,0,0,.6) 1px,transparent 1px);background-size:4px 4px}
+em{font-style:normal;color:var(--green-light)}
+
+.chip{position:absolute;top:54px;left:54px;z-index:60;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.55);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+.chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+.kicker{font-size:30px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light)}
+.title{font-size:104px;font-weight:900;line-height:1.02;letter-spacing:-.045em;color:var(--cream)}
+.sub{font-size:46px;font-weight:700;color:var(--cream)}
+
+/* teléfono (captura móvil) */
+.ph{position:absolute;border-radius:28px;overflow:hidden;background:#0c0c0c;border:6px solid #0c0c0c;box-shadow:0 28px 60px -22px rgba(2,16,10,.85)}
+.ph img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;border-radius:22px}
+
+.scrim{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 50%,rgba(2,16,10,.32) 0%,rgba(2,16,10,.72) 75%,rgba(2,16,10,.85) 100%)}
