@@ -1,21 +1,21 @@
-# Carrusel: Lo que nadie ve antes de que tu web salga a internet
+# Carrusel: Así se construye una web, de cero a publicada
 
 Fecha objetivo: 1 jul 2026 · 8 slides 1080×1350
 
 ## Caption IG
 
-Lo que pasa antes de que des al botón de publicar 👇
+Así se construye una web a medida, de cero a publicada 👇
 
-01 Estrategia — escucho lo que buscan tus clientes reales, no lo que crees que buscan.
-02 Arquitectura — decido cómo se organiza la información y cómo llega el visitante al contacto.
-03 Diseño — paleta, fuentes y maqueta navegable antes de escribir una sola línea de código.
-04 Contenido — textos pensados para que el visitante entienda, confíe y actúe. Y para Google.
+01 Estrategia — estudio la imagen de marca y qué debe transmitir al visitante.
+02 Arquitectura — defino la estructura y cómo llega el visitante al contacto.
+03 Diseño — cada pantalla diseñada desde cero, sin plantillas ni themes.
+04 Contenido — textos pensados para el usuario y optimizados para Google desde el principio.
 05 Conexiones — email, analytics, reservas y formularios integrados con lo que ya usas.
-06 Lanzamiento — velocidad, móvil, accesibilidad y formación para que puedas editarla tú solo.
+06 Lanzamiento — rendimiento, móvil y accesibilidad antes de publicar. Y te enseño a editarla.
 
-Sin atajos. Sin saltarse pasos.
+Sin plantillas. Sin atajos.
 
-¿En cuál de estos notas más carencias en tu web? Cuéntamelo en comentarios 👇
+¿Cuál de estos 6 pasos te sorprende más? Cuéntamelo 👇
 
 🔗 ebecerra.es (link en bio)
 
@@ -24,4 +24,5 @@ Sin atajos. Sin saltarse pasos.
 ---
 
 ## Alt text
+
 Carrusel de 8 diapositivas sobre el proceso real de desarrollo web: portada verde con título, 6 pasos con ilustraciones en fondo crema (estrategia, arquitectura, diseño, contenido, conexiones, lanzamiento) y slide de cierre verde con CTA.
