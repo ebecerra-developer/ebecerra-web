@@ -93,6 +93,13 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-07-01 · Carrusel "Lo que nadie ve antes de que tu web salga a internet" · 8 slides 1080×1350 ──
+  ...[1,2,3,4,5,6,7,8].map((n) => ({
+    html: `personal/2026/07/01-carrusel-proceso-web/slide-${n}.html`,
+    out:  `personal/2026/07/01-carrusel-proceso-web/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
   // ── Portadas (cover) del reel demos v2 · 4 versiones 1080×1920 para elegir ──
   ...["a","b","c","d"].map((v) => ({
     html: `personal/2026/06/23-reel-demos-v2/cover-${v}.html`,
