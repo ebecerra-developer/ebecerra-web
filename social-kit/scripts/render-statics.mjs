@@ -93,7 +93,14 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
-  // ── 2026-07-01 · Carrusel "Lo que nadie ve antes de que tu web salga a internet" · 8 slides 1080×1350 ──
+  // ── 2026-07-01 · Post backup "¿Tu negocio ya tiene página web?" · 1080×1350 ──
+  {
+    html: `personal/2026/07/01-post-backup-tienes-web/index.html`,
+    out:  `personal/2026/07/01-post-backup-tienes-web/post.png`,
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-07-01 · Carrusel proceso-web · 8 slides 1080×1350 ──
   ...[1,2,3,4,5,6,7,8].map((n) => ({
     html: `personal/2026/07/01-carrusel-proceso-web/slide-${n}.html`,
     out:  `personal/2026/07/01-carrusel-proceso-web/slide-${n}.png`,

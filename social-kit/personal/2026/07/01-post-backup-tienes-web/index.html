@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green:  #047857;
+      --cream:  #FAF6EE;
+      --ink:    #1f1810;
+      --muted:  #5b5247;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 1080px; height: 1350px; overflow: hidden; }
+    body {
+      font-family: "Inter", "Segoe UI Symbol", system-ui, sans-serif;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Foto ── */
+    .photo {
+      width: 1080px;
+      height: 648px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      display: block;
+    }
+
+    /* ── Bloque de texto ── */
+    .body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 44px 88px 88px;
+      position: relative;
+    }
+
+    .kick {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 20px;
+    }
+
+    .question {
+      font-size: 68px;
+      font-weight: 900;
+      line-height: 1.06;
+      color: var(--ink);
+      margin-bottom: 32px;
+    }
+    .question em {
+      color: var(--green);
+      font-style: normal;
+    }
+
+    .branches {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .branch {
+      font-size: 27px;
+      font-weight: 500;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+    .branch strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .cta {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    /* ── Firma ── */
+    .brand-mark {
+      position: absolute;
+      bottom: 42px;
+      left: 88px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 21px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .brand-mark__dot {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--cream);
+      font-size: 15px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: -.02em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="photo">
+    <img src="../../../assets/yo/enrique-retrato-sonriendo.jpg" alt="" />
+  </div>
+
+  <div class="body">
+    <div class="kick">✦ para ti</div>
+    <div class="question">¿Tu negocio ya tiene<br><em>página web?</em></div>
+    <div class="branches">
+      <div class="branch"><strong>Si tienes →</strong> ¿funciona como esperas?</div>
+      <div class="branch"><strong>Si no tienes →</strong> ¿qué te frena?</div>
+    </div>
+    <div class="cta">Cuéntamelo en comentarios 👇</div>
+    <div class="brand-mark"><span class="brand-mark__dot">eB</span> @ebecerra.es</div>
+  </div>
+
+</body>
+</html>
