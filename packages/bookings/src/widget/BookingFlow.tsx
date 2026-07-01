@@ -137,8 +137,18 @@ export function BookingFlow(props: BookingFlowProps) {
   // sección con heading propio (caso típico: demo equilibrio "Reserva tu sesión"),
   // preferimos scrollear al heading de la sección para mantener contexto. Si no,
   // scrolleamos al root con scroll-margin-top para dejar aire arriba.
+  //
+  // El montaje inicial también dispara este efecto (state.step pasa de
+  // "nada" a su valor inicial), lo que secuestraba el scroll de la página
+  // entera nada más cargar — el visitante aterrizaba a mitad de página sin
+  // haber tocado el widget. Se salta explícitamente la primera ejecución.
   const rootRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     const root = rootRef.current;
     if (!root) return;
     const section = root.closest("section");
