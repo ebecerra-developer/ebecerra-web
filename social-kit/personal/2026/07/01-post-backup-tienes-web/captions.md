@@ -4,9 +4,7 @@ Fecha objetivo: 1 jul 2026 (backup si no se sube el carrusel) · 1 imagen 1080×
 
 ## Caption IG
 
-¿Tu negocio ya tiene página web? 👇
-
-Siempre que lo pregunto, las respuestas me sorprenden.
+La mayoría tienen web. Pocos saben si les funciona.
 
 Si tienes → ¿funciona como esperas o cambiarías algo?
 Si no tienes → ¿qué te frena?
@@ -21,4 +19,4 @@ Cuéntamelo en comentarios.
 
 ## Alt text
 
-Foto de Enrique Becerra sonriendo, con la pregunta "¿Tu negocio ya tiene página web?" y dos ramificaciones: si tienes web / si no tienes web.
+Post con fondo oscuro y dos imágenes superpuestas (portátil con reflejos verdes + bokeh abstracto). Texto diagonal en grande: "¿Tu negocio ya tiene página web?" Hook inferior: "Tener web no es lo mismo que tener una web que funciona."
