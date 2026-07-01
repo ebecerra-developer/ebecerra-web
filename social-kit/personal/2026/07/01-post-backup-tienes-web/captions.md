@@ -19,4 +19,4 @@ Cuéntamelo en comentarios.
 
 ## Alt text
 
-Post con fondo oscuro y monitor flat-design superpuesto con tinte verde sobre bokeh abstracto. Texto diagonal en grande: «¿Tu negocio ya tiene página web?» Hook inferior: «Tener web no es lo mismo que tener una web que funciona.» CTA: «¿La tuya es de las que funcionan?»
+Post con fondo oscuro y monitor de escritorio mostrando la demo de Vega & Asociados ("Tus impuestos en orden, y tú durmiendo tranquilo"). Texto diagonal en mayúsculas: «¿TU NEGOCIO YA TIENE PÁGINA WEB?» Hook: «La pregunta real no es si la tienes. Es si te funciona de verdad.» CTA: «¿La tuya funciona? ↓»

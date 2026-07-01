@@ -21,113 +21,54 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── FONDO ── */
+    /* ── CAPA DE FONDO ── */
     .bg {
       position: absolute;
       inset: 0;
-      z-index: 0;
     }
 
-    /* Bokeh verde abstracto — capa base */
     .bg__bokeh {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center;
-      opacity: 0.40;
+      opacity: 0.38;
       mix-blend-mode: screen;
     }
 
-    /* Monitor flat-design con fondo blanco — máscara elíptica funde
-       los bordes blancos con el fondo oscuro, sin efecto "pegote" */
-    .bg__monitor {
-      position: absolute;
-      right: -80px;
-      top: 70px;
-      width: 820px;
-      opacity: 0.92;
-      z-index: 6; /* encima del grad para que este no lo tape */
-      mask-image: radial-gradient(ellipse 76% 80% at 52% 48%,
-        black 28%,
-        rgba(0,0,0,0.78) 50%,
-        rgba(0,0,0,0.28) 66%,
-        transparent 82%
-      );
-      -webkit-mask-image: radial-gradient(ellipse 76% 80% at 52% 48%,
-        black 28%,
-        rgba(0,0,0,0.78) 50%,
-        rgba(0,0,0,0.28) 66%,
-        transparent 82%
-      );
-    }
-
-    /* Glow verde corporativo — tapa parcialmente el monitor para integrarlo */
-    .bg__glow {
-      position: absolute;
-      right: -80px;
-      top: 60px;
-      width: 720px;
-      height: 720px;
-      border-radius: 50%;
-      background: radial-gradient(circle,
-        rgba(4, 120, 87, 0.35) 0%,
-        rgba(4, 120, 87, 0.12) 40%,
-        transparent 70%
-      );
-      z-index: 7; /* encima del monitor para el tinte verde */
-    }
-
-    /* Glow izquierda inferior */
+    /* Glow verde izquierda-inferior */
     .bg__glow2 {
       position: absolute;
       left: -160px;
-      bottom: 160px;
+      bottom: 200px;
       width: 540px;
       height: 540px;
       border-radius: 50%;
       background: radial-gradient(circle,
-        rgba(110, 231, 183, 0.12) 0%,
+        rgba(110, 231, 183, 0.10) 0%,
         transparent 65%
       );
-      z-index: 3;
     }
 
-    /* Glow derecha inferior */
-    .bg__glow3 {
-      position: absolute;
-      right: -80px;
-      bottom: -60px;
-      width: 480px;
-      height: 480px;
-      border-radius: 50%;
-      background: radial-gradient(circle,
-        rgba(4, 120, 87, 0.18) 0%,
-        transparent 65%
-      );
-      z-index: 3;
-    }
-
-    /* Gradiente oscuro — legibilidad del texto */
+    /* Gradiente oscuro — legibilidad texto, mantiene el look cinemático */
     .bg__grad {
       position: absolute;
       inset: 0;
-      z-index: 4;
       background:
         linear-gradient(to bottom,
-          rgba(7, 14, 9, 0.80)  0%,
-          rgba(7, 14, 9, 0.20) 22%,
-          rgba(7, 14, 9, 0.00) 42%,
-          rgba(7, 14, 9, 0.08) 60%,
-          rgba(7, 14, 9, 0.85) 82%,
+          rgba(7, 14, 9, 0.92)  0%,
+          rgba(7, 14, 9, 0.40) 18%,
+          rgba(7, 14, 9, 0.00) 36%,
+          rgba(7, 14, 9, 0.05) 58%,
+          rgba(7, 14, 9, 0.82) 78%,
           rgba(7, 14, 9, 0.98) 100%
         ),
         linear-gradient(to right,
-          rgba(7, 14, 9, 0.65) 0%,
-          rgba(7, 14, 9, 0.00) 35%,
-          rgba(7, 14, 9, 0.00) 65%,
-          rgba(7, 14, 9, 0.35) 100%
+          rgba(7, 14, 9, 0.72) 0%,
+          rgba(7, 14, 9, 0.00) 30%,
+          rgba(7, 14, 9, 0.00) 68%,
+          rgba(7, 14, 9, 0.40) 100%
         );
     }
 
@@ -136,16 +77,77 @@
       content: '';
       position: absolute;
       inset: 0;
-      z-index: 5;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
       opacity: 0.035;
       pointer-events: none;
     }
 
-    /* ── TEXTO DIAGONAL — 3 líneas que caben dentro del frame ── */
+    /* ── MONITOR COMPOSITING ──
+       1. .monitor-wrap: contenedor posicionado
+       2. .monitor-screen: div donde va el screenshot de la demo (z-index 1, detrás)
+       3. .monitor-img: PNG con el área de pantalla transparente (z-index 2, encima)
+       El marco del monitor enmarca la demo naturalmente.
+    */
+    .monitor-wrap {
+      position: absolute;
+      right: -55px;
+      top: 45px;
+      width: 920px;
+      height: 613px; /* 920 × (1024/1536) */
+      z-index: 6;
+    }
+
+    /* Área de pantalla: coordenadas calculadas del recorte (px 283-1252 × 190-648)
+       a la escala del monitor en CSS (factor = 920/1536 = 0.5990) */
+    .monitor-screen {
+      position: absolute;
+      left: 170px;   /* 283 × 0.5990 */
+      top:  114px;   /* 190 × 0.5990 */
+      width: 580px;  /* 969 × 0.5990 */
+      height: 274px; /* 458 × 0.5990 */
+      overflow: hidden;
+      border-radius: 1px;
+      z-index: 1;
+      background: #0a0e1a; /* fallback si la img tarda */
+    }
+
+    .monitor-screen img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* El PNG con el recorte de pantalla va encima, enmarca la demo */
+    .monitor-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 2;
+    }
+
+    /* Glow verde sobre el monitor — lo ancla al fondo oscuro */
+    .monitor-glow {
+      position: absolute;
+      right: -130px;
+      top: -30px;
+      width: 860px;
+      height: 740px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse,
+        rgba(4, 120, 87, 0.28) 0%,
+        rgba(4, 120, 87, 0.10) 45%,
+        transparent 72%
+      );
+      z-index: 7;
+      pointer-events: none;
+    }
+
+    /* ── TEXTO DIAGONAL ── */
     .diag {
       position: absolute;
-      top: 50%;
+      top: 52%;
       left: 50%;
       transform: translate(-50%, -50%) rotate(-12deg);
       text-align: center;
@@ -154,27 +156,26 @@
       white-space: nowrap;
     }
 
-    /* Línea 1 y 3: crema */
     .diag__l1,
     .diag__l3 {
       display: block;
-      font-size: 128px;
+      font-size: 122px;
       font-weight: 900;
       letter-spacing: -.03em;
       text-transform: uppercase;
       color: var(--cream);
-      line-height: 0.98;
+      line-height: 1.00;
     }
 
-    /* Línea 2: verde claro — acento, letter-spacing algo más abierto para equilibrar */
+    /* Línea 2 verde — espacio generoso abajo para que Á no choque */
     .diag__l2 {
       display: block;
-      font-size: 128px;
+      font-size: 122px;
       font-weight: 900;
       letter-spacing: .10em;
       text-transform: uppercase;
       color: var(--green-light);
-      line-height: 0.98;
+      line-height: 1.18;
     }
 
     /* ── ZONA INFERIOR ── */
@@ -231,28 +232,36 @@
 </head>
 <body>
 
-  <!-- Fondo -->
+  <!-- Fondo: bokeh + degradados -->
   <div class="bg">
     <img class="bg__bokeh"
       src="https://cdn.sanity.io/images/gdtxcn4l/production/33ba5ceb42fa23c567e32be276ae3ea39222d8df-1408x768.jpg"
       alt="" />
-    <img class="bg__monitor" src="https://cdn.sanity.io/images/gdtxcn4l/production/0b3278c78c89e5a7713f7ea7adaf98fad08b1adc-1408x768.jpg" alt="" />
-    <div class="bg__glow"></div>
     <div class="bg__glow2"></div>
-    <div class="bg__glow3"></div>
     <div class="bg__grad"></div>
   </div>
 
-  <!-- Texto diagonal: 3 líneas que caben dentro del frame -->
+  <!-- Monitor: demo Vega Gestión visible en la pantalla -->
+  <div class="monitor-wrap">
+    <div class="monitor-screen">
+      <img src="gestoria-screenshot.png" alt="" />
+    </div>
+    <img class="monitor-img" src="monitor-cutout.png" alt="" />
+  </div>
+
+  <!-- Glow verde encima del monitor para integrarlo -->
+  <div class="monitor-glow"></div>
+
+  <!-- Texto diagonal: 3 líneas uppercase 128px -->
   <div class="diag">
     <span class="diag__l1">¿Tu negocio</span>
     <span class="diag__l2">ya tiene</span>
     <span class="diag__l3">página web?</span>
   </div>
 
-  <!-- Hook y CTA -->
-  <div class="hook">Tener web no es lo mismo<br>que tener una web que funciona.</div>
-  <div class="cta">¿La tuya es de las que funcionan? 👇</div>
+  <!-- Hook y CTA alineados con el título -->
+  <div class="hook">La pregunta real no es si la tienes.<br>Es si te funciona de verdad.</div>
+  <div class="cta">¿La tuya funciona? ↓</div>
 
   <!-- Firma abajo-izquierda -->
   <div class="brand-mark">
