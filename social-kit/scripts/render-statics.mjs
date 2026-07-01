@@ -93,10 +93,10 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
-  // ── 2026-07-01 · Post backup "¿Tu negocio ya tiene página web?" · 1080×1350 ──
+  // ── 2026-07-02 · Post "¿Tu negocio ya tiene página web?" · 1080×1350 ──
   {
-    html: `personal/2026/07/01-post-backup-tienes-web/index.html`,
-    out:  `personal/2026/07/01-post-backup-tienes-web/post.png`,
+    html: `personal/2026/07/02-post-tienes-web/index.html`,
+    out:  `personal/2026/07/02-post-tienes-web/post.png`,
     w: 1080, h: 1350,
   },
 
