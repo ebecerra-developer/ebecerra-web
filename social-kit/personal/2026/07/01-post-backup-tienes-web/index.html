@@ -94,7 +94,9 @@
       top: 30px;
       width: 920px;
       height: 613px; /* 920 × (1024/1536) */
-      z-index: 8; /* por encima del glow (7) para que la pantalla se vea sin filtro */
+      z-index: 8;
+      transform: perspective(900px) rotateY(-25deg);
+      transform-origin: 35% 50%;
     }
 
     /* Área de pantalla: coordenadas medidas pixel a pixel del recorte (248-1283 × 172-646)
@@ -245,7 +247,7 @@
   <!-- Monitor: demo Vega Gestión visible en la pantalla -->
   <div class="monitor-wrap">
     <div class="monitor-screen">
-      <img src="gestoria-screenshot.png" alt="" />
+      <img src="equilibrio-screenshot.png" alt="" />
     </div>
     <img class="monitor-img" src="monitor-cutout.png" alt="" />
   </div>

@@ -19,4 +19,4 @@ Cuéntamelo en comentarios.
 
 ## Alt text
 
-Post con fondo oscuro y monitor de escritorio mostrando la demo de Vega & Asociados ("Tus impuestos en orden, y tú durmiendo tranquilo"). Texto diagonal en mayúsculas: «¿TU NEGOCIO YA TIENE PÁGINA WEB?» Hook: «La pregunta real no es si la tienes. Es si te funciona de verdad.» CTA: «¿La tuya funciona? ↓»
+Post con fondo oscuro y monitor girado en perspectiva mostrando la demo de Equilibrio Fisioterapia ("Cuida tu cuerpo. Sin parches.") con foto de masaje ámbar. Texto diagonal en mayúsculas: «¿TU NEGOCIO YA TIENE PÁGINA WEB?» Hook: «La pregunta real no es si la tienes. Es si te funciona de verdad.» CTA: «¿La tuya funciona? ↓»
