@@ -97,14 +97,14 @@
       z-index: 6;
     }
 
-    /* Área de pantalla: coordenadas calculadas del recorte (px 283-1252 × 190-648)
+    /* Área de pantalla: coordenadas medidas pixel a pixel del recorte (248-1283 × 172-646)
        a la escala del monitor en CSS (factor = 920/1536 = 0.5990) */
     .monitor-screen {
       position: absolute;
-      left: 170px;   /* 283 × 0.5990 */
-      top:  114px;   /* 190 × 0.5990 */
-      width: 580px;  /* 969 × 0.5990 */
-      height: 274px; /* 458 × 0.5990 */
+      left: 149px;   /* 248 × 0.5990 */
+      top:  103px;   /* 172 × 0.5990 */
+      width: 622px;  /* 1035 × 0.5990 */
+      height: 282px; /* 474 × 0.5990 */
       overflow: hidden;
       border-radius: 1px;
       z-index: 1;
@@ -150,6 +150,7 @@
       top: 52%;
       left: 50%;
       transform: translate(-50%, -50%) rotate(-12deg);
+      width: max-content; /* evita que el browser parta "PÁGINA WEB?" en dos líneas */
       text-align: center;
       z-index: 10;
       pointer-events: none;
@@ -167,7 +168,7 @@
       line-height: 1.00;
     }
 
-    /* Línea 2 verde — espacio generoso abajo para que Á no choque */
+    /* Línea 2 verde — espacio extra abajo para que Á de "PÁGINA" no choque con "YA TIENE" */
     .diag__l2 {
       display: block;
       font-size: 122px;
@@ -175,7 +176,7 @@
       letter-spacing: .10em;
       text-transform: uppercase;
       color: var(--green-light);
-      line-height: 1.18;
+      line-height: 1.30;
     }
 
     /* ── ZONA INFERIOR ── */
