@@ -21,13 +21,50 @@ export default async function AppleIcon({
   const { slug } = await params;
 
   const data = await client
-    .fetch<{ primaryColor: string | null } | null>(
+    .fetch<{
+      primaryColor: string | null;
+      template: string | null;
+      logoUrl: string | null;
+    } | null>(
       `*[_type == "demoSite" && slug.current == $slug][0]{
-        "primaryColor": brand.primaryColor
+        "primaryColor": brand.primaryColor,
+        template,
+        "logoUrl": brand.logo.asset->url
       }`,
       { slug }
     )
     .catch(() => null);
+
+  // BeeMovement es una demo privada con marca real — usa su propio icono
+  // (el garabato del rótulo de su local) en vez de la "e" genérica de
+  // eBecerra que llevan el resto de demos.
+  if (data?.template === "beemovement" && data.logoUrl) {
+    return new ImageResponse(
+      (
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "#faf7f2",
+            padding: "28px",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`${data.logoUrl}?w=360&fit=max`}
+            width="100%"
+            height="100%"
+            style={{ objectFit: "contain" }}
+            alt=""
+          />
+        </div>
+      ),
+      { ...size }
+    );
+  }
 
   const accent = data?.primaryColor ?? FALLBACK_ACCENT;
 
