@@ -1,0 +1,141 @@
+/* ==========================================================================
+   demos.ebecerra.es — Plantilla BeeMovement — Design Tokens
+   --------------------------------------------------------------------------
+   Demo PRIVADA (no enlazada, no publicada en galería) con marca real de
+   Espacio BeeMovement Fisioterapia & Salud. Su web actual es una plantilla
+   WordPress de un amigo (paleta genérica, no elegida por ella) — así que la
+   marca de color NO sale de ahí. Dos señales reales SÍ eligió ella: el
+   uniforme azul de todo el equipo (visto en sus 3 fotos reales) y el rótulo
+   ámbar retroiluminado de la entrada. Azul = CTA/marca principal. Ámbar =
+   acento cálido secundario. Se probó lila/magenta (de su Instagram) pero
+   junto al azul competía demasiado — descartado a favor de este par
+   azul/ámbar, más anclado a objetos físicos reales y más cohesionado.
+   Tintes de servicios rotan sobre los 3 colores de las sillas de la sala de
+   espera (mostaza/rosa empolvado/verde), como acento decorativo puntual.
+   Un solo sans moderno (Inter) para todo.
+   ========================================================================== */
+
+[data-template="beemovement"] {
+  /* ---------- Color — Structure ---------- */
+  --bg:              #faf7f2;  /* blanco cálido de paredes */
+  --bg-deep:         #f0e6d6;  /* tono lamas de madera, más suave */
+  --surface:         #ffffff;
+  --surface-subtle:  #f4efe6;
+  --surface-warm:    #e3cfa8;  /* madera de recepción */
+  --border:          #e6ddcd;
+  --border-strong:   #cdbb9a;
+  --ink:             #241f1c;  /* piedra oscura de fachada — nunca negro puro */
+  --ink-soft:        #37312b;
+
+  /* ---------- Color — Text ---------- */
+  --text:            #241f1c;
+  --text-secondary:  #4a4038;
+  --text-muted:      #706456;  /* WCAG AA ≥4.5:1 sobre --bg */
+  --text-disabled:   #b3a591;
+  --text-on-accent:  #fffaf0;
+  --text-on-ink:     #f2e9d8;
+
+  /* ---------- Color — CTA — azul profesional de salud/fisio ---------- */
+  --cta:             #3a5a99;
+  --cta-hover:       #2c4679;
+  --cta-soft:        rgba(58, 90, 153, 0.10);
+  --cta-soft-strong: rgba(58, 90, 153, 0.20);
+
+  /* ---------- Color — Accent — ámbar del rótulo retroiluminado real ---------- */
+  --accent:          #b9852f;
+  --accent-soft:     rgba(185, 133, 47, 0.14);
+  --accent-strong:   #93691f;
+
+  /* ---------- Color — Semantic ---------- */
+  --success: #3f7a52;
+  --warning: #b9852f;
+  --error:   #a8453f;
+  --whatsapp: #25d366;
+
+  /* ---------- Color — Tintes sala de espera (decorativo, servicios) ---------- */
+  --tint-mustard:      #c99a2e;
+  --tint-mustard-soft: rgba(201, 154, 46, 0.14);
+  --tint-rose:         #c98a86;
+  --tint-rose-soft:    rgba(201, 138, 134, 0.14);
+  --tint-forest:       #3f7a52;
+  --tint-forest-soft:  rgba(63, 122, 82, 0.14);
+
+  /* ---------- Typography — Inter único, sin serif ---------- */
+  --font-sans-stack: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display-stack: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-inter);
+
+  --fs-display:   clamp(2.75rem, 7vw, 4.75rem);
+  --fs-h1:        clamp(2.25rem, 5vw, 3.5rem);
+  --fs-h2:        clamp(1.875rem, 3.6vw, 2.75rem);
+  --fs-h3:        clamp(1.375rem, 2.4vw, 1.875rem);
+  --fs-h4:        1.25rem;
+  --fs-body-lead: 1.1875rem;
+  --fs-body:      1.0625rem;
+  --fs-sm:        0.9375rem;
+  --fs-xs:        0.8125rem;
+  --fs-mono-md:   0.75rem;
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  --lh-display:  1.08;
+  --lh-tight:    1.12;
+  --lh-heading:  1.2;
+  --lh-body:     1.62;
+  --lh-lead:     1.5;
+
+  --tr-tight:    -0.01em;
+  --tr-display:  -0.015em;
+  --tr-kicker:   0.16em;
+
+  /* ---------- Spacing & sizing ---------- */
+  --gutter:        clamp(1.25rem, 4vw, 2.5rem);
+  --container-max: 1180px;
+  --container-narrow: 780px;
+  --section-py:    clamp(4.5rem, 9vw, 7rem);
+  --section-py-sm: clamp(2.75rem, 5.5vw, 4rem);
+
+  /* ---------- Radii — más redondeado, boutique/spa ---------- */
+  --r-xs:  6px;
+  --r-sm:  10px;
+  --r-md:  16px;
+  --r-lg:  24px;
+  --r-xl:  36px;
+  --r-pill: 999px;
+
+  /* ---------- Shadows ---------- */
+  --sh-sm:  0 1px 2px rgba(36, 31, 28, 0.06);
+  --sh-md:  0 8px 24px rgba(36, 31, 28, 0.10);
+  --sh-lg:  0 20px 48px rgba(36, 31, 28, 0.14);
+  --sh-card-hover: 0 22px 40px rgba(36, 31, 28, 0.16);
+  /* Anillo sólido (no alpha): un rgba(cta,0.35) no llega a 3:1 sobre --bg/--surface (WCAG 2.4.11) */
+  --sh-focus: 0 0 0 2px var(--surface), 0 0 0 4px var(--cta);
+
+  /* ---------- Motion ---------- */
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 480ms;
+  --ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* ---------- Chatbot (plantilla BeeMovement) ---------- */
+  --chatbot-bg:                var(--surface);
+  --chatbot-fg:                var(--text);
+  --chatbot-muted:             var(--text-muted);
+  --chatbot-accent:            var(--cta);
+  --chatbot-accent-fg:         var(--text-on-accent);
+  --chatbot-border:            var(--border);
+  --chatbot-bubble-user:       var(--cta);
+  --chatbot-bubble-user-fg:    var(--text-on-accent);
+  --chatbot-bubble-assistant:  var(--surface-subtle);
+  --chatbot-bubble-assistant-fg: var(--text);
+  --chatbot-radius:            var(--r-lg);
+  --chatbot-radius-bubble:     var(--r-md);
+  --chatbot-font:              var(--font-sans-stack);
+  --chatbot-shadow:            0 20px 48px rgba(36, 31, 28, 0.16);
+}

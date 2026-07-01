@@ -12,6 +12,7 @@
 @import "../../../packages/tokens/demos-tandem.css";
 @import "../../../packages/tokens/demos-expedicion.css";
 @import "../../../packages/tokens/demos-gestoria.css";
+@import "../../../packages/tokens/demos-beemovement.css";
 
 @theme inline {
   --font-sans: var(--font-dm-sans);

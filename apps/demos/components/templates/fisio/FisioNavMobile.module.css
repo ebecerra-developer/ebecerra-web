@@ -114,6 +114,9 @@
 }
 
 .drawerBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-display-stack);
   font-size: 1.125rem;
   font-weight: var(--fw-semibold);
@@ -174,6 +177,29 @@
 .footer {
   padding: 1.25rem;
   border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  background: #25d366;
+  color: #0b3d24;
+  padding: 0.9rem 1.5rem;
+  border-radius: var(--r-pill);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body);
+  text-decoration: none;
+}
+
+.secondaryCta:hover {
+  text-decoration: none;
+  filter: brightness(1.05);
 }
 
 .cta {

@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import styles from "./FisioNavMobile.module.css";
 
 type Item = { href: string; label: string };
 
 type Props = {
-  brand: string;
+  brand: ReactNode;
   items: Item[];
   ctaLabel: string;
   ctaHref?: string;
@@ -21,6 +21,9 @@ type Props = {
    * heredar los tokens correctos (paleta, tipografía).
    */
   templateScope?: string;
+  /** Acción secundaria opcional en el footer del drawer (ej. WhatsApp). */
+  secondaryHref?: string;
+  secondaryLabel?: string;
 };
 
 export default function FisioNavMobile({
@@ -32,6 +35,8 @@ export default function FisioNavMobile({
   ariaClose,
   ariaPrimaryNav,
   templateScope = "fisio",
+  secondaryHref,
+  secondaryLabel,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -153,6 +158,17 @@ export default function FisioNavMobile({
           >
             {ctaLabel}
           </a>
+          {secondaryHref && secondaryLabel && (
+            <a
+              href={secondaryHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.secondaryCta}
+              onClick={() => setOpen(false)}
+            >
+              {secondaryLabel}
+            </a>
+          )}
         </div>
       </aside>
     </div>

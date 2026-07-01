@@ -1,0 +1,192 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  /* Sólido, no translúcido: backdrop-filter + position:sticky provoca
+     artefactos de repintado (elementos "borrosos" al hacer scroll) en
+     Chromium. Un fondo sólido evita el bug de raíz. */
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 1rem var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: var(--fw-bold);
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: var(--tr-tight);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.brand:hover {
+  color: var(--cta);
+  text-decoration: none;
+}
+
+.brandMark {
+  height: 22px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brandLogo {
+  height: 36px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.desktopNav {
+  min-width: 0;
+  display: none;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 1024px) {
+  .menu {
+    gap: 1.375rem;
+  }
+}
+
+.menu a {
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+}
+
+.menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: var(--cta);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.menu a:hover {
+  color: var(--text);
+}
+
+.menu a:hover::after {
+  transform: scaleX(1);
+}
+
+.linkActive {
+  color: var(--text) !important;
+}
+
+.linkActive::after {
+  transform: scaleX(1) !important;
+}
+
+.navWhatsapp {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  background: var(--whatsapp);
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.navWhatsapp:hover {
+  transform: scale(1.08);
+  color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .navWhatsapp {
+    display: inline-flex;
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* El hamburguesa compartido (FisioNavMobile) se oculta a partir de 768px con
+   un breakpoint fijo, pero los 6 links + marca no caben bien hasta 1024px.
+   En vez de dejar un modo intermedio a medias (links sin CTA), forzamos un
+   único modo "hamburguesa" de 0 a 1023px y desktop completo desde 1024px. */
+.right button[aria-controls="fisio-mobile-drawer"] {
+  display: inline-grid !important;
+}
+
+@media (min-width: 1024px) {
+  .right button[aria-controls="fisio-mobile-drawer"] {
+    display: none !important;
+  }
+}
+
+.cta {
+  display: none;
+  align-items: center;
+  background: var(--cta);
+  color: var(--text-on-accent);
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--r-pill);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+  border: 1.5px solid var(--cta);
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--cta-hover);
+  border-color: var(--cta-hover);
+  color: var(--text-on-accent);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+@media (min-width: 1024px) {
+  .desktopNav {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cta {
+    display: inline-flex;
+  }
+}

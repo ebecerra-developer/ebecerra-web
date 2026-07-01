@@ -56,6 +56,7 @@ export default defineType({
           { title: "Agencia marketing (tándem)", value: "tandem" },
           { title: "Aventura inmersiva (expedición)", value: "expedicion" },
           { title: "Gestoría / asesoría", value: "gestoria" },
+          { title: "Fisioterapia boutique (privada, marca real)", value: "beemovement" },
         ],
         layout: "radio",
       },
@@ -369,6 +370,14 @@ export default defineType({
             defineField({
               name: "photo",
               title: "Foto",
+              type: "image",
+              options: { hotspot: true },
+            }),
+            defineField({
+              name: "hoverPhoto",
+              title: "Foto al pasar el ratón (opcional)",
+              description:
+                "Si se rellena, la foto principal cambia a esta al hacer hover/tap — un segundo momento más cercano o desenfadado.",
               type: "image",
               options: { hotspot: true },
             }),

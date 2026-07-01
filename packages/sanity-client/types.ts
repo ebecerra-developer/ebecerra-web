@@ -660,7 +660,8 @@ export type DemoTemplate =
   | "coach-vibrant"
   | "tandem"
   | "expedicion"
-  | "gestoria";
+  | "gestoria"
+  | "beemovement";
 
 export type DemoCta = {
   label: string | null;
@@ -709,6 +710,7 @@ export type DemoTeamMember = {
   role: string | null;
   bio: string | null;
   photo: SanityImage | null;
+  hoverPhoto: SanityImage | null;
 };
 
 export type DemoTestimonial = {

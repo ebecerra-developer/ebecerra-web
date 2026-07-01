@@ -2470,7 +2470,8 @@ const demoSiteProjection = `{
     name,
     "role": ${loc("role")},
     "bio": ${loc("bio")},
-    photo
+    photo,
+    hoverPhoto
   },
   "testimonialsSection": testimonialsSection {
     "kicker": ${loc("kicker")},

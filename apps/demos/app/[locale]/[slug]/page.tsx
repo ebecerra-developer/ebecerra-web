@@ -10,6 +10,7 @@ import VibrantTemplate from "@/components/templates/coach-vibrant/VibrantTemplat
 import TandemTemplate from "@/components/templates/tandem/TandemTemplate";
 import ExpedicionTemplate from "@/components/templates/expedicion/ExpedicionTemplate";
 import GestoriaTemplate from "@/components/templates/gestoria/GestoriaTemplate";
+import BeeMovementTemplate from "@/components/templates/beemovement/BeeMovementTemplate";
 import DemoBanner from "./DemoBanner";
 
 export const revalidate = 60;
@@ -50,9 +51,9 @@ export default async function DemoPage({
 
   return (
     <>
-      <DemoBanner
-        template={demo.template === "gestoria" ? "gestoria" : undefined}
-      />
+      {demo.template !== "beemovement" && (
+        <DemoBanner template={demo.template === "gestoria" ? "gestoria" : undefined} />
+      )}
       {demo.template === "fisio" ? (
         <FisioTemplate demo={demo} locale={locale as Locale} />
       ) : demo.template === "coach-editorial" ? (
@@ -65,6 +66,8 @@ export default async function DemoPage({
         <ExpedicionTemplate demo={demo} locale={locale as Locale} />
       ) : demo.template === "gestoria" ? (
         <GestoriaTemplate demo={demo} locale={locale as Locale} />
+      ) : demo.template === "beemovement" ? (
+        <BeeMovementTemplate demo={demo} locale={locale as Locale} />
       ) : (
         <main id="main" style={{ padding: "4rem 1.5rem", textAlign: "center" }}>
           <p>
