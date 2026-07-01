@@ -1,6 +1,6 @@
 # Post: ¿Tu negocio ya tiene página web?
 
-Fecha objetivo: 1 jul 2026 (backup si no se sube el carrusel) · 1 imagen 1080×1350
+Fecha objetivo: 2 jul 2026 · 1 imagen 1080×1350
 
 ## Caption IG
 

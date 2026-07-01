@@ -92,23 +92,24 @@
       position: absolute;
       left: -30px;
       top: 30px;
-      width: 920px;
-      height: 613px; /* 920 × (1024/1536) */
+      width: 820px;
+      height: 547px; /* 820 × (1024/1536) */
       z-index: 8;
-      transform: perspective(900px) rotateY(-25deg);
-      transform-origin: 35% 50%;
+      transform: perspective(900px) rotateY(25deg);
+      transform-origin: 65% 50%;
     }
 
     /* Área de pantalla: coordenadas medidas pixel a pixel del recorte (248-1283 × 172-646)
-       a la escala del monitor en CSS (factor = 920/1536 = 0.5990) */
+       a la escala del monitor en CSS (factor = 820/1536 = 0.5339) */
     .monitor-screen {
       position: absolute;
-      left: 149px;   /* 248 × 0.5990 */
-      top:  103px;   /* 172 × 0.5990 */
-      width: 622px;  /* 1035 × 0.5990 */
-      height: 282px; /* 474 × 0.5990 */
+      left: 132px;   /* 248 × 0.5339 */
+      top:  92px;    /* 172 × 0.5339 */
+      width: 552px;  /* 1035 × 0.5339 */
+      height: 253px; /* 474 × 0.5339 */
       overflow: hidden;
       border-radius: 1px;
+      border: 4px solid #252525;
       z-index: 1;
       background: #0a0e1a; /* fallback si la img tarda */
     }
@@ -149,7 +150,7 @@
     /* ── TEXTO DIAGONAL ── */
     .diag {
       position: absolute;
-      top: 52%;
+      top: 51%;
       left: 50%;
       transform: translate(-50%, -50%) rotate(-12deg);
       width: max-content; /* evita que el browser parta "PÁGINA WEB?" en dos líneas */
@@ -162,7 +163,7 @@
     .diag__l1,
     .diag__l3 {
       display: block;
-      font-size: 122px;
+      font-size: 110px;
       font-weight: 900;
       letter-spacing: -.03em;
       text-transform: uppercase;
@@ -173,7 +174,7 @@
     /* Línea 2 verde — espacio extra abajo para que Á de "PÁGINA" no choque con "YA TIENE" */
     .diag__l2 {
       display: block;
-      font-size: 122px;
+      font-size: 110px;
       font-weight: 900;
       letter-spacing: .10em;
       text-transform: uppercase;
@@ -214,7 +215,7 @@
       gap: 12px;
       font-size: 20px;
       font-weight: 600;
-      color: rgba(250, 246, 238, 0.55);
+      color: rgba(250, 246, 238, 0.72);
       z-index: 11;
     }
 
@@ -244,7 +245,7 @@
     <div class="bg__grad"></div>
   </div>
 
-  <!-- Monitor: demo Vega Gestión visible en la pantalla -->
+  <!-- Monitor: demo Equilibrio Fisioterapia visible en la pantalla -->
   <div class="monitor-wrap">
     <div class="monitor-screen">
       <img src="equilibrio-screenshot.png" alt="" />
