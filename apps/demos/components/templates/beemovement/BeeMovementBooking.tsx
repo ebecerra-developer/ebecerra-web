@@ -39,6 +39,7 @@ export default function BeeMovementBooking() {
               tenantKey={tenantKey}
               locale="es"
               accentColor="var(--cta)"
+              hideDurationAndPrice
             />
           ) : (
             <p className={styles.note}>

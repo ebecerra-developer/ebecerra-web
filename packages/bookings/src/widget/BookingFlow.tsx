@@ -44,6 +44,12 @@ export interface BookingFlowProps {
   };
   /** Callback tras reagendar OK. */
   onRescheduled?: (newBookingId: string, newManageToken: string) => void;
+  /**
+   * Oculta duración y precio en la lista de servicios y en el resumen del
+   * paso de contacto. Pensado para demos que reutilizan el catálogo de otro
+   * tenant y no quieren mostrar cifras que no son propias.
+   */
+  hideDurationAndPrice?: boolean;
 }
 
 type Step = 1 | 2 | 3 | 4 | "success";
@@ -296,6 +302,7 @@ export function BookingFlow(props: BookingFlowProps) {
           services={catalog.services}
           locale={locale}
           strings={strings}
+          hideDurationAndPrice={props.hideDurationAndPrice}
           onSelect={(service) => dispatch({ type: "select-service", service })}
         />
       )}
@@ -351,6 +358,7 @@ export function BookingFlow(props: BookingFlowProps) {
           locale={locale}
           strings={strings}
           api={api}
+          hideDurationAndPrice={props.hideDurationAndPrice}
           onError={(error) => dispatch({ type: "set-error", error })}
           onSuccess={() => dispatch({ type: "success" })}
         />
@@ -378,11 +386,13 @@ function Step1Services({
   services,
   locale,
   strings,
+  hideDurationAndPrice,
   onSelect,
 }: {
   services: WidgetService[];
   locale: "es" | "en";
   strings: WidgetStrings;
+  hideDurationAndPrice?: boolean;
   onSelect: (s: WidgetService) => void;
 }) {
   if (services.length === 0) return <p>{strings.step1Empty}</p>;
@@ -401,16 +411,18 @@ function Step1Services({
               {pickLocaleString(s.description, locale)}
             </p>
           )}
-          <div className={css.serviceMeta}>
-            <span>
-              {s.duration_min} {strings.durationMin}
-            </span>
-            {typeof s.price_cents === "number" && (
-              <span className={css.servicePrice}>
-                {formatPrice(s.price_cents, s.currency, locale)}
+          {!hideDurationAndPrice && (
+            <div className={css.serviceMeta}>
+              <span>
+                {s.duration_min} {strings.durationMin}
               </span>
-            )}
-          </div>
+              {typeof s.price_cents === "number" && (
+                <span className={css.servicePrice}>
+                  {formatPrice(s.price_cents, s.currency, locale)}
+                </span>
+              )}
+            </div>
+          )}
         </button>
       ))}
     </div>
@@ -622,6 +634,7 @@ function Step4Contact({
   locale,
   strings,
   api,
+  hideDurationAndPrice,
   onError,
   onSuccess,
 }: {
@@ -631,6 +644,7 @@ function Step4Contact({
   locale: "es" | "en";
   strings: WidgetStrings;
   api: BookingApiClient;
+  hideDurationAndPrice?: boolean;
   onError: (msg: string | null) => void;
   onSuccess: () => void;
 }) {
@@ -684,8 +698,9 @@ function Step4Contact({
         </p>
         <p style={{ margin: "0.3rem 0 0" }}>
           <strong>{strings.step1Title}:</strong>{" "}
-          {pickLocaleString(service.name, locale)} ({service.duration_min}{" "}
-          {strings.durationMin})
+          {pickLocaleString(service.name, locale)}
+          {!hideDurationAndPrice &&
+            ` (${service.duration_min} ${strings.durationMin})`}
         </p>
       </div>
 
