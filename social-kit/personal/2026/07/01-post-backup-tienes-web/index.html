@@ -21,14 +21,14 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── FONDO: dos imágenes superpuestas ── */
+    /* ── FONDO ── */
     .bg {
       position: absolute;
       inset: 0;
       z-index: 0;
     }
 
-    /* Capa base: bokeh verde abstracto */
+    /* Bokeh verde abstracto — capa base */
     .bg__bokeh {
       position: absolute;
       inset: 0;
@@ -36,85 +36,98 @@
       height: 100%;
       object-fit: cover;
       object-position: center center;
-      opacity: 0.50;
+      opacity: 0.40;
       mix-blend-mode: screen;
     }
 
-    /* Capa encima: portátil con reflejos, arriba-derecha */
-    .bg__laptop {
+    /* Monitor flat-design con fondo blanco — máscara elíptica funde
+       los bordes blancos con el fondo oscuro, sin efecto "pegote" */
+    .bg__monitor {
       position: absolute;
-      right: -60px;
-      top: -20px;
+      right: -80px;
+      top: 70px;
       width: 820px;
-      opacity: 0.78;
-      mix-blend-mode: luminosity;
+      opacity: 0.92;
+      z-index: 6; /* encima del grad para que este no lo tape */
+      mask-image: radial-gradient(ellipse 76% 80% at 52% 48%,
+        black 28%,
+        rgba(0,0,0,0.78) 50%,
+        rgba(0,0,0,0.28) 66%,
+        transparent 82%
+      );
+      -webkit-mask-image: radial-gradient(ellipse 76% 80% at 52% 48%,
+        black 28%,
+        rgba(0,0,0,0.78) 50%,
+        rgba(0,0,0,0.28) 66%,
+        transparent 82%
+      );
     }
 
-    /* Glow verde corporativo (derecha) */
+    /* Glow verde corporativo — tapa parcialmente el monitor para integrarlo */
     .bg__glow {
       position: absolute;
-      right: -120px;
-      top: 40px;
-      width: 800px;
-      height: 800px;
+      right: -80px;
+      top: 60px;
+      width: 720px;
+      height: 720px;
       border-radius: 50%;
       background: radial-gradient(circle,
-        rgba(4, 120, 87, 0.58) 0%,
-        rgba(4, 120, 87, 0.20) 40%,
+        rgba(4, 120, 87, 0.35) 0%,
+        rgba(4, 120, 87, 0.12) 40%,
         transparent 70%
       );
-      z-index: 2;
+      z-index: 7; /* encima del monitor para el tinte verde */
     }
 
-    /* Glow secundario (izquierda inferior) */
+    /* Glow izquierda inferior */
     .bg__glow2 {
       position: absolute;
-      left: -180px;
-      bottom: 180px;
-      width: 580px;
-      height: 580px;
+      left: -160px;
+      bottom: 160px;
+      width: 540px;
+      height: 540px;
       border-radius: 50%;
       background: radial-gradient(circle,
-        rgba(110, 231, 183, 0.14) 0%,
+        rgba(110, 231, 183, 0.12) 0%,
         transparent 65%
       );
-      z-index: 2;
+      z-index: 3;
     }
 
-    /* Glow terciario (derecha inferior — profundidad) */
+    /* Glow derecha inferior */
     .bg__glow3 {
       position: absolute;
-      right: -100px;
-      bottom: -80px;
-      width: 500px;
-      height: 500px;
+      right: -80px;
+      bottom: -60px;
+      width: 480px;
+      height: 480px;
       border-radius: 50%;
       background: radial-gradient(circle,
-        rgba(4, 120, 87, 0.22) 0%,
+        rgba(4, 120, 87, 0.18) 0%,
         transparent 65%
       );
-      z-index: 2;
+      z-index: 3;
     }
 
-    /* Gradiente oscuro para legibilidad */
+    /* Gradiente oscuro — legibilidad del texto */
     .bg__grad {
       position: absolute;
       inset: 0;
-      z-index: 3;
+      z-index: 4;
       background:
         linear-gradient(to bottom,
-          rgba(7, 14, 9, 0.72)  0%,
-          rgba(7, 14, 9, 0.15) 25%,
-          rgba(7, 14, 9, 0.00) 45%,
-          rgba(7, 14, 9, 0.10) 62%,
-          rgba(7, 14, 9, 0.88) 84%,
+          rgba(7, 14, 9, 0.80)  0%,
+          rgba(7, 14, 9, 0.20) 22%,
+          rgba(7, 14, 9, 0.00) 42%,
+          rgba(7, 14, 9, 0.08) 60%,
+          rgba(7, 14, 9, 0.85) 82%,
           rgba(7, 14, 9, 0.98) 100%
         ),
         linear-gradient(to right,
-          rgba(7, 14, 9, 0.55) 0%,
-          rgba(7, 14, 9, 0.00) 32%,
-          rgba(7, 14, 9, 0.00) 68%,
-          rgba(7, 14, 9, 0.42) 100%
+          rgba(7, 14, 9, 0.65) 0%,
+          rgba(7, 14, 9, 0.00) 35%,
+          rgba(7, 14, 9, 0.00) 65%,
+          rgba(7, 14, 9, 0.35) 100%
         );
     }
 
@@ -123,51 +136,55 @@
       content: '';
       position: absolute;
       inset: 0;
-      z-index: 4;
+      z-index: 5;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.038;
+      opacity: 0.035;
       pointer-events: none;
     }
 
-    /* ── TEXTO DIAGONAL ── */
+    /* ── TEXTO DIAGONAL — 3 líneas que caben dentro del frame ── */
     .diag {
       position: absolute;
-      top: 46%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) rotate(-12deg);
-      white-space: nowrap;
       text-align: center;
       z-index: 10;
       pointer-events: none;
-      line-height: 1.02;
+      white-space: nowrap;
     }
 
-    .diag__l1 {
+    /* Línea 1 y 3: crema */
+    .diag__l1,
+    .diag__l3 {
       display: block;
-      font-size: 106px;
+      font-size: 128px;
       font-weight: 900;
-      letter-spacing: -.04em;
+      letter-spacing: -.03em;
       text-transform: uppercase;
       color: var(--cream);
+      line-height: 0.98;
     }
 
+    /* Línea 2: verde claro — acento, letter-spacing algo más abierto para equilibrar */
     .diag__l2 {
       display: block;
-      font-size: 106px;
+      font-size: 128px;
       font-weight: 900;
-      letter-spacing: -.04em;
+      letter-spacing: .10em;
       text-transform: uppercase;
       color: var(--green-light);
+      line-height: 0.98;
     }
 
     /* ── ZONA INFERIOR ── */
     .hook {
       position: absolute;
-      bottom: 162px;
+      bottom: 250px;
       left: 88px;
       right: 88px;
       z-index: 10;
-      font-size: 30px;
+      font-size: 34px;
       font-weight: 700;
       color: var(--cream);
       line-height: 1.3;
@@ -175,7 +192,7 @@
 
     .cta {
       position: absolute;
-      bottom: 110px;
+      bottom: 196px;
       left: 88px;
       z-index: 10;
       font-size: 24px;
@@ -186,7 +203,7 @@
     /* ── FIRMA abajo-izquierda ── */
     .brand-mark {
       position: absolute;
-      bottom: 48px;
+      bottom: 120px;
       left: 88px;
       display: flex;
       align-items: center;
@@ -216,18 +233,21 @@
 
   <!-- Fondo -->
   <div class="bg">
-    <img class="bg__bokeh"  src="https://cdn.sanity.io/images/gdtxcn4l/production/33ba5ceb42fa23c567e32be276ae3ea39222d8df-1408x768.jpg" alt="" />
-    <img class="bg__laptop" src="https://cdn.sanity.io/images/gdtxcn4l/production/c137dec8dc3b7eafe4b77ce79b5b1a94a80d9552-1408x768.jpg" alt="" />
+    <img class="bg__bokeh"
+      src="https://cdn.sanity.io/images/gdtxcn4l/production/33ba5ceb42fa23c567e32be276ae3ea39222d8df-1408x768.jpg"
+      alt="" />
+    <img class="bg__monitor" src="https://cdn.sanity.io/images/gdtxcn4l/production/0b3278c78c89e5a7713f7ea7adaf98fad08b1adc-1408x768.jpg" alt="" />
     <div class="bg__glow"></div>
     <div class="bg__glow2"></div>
     <div class="bg__glow3"></div>
     <div class="bg__grad"></div>
   </div>
 
-  <!-- Texto diagonal principal -->
+  <!-- Texto diagonal: 3 líneas que caben dentro del frame -->
   <div class="diag">
-    <span class="diag__l1">¿Tu negocio ya tiene</span>
-    <span class="diag__l2">página web?</span>
+    <span class="diag__l1">¿Tu negocio</span>
+    <span class="diag__l2">ya tiene</span>
+    <span class="diag__l3">página web?</span>
   </div>
 
   <!-- Hook y CTA -->
