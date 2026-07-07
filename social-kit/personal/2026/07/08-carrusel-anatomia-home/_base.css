@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+/* Carrusel "Anatomía de una home que convierte" · 8 slides 1080×1350 (4:5)
+   Despiece anotado de una demo real (Equilibrio). Inter + acento verde.
+   Portada/cierre verdes; pasos crema con marco de navegador + anotación a mano. */
+
+:root {
+  --green: #047857;
+  --green-light: #6EE7B7;
+  --cream: #FAF6EE;
+  --ink: #1f1810;
+  --muted: #5b5247;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1350px; overflow: hidden; }
+body { font-family: "Inter", "Segoe UI Symbol", system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+.slide {
+  position: relative;
+  width: 1080px; height: 1350px;
+  padding: 88px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.slide--green { background: radial-gradient(125% 100% at 26% 18%, #058a63 0%, #047857 50%, #02583c 100%); color: var(--cream); }
+.slide--cream { background: var(--cream); color: var(--ink); }
+.slide::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 30; }
+.slide--cream::after { opacity: 0.10; mix-blend-mode: multiply; background-image: radial-gradient(rgba(0,0,0,0.5) 1px, transparent 1px); background-size: 3px 3px; }
+.slide--green::after { opacity: 0.06; mix-blend-mode: multiply; background-image: radial-gradient(rgba(0,0,0,0.6) 1px, transparent 1px); background-size: 4px 4px; }
+
+em { font-style: normal; }
+.slide--cream em { color: var(--green); }
+.slide--green em { color: var(--green-light); }
+
+/* Número de página */
+.page-num { position: absolute; top: 96px; right: 88px; font-size: 20px; font-weight: 700; opacity: 0.42; letter-spacing: 0.06em; z-index: 20; }
+
+/* Marca abajo izquierda */
+.brand-mark { position: absolute; bottom: 64px; left: 88px; display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 700; z-index: 20; }
+.brand-mark__dot { width: 42px; height: 42px; border-radius: 50%; background: var(--green); color: var(--cream); display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 19px; }
+.slide--green .brand-mark { color: var(--cream); }
+.slide--green .brand-mark__dot { background: var(--cream); color: var(--green); }
+
+/* Portada / cierre */
+.center { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.kick { font-size: 27px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 34px; }
+.slide--green .kick { color: var(--green-light); }
+.slide--cream .kick { color: var(--green); }
+.big { font-size: 84px; font-weight: 900; line-height: 1.02; letter-spacing: -0.04em; }
+.lead { margin-top: 36px; font-size: 40px; font-weight: 600; }
+.slide--green .lead { color: rgba(250,246,238,0.85); }
+.slide--cream .lead { color: var(--muted); }
+.close__pill { margin-top: 44px; display: inline-block; background: var(--cream); color: var(--green); font-size: 38px; font-weight: 800; padding: 18px 44px; border-radius: 999px; }
+.slide--green .close__pill { background: var(--cream); color: var(--green); }
+
+/* ── Paso: marco de navegador + anotación + texto ── */
+.anat { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 46px; }
+
+.frame { position: relative; width: 904px; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 26px 60px -26px rgba(31,24,16,.5); border: 1px solid rgba(31,24,16,.08); }
+.bar { height: 58px; background: #ece6da; display: flex; align-items: center; gap: 11px; padding: 0 22px; }
+.bar span { width: 15px; height: 15px; border-radius: 50%; background: #c8bfae; }
+.bar span:nth-child(1){ background:#e6857a; } .bar span:nth-child(2){ background:#e6c07a; } .bar span:nth-child(3){ background:#8fc79b; }
+.bar i { margin-left: 16px; flex: 1; height: 34px; border-radius: 999px; background: #fbf8f2; display: flex; align-items: center; padding: 0 20px; font-style: normal; font-size: 20px; color: #9a8f7d; font-weight: 500; }
+.shot { position: relative; width: 904px; height: 536px; overflow: hidden; background: #efe9dd; }
+.shot img { position: absolute; width: 904px; height: auto; left: 0; top: 0; display: block; }
+
+/* anotación a mano (verde) sobre el marco */
+.mark { position: absolute; pointer-events: none; overflow: visible; z-index: 5; }
+.mark path { fill: none; stroke: var(--green); stroke-width: 7; stroke-linecap: round; }
+.tagnote { position: absolute; z-index: 6; background: var(--green); color: var(--cream); font-weight: 800; font-size: 25px; padding: 8px 18px; border-radius: 12px; white-space: nowrap; box-shadow: 0 10px 22px -10px rgba(2,40,26,.6); }
+
+/* texto del paso */
+.step__tag { display: inline-flex; align-items: center; gap: 16px; font-size: 22px; font-weight: 800; letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 22px; color: var(--green); }
+.step__num { width: 52px; height: 52px; border-radius: 50%; background: var(--green); color: var(--cream); display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 24px; flex-shrink: 0; }
+.step__label { color: rgba(31,24,16,.5); }
+.step__title { font-size: 62px; font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; }
+.step__body { margin-top: 16px; font-size: 32px; font-weight: 500; line-height: 1.4; color: var(--muted); }
+
+/* slide móvil: mockup de teléfono */
+.phonewrap { flex: 1; display: flex; align-items: center; gap: 60px; }
+.phone { position: relative; width: 340px; height: 720px; border-radius: 46px; background: #0c0c0c; padding: 12px; flex-shrink: 0; box-shadow: 0 30px 66px -28px rgba(31,24,16,.55); }
+.phone .pscreen { position: relative; width: 316px; height: 696px; border-radius: 36px; overflow: hidden; background: #fff; }
+.phone .pscreen img { position: absolute; top: 0; left: 0; width: 316px; height: auto; display: block; }

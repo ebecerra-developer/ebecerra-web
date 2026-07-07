@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel footer-2019: web de restaurante de ~2019 NO optimizada para móvil — se renderiza
+     a ancho de ESCRITORIO (1040px) y se escala dentro del teléfono, así se ve la versión
+     desktop "encogida" (nav horizontal, todo algo pequeño pero legible), como pasaba de
+     verdad. Auto-scroll → aterriza en el footer © 2019, que se rodea.
+     Chrome de marca en Inter; la web-villano usa Arial/Georgia genéricas (NO marca).
+     Seek-friendly para record-animated.mjs (window.__tl). */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#070e09}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;
+    background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+
+  /* Firma única */
+  .chip{position:absolute;top:54px;left:54px;z-index:120;display:flex;align-items:center;gap:12px;
+    background:rgba(2,40,26,.55);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);
+    display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  /* ── Teléfono con la web-villano dentro ── */
+  .phone{position:absolute;left:150px;top:300px;width:780px;height:1480px;z-index:20;
+    border-radius:54px;background:#0c0c0c;padding:14px;box-shadow:0 40px 90px -30px rgba(2,16,10,.9);opacity:0}
+  .screen{position:relative;width:752px;height:1452px;border-radius:42px;overflow:hidden;background:#fff}
+  .scroller{position:absolute;top:0;left:0;width:752px;will-change:transform}
+  /* la web se maqueta a 1040 (escritorio) y se escala a 752 → "desktop encogido en móvil" */
+  .site{width:1040px;transform-origin:top left;
+    font-family:Arial,Helvetica,sans-serif;color:#333;background:#fbf8f3}
+
+  /* Barra superior (plantilla 2019: logo serif + nav horizontal, sin hamburguesa) */
+  .site .top{height:112px;background:#7a1f1f;display:flex;align-items:center;justify-content:space-between;padding:0 34px;color:#fff}
+  .site .top .brand{font-family:Georgia,'Times New Roman',serif;font-size:42px;font-weight:bold;letter-spacing:.5px}
+  .site .top .brand small{display:block;font-family:Arial,sans-serif;font-size:14px;letter-spacing:4px;color:#e9c98d;font-weight:normal;margin-top:-2px}
+  .site .top .menu{display:flex;gap:26px;font-size:21px}
+  .site .top .menu span{color:#f3e3c9}
+  .site .top .menu span:first-child{color:#fff;border-bottom:2px solid #e9c98d;padding-bottom:3px}
+
+  /* Hero con foto */
+  .site .hero{position:relative;height:760px;overflow:hidden}
+  .site .hero img{width:100%;height:100%;object-fit:cover;display:block}
+  .site .hero .ov{position:absolute;inset:0;background:linear-gradient(rgba(40,10,10,.26),rgba(40,10,10,.6));
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 40px}
+  .site .hero h1{font-family:Georgia,serif;color:#fff;font-size:80px;font-weight:bold;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+  .site .hero .tag{color:#f2e4cc;font-size:32px;font-style:italic;margin-top:12px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+  .site .hero .btn{margin-top:34px;background:#e9c98d;color:#5a1414;font-weight:bold;font-size:24px;letter-spacing:1px;padding:16px 40px;border-radius:2px}
+  .site .hero .dots{position:absolute;bottom:26px;left:0;right:0;display:flex;gap:13px;justify-content:center}
+  .site .hero .dots i{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.55)}
+  .site .hero .dots i:first-child{background:#fff}
+
+  /* Nuestros platos (galería) */
+  .site .platos{padding:56px 40px 64px;text-align:center;background:#fbf8f3}
+  .site .platos h2{font-family:Georgia,serif;font-size:50px;color:#7a1f1f}
+  .site .platos .rule{width:90px;height:3px;background:#e9c98d;margin:20px auto 44px}
+  .site .platos .grid{display:flex;gap:26px}
+  .site .platos .card{flex:1;background:#fff;border:1px solid #ece4d6;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+  .site .platos .card img{width:100%;height:210px;object-fit:cover;display:block}
+  .site .platos .card .b{padding:18px 10px}
+  .site .platos .card .n{font-family:Georgia,serif;font-size:28px;color:#333}
+  .site .platos .card .p{color:#7a1f1f;font-weight:bold;font-size:26px;margin-top:8px}
+
+  /* Novedades (chivato) */
+  .site .nov{position:relative;height:320px;background:#e9c98d;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 50px 90px;border-top:4px solid #d9b46f;border-bottom:4px solid #d9b46f}
+  .site .nov .k{font-size:24px;letter-spacing:4px;color:#7a1f1f;font-weight:bold}
+  .site .nov .t{font-family:Georgia,serif;font-size:52px;color:#5a1414;margin-top:12px;font-style:italic}
+
+  /* Sobre nosotros (texto + foto, dos columnas — no se apila en móvil) */
+  .site .sobre{padding:60px 40px;background:#fff;display:flex;gap:34px;align-items:center}
+  .site .sobre .txt{flex:1.1}
+  .site .sobre h3{font-family:Georgia,serif;font-size:42px;color:#7a1f1f;margin-bottom:20px}
+  .site .sobre p{font-size:24px;line-height:1.65;color:#555}
+  .site .sobre img{flex:.9;width:340px;height:300px;object-fit:cover;border:8px solid #fff;box-shadow:0 8px 20px rgba(0,0,0,.14)}
+
+  /* Horario + social */
+  .site .info{position:relative;background:#f1ece2;padding:52px 40px 56px;text-align:center}
+  .site .info h4{font-family:Georgia,serif;font-size:38px;color:#7a1f1f}
+  .site .info .hr{font-size:25px;color:#555;line-height:1.6;margin-top:18px}
+  .site .info .soc{margin-top:34px;display:flex;gap:20px;justify-content:center;align-items:center}
+  .site .info .soc .lbl{font-size:24px;color:#777}
+  .site .info .soc i{width:60px;height:60px;border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:bold;font-family:Arial,sans-serif;font-size:30px}
+  .site .info .soc .fb{background:#3b5998}
+  .site .info .soc .tw{background:#1da1f2;font-size:27px}
+  .site .info .soc .gp{background:#db4437;font-size:26px}
+
+  /* Footer con © 2019 */
+  .site .foot{background:#2a1010;color:#d8bfa8;padding:44px 40px 190px;text-align:center}
+  .site .foot .links{font-size:21px;color:#a98d78}
+  .site .foot .copyline{margin:22px 0 8px;font-family:Georgia,serif;font-size:46px;color:#fff;font-weight:bold}
+  .site .foot .yearwrap{position:relative;display:inline-block}
+  .site .foot .cn{color:#c9ad97;font-weight:normal}
+  .site .foot .by{font-size:20px;color:#8a6f5c;margin-top:8px;font-style:italic}
+  .ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:330px;height:120px;pointer-events:none;overflow:visible}
+
+  /* Opiniones (2019 amaba los testimonios) */
+  .site .op{padding:56px 40px;background:#fbf8f3;text-align:center}
+  .site .op h2{font-family:Georgia,serif;font-size:46px;color:#7a1f1f}
+  .site .op .rule{width:90px;height:3px;background:#e9c98d;margin:20px auto 40px}
+  .site .op .cards{display:flex;gap:26px}
+  .site .op .rev{flex:1;background:#fff;border:1px solid #ece4d6;padding:28px;text-align:left;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+  .site .op .stars{color:#e6a817;font-size:28px;letter-spacing:3px}
+  .site .op .q{font-size:24px;line-height:1.5;color:#555;font-style:italic;margin:16px 0 20px}
+  .site .op .who{display:flex;align-items:center;gap:14px}
+  .site .op .who .av{width:56px;height:56px;border-radius:50%;background:#7a1f1f;color:#fff;font-family:Arial,sans-serif;font-weight:bold;font-size:26px;display:flex;align-items:center;justify-content:center}
+  .site .op .who .nm{font-size:24px;color:#333;font-weight:bold}
+
+  /* Dónde estamos (mapa "de plantilla") */
+  .site .mapa{position:relative;height:430px;background:#dde5e0;overflow:hidden}
+  .site .mapa .grid2{position:absolute;inset:0;
+    background-image:repeating-linear-gradient(0deg,#ccd6cf 0 3px,transparent 3px 96px),repeating-linear-gradient(90deg,#ccd6cf 0 3px,transparent 3px 128px)}
+  .site .mapa .roadA{position:absolute;left:0;right:0;top:38%;height:26px;background:#eef2ef;transform:rotate(-4deg)}
+  .site .mapa .roadB{position:absolute;top:0;bottom:0;left:60%;width:22px;background:#eef2ef}
+  .site .mapa .pin{position:absolute;left:56%;top:40%;transform:translate(-50%,-100%);font-size:66px;filter:drop-shadow(0 4px 4px rgba(0,0,0,.3))}
+  .site .mapa .addr{position:absolute;left:0;right:0;bottom:0;background:rgba(122,31,31,.94);color:#fff;padding:20px;text-align:center;font-size:26px;font-family:Arial,sans-serif}
+
+  /* ── Captions de marca (lower-third) ── */
+  /* anotaciones a mano DENTRO de la web (hijas de .site → scrollean con ella) */
+  .site .hl{position:relative;display:inline-block}
+  .site .oval{position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);pointer-events:none;overflow:visible}
+  .site .anno{position:absolute;left:50%;transform:translateX(-50%);z-index:6;opacity:0;
+    display:inline-flex;align-items:center;gap:12px;white-space:nowrap;
+    background:rgba(3,24,16,.86);color:var(--cream);
+    font-family:"Inter",sans-serif;font-style:italic;font-weight:600;font-size:44px;line-height:1.15;
+    padding:12px 24px;border-radius:15px}
+  .site .anno em{font-style:normal;color:var(--green-light)}
+  .site .anno .up{font-style:normal;color:var(--green-light);font-weight:800;font-size:50px}
+  #note1{bottom:24px}
+  #note2{position:static;transform:none;display:flex;width:fit-content;margin:22px auto 6px}
+  /* nota del footer: como las otras pero más grande y con borde para resaltar sobre el footer oscuro */
+  #note3{position:static;transform:none;display:flex;width:fit-content;margin:20px auto 2px;
+    font-size:60px;padding:16px 34px;border-radius:19px;border:3px solid rgba(110,231,183,.55);background:rgba(3,20,13,.92)}
+  #note3 .up{font-size:66px}
+
+  /* ── Escena HOOK ── */
+  .hook{position:absolute;inset:0;z-index:110;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:0 96px;background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .hook .k{font-size:30px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:36px}
+  .hook .t{font-size:88px;font-weight:900;line-height:1.06;letter-spacing:-.04em;color:var(--cream)}
+  .hook .t em{font-style:normal;color:var(--green-light)}
+
+  /* ── Escena FINAL (comment-bait) ── */
+  .end{position:absolute;inset:0;z-index:110;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:0 92px;opacity:0;
+    background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .end .k{font-size:30px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:34px}
+  .end .t{font-size:80px;font-weight:900;line-height:1.06;letter-spacing:-.04em;color:var(--cream)}
+  .end .t em{font-style:normal;color:var(--green-light)}
+  .end .sub{margin-top:40px;font-size:44px;font-weight:600;color:rgba(250,246,238,.94);line-height:1.35}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <!-- Teléfono con la web abandonada (restaurante 2019, desktop encogido) -->
+    <div class="phone" id="phone">
+      <div class="screen">
+        <div class="scroller" id="scroller">
+          <div class="site" id="site">
+            <div class="top">
+              <div class="brand">Casa Manolo<small>RESTAURANTE</small></div>
+              <div class="menu"><span>Inicio</span><span>Carta</span><span>Nosotros</span><span>Reservas</span><span>Contacto</span></div>
+            </div>
+
+            <div class="hero">
+              <img src="img/hero.jpg" alt="" />
+              <div class="ov">
+                <h1>Casa Manolo</h1>
+                <div class="tag">Cocina casera desde 1987</div>
+                <div class="btn">VER LA CARTA</div>
+              </div>
+              <div class="dots"><i></i><i></i><i></i></div>
+            </div>
+
+            <div class="platos">
+              <h2>Nuestros platos</h2>
+              <div class="rule"></div>
+              <div class="grid">
+                <div class="card"><img src="img/plato1.jpg" alt="" /><div class="b"><div class="n">Del horno</div><div class="p">12,50 €</div></div></div>
+                <div class="card"><img src="img/plato2.jpg" alt="" /><div class="b"><div class="n">Arroz del día</div><div class="p">14,00 €</div></div></div>
+                <div class="card"><img src="img/plato3.jpg" alt="" /><div class="b"><div class="n">Postre casero</div><div class="p">5,50 €</div></div></div>
+              </div>
+            </div>
+
+            <div class="nov">
+              <div class="k">★ NOVEDADES ★</div>
+              <div class="t">Próximamente, nueva carta</div>
+              <div class="anno" id="note1"><span class="up">↑</span> años después, <em>sigue igual</em></div>
+            </div>
+
+            <div class="sobre">
+              <div class="txt">
+                <h3>Sobre nosotros</h3>
+                <p>Un rincón de cocina tradicional en el corazón del barrio. Producto de mercado y recetas de siempre, como las de casa.</p>
+              </div>
+              <img src="img/ambiente.jpg" alt="" />
+            </div>
+
+            <div class="op">
+              <h2>Opiniones</h2>
+              <div class="rule"></div>
+              <div class="cards">
+                <div class="rev"><div class="stars">★★★★★</div><div class="q">"Como en casa de la abuela. El arroz, espectacular."</div><div class="who"><span class="av">M</span><span class="nm">María G.</span></div></div>
+                <div class="rev"><div class="stars">★★★★★</div><div class="q">"De toda la vida en el barrio. No falla nunca."</div><div class="who"><span class="av">J</span><span class="nm">José L.</span></div></div>
+              </div>
+            </div>
+
+            <div class="mapa">
+              <div class="grid2"></div>
+              <div class="roadA"></div>
+              <div class="roadB"></div>
+              <div class="pin">📍</div>
+              <div class="addr">C/ Mayor, 12 · Madrid · ☎ 91 123 45 67</div>
+            </div>
+
+            <div class="info">
+              <h4>Horario</h4>
+              <div class="hr">Estas Navidades 2019 cerraremos del 24 al 26 de diciembre.<br/>¡Os deseamos felices fiestas!</div>
+              <div class="anno" id="note2"><span class="up">↑</span> aún te desea <em>felices fiestas</em></div>
+              <div class="soc"><span class="lbl">Síguenos:</span><i class="fb">f</i><i class="tw">t</i><i class="gp">g+</i></div>
+            </div>
+
+            <div class="foot">
+              <div class="links">Aviso legal · Política de cookies · Mapa del sitio</div>
+              <div class="copyline">
+                <span class="yearwrap" id="yr">© 2019<svg class="ring" viewBox="0 0 330 120">
+                  <path id="ringPath" d="M165 11 C 285 5, 322 34, 315 58 C 307 92, 225 110, 162 108 C 76 106, 12 90, 16 55 C 20 22, 96 9, 178 13"
+                    fill="none" stroke="#6EE7B7" stroke-width="7" stroke-linecap="round"/>
+                </svg></span><span class="cn"> · Casa Manolo</span>
+              </div>
+              <div class="anno" id="note3"><span class="up">↑</span> este año <em>te delata</em></div>
+              <div class="by">Diseño web: mi sobrino</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hook -->
+    <div class="hook" id="hook">
+      <div class="k">un detalle delata tu web</div>
+      <div class="t">Hay un número<br/>que la <em>delata</em>.</div>
+    </div>
+
+    <!-- Final -->
+    <div class="end" id="end">
+      <div class="k">¿y la tuya?</div>
+      <div class="t">¿Qué año pone<br/>en el footer<br/>de <em>tu web</em>?</div>
+      <div class="sub">Míralo ahora.<br/>Te leo en comentarios 👇</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl; window.__startAnim = () => tl.play(0);
+
+    // la web se maqueta a 1040 y se escala a 752 (desktop encogido en móvil)
+    const site = document.querySelector("#site");
+    const DW = 1040, SCALE = 752 / DW;
+    site.style.transform = `scale(${SCALE})`;
+    const screenH = 1452;
+    const range = Math.max(site.offsetHeight * SCALE - screenH, 0);
+
+    // anillo hand-drawn: preparar trazo para "dibujarse"
+    const ring = document.querySelector("#ringPath");
+    const LEN = ring.getTotalLength();
+    gsap.set(ring, { strokeDasharray: LEN, strokeDashoffset: LEN });
+
+    gsap.set("#hook", { opacity: 1, scale: 1.05 });
+    gsap.set("#phone", { opacity: 0, scale: 0.96, y: 30 });
+    gsap.set("#scroller", { y: 0 });
+    gsap.set("#end", { opacity: 0, scale: 0.94 });
+
+    // ── Hook (0 → 2.4) ──
+    tl.to("#hook", { scale: 1, duration: 0.9 }, 0);
+    tl.to("#hook", { opacity: 0, scale: 0.98, duration: 0.5, ...OUT }, 2.0);
+
+    // ── Entra el teléfono (2.1) ──
+    tl.to("#phone", { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "power3.out" }, 2.1);
+
+    // ── Auto-scroll de la web (2.9 → 10.3, 7.4s — un poco más ágil) ──
+    tl.fromTo("#scroller", { y: 0 }, { y: -range, duration: 7.4, ease: "power1.inOut" }, 2.9);
+
+    // ── Notas a mano dentro de la web (el círculo se reserva para el footer © 2019) ──
+    function anno(noteSel, t) {
+      tl.fromTo(noteSel, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, t);
+    }
+    anno("#note1", 4.6);   // novedades / próximamente
+    anno("#note2", 7.4);   // horario navidad 2019
+
+    // ── Se limpian las notas previas antes del clímax del footer ──
+    tl.to(["#note1", "#note2"], { opacity: 0, duration: 0.4, ...OUT }, 10.2);
+
+    // ── Aterrizaje en el footer: se dibuja el anillo sobre © 2019 (10.5 → 11.5) + nota grande ──
+    tl.to(ring, { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 10.5);
+    tl.fromTo("#yr", { scale: 1 }, { scale: 1.05, duration: 0.5, transformOrigin: "50% 50%", yoyo: true, repeat: 1 }, 10.7);
+    tl.fromTo("#note3", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 11.35);
+
+    // ── Salida hacia la escena final (con hold en el footer para leer la nota) ──
+    tl.to("#phone", { opacity: 0, scale: 0.97, duration: 0.5, ...OUT }, 13.5);
+    tl.to("#end", { opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 13.8);
+  </script>
+</body>
+</html>

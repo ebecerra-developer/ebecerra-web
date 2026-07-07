@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel boceto→web: una MISMA composición (header + hero) evoluciona en 4 capas
+     apiladas que se cruza-funden: boceto a mano → wireframe → diseño → web real
+     (captura de Equilibrio). Satisfying transformation. Seek-friendly (window.__tl). */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#1f1810;--arcilla:#c2703d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .chip{position:absolute;top:54px;left:54px;z-index:120;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.55);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  /* etiqueta de etapa */
+  .steplabel{position:absolute;left:0;right:0;top:430px;z-index:60;text-align:center}
+  .steplabel .s{display:inline-flex;align-items:center;gap:16px;background:rgba(2,32,21,.6);padding:14px 30px;border-radius:999px;font-weight:800;font-size:38px;color:var(--cream);letter-spacing:-.01em}
+  .steplabel .n{color:var(--green-light);font-weight:900}
+
+  /* navegador */
+  .browser{position:absolute;left:70px;top:600px;width:940px;z-index:40;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 40px 90px -34px rgba(2,16,10,.9);opacity:0}
+  .bbar{height:58px;background:#ece6da;display:flex;align-items:center;gap:11px;padding:0 22px}
+  .bbar span{width:15px;height:15px;border-radius:50%;background:#c8bfae}
+  .bbar span:nth-child(1){background:#e6857a}.bbar span:nth-child(2){background:#e6c07a}.bbar span:nth-child(3){background:#8fc79b}
+  .bbar i{margin-left:16px;flex:1;height:34px;border-radius:999px;background:#fbf8f2;display:flex;align-items:center;padding:0 20px;font-style:normal;font-size:20px;color:#9a8f7d;font-weight:600}
+  .screen{position:relative;width:940px;height:562px;overflow:hidden;background:#fff}
+  .layer{position:absolute;inset:0;opacity:0}
+
+  /* zonas comunes de la composición (header + hero left/right) */
+  .lyr-head{position:absolute;left:0;right:0;top:0;height:74px}
+  .lyr-hero{position:absolute;left:0;right:0;top:74px;bottom:0}
+  .heroL{position:absolute;left:40px;top:70px;width:470px}
+  .heroR{position:absolute;left:540px;top:0;right:0;bottom:0}
+
+  /* CAPA 1 · BOCETO (papel + trazo a mano) */
+  .l1{background:#f7f3ea}
+  .l1 .lyr-head{border-bottom:3px dashed #b7ae9c;display:flex;align-items:center;padding:0 34px;gap:24px}
+  .l1 .sk{border:3px dashed #a99f8c;border-radius:10px}
+  .l1 .sk-logo{width:150px;height:24px}
+  .navdash{margin-left:auto;display:flex;gap:20px}
+  .navdash div{width:70px;height:16px;border:3px dashed #b7ae9c;border-radius:6px}
+  .l1 .heroL .line{height:30px;border:3px dashed #a99f8c;border-radius:8px;margin-bottom:16px}
+  .l1 .heroL .line.t{height:56px;margin-bottom:14px}
+  .l1 .heroL .btn{margin-top:22px;width:250px;height:64px;border:3px dashed #9a7b5f;border-radius:14px}
+  .l1 .heroR .imgbox{position:absolute;inset:24px 24px 24px 0;border:3px dashed #a99f8c;border-radius:14px;overflow:hidden}
+  .l1 .heroR .imgbox svg{position:absolute;inset:0;width:100%;height:100%}
+
+  /* CAPA 2 · WIREFRAME (gris limpio) */
+  .l2{background:#f3f0e8}
+  .l2 .lyr-head{background:#e6e1d5;display:flex;align-items:center;padding:0 34px;gap:24px}
+  .l2 .wf{background:#d3ccbc;border-radius:8px}
+  .l2 .wf-logo{width:150px;height:26px}
+  .l2 .navwf{margin-left:auto;display:flex;gap:18px}
+  .l2 .navwf div{width:70px;height:18px;background:#d3ccbc;border-radius:6px}
+  .l2 .heroL .line{height:30px;background:#d3ccbc;border-radius:8px;margin-bottom:16px}
+  .l2 .heroL .line.t{height:56px;background:#c4bcab;margin-bottom:14px}
+  .l2 .heroL .btn{margin-top:26px;width:250px;height:64px;background:#bcae97;border-radius:14px}
+  .l2 .heroR .imgbox{position:absolute;inset:24px 24px 24px 0;background:#d8d1c1;border-radius:14px;display:flex;align-items:center;justify-content:center}
+  .l2 .heroR .imgbox::after{content:"";width:60px;height:60px;border:4px solid #b7ae9c;border-radius:50%}
+
+  /* CAPA 3 · DISEÑO (color + tipografía) */
+  .l3{background:#f7f3ea}
+  .l3 .lyr-head{background:#f7f3ea;border-bottom:1px solid #e6ddcb;display:flex;align-items:center;padding:0 34px;gap:24px}
+  .l3 .d-logo{font-family:Georgia,serif;font-style:italic;font-weight:bold;font-size:26px;color:#3a2b28}
+  .l3 .navd{margin-left:auto;display:flex;gap:20px;font-size:14px;letter-spacing:1px;color:#6b5f58;text-transform:uppercase}
+  .l3 .heroL{top:40px}
+  .l3 .heroL .hkick{font-size:16px;font-weight:700;letter-spacing:2px;color:#7a2e3a;margin-bottom:14px}
+  .l3 .heroL .htitle{font-family:Georgia,serif;font-style:italic;font-size:44px;font-weight:bold;line-height:1.02;color:#3a2b28}
+  .l3 .heroL .hsub{margin-top:16px;font-size:19px;color:#6b5f58;line-height:1.45}
+  .l3 .heroL .hbtn{margin-top:24px;display:inline-block;background:#7a2e3a;color:#fff;font-weight:700;font-size:18px;letter-spacing:1px;padding:15px 28px;border-radius:4px}
+  .l3 .heroR .imgbox{position:absolute;inset:24px 24px 24px 0;border-radius:6px;background:linear-gradient(160deg,#c9c2a8,#9a8f76)}
+
+  /* CAPA 4 · WEB REAL (captura) */
+  .l4 img{position:absolute;top:0;left:0;width:940px;height:auto;display:block}
+
+  /* HOOK y CIERRE */
+  .hook{position:absolute;inset:0;z-index:110;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 96px;background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .hook .k{font-size:30px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:34px}
+  .hook .t{font-size:86px;font-weight:900;line-height:1.05;letter-spacing:-.04em;color:var(--cream)}
+  .hook .t em{font-style:normal;color:var(--green-light)}
+  .end{position:absolute;inset:0;z-index:110;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 92px;opacity:0;background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .end .k{font-size:30px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:30px}
+  .end .t{font-size:76px;font-weight:900;line-height:1.06;letter-spacing:-.04em;color:var(--cream)}
+  .end .t em{font-style:normal;color:var(--green-light)}
+  .end .sub{margin-top:34px;font-size:40px;font-weight:600;color:rgba(250,246,238,.94);line-height:1.35}
+  .end .pill{margin-top:40px;display:inline-block;background:var(--cream);color:var(--green);font-size:42px;font-weight:800;padding:20px 44px;border-radius:999px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <div class="steplabel" id="steplabel"><span class="s"><span class="n" id="stepn">01</span><span id="stept">Boceto</span></span></div>
+
+    <div class="browser" id="browser">
+      <div class="bbar"><span></span><span></span><span></span><i>martasolana.es</i></div>
+      <div class="screen">
+        <!-- CAPA 1 · BOCETO -->
+        <div class="layer l1" id="l1">
+          <div class="lyr-head"><div class="sk sk-logo"></div><div class="navdash"><div></div><div></div><div></div></div></div>
+          <div class="lyr-hero">
+            <div class="heroL"><div class="line t"></div><div class="line" style="width:80%"></div><div class="line" style="width:60%;height:20px"></div><div class="btn"></div></div>
+            <div class="heroR"><div class="imgbox"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M4 4 L96 96 M96 4 L4 96" stroke="#a99f8c" stroke-width="1.4" fill="none"/></svg></div></div>
+          </div>
+        </div>
+        <!-- CAPA 2 · WIREFRAME -->
+        <div class="layer l2" id="l2">
+          <div class="lyr-head"><div class="wf wf-logo"></div><div class="navwf"><div></div><div></div><div></div></div></div>
+          <div class="lyr-hero">
+            <div class="heroL"><div class="line t"></div><div class="line" style="width:80%"></div><div class="line" style="width:60%;height:20px"></div><div class="btn"></div></div>
+            <div class="heroR"><div class="imgbox"></div></div>
+          </div>
+        </div>
+        <!-- CAPA 3 · DISEÑO -->
+        <div class="layer l3" id="l3">
+          <div class="lyr-head"><div class="d-logo">marta solana</div><div class="navd"><span>Sobre</span><span>Servicios</span><span>Tarifas</span><span>Contacto</span></div></div>
+          <div class="lyr-hero">
+            <div class="heroL"><div class="hkick">COACH ESPECIALIZADA · MADRID</div><div class="htitle">El cuerpo que llega después de los 40</div><div class="hsub">Acompaño a mujeres a recuperar fuerza, energía y confianza con un plan a su medida.</div><div class="hbtn">Reservar primera sesión →</div></div>
+            <div class="heroR"><div class="imgbox"></div></div>
+          </div>
+        </div>
+        <!-- CAPA 4 · WEB REAL -->
+        <div class="layer l4" id="l4"><img src="../../../assets/captures/demo-marta-solana-desktop.png"></div>
+      </div>
+    </div>
+
+    <div class="hook" id="hook">
+      <div class="k">así nace tu web</div>
+      <div class="t">De un boceto<br>a tu web <em>de verdad</em>.</div>
+    </div>
+
+    <div class="end" id="end">
+      <div class="k">a medida, desde cero</div>
+      <div class="t">Sin plantillas.<br>Pieza a pieza.</div>
+      <div class="sub">¿Empezamos por la tuya?</div>
+      <div class="pill">ebecerra.es</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl;
+
+    gsap.set("#hook", { opacity: 1, scale: 1.05 });
+    gsap.set("#browser", { opacity: 0, scale: 0.96, y: 30 });
+    gsap.set("#l1", { opacity: 1 });
+    gsap.set(["#l2","#l3","#l4"], { opacity: 0 });
+    gsap.set("#end", { opacity: 0, scale: 0.94 });
+
+    function setLabel(n, t, at) {
+      tl.call(() => { document.getElementById("stepn").textContent = n; document.getElementById("stept").textContent = t; }, null, at);
+      tl.fromTo("#steplabel .s", { scale: 0.9, opacity: 0.4 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }, at);
+    }
+
+    // Hook (0 → 2.2)
+    tl.to("#hook", { scale: 1, duration: 0.9 }, 0);
+    tl.to("#hook", { opacity: 0, scale: 0.98, duration: 0.5, ...OUT }, 1.9);
+
+    // Entra navegador (2.0) con etiqueta Boceto
+    tl.to("#browser", { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "power3.out" }, 2.0);
+    setLabel("01", "Boceto", 2.2);
+
+    // Cross-fades de capa
+    tl.to("#l2", { opacity: 1, duration: 0.7 }, 4.4); setLabel("02", "Estructura", 4.5);
+    tl.to("#l3", { opacity: 1, duration: 0.7 }, 6.8); setLabel("03", "Diseño", 6.9);
+    // fundido corto (snap) para que el cruce de titulares con métrica distinta sea casi imperceptible
+    tl.to("#l3 .htitle", { opacity: 0, duration: 0.18 }, 9.28);
+    tl.to("#l4", { opacity: 1, duration: 0.22, ease: "power2.in" }, 9.32); setLabel("04", "Publicada ✓", 9.5);
+    // pequeño scroll de la web real
+    tl.to("#l4 img", { y: -120, duration: 1.6, ease: "power1.inOut" }, 10.1);
+
+    // Salida → cierre (el chip persistente se va para no duplicar firma con la píldora del cierre)
+    tl.to(["#browser","#steplabel"], { opacity: 0, scale: 0.97, duration: 0.5, ...OUT }, 12.2);
+    tl.to(".chip", { opacity: 0, duration: 0.4, ...OUT }, 12.2);
+    tl.to("#end", { opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 12.5);
+  </script>
+</body>
+</html>

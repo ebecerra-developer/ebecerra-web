@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post "La alineación de tu web" (Mundial) · 1080×1350 · pizarra táctica sobre
+     campo verde de marca. El "once titular" que toda web debe llevar. Solo Inter. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#070e09}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1350px;overflow:hidden;
+    background:radial-gradient(120% 80% at 30% 12%,#058a63 0%,#047857 52%,#02583c 100%)}
+
+  /* Título */
+  .top{position:absolute;left:0;right:0;top:70px;text-align:center;z-index:10;padding:0 80px}
+  .top .k{font-size:26px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green-light);margin-bottom:20px}
+  .top .t{font-size:76px;font-weight:900;line-height:1.0;letter-spacing:-.04em;color:var(--cream)}
+  .top .t em{font-style:normal;color:var(--green-light)}
+
+  /* Campo */
+  .pitch{position:absolute;left:70px;right:70px;top:300px;height:830px;border-radius:26px;overflow:hidden;
+    background:repeating-linear-gradient(180deg,#046f4f 0 84px,#04794f 84px 168px);
+    border:3px solid rgba(250,246,238,.35);box-shadow:0 30px 70px -30px rgba(2,16,10,.7)}
+  .pitch .cline{position:absolute;left:0;right:0;top:50%;height:3px;background:rgba(250,246,238,.35)}
+  .pitch .ccircle{position:absolute;left:50%;top:50%;width:180px;height:180px;transform:translate(-50%,-50%);border:3px solid rgba(250,246,238,.35);border-radius:50%}
+  .pitch .cdot{position:absolute;left:50%;top:50%;width:12px;height:12px;transform:translate(-50%,-50%);background:rgba(250,246,238,.5);border-radius:50%}
+  .pitch .box{position:absolute;left:50%;transform:translateX(-50%);width:360px;border:3px solid rgba(250,246,238,.3)}
+  .pitch .box.top{top:0;height:120px;border-top:none;border-radius:0 0 12px 12px}
+  .pitch .box.bot{bottom:0;height:120px;border-bottom:none;border-radius:12px 12px 0 0}
+
+  /* Jugadores */
+  .player{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;z-index:5}
+  .jersey{width:96px;height:96px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;
+    font-size:46px;box-shadow:0 10px 22px -8px rgba(2,16,10,.6);border:3px solid #fff}
+  .plabel{margin-top:12px;background:rgba(3,22,15,.86);color:var(--cream);font-weight:800;font-size:26px;
+    padding:8px 16px;border-radius:11px;white-space:nowrap;text-align:center;line-height:1.15}
+  .cap{position:absolute;top:-6px;right:-6px;background:var(--green-light);color:#02402a;font-size:19px;font-weight:900;
+    width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+
+  /* CTA + firma */
+  .cta{position:absolute;left:0;right:0;bottom:150px;text-align:center;z-index:10;padding:0 80px}
+  .cta .q{font-size:40px;font-weight:800;color:var(--cream);line-height:1.2}
+  .cta .q em{font-style:normal;color:var(--green-light)}
+  .chip{position:absolute;bottom:60px;left:70px;z-index:20;display:flex;align-items:center;gap:13px;font-weight:700;font-size:26px;color:var(--cream)}
+  .chip .dot{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="top">
+      <div class="k">★ tu equipo titular ★</div>
+      <div class="t">La alineación de <em>tu web</em></div>
+    </div>
+
+    <div class="pitch">
+      <div class="cline"></div><div class="ccircle"></div><div class="cdot"></div>
+      <div class="box top"></div><div class="box bot"></div>
+
+      <!-- Delantero (arriba, marca el gol = el cliente) -->
+      <div class="player" style="left:50%;top:16%"><div class="jersey">🔍<span class="cap">C</span></div><div class="plabel">Sale en Google</div></div>
+      <!-- Medios -->
+      <div class="player" style="left:30%;top:40%"><div class="jersey">💬</div><div class="plabel">Botón de<br>WhatsApp</div></div>
+      <div class="player" style="left:70%;top:40%"><div class="jersey">👁️</div><div class="plabel">Se entiende<br>en 3 seg</div></div>
+      <!-- Defensas -->
+      <div class="player" style="left:30%;top:64%"><div class="jersey">📱</div><div class="plabel">Se ve en<br>el móvil</div></div>
+      <div class="player" style="left:70%;top:64%"><div class="jersey">✍️</div><div class="plabel">Textos<br>claros</div></div>
+      <!-- Portero (abajo) -->
+      <div class="player" style="left:50%;top:86%"><div class="jersey">⚡</div><div class="plabel">Carga rápida</div></div>
+    </div>
+
+    <div class="cta">
+      <div class="q">¿A tu web le falta algún <em>titular</em>? 👇</div>
+    </div>
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+  </div>
+</body>
+</html>

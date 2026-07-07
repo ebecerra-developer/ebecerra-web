@@ -57,9 +57,16 @@ async function main() {
       region?.remove();
     });
     await mPage.waitForTimeout(800);
-    const out = path.join(OUT_DIR, `demo-${slug}-mobile.png`);
-    await mPage.screenshot({ path: out, fullPage: false });
-    console.log(`  saved mobile: ${out}`);
+    await mPage.screenshot({ path: path.join(OUT_DIR, `demo-${slug}-mobile.png`), fullPage: false });
+    // GOTCHA: `fullPage:true` PIERDE los header/nav position:sticky (salen SIN nav en
+    // móvil). Solución fiable: agrandar el viewport a la altura de la página y capturar
+    // el viewport → el sticky se pega arriba y sale, y NO hay overflow horizontal
+    // (des-stickear a mano rompía el ancho). Ver memoria feedback_demo_capture_sticky_header.
+    const fullH = Math.min(await mPage.evaluate(() => document.documentElement.scrollHeight), 15000);
+    await mPage.setViewportSize({ width: 390, height: fullH });
+    await mPage.waitForTimeout(500);
+    await mPage.screenshot({ path: path.join(OUT_DIR, `demo-${slug}-mobile-full.png`), clip: { x: 0, y: 0, width: 390, height: fullH } });
+    console.log(`  saved mobile + mobile-full: ${slug}`);
     await mPage.close();
   }
 

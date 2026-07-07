@@ -57,6 +57,12 @@ const TARGETS = [
   { name: "22-reel-anochece", folder: "personal/2026/06/22-reel-anochece", duration: 23.5 },
   // Reel 2026-06-23: demos (rejilla entra desde lados → zoom+scroll real de cada demo → CTA, organic-first)
   { name: "23-reel-demos-v2", folder: "personal/2026/06/23-reel-demos-v2", duration: 20 },
+  // Reel 2026-07-07: footer 2019 (web abandonada falsa auto-scroll → rodea © 2019 → comment-bait)
+  { name: "07-reel-footer-2019", folder: "personal/2026/07/07-reel-footer-2019", duration: 16.8 },
+  // Reel 2026-07-09: boceto→web (4 capas cross-fade: boceto → wireframe → diseño → web real de Marta Solana)
+  { name: "09-reel-boceto-web", folder: "personal/2026/07/09-reel-boceto-web", duration: 15 },
+  // Reel 2026-07-14: A/B a medida vs plantilla (2 móviles scroll paralelo: plantilla genérica vs demo Equilibrio)
+  { name: "14-reel-medida-vs-plantilla", folder: "personal/2026/07/14-reel-medida-vs-plantilla", duration: 14 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,
