@@ -2,13 +2,22 @@
 .tilt {
   --rx: 0deg;
   --ry: 0deg;
+  --lift: 0px;
   position: relative;
-  transform: perspective(820px) rotateX(var(--rx)) rotateY(var(--ry));
+  transform: perspective(820px) translate3d(0, var(--lift), 0)
+    rotateX(var(--rx)) rotateY(var(--ry));
   transform-style: preserve-3d;
   /* Solo se usa para el reset suave al salir; durante el movimiento se anula
      inline (transition: 0s) para que siga al cursor sin retraso. */
   transition: transform 500ms var(--ease-out);
   will-change: transform;
+}
+
+/* Subida sutil en hover, solo en la variante `subtle` (sección Servicios):
+   tilt + lift a la vez, igual para las 4 cards. El resto de TiltCards del sitio
+   mantienen --lift:0 (translate3d en no-op) y su inclinación original. */
+.subtle:hover {
+  --lift: -4px;
 }
 
 /* Reflejo suave que sigue al cursor */

@@ -210,10 +210,6 @@
   box-shadow: var(--sh-2);
 }
 
-.cardHighlighted:hover {
-  transform: translateY(-3px);
-}
-
 .cardBadge {
   position: absolute;
   top: -10px;

@@ -10,10 +10,14 @@ type Props = {
   rel?: string;
   ariaLabel?: string;
   className?: string;
+  // Variante más discreta (menos inclinación + subida sutil en hover). La usan
+  // las cards de la sección Servicios para que las 4 se comporten igual.
+  subtle?: boolean;
   children: ReactNode;
 };
 
 const MAX_DEG = 6.5;
+const SUBTLE_DEG = 4;
 
 // Card con inclinación 3D que sigue al cursor (parallax sutil). Degrada a estático
 // con prefers-reduced-motion. Polimórfico: <div> o <a> (cards-enlace).
@@ -24,9 +28,11 @@ export default function TiltCard({
   rel,
   ariaLabel,
   className = "",
+  subtle = false,
   children,
 }: Props) {
   const ref = useRef<HTMLElement>(null);
+  const maxDeg = subtle ? SUBTLE_DEG : MAX_DEG;
   // Rect capturado al entrar el cursor, con la card EN REPOSO (sin tilt). Se usa
   // para todo el movimiento: así el cálculo no se realimenta con la propia
   // rotación 3D ni con un scale heredado (p. ej. el wrapper .reveal del scroll),
@@ -52,8 +58,8 @@ export default function TiltCard({
     if (!r.width || !r.height) return;
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
-    el.style.setProperty("--ry", `${(px - 0.5) * 2 * MAX_DEG}deg`);
-    el.style.setProperty("--rx", `${(0.5 - py) * 2 * MAX_DEG}deg`);
+    el.style.setProperty("--ry", `${(px - 0.5) * 2 * maxDeg}deg`);
+    el.style.setProperty("--rx", `${(0.5 - py) * 2 * maxDeg}deg`);
     el.style.setProperty("--gx", `${px * 100}%`);
     el.style.setProperty("--gy", `${py * 100}%`);
   }
@@ -68,7 +74,9 @@ export default function TiltCard({
     el.style.setProperty("--ry", "0deg");
   }
 
-  const cls = `${styles.tilt} ${className}`.trim();
+  const cls = [styles.tilt, subtle && styles.subtle, className]
+    .filter(Boolean)
+    .join(" ");
 
   if (as === "a") {
     return (
