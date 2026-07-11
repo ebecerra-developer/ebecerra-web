@@ -210,7 +210,7 @@ export default function Services({ pricing }: Props) {
             )}
             <div className={styles.addOnsGrid}>
               {pricing!.addOns.map((a, i) => (
-                <TiltCard key={i} subtle className={styles.addOnCard}>
+                <TiltCard key={i} className={styles.addOnCard}>
                   <p className={styles.addOnTitle}>{a.title}</p>
                   {a.price && <p className={styles.addOnPrice}>{a.price}</p>}
                   {a.note && <p className={styles.addOnNote}>{a.note}</p>}

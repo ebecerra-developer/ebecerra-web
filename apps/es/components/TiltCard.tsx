@@ -20,7 +20,7 @@ const MAX_DEG = 6.5;
 const SUBTLE_DEG = 3;
 // Desplazamiento 2D (px) para la variante `subtle`: se mueve hacia el cursor sin
 // rotación 3D, así el texto no se promociona a capa de GPU y queda nítido.
-const SHIFT = 6;
+const SHIFT = 3;
 
 // Card con inclinación 3D que sigue al cursor (parallax sutil). Degrada a estático
 // con prefers-reduced-motion. Polimórfico: <div> o <a> (cards-enlace).
