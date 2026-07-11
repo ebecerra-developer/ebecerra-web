@@ -1,0 +1,305 @@
+.page {
+  padding-block: 1.5rem var(--section-py);
+}
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--cta);
+  text-decoration: none;
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  margin-bottom: 0.75rem;
+}
+.back:hover {
+  color: var(--cta-hover);
+}
+.title {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-black);
+  letter-spacing: var(--tr-tight);
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.sectionTitle {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  color: var(--text);
+  margin-bottom: 0.9rem;
+}
+.form .sectionTitle:not(:first-child) {
+  margin-top: 1.5rem;
+}
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.field.full {
+  grid-column: 1 / -1;
+}
+.field span {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+}
+.field input,
+.field select,
+.field textarea {
+  padding: 0.7rem 0.8rem;
+  border: var(--bw-1) solid var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--cta);
+}
+.field textarea {
+  resize: vertical;
+}
+
+.payments {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.payOption {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1rem;
+  border: var(--bw-2) solid var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  transition: all var(--dur-fast) var(--ease);
+}
+.payOption[data-active="true"] {
+  border-color: var(--cta);
+  background: var(--cta-tint);
+  color: var(--text);
+}
+.payOption input {
+  accent-color: var(--cta);
+  width: 18px;
+  height: 18px;
+}
+.payNote {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  padding-left: 0.2rem;
+}
+.error {
+  margin-top: 0.9rem;
+  color: var(--error);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+.submit {
+  margin-top: 1.1rem;
+  width: 100%;
+  padding: 0.95rem;
+  border-radius: var(--r-sm);
+  border: 0;
+  background: var(--cta);
+  color: var(--text-on-accent);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+.submit:hover:not(:disabled) {
+  background: var(--cta-hover);
+}
+.submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.demoNote {
+  margin-top: 0.75rem;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ---------- Summary ---------- */
+.summary {
+  background: var(--surface);
+  border: var(--bw-1) solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.3rem 1.4rem;
+}
+.summaryItems {
+  list-style: none;
+  margin: 0 0 0.9rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.sItem {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.6rem;
+  align-items: center;
+}
+.sThumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--r-sm);
+  background: var(--surface-subtle);
+  border: var(--bw-1) solid var(--border);
+  color: var(--text-muted);
+  overflow: hidden;
+}
+.sThumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.sQty {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  min-width: 19px;
+  height: 19px;
+  padding-inline: 4px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-pill);
+  background: var(--cta);
+  color: var(--text-on-accent);
+  font-size: 0.68rem;
+  font-weight: var(--fw-bold);
+  border: 2px solid var(--surface);
+}
+.sInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.sTitle {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+  line-height: 1.2;
+}
+.sMeta {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+.sTotal {
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-sm);
+  color: var(--text);
+  white-space: nowrap;
+}
+.summaryRows {
+  border-top: var(--bw-1) solid var(--border);
+  padding-top: 0.8rem;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  padding-block: 0.25rem;
+}
+.totalRow {
+  margin-top: 0.35rem;
+  padding-top: 0.6rem;
+  border-top: var(--bw-1) solid var(--border);
+  font-size: 1.3rem;
+  font-weight: var(--fw-black);
+  color: var(--text);
+}
+
+/* ---------- Estado (éxito / vacío) ---------- */
+.stateWrap {
+  padding-block: clamp(3rem, 8vw, 5rem);
+}
+.state {
+  max-width: 480px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--text-muted);
+}
+.stateIcon {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: var(--r-pill);
+  background: var(--cta-tint);
+  color: var(--cta);
+}
+.stateTitle {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-black);
+  color: var(--text);
+}
+.stateBody {
+  font-size: var(--fs-body-lead);
+  color: var(--text-secondary);
+  line-height: var(--lh-lead);
+}
+.stateCta {
+  margin-top: 0.5rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--r-sm);
+  background: var(--cta);
+  color: var(--text-on-accent);
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+}
+.stateCta:hover {
+  background: var(--cta-hover);
+  color: var(--text-on-accent);
+}
+
+@media (min-width: 820px) {
+  .grid {
+    grid-template-columns: 1.5fr 1fr;
+  }
+  .summary {
+    position: sticky;
+    top: 130px;
+  }
+}

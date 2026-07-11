@@ -661,7 +661,8 @@ export type DemoTemplate =
   | "tandem"
   | "expedicion"
   | "gestoria"
-  | "beemovement";
+  | "beemovement"
+  | "tienda";
 
 export type DemoCta = {
   label: string | null;

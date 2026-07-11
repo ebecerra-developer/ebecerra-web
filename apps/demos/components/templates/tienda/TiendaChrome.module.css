@@ -1,0 +1,9 @@
+.shell {
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+}
+.main {
+  min-height: 60vh;
+  background: var(--bg);
+}

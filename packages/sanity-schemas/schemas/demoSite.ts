@@ -57,6 +57,7 @@ export default defineType({
           { title: "Aventura inmersiva (expedición)", value: "expedicion" },
           { title: "Gestoría / asesoría", value: "gestoria" },
           { title: "Fisioterapia boutique (privada, marca real)", value: "beemovement" },
+          { title: "Tienda online / ultramarinos (ecommerce)", value: "tienda" },
         ],
         layout: "radio",
       },

@@ -1,0 +1,138 @@
+/* ==========================================================================
+   demos.ebecerra.es — Plantilla Tienda (ecommerce) — Design Tokens
+   --------------------------------------------------------------------------
+   Filosofía: SUPERMERCADO ONLINE profesional, limpio y minimalista (La Cesta).
+   Base blanca, mucho aire, tipografía sobria (Inter), UN verde de marca fresco
+   como color de acción y un rojo contenido solo para ofertas. Nada de texturas
+   ni "artesanal": retail moderno, ordenado, con foco en producto e imagen.
+
+   TODO el set se redefine bajo [data-template="tienda"]; no hereda de fisio.
+   ========================================================================== */
+
+[data-template="tienda"] {
+  /* ---------- Color — Structure ---------- */
+  --bg:              #ffffff;
+  --bg-deep:         #f6f1ea;  /* banda beige cálida */
+  --surface:         #ffffff;
+  --surface-subtle:  #f5efe7;
+  --surface-warm:    #f5efe7;
+  --surface-ink:     #2c1d12;  /* espresso (footer) */
+  --surface-ink-2:   #211409;
+  --border:          #eae2d6;
+  --border-strong:   #d9cdbb;
+  --ink:             #2c1d12;
+  --ink-soft:        #3f2c1c;
+
+  /* ---------- Color — Text ---------- */
+  --text:            #241a12;
+  --text-secondary:  #4d4034;
+  --text-muted:      #675a4b;  /* WCAG AA ≥4.5:1 sobre blanco, subtle y tint */
+  --text-disabled:   #a99e8e;
+  --text-on-accent:  #ffffff;
+  --text-on-ink:     #efe6da;
+  --text-on-ink-muted: #b7a897;
+
+  /* ---------- Color — CTA — verde de marca (fresco, profesional) ---------- */
+  --cta:             #795130;  /* marrón de marca accesible: 6.9:1 sobre blanco */
+  --cta-hover:       #634226;
+  --cta-dark:        #4e3319;
+  --cta-soft:        rgba(121, 81, 48, 0.10);
+  --cta-soft-strong: rgba(121, 81, 48, 0.18);
+  --cta-tint:        #f3ebe1;  /* fondos muy suaves con tinte cálido */
+
+  /* ---------- Color — Accent — rojo de OFERTA (uso contenido) ---------- */
+  --accent:          #bf4a2a;
+  --accent-hover:    #a53f24;
+  --accent-soft:     rgba(191, 74, 42, 0.12);
+  --accent-on:       #ffffff;
+
+  /* ---------- Color — Semantic ---------- */
+  --success: #795130;
+  --warning: #b9822a;
+  --error:   #c0392b;
+
+  /* ---------- Typography ---------- */
+  /* Retail limpio: Inter en todo. Override de los theme-vars de Tailwind. */
+  --font-sans:          var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display:       var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans-stack:    var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display-stack: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-brand:         var(--font-bricolage), var(--font-inter), sans-serif;
+  --font-mono-stack:    ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --fs-display:   clamp(2.1rem, 4.5vw, 3.2rem);    /* 34 → 51 */
+  --fs-h1:        clamp(1.85rem, 4vw, 2.7rem);      /* 30 → 43 */
+  --fs-h2:        clamp(1.5rem, 3vw, 2.1rem);       /* 24 → 34 */
+  --fs-h3:        clamp(1.25rem, 2.2vw, 1.55rem);   /* 20 → 25 */
+  --fs-h4:        1.15rem;                           /* ~18 */
+  --fs-body-lead: 1.125rem;                          /* 18 */
+  --fs-body:      1rem;                              /* 16 */
+  --fs-sm:        0.9rem;                            /* ~14.5 */
+  --fs-xs:        0.8125rem;                          /* 13 */
+  --fs-2xs:       0.72rem;                           /* ~11.5 (tags) */
+  --fs-mono-md:   0.75rem;                           /* 12 — kicker */
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    800;
+
+  --lh-display:  1.08;
+  --lh-tight:    1.14;
+  --lh-heading:  1.25;
+  --lh-body:     1.6;
+  --lh-lead:     1.55;
+
+  --tr-tight:    -0.015em;
+  --tr-display:  -0.025em;
+  --tr-kicker:   0.08em;
+
+  /* ---------- Spacing & sizing ---------- */
+  --gutter:        clamp(1rem, 3.5vw, 2.25rem);
+  --container-max: 1280px;
+  --container-narrow: 760px;
+  --section-py:    clamp(2.75rem, 5vw, 4.25rem);
+  --section-py-sm: clamp(2rem, 4vw, 3rem);
+
+  /* ---------- Radii — moderados, retail ---------- */
+  --r-xs:  4px;
+  --r-sm:  8px;
+  --r-md:  10px;
+  --r-lg:  14px;
+  --r-xl:  20px;
+  --r-pill: 999px;
+
+  /* ---------- Borders ---------- */
+  --bw-1: 1px;
+  --bw-2: 2px;
+
+  /* ---------- Shadows — muy sutiles, neutras ---------- */
+  --sh-sm:  0 1px 2px rgba(20, 33, 27, 0.05);
+  --sh-md:  0 4px 16px rgba(20, 33, 27, 0.08);
+  --sh-lg:  0 16px 40px rgba(20, 33, 27, 0.12);
+  --sh-card-hover: 0 10px 28px rgba(20, 33, 27, 0.12);
+  --sh-focus: 0 0 0 3px rgba(121, 81, 48, 0.85);
+
+  /* ---------- Motion ---------- */
+  --dur-fast: 140ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
+  --ease:      cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* ---------- Chatbot ---------- */
+  --chatbot-bg:                var(--surface);
+  --chatbot-fg:                var(--text);
+  --chatbot-muted:             var(--text-muted);
+  --chatbot-accent:            var(--cta);
+  --chatbot-accent-fg:         var(--text-on-accent);
+  --chatbot-border:            var(--border);
+  --chatbot-bubble-user:       var(--cta);
+  --chatbot-bubble-user-fg:    var(--text-on-accent);
+  --chatbot-bubble-assistant:  var(--surface-subtle);
+  --chatbot-bubble-assistant-fg: var(--text);
+  --chatbot-radius:            var(--r-lg);
+  --chatbot-radius-bubble:     var(--r-md);
+  --chatbot-font:              var(--font-sans-stack);
+  --chatbot-shadow:            var(--sh-lg);
+}

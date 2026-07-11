@@ -1,0 +1,98 @@
+/* ---------- Trust strip ---------- */
+.trust {
+  border-bottom: var(--bw-1) solid var(--border);
+  background: var(--surface);
+}
+.trustInner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 1.1rem var(--gutter);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.5rem;
+}
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.trustIcon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: var(--r-pill);
+  background: var(--cta-tint);
+  color: var(--cta);
+}
+.trustTitle {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--text);
+  line-height: 1.2;
+}
+.trustBody {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+/* ---------- Delivery band ---------- */
+.delivery {
+  padding-block: var(--section-py-sm);
+}
+.deliveryInner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.deliveryCopy {
+  background: var(--surface-ink);
+  color: var(--text-on-ink);
+  border-radius: var(--r-lg);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  max-width: 100%;
+}
+.deliveryTitle {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-black);
+  color: #fff;
+  letter-spacing: var(--tr-tight);
+  margin-bottom: 0.6rem;
+  max-width: 20ch;
+}
+.deliveryBody {
+  font-size: var(--fs-body-lead);
+  color: var(--text-on-ink-muted);
+  line-height: var(--lh-lead);
+  max-width: 50ch;
+  margin-bottom: 1.3rem;
+}
+.deliveryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--cta);
+  color: var(--text-on-accent);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body);
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease);
+}
+.deliveryCta:hover {
+  background: var(--cta-hover);
+  color: var(--text-on-accent);
+}
+.deliveryNote {
+  margin-top: 0.9rem;
+  font-size: var(--fs-sm);
+  color: var(--text-on-ink-muted);
+}
+
+@media (min-width: 720px) {
+  .trustInner {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
