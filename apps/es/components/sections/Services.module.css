@@ -465,6 +465,13 @@
 
 /* ---------- Responsive ---------- */
 
+@media (min-width: 640px) {
+  /* 4 planes → 2×2 cuando no caben los 4 en fila */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (min-width: 720px) {
   .addOnsGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -472,11 +479,14 @@
 }
 
 @media (min-width: 960px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .addOnsGrid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1120px) {
+  /* desktop: los 4 planes en una sola fila */
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
