@@ -17,16 +17,20 @@
 /* Subida sutil en hover, solo en la variante `subtle` (sección Servicios):
    tilt + lift a la vez, igual para las 4 cards. El resto de TiltCards del sitio
    mantienen --lift:0 (translate3d en no-op) y su inclinación original. */
-.subtle:hover {
-  --lift: -4px;
+/* Variante Servicios: SIN rotación 3D ni promoción a capa de GPU. En reposo la
+   card no se transforma → el texto conserva el subpíxel ClearType (nítido de
+   verdad en Windows). En hover se desplaza un poco hacia el cursor (translate
+   2D, sin will-change) y sube; el reflejo sigue al cursor. Se mueve con el
+   cursor SIN desenfocar el texto en ninguna posición. */
+.subtle {
+  transform: none;
+  transform-style: flat;
+  will-change: auto;
 }
 
-/* Variante Servicios: perspectiva más plana + hijos sin contexto 3D
-   (transform-style: flat) → la inclinación deforma menos el texto y evita el
-   ligero desenfoque al seguir el cursor. */
-.subtle {
-  --persp: 1400px;
-  transform-style: flat;
+.subtle:hover {
+  --lift: -4px;
+  transform: translate(var(--tx, 0px), calc(var(--ty, 0px) + var(--lift)));
 }
 
 /* Reflejo suave que sigue al cursor */
