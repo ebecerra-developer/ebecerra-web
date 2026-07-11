@@ -3,8 +3,9 @@
   --rx: 0deg;
   --ry: 0deg;
   --lift: 0px;
+  --persp: 820px;
   position: relative;
-  transform: perspective(820px) translate3d(0, var(--lift), 0)
+  transform: perspective(var(--persp)) translate3d(0, var(--lift), 0)
     rotateX(var(--rx)) rotateY(var(--ry));
   transform-style: preserve-3d;
   /* Solo se usa para el reset suave al salir; durante el movimiento se anula
@@ -18,6 +19,14 @@
    mantienen --lift:0 (translate3d en no-op) y su inclinación original. */
 .subtle:hover {
   --lift: -4px;
+}
+
+/* Variante Servicios: perspectiva más plana + hijos sin contexto 3D
+   (transform-style: flat) → la inclinación deforma menos el texto y evita el
+   ligero desenfoque al seguir el cursor. */
+.subtle {
+  --persp: 1400px;
+  transform-style: flat;
 }
 
 /* Reflejo suave que sigue al cursor */
