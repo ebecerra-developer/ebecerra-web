@@ -36,6 +36,7 @@ export type ServicesPricingTierFeature = {
 export type ServicesPricingTier = {
   id: string;
   name: string;
+  subtitle: string | null;
   priceMain: string;
   priceSecondary: string | null;
   conditions: string | null;
@@ -83,6 +84,26 @@ export type ServicesPricing = {
   addOnsSectionLead: string | null;
   addOns: ServicesPricingAddOn[];
   migrationFootnote: string | null;
+};
+
+// ---------- Google Reviews (singleton) ----------
+
+export type GoogleReviewItem = {
+  author: string;
+  rating: number;
+  relativeDate: string | null;
+  text: string;
+};
+
+export type GoogleReviewsData = {
+  enabled: boolean;
+  kicker: string | null;
+  title: string | null;
+  lead: string | null;
+  ratingAverage: number | null;
+  ratingCount: number | null;
+  placeUrl: string | null;
+  reviews: GoogleReviewItem[];
 };
 
 export type ProcessStep = {

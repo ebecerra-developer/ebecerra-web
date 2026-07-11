@@ -6,16 +6,16 @@ export type FaqItem = { q: string; a: string };
 // Mantener en sync con los faqItem publicados en el workspace ebecerra-web.
 const es: FaqItem[] = [
   {
-    q: "¿Cuál es la diferencia entre los planes Landing, Profesional y Avanzado?",
-    a: "Landing es una página única con un CTA claro (formulario o WhatsApp): ideal para autónomos que quieren estar online rápido y captar contactos sin invertir mucho. Profesional añade web a medida con más secciones, un CMS propio para que tu equipo publique sin llamarme, formación de uso y FAQ marcado para Google. Avanzado incluye además sistema de reservas online sincronizado con Google Calendar (o Doctoralia) y un add-on a elegir (chatbot, pagos, etc.). En el camino Compra directa los precios son 399 / 1.500 / 2.000 €; en Contrato de servicio son 199 / 699 / 999 € de alta + 19 / 69 / 89 €/mes.",
+    q: "¿Cuál es la diferencia entre Landing, Portfolio, Web y Tienda?",
+    a: "Todos funcionan igual: un alta única + una cuota mensual con todo incluido (hosting, mantenimiento y soporte). Landing (390 € + 19 €/mes) es una página con un objetivo claro —que te llamen o escriban—, ideal para autónomos que quieren estar online rápido. Portfolio (490 € + 25 €/mes) es una web multipágina para enseñar tu obra, pensada para creativos: arquitectos, fotógrafos, ilustradores. Web (690 € + 59 €/mes) es tu web completa con varias secciones, blog y un panel para que edites tú los textos y las fotos sin depender de mí. Tienda (990 € + 99 €/mes) es un ecommerce completo —catálogo, carrito, pedidos y pasarela de pago—, sin comisión por venta.",
   },
   {
     q: "¿Cuánto tarda un proyecto web?",
-    a: "Depende del plan. Landing se entrega en 1-2 semanas. Profesional y Avanzado en 4-6 semanas. Un rescate de una web antigua (proyecto a medida fuera de catálogo) puede ir a 2-3 meses según lo que haya que mover y reescribir. En la primera conversación te doy un plazo concreto con hitos semanales, no un rango vago.",
+    a: "Depende del plan. Landing y Portfolio se entregan en 1-2 semanas. Web en 3-4 semanas. Tienda en 4-6 semanas. Un rescate de una web antigua (proyecto a medida fuera de catálogo) puede ir a 2-3 meses según lo que haya que mover y reescribir. En la primera conversación te doy un plazo concreto con hitos semanales, no un rango vago.",
   },
   {
     q: "¿Cómo se paga un proyecto?",
-    a: "En Compra directa: 50 % al firmar el presupuesto (reserva de calendario y arranque) y 50 % a la entrega en producción. En Contrato de servicio: pago de alta (199 / 699 / 999 €) al firmar y cuota mensual (19 / 69 / 89 €) facturada al inicio de cada mes, con permanencia mínima de 12 meses. En proyectos a medida largos (rescates de webs antiguas, intranets): 30 / 40 / 30 con hitos acordados. Todo por transferencia, con factura e IVA incluido en el precio mostrado.",
+    a: "El alta se abona al arrancar el proyecto (reservo tu hueco en la agenda y pongo el proyecto en marcha) y la cuota mensual se factura por adelantado al inicio de cada mes. No hay un pago único desorbitado ni permanencia: te das de baja cuando quieras. En proyectos a medida largos (rescates de webs antiguas, intranets) trabajamos por hitos acordados. Todo por transferencia, con factura e IVA incluido en el precio mostrado.",
   },
   {
     q: "¿Qué pasa si no me gusta el diseño?",
@@ -27,11 +27,11 @@ const es: FaqItem[] = [
   },
   {
     q: "¿Quién mantiene la web después de entregarla?",
-    a: "Si has elegido Compra directa, tu web es 100 % tuya desde el día 1. Landing incluye 1 mes de soporte post-entrega; Profesional y Avanzado, 3 meses. Después puedes contratar mantenimiento opcional aparte (29 / 69 / 89 €/mes según el plan) o gestionarla por tu cuenta. Si has elegido Contrato de servicio, el mantenimiento ya va incluido en la cuota mensual durante toda la vigencia del contrato (mínimo 12 meses).",
+    a: "Yo, siempre. El mantenimiento —hosting, copias, seguridad, actualizaciones y soporte— va incluido en la cuota mensual mientras seas cliente. No hay una 'fase de soporte' que caduque: mientras pagas la cuota me encargo de que tu web siga funcionando y hago los cambios que entren en tu plan cada mes.",
   },
   {
     q: "¿Tengo que firmar permanencia? ¿La web acaba siendo mía?",
-    a: "Depende del camino que elijas. En Compra directa no hay permanencia: pagas la web y el código es 100% tuyo desde el primer día. En Contrato de servicio sí hay una permanencia mínima de 12 meses, porque reparte en cuotas el coste de la web más el mantenimiento; está pensada para que al cumplir el año no debas nada, y si cancelas antes solo liquidas la diferencia hasta el valor de la web (te lo explico antes de firmar, nunca en letra pequeña). En los dos casos te llevas tu web: nada de plantillas alquiladas ni quedarte sin nada si decides irte.",
+    a: "No hay permanencia: te das de baja cuando quieras, sin penalización. Tu web vive en mi infraestructura y yo me encargo de todo mientras seas cliente. La única regla es la propiedad del código: si te das de baja antes de los 12 meses, la web se apaga y el código se queda conmigo (el alta pagó construirla, no cederla); a partir de los 12 meses, si decides seguir por tu cuenta, te entrego el código para que lo alojes donde quieras. El dominio es tuyo desde el primer día. Todo esto te lo explico antes de firmar, nunca en letra pequeña.",
   },
   {
     q: "¿Tu web entra en el Kit Digital?",
@@ -43,22 +43,22 @@ const es: FaqItem[] = [
   },
   {
     q: "¿De quién son el dominio y las cuentas de hosting?",
-    a: "El dominio es siempre tuyo, desde el día 1, registrado a tu nombre. Si llegas con uno, ni lo toco. Si lo damos de alta nuevo, va directamente a tu nombre y yo solo figuro como administrador técnico. Las cuentas técnicas (hosting en Vercel, CMS Sanity, base de datos, monitorización) se gestionan desde mi cuenta mientras dura el servicio, porque me permite desplegar, dar soporte y monitorizar sin fricciones. Cuando termina la relación, te transfiero esas cuentas o te entrego las credenciales para que asumas la gestión. El código fuente, si has elegido Compra directa, es tuyo desde el día 1; si has elegido Contrato de servicio, te lo entrego al terminar el contrato o antes si lo pides por escrito.",
+    a: "El dominio es siempre tuyo, desde el día 1, registrado a tu nombre. Si llegas con uno, ni lo toco. Si lo damos de alta nuevo, va directamente a tu nombre y yo solo figuro como administrador técnico. Las cuentas técnicas (hosting en Vercel, CMS Sanity, base de datos, monitorización) se gestionan desde mi cuenta mientras dura el servicio, porque me permite desplegar, dar soporte y monitorizar sin fricciones. El código fuente sigue el modelo de propiedad: se queda conmigo mientras seas cliente y pasa a ser tuyo a partir de los 12 meses (o antes si lo acordamos por escrito). Si entonces decides gestionar la web por tu cuenta, te transfiero las cuentas o te entrego las credenciales para que asumas la gestión.",
   },
 ];
 
 const en: FaqItem[] = [
   {
-    q: "What's the difference between the Landing, Professional and Advanced plans?",
-    a: "Landing is a single page with a clear CTA (form or WhatsApp): ideal for freelancers who want to be online fast and capture leads without investing much. Professional adds a custom multi-section website with a CMS so your team can publish without calling me, usage training and a Google-ready FAQ. Advanced also includes an online booking system synced with Google Calendar (or Doctoralia) and one add-on of your choice (chatbot, payments, etc.). In the Direct purchase path prices are €399 / €1,500 / €2,000; in Service contract they are €199 / €699 / €999 setup + €19 / €69 / €89/mo.",
+    q: "What's the difference between Landing, Portfolio, Web and Store?",
+    a: "They all work the same way: a one-off setup + a monthly fee with everything included (hosting, maintenance and support). Landing (€390 + €19/mo) is a single page with a clear goal —get people to call or message you—, ideal for freelancers who want to be online fast. Portfolio (€490 + €25/mo) is a multi-page site to showcase your work, made for creatives: architects, photographers, illustrators. Web (€690 + €59/mo) is your full website with multiple sections, a blog and a CMS panel so you edit the text and photos yourself without depending on me. Store (€990 + €99/mo) is a full ecommerce —catalog, cart, orders and payment gateway—, with no sales commission.",
   },
   {
     q: "How long does a web project take?",
-    a: "Depends on the plan. Landing ships in 1-2 weeks. Professional and Advanced in 4-6 weeks. Rescuing an old site (custom project off-catalogue) can take 2-3 months depending on what needs to be moved and rewritten. In the first conversation I give you a concrete timeline with weekly milestones, not a vague range.",
+    a: "Depends on the plan. Landing and Portfolio ship in 1-2 weeks. Web in 3-4 weeks. Store in 4-6 weeks. Rescuing an old site (custom project off-catalogue) can take 2-3 months depending on what needs to be moved and rewritten. In the first conversation I give you a concrete timeline with weekly milestones, not a vague range.",
   },
   {
     q: "How is a project paid?",
-    a: "Direct purchase: 50% on quote acceptance (calendar reservation and kick-off) and 50% on production delivery. Service contract: setup payment (€199 / €699 / €999) on signing plus monthly fee (€19 / €69 / €89) invoiced at the start of each month, with a 12-month minimum term. Custom long projects (legacy rescues, intranets): 30 / 40 / 30 with agreed milestones. Everything by bank transfer, with an invoice — VAT is included in the prices shown.",
+    a: "The setup fee is paid at kick-off (calendar reservation and launch) and the monthly fee is invoiced in advance at the start of each month. There's no huge upfront payment and no lock-in: you can cancel whenever you want. For long custom projects (legacy rescues, intranets) we work by agreed milestones. Everything by bank transfer, with an invoice — VAT is included in the prices shown.",
   },
   {
     q: "What if I don't like the design?",
@@ -70,11 +70,11 @@ const en: FaqItem[] = [
   },
   {
     q: "Who maintains the website after delivery?",
-    a: "If you chose Direct purchase, your site is 100% yours from day 1. Landing includes 1 month of post-delivery support; Professional and Advanced, 3 months. After that you can contract optional maintenance separately (€29 / €69 / €89/mo by plan) or manage it yourself. If you chose Service contract, maintenance is already included in the monthly fee for the entire contract duration (12-month minimum).",
+    a: "I do, always. Maintenance —hosting, backups, security, updates and support— is included in the monthly fee for as long as you're a client. There's no 'support phase' that expires: while you pay the fee I keep your site running and make the changes your plan covers each month.",
   },
   {
     q: "Do I have to sign a lock-in contract? Do I end up owning the website?",
-    a: "It depends on the path you choose. With Direct purchase there's no lock-in: you pay for the site and the code is 100% yours from day one. With a Service contract there is a 12-month minimum term, because it spreads the cost of the site plus maintenance into monthly payments; it's designed so that once the year is up you owe nothing, and if you cancel earlier you only settle the difference up to the site's value (I explain this before signing, never in fine print). Either way you keep your website: no rented templates, and you're never left with nothing if you decide to leave.",
+    a: "There's no lock-in: you can cancel whenever you want, with no penalty. Your site lives on my infrastructure and I handle everything while you're a client. The only rule is code ownership: if you cancel before 12 months, the site is switched off and the code stays with me (the setup fee paid to build it, not to hand it over); from 12 months onward, if you decide to go your own way, I hand over the code so you can host it wherever you like. The domain is yours from day one. I explain all of this before signing, never in fine print.",
   },
   {
     q: "Does your work qualify for Spain's Kit Digital grant?",
@@ -86,7 +86,7 @@ const en: FaqItem[] = [
   },
   {
     q: "Who owns the domain and hosting accounts?",
-    a: "The domain is always yours, from day 1, registered in your name. If you already have one, I don't touch it. If we register a new one, it goes directly in your name and I only appear as technical administrator. Technical accounts (Vercel hosting, Sanity CMS, database, monitoring) are managed from my account while the service lasts, because that lets me deploy, support and monitor without friction. When the relationship ends, I transfer those accounts to you or hand over the credentials so you can take over. Source code, if you chose Direct purchase, is yours from day 1; if you chose Service contract, I hand it over when the contract ends or earlier on written request.",
+    a: "The domain is always yours, from day 1, registered in your name. If you already have one, I don't touch it. If we register a new one, it goes directly in your name and I only appear as technical administrator. Technical accounts (Vercel hosting, Sanity CMS, database, monitoring) are managed from my account while the service lasts, because that lets me deploy, support and monitor without friction. The source code follows the ownership model: it stays with me while you're a client and becomes yours from 12 months onward (or earlier if we agree in writing). If you then decide to manage the site yourself, I transfer the accounts or hand over the credentials so you can take over.",
   },
 ];
 

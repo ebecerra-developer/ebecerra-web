@@ -19,9 +19,9 @@ const DEFAULT_DESC_ES =
 const DEFAULT_DESC_EN =
   "I build custom websites for clinics, law firms, freelancers and SMBs. No generic templates. Fast, accessible and designed so your team can run them solo.";
 const DEFAULT_ORG_DESC_ES =
-  "Webs a medida para autónomos y PYMEs en dos modalidades de pago (contrato de servicio o pago único) y tres niveles de complejidad. Hosting, mantenimiento y add-ons opcionales.";
+  "Webs y tiendas online a medida para autónomos y PYMEs con una cuota mensual todo incluido: alta única + cuota con hosting, mantenimiento y soporte. Sin permanencia. Landing, portfolio, web completa y ecommerce, más add-ons opcionales.";
 const DEFAULT_ORG_DESC_EN =
-  "Custom websites for freelancers and SMBs in two payment paths (service contract or one-time) and three complexity levels. Hosting, maintenance and optional add-ons.";
+  "Custom websites and online stores for freelancers and SMBs on an all-inclusive monthly plan: one-off setup + a fee covering hosting, maintenance and support. No lock-in. Landing, portfolio, full website and ecommerce, plus optional add-ons.";
 // Desambiguación de entidad: distingue a este Enrique Becerra (web freelance,
 // Madrid, founder de eBecerra) de homónimos (hostelero, académico, etc.).
 const DISAMBIG_ES =
@@ -147,38 +147,26 @@ function buildWebsite(locale: Locale) {
   };
 }
 
-// "900 €" / "1.500 €" / "2.000 €" → "900" / "1500" / "2000"
+// "390 €" → "390" · "1.500 €" → "1500". Toma solo el PRIMER grupo numérico para
+// que un priceMain con dos cifras (p.ej. "390 € + 19 €/mes") no concatene basura.
 function parsePriceAmount(price: string | null | undefined): string | null {
   if (!price) return null;
-  const digits = price.replace(/[^\d]/g, "");
+  const match = price.match(/[\d.]+/);
+  if (!match) return null;
+  const digits = match[0].replace(/\D/g, "");
   return digits.length > 0 ? digits : null;
 }
 
 function buildTierDescription(
   tier: ServicesPricingTier,
-  contractTier: ServicesPricingTier | undefined,
   locale: Locale
 ): string {
   const parts: string[] = [];
-  if (contractTier) {
-    if (locale === "es") {
-      parts.push(
-        `Pago único ${tier.priceMain} o contrato desde ${contractTier.priceMain}${
-          contractTier.priceSecondary ? ` ${contractTier.priceSecondary}` : ""
-        }.`
-      );
-    } else {
-      parts.push(
-        `One-time ${tier.priceMain} or contract from ${contractTier.priceMain}${
-          contractTier.priceSecondary ? ` ${contractTier.priceSecondary}` : ""
-        }.`
-      );
-    }
-  } else if (tier.conditions) {
-    parts.push(`${tier.priceMain} · ${tier.conditions}`);
-  } else {
-    parts.push(tier.priceMain);
-  }
+  const price = tier.priceSecondary
+    ? `${tier.priceMain} ${tier.priceSecondary}`
+    : tier.priceMain;
+  parts.push(locale === "es" ? `Desde ${price}.` : `From ${price}.`);
+  if (tier.subtitle) parts.push(tier.subtitle);
 
   const featureSummary = tier.features
     .slice(0, 3)
@@ -191,6 +179,27 @@ function buildTierDescription(
 
 function buildServiceGraph(pricing: ServicesPricing | null, locale: Locale) {
   const canonical = locale === "es" ? SITE_URL : `${SITE_URL}/${locale}`;
+
+  // Source of truth: el único camino del singleton ('plans').
+  const plansPath =
+    pricing?.paths.find((p) => p.isDefault) ?? pricing?.paths[0];
+  const tiers = plansPath?.tiers ?? [];
+  const amounts = tiers
+    .map((t) => parsePriceAmount(t.priceMain))
+    .filter((a): a is string => !!a)
+    .map(Number);
+
+  // AggregateOffer necesita lowPrice para ser válido en Google (rich result).
+  const aggregateOffers: Record<string, unknown> = {
+    "@type": "AggregateOffer",
+    priceCurrency: "EUR",
+    availability: "https://schema.org/InStock",
+    url: `${canonical}#servicios`,
+  };
+  if (amounts.length) {
+    aggregateOffers.lowPrice = Math.min(...amounts);
+    aggregateOffers.offerCount = amounts.length;
+  }
 
   const aggregate = {
     "@type": "Service",
@@ -211,62 +220,30 @@ function buildServiceGraph(pricing: ServicesPricing | null, locale: Locale) {
           ? "Autónomos y pequeñas y medianas empresas"
           : "Freelancers and small-to-medium businesses",
     },
-    offers: {
-      "@type": "AggregateOffer",
+    offers: aggregateOffers,
+  };
+
+  // Si no hay pricing aún (Sanity vacío o caído), emitimos solo el aggregate y
+  // dejamos que el SEO siga vivo aunque sin tier-level entries.
+  if (tiers.length === 0) return [aggregate];
+
+  const tierItems = tiers.map((tier) => {
+    // priceMain = alta (setup). priceSecondary = cuota mensual (texto).
+    const setupAmount = parsePriceAmount(tier.priceMain);
+
+    const offers: Record<string, unknown> = {
+      "@type": "Offer",
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       url: `${canonical}#servicios`,
-    },
-  };
-
-  // Source of truth: la pareja de paths del singleton. Si no hay pricing aún
-  // (Sanity vacío o caído), emitimos solo el aggregate y dejamos que el SEO
-  // siga vivo aunque sin tier-level entries.
-  const oneTimePath = pricing?.paths.find((p) => p.id === "oneTime");
-  const contractPath = pricing?.paths.find((p) => p.id === "contract");
-  if (!oneTimePath || oneTimePath.tiers.length === 0) return [aggregate];
-
-  const tierItems = oneTimePath.tiers.map((tier) => {
-    const contractTier = contractPath?.tiers.find((t) => t.id === tier.id);
-    const oneTimeAmount = parsePriceAmount(tier.priceMain);
-    const contractSetupAmount = contractTier
-      ? parsePriceAmount(contractTier.priceMain)
-      : null;
-
-    // Si tenemos los dos precios → AggregateOffer (low/high). Si solo uno → Offer simple.
-    let offers: Record<string, unknown>;
-    if (contractSetupAmount && oneTimeAmount) {
-      offers = {
-        "@type": "AggregateOffer",
-        priceCurrency: "EUR",
-        lowPrice: contractSetupAmount,
-        highPrice: oneTimeAmount,
-        offerCount: 2,
-        availability: "https://schema.org/InStock",
-        url: `${canonical}#servicios`,
-      };
-    } else if (oneTimeAmount) {
-      offers = {
-        "@type": "Offer",
-        priceCurrency: "EUR",
-        price: oneTimeAmount,
-        availability: "https://schema.org/InStock",
-        url: `${canonical}#servicios`,
-      };
-    } else {
-      offers = {
-        "@type": "Offer",
-        priceCurrency: "EUR",
-        availability: "https://schema.org/InStock",
-        url: `${canonical}#servicios`,
-      };
-    }
+    };
+    if (setupAmount) offers.price = setupAmount;
 
     return {
       "@type": "Service",
       "@id": `${SITE_URL}/#service-${tier.id}`,
       name: tier.name,
-      description: buildTierDescription(tier, contractTier, locale),
+      description: buildTierDescription(tier, locale),
       provider: { "@id": ORG_URL },
       url: `${canonical}#servicios`,
       offers,

@@ -46,6 +46,7 @@ const LOCALIZED_DOCUMENT_TYPES = [
   "examplesPage",
   "aboutPage",
   "landingMadrid",
+  "googleReviews",
   "faqItem",
   "legalPage",
   "demoSite",
@@ -141,6 +142,14 @@ const structure: StructureResolver = (S) =>
                   S.document()
                     .schemaType("contactFormSettings")
                     .documentId("contactFormSettings-singleton")
+                ),
+              S.listItem()
+                .title("Sección · Reseñas de Google")
+                .id("googleReviews")
+                .child(
+                  S.document()
+                    .schemaType("googleReviews")
+                    .documentId("googleReviews-singleton")
                 ),
             ])
         ),

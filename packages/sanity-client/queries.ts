@@ -24,6 +24,7 @@ import type {
   DemosIndexPage,
   DemosBannerSettings,
   ExamplesPageData,
+  GoogleReviewsData,
   BlogPageData,
   BlogCommentForm,
   SiteSettingsMeta,
@@ -1543,6 +1544,34 @@ export async function getExamplesPage(
   };
 }
 
+export async function getGoogleReviews(
+  locale: Locale
+): Promise<GoogleReviewsData | null> {
+  const raw = await runFetch<GoogleReviewsData | null>(
+    `*[_type == "googleReviews"][0] {
+      "enabled": coalesce(enabled, false),
+      "kicker": ${loc("kicker")},
+      "title": ${loc("title")},
+      "lead": ${loc("lead")},
+      ratingAverage,
+      ratingCount,
+      placeUrl,
+      "reviews": reviews[]{
+        author,
+        "rating": coalesce(rating, 5),
+        relativeDate,
+        text
+      }
+    }`,
+    { locale }
+  ).catch(() => null);
+
+  // null también sin reseñas: la home no debe renderizar una sección vacía
+  // (evita, además, un panel hueco dentro del StackScroll).
+  if (!raw || !raw.enabled || !raw.reviews?.length) return null;
+  return { ...raw, reviews: raw.reviews };
+}
+
 export const DEFAULT_ABOUT_PAGE: AboutPageData = {
   metaTitle:
     "Sobre mí — Enrique Becerra, desarrollo web para negocios pequeños",
@@ -2110,6 +2139,7 @@ export async function getServicesPricing(
           "tiers": tiers[]{
             id,
             "name": ${loc("name")},
+            "subtitle": ${loc("subtitle")},
             priceMain,
             "priceSecondary": ${loc("priceSecondary")},
             "conditions": ${loc("conditions")},

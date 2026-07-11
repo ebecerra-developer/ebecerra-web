@@ -1,0 +1,195 @@
+/* GoogleReviews.module.css — reseñas reales de Google (estética ficha Google) */
+
+.section {
+  padding: clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.inner {
+  max-width: var(--container-max, 1100px);
+  margin: 0 auto;
+}
+
+.heading {
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0 0 16px;
+  max-width: 760px;
+}
+
+.lead {
+  max-width: 620px;
+  margin: 0 0 32px;
+  color: var(--text-secondary);
+}
+
+/* ---------- Estrellas con relleno proporcional ---------- */
+
+.stars {
+  position: relative;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 1;
+  letter-spacing: 3px;
+  white-space: nowrap;
+}
+
+.starsTrack {
+  color: #dadce0;
+}
+
+.starsFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #fbbc04;
+}
+
+/* ---------- Resumen (puntuación media + CTA a Google) ---------- */
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 3vw, 24px);
+  flex-wrap: wrap;
+  padding: clamp(16px, 2.5vw, 22px) clamp(18px, 3vw, 26px);
+  margin-bottom: 32px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.summaryLogo {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.summaryScore {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.summaryAvg {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #202124;
+}
+
+.summaryCount {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.summaryCta {
+  margin-left: auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.summaryCta:hover {
+  transform: translateY(-1px);
+  background: var(--surface);
+}
+
+/* ---------- Rejilla de reseñas ---------- */
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: clamp(14px, 2vw, 20px);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.cardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.cardAuthor {
+  font-weight: 600;
+  font-size: 15px;
+  color: #202124;
+  line-height: 1.2;
+}
+
+.cardDate {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.cardG {
+  width: 20px;
+  height: 20px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.cardText {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 480px) {
+  .summaryCta {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+}

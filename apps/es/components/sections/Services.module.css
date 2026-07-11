@@ -247,6 +247,14 @@
   font-weight: 500;
 }
 
+.cardSubtitle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  text-wrap: balance;
+}
+
 .cardPrice {
   margin: 0;
   font-size: clamp(28px, 3.4vw, 36px);

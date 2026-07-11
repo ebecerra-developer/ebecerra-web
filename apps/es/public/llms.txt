@@ -8,24 +8,24 @@ Las cifras y condiciones de servicio son reales y se pueden verificar en ebecerr
 
 ## Servicios
 
-Dos caminos de contratación × tres niveles de complejidad. El cliente elige cómo pagar, no qué producto comprar. Precios orientativos.
+Un solo modelo: un alta única + una cuota mensual con todo incluido (hosting, mantenimiento y soporte). Sin pago único desorbitado y sin permanencia. Cuatro planes según lo que necesites. Precios orientativos.
 
-**Camino A — Contrato de servicio** (permanencia mínima 12 meses, hosting + soporte incluidos):
+- Landing — 390 € alta + 19 €/mes. Para autónomos que quieren estar online ya y que les llamen. Una página con CTA claro (formulario o WhatsApp), diseño a medida mobile-first, SEO técnico básico, hosting + SSL + dominio, 30 min de cambios al mes.
+- Portfolio — 490 € alta + 25 €/mes. Para creativos (arquitectos, fotógrafos, ilustradores) que necesitan enseñar su obra. Web multipágina con galería optimizada, diseño editorial a medida, SEO + hosting + dominio incluidos, 1 h de cambios al mes.
+- Web (el más contratado) — 690 € alta + 59 €/mes. Para PYMEs que quieren su web completa. Varias secciones, panel CMS (Sanity) para editar textos y fotos, blog, 2 h de cambios/mes, formación de uso, soporte 24 h, FAQ marcado para Google.
+- Tienda — 990 € alta + 99 €/mes. Ecommerce completo: catálogo, carrito, pedidos y pasarela de pago (tarjeta, Bizum), gestión de stock, motor profesional (Medusa) alojado y mantenido, 3 h de cambios/mes, soporte prioritario. Sin comisión por venta.
 
-- Landing — 199 € setup + 19 €/mes. Una página con CTA claro (formulario o WhatsApp), diseño a medida mobile-first, SEO técnico básico, hosting + SSL + dominio el primer año, 30 min de cambios al mes.
-- Profesional (el más contratado) — 699 € setup + 69 €/mes. Web a medida multi-sección, panel CMS (Sanity), 2 h de cambios/mes, formación de uso, soporte 24 h, migración de hasta 5 páginas.
-- Avanzado — 999 € setup + 89 €/mes. Lo anterior + reservas/citas online, 3 h de cambios/mes, 1 add-on incluido, soporte prioritario, migración de hasta 10 páginas.
+**Propiedad del código**: la web vive en la infraestructura de Enrique. Sin permanencia: baja cuando quieras, sin penalización. Si te das de baja antes de 12 meses, el código se queda con él; a partir de los 12 meses, se te entrega. El dominio es tuyo desde el día 1.
 
-**Camino B — Pago único** (soporte post-entrega incluido, código y dominio 100 % del cliente):
-
-- Landing — 399 €. 1 mes de soporte post-entrega. Mantenimiento opcional desde +29 €/mes.
-- Profesional (el más contratado) — 1.500 €. 3 meses de soporte post-entrega. Mantenimiento opcional +69 €/mes. Migración de hasta 5 páginas.
-- Avanzado — 2.000 €. 3 meses de soporte post-entrega. Mantenimiento opcional +89 €/mes. Migración de hasta 10 páginas.
-
-**Add-ons**:
+**Add-ons** (se suman a cualquier plan):
 
 - Chatbot con IA — 49 € setup + 9 €/mes. Atiende dudas 24/7 y deriva leads al email.
-- Sistema de reservas — 199 € sin cuota. Reservas online integradas.
+- Sistema de reservas — 199 € setup + 19 €/mes. Reservas online integradas y sincronizadas con tu calendario.
+- Generador de contenido social — 149 € setup + 19 €/mes.
+- Página SEO de zona — 129 € por página.
+- Ficha de Google Business — 149 €.
+- Reseñas de Google en tu web — 99 €.
+- Blog editorial — 249 € setup + 49 €/artículo.
 
 **Migración de contenido adicional**: 15 €/página estática, 25 €/entrada de blog. Webs +30 páginas, presupuesto previo.
 

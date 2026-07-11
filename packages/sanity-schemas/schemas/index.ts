@@ -33,6 +33,7 @@ import faqItem from "./faqItem";
 import legalPage from "./legalPage";
 import demoSite from "./demoSite";
 import examplesPage from "./examplesPage";
+import googleReviews from "./googleReviews";
 import chatbot from "./chatbot";
 import author from "./author";
 import blogCategory from "./blogCategory";
@@ -72,6 +73,7 @@ export const schemaTypes = [
   examplesPage,
   aboutPage,
   landingMadrid,
+  googleReviews,
   profile,
   // Colecciones
   experience,
@@ -112,6 +114,7 @@ export const SINGLETON_TYPES = [
   "examplesPage",
   "aboutPage",
   "landingMadrid",
+  "googleReviews",
   "profile",
 ] as const;
 

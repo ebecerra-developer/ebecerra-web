@@ -42,12 +42,18 @@
   "services": {
     "kicker": "// 01. Servicios",
     "title": "Cómo puedo ayudarte",
-    "lead": "Dos formas de pagarlo, tres niveles de complejidad. Tú eliges cómo, no qué.",
-    "pathTabsAriaLabel": "Cambiar entre contrato de servicio y pago único",
+    "lead": "Una cuota al mes con todo dentro: hosting, mantenimiento y soporte. Sin pago inicial desorbitado y sin permanencia.",
+    "pathTabsAriaLabel": "Cambiar entre planes",
     "defaultCta": "Hablemos",
     "priceFrom": "desde",
     "priceOnRequest": "Presupuesto a medida",
     "viewMore": "Ver detalles"
+  },
+  "reviews": {
+    "seeOnGoogle": "Ver todas en Google",
+    "verified": "Opiniones reales en Google",
+    "countLabel": "{n} reseñas en Google",
+    "ariaStars": "{n} de 5 estrellas"
   },
   "cases": {
     "kicker": "// Casos destacados",

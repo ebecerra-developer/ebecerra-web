@@ -1,6 +1,12 @@
 "use client";
 
-import { Children, useEffect, useRef, type ReactNode } from "react";
+import {
+  Children,
+  isValidElement,
+  useEffect,
+  useRef,
+  type ReactNode,
+} from "react";
 import styles from "./StackScroll.module.css";
 
 type Props = { children: ReactNode };
@@ -78,9 +84,16 @@ export default function StackScroll({ children }: Props) {
 
   return (
     <div ref={rootRef} className={styles.stack}>
-      {Children.map(children, (child) => (
-        <div className={styles.item}>{child}</div>
-      ))}
+      {/* toArray + filtro de elementos válidos: descarta hijos null/false (p.ej.
+          una sección condicional como Reseñas cuando no hay datos) para no crear
+          un panel vacío que rompería el cálculo de recede del apilado. */}
+      {Children.toArray(children)
+        .filter((child) => isValidElement(child))
+        .map((child, i) => (
+          <div key={i} className={styles.item}>
+            {child}
+          </div>
+        ))}
     </div>
   );
 }

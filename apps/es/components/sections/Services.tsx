@@ -128,6 +128,9 @@ export default function Services({ pricing }: Props) {
 
                 <header className={styles.cardHeader}>
                   <p className={styles.cardName}>{tier.name}</p>
+                  {tier.subtitle && (
+                    <p className={styles.cardSubtitle}>{tier.subtitle}</p>
+                  )}
                   <p className={styles.cardPrice}>{tier.priceMain}</p>
                   <div className={styles.cardSub}>
                     {tier.priceSecondary && (

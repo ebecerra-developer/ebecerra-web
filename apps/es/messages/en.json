@@ -42,12 +42,18 @@
   "services": {
     "kicker": "// 01. Services",
     "title": "How I can help you",
-    "lead": "Two ways to pay, three levels of complexity. You pick how, not what.",
-    "pathTabsAriaLabel": "Switch between service contract and one-time payment",
+    "lead": "One monthly fee with everything inside: hosting, maintenance and support. No huge upfront payment and no lock-in.",
+    "pathTabsAriaLabel": "Switch between plans",
     "defaultCta": "Let's talk",
     "priceFrom": "from",
     "priceOnRequest": "Custom quote",
     "viewMore": "View details"
+  },
+  "reviews": {
+    "seeOnGoogle": "See all on Google",
+    "verified": "Real reviews on Google",
+    "countLabel": "{n} reviews on Google",
+    "ariaStars": "{n} out of 5 stars"
   },
   "cases": {
     "kicker": "// Featured cases",

@@ -5,12 +5,13 @@ import { defineType, defineField } from "sanity";
  *
  * Estructura:
  *   - Header de sección (kicker / title / lead)
- *   - Selector de caminos (pathSelectorLabel)
- *   - paths: array de 2 caminos (Contrato / Pago único). Cada camino contiene 3 tiers.
- *   - cancellationClause: callout (solo visible cuando el path activo coincide
- *     con showOnPathId).
+ *   - paths: array de caminos. Modelo actual = 1 solo camino ("plans") con 4
+ *     tiers (Landing / Portfolio / Web / Tienda). El selector de caminos solo
+ *     se dibuja si hay más de un camino, así que con uno queda oculto.
+ *   - cancellationClause: callout con las reglas de propiedad del código
+ *     (solo visible cuando el path activo coincide con showOnPathId).
  *   - addOns: módulos contratables aparte.
- *   - migrationFootnote: nota al pie común a ambos caminos.
+ *   - migrationFootnote: nota al pie.
  */
 export default defineType({
   name: "servicesPricing",
@@ -77,7 +78,7 @@ export default defineType({
               title: "ID (slug interno)",
               type: "string",
               description:
-                "Identificador estable. Recomendado: 'contract' o 'oneTime'. Se usa para mostrar la cláusula de rescisión y como key React.",
+                "Identificador estable del camino. Modelo actual: 'plans'. Se usa para mostrar la cláusula de propiedad del código y como key React.",
               validation: (Rule) =>
                 Rule.required().regex(/^[a-zA-Z][a-zA-Z0-9_-]*$/, {
                   name: "slug",
@@ -133,6 +134,13 @@ export default defineType({
                       validation: (Rule) => Rule.required(),
                     }),
                     defineField({
+                      name: "subtitle",
+                      title: "Para quién es (subtítulo bajo el nombre)",
+                      type: "localeString",
+                      description:
+                        "Una frase de 'para quién es → qué consigue'. Ej: 'Para autónomos que quieren estar online ya y captar contactos'.",
+                    }),
+                    defineField({
                       name: "priceMain",
                       title: "Precio principal (display)",
                       type: "string",
@@ -145,7 +153,7 @@ export default defineType({
                       title: "Precio secundario (opcional)",
                       type: "localeString",
                       description:
-                        "Segunda línea junto al precio. Ej: '+ 49 €/mes'. Vacío si no aplica (pago único).",
+                        "Segunda línea junto al precio (la cuota). Ej: '+ 19 €/mes'.",
                     }),
                     defineField({
                       name: "conditions",
@@ -249,10 +257,10 @@ export default defineType({
     }),
     defineField({
       name: "cancellationClause",
-      title: "Cláusula de rescisión (callout)",
+      title: "Cláusula de propiedad del código (callout)",
       type: "object",
       description:
-        "Callout sutil que solo se muestra cuando el camino activo coincide con 'Mostrar en path id'.",
+        "Callout sutil con las reglas de baja / propiedad del código. Solo se muestra cuando el camino activo coincide con 'Mostrar en path id'.",
       fields: [
         defineField({
           name: "showOnPathId",

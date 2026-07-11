@@ -11,6 +11,7 @@ import {
   getIntegrationsStrip,
   getContactSectionMeta,
   getSectionMeta,
+  getGoogleReviews,
 } from "@ebecerra/sanity-client";
 import StackScroll from "@/components/StackScroll";
 import Nav from "@/components/sections/Nav";
@@ -21,6 +22,7 @@ import About from "@/components/sections/About";
 import Capabilities from "@/components/sections/Capabilities";
 import Process from "@/components/sections/Process";
 import Examples from "@/components/sections/Examples";
+import GoogleReviews from "@/components/sections/GoogleReviews";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -45,6 +47,7 @@ export default async function Home({
     integrationsStrip,
     processMeta,
     contactMeta,
+    googleReviews,
   ] = await Promise.all([
     getHeroSection(locale).catch(() => null),
     getServicesPricing(locale).catch(() => null),
@@ -59,6 +62,7 @@ export default async function Home({
     })),
     getSectionMeta("processSectionMeta", locale).catch(() => null),
     getContactSectionMeta(locale),
+    getGoogleReviews(locale).catch(() => null),
   ]);
 
   const resolvedProcess = processSteps.length > 0 ? processSteps : fallback.processSteps;
@@ -92,6 +96,7 @@ export default async function Home({
               el recede solo le aplica opacidad, nunca transform (ver StackScroll
               + data-stage). */}
           <Examples locale={locale} />
+          {googleReviews ? <GoogleReviews data={googleReviews} /> : null}
           <Contact contactMeta={contactMeta} profile={profileData} />
         </StackScroll>
       </main>
