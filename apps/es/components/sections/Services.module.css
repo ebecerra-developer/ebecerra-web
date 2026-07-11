@@ -485,4 +485,10 @@
   .grid {
     grid-template-columns: repeat(4, 1fr);
   }
+
+  /* Pago único = 2 planes: no estirarlos a 4 columnas, centrarlos. */
+  .grid[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 320px));
+    justify-content: center;
+  }
 }

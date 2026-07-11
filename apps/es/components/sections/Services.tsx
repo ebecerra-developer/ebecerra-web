@@ -114,6 +114,7 @@ export default function Services({ pricing }: Props) {
             id={`tier-panel-${activePath.id}`}
             aria-labelledby={`tier-tab-${activePath.id}`}
             className={styles.grid}
+            data-count={activePath.tiers.length}
           >
             {activePath.tiers.map((tier) => (
               <TiltCard

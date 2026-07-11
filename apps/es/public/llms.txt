@@ -8,14 +8,16 @@ Las cifras y condiciones de servicio son reales y se pueden verificar en ebecerr
 
 ## Servicios
 
-Un solo modelo: un alta única + una cuota mensual con todo incluido (hosting, mantenimiento y soporte). Sin pago único desorbitado y sin permanencia. Cuatro planes según lo que necesites. Precios orientativos.
+Dos formas de contratar. La habitual: **cuota mensual** con todo incluido (hosting, mantenimiento y soporte), sin permanencia — cuatro planes. Y **pago único** para quien prefiera que la web sea suya de una vez (solo Landing y Portfolio). Precios orientativos.
 
 - Landing — 390 € alta + 19 €/mes. Para autónomos que quieren estar online ya y que les llamen. Una página con CTA claro (formulario o WhatsApp), diseño a medida mobile-first, SEO técnico básico, hosting + SSL + dominio, 30 min de cambios al mes.
 - Portfolio — 490 € alta + 25 €/mes. Para creativos (arquitectos, fotógrafos, ilustradores) que necesitan enseñar su obra. Web multipágina con galería optimizada, diseño editorial a medida, SEO + hosting + dominio incluidos, 1 h de cambios al mes.
 - Web (el más contratado) — 690 € alta + 59 €/mes. Para PYMEs que quieren su web completa. Varias secciones, panel CMS (Sanity) para editar textos y fotos, blog, 2 h de cambios/mes, formación de uso, soporte 24 h, FAQ marcado para Google.
 - Tienda — 990 € alta + 99 €/mes. Ecommerce completo: catálogo, carrito, pedidos y pasarela de pago (tarjeta, Bizum), gestión de stock, motor profesional (Medusa) alojado y mantenido, 3 h de cambios/mes, soporte prioritario. Sin comisión por venta.
 
-**Propiedad del código**: la web vive en la infraestructura de Enrique. Sin permanencia: baja cuando quieras, sin penalización. Si te das de baja antes de 12 meses, el código se queda con él; a partir de los 12 meses, se te entrega. El dominio es tuyo desde el día 1.
+**Pago único** (alternativa a la cuota, solo Landing y Portfolio; código y dominio 100% del cliente, 3 meses de soporte, la aloja el cliente): Landing 620 €, Portfolio 790 €. Web y Tienda no tienen pago único (viven de mantenimiento continuo / hosting del backend).
+
+**Propiedad del código** (en cuota mensual): la web vive en la infraestructura de Enrique. Sin permanencia: baja cuando quieras, sin penalización. Si te das de baja antes de 12 meses, el código se queda con él; a partir de los 12 meses, se te entrega. El dominio es tuyo desde el día 1. (En pago único, el código es tuyo desde el día 1.)
 
 **Add-ons** (se suman a cualquier plan):
 

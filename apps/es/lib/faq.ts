@@ -15,7 +15,7 @@ const es: FaqItem[] = [
   },
   {
     q: "¿Cómo se paga un proyecto?",
-    a: "El alta se abona al arrancar el proyecto (reservo tu hueco en la agenda y pongo el proyecto en marcha) y la cuota mensual se factura por adelantado al inicio de cada mes. No hay un pago único desorbitado ni permanencia: te das de baja cuando quieras. En proyectos a medida largos (rescates de webs antiguas, intranets) trabajamos por hitos acordados. Todo por transferencia, con factura e IVA incluido en el precio mostrado.",
+    a: "Dos formas. Lo habitual es cuota mensual: un alta al arrancar el proyecto y la cuota por adelantado cada mes, con todo incluido y sin permanencia. Si prefieres que la web sea tuya de una vez, en Landing y Portfolio hay pago único (código y dominio 100% tuyos + 3 meses de soporte); Web y Tienda van solo por cuota, porque viven de mantenimiento continuo. En proyectos a medida largos (rescates de webs antiguas, intranets) trabajamos por hitos acordados. Todo por transferencia, con factura e IVA incluido en el precio mostrado.",
   },
   {
     q: "¿Qué pasa si no me gusta el diseño?",
@@ -58,7 +58,7 @@ const en: FaqItem[] = [
   },
   {
     q: "How is a project paid?",
-    a: "The setup fee is paid at kick-off (calendar reservation and launch) and the monthly fee is invoiced in advance at the start of each month. There's no huge upfront payment and no lock-in: you can cancel whenever you want. For long custom projects (legacy rescues, intranets) we work by agreed milestones. Everything by bank transfer, with an invoice — VAT is included in the prices shown.",
+    a: "Two ways. Usually a monthly fee: a setup at kick-off and the fee billed in advance each month, everything included and no lock-in. If you'd rather own the site outright, Landing and Portfolio have a one-time option (code and domain 100% yours + 3 months of support); Web and Store are monthly only, since they live on ongoing maintenance. For long custom projects (legacy rescues, intranets) we work by agreed milestones. Everything by bank transfer, with an invoice — VAT is included in the prices shown.",
   },
   {
     q: "What if I don't like the design?",
