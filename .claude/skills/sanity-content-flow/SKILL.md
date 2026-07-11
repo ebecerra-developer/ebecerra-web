@@ -149,6 +149,17 @@ Plugin `sanity-plugin-asset-source-unsplash` no soporta sanity v5 a fecha 2026-0
 - **Resend SDK NO lanza excepciones.** Hay que chequear `{data, error}` explícito; no basta con try/catch.
 - **`revalidate: 3600`** en páginas = ISR de 1h. Si algo no se ve, o es cache o el webhook no disparó.
 
+## Generar imágenes con IA (`mcp__sanity__generate_image`)
+
+Genera una imagen y la sube como asset a un campo de un doc. Calidad muy buena para fotografía de producto sobre fondo blanco / emblemas de logo flat.
+
+- **Solo acepta un campo `image` simple o un ARRAY DE IMÁGENES.** Un array de OBJETOS (ej. `demoSite.lifestyleGallery` = `array of {image, alt}`) da `Invalid imagePath: … does not target an image field or array of images`. Para lotes usar un doc scratch con `caseStudy.images` (array de image); para 1-3 sueltas, un campo simple (`hero.image`, `thumbnail`).
+- **Es asíncrono** ("uploaded shortly"). Tras llamar, hacer **polling** con GROQ: campo simple → `defined(hero.image.asset)` / `hero.image.asset->url`; array → `{"n": count(images), "last": images[-1].asset->url}` hasta que `n` sea el esperado y `last` no sea null. Suele tardar 5-20s.
+- **Los assets NO se borran** al reasignar/borrar el campo → se puede reutilizar un campo simple sobreescribiéndolo y guardando cada URL antes de la siguiente; al final `discard_drafts` de los scratch (el asset queda vivo, la URL que guardaste sigue resolviendo).
+- **Lotes grandes en paralelo:** N subagentes, cada uno con SU doc scratch (evita carreras al hacer append al array), generando en secuencia con barrera de orden (`count == i`), devolviendo `{handle: url}`. El principal escribe el mapa.
+- **Recortar/redimensionar** en la URL del CDN: `?w=700&q=80&auto=format`; si salió apaisado y quieres cuadrado, `?w=200&h=200&fit=crop`.
+- **Subir un asset propio (no IA)** — p.ej. un screenshot para thumbnail — via HTTP: `POST https://gdtxcn4l.api.sanity.io/v2021-06-07/assets/images/production?filename=x.png` con `Authorization: Bearer $SANITY_API_TOKEN` (de `apps/es/.env.local`) → devuelve `document._id` (`image-…`) para referenciar en un campo image.
+
 ## Webhook de revalidación
 
 `SANITY_REVALIDATE_SECRET` vive en 3 sitios que hay que mantener sincronizados:
