@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post "¿Sabías que…? La primera web de la historia sigue online" · 1080×1350 · 4:5
+     Dato curioso, defendible y verificable (info.cern.ch). Solo Inter + acento verde. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#070e09;--muted:rgba(250,246,238,.82)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .stage{position:relative;width:1080px;height:1350px;overflow:hidden;padding:96px 88px;
+    display:flex;flex-direction:column;
+    background:radial-gradient(120% 90% at 28% 14%,#058a63 0%,#047857 52%,#02583c 100%);color:var(--cream)}
+  .stage::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:40;
+    opacity:.06;mix-blend-mode:multiply;background-image:radial-gradient(rgba(0,0,0,.6) 1px,transparent 1px);background-size:4px 4px}
+
+  em{font-style:normal;color:var(--green-light)}
+
+  .kick{font-size:30px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:44px}
+
+  .headline{font-size:74px;font-weight:900;line-height:1.04;letter-spacing:-.04em;max-width:900px}
+
+  /* Ventana de navegador retro reforzando que es real y visitable */
+  .browser{margin-top:64px;width:100%;max-width:840px;border-radius:20px;overflow:hidden;
+    background:#0d3327;border:2px solid rgba(250,246,238,.22);box-shadow:0 34px 70px -34px rgba(2,16,10,.75)}
+  .browser__bar{display:flex;align-items:center;gap:14px;padding:22px 28px;background:rgba(2,32,22,.6)}
+  .browser__dots{display:flex;gap:11px}
+  .browser__dots span{width:18px;height:18px;border-radius:50%;background:rgba(250,246,238,.32)}
+  .browser__url{flex:1;background:rgba(250,246,238,.12);border-radius:999px;padding:14px 26px;
+    font-size:30px;font-weight:700;color:var(--cream);letter-spacing:.01em}
+  .browser__url .lock{color:var(--green-light);margin-right:10px}
+  .browser__body{padding:40px 40px 46px;font-size:28px;line-height:1.5;color:var(--muted)}
+  .browser__body b{color:var(--cream);font-weight:800;display:block;font-size:34px;margin-bottom:14px}
+  .browser__body u{text-decoration-color:rgba(110,231,183,.6);text-underline-offset:5px}
+
+  .foot{margin-top:auto;margin-bottom:112px;font-size:35px;font-weight:600;line-height:1.4;color:var(--muted)}
+  .foot em{font-weight:800}
+
+  .chip{position:absolute;bottom:60px;left:88px;z-index:20;display:flex;align-items:center;gap:13px;font-weight:700;font-size:26px;color:var(--cream)}
+  .chip .dot{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="kick">¿Sabías que…?</div>
+
+    <div class="headline">La <em>primera web</em> de la historia sigue online. Y puedes visitarla hoy.</div>
+
+    <div class="browser">
+      <div class="browser__bar">
+        <div class="browser__dots"><span></span><span></span><span></span></div>
+        <div class="browser__url"><span class="lock">🔒&#xFE0E;</span>info.cern.ch</div>
+      </div>
+      <div class="browser__body">
+        <b>World Wide Web</b>
+        La publicó Tim Berners-Lee en el <u>CERN en 1991</u>. Solo texto, sin imágenes, sin menú. Y fue suficiente para cambiar el mundo.
+      </div>
+    </div>
+
+    <div class="foot">Tu web no necesita ser perfecta.<br>Necesita <em>estar y funcionar</em>.</div>
+
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+  </div>
+</body>
+</html>

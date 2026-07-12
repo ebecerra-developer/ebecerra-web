@@ -114,10 +114,31 @@ const JOBS = [
     w: 1080, h: 1350,
   })),
 
-  // ── 2026-07-11 · Post "La alineación de tu web" (Mundial) · 1080×1350 ──
+  // ── 2026-07-12 · Post "La alineación de tu web" (Mundial) · 1080×1350 ──
   {
-    html: `personal/2026/07/11-post-alineacion-mundial/index.html`,
-    out:  `personal/2026/07/11-post-alineacion-mundial/post.png`,
+    html: `personal/2026/07/12-post-alineacion-mundial/index.html`,
+    out:  `personal/2026/07/12-post-alineacion-mundial/post.png`,
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-07-15 · Post anuncio "tiendas online" (03:47) · 1080×1350 ──
+  {
+    html: `personal/2026/07/15-post-tiendas-online/index.html`,
+    out:  `personal/2026/07/15-post-tiendas-online/post.png`,
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-07-16 · Carrusel "6 cosas que reviso antes de dar tu web por terminada" · 8 slides 1080×1350 ──
+  ...[1,2,3,4,5,6,7,8].map((n) => ({
+    html: `personal/2026/07/16-carrusel-antes-de-terminar/slide-${n}.html`,
+    out:  `personal/2026/07/16-carrusel-antes-de-terminar/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
+  // ── 2026-07-19 · Post "¿Sabías que?" (primera web de la historia) · 1080×1350 ──
+  {
+    html: `personal/2026/07/19-post-sabias-primera-web/index.html`,
+    out:  `personal/2026/07/19-post-sabias-primera-web/final.png`,
     w: 1080, h: 1350,
   },
 

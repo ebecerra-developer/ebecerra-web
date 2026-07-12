@@ -63,6 +63,8 @@ const TARGETS = [
   { name: "09-reel-boceto-web", folder: "personal/2026/07/09-reel-boceto-web", duration: 15 },
   // Reel 2026-07-14: A/B a medida vs plantilla (2 móviles scroll paralelo: plantilla genérica vs demo Equilibrio)
   { name: "14-reel-medida-vs-plantilla", folder: "personal/2026/07/14-reel-medida-vs-plantilla", duration: 14 },
+  // Reel 2026-07-15: ¿Web o tienda online? (decidir según lo que vende el negocio, escenas cross-fade)
+  { name: "15-reel-web-o-tienda", folder: "personal/2026/07/15-reel-web-o-tienda", duration: 18.5 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,

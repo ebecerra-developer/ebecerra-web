@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post anuncio "tiendas online" · 1080×1350 · "Son las 03:47 y acabas de vender"
+     Novedad como deseo (vender mientras duermes) + notificacion de pedido. Solo Inter. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1350px;overflow:hidden;padding:96px 88px;display:flex;flex-direction:column;
+    background:radial-gradient(125% 90% at 28% 12%,#07130d 0%,#053a29 55%,#047857 130%)}
+
+  .kick{font-size:28px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--green-light);margin-bottom:30px}
+  .h1{font-size:88px;font-weight:900;line-height:1.03;letter-spacing:-.04em;color:var(--cream)}
+  .h1 .hr{color:var(--green-light)}
+
+  /* Notificacion de pedido */
+  .noti{margin-top:56px;display:flex;gap:22px;align-items:flex-start;background:rgba(250,246,238,.97);
+    border-radius:30px;padding:30px 34px;box-shadow:0 30px 70px -26px rgba(2,16,10,.8)}
+  .noti .ic{width:82px;height:82px;border-radius:20px;background:var(--green);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:42px;flex-shrink:0}
+  .noti .body{flex:1;min-width:0}
+  .noti .top{display:flex;justify-content:space-between;align-items:baseline}
+  .noti .app{font-size:25px;font-weight:800;color:#6b7c72;letter-spacing:.02em;text-transform:uppercase}
+  .noti .time{font-size:25px;font-weight:600;color:#9aa8a0}
+  .noti .t{margin-top:8px;font-size:38px;font-weight:800;color:var(--ink)}
+  .noti .d{margin-top:6px;font-size:33px;font-weight:600;color:#4c5b52}
+  .noti .d b{color:var(--green);font-weight:900}
+  .noti .paid{color:#0a7d54;font-weight:800}
+
+  .sub{margin-top:50px;font-size:44px;font-weight:600;line-height:1.34;color:rgba(250,246,238,.82)}
+
+  .land{margin-top:auto;margin-bottom:70px}
+  .land .line{font-size:52px;font-weight:900;line-height:1.1;letter-spacing:-.02em;color:var(--cream)}
+  .land .line em{font-style:normal;color:var(--green-light)}
+  .land .mini{margin-top:14px;font-size:30px;font-weight:600;color:rgba(250,246,238,.66)}
+
+  .chip{position:absolute;bottom:56px;left:88px;display:flex;align-items:center;gap:13px;font-weight:700;font-size:27px;color:var(--cream)}
+  .chip .dot{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="kick">✦ Novedad</div>
+    <div class="h1">Son las <span class="hr">03:47</span><br>y acabas de vender.</div>
+
+    <div class="noti">
+      <div class="ic">🛍️</div>
+      <div class="body">
+        <div class="top"><span class="app">Tu tienda online</span><span class="time">ahora</span></div>
+        <div class="t">Nuevo pedido recibido</div>
+        <div class="d">Pedido #1042 · <b>34,90 €</b> · <span class="paid">Pagado ✓</span></div>
+      </div>
+    </div>
+
+    <div class="sub">Sin abrir la tienda.<br>Sin coger el móvil. Sin contestar a nadie.</div>
+
+    <div class="land">
+      <div class="line">Ahora también hago<br><em>tiendas online</em>.</div>
+      <div class="mini">A medida y sin plantillas prefabricadas.</div>
+    </div>
+
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+  </div>
+</body>
+</html>
