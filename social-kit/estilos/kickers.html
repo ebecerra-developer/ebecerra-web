@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Estilos de kicker · social-kit</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" />
+<style>
+  /* ───────────────────────────────────────────────────────────────
+     BIBLIOTECA DE KICKERS (etiquetas que coronan una publicación)
+     Paleta de marca: verde #047857 · verde-claro #6EE7B7 · crema #FAF6EE
+     Fuente SIEMPRE Inter. Acento por COLOR (nunca italic).
+     Copia el bloque .kick-XXX que quieras a tu pieza y ajusta margin.
+     ─────────────────────────────────────────────────────────────── */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{width:1080px;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased;
+    background:radial-gradient(120% 50% at 30% 8%,#058a63 0%,#047857 48%,#02583c 100%);padding:64px 0 40px}
+  .head{padding:0 80px 40px}
+  .head h1{color:var(--cream);font-size:44px;font-weight:900;letter-spacing:-.03em}
+  .head p{color:rgba(250,246,238,.66);font-size:24px;font-weight:500;margin-top:12px;line-height:1.4;max-width:820px}
+  .card{margin:0 56px 30px;background:rgba(2,20,13,.34);border:1px solid rgba(255,255,255,.08);border-radius:26px;padding:38px 44px 34px}
+  .card .name{color:var(--cream);font-size:26px;font-weight:800;letter-spacing:-.01em}
+  .card .name b{color:var(--green-light);font-weight:900}
+  .card .use{display:inline-block;margin-left:12px;font-size:16px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:#04402b;background:var(--green-light);border-radius:999px;padding:4px 12px;vertical-align:middle}
+  .card .desc{color:rgba(250,246,238,.6);font-size:21px;font-weight:500;margin-top:8px;line-height:1.4}
+  .card .demo{margin:28px 0 4px;min-height:70px;display:flex;align-items:center}
+  .card pre{margin-top:22px;background:rgba(2,14,9,.6);border-radius:14px;padding:20px 22px;overflow-x:auto;
+    font-family:"JetBrains Mono",monospace;font-size:16.5px;line-height:1.55;color:#b9e6cf;white-space:pre}
+  .card pre .sel{color:#6EE7B7;font-weight:600}
+  .card pre .cm{color:#6a8c7b}
+
+  /* ══ 0 · ESTÁNDAR — el kicker por defecto en posts/carruseles ══ */
+  .kick-std{display:inline-flex;align-items:center;gap:12px;font-size:28px;font-weight:800;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--green-light)}
+
+  /* ══ A · PILL TRANSLÚCIDA + GLOW — sutil, elegante ══ */
+  .kick-a{display:inline-flex;align-items:center;gap:12px;background:rgba(110,231,183,.14);
+    border:1.5px solid rgba(110,231,183,.5);color:var(--green-light);font-size:26px;font-weight:800;letter-spacing:.18em;
+    text-transform:uppercase;padding:12px 26px;border-radius:999px;box-shadow:0 0 48px -6px rgba(110,231,183,.6)}
+  .kick-a .st{font-size:24px;filter:drop-shadow(0 0 10px rgba(110,231,183,.9))}
+
+  /* ══ B · PILL SÓLIDA VERDE — badge "NUEVO", la que más resalta ══ */
+  .kick-b{display:inline-flex;align-items:center;gap:11px;background:var(--green-light);color:#04402b;
+    font-size:26px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;padding:13px 26px;border-radius:999px;
+    box-shadow:0 0 46px -4px rgba(110,231,183,.75),0 10px 26px -10px rgba(2,16,10,.5)}
+
+  /* ══ C · TEXTO SHINE — degradado de brillo, sin caja, ligero ══ */
+  .kick-c{display:inline-flex;align-items:center;gap:12px;font-size:32px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+  .kick-c .txt{background:linear-gradient(100deg,#FAF6EE 0%,#6EE7B7 42%,#FAF6EE 82%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .kick-c .st{color:var(--green-light);filter:drop-shadow(0 0 12px rgba(110,231,183,.9))}
+
+  /* ══ D · "EN VIVO" — la estrella ✦ es la chispa que brilla ══ */
+  .kick-d{display:inline-flex;align-items:center;gap:14px;background:rgba(3,40,26,.4);
+    border:1px solid rgba(110,231,183,.3);color:var(--green-light);font-size:26px;font-weight:800;letter-spacing:.16em;
+    text-transform:uppercase;padding:12px 26px;border-radius:999px}
+  .kick-d .st{font-size:26px;color:#6EE7B7;filter:drop-shadow(0 0 4px rgba(110,231,183,1)) drop-shadow(0 0 16px rgba(110,231,183,.95))}
+</style>
+</head>
+<body>
+  <div class="head">
+    <h1>Estilos de kicker</h1>
+    <p>La etiqueta que corona una publicación (NOVEDAD, ¿SABÍAS QUE…?, PROCESO…). Todas en Inter, acento por color, sobre el verde del feed. Copia la clase <code>.kick-XXX</code> a tu pieza.</p>
+  </div>
+
+  <!-- 0 · estándar -->
+  <div class="card">
+    <div class="name"><b>Estándar</b><span class="use">por defecto</span></div>
+    <div class="desc">El kicker base de posts y carruseles. Texto verde-claro, sin caja. Neutro y siempre correcto.</div>
+    <div class="demo"><span class="kick-std">✦ Novedad</span></div>
+    <pre><span class="sel">.kick-std</span>{font-size:28px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--green-light)}
+<span class="cm">&lt;span class="kick-std"&gt;✦ Novedad&lt;/span&gt;</span></pre>
+  </div>
+
+  <!-- A -->
+  <div class="card">
+    <div class="name"><b>A</b> · pill translúcida + glow</div>
+    <div class="desc">Cápsula translúcida con borde y resplandor suave. Sutil y premium, para destacar sin gritar.</div>
+    <div class="demo"><span class="kick-a"><span class="st">✦</span> Novedad</span></div>
+    <pre><span class="sel">.kick-a</span>{display:inline-flex;align-items:center;gap:12px;
+  background:rgba(110,231,183,.14);border:1.5px solid rgba(110,231,183,.5);
+  color:var(--green-light);font-size:26px;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;padding:12px 26px;border-radius:999px;
+  box-shadow:0 0 48px -6px rgba(110,231,183,.6)}
+<span class="sel">.kick-a .st</span>{font-size:24px;filter:drop-shadow(0 0 10px rgba(110,231,183,.9))}
+<span class="cm">&lt;span class="kick-a"&gt;&lt;span class="st"&gt;✦&lt;/span&gt; Novedad&lt;/span&gt;</span></pre>
+  </div>
+
+  <!-- B -->
+  <div class="card">
+    <div class="name"><b>B</b> · pill sólida verde</div>
+    <div class="desc">Badge relleno tipo "NUEVO". La que más resalta de un vistazo. Úsala con moderación: es el elemento más fuerte.</div>
+    <div class="demo"><span class="kick-b">✦ Novedad</span></div>
+    <pre><span class="sel">.kick-b</span>{display:inline-flex;align-items:center;gap:11px;
+  background:var(--green-light);color:#04402b;font-size:26px;font-weight:900;
+  letter-spacing:.14em;text-transform:uppercase;padding:13px 26px;border-radius:999px;
+  box-shadow:0 0 46px -4px rgba(110,231,183,.75),0 10px 26px -10px rgba(2,16,10,.5)}
+<span class="cm">&lt;span class="kick-b"&gt;✦ Novedad&lt;/span&gt;</span></pre>
+  </div>
+
+  <!-- C -->
+  <div class="card">
+    <div class="name"><b>C</b> · texto shine</div>
+    <div class="desc">La palabra con un barrido de brillo crema→verde, sin caja. Ligero y luminoso; funciona en titulares de kicker grandes.</div>
+    <div class="demo"><span class="kick-c"><span class="st">✦</span><span class="txt">Novedad</span></span></div>
+    <pre><span class="sel">.kick-c</span>{display:inline-flex;align-items:center;gap:12px;font-size:32px;
+  font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+<span class="sel">.kick-c .txt</span>{background:linear-gradient(100deg,#FAF6EE 0%,#6EE7B7 42%,#FAF6EE 82%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+<span class="sel">.kick-c .st</span>{color:var(--green-light);filter:drop-shadow(0 0 12px rgba(110,231,183,.9))}
+<span class="cm">&lt;span class="kick-c"&gt;&lt;span class="st"&gt;✦&lt;/span&gt;&lt;span class="txt"&gt;Novedad&lt;/span&gt;&lt;/span&gt;</span></pre>
+  </div>
+
+  <!-- D -->
+  <div class="card">
+    <div class="name"><b>D</b> · "en vivo" (estrella chispa)<span class="use">en uso · post tiendas online</span></div>
+    <div class="desc">Pill oscura translúcida donde la estrella ✦ brilla como una chispa. Aire de "recién lanzado" manteniendo el símbolo de marca.</div>
+    <div class="demo"><span class="kick-d"><span class="st">✦</span> Novedad</span></div>
+    <pre><span class="sel">.kick-d</span>{display:inline-flex;align-items:center;gap:14px;
+  background:rgba(3,40,26,.4);border:1px solid rgba(110,231,183,.3);
+  color:var(--green-light);font-size:26px;font-weight:800;letter-spacing:.16em;
+  text-transform:uppercase;padding:12px 26px;border-radius:999px}
+<span class="sel">.kick-d .st</span>{font-size:26px;color:#6EE7B7;
+  filter:drop-shadow(0 0 4px rgba(110,231,183,1)) drop-shadow(0 0 16px rgba(110,231,183,.95))}
+<span class="cm">&lt;span class="kick-d"&gt;&lt;span class="st"&gt;✦&lt;/span&gt; Novedad&lt;/span&gt;</span></pre>
+  </div>
+</body>
+</html>
