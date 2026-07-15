@@ -19,7 +19,6 @@
   /* Hook */
   .hook .big{font-size:78px;font-weight:900;line-height:1.08;letter-spacing:-.035em;color:var(--cream)}
   .hook em{font-style:normal;color:var(--green-light);text-shadow:0 0 34px rgba(110,231,183,.45)}
-  .hook em .u{display:inline-block;box-shadow:inset 0 -.16em 0 rgba(110,231,183,.28)}
 
   /* Pregunta (split) */
   .q .qt{font-size:40px;font-weight:800;color:var(--green-light);letter-spacing:.02em;margin-bottom:44px}
@@ -57,7 +56,7 @@
 
     <!-- 1 · Hook -->
     <div class="scene hook" id="s1">
-      <div class="big">Dices «quiero una web»…<br>y a lo mejor necesitas<br>una <em><span class="u">tienda online</span></em>.</div>
+      <div class="big">Dices «quiero una web»…<br>y a lo mejor necesitas<br>una <em>tienda online</em>.</div>
     </div>
 
     <!-- 2 · La pregunta -->
@@ -113,7 +112,7 @@
 
     const scenes = ["#s1","#s2","#s3","#s4","#s5","#s6"];
     gsap.set(scenes, { opacity: 0, scale: 0.98, y: 18 });
-    gsap.set("#s1", { opacity: 1, scale: 1, y: 0 }); // portada visible desde el segundo 0 (sin fade-in)
+    gsap.set("#s1", { opacity: 1, scale: 1.06, y: 0 }); // portada visible desde el segundo 0, con un leve zoom (sensacion de video, no foto)
 
     // Aparece cada escena, se mantiene, y se va cuando entra la siguiente
     // [in, hold] por escena
@@ -126,10 +125,14 @@
       { s: "#s6", in: 15.5, out: 18.5 },
     ];
     plan.forEach((p, i) => {
-      // La escena 1 (portada) ya está visible desde el segundo 0: no lleva intro.
+      // La escena 1 (portada) ya está visible desde el segundo 0: no lleva fade-in de entrada.
       if (i > 0) tl.fromTo(p.s, { opacity: 0, scale: 0.98, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "power3.out" }, p.in);
       if (i < plan.length - 1) tl.to(p.s, { opacity: 0, scale: 0.99, y: -14, duration: 0.4, ...OUT }, p.out);
     });
+
+    // Micro-zoom de la portada desde el frame 0: da sensación de vídeo, no de foto.
+    // (patrón estándar para reels — ver 2026/06/23-reel-demos-v2)
+    tl.to("#s1", { scale: 1, duration: 0.9, ease: "power2.out" }, 0);
   </script>
 </body>
 </html>
