@@ -18,10 +18,8 @@
 
   /* Hook */
   .hook .big{font-size:78px;font-weight:900;line-height:1.08;letter-spacing:-.035em;color:var(--cream)}
-  .hook .strike{position:relative;color:rgba(250,246,238,.55)}
-  .hook .strike svg{position:absolute;left:-6%;top:44%;width:112%;height:26px;overflow:visible}
-  .hook .strike svg path{stroke:var(--green-light);stroke-width:9;fill:none;stroke-linecap:round}
-  .hook em{font-style:normal;color:var(--green-light)}
+  .hook em{font-style:normal;color:var(--green-light);text-shadow:0 0 34px rgba(110,231,183,.45)}
+  .hook em .u{display:inline-block;box-shadow:inset 0 -.16em 0 rgba(110,231,183,.28)}
 
   /* Pregunta (split) */
   .q .qt{font-size:40px;font-weight:800;color:var(--green-light);letter-spacing:.02em;margin-bottom:44px}
@@ -59,7 +57,7 @@
 
     <!-- 1 · Hook -->
     <div class="scene hook" id="s1">
-      <div class="big">Dices «quiero una <span class="strike">web<svg viewBox="0 0 200 26" preserveAspectRatio="none"><path d="M4 20 C 60 8, 140 22, 196 6"/></svg></span>»…<br>y a lo mejor necesitas<br>una <em>tienda online</em>.</div>
+      <div class="big">Dices «quiero una web»…<br>y a lo mejor necesitas<br>una <em><span class="u">tienda online</span></em>.</div>
     </div>
 
     <!-- 2 · La pregunta -->
@@ -115,6 +113,7 @@
 
     const scenes = ["#s1","#s2","#s3","#s4","#s5","#s6"];
     gsap.set(scenes, { opacity: 0, scale: 0.98, y: 18 });
+    gsap.set("#s1", { opacity: 1, scale: 1, y: 0 }); // portada visible desde el segundo 0 (sin fade-in)
 
     // Aparece cada escena, se mantiene, y se va cuando entra la siguiente
     // [in, hold] por escena
@@ -127,12 +126,10 @@
       { s: "#s6", in: 15.5, out: 18.5 },
     ];
     plan.forEach((p, i) => {
-      tl.fromTo(p.s, { opacity: 0, scale: 0.98, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "power3.out" }, p.in);
+      // La escena 1 (portada) ya está visible desde el segundo 0: no lleva intro.
+      if (i > 0) tl.fromTo(p.s, { opacity: 0, scale: 0.98, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "power3.out" }, p.in);
       if (i < plan.length - 1) tl.to(p.s, { opacity: 0, scale: 0.99, y: -14, duration: 0.4, ...OUT }, p.out);
     });
-
-    // micro-realce: el "tienda online" del hook y las reglas de tarjeta
-    tl.fromTo("#s1 em", { color: "#FAF6EE" }, { color: "#6EE7B7", duration: 0.4 }, 1.2);
   </script>
 </body>
 </html>
