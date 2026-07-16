@@ -13,3 +13,9 @@
 *.m4a
 _build/
 _tmp-frames/
+
+# social-kit/estadisticas/: exports y análisis de anuncios (Meta/Google Ads, GA4).
+# Llevan gasto/presupuesto y ESTE REPO ES PÚBLICO → se quedan SOLO en local.
+# Se versiona únicamente el README que documenta la carpeta. Nunca `git add -f` aquí.
+estadisticas/*
+!estadisticas/README.md
