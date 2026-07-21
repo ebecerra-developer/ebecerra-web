@@ -67,6 +67,8 @@ const TARGETS = [
   { name: "15-reel-web-o-tienda", folder: "personal/2026/07/15-reel-web-o-tienda", duration: 18.5 },
   // Reel 2026-07-22: vacaciones (una buena web te deja desconectar; portada micro-zoom, 5 escenas + hold)
   { name: "22-reel-vacaciones", folder: "personal/2026/07/22-reel-vacaciones", duration: 20 },
+  // Reel 2026-07-24: curiosidad ecommerce (lo 1o vendido online = CD de Sting; CD gira y brilla)
+  { name: "24-reel-curiosidad-ecommerce", folder: "personal/2026/07/24-reel-curiosidad-ecommerce", duration: 19 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,
