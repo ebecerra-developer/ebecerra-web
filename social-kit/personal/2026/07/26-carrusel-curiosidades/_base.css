@@ -1,0 +1,41 @@
+/* Carrusel "curiosidades de internet" · 1080×1350 · portada+cierre verdes, datos en crema.
+   Serie de curiosidades probando formatos (post 21 · reel 24 · carrusel 26). Solo Inter. */
+:root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;padding:96px 84px}
+
+.on-green{background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+.on-cream{background:var(--cream)}
+
+/* Firma (abajo-izq, una vez por slide) */
+.sig{position:absolute;left:84px;bottom:52px;display:flex;align-items:center;gap:13px;font-weight:700;font-size:26px}
+.sig .dot{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:19px}
+.on-green .sig{color:var(--cream)}
+.on-green .sig .dot{background:var(--cream);color:var(--green)}
+.on-cream .sig{color:var(--green)}
+.on-cream .sig .dot{background:var(--green);color:var(--cream)}
+
+/* Portada */
+.cover{display:flex;flex-direction:column;justify-content:center}
+.cover .k{font-size:30px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green-light);margin-bottom:32px}
+.cover h1{font-size:98px;font-weight:900;line-height:1.02;letter-spacing:-.04em;color:var(--cream)}
+.cover h1 em{font-style:normal;color:var(--green-light)}
+.cover .sub{margin-top:34px;font-size:38px;font-weight:600;color:rgba(250,246,238,.82)}
+.swipe{position:absolute;right:84px;bottom:54px;display:flex;align-items:center;gap:12px;font-size:29px;font-weight:800;color:var(--green-light)}
+.swipe svg{width:34px;height:34px;stroke:var(--green-light)}
+
+/* Slide de dato */
+.fact{display:flex;flex-direction:column;justify-content:center}
+.fact .num{width:92px;height:92px;border-radius:50%;background:var(--green);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:900;margin-bottom:40px}
+.fact h2{font-size:64px;font-weight:900;line-height:1.05;letter-spacing:-.03em;color:var(--ink)}
+.fact h2 em{font-style:normal;color:var(--green)}
+.fact .d{margin-top:28px;font-size:40px;font-weight:500;color:#3f4d45;line-height:1.34}
+.fact .d b{color:var(--green);font-weight:800}
+.fact .src{margin-top:32px;font-size:24px;font-weight:600;color:#9aa79f;letter-spacing:.01em}
+
+/* Cierre */
+.end{display:flex;flex-direction:column;justify-content:center}
+.end .big{font-size:84px;font-weight:900;line-height:1.05;letter-spacing:-.035em;color:var(--cream)}
+.end .big em{font-style:normal;color:var(--green-light)}
+.end .sub{margin-top:30px;font-size:40px;font-weight:600;color:rgba(250,246,238,.86);line-height:1.32}
