@@ -1,7 +1,7 @@
-# 19 · POST · ¿Sabías que…? La primera web de la historia sigue online
+# 21 · POST · ¿Sabías que…? La primera web de la historia sigue online
 
 - **Tipo**: post 1080×1350 (4:5) · imagen única
-- **Fecha objetivo**: 19 jul 2026 · **Estado**: lista
+- **Fecha objetivo**: 21 jul 2026 · **Estado**: publicada
 - **Categoría**: educativo / curiosidad (dato compartible · autoridad-confianza)
 - **Ángulo (Notion)**: Educativo
 - **Outputs**: `final.png`

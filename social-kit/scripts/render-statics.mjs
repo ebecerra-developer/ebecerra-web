@@ -137,8 +137,8 @@ const JOBS = [
 
   // ── 2026-07-19 · Post "¿Sabías que?" (primera web de la historia) · 1080×1350 ──
   {
-    html: `personal/2026/07/19-post-sabias-primera-web/index.html`,
-    out:  `personal/2026/07/19-post-sabias-primera-web/final.png`,
+    html: `personal/2026/07/21-post-sabias-primera-web/index.html`,
+    out:  `personal/2026/07/21-post-sabias-primera-web/final.png`,
     w: 1080, h: 1350,
   },
 
