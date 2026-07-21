@@ -149,6 +149,58 @@ Intro estándar sugerida: "¿Sabías que...?" o el dato directo sin preámbulo.
 
 ---
 
+## 011 — El primer dominio es más viejo que la web (VERIFICADO)
+
+> El primer dominio **.com** se registró el **15 de marzo de 1985**: `symbolics.com`.
+> **Seis años ANTES** de que existiera la primera página web (1991).
+>
+> O sea: los dominios existían antes que la propia web.
+> Y `symbolics.com` sigue online hoy (convertido en un museo de internet).
+
+*Fuentes: symbolics.com · historyofdomainnames.com · EDN (15-mar-1985)*
+
+---
+
+## 012 — La primera webcam vigilaba una cafetera (VERIFICADO)
+
+> La **primera webcam del mundo** (1991, Universidad de Cambridge) apuntaba a **una cafetera**.
+> Unos investigadores, hartos de subir a la sala del café y encontrarla vacía,
+> conectaron una cámara para ver desde su mesa si quedaba.
+>
+> Sin querer, inventaron la webcam. (La "Trojan Room Coffee Pot".)
+
+*Fuentes: Wikipedia (Trojan Room coffee pot) · University of Cambridge*
+
+---
+
+## 013 — El primer anuncio de internet tenía un 44% de clics (VERIFICADO)
+
+> El **primer banner publicitario** (AT&T, 27 de octubre de 1994, en HotWired) decía:
+> *"¿Has hecho clic con el ratón AQUÍ alguna vez? Lo harás."*
+> Tuvo un **44% de clics**.
+>
+> Hoy un banner que funcione bien ronda el 0,1%.
+
+*Fuentes: The Drum · Digiday · Wikipedia (Timeline of online advertising)*
+
+---
+
+## 014 — La primera compra online segura fue un CD de Sting (VERIFICADO · reel ecommerce)
+
+> El **11 de agosto de 1994** se hizo la **primera compra online segura** de la historia:
+> un **CD de Sting** ("Ten Summoner's Tales"), **12,48 $**, en NetMarket, con cifrado SSL.
+>
+> De ese CD sale todo el comercio electrónico que usas hoy.
+
+*Fuentes: Smithsonian Magazine · Vice · Wikipedia (NetMarket)*
+
+> **Nota de uso (jul 2026):** serie "curiosidades" probando formatos. El 21-jul salió
+> el POST de la primera web (003). Reservado para el REEL ecommerce: 014 (CD de Sting).
+> Para el CARRUSEL: 011 (gap 85/91) + 012 (cafetera) + 010 (cars.com) + 013 (banner 44%)
+> + 008 (.es, añadir que además suele ser más barato que un .com). No repetir 014 en el carrusel.
+
+---
+
 ## Notas para grabar
 
 - Empieza siempre con el **dato** — no con "hoy os traigo una curiosidad"

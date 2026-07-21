@@ -25,7 +25,7 @@ Qué detectar:
 - Foto del user mal recortada, halo de chroma, o reutilizada en piezas seguidas (cada foto sirve a un contexto distinto).
 - En animadas: cortes bruscos, texto que sale antes de tiempo, último frame que tapa el contenido clave.
   - **Crossfades (reels compuestos con xfade/fundido):** un frame extraído en mitad de un crossfade muestra LEGÍTIMAMENTE dos capas superpuestas con opacidad parcial — es el aspecto normal del fundido, NO un solape defectuoso ni un «frame basura». Distingue «solape transitorio durante crossfade (OK)» de «solape permanente entre capas posicionadas (defecto)». Ante la duda, muestrea un frame un poco antes y otro un poco después: si el solape desaparece, era el fundido.
-  - **Poster/thumbnail (reels):** comprueba que `poster.png` (el thumbnail del grid de IG) coincide con la **portada / frame 0** del `final.mp4`. Si difieren, repórtalo — es un fallo típico (poster desincronizado de la portada).
+  - **Poster/thumbnail (reels):** distingue dos casos antes de reportar. (a) Si el flujo trata `poster.png` como el frame que IG mostrará y que debe coincidir con la portada del MP4 (p. ej. el HTML declara "portada desde frame 0") → comprueba que `poster.png` = **frame 0** del `final.mp4`; si difieren, repórtalo (fallo típico de desincronía). (b) Si `poster.png` es un cover diseñado para subirse por separado a IG → solo verifica que el cover no CONTRADIGA el contenido, no que sea idéntico al frame 0. Ante la duda, mira si el HTML/notas declaran intención de portada-desde-frame-0.
 
 Formato de salida:
 - **Veredicto**: OK / defectos menores / bloqueante.
