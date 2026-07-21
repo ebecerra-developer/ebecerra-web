@@ -142,6 +142,13 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-07-22 · Story teaser serie de curiosidades (guiño al CERN) · 1080×1920 ──
+  {
+    html: `personal/2026/07/22-story-serie-curiosidades/index.html`,
+    out:  `personal/2026/07/22-story-serie-curiosidades/final.png`,
+    w: 1080, h: 1920,
+  },
+
   // ── Portadas (cover) del reel demos v2 · 4 versiones 1080×1920 para elegir ──
   ...["a","b","c","d"].map((v) => ({
     html: `personal/2026/06/23-reel-demos-v2/cover-${v}.html`,

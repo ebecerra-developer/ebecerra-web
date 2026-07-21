@@ -66,7 +66,7 @@ const TARGETS = [
   // Reel 2026-07-15: ¿Web o tienda online? (decidir según lo que vende el negocio, escenas cross-fade)
   { name: "15-reel-web-o-tienda", folder: "personal/2026/07/15-reel-web-o-tienda", duration: 18.5 },
   // Reel 2026-07-22: vacaciones (una buena web te deja desconectar; portada micro-zoom, 5 escenas + hold)
-  { name: "22-reel-vacaciones", folder: "personal/2026/07/22-reel-vacaciones", duration: 18 },
+  { name: "22-reel-vacaciones", folder: "personal/2026/07/22-reel-vacaciones", duration: 20 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,
