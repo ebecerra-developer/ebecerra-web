@@ -38,7 +38,7 @@ Reel vertical sobre fondo verde. Titular «¿Qué fue lo primero que se vendió 
 
 ## Comentario fijado
 
-Dato fino: fue el 11 de agosto de 1994, con la primera conexión cifrada (SSL) de una compra. Sin ese momento no existirían ni Amazon ni tu tienda online. ¿Tú lo habrías acertado? 👇
+Dato fino: fue el 11 de agosto de 1994, la primera compra online cifrada (con SSL) de la historia. Sin ese momento no existirían ni Amazon ni tu tienda online. ¿Tú lo habrías acertado? 👇
 
 ## Notas
 
