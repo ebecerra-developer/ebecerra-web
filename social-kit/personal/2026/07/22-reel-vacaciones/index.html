@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel "vacaciones": una buena web te deja desconectar DE VERDAD. Foco = la
+     tranquilidad del dueño (no "la web trabaja de noche"). Escenas cross-fade,
+     faceless, seek-friendly (window.__tl). Portada visible desde el frame 0 + micro-zoom. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 14%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .chip{position:absolute;top:54px;left:54px;z-index:120;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.5);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 96px;opacity:0}
+
+  /* Hook */
+  .hook .big{font-size:82px;font-weight:900;line-height:1.06;letter-spacing:-.035em;color:var(--cream)}
+  .hook .big em{font-style:normal;color:var(--green-light);text-shadow:0 0 34px rgba(110,231,183,.45)}
+
+  /* Escena tú/cliente */
+  .desc .big{font-size:80px;font-weight:900;line-height:1.08;letter-spacing:-.035em;color:var(--cream)}
+  .desc .big em{font-style:normal;color:var(--green-light)}
+  .desc .sub{margin-top:34px;font-size:44px;font-weight:600;color:rgba(250,246,238,.9);line-height:1.32}
+
+  /* Lista "de guardia" */
+  .list .t{font-size:60px;font-weight:900;line-height:1.1;letter-spacing:-.03em;color:var(--cream);margin-bottom:52px}
+  .list .t em{font-style:normal;color:var(--green-light)}
+  .list .row{display:flex;align-items:flex-start;gap:26px;text-align:left;max-width:840px;margin:0 auto 30px}
+  .list .row .ico{width:56px;height:56px;flex-shrink:0;margin-top:2px}
+  .list .row .tx{font-size:42px;font-weight:600;color:rgba(250,246,238,.95);line-height:1.28}
+
+  /* Reframe */
+  .turn .big{font-size:84px;font-weight:900;line-height:1.06;letter-spacing:-.04em;color:var(--cream)}
+  .turn .big em{font-style:normal;color:var(--green-light);text-shadow:0 0 36px rgba(110,231,183,.5)}
+
+  /* Cierre */
+  .end .big{font-size:76px;font-weight:900;line-height:1.08;letter-spacing:-.035em;color:var(--cream)}
+  .end .big em{font-style:normal;color:var(--green-light)}
+  .end .q2{margin-top:44px;display:inline-block;background:var(--cream);color:var(--green);font-size:40px;font-weight:800;padding:22px 44px;border-radius:999px;line-height:1.2}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <!-- 1 · Hook (portada) -->
+    <div class="scene hook" id="s1">
+      <div class="big">Te vas de vacaciones.<br>¿Y tu <em>negocio</em>?</div>
+    </div>
+
+    <!-- 2 · Tú desconectas, tu cliente no -->
+    <div class="scene desc" id="s2">
+      <div class="big">Tú desconectas.<br>Tu cliente <em>no</em>.</div>
+      <div class="sub">Te busca en Google a las 11 de la noche<br>de un martes de agosto.</div>
+    </div>
+
+    <!-- 3 · Lo que hace una buena web -->
+    <div class="scene list" id="s3">
+      <div class="t">Una buena web se queda <em>de guardia</em>:</div>
+      <div class="row">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <div class="tx">Contesta lo de siempre: horarios, precios, dónde estás.</div>
+      </div>
+      <div class="row">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg>
+        <div class="tx">Deja claro si abres o cierras en agosto.</div>
+      </div>
+      <div class="row">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.3 12.2a1 1 0 0 0 1 .8h9a1 1 0 0 0 1-.8L21 8H6"/><circle cx="9.5" cy="20.5" r="1.4"/><circle cx="17.5" cy="20.5" r="1.4"/></svg>
+        <div class="tx">Recibe reservas o pedidos a cualquier hora.</div>
+      </div>
+    </div>
+
+    <!-- 4 · Reframe -->
+    <div class="scene turn" id="s4">
+      <div class="big">Y el que se va de<br>vacaciones de verdad…<br><em>eres tú</em>.</div>
+    </div>
+
+    <!-- 5 · Cierre -->
+    <div class="scene end" id="s5">
+      <div class="big">Que tu web no te ate<br>al móvil en la <em>playa</em>.</div>
+      <div class="q2">¿Desconectas en agosto o el negocio te persigue?</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl;
+
+    const scenes = ["#s1","#s2","#s3","#s4","#s5"];
+    gsap.set(scenes, { opacity: 0, scale: 0.98, y: 18 });
+    gsap.set("#s1", { opacity: 1, scale: 1.06, y: 0 }); // portada visible desde el segundo 0, con leve zoom (sensacion de video)
+
+    const plan = [
+      { s: "#s1", in: 0.0,  out: 2.9 },
+      { s: "#s2", in: 3.1,  out: 6.4 },
+      { s: "#s3", in: 6.6,  out: 11.2 },
+      { s: "#s4", in: 11.4, out: 14.1 },
+      { s: "#s5", in: 14.3, out: 18.0 },
+    ];
+    plan.forEach((p, i) => {
+      if (i > 0) tl.fromTo(p.s, { opacity: 0, scale: 0.98, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "power3.out" }, p.in);
+      if (i < plan.length - 1) tl.to(p.s, { opacity: 0, scale: 0.99, y: -14, duration: 0.4, ...OUT }, p.out);
+    });
+
+    // Micro-zoom de la portada desde el frame 0 (patrón estándar de reels)
+    tl.to("#s1", { scale: 1, duration: 0.9, ease: "power2.out" }, 0);
+
+    // Las filas de la lista entran escalonadas dentro de la escena 3
+    tl.fromTo(".list .row", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.22, ease: "power2.out" }, 7.0);
+  </script>
+</body>
+</html>
