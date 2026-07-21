@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import type { ServicesPricing } from "@ebecerra/sanity-client";
 import Kicker from "@/components/Kicker";
 import TiltCard from "@/components/TiltCard";
+import TierCard from "./TierCard";
 import styles from "./Services.module.css";
 
 type Props = {
@@ -117,67 +118,11 @@ export default function Services({ pricing }: Props) {
             data-count={activePath.tiers.length}
           >
             {activePath.tiers.map((tier) => (
-              <TiltCard
+              <TierCard
                 key={`${activePath.id}-${tier.id}`}
-                subtle
-                className={`${styles.card} ${
-                  tier.highlighted ? styles.cardHighlighted : ""
-                }`}
-              >
-                {tier.highlighted && tier.badge && (
-                  <span className={styles.cardBadge}>{tier.badge}</span>
-                )}
-
-                <header className={styles.cardHeader}>
-                  <p className={styles.cardName}>{tier.name}</p>
-                  {tier.subtitle && (
-                    <p className={styles.cardSubtitle}>{tier.subtitle}</p>
-                  )}
-                  <p className={styles.cardPrice}>{tier.priceMain}</p>
-                  <div className={styles.cardSub}>
-                    {tier.priceSecondary && (
-                      <span className={styles.cardPriceSecondary}>
-                        {tier.priceSecondary}
-                      </span>
-                    )}
-                    {tier.conditions && (
-                      <span className={styles.cardConditions}>
-                        {tier.conditions}
-                      </span>
-                    )}
-                  </div>
-                </header>
-
-                {tier.features.length > 0 && (
-                  <ul className={styles.featuresList}>
-                    {tier.features.map((f, i) => (
-                      <li
-                        key={i}
-                        className={`${styles.featureItem} ${
-                          f.highlight ? styles.featureHighlight : ""
-                        }`}
-                      >
-                        <span
-                          className={styles.featureArrow}
-                          aria-hidden="true"
-                        >
-                          {f.highlight ? "✦" : "→"}
-                        </span>
-                        <span>{f.text}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                <a
-                  href={tier.ctaHref || "#contacto"}
-                  className={`${styles.cardCta} fx-ripple ${
-                    tier.highlighted ? styles.cardCtaPrimary : ""
-                  }`}
-                >
-                  {tier.ctaLabel || defaultCtaLabel} →
-                </a>
-              </TiltCard>
+                tier={tier}
+                defaultCtaLabel={defaultCtaLabel}
+              />
             ))}
           </div>
         )}

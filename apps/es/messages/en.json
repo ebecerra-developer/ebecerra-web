@@ -45,6 +45,8 @@
     "lead": "One monthly fee with everything inside: hosting, maintenance and support. No huge upfront payment and no lock-in.",
     "pathTabsAriaLabel": "Switch between plans",
     "defaultCta": "Let's talk",
+    "flipFront": "See everything included",
+    "included": "Everything included",
     "priceFrom": "from",
     "priceOnRequest": "Custom quote",
     "viewMore": "View details"
