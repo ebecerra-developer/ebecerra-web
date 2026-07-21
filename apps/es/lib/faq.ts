@@ -7,7 +7,7 @@ export type FaqItem = { q: string; a: string };
 const es: FaqItem[] = [
   {
     q: "¿Cuál es la diferencia entre Landing, Portfolio, Web y Tienda?",
-    a: "Todos funcionan igual: un alta única + una cuota mensual con todo incluido (hosting, mantenimiento y soporte). Landing (390 € + 19 €/mes) es una página con un objetivo claro —que te llamen o escriban—, ideal para autónomos que quieren estar online rápido. Portfolio (490 € + 25 €/mes) es una web multipágina para enseñar tu obra, pensada para creativos: arquitectos, fotógrafos, ilustradores. Web (690 € + 59 €/mes) es tu web completa con varias secciones, blog y un panel para que edites tú los textos y las fotos sin depender de mí. Tienda (990 € + 99 €/mes) es un ecommerce completo —catálogo, carrito, pedidos y pasarela de pago—, sin comisión por venta.",
+    a: "Todos funcionan igual: un alta única + el mantenimiento (hosting, actualizaciones y soporte), que se factura una vez al año con los 3 primeros meses gratis. Precios con IVA incluido. Landing (450 € de alta + 22 €/mes) es una página con un objetivo claro —que te llamen o escriban—, ideal para autónomos que quieren estar online rápido. Portfolio (590 € + 29 €/mes) es una web multipágina para enseñar tu obra, pensada para creativos: arquitectos, fotógrafos, ilustradores. Web (790 € + 69 €/mes) es tu web completa con varias secciones, blog y un panel para que edites tú los textos y las fotos sin depender de mí. Tienda (1.190 € + 119 €/mes) es un ecommerce completo —catálogo, carrito, pedidos y pasarela de pago—, sin comisión por venta.",
   },
   {
     q: "¿Cuánto tarda un proyecto web?",
@@ -15,7 +15,7 @@ const es: FaqItem[] = [
   },
   {
     q: "¿Cómo se paga un proyecto?",
-    a: "Dos formas. Lo habitual es cuota mensual: un alta al arrancar el proyecto y la cuota por adelantado cada mes, con todo incluido y sin permanencia. Si prefieres que la web sea tuya de una vez, en Landing y Portfolio hay pago único (código y dominio 100% tuyos + 3 meses de soporte); Web y Tienda van solo por cuota, porque viven de mantenimiento continuo. En proyectos a medida largos (rescates de webs antiguas, intranets) trabajamos por hitos acordados. Todo por transferencia, con factura e IVA incluido en el precio mostrado.",
+    a: "Dos formas. Lo habitual: un alta al arrancar el proyecto y el mantenimiento, que se factura una vez al año por adelantado, con los 3 primeros meses gratis. Sin permanencia. Si prefieres que la web sea tuya de una vez, en Landing y Portfolio hay pago único (código y dominio 100% tuyos + 3 meses de soporte); Web y Tienda van solo con mantenimiento anual, porque viven de servicio continuo. En proyectos a medida largos (rescates de webs antiguas, intranets) trabajamos por hitos acordados. Todo por transferencia, con IVA incluido en el precio mostrado.",
   },
   {
     q: "¿Qué pasa si no me gusta el diseño?",
@@ -50,7 +50,7 @@ const es: FaqItem[] = [
 const en: FaqItem[] = [
   {
     q: "What's the difference between Landing, Portfolio, Web and Store?",
-    a: "They all work the same way: a one-off setup + a monthly fee with everything included (hosting, maintenance and support). Landing (€390 + €19/mo) is a single page with a clear goal —get people to call or message you—, ideal for freelancers who want to be online fast. Portfolio (€490 + €25/mo) is a multi-page site to showcase your work, made for creatives: architects, photographers, illustrators. Web (€690 + €59/mo) is your full website with multiple sections, a blog and a CMS panel so you edit the text and photos yourself without depending on me. Store (€990 + €99/mo) is a full ecommerce —catalog, cart, orders and payment gateway—, with no sales commission.",
+    a: "They all work the same way: a one-off setup + maintenance (hosting, updates and support) billed once a year, with the first 3 months free. Prices include VAT. Landing (€450 setup + €22/mo) is a single page with a clear goal —get people to call or message you—, ideal for freelancers who want to be online fast. Portfolio (€590 + €29/mo) is a multi-page site to showcase your work, made for creatives: architects, photographers, illustrators. Web (€790 + €69/mo) is your full website with multiple sections, a blog and a CMS panel so you edit the text and photos yourself without depending on me. Store (€1,190 + €119/mo) is a full ecommerce —catalog, cart, orders and payment gateway—, with no sales commission.",
   },
   {
     q: "How long does a web project take?",
@@ -58,7 +58,7 @@ const en: FaqItem[] = [
   },
   {
     q: "How is a project paid?",
-    a: "Two ways. Usually a monthly fee: a setup at kick-off and the fee billed in advance each month, everything included and no lock-in. If you'd rather own the site outright, Landing and Portfolio have a one-time option (code and domain 100% yours + 3 months of support); Web and Store are monthly only, since they live on ongoing maintenance. For long custom projects (legacy rescues, intranets) we work by agreed milestones. Everything by bank transfer, with an invoice — VAT is included in the prices shown.",
+    a: "Two ways. Usually: a setup at kick-off and maintenance, billed once a year in advance with the first 3 months free. No lock-in. If you'd rather own the site outright, Landing and Portfolio have a one-time option (code and domain 100% yours + 3 months of support); Web and Store are annual-maintenance only, since they live on ongoing service. For long custom projects (legacy rescues, intranets) we work by agreed milestones. Everything by bank transfer, VAT included in the prices shown.",
   },
   {
     q: "What if I don't like the design?",
