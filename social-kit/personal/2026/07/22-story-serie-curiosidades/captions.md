@@ -11,7 +11,7 @@
 - Kicker: **¿recordáis esta?**
 - Ventana navegador: `🔒 info.cern.ch` · **La primera web de la historia sigue online** · «La publicó Tim Berners-Lee en el CERN en 1991. Y puedes visitarla hoy.»
 - Pitch (NO es pregunta votable): **Me apetece hacer una serie: curiosidades de webs e internet.**
-- Hint: **¿La quieres? Vota 👇**
+- Hint: **¿Te gustaría? Vota 👇**
 - (Zona marcada para el sticker de encuesta)
 
 ## Sticker de encuesta (IG — se añade en la app, ENCIMA de la zona marcada)
