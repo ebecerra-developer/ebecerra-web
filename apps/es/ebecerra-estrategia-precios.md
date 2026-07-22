@@ -1,24 +1,29 @@
 # ebecerra.es — Estrategia de precios y servicios
 
-> **Modelo vigente desde 2026-07-11.** Sustituye al anterior de "dos caminos × tres tiers"
-> (contrato de servicio / pago único). El pago único se elimina: no daba recurrente y la gente
-> no sabía comparar las dos columnas de precios.
+> **Fuente de la verdad = Sanity (`servicesPricing`)** + memoria `project_pricing_strategy`. Este
+> doc es un resumen; ante discrepancia mandan aquellos. Última revisión: 2026-07-22.
 
-## Modelo
+## Modelo (IVA incluido)
 
-Un solo modelo: **alta única + cuota mensual con todo incluido** (hosting, mantenimiento y
-soporte). Sin pago único y sin permanencia. El cliente elige el plan según lo que necesita, no
-cómo pagarlo.
+Dos formas de contratar:
+- **Cuota** (recomendada): alta única + **mantenimiento anual** con todo dentro (hosting,
+  actualizaciones, soporte). Sin permanencia. Se factura **1 vez al año con los 3 primeros meses
+  gratis** (pagas 9). Anual porque cobrar mensual obligaría al alta de autónomo (motivo fiscal).
+- **Pago único**: págala una vez (por menos de lo que costaría el primer año del plan) y es tuya;
+  código y dominio 100% del cliente, 3 meses de soporte, la aloja él. Para Landing, Portfolio y
+  Web. La **Tienda NO** (motor Medusa con hosting continuo).
 
-| Plan | Para quién | Alta | Cuota |
-|---|---|---|---|
-| **Landing** | Autónomos: una página, que te llamen | 390 € | 19 €/mes |
-| **Portfolio** | Creativos (arquitectos, fotógrafos): enseñar su obra | 490 € | 25 €/mes |
-| **Web** ⭐ | PYMEs: web completa + blog + CMS para editar ellos | 690 € | 59 €/mes |
-| **Tienda** | Vender online: catálogo, pedidos, pagos | 990 € | 99 €/mes |
+| Plan | Para quién | Alta | Mant./mes | Año (9 meses) | Pago único |
+|---|---|---|---|---|---|
+| **Landing** | Autónomos: una página, que te llamen | 450 € | 22 €/mes | 198 € | 550 € |
+| **Portfolio** | Particulares que muestran su trabajo | 590 € | 29 €/mes | 261 € | 750 € |
+| **Web** ⭐ | Cualquiera con web completa (editable) | 790 € | 69 €/mes | 621 € | 1.150 € |
+| **Tienda** | Vender online: catálogo, pedidos, pagos | 1.190 € | 119 €/mes | 1.071 € | — |
 
-Coherencia: el alta sube con el trabajo de construir y la cuota con el mantenimiento esperado.
-Landing es lo más barato en ambas columnas; Tienda lo más caro. Nada se cruza.
+Diferenciación Portfolio vs Web (anti-canibalización): **Portfolio = enseñar tu obra** (para
+particulares); **Web = vender tu negocio** (secciones + blog + captación). Empresa que pide
+Portfolio → se le dice que en su caso es una Web. Presentación: **flip cards** (gancho delante,
+detalle detrás).
 
 ### Qué incluye cada plan
 
@@ -69,8 +74,8 @@ El dominio es del cliente desde el día 1. Refuerza el ancla de marca "Sin Caden
 - **El pago único no da de comer; el recurrente sí.** La cuota mensual cubre los costes fijos
   (suscripción de IA, ads, futura cuota de autónomo + gestor). Break-even ≈ 230 €/mes.
 - **Mercado Madrid 2026** (fuentes en la sesión): tienda desde **1.500 €** de setup y **79-150 €/mes**
-  de mantenimiento; hay quien se anuncia "eCommerce desde 990 €". → **990 € + 99 €/mes** está en
-  banda competitiva, no cara. Coste total 1er año (2.178 €) cae en la mitad baja del mercado.
+  de mantenimiento; hay quien se anuncia "eCommerce desde 990 €". → **1.190 € + 119 €/mes** está en
+  banda competitiva, no cara. Coste total 1er año (2.261 €, con 3 meses gratis) cae en la mitad baja del mercado.
 - **La cuota se vende itemizada**, nunca como "una cuota": hosting + pasarela + seguridad + stock +
   soporte + X h de cambios. Y vs Shopify (36 € base + apps + **comisión por venta**) sales ganando.
 

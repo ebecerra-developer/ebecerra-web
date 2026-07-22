@@ -42,7 +42,7 @@
   "services": {
     "kicker": "// 01. Services",
     "title": "How I can help you",
-    "lead": "One monthly fee with everything inside: hosting, maintenance and support. No huge upfront payment and no lock-in.",
+    "lead": "One-off setup + annual maintenance with everything inside: hosting, updates and support. No lock-in, first 3 months free. Or buy it outright and own it.",
     "pathTabsAriaLabel": "Switch between plans",
     "defaultCta": "Let's talk",
     "flipFront": "See everything included",

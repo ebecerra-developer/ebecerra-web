@@ -145,7 +145,7 @@ export default defineType({
                       title: "Precio principal (display)",
                       type: "string",
                       description:
-                        "Texto del precio. Ej: '399 €', '900 €', '1.500 €'. Se renderiza tal cual.",
+                        "Texto del precio (el alta). Ej: '450 €', '790 €', '1.190 €'. Se renderiza tal cual.",
                       validation: (Rule) => Rule.required(),
                     }),
                     defineField({
@@ -153,7 +153,7 @@ export default defineType({
                       title: "Precio secundario (opcional)",
                       type: "localeString",
                       description:
-                        "Segunda línea junto al precio (la cuota). Ej: '+ 19 €/mes'.",
+                        "Segunda línea junto al precio (la cuota). Ej: 'Mantenimiento — 22 €/mes'.",
                     }),
                     defineField({
                       name: "conditions",
@@ -310,7 +310,7 @@ export default defineType({
               name: "price",
               title: "Precio (display)",
               type: "localeString",
-              description: "Ej: '199 € setup + 29 €/mes'.",
+              description: "Ej: '49 € setup + 9 €/mes' o '129 €'.",
             }),
             defineField({
               name: "note",

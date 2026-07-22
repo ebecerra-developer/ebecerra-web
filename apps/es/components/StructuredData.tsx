@@ -147,8 +147,8 @@ function buildWebsite(locale: Locale) {
   };
 }
 
-// "390 €" → "390" · "1.500 €" → "1500". Toma solo el PRIMER grupo numérico para
-// que un priceMain con dos cifras (p.ej. "390 € + 19 €/mes") no concatene basura.
+// "450 €" → "450" · "1.190 €" → "1190". Toma solo el PRIMER grupo numérico para
+// que un priceMain con dos cifras (p.ej. "450 € + 22 €/mes") no concatene basura.
 function parsePriceAmount(price: string | null | undefined): string | null {
   if (!price) return null;
   const match = price.match(/[\d.]+/);
