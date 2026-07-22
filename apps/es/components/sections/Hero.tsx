@@ -12,6 +12,7 @@ export default async function Hero({ sanityData }: Props) {
 
   const title = sanityData?.title ?? t("title");
   const lead = sanityData?.lead ?? t("lead");
+  const offerBadge = sanityData?.offerBadge ?? t("offerBadge");
   const ctaPrimary = sanityData?.ctaPrimary ?? t("ctaPrimary");
   const ctaSecondary = sanityData?.ctaSecondary ?? t("ctaSecondary");
   const trustBadges =
@@ -23,6 +24,14 @@ export default async function Hero({ sanityData }: Props) {
     <section id="inicio" aria-labelledby="hero-heading" className={styles.hero}>
       <div className={styles.grid}>
         <div className={styles.textCol}>
+          {offerBadge && (
+            <span className={styles.offerBadge}>
+              <span aria-hidden="true" className={styles.offerBadgeMark}>
+                ✦
+              </span>
+              {offerBadge}
+            </span>
+          )}
           <h1 id="hero-heading" className={styles.heading}>
             <AnnotatedText text={title} />
           </h1>
