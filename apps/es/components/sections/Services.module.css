@@ -188,14 +188,13 @@
 
 .flip {
   perspective: 1600px;
-  min-height: 470px;
+  display: grid; /* estira flipInner a la altura de la fila (cards iguales) */
 }
 
 .flipInner {
   position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: inherit;
+  display: grid; /* apila ambas caras en la misma celda → la card mide lo que
+                    la cara más alta; nunca desborda, a cualquier ancho */
   transform-style: preserve-3d;
   transition: transform 0.5s var(--ease-out, cubic-bezier(0.2, 0.7, 0.2, 1));
 }
@@ -215,8 +214,8 @@
 
 .flipFront,
 .flipBack {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
+  position: relative;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   display: flex;
