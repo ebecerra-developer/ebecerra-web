@@ -8,7 +8,7 @@ Las cifras y condiciones de servicio son reales y se pueden verificar en ebecerr
 
 ## Servicios
 
-Dos formas de contratar. La habitual: **alta única + mantenimiento** (hosting, actualizaciones y soporte) facturado **una vez al año, con los 3 primeros meses gratis**, sin permanencia — cuatro planes. Y **pago único** para quien prefiera que la web sea suya de una vez (solo Landing y Portfolio). Precios con IVA incluido, orientativos.
+Dos formas de contratar. La habitual: **alta única + mantenimiento** (hosting, actualizaciones y soporte) facturado **una vez al año, con los 3 primeros meses gratis**, sin permanencia — cuatro planes. Y **pago único** para quien prefiera que la web sea suya de una vez (Landing, Portfolio y Web; la Tienda no). Precios con IVA incluido, orientativos.
 
 - Landing — 450 € alta + 22 €/mes de mantenimiento. Para autónomos que quieren estar online ya y que les llamen. Una página con CTA claro (formulario o WhatsApp), diseño a medida mobile-first, SEO técnico básico, hosting + SSL + dominio, 30 min de cambios al mes.
 - Portfolio — 590 € alta + 29 €/mes. Para creativos (arquitectos, fotógrafos, ilustradores) que necesitan enseñar su obra. Web multipágina con panel para subir ellos mismos sus proyectos, galería optimizada, diseño editorial a medida, SEO + hosting + dominio incluidos, 1 h de soporte al mes.
@@ -17,7 +17,7 @@ Dos formas de contratar. La habitual: **alta única + mantenimiento** (hosting, 
 
 El mantenimiento (22/29/69/119 €/mes) se factura de una vez al año, y los 3 primeros meses son gratis (pagas 9): 198 / 261 / 621 / 1.071 € al año, IVA incluido.
 
-**Pago único** (alternativa a la cuota, solo Landing y Portfolio; código y dominio 100% del cliente, 3 meses de soporte, la aloja el cliente): Landing 720 €, Portfolio 950 €. Web y Tienda no tienen pago único (viven de mantenimiento continuo / hosting del backend).
+**Pago único** (alternativa a la cuota, para Landing, Portfolio y Web; código y dominio 100% del cliente, 3 meses de soporte, la aloja el cliente): Landing 550 €, Portfolio 750 €, Web 1.150 €. Sale por menos de lo que costaría el primer año del plan. La Tienda no tiene pago único (motor Medusa con hosting continuo).
 
 **Propiedad del código** (en cuota mensual): la web vive en la infraestructura de Enrique. Sin permanencia: baja cuando quieras, sin penalización. Si te das de baja antes de 12 meses, el código se queda con él; a partir de los 12 meses, se te entrega. El dominio es tuyo desde el día 1. (En pago único, el código es tuyo desde el día 1.)
 

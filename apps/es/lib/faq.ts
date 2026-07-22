@@ -15,7 +15,7 @@ const es: FaqItem[] = [
   },
   {
     q: "¿Cómo se paga un proyecto?",
-    a: "Dos formas. Lo habitual: un alta al arrancar el proyecto y el mantenimiento, que se factura una vez al año por adelantado, con los 3 primeros meses gratis. Sin permanencia. Si prefieres que la web sea tuya de una vez, en Landing y Portfolio hay pago único (código y dominio 100% tuyos + 3 meses de soporte); Web y Tienda van solo con mantenimiento anual, porque viven de servicio continuo. En proyectos a medida largos (rescates de webs antiguas, intranets) trabajamos por hitos acordados. Todo por transferencia, con IVA incluido en el precio mostrado.",
+    a: "Dos formas. Lo habitual: un alta al arrancar el proyecto y el mantenimiento, que se factura una vez al año por adelantado, con los 3 primeros meses gratis. Sin permanencia. Si prefieres que la web sea tuya de una vez, en Landing, Portfolio y Web hay pago único (código y dominio 100% tuyos + 3 meses de soporte); solo la Tienda va exclusivamente con mantenimiento anual, porque su motor necesita hosting continuo. En proyectos a medida largos (rescates de webs antiguas, intranets) trabajamos por hitos acordados. Todo por transferencia, con IVA incluido en el precio mostrado.",
   },
   {
     q: "¿Qué pasa si no me gusta el diseño?",
@@ -58,7 +58,7 @@ const en: FaqItem[] = [
   },
   {
     q: "How is a project paid?",
-    a: "Two ways. Usually: a setup at kick-off and maintenance, billed once a year in advance with the first 3 months free. No lock-in. If you'd rather own the site outright, Landing and Portfolio have a one-time option (code and domain 100% yours + 3 months of support); Web and Store are annual-maintenance only, since they live on ongoing service. For long custom projects (legacy rescues, intranets) we work by agreed milestones. Everything by bank transfer, VAT included in the prices shown.",
+    a: "Two ways. Usually: a setup at kick-off and maintenance, billed once a year in advance with the first 3 months free. No lock-in. If you'd rather own the site outright, Landing, Portfolio and Web have a one-time option (code and domain 100% yours + 3 months of support); only the Store is annual-maintenance only, since its engine needs continuous hosting. For long custom projects (legacy rescues, intranets) we work by agreed milestones. Everything by bank transfer, VAT included in the prices shown.",
   },
   {
     q: "What if I don't like the design?",
