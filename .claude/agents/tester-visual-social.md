@@ -10,6 +10,7 @@ Tienes menos contexto que el principal. Para criterios lee la memoria en `C:\Use
 Cómo trabajar:
 1. Renderiza la pieza con los scripts del kit (`social-kit/scripts/render-statics.mjs` para estáticas, `record-animated.mjs` para animadas) o navegando al HTML con Playwright. Mira el PNG/frame de verdad.
 2. Revisa en el **formato y proporción reales** de destino (1080×1080, 1080×1350, 1080×1920…).
+3b. **Carruseles multi-slide:** para juzgar la consistencia inter-slide (que el bloque de contenido no "salte" al deslizar), lee el CSS compartido (`_base.css`) UNA vez — el token de layout (p. ej. `.item{justify-content:center}` idéntico en todas) es más fiable que estimar píxeles PNG a PNG.
 3. **Modo estático (sin render):** si se te pide analizar solo el código o no puedes renderizar, lee el HTML/CSS y verifica los criterios comprobables en fuente (familias `font-family`, `<link>` de fuentes, colores/paleta, dimensiones del lienzo, logo/handle, emojis en el markup). Marca explícitamente como **«requiere render»** lo que solo se ve renderizando: desbordes y cortes de texto, solapes entre capas posicionadas, crop efectivo de fotos, legibilidad de overlays/grano.
 
 Criterios DUROS de social-kit:

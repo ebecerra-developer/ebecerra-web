@@ -149,6 +149,13 @@ const JOBS = [
     w: 1080, h: 1920,
   },
 
+  // ── 2026-07-28 · Carrusel "Anatomía de una tienda online que vende" · 8 slides 1080×1350 ──
+  ...[1,2,3,4,5,6,7,8].map((n) => ({
+    html: `personal/2026/07/28-carrusel-tienda-anatomia/slide-${n}.html`,
+    out:  `personal/2026/07/28-carrusel-tienda-anatomia/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
   // ── 2026-07-29 · Post curiosidad "primer vídeo de YouTube" · 1080×1350 ──
   {
     html: `personal/2026/07/29-post-curiosidad-youtube/index.html`,
