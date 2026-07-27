@@ -13,7 +13,7 @@
 - Titular: **Antes de ser Google, se llamó BackRub.**
 - Tarjeta: **1996** → barra de búsqueda «**BackRub**» · flecha · **1997** → barra «**Google**»
 - Remate: **Menos mal que lo cambiaron. «Búscalo en BackRub» no sonaba igual.**
-- Subtexto: **Lo crearon Larry Page y Sergey Brin en Stanford. «Google» viene de «googol»: un 1 con 100 ceros.**
+- Subtexto: **«Google» sale de «googol» (es un número gigante, un 1 con 100 ceros). Lo eligieron por la barbaridad de información que querían organizar.**
 - Firma: eB + @ebecerra.es
 
 ## Caption (feed)
@@ -22,7 +22,7 @@
 
 El buscador de Larry Page y Sergey Brin —dos estudiantes de Stanford— se llamaba BackRub cuando arrancó en 1996. El nombre venía de los «backlinks»: los enlaces entre webs que analizaba para ordenar los resultados.
 
-En 1997 le cambiaron el nombre a Google, un juego con «googol»: el número 1 seguido de 100 ceros.
+En 1997 lo cambiaron a Google, un guiño a «googol»: un número gigante (un 1 seguido de 100 ceros). Lo eligieron por la barbaridad de información que querían organizar.
 
 Menos mal. «Búscalo en BackRub» no habría sonado igual.
 
@@ -34,11 +34,11 @@ Menos mal. «Búscalo en BackRub» no habría sonado igual.
 
 ## Alt text
 
-Post de fondo verde con texto en crema. Kicker «¿Sabías que…?» y titular «Antes de ser Google, se llamó BackRub». En el centro, una tarjeta crema con dos barras de búsqueda: arriba, «1996 · BackRub»; una flecha hacia abajo; abajo, «1997 · Google» (Google en verde). Cada barra lleva un icono de lupa verde. Debajo, el remate «Menos mal que lo cambiaron. Búscalo en BackRub no sonaba igual» y un subtexto que explica que lo crearon Larry Page y Sergey Brin en Stanford y que «Google» viene de «googol» (un 1 con 100 ceros). Firma eB + @ebecerra.es.
+Post de fondo verde con texto en crema. Kicker «¿Sabías que…?» y titular «Antes de ser Google, se llamó BackRub». En el centro, una tarjeta crema con dos barras de búsqueda: arriba, «1996 · BackRub»; una flecha hacia abajo; abajo, «1997 · Google» (Google en verde). Cada barra lleva un icono de lupa verde. Debajo, el remate «Menos mal que lo cambiaron. Búscalo en BackRub no sonaba igual» y un subtexto que explica que «Google» sale de «googol», un número gigante (un 1 con 100 ceros), y que lo eligieron por la enorme cantidad de información que querían organizar. Firma eB + @ebecerra.es.
 
 ## Comentario fijado
 
-Otro dato fino: lo de «BackRub» era por los backlinks (los enlaces de una web a otra), que es justo lo que medía para decidir qué resultado salía primero. La idea era buena; el nombre, regulero. ¿Conocías el origen de «Google»? 👇
+Otro dato fino: lo de «BackRub» era por los backlinks (los enlaces de una web a otra), que es justo lo que medía para decidir qué resultado salía primero. La idea era buenísima; el nombre, regulero. ¿A que no sabías lo de BackRub? 👇
 
 ## Notas
 
