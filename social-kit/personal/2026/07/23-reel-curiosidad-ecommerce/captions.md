@@ -1,9 +1,9 @@
-# 24 · REEL · Curiosidad ecommerce — lo primero que se vendió por internet
+# 23 · REEL · Curiosidad ecommerce — lo primero que se vendió por internet
 
 - **Tipo**: reel 1080×1920 (9:16) · animado (titular → reveal del CD → ticket → enlace → cierre)
-- **Fecha objetivo**: 24 jul 2026 · **Estado**: lista
+- **Fecha objetivo**: 23 jul 2026 · **Estado**: publicada
 - **Categoría**: educativo / curiosidad (serie) + siembra de tiendas online
-- **Serie**: curiosidades probando formatos → post 21 (primera web) · **reel 24 (este)** · carrusel 26.
+- **Serie**: curiosidades probando formatos → post 21 (primera web) · **reel 23 (este)** · carrusel 27.
 - **Outputs**: `final.mp4`, `poster.png`
 - **Objetivo**: alcance/interacción (dato sorprendente y verificable) + enlazar de refilón con el servicio de tiendas online.
 

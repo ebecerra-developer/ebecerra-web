@@ -1,9 +1,9 @@
-# 26 · CARRUSEL · 5 curiosidades de internet que no sabías
+# 27 · CARRUSEL · 5 curiosidades de internet que no sabías
 
 - **Tipo**: carrusel 1080×1350 (4:5) · 7 slides (portada + 5 datos + cierre)
-- **Fecha objetivo**: 26 jul 2026 · **Estado**: lista
+- **Fecha objetivo**: 27 jul 2026 · **Estado**: publicada
 - **Categoría**: educativo / curiosidad (serie · autoridad-confianza + interacción)
-- **Serie**: curiosidades probando formatos → post 21 (primera web) · reel 24 (CD de Sting) · **carrusel 26 (este)**.
+- **Serie**: curiosidades probando formatos → post 21 (primera web) · reel 23 (CD de Sting) · **carrusel 27 (este)**.
 - **Outputs**: `slide-1.png` … `slide-7.png`
 - **Objetivo**: alcance/guardados (datos compartibles y verificables) + interacción en el cierre. Consolidar la serie de curiosidades.
 
