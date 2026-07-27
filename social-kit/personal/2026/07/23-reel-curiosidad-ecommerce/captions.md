@@ -43,6 +43,6 @@ Dato fino: fue el 11 de agosto de 1994, la primera compra online cifrada (con SS
 ## Notas
 
 - Dato REAL y verificado: primera compra online SEGURA = CD de Sting «Ten Summoner's Tales», 11 ago 1994, NetMarket, 12,48 $, con SSL. Fuentes: Smithsonian Magazine · Vice · Wikipedia (NetMarket). Framear como «primera compra online **segura**» (hay debate sobre "la primera venta" absoluta; la segura/cifrada es la citada).
-- Reel de la serie de curiosidades (post 21 + carrusel 26). Este además siembra **tiendas online** sin ser un anuncio (el dato manda; el negocio se menciona al final).
+- Reel de la serie de curiosidades (post 21 + carrusel 27). Este además siembra **tiendas online** sin ser un anuncio (el dato manda; el negocio se menciona al final).
 - Convención de reel: abre con titular en verde corporativo (poster = frame 0) + micro-zoom; firma arriba-izq; solo Inter; acento por color; CD con brillo verde/crema (no arcoíris, para respetar la paleta); sin emojis en la pieza (los 🤔/👇 solo en caption/comentario).
 - Cross-post FB: sí.
