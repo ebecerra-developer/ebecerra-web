@@ -149,6 +149,13 @@ const JOBS = [
     w: 1080, h: 1920,
   },
 
+  // ── 2026-07-31 · Post curiosidad "Google casi se llama BackRub" · 1080×1350 ──
+  {
+    html: `personal/2026/07/31-post-curiosidad-backrub/index.html`,
+    out:  `personal/2026/07/31-post-curiosidad-backrub/final.png`,
+    w: 1080, h: 1350,
+  },
+
   // ── 2026-07-28 · Carrusel "Anatomía de una tienda online que vende" · 8 slides 1080×1350 ──
   ...[1,2,3,4,5,6,7,8].map((n) => ({
     html: `personal/2026/07/28-carrusel-tienda-anatomia/slide-${n}.html`,

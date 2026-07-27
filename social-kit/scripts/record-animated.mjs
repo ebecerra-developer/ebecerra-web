@@ -69,6 +69,8 @@ const TARGETS = [
   { name: "22-reel-vacaciones", folder: "personal/2026/07/22-reel-vacaciones", duration: 20 },
   // Reel 2026-07-23: curiosidad ecommerce (lo 1o vendido online = CD de Sting; CD gira y brilla)
   { name: "23-reel-curiosidad-ecommerce", folder: "personal/2026/07/23-reel-curiosidad-ecommerce", duration: 19 },
+  // Reel 2026-07-30: humor "lo que me dicen cuando digo que hago webs" (chat + replicas deadpan + punchline)
+  { name: "30-reel-lo-que-me-dicen", folder: "personal/2026/07/30-reel-lo-que-me-dicen", duration: 15 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,
