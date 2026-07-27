@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post curiosidad "primer video de YouTube" · 1080×1350 · formato ¿Sabías que?
+     Mockup de reproductor + dato + remate hacia el negocio. Solo Inter, acento por color. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1350px;overflow:hidden;padding:88px 84px;display:flex;flex-direction:column;
+    background:radial-gradient(120% 80% at 30% 14%,#058a63 0%,#047857 52%,#02583c 100%)}
+
+  .kick{align-self:flex-start;display:inline-flex;align-items:center;gap:12px;background:rgba(3,40,26,.4);
+    border:1px solid rgba(110,231,183,.3);color:var(--green-light);font-size:26px;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;padding:12px 26px;border-radius:999px;margin-bottom:30px}
+  .h1{font-size:66px;font-weight:900;line-height:1.05;letter-spacing:-.035em;color:var(--cream)}
+  .h1 .hr{color:var(--green-light)}
+
+  /* Reproductor */
+  .player{margin-top:44px;flex-shrink:0;background:var(--cream);border-radius:30px;overflow:hidden;box-shadow:0 34px 80px -30px rgba(2,16,10,.85)}
+  .player .thumb{position:relative;height:352px;background:radial-gradient(120% 120% at 50% 40%,#20302a 0%,#0f1a15 100%);display:flex;align-items:center;justify-content:center}
+  .player .play{width:130px;height:130px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;box-shadow:0 0 46px -6px rgba(110,231,183,.6)}
+  .player .play svg{width:56px;height:56px;margin-left:8px}
+  .player .dur{position:absolute;right:26px;bottom:24px;background:rgba(2,16,10,.8);color:var(--cream);font-size:28px;font-weight:800;padding:8px 18px;border-radius:12px}
+  .player .zoo{position:absolute;left:28px;top:26px;display:flex;gap:14px;opacity:.5}
+  .player .zoo svg{width:66px;height:66px}
+  .player .meta{padding:30px 36px 36px}
+  .player .meta .t{font-size:42px;font-weight:900;color:var(--ink);letter-spacing:-.01em}
+  .player .meta .s{margin-top:12px;font-size:30px;font-weight:600;color:#5b6b62}
+  .player .meta .s b{color:var(--green);font-weight:800}
+
+  .remate{margin-top:auto;margin-bottom:64px}
+  .remate .line{font-size:41px;font-weight:800;line-height:1.2;color:var(--cream)}
+  .remate .line em{font-style:normal;color:var(--green-light)}
+
+  .chip{position:absolute;bottom:56px;left:84px;display:flex;align-items:center;gap:13px;font-weight:700;font-size:27px;color:var(--cream)}
+  .chip .dot{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="kick">✦ ¿Sabías que…?</div>
+    <div class="h1">El primer vídeo de YouTube dura <span class="hr">19 segundos</span>. Y es un tío en el zoo.</div>
+
+    <div class="player">
+      <div class="thumb">
+        <div class="zoo">
+          <svg viewBox="0 0 64 64" fill="#6EE7B7"><path d="M8 52V36c0-11 8-18 18-18 8 0 13 4 15 10 6-1 11 3 11 9v15h-7v-9c-3 2-6 3-10 3v10h-7V44H17v10H8z"/><path d="M23 34c-4-1-7-5-7-10 0 0 9 1 9 10z" opacity=".85"/></svg>
+          <svg viewBox="0 0 64 64" fill="#6EE7B7"><path d="M8 52V36c0-11 8-18 18-18 8 0 13 4 15 10 6-1 11 3 11 9v15h-7v-9c-3 2-6 3-10 3v10h-7V44H17v10H8z"/><path d="M23 34c-4-1-7-5-7-10 0 0 9 1 9 10z" opacity=".85"/></svg>
+        </div>
+        <div class="play"><svg viewBox="0 0 24 24" fill="#04402b"><path d="M7 5v14l12-7z"/></svg></div>
+        <div class="dur">0:19</div>
+      </div>
+      <div class="meta">
+        <div class="t">Me at the zoo</div>
+        <div class="s">jawed · 23 abr 2005 · <b>380 M de visitas</b></div>
+      </div>
+    </div>
+
+    <div class="remate">
+      <div class="line">Lo que hoy ve medio mundo empezó con <em>19 segundos</em> grabados en un zoo.<br>Tu proyecto tampoco tiene que ser perfecto para <em>arrancar</em>.</div>
+    </div>
+
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+  </div>
+</body>
+</html>
