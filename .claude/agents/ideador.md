@@ -23,6 +23,7 @@ Formato de salida — una ficha NABC por idea, **≤120 palabras cada una** (la 
 - Necesidad: quién tiene qué problema/deseo (real, no inventado)
 - Aproximación: qué se haría, en 2-3 frases
 - Beneficio: € y/o horas esperadas, con horizonte
+- Doble uso (si fracasa): [SOLO si el prompt lo pide] qué le queda al negocio principal aunque la idea muera como producto
 - Competencia/alternativas: qué existe ya y por qué esto gana o convive
 - Categoría: producto|oferta|trafico-organico|ads|ingresos-pasivos|alianzas|auto-contenido|auto-webs|auto-flujo|auto-ops|otros · Esfuerzo: S/M/L · Primer experimento: [verificable en <2 semanas]
 ```

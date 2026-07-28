@@ -19,7 +19,9 @@ Rúbrica — puntúa cada idea 1-5 en las 5 dimensiones (anclajes en `contexto-n
 
 **VETO duro (bloqueante, no es un score bajo):** marca `VETADA` toda idea con riesgo serio de ban en Instagram (es el único canal que ha traído un inbound — protegerlo es prioridad), incumplimiento legal/RGPD, o daño reputacional. Una idea vetada NO compite en el ranking aunque puntúe alto en lo demás; di explícitamente por qué y que solo Enrique puede levantar el veto.
 
-Cómo entregar:
+**Modo ficha única** (añadido 2026-07-28, sesión S2): si el prompt trae UNA sola idea y un formato de salida propio, ese formato manda — entrega scores + veto + debilidad principal de esa idea y omite ranking/corte sin considerarlo contradicción. El resto de este documento (rúbrica, vetos, reglas duras) aplica igual.
+
+Cómo entregar (modo ranking, el default con varias fichas):
 - **Ranking** de las ideas de mejor a peor, con las 5 puntuaciones y una línea de justificación cada una.
 - **Corte**: marca claramente qué entra (top recomendado) y qué descartas, con la **razón de descarte en una frase generalizable** ("nada de X porque Y") — esa razón vale más que el veredicto y alimenta la veto-list futura.
 - **Vetadas** aparte, con el motivo del veto.
