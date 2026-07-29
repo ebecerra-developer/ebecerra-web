@@ -78,7 +78,7 @@ export default function Projects({ chrome, items }: ProjectsProps) {
                 {p.description}
               </p>
               <div className="flex flex-wrap gap-2">
-                {p.tech.map((t) => (
+                {(p.tech ?? []).map((t) => (
                   <span
                     key={t}
                     className="bg-[#111] border border-[#2a2a2a] text-[#a8a29e] font-mono text-[11px] px-2.5 py-1 rounded"
@@ -88,7 +88,7 @@ export default function Projects({ chrome, items }: ProjectsProps) {
                 ))}
               </div>
               <div className="flex gap-2.5 flex-wrap mt-1">
-                {p.links.map((link) => (
+                {(p.links ?? []).map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
