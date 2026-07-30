@@ -4,12 +4,13 @@ import type { Feature } from "@/lib/content";
 interface AboutProps {
   chrome: TechAboutSection;
   features: Feature[];
+  cvUrl?: string | null;
 }
 
 // dangerouslySetInnerHTML para bio1 — soporta HTML inline (<strong>, <em>)
 // editado en Sanity. Es contenido controlado por el editor del propio
 // proyecto (no input de usuarios).
-export default function About({ chrome, features }: AboutProps) {
+export default function About({ chrome, features, cvUrl }: AboutProps) {
   return (
     <section
       id="quien_soy"
@@ -37,6 +38,15 @@ export default function About({ chrome, features }: AboutProps) {
             )}
             {chrome.bio2 && <p>{chrome.bio2}</p>}
             {chrome.bio3 && <p>{chrome.bio3}</p>}
+            {cvUrl && (
+              <a
+                href={cvUrl}
+                download
+                className="inline-flex items-center gap-2 mt-2 bg-transparent border border-[#00ff88] text-[#00ff88] px-5 py-2.5 rounded-md font-mono text-xs tracking-[0.05em] hover:bg-[#00ff88]/10 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)] transition-all duration-200"
+              >
+                <span aria-hidden="true">↓</span> Descargar CV
+              </a>
+            )}
           </div>
           <div className="flex flex-col gap-4">
             {features.map((item) => (

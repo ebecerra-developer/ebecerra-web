@@ -43,7 +43,7 @@ export default async function Home({
       <Nav />
       <main id="main">
         <Hero hero={home.hero} />
-        <About chrome={home.about} features={featureItems} />
+        <About chrome={home.about} features={featureItems} cvUrl={sanity?.cvUrl ?? null} />
         <Experience chrome={home.experience} items={experienceItems} />
         <Skills chrome={home.skills} skills={skillItems} tags={tagItems} />
         <Projects chrome={home.projects} items={projectItems} />

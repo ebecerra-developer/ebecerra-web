@@ -145,13 +145,14 @@ export async function getSiteData(locale: Locale) {
         }`,
         params
       ),
-      runFetch<{ aboutFeatures: Feature[] } | null>(
+      runFetch<{ aboutFeatures: Feature[]; cvUrl: string | null } | null>(
         `*[_type == "profile"][0] {
           "aboutFeatures": aboutFeatures[]{
             icon,
             "label": ${loc("label")},
             "desc": ${loc("desc")}
-          }
+          },
+          "cvUrl": cv.asset->url
         }`,
         params
       ),
@@ -173,6 +174,7 @@ export async function getSiteData(locale: Locale) {
         : null,
     aboutFeatures:
       profileData?.aboutFeatures?.length ? profileData.aboutFeatures : null,
+    cvUrl: profileData?.cvUrl ?? null,
   };
 }
 

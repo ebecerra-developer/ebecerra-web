@@ -60,6 +60,15 @@ export default defineType({
       group: "about",
     }),
     defineField({
+      name: "cv",
+      title: "CV descargable (PDF)",
+      description:
+        "PDF público del CV (versión SIN teléfono). Se ofrece como 'Descargar CV' en ebecerra.tech. Genera el fichero con `npm run cv -- --publico` en ebecerra-business.",
+      type: "file",
+      group: "about",
+      options: { accept: ".pdf" },
+    }),
+    defineField({
       name: "bio1",
       title: "Bio — párrafo 1",
       type: "localeText",
