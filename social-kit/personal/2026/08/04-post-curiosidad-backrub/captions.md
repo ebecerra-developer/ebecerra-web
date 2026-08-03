@@ -1,9 +1,9 @@
-# 31 · POST · ¿Sabías que…? Antes de Google hubo BackRub
+# 04 · POST · ¿Sabías que…? Antes de Google hubo BackRub
 
 - **Tipo**: post 1080×1350 (4:5) · imagen única
-- **Fecha objetivo**: 31 jul 2026 · **Estado**: lista
+- **Fecha objetivo**: 4 ago 2026 · **Estado**: lista
 - **Categoría**: educativo / curiosidad (serie) — dato compartible, tono ligero
-- **Serie**: curiosidades probando formatos (post 21 · reel 23 · carrusel 27 · post 29 YouTube · **post 31 este**).
+- **Serie**: curiosidades probando formatos (post 21 · reel 23 · carrusel 27 · post 29 YouTube · **post 4-ago este**).
 - **Outputs**: `final.png`
 - **Objetivo**: alcance/compartidos (dato sorprendente y verificable) con remate en clave de humor.
 

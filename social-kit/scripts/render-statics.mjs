@@ -149,10 +149,10 @@ const JOBS = [
     w: 1080, h: 1920,
   },
 
-  // ── 2026-07-31 · Post curiosidad "Google casi se llama BackRub" · 1080×1350 ──
+  // ── 2026-08-04 · Post curiosidad "Antes de Google hubo BackRub" · 1080×1350 ──
   {
-    html: `personal/2026/07/31-post-curiosidad-backrub/index.html`,
-    out:  `personal/2026/07/31-post-curiosidad-backrub/final.png`,
+    html: `personal/2026/08/04-post-curiosidad-backrub/index.html`,
+    out:  `personal/2026/08/04-post-curiosidad-backrub/final.png`,
     w: 1080, h: 1350,
   },
 
