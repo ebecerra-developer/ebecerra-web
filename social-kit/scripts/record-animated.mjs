@@ -71,6 +71,8 @@ const TARGETS = [
   { name: "23-reel-curiosidad-ecommerce", folder: "personal/2026/07/23-reel-curiosidad-ecommerce", duration: 19 },
   // Reel 2026-07-30: humor "lo que me dicen cuando digo que hago webs" (chat + replicas deadpan + punchline)
   { name: "30-reel-lo-que-me-dicen", folder: "personal/2026/07/30-reel-lo-que-me-dicen", duration: 15 },
+  // Reel 2026-08-05: humor "tu web ahora mismo, seamos sinceros" (movil analiza la web + diagnostico deadpan)
+  { name: "05-reel-diagnostico-web", folder: "personal/2026/08/05-reel-diagnostico-web", duration: 16 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,

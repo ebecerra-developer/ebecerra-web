@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel humor "Tu web ahora mismo, seamos sinceros": movil "analiza tu web" (barra de
+     progreso) y suelta el diagnostico deadpan (cosas tipicas de una web desatendida) ->
+     cierre tranquilizador + comment-bait. Abre con titular en verde. GSAP seek-friendly. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .chip{position:absolute;top:54px;left:54px;z-index:250;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.5);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  /* Titular */
+  .title{position:absolute;inset:0;z-index:150;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 100px;
+    background:radial-gradient(120% 80% at 30% 20%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .title .k{font-size:31px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:36px}
+  .title h1{font-size:90px;font-weight:900;line-height:1.05;letter-spacing:-.035em;color:var(--cream)}
+  .title h1 em{font-style:normal;color:var(--green-light);text-shadow:0 0 40px rgba(110,231,183,.5)}
+
+  /* Movil */
+  .phone{position:absolute;z-index:40;left:50%;top:50%;width:496px;height:1000px;margin:-500px 0 0 -248px;
+    border-radius:60px;background:#0b1512;border:14px solid #0b1512;box-shadow:0 44px 100px -30px rgba(2,16,10,.7)}
+  .screen{position:absolute;inset:0;border-radius:46px;overflow:hidden;background:linear-gradient(180deg,#0f1f18 0%,#0b1712 100%);padding:46px 34px}
+  .screen>div{position:absolute;left:34px;right:34px}
+
+  /* Escaneo */
+  .scan{top:300px}
+  .scan .t{color:var(--cream);font-size:38px;font-weight:800;text-align:center}
+  .scan .u{color:#8fb7a6;font-size:27px;font-weight:600;text-align:center;margin-top:12px}
+  .scan .track{margin-top:40px;height:26px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+  .scan .fill{height:100%;width:0;border-radius:999px;background:var(--green-light)}
+
+  /* Diagnostico */
+  .report{top:56px;opacity:0}
+  .report .h{color:var(--green-light);font-size:31px;font-weight:800;letter-spacing:.02em;text-align:center;margin-bottom:34px}
+  .row{display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.07);border-radius:18px;padding:22px 22px;margin-bottom:18px;opacity:0}
+  .row .m{width:44px;height:44px;border-radius:50%;background:var(--green-light);color:#04402b;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:28px;flex-shrink:0}
+  .row .tx{color:var(--cream);font-size:29px;font-weight:600;line-height:1.2}
+
+  /* Pantalla extra: la buena noticia */
+  .fix{position:absolute;inset:0;z-index:180;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 100px;opacity:0;
+    background:radial-gradient(120% 80% at 30% 20%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .fix .ck{width:158px;height:158px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;margin-bottom:48px;box-shadow:0 0 64px -6px rgba(110,231,183,.6)}
+  .fix .ck svg{width:84px;height:84px;stroke:#04402b;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .fix .big{font-size:84px;font-weight:900;line-height:1.06;letter-spacing:-.035em;color:var(--cream)}
+  .fix .big em{font-style:normal;color:var(--green-light)}
+  .fix .sub{margin-top:30px;font-size:42px;font-weight:600;color:rgba(250,246,238,.88);line-height:1.3}
+
+  /* Cierre */
+  .end{position:absolute;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 96px;opacity:0;
+    background:radial-gradient(120% 80% at 30% 22%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .end .big{font-size:82px;font-weight:900;line-height:1.08;letter-spacing:-.035em;color:var(--cream)}
+  .end .big em{font-style:normal;color:var(--green-light)}
+  .end .q2{margin-top:46px;display:inline-block;background:var(--cream);color:var(--green);font-size:42px;font-weight:800;padding:22px 46px;border-radius:999px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <!-- Titular -->
+    <div class="title" id="title">
+      <div class="k">Sin acritud</div>
+      <h1>Tu web ahora mismo.<br><em>Seamos sinceros.</em></h1>
+    </div>
+
+    <!-- Movil -->
+    <div class="phone" id="phone">
+      <div class="screen">
+        <div class="scan" id="scan">
+          <div class="t">Analizando tu web…</div>
+          <div class="u" id="pct">0 %</div>
+          <div class="track"><div class="fill" id="fill"></div></div>
+        </div>
+        <div class="report" id="report">
+          <div class="h" id="rh">Lo que he encontrado:</div>
+          <div class="row r1"><span class="m">!</span><span class="tx">Última novedad: <b>2019</b></span></div>
+          <div class="row r2"><span class="m">!</span><span class="tx">El horario sigue sin actualizar</span></div>
+          <div class="row r3"><span class="m">!</span><span class="tx">Las fotos pesan una barbaridad</span></div>
+          <div class="row r4"><span class="m">!</span><span class="tx">En el móvil se ve… regular</span></div>
+          <div class="row r5"><span class="m">!</span><span class="tx">El botón de contacto: ¿dónde?</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pantalla extra: la buena noticia -->
+    <div class="fix" id="fix">
+      <div class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+      <div class="big">La buena noticia:<br>todo esto <em>se arregla</em>.</div>
+      <div class="sub">Con un repaso. Ni hace falta tirar tu web.</div>
+    </div>
+
+    <!-- Cierre -->
+    <div class="end" id="end">
+      <div class="big">¿Y la tuya cómo está?<br>Te hago un <em>informe</em>. Gratis.</div>
+      <div class="q2">Escríbeme «WEB» por privado</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl;
+
+    gsap.set("#report", { opacity: 0 });
+    gsap.set(".row", { opacity: 0, x: -20 });
+    gsap.set("#end", { opacity: 0 });
+    gsap.set("#title", { scale: 1.06, opacity: 1 });
+    gsap.set("#phone", { scale: 1, y: 0 });
+
+    // Titular (0–2.4) micro-zoom
+    tl.to("#title", { scale: 1, duration: 0.9, ease: "power2.out" }, 0);
+    tl.to("#title", { opacity: 0, duration: 0.45, ...OUT }, 2.0);
+
+    // Escaneo (2.5–4.3): barra + %
+    const p = { v: 0 };
+    tl.to("#fill", { width: "100%", duration: 1.6, ease: "power1.inOut" }, 2.5);
+    tl.to(p, { v: 100, duration: 1.6, ease: "power1.inOut",
+      onUpdate: () => { const e = document.getElementById("pct"); if (e) e.textContent = Math.round(p.v) + " %"; } }, 2.5);
+
+    // Cambio a diagnostico (4.4)
+    tl.to("#scan", { opacity: 0, duration: 0.3, ...OUT }, 4.3);
+    tl.to("#report", { opacity: 1, duration: 0.35 }, 4.45);
+    // filas deadpan una a una
+    const rows = [["#report .r1",4.7],["#report .r2",5.35],["#report .r3",6.0],["#report .r4",6.65],["#report .r5",7.3]];
+    rows.forEach(([sel,t]) => tl.fromTo(sel, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.32, ease: "back.out(1.6)" }, t));
+    // el movil "tiembla" al ver el diagnostico (drama)
+    tl.to("#phone", { keyframes: { x: [0,-5,5,-3,0] }, duration: 0.5, ease: "none" }, 7.9);
+
+    // ── PANTALLA EXTRA: la buena noticia (se arregla) ──
+    tl.to("#phone", { opacity: 0, scale: 0.97, duration: 0.4, ...OUT }, 8.7);
+    tl.fromTo("#fix", { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 0.5 }, 8.9);
+    tl.fromTo("#fix .ck", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.7)" }, 9.05);
+
+    // ── CIERRE / CTA informe (11.6–16) ──
+    tl.to("#fix", { opacity: 0, scale: 0.99, duration: 0.4, ...OUT }, 11.4);
+    tl.to("#end", { opacity: 1, duration: 0.55 }, 11.6);
+  </script>
+</body>
+</html>

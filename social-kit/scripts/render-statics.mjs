@@ -149,6 +149,20 @@ const JOBS = [
     w: 1080, h: 1920,
   },
 
+  // ── 2026-08-09 · Carrusel "Lo que va incluido en tu web y no se ve" · 8 slides 1080×1350 ──
+  ...[1,2,3,4,5,6,7,8].map((n) => ({
+    html: `personal/2026/08/09-carrusel-trabajo-invisible/slide-${n}.html`,
+    out:  `personal/2026/08/09-carrusel-trabajo-invisible/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
+  // ── 2026-08-06 · Post curiosidad "el @ del email" · 1080×1350 ──
+  {
+    html: `personal/2026/08/06-post-curiosidad-arroba/index.html`,
+    out:  `personal/2026/08/06-post-curiosidad-arroba/final.png`,
+    w: 1080, h: 1350,
+  },
+
   // ── 2026-08-04 · Post curiosidad "Antes de Google hubo BackRub" · 1080×1350 ──
   {
     html: `personal/2026/08/04-post-curiosidad-backrub/index.html`,
