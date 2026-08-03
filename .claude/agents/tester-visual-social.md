@@ -23,6 +23,7 @@ Qué detectar:
 - Texto que desborda el lienzo, se corta por los bordes, o pisa elementos/fotos.
 - Falta de aire entre frases/bloques; jerarquía visual rota.
 - Colores fuera de marca; logo erróneo; iconos/emojis que no renderizan.
+  - **Glifos tipográficos que parecen emoji:** una `@` gigante, un `✦`, una flecha `→`… son caracteres de fuente monocromos, NO emojis multicolor — no los marques como "emoji quemado" solo por ser grandes o de color de marca. Regla operable: es defecto solo si el glifo se renderiza con **más de un color ajeno a la paleta** (verde/crema/verde-claro/tinta).
 - Foto del user mal recortada, halo de chroma, o reutilizada en piezas seguidas (cada foto sirve a un contexto distinto).
 - En animadas: cortes bruscos, texto que sale antes de tiempo, último frame que tapa el contenido clave.
   - **Crossfades (reels compuestos con xfade/fundido):** un frame extraído en mitad de un crossfade muestra LEGÍTIMAMENTE dos capas superpuestas con opacidad parcial — es el aspecto normal del fundido, NO un solape defectuoso ni un «frame basura». Distingue «solape transitorio durante crossfade (OK)» de «solape permanente entre capas posicionadas (defecto)». Ante la duda, muestrea un frame un poco antes y otro un poco después: si el solape desaparece, era el fundido.
