@@ -25,9 +25,23 @@ Todo esto va incluido en la cuota. Tú te olvidas; yo me encargo.
 
 #paginasweb #webparaautonomos #pymes #negociolocal #mantenimientoweb #diseñoweb #autonomos #emprendedores #marketingdigital
 
-## Alt text
+## Alt text (uno por diapositiva — copiar y pegar en el alt de cada imagen)
 
-Carrusel de 8 diapositivas sobre el trabajo invisible que va incluido en una web. Portada verde: «Lo que va incluido en tu web (y no ves)» y «El trabajo que hace que funcione todos los días, sin que tú te enteres». Seis diapositivas en fondo crema, cada una con un número, un icono en cuadro verde y un titular: 1 hosting y dominio incluidos; 2 mantenimiento al día (actualizaciones y arreglos); 3 copias de seguridad y candado HTTPS; 4 que cargue rápida; 5 que Google la entienda (SEO básico); 6 soporte de verdad (me escribes y lo resuelvo yo). Cierre verde: «No pagas una web y ya. Pagas que funcione cada día» y «todo esto va incluido en la cuota. ¿Qué es lo que más pereza te da de tener web?». Firma eB + @ebecerra.es en cada slide.
+**Slide 1 (portada):** Portada verde con texto en crema. Título «Lo que va incluido en tu web (y no ves)» y subtítulo «El trabajo que hace que funcione todos los días, sin que tú te enteres». Firma eB + @ebecerra.es abajo-izquierda.
+
+**Slide 2:** Fondo crema. Icono de servidor en un cuadro verde y el número 1. Título «Hosting y dominio». Texto: la casa donde vive tu web y su dirección, incluidos, sin que tengas que contratar nada por tu cuenta. Firma eB + @ebecerra.es.
+
+**Slide 3:** Fondo crema. Icono de llave inglesa en un cuadro verde y el número 2. Título «Mantenimiento al día». Texto: actualizaciones y arreglos cada mes, para que no se rompa ni se quede vieja. Firma eB + @ebecerra.es.
+
+**Slide 4:** Fondo crema. Icono de escudo con un check en un cuadro verde y el número 3. Título «Copias y seguridad». Texto: copias de seguridad y candado HTTPS; si algo pasa, se recupera. Firma eB + @ebecerra.es.
+
+**Slide 5:** Fondo crema. Icono de un rayo en un cuadro verde y el número 4. Título «Que cargue rápida». Texto: optimizada para que abra en un parpadeo; cada segundo de más es gente que se va. Firma eB + @ebecerra.es.
+
+**Slide 6:** Fondo crema. Icono de lupa en un cuadro verde y el número 5. Título «Que Google la entienda». Texto: SEO básico bien hecho para que te encuentren cuando buscan lo que ofreces. Firma eB + @ebecerra.es.
+
+**Slide 7:** Fondo crema. Icono de bocadillo de chat en un cuadro verde y el número 6. Título «Soporte de verdad». Texto: me escribes y lo resuelvo yo, sin tickets ni robots. Firma eB + @ebecerra.es.
+
+**Slide 8 (cierre):** Fondo verde con texto en crema. «No pagas una web y ya. Pagas que funcione cada día» y «todo esto va incluido en la cuota, sin que tengas que preocuparte de nada. ¿Qué es lo que más pereza te da de tener web?». Firma eB + @ebecerra.es.
 
 ## Comentario fijado
 
