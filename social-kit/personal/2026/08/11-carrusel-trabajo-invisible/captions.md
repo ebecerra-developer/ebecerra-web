@@ -1,7 +1,7 @@
-# 09 · CARRUSEL · Lo que va incluido en tu web (y no ves)
+# 11 · CARRUSEL · Lo que va incluido en tu web (y no ves)
 
 - **Tipo**: carrusel 1080×1350 (4:5) · 8 slides (portada + 6 piezas + cierre)
-- **Fecha objetivo**: 9 ago 2026 · **Estado**: lista
+- **Fecha objetivo**: 11 ago 2026 · **Estado**: publicada
 - **Categoría**: educativo / valor — muestra el trabajo invisible incluido en la cuota (modelo MRR: todo incluido)
 - **Outputs**: `slide-1.png` … `slide-8.png`
 - **Objetivo**: autoridad + justificar el valor de la cuota (qué recibes cada mes) + interacción en el cierre.
