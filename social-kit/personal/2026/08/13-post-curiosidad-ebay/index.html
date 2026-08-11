@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post curiosidad "lo 1o vendido en eBay = puntero laser roto" · 1080×1350 · ¿Sabías que?
+     Mockup de anuncio de marketplace (puntero laser roto, 14,83$, vendido, 1995). Solo Inter. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1350px;overflow:hidden;padding:88px 84px;display:flex;flex-direction:column;
+    background:radial-gradient(120% 80% at 30% 14%,#058a63 0%,#047857 52%,#02583c 100%)}
+
+  .kick{align-self:flex-start;display:inline-flex;align-items:center;gap:12px;background:rgba(3,40,26,.4);
+    border:1px solid rgba(110,231,183,.3);color:var(--green-light);font-size:26px;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;padding:12px 26px;border-radius:999px;margin-bottom:30px}
+  .h1{font-size:66px;font-weight:900;line-height:1.05;letter-spacing:-.035em;color:var(--cream)}
+  .h1 .hr{color:var(--green-light)}
+
+  /* Tarjeta anuncio */
+  .card{margin-top:44px;flex-shrink:0;background:var(--cream);border-radius:30px;overflow:hidden;box-shadow:0 34px 80px -30px rgba(2,16,10,.85)}
+  .card .img{position:relative;height:300px;background:radial-gradient(120% 120% at 50% 40%,#20302a 0%,#0f1a15 100%);display:flex;align-items:center;justify-content:center}
+  .card .img svg{width:340px;height:120px}
+  .card .img .roto{position:absolute;top:26px;right:28px;background:rgba(250,246,238,.16);border:1.5px solid rgba(250,246,238,.5);color:var(--cream);font-size:26px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:8px 20px;border-radius:999px}
+  .card .body{padding:34px 40px 38px}
+  .card .body .t{font-size:44px;font-weight:900;color:var(--ink);letter-spacing:-.01em}
+  .card .body .row{display:flex;align-items:baseline;justify-content:space-between;margin-top:20px}
+  .card .body .price{font-size:56px;font-weight:900;color:var(--green)}
+  .card .body .sold{font-size:34px;font-weight:800;color:#0a7d54}
+  .card .body .tag{margin-top:18px;font-size:28px;font-weight:700;color:#6b7c72}
+  .card .body .tag b{color:var(--green)}
+
+  .remate{margin-top:auto;margin-bottom:64px}
+  .remate .line{font-size:48px;font-weight:900;line-height:1.14;color:var(--cream);letter-spacing:-.02em}
+  .remate .line em{font-style:normal;color:var(--green-light)}
+  .remate .sub{margin-top:18px;font-size:33px;font-weight:600;color:rgba(250,246,238,.72);line-height:1.3}
+
+  .chip{position:absolute;bottom:56px;left:84px;display:flex;align-items:center;gap:13px;font-weight:700;font-size:27px;color:var(--cream)}
+  .chip .dot{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="kick">✦ ¿Sabías que…?</div>
+    <div class="h1">Lo primero que se vendió en eBay fue un puntero láser. <span class="hr">Roto</span>.</div>
+
+    <div class="card">
+      <div class="img">
+        <span class="roto">Roto</span>
+        <svg viewBox="0 0 340 120" fill="none">
+          <rect x="40" y="46" width="180" height="30" rx="15" fill="#cdd6cf"/>
+          <rect x="60" y="52" width="34" height="18" rx="4" fill="#9aa79f"/>
+          <rect x="220" y="52" width="26" height="18" rx="6" fill="#8f9a92"/>
+          <path d="M246 61 h34" stroke="#6EE7B7" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 12"/>
+          <path d="M150 40 l-10 20 l16 4 l-12 22" stroke="rgba(250,246,238,.75)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="t">Puntero láser (no funciona)</div>
+        <div class="row"><span class="price">14,83 $</span><span class="sold">Vendido ✓</span></div>
+        <div class="tag">AuctionWeb —hoy <b>eBay</b>— · 1995</div>
+      </div>
+    </div>
+
+    <div class="remate">
+      <div class="line">«Sí, lo sé. <em>Colecciono punteros láser rotos</em>.»</div>
+      <div class="sub">Eso respondió el comprador cuando le avisaron. Pagó 14,83 $… y de aquella subasta nació eBay.</div>
+    </div>
+
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+  </div>
+</body>
+</html>

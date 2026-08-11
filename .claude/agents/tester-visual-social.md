@@ -21,6 +21,7 @@ Criterios DUROS de social-kit:
 
 Qué detectar:
 - Texto que desborda el lienzo, se corta por los bordes, o pisa elementos/fotos.
+  - **Antes de reportar un texto como mal escrito o cortado**, verifícalo SIEMPRE contra el fuente (grep del string en el HTML) y/o un recorte ampliado ≥3×. Nunca emitas un bloqueante de ortografía basándote solo en la lectura del PNG a tamaño completo: el antialiasing a esa escala induce falsos positivos (p. ej. leer "@ebeecrra.es" cuando el fuente dice "@ebecerra.es").
 - Falta de aire entre frases/bloques; jerarquía visual rota.
 - Colores fuera de marca; logo erróneo; iconos/emojis que no renderizan.
   - **Glifos tipográficos que parecen emoji:** una `@` gigante, un `✦`, una flecha `→`… son caracteres de fuente monocromos, NO emojis multicolor — no los marques como "emoji quemado" solo por ser grandes o de color de marca. Regla operable: es defecto solo si el glifo se renderiza con **más de un color ajeno a la paleta** (verde/crema/verde-claro/tinta).

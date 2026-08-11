@@ -156,6 +156,13 @@ const JOBS = [
     w: 1080, h: 1350,
   })),
 
+  // ── 2026-08-13 · Post curiosidad "lo 1o vendido en eBay = puntero láser roto" · 1080×1350 ──
+  {
+    html: `personal/2026/08/13-post-curiosidad-ebay/index.html`,
+    out:  `personal/2026/08/13-post-curiosidad-ebay/final.png`,
+    w: 1080, h: 1350,
+  },
+
   // ── 2026-08-06 · Post curiosidad "el @ del email" · 1080×1350 ──
   {
     html: `personal/2026/08/06-post-curiosidad-arroba/index.html`,
