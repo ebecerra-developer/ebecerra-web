@@ -156,6 +156,13 @@ const JOBS = [
     w: 1080, h: 1350,
   })),
 
+  // ── 2026-08-16 · Carrusel "5 mitos sobre tener una web" · 7 slides 1080×1350 ──
+  ...[1,2,3,4,5,6,7].map((n) => ({
+    html: `personal/2026/08/16-carrusel-mitos-web/slide-${n}.html`,
+    out:  `personal/2026/08/16-carrusel-mitos-web/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
   // ── 2026-08-13 · Post curiosidad "lo 1o vendido en eBay = puntero láser roto" · 1080×1350 ──
   {
     html: `personal/2026/08/13-post-curiosidad-ebay/index.html`,

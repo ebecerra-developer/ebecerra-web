@@ -73,6 +73,8 @@ const TARGETS = [
   { name: "30-reel-lo-que-me-dicen", folder: "personal/2026/07/30-reel-lo-que-me-dicen", duration: 15 },
   // Reel 2026-08-05: humor "tu web ahora mismo, seamos sinceros" (movil analiza la web + diagnostico deadpan)
   { name: "05-reel-diagnostico-web", folder: "personal/2026/08/05-reel-diagnostico-web", duration: 16 },
+  // Reel 2026-08-14: humor "hacerte la web tu mismo: expectativa vs realidad" (calma -> notas en caos -> cierre)
+  { name: "14-reel-diy-web", folder: "personal/2026/08/14-reel-diy-web", duration: 14 },
 ].map(t => ({
   ...t,
   html:   `${t.folder}/index.html`,

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel humor "Hacerte la web tú mismo: expectativa vs realidad": expectativa calma
+     (una tardecita + check) -> realidad = notas que se apilan en caos -> cierre
+     (sale "muy barato" hasta que cuentas tu tiempo). Abre con titular en verde. GSAP seek-friendly. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .chip{position:absolute;top:54px;left:54px;z-index:250;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.5);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 100px;opacity:0}
+  .k{font-size:31px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:36px}
+
+  /* Titular */
+  .title h1{font-size:88px;font-weight:900;line-height:1.05;letter-spacing:-.035em;color:var(--cream)}
+  .title h1 em{font-style:normal;color:var(--green-light);text-shadow:0 0 40px rgba(110,231,183,.5)}
+
+  /* Expectativa */
+  .exp .ck{width:150px;height:150px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;margin-bottom:44px;box-shadow:0 0 60px -6px rgba(110,231,183,.6)}
+  .exp .ck svg{width:78px;height:78px;stroke:#04402b;stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .exp .q{font-size:78px;font-weight:900;line-height:1.08;letter-spacing:-.035em;color:var(--cream)}
+  .exp .q em{font-style:normal;color:var(--green-light)}
+
+  /* Realidad: notas apiladas */
+  .real{justify-content:flex-start;padding-top:250px}
+  .real .kk{font-size:33px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green-light);margin-bottom:56px}
+  .note{position:relative;background:var(--cream);color:var(--ink);border-radius:22px;padding:30px 38px;font-size:44px;font-weight:800;box-shadow:0 20px 46px -20px rgba(2,16,10,.7);opacity:0;max-width:820px}
+  .note.n1{transform:rotate(-3deg);margin-bottom:26px}
+  .note.n2{transform:rotate(2.5deg);margin-bottom:26px;align-self:flex-end}
+  .note.n3{transform:rotate(-2deg);margin-bottom:26px;align-self:flex-start}
+  .note.n4{transform:rotate(3deg);margin-bottom:26px}
+  .note.n5{transform:rotate(-1.5deg);background:#0b1512;color:var(--cream)}
+  .note.n5 em{font-style:normal;color:var(--green-light)}
+
+  /* Cierre */
+  .end .big{font-size:80px;font-weight:900;line-height:1.1;letter-spacing:-.03em;color:var(--cream)}
+  .end .big em{font-style:normal;color:var(--green-light)}
+  .end .q2{margin-top:48px;display:inline-block;background:var(--cream);color:var(--green);font-size:42px;font-weight:800;padding:22px 46px;border-radius:999px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <!-- Titular -->
+    <div class="scene title" id="s0">
+      <div class="k">Expectativa vs realidad</div>
+      <h1>Hacerte la web<br><em>tú mismo</em>.</h1>
+    </div>
+
+    <!-- Expectativa -->
+    <div class="scene exp" id="s1">
+      <div class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+      <div class="k">Lo que crees</div>
+      <div class="q">«Una tardecita con una <em>plantilla</em> y lista.»</div>
+    </div>
+
+    <!-- Realidad -->
+    <div class="scene real" id="s2">
+      <div class="kk">Lo que pasa de verdad</div>
+      <div class="note n1">Semana 3 de «una tardecita».</div>
+      <div class="note n2">47 pestañas de tutoriales.</div>
+      <div class="note n3">El logo se ve pixelado.</div>
+      <div class="note n4">No funciona en el móvil.</div>
+      <div class="note n5">«¿Por qué se ha movido <em>TODO</em>?»</div>
+    </div>
+
+    <!-- Cierre -->
+    <div class="scene end" id="s3">
+      <div class="big">Hacértela tú sale <em>muy barato</em>,<br>hasta que cuentas tu <em>tiempo</em>.</div>
+      <div class="q2">¿Tú lo has intentado?</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl;
+
+    gsap.set(["#s1","#s2","#s3"], { opacity: 0 });
+    gsap.set("#s0", { scale: 1.06, opacity: 1 });
+    gsap.set(".exp .ck", { scale: 0.4, opacity: 0 });
+    // guardar la rotación de reposo de cada nota para el pop
+    const rots = { n1:-3, n2:2.5, n3:-2, n4:3, n5:-1.5 };
+
+    // Titular (0–2.4) micro-zoom
+    tl.to("#s0", { scale: 1, duration: 0.9, ease: "power2.out" }, 0);
+    tl.to("#s0", { opacity: 0, scale: 0.99, duration: 0.4, ...OUT }, 2.0);
+
+    // Expectativa (2.5–5.0) — calma
+    tl.to("#s1", { opacity: 1, duration: 0.45 }, 2.5);
+    tl.fromTo(".exp .ck", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.7)" }, 2.9);
+    tl.to("#s1", { opacity: 0, duration: 0.35, ...OUT }, 5.0);
+
+    // Realidad (5.2–9.6) — notas que se apilan en caos (pop rapido + jitter)
+    tl.to("#s2", { opacity: 1, duration: 0.3 }, 5.2);
+    const notes = [["n1",5.5],["n2",5.95],["n3",6.4],["n4",6.85],["n5",7.35]];
+    notes.forEach(([id,t]) => {
+      tl.fromTo("#s2 ." + id,
+        { opacity: 0, scale: 0.7, rotation: rots[id] - 8, y: 26 },
+        { opacity: 1, scale: 1, rotation: rots[id], y: 0, duration: 0.32, ease: "back.out(2)" }, t);
+    });
+    // temblorcito del bloque al acumularse (caos)
+    tl.to("#s2", { keyframes: { x: [0,-6,5,-3,0] }, duration: 0.5, ease: "none" }, 7.6);
+    tl.to("#s2", { opacity: 0, duration: 0.4, ...OUT }, 9.4);
+
+    // Cierre (9.6–14)
+    tl.to("#s3", { opacity: 1, duration: 0.55 }, 9.6);
+  </script>
+</body>
+</html>
