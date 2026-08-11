@@ -50,6 +50,12 @@ commit-msg.txt
 # Junction a workspace externo (no commitear)
 _external-plantilla/
 
+# Insights de Instagram: el snapshot es regenerable (fuente viva = la API).
+# El histórico (history.ndjson) y los locks (instagram.json) SÍ se versionan.
+social-kit/personal/insights/insights.json
+social-kit/personal/insights/insights.csv
+social-kit/personal/insights/dashboard.html
+
 # social-kit — track sources only (HTML, CSS, scripts, captions, brand SVGs/PNGs)
 # Binarios renderizados (mp4, png output) y node_modules quedan fuera.
 # Regenerar: cd social-kit/scripts && node record-animated.mjs
