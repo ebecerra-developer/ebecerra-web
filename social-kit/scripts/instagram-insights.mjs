@@ -70,11 +70,34 @@ function persistEnv(updates) {
 
 // ── Modo --trends: evolución desde history.ndjson (offline, no toca la API) ──
 function runTrends() {
+  // 1) Rendimiento por mes de publicación — se calcula YA con el snapshot actual
+  //    (cada post lleva su fecha + métricas). Responde "¿mejora mi contenido?".
+  try {
+    const snap = JSON.parse(readFileSync(join(INSIGHTS_DIR, 'insights.json'), 'utf8'));
+    const byMonth = {};
+    for (const r of snap) {
+      const m = (r.fecha || '').slice(0, 7);
+      if (m) (byMonth[m] = byMonth[m] || []).push(r);
+    }
+    console.log('\nRendimiento por mes de publicación (con los datos actuales):');
+    console.log('  mes       posts   alcance medio   descubr. medio   interac. media');
+    for (const m of Object.keys(byMonth).sort()) {
+      const rs = byMonth[m];
+      const avg = (k) => rs.reduce((n, r) => n + (+r[k] || 0), 0) / rs.length;
+      console.log('  ' + m
+        + '   ' + String(rs.length).padStart(5)
+        + '   ' + avg('alcance').toFixed(0).padStart(13)
+        + '   ' + avg('descubrimiento_x1k').toFixed(1).padStart(14)
+        + '   ' + avg('interacciones').toFixed(1).padStart(14));
+    }
+  } catch { console.log('(No pude leer insights.json para el rendimiento por mes.)'); }
+
+  // 2) Evolución real de cada post en el tiempo — solo desde snapshots acumulados.
   let rows;
   try {
     rows = readFileSync(join(INSIGHTS_DIR, 'history.ndjson'), 'utf8')
       .trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
-  } catch { console.log('Aún no hay histórico (social-kit/personal/insights/history.ndjson).'); return; }
+  } catch { console.log('\nAún no hay histórico acumulado (history.ndjson).'); return; }
   const dates = [...new Set(rows.map((r) => r.date))].sort();
   console.log(`\nHistórico: ${rows.length} filas · ${dates.length} snapshot(s): ${dates.join(', ')}`);
   if (dates.length < 2) {
