@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel "el criterio no lo pone la IA": la IA es la herramienta, el valor lo pone
+     una persona con criterio y conocimientos. Titular verde + micro-zoom.
+     Movimiento desde frame 1. GSAP seek-friendly. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .chip{position:absolute;top:54px;left:54px;z-index:250;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.5);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 104px;opacity:0}
+  .k{font-size:31px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:38px}
+
+  /* Titular */
+  .title h1{font-size:88px;font-weight:900;line-height:1.06;letter-spacing:-.035em;color:var(--cream)}
+  .title h1 em{font-style:normal;color:var(--green-light);text-shadow:0 0 40px rgba(110,231,183,.45)}
+
+  /* Segunda escena (el criterio) */
+  .crit1 .big{font-size:82px;font-weight:900;line-height:1.08;letter-spacing:-.035em;color:var(--cream)}
+  .crit1 .big em{font-style:normal;color:var(--green-light)}
+
+  /* Checklist (criterio es...) */
+  .list{align-items:flex-start;text-align:left;padding:0 96px}
+  .list .kk{font-size:33px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green-light);margin-bottom:52px}
+  .row{display:flex;align-items:flex-start;gap:28px;margin-bottom:44px}
+  .row .ck{flex-shrink:0;width:62px;height:62px;border-radius:50%;background:rgba(110,231,183,.16);display:flex;align-items:center;justify-content:center;margin-top:4px}
+  .row .ck svg{width:34px;height:34px;stroke:var(--green-light);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .row .t{font-size:52px;font-weight:700;line-height:1.16;letter-spacing:-.02em;color:var(--cream)}
+  .row .t b{color:var(--green-light);font-weight:800}
+
+  /* Cierre */
+  .end .big{font-size:86px;font-weight:900;line-height:1.08;letter-spacing:-.035em;color:var(--cream)}
+  .end .big em{font-style:normal;color:var(--green-light)}
+  .end .q2{margin-top:52px;display:inline-block;background:var(--cream);color:var(--green);font-size:44px;font-weight:800;padding:24px 50px;border-radius:999px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <!-- Titular -->
+    <div class="scene title" id="s0">
+      <div class="k">Seamos claros</div>
+      <h1>Lo que hace que una web funcione no lo pone <em>la IA</em>.</h1>
+    </div>
+
+    <!-- El criterio -->
+    <div class="scene crit1" id="s1">
+      <div class="big">Lo pone el <em>criterio</em> de quien la hace.</div>
+    </div>
+
+    <!-- Checklist -->
+    <div class="scene list" id="s2">
+      <div class="kk">Criterio es…</div>
+      <div class="row" id="r1"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span class="t">Entender tu negocio <b>antes de tocar nada</b>.</span></div>
+      <div class="row" id="r2"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span class="t">Saber qué poner… y <b>qué dejar fuera</b>.</span></div>
+      <div class="row" id="r3"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span class="t">Que te <b>encuentren en Google</b>, no solo que exista.</span></div>
+      <div class="row" id="r4"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span class="t">Que quien entre <b>se fíe</b> y sepa qué hacer.</span></div>
+    </div>
+
+    <!-- Cierre -->
+    <div class="scene end" id="s3">
+      <div class="big">La IA pone la página.<br>El <em>criterio</em> lo pone la persona.</div>
+      <div class="q2">¿Hablamos de tu web?</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl;
+
+    gsap.set(["#s1","#s2","#s3"], { opacity: 0 });
+    gsap.set(["#r1","#r2","#r3","#r4"], { opacity: 0 });
+    gsap.set("#s0", { scale: 1.06, opacity: 1 });
+
+    // Titular (0–2.6) micro-zoom (movimiento desde frame 1)
+    tl.to("#s0", { scale: 1, duration: 1.0, ease: "power2.out" }, 0);
+    tl.to("#s0", { opacity: 0, scale: 0.99, duration: 0.4, ...OUT }, 2.3);
+
+    // El criterio (2.7–5.4)
+    tl.to("#s1", { opacity: 1, duration: 0.4 }, 2.7);
+    tl.fromTo("#s1 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 2.9);
+    tl.to("#s1", { opacity: 0, duration: 0.35, ...OUT }, 5.2);
+
+    // Checklist (5.5–13.4) — filas que entran una a una
+    tl.to("#s2", { opacity: 1, duration: 0.35 }, 5.5);
+    const rows = [["#r1",5.9],["#r2",7.2],["#r3",8.5],["#r4",9.8]];
+    rows.forEach(([id,t]) => {
+      tl.fromTo(id, { x: -26, opacity: 0 }, { x: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, t);
+    });
+    tl.to("#s2", { opacity: 0, duration: 0.4, ...OUT }, 13.0);
+
+    // Cierre (13.4–17)
+    tl.to("#s3", { opacity: 1, duration: 0.5 }, 13.4);
+    tl.fromTo("#s3 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" }, 13.5);
+    tl.fromTo("#s3 .q2", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 14.1);
+  </script>
+</body>
+</html>

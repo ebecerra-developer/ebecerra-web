@@ -18,7 +18,7 @@ const ROOT = path.resolve("..");
 // El recorder solo necesita la carpeta + duración. html/out/poster se infieren.
 
 const TARGETS = [
-  { name: "20-reel-tipos-de-web", folder: "personal/2026/08/20-reel-tipos-de-web", duration: 18 },
+  { name: "20-reel-criterio-ia", folder: "personal/2026/08/20-reel-criterio-ia", duration: 17 },
   { name: "0003-story-chatbot",       folder: "personal/2026/05/0003-story-chatbot",       duration: 12 },
   { name: "0006-reel-rescate",        folder: "personal/2026/05/0006-reel-rescate",        duration: 18 },
   { name: "0007-reel-3puertas",       folder: "personal/2026/05/0007-reel-3puertas",       duration: 18 },
