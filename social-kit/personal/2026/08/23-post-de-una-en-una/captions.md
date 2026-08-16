@@ -28,7 +28,7 @@ Si buscas a alguien que te la haga con calma y hable contigo de tú a tú, sin a
 
 ## Alt text
 
-Post sobre fondo crema (cálido). Antetítulo verde «De tú a tú». Titular grande en tinta oscura «No hago webs en cadena. Las hago de una en una», con «de una en una» resaltado en verde. Debajo, un párrafo: «Por eso la tuya no es un número en una cola. Es la que tengo entre manos: recibe tiempo, cabeza y las vueltas que hagan falta hasta que funcione de verdad», con «las vueltas que hagan falta» en negrita. Cierra con un CTA en verde «¿Te la hago con calma? Escríbeme y hablamos.» y la firma círculo eB + @ebecerra.es abajo a la izquierda.
+Post sobre fondo verde. Antetítulo «De tú a tú» en verde claro. Titular grande en crema «No hago webs en cadena. Las hago de una en una», con «de una en una» resaltado en verde claro. Debajo, un párrafo: «Por eso la tuya no es un número en una cola. Es la que tengo entre manos: recibe tiempo, cabeza y las vueltas que hagan falta hasta que funcione de verdad», con «las vueltas que hagan falta» en negrita. Cierra con un CTA en verde claro «¿Te la hago con calma? Escríbeme y hablamos.» y la firma círculo eB + @ebecerra.es abajo a la izquierda.
 
 ## Comentario fijado
 
@@ -38,6 +38,6 @@ Lo digo claro: trabajar así es una elección. Prefiero dedicarle tiempo de verd
 
 - Personal / honestidad (categoría distinta al resto de la semana: proceso, visibilidad, humor). Marca personal, no anuncio: la venta es implícita.
 - Framing DELIBERADO (elijo trabajar así), NO limitación de capacidad — evita sonar a negocio frágil (aviso del tester-copy). Side-gig no se menciona explícito.
-- Fondo crema para variar visualmente de los posts verdes de la semana. Solo Inter; acento por color; el ✦ es glifo, no emoji. Sin emojis en la pieza (los 👇 solo en caption/comentario).
+- Fondo verde de marca (coherencia del feed — el perfil es verde de arriba abajo; se descartó la versión crema para no romper la identidad del grid). Solo Inter; acento por color; el ✦ es glifo, no emoji. Sin emojis en la pieza (los 👇 solo en caption/comentario).
 - CTA doble suave: DM + comentario «CALMA» (el comentario da alcance).
 - Cross-post FB: sí.
