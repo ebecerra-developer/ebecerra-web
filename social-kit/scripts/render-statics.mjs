@@ -163,6 +163,20 @@ const JOBS = [
     w: 1080, h: 1350,
   })),
 
+  // ── 2026-08-19 · Post valor "tu competencia aparece antes" · 1080×1350 ──
+  {
+    html: `personal/2026/08/19-post-competencia-aparece/index.html`,
+    out:  `personal/2026/08/19-post-competencia-aparece/final.png`,
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-08-18 · Carrusel "Cómo es hacer tu web conmigo" (proceso) · 7 slides 1080×1350 ──
+  ...[1,2,3,4,5,6,7].map((n) => ({
+    html: `personal/2026/08/18-carrusel-proceso-web/slide-${n}.html`,
+    out:  `personal/2026/08/18-carrusel-proceso-web/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
   // ── 2026-08-13 · Post curiosidad "lo 1o vendido en eBay = puntero láser roto" · 1080×1350 ──
   {
     html: `personal/2026/08/13-post-curiosidad-ebay/index.html`,
