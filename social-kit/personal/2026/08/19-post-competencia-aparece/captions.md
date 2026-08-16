@@ -8,7 +8,7 @@
 
 ## Guion visual
 
-- Fondo verde. Antetítulo «✦ Que te encuentren». Titular «Tu competencia no siempre es mejor. Solo **aparece antes**.» Guiño visual: una barra de búsqueda tipo buscador con «lo que haces, cerca de mí». Cierre: «Cuando alguien busca lo que ofreces y no te encuentra, **llama al siguiente**. No por peor: por invisible.»
+- Fondo verde. Antetítulo «✦ Que te encuentren». Titular «Tu competencia no siempre es mejor. Solo **aparece antes**.» Guiño visual: una barra de búsqueda tipo buscador con «lo que haces, cerca de mí». Cierre: «Cuando alguien busca lo que ofreces y no te encuentra, **llama al siguiente**. No por mejor; por estar visible.»
 
 ## Caption (feed)
 
@@ -28,7 +28,7 @@ La buena noticia: eso se trabaja. Una web clara y bien colocada te pone en esa f
 
 ## Alt text
 
-Post sobre fondo verde. Antetítulo «Que te encuentren». Titular grande «Tu competencia no siempre es mejor. Solo aparece antes», con «aparece antes» resaltado en verde claro. Debajo, una barra de búsqueda estilo buscador, en color crema con una lupa, donde se lee «lo que haces, cerca de mí» y un cursor parpadeante. Abajo: «Cuando alguien busca lo que ofreces y no te encuentra, llama al siguiente. No por peor: por invisible». Firma eB + @ebecerra.es abajo a la izquierda.
+Post sobre fondo verde. Antetítulo «Que te encuentren». Titular grande «Tu competencia no siempre es mejor. Solo aparece antes», con «aparece antes» resaltado en verde claro. Debajo, una barra de búsqueda estilo buscador, en color crema con una lupa, donde se lee «lo que haces, cerca de mí» y un cursor parpadeante. Abajo: «Cuando alguien busca lo que ofreces y no te encuentra, llama al siguiente. No por mejor; por estar visible». Firma eB + @ebecerra.es abajo a la izquierda.
 
 ## Comentario fijado
 
