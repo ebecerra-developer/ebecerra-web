@@ -163,6 +163,13 @@ const JOBS = [
     w: 1080, h: 1350,
   })),
 
+  // ── 2026-08-23 · Post personal "de una en una" · 1080×1350 ──
+  {
+    html: `personal/2026/08/23-post-de-una-en-una/index.html`,
+    out:  `personal/2026/08/23-post-de-una-en-una/final.png`,
+    w: 1080, h: 1350,
+  },
+
   // ── 2026-08-19 · Post valor "tu competencia aparece antes" · 1080×1350 ──
   {
     html: `personal/2026/08/19-post-competencia-aparece/index.html`,
