@@ -35,7 +35,7 @@ html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe 
 .badge{width:46px;height:46px;border-radius:50%;background:var(--green);color:var(--cream);font-size:25px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none}
 .name{font-size:31px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
 
-.win{border-radius:14px;overflow:hidden;background:#fff;border:1px solid #e6e0d2;box-shadow:0 20px 40px -22px rgba(2,40,26,.5)}
+.win{position:relative;border-radius:14px;overflow:hidden;background:#fff;border:1px solid #e6e0d2;box-shadow:0 20px 40px -22px rgba(2,40,26,.5)}
 .win .bar{height:28px;background:#efeade;display:flex;align-items:center;gap:6px;padding:0 12px}
 .win .bar i{width:8px;height:8px;border-radius:50%;background:#d3ccbc;display:block;flex:none}
 .win .bar .url{margin-left:12px;background:#fff;border-radius:999px;padding:3px 12px;font-size:14px;font-weight:600;color:#9c968a}
@@ -52,6 +52,11 @@ html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe 
 .zoom .shot{height:380px}
 .s-vega-wa{background-image:url("../../../assets/captures/demo-vega-wa.png");background-size:1200px auto;background-position:-38px -619px}
 .s-equilibrio-chat{background-image:url("../../../assets/captures/demo-equilibrio-chat-tall.png");background-size:1669px auto;background-position:-1069px -261px}
+
+/* Botón de WhatsApp simulado encima de la captura (las demos no lo llevan en verde) */
+.wa-fake{position:absolute;left:44px;top:187px;width:280px;height:59px;border-radius:9px;background:#25D366;display:flex;align-items:center;justify-content:center;gap:11px;box-shadow:0 6px 14px -6px rgba(2,40,26,.45)}
+.wa-fake svg{width:26px;height:26px;fill:#fff}
+.wa-fake span{font-size:18px;font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap}
 
 .note{margin-top:30px;font-size:28px;font-weight:600;line-height:1.32;color:var(--muted)}
 
