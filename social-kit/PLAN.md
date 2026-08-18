@@ -161,6 +161,9 @@ Reglas para no quemar temas. Si choca, pivotar a otra cosa del backlog.
 | Reservas online / "coger cita mientras duermes" | 2026-06-23 (1 mes tras Reel 0019) | Repetir con otro sector u otro ángulo (no más llamadas, ahorro de tiempo, etc.) |
 | Demo equilibrio como protagonista | 2026-06-23 (1 mes) | Acaba de protagonizar 0019+0020. Rotar a marta-solana, claudia-entrena o eco antes de volver a equilibrio |
 | "DM abierto / puerta abierta" como CTA central | 2026-07-25 (2 meses tras 0021) | Repetir pronto suena a desespero comercial |
+| Duelos "A o B" / elegir entre dos maquetas | 2026-10-25 (2 meses tras el carrusel del 25 ago) | La mecánica cansa si se repite pronto; volver con otro tipo de decisiones |
+| Invitar a algo (mojito/helado) como premio por comentar | 2026-11-25 (3 meses) | Funciona por sorpresa; repetido parece soborno |
+| Curiosidades sobre Google (BackRub, doodles…) | 2026-10-04 (2 meses tras el post del 4 ago) | Ya salió Google; rotar a otras marcas o hitos de internet |
 
 ---
 

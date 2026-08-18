@@ -163,6 +163,27 @@ const JOBS = [
     w: 1080, h: 1350,
   })),
 
+  // ── 2026-08-30 · Post interacción "Me gustaría que mi web…" · 1080×1350 ──
+  {
+    html: `personal/2026/08/30-post-me-gustaria-que-mi-web/index.html`,
+    out:  `personal/2026/08/30-post-me-gustaria-que-mi-web/final.png`,
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-08-26 · Post curiosidad "el primer emoticono" · 1080×1350 ──
+  {
+    html: `personal/2026/08/26-post-curiosidad-emoticono/index.html`,
+    out:  `personal/2026/08/26-post-curiosidad-emoticono/final.png`,
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-08-25 · Carrusel "A o B" (duelos de interfaz + gag veraniego) · 7 slides 1080×1350 ──
+  ...[1,2,3,4,5,6,7].map((n) => ({
+    html: `personal/2026/08/25-carrusel-a-o-b/slide-${n}.html`,
+    out:  `personal/2026/08/25-carrusel-a-o-b/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
   // ── 2026-08-23 · Post personal "de una en una" · 1080×1350 ──
   {
     html: `personal/2026/08/23-post-de-una-en-una/index.html`,

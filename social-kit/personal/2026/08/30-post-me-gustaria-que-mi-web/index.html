@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post interacción "Me gustaría que mi web…" · 1080×1350 · comment-bait en positivo.
+     Mockup de campo de formulario con cursor + ejemplos como chips. Solo Inter. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1350px;overflow:hidden;padding:96px 84px;display:flex;flex-direction:column;
+    background:radial-gradient(120% 80% at 30% 14%,#058a63 0%,#047857 52%,#02583c 100%)}
+
+  .kick{align-self:flex-start;display:inline-flex;align-items:center;gap:12px;background:rgba(3,40,26,.4);
+    border:1px solid rgba(110,231,183,.3);color:var(--green-light);font-size:26px;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;padding:12px 26px;border-radius:999px;margin-bottom:46px}
+
+  .h1{font-size:96px;font-weight:900;line-height:1.02;letter-spacing:-.045em;color:var(--cream)}
+  .h1 em{font-style:normal;color:var(--green-light)}
+
+  .field{margin-top:52px;background:var(--cream);border-radius:24px;padding:38px 40px;display:flex;align-items:center;gap:18px;
+    box-shadow:0 30px 70px -28px rgba(2,16,10,.8)}
+  .field .caret{width:6px;height:56px;background:var(--green);border-radius:3px}
+  .field .ph{font-size:42px;font-weight:600;color:#9aa79f}
+
+  .ejemplos{margin-top:60px}
+  .ejemplos .lab{font-size:28px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,246,238,.55);margin-bottom:26px}
+  .chip{display:block;margin-bottom:20px;border:2px solid rgba(250,246,238,.28);border-radius:999px;padding:20px 34px;
+    font-size:38px;font-weight:700;color:rgba(250,246,238,.9)}
+
+  .cierre{margin-top:auto;margin-bottom:70px}
+  .cierre .l{font-size:46px;font-weight:900;line-height:1.14;letter-spacing:-.025em;color:var(--cream)}
+  .cierre .l em{font-style:normal;color:var(--green-light)}
+
+  .sig{position:absolute;bottom:56px;left:84px;display:flex;align-items:center;gap:13px;font-weight:700;font-size:27px;color:var(--cream)}
+  .sig .dot{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="kick">✦ Rellena el hueco</div>
+    <div class="h1">Me gustaría que<br><em>mi web…</em></div>
+
+    <div class="field">
+      <span class="caret"></span>
+      <span class="ph">escribe aquí lo tuyo</span>
+    </div>
+
+    <div class="ejemplos">
+      <div class="lab">Por ejemplo</div>
+      <span class="chip">…me quitara llamadas repetidas</span>
+      <span class="chip">…la pudiera cambiar yo sin llamar a nadie</span>
+      <span class="chip">…apareciera cuando alguien busca lo mío</span>
+    </div>
+
+    <div class="cierre">
+      <div class="l">Complétalo <em>en comentarios</em>.<br>Los leo todos.</div>
+    </div>
+
+    <div class="sig"><span class="dot">eB</span>@ebecerra.es</div>
+  </div>
+</body>
+</html>

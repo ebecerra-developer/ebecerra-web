@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel curiosidad de verano: de dónde viene lo de "surfear" por internet.
+     Olas en movimiento desde el frame 1 (gancho sin sonido). GSAP seek-friendly. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f;--clay:#C2703D}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .chip{position:absolute;top:54px;left:54px;z-index:250;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.5);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  /* Olas de fondo (siempre en movimiento) */
+  .sea{position:absolute;left:0;right:0;bottom:0;height:520px;z-index:1;overflow:hidden}
+  .sea svg{position:absolute;bottom:0;left:0;width:2160px;height:520px}
+  #wave1{opacity:.20}
+  #wave2{opacity:.32}
+  #wave3{opacity:.5}
+
+  .scene{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 104px;opacity:0}
+  .k{font-size:31px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:38px}
+  .big{font-size:84px;font-weight:900;line-height:1.07;letter-spacing:-.035em;color:var(--cream)}
+  .big em{font-style:normal;color:var(--green-light)}
+  .sub{margin-top:44px;font-size:44px;font-weight:600;line-height:1.28;color:rgba(250,246,238,.86)}
+  .sub b{color:var(--green-light);font-weight:800}
+  .pill{margin-top:56px;display:inline-block;background:var(--cream);color:var(--green);font-size:44px;font-weight:800;padding:24px 50px;border-radius:999px}
+
+  .title h1{font-size:92px;font-weight:900;line-height:1.05;letter-spacing:-.04em;color:var(--cream)}
+  .title h1 em{font-style:normal;color:var(--green-light);text-shadow:0 0 40px rgba(110,231,183,.45)}
+
+  .pad{width:760px;margin-bottom:56px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <!-- Olas -->
+    <div class="sea">
+      <svg id="wave1" viewBox="0 0 2160 520" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 300 q135 -80 270 0 t270 0 t270 0 t270 0 t270 0 t270 0 t270 0 t270 0 V520 H0 Z" fill="#6EE7B7"/>
+      </svg>
+      <svg id="wave2" viewBox="0 0 2160 520" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 370 q180 -90 360 0 t360 0 t360 0 t360 0 t360 0 t360 0 V520 H0 Z" fill="#6EE7B7"/>
+      </svg>
+      <svg id="wave3" viewBox="0 0 2160 520" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 440 q108 -60 216 0 t216 0 t216 0 t216 0 t216 0 t216 0 t216 0 t216 0 t216 0 t216 0 V520 H0 Z" fill="#02583c"/>
+      </svg>
+    </div>
+
+    <!-- 1 · Gancho -->
+    <div class="scene title" id="s0">
+      <div class="k">Curiosidad de verano</div>
+      <h1>Lo de <em>«surfear»</em> por internet no lo inventó ningún informático.</h1>
+    </div>
+
+    <!-- 2 · Quién -->
+    <div class="scene" id="s1">
+      <div class="big">Lo inventó una <em>bibliotecaria</em>.</div>
+      <div class="sub">Nueva York, <b>1992</b>. Escribió un artículo titulado «Surfing the Internet» y la palabra se quedó.</div>
+    </div>
+
+    <!-- 3 · La alfombrilla -->
+    <div class="scene" id="s2">
+      <div class="pad">
+        <svg viewBox="0 0 620 380" aria-hidden="true">
+          <defs><clipPath id="padclip"><rect x="20" y="40" width="580" height="300" rx="30"/></clipPath></defs>
+          <rect x="20" y="40" width="580" height="300" rx="30" fill="#FAF6EE"/>
+          <g clip-path="url(#padclip)">
+            <path d="M20 240 q80 -60 160 0 t160 0 t160 0 t160 0 V340 H20 Z" fill="#6EE7B7"/>
+            <path d="M20 280 q70 -46 140 0 t140 0 t140 0 t140 0 V340 H20 Z" fill="#047857"/>
+            <g transform="translate(150 130) rotate(-14)">
+              <ellipse cx="60" cy="96" rx="86" ry="17" fill="#C2703D"/>
+              <circle cx="52" cy="22" r="16" fill="#0e2a1f"/>
+              <path d="M52 38 L46 74 M46 74 L26 92 M46 74 L72 90 M52 46 L18 40 M52 46 L88 34" stroke="#0e2a1f" stroke-width="11" stroke-linecap="round" fill="none"/>
+            </g>
+          </g>
+          <rect x="20" y="40" width="580" height="300" rx="30" fill="none" stroke="#0e2a1f" stroke-width="7"/>
+          <g transform="translate(430 108)">
+            <rect x="0" y="0" width="104" height="150" rx="52" fill="#e9e3d5" stroke="#0e2a1f" stroke-width="7"/>
+            <path d="M52 6 V56" stroke="#0e2a1f" stroke-width="6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="big">Eligió la palabra por <em>su alfombrilla del ratón</em>.</div>
+      <div class="sub">Tenía un surfista dibujado encima.</div>
+    </div>
+
+    <!-- 4 · Por qué esa palabra -->
+    <div class="scene" id="s3">
+      <div class="big">Buscaba algo que sonara a <em>destreza</em>, paciencia y un poco de aventura.</div>
+      <div class="sub">Le salió «surfear». Treinta años después, seguimos diciéndolo.</div>
+    </div>
+
+    <!-- 5 · Cierre -->
+    <div class="scene" id="s4">
+      <div class="big">Y tú este agosto,<br>¿<em>surfeas</em> o desconectas?</div>
+      <div class="pill">Cuéntamelo en comentarios</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl;
+    window.__startAnim = () => tl.play(0);
+
+    gsap.set(["#s1","#s2","#s3","#s4"], { opacity: 0 });
+    gsap.set("#s0", { scale: 1.06, opacity: 1 });
+    gsap.set("#wave1", { x: 0 });
+    gsap.set("#wave2", { x: -260 });
+    gsap.set("#wave3", { x: -520 });
+
+    // Olas: movimiento continuo desde el frame 1 (lineal, seek-friendly)
+    tl.to("#wave1", { x: -1080, duration: 19, ease: "none" }, 0);
+    tl.to("#wave2", { x: -1340, duration: 19, ease: "none" }, 0);
+    tl.to("#wave3", { x: -1600, duration: 19, ease: "none" }, 0);
+
+    // 1 · Gancho (0–3.0)
+    tl.to("#s0", { scale: 1, duration: 1.1, ease: "power2.out" }, 0);
+    tl.to("#s0", { opacity: 0, scale: 0.99, duration: 0.4, ...OUT }, 2.7);
+
+    // 2 · Quién (3.1–6.9)
+    tl.to("#s1", { opacity: 1, duration: 0.4 }, 3.1);
+    tl.fromTo("#s1 .big", { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" }, 3.3);
+    tl.fromTo("#s1 .sub", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 4.1);
+    tl.to("#s1", { opacity: 0, duration: 0.35, ...OUT }, 6.7);
+
+    // 3 · La alfombrilla (6.9–11.6)
+    tl.to("#s2", { opacity: 1, duration: 0.4 }, 6.9);
+    tl.fromTo("#s2 .pad", { y: 34, opacity: 0, rotate: -3 }, { y: 0, opacity: 1, rotate: 0, duration: 0.85, ease: "power3.out" }, 7.0);
+    tl.fromTo("#s2 .big", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 7.7);
+    tl.fromTo("#s2 .sub", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 8.4);
+    tl.to("#s2", { opacity: 0, duration: 0.35, ...OUT }, 11.4);
+
+    // 4 · Por qué esa palabra (11.6–15.0)
+    tl.to("#s3", { opacity: 1, duration: 0.4 }, 11.6);
+    tl.fromTo("#s3 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" }, 11.8);
+    tl.fromTo("#s3 .sub", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, ease: "power3.out" }, 12.6);
+    tl.to("#s3", { opacity: 0, duration: 0.35, ...OUT }, 14.8);
+
+    // 5 · Cierre (15.0–18.5, con hold final)
+    tl.to("#s4", { opacity: 1, duration: 0.45 }, 15.0);
+    tl.fromTo("#s4 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" }, 15.1);
+    tl.fromTo("#s4 .pill", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.3)" }, 15.8);
+  </script>
+</body>
+</html>

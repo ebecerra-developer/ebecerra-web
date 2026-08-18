@@ -1,0 +1,72 @@
+/* Carrusel "A o B" · 1080×1350 (4:5) · duelos con webs REALES (capturas de demos) + gag veraniego.
+   Portada y cierre verdes, duelos en crema. Solo Inter, acento por color. */
+:root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f;--muted:#6f7a72}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;padding:80px 84px}
+
+.on-green{background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+.on-cream{background:var(--cream)}
+
+.sig{position:absolute;left:84px;bottom:52px;display:flex;align-items:center;gap:13px;font-weight:700;font-size:26px}
+.sig .dot{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:19px}
+.on-green .sig{color:var(--cream)}
+.on-green .sig .dot{background:var(--cream);color:var(--green)}
+.on-cream .sig{color:var(--green)}
+.on-cream .sig .dot{background:var(--green);color:var(--cream)}
+
+/* ── Portada ─────────────────────────────────────────────── */
+.cover{display:flex;flex-direction:column;justify-content:center;height:100%}
+.cover .k{font-size:30px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green-light);margin-bottom:32px}
+.cover h1{font-size:96px;font-weight:900;line-height:1.02;letter-spacing:-.04em;color:var(--cream)}
+.cover h1 em{font-style:normal;color:var(--green-light)}
+.cover .sub{margin-top:36px;font-size:37px;font-weight:600;color:rgba(250,246,238,.84);line-height:1.32}
+.swipe{position:absolute;right:84px;bottom:54px;display:flex;align-items:center;gap:12px;font-size:29px;font-weight:800;color:var(--green-light)}
+.swipe svg{width:34px;height:34px;stroke:var(--green-light);stroke-width:2.6;fill:none}
+
+/* ── Slide de duelo (dos webs reales, una sobre otra) ────── */
+.duel{display:flex;flex-direction:column;justify-content:center;height:100%;padding-bottom:120px}
+.duel .num{position:absolute;top:80px;right:84px;font-size:38px;font-weight:900;color:rgba(4,120,87,.25)}
+.duel .q{font-size:54px;font-weight:900;letter-spacing:-.03em;line-height:1.06;color:var(--ink);margin-bottom:32px}
+
+.opt{margin-bottom:30px}
+.opt:last-of-type{margin-bottom:0}
+.head{display:flex;align-items:center;gap:18px;margin-bottom:14px}
+.badge{width:52px;height:52px;border-radius:50%;background:var(--green);color:var(--cream);font-size:27px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none}
+.name{font-size:34px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+
+.win{position:relative;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #e6e0d2;box-shadow:0 22px 42px -24px rgba(2,40,26,.55)}
+.win .bar{height:36px;background:#efeade;display:flex;align-items:center;gap:8px;padding:0 14px}
+.win .bar i{width:10px;height:10px;border-radius:50%;background:#d3ccbc;display:block;flex:none}
+.win .bar .url{margin-left:16px;background:#fff;border-radius:999px;padding:5px 16px;font-size:18px;font-weight:600;color:#9c968a}
+.shot{height:310px;background-repeat:no-repeat;background-size:912px auto;background-position:0 0}
+
+/* Capturas reales de las demos (personal/assets/captures) */
+.s-marta{background-image:url("../../../assets/captures/demo-marta-solana-desktop.png")}
+.s-equilibrio{background-image:url("../../../assets/captures/demo-equilibrio-hero.png")}
+.s-eco{background-image:url("../../../assets/captures/demo-eco-desktop.png")}
+.s-bravio{background-image:url("../../../assets/captures/demo-bravio-desktop.png")}
+.s-vega{background-image:url("../../../assets/captures/demo-vega-hero.png")}
+.s-claudia{background-image:url("../../../assets/captures/demo-claudia-entrena-desktop.png")}
+/* Bandas bajas: para ver el botón de WhatsApp y el chat abierto */
+.s-vega-low{background-image:url("../../../assets/captures/demo-vega-hero.png");background-position:0 -300px}
+.s-equilibrio-chat{background-image:url("../../../assets/captures/demo-equilibrio-chat-abierto.png");background-position:0 -140px}
+
+.note{margin-top:26px;font-size:28px;font-weight:600;line-height:1.32;color:var(--muted)}
+
+/* ── Gag veraniego: dos fotos, mismo marco ───────────────── */
+.treats{display:flex;flex-direction:column;justify-content:center;height:100%;padding-bottom:120px}
+.treats .num{position:absolute;top:80px;right:84px;font-size:38px;font-weight:900;color:rgba(4,120,87,.25)}
+.treats .q{font-size:54px;font-weight:900;letter-spacing:-.03em;line-height:1.06;color:var(--ink);margin-bottom:36px}
+.pair{display:flex;gap:40px}
+.pair .opt{flex:1;margin:0}
+.pair .photo{height:560px;border-radius:20px;background-size:cover;background-position:center;box-shadow:0 24px 46px -26px rgba(2,40,26,.55)}
+.p-mojito{background-image:url("mojito.jpg")}
+.p-helado{background-image:url("helado.jpg")}
+.pair .head{margin:16px 0 0}
+
+/* ── Cierre ──────────────────────────────────────────────── */
+.end{display:flex;flex-direction:column;justify-content:center;height:100%}
+.end .big{font-size:88px;font-weight:900;line-height:1.04;letter-spacing:-.04em;color:var(--cream)}
+.end .big em{font-style:normal;color:var(--green-light)}
+.end .sub{margin-top:34px;font-size:38px;font-weight:600;color:rgba(250,246,238,.86);line-height:1.34}
