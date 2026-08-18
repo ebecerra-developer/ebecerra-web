@@ -49,7 +49,8 @@ Aviso: la quinta va en serio 🍹🍦 Si te pilla cerca, quedamos y te invito. Y
 ## Notas
 
 - Pieza pensada para COMENTARIOS, que es lo que agosto no está dando (0 guardados / 0 compartidos en todo el mes). La elección es la mecánica, no un CTA pegado al final.
-- **Las cuatro webs son capturas reales de mis demos** (`demos.ebecerra.es`), con la URL real en la barra del navegador. Cero mockups grises y de paso el carrusel enseña trabajo. Capturas en `personal/assets/captures/` (equilibrio-hero, equilibrio-chat-abierto y vega-hero se tomaron para esta pieza).
+- **Las webs son capturas reales de mis demos** (`demos.ebecerra.es`), con la URL real en la barra del navegador. Cero mockups grises y de paso el carrusel enseña trabajo.
+- Capturas hechas a **1280×860 (pantalla de portátil)** para que la web se vea grande dentro de la ventana: `personal/assets/captures/demo-*-lap.png`, más `demo-equilibrio-chat-lap.png` (chat abierto de verdad) y `demo-vega-wa.png` (recorte que llega al botón de WhatsApp). Se probaron miniaturas de página entera y se descartaron: la web salía diminuta y parecía que comparábamos webs enteras en vez de un detalle concreto.
 - Ningún duelo tiene respuesta correcta a propósito: nadie queda retratado por elegir. Humor sobre el calor, no sobre nadie.
 - Las fotos del mojito y el helado se generaron con la IA de imágenes de Sanity y se descargaron a la carpeta (`mojito.jpg`, `helado.jpg`).
 - La quinta invitación es real — no prometer nada más que un mojito o un helado.
