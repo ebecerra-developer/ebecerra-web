@@ -24,35 +24,33 @@ html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe 
 .swipe{position:absolute;right:84px;bottom:54px;display:flex;align-items:center;gap:12px;font-size:29px;font-weight:800;color:var(--green-light)}
 .swipe svg{width:34px;height:34px;stroke:var(--green-light);stroke-width:2.6;fill:none}
 
-/* ── Slide de duelo (dos webs reales, una sobre otra, vista de portátil) ── */
-.duel{display:flex;flex-direction:column;justify-content:center;height:100%;padding-bottom:40px}
-.duel .num{position:absolute;top:80px;right:84px;font-size:38px;font-weight:900;color:rgba(4,120,87,.25)}
-.duel .q{font-size:52px;font-weight:900;letter-spacing:-.03em;line-height:1.06;color:var(--ink);margin-bottom:24px}
+/* ── Slide de duelo (escalonado: cada web, entera, en su ventana) ────── */
+.duel{position:relative}
+.duel .num{position:absolute;top:0;right:0;font-size:38px;font-weight:900;color:rgba(4,120,87,.25)}
+.duel .q{font-size:54px;font-weight:900;letter-spacing:-.03em;line-height:1.06;color:var(--ink);margin-bottom:40px}
 
-.opt{margin-bottom:22px}
-.opt:last-of-type{margin-bottom:0}
-.head{display:flex;align-items:center;gap:15px;margin-bottom:10px}
-.badge{width:44px;height:44px;border-radius:50%;background:var(--green);color:var(--cream);font-size:25px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none}
+.opt{width:600px;margin-bottom:46px}
+.opt.der{margin-left:312px;margin-bottom:0}
+.head{display:flex;align-items:center;gap:15px;margin-bottom:14px}
+.badge{width:46px;height:46px;border-radius:50%;background:var(--green);color:var(--cream);font-size:25px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none}
 .name{font-size:31px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
 
-.win{position:relative;border-radius:14px;overflow:hidden;background:#fff;border:1px solid #e6e0d2;box-shadow:0 20px 38px -22px rgba(2,40,26,.5)}
-.win .bar{height:32px;background:#efeade;display:flex;align-items:center;gap:7px;padding:0 13px}
-.win .bar i{width:9px;height:9px;border-radius:50%;background:#d3ccbc;display:block;flex:none}
-.win .bar .url{margin-left:14px;background:#fff;border-radius:999px;padding:4px 14px;font-size:16px;font-weight:600;color:#9c968a}
-.shot{height:360px;background-repeat:no-repeat;background-size:100% auto;background-position:0 0}
+.win{border-radius:14px;overflow:hidden;background:#fff;border:1px solid #e6e0d2;box-shadow:0 20px 40px -22px rgba(2,40,26,.5)}
+.win .bar{height:28px;background:#efeade;display:flex;align-items:center;gap:6px;padding:0 12px}
+.win .bar i{width:8px;height:8px;border-radius:50%;background:#d3ccbc;display:block;flex:none}
+.win .bar .url{margin-left:12px;background:#fff;border-radius:999px;padding:3px 12px;font-size:14px;font-weight:600;color:#9c968a}
+.shot{height:403px;background-repeat:no-repeat;background-size:100% auto;background-position:0 0}
 
-/* Capturas de la primera pantalla a 1280×860 (personal/assets/captures) */
+/* Capturas a 1280×860 (pantalla de portátil): la primera pantalla entera, sin recortes */
 .s-marta{background-image:url("../../../assets/captures/demo-marta-solana-lap.png")}
 .s-equilibrio{background-image:url("../../../assets/captures/demo-equilibrio-lap.png")}
 .s-eco{background-image:url("../../../assets/captures/demo-eco-lap.png")}
 .s-bravio{background-image:url("../../../assets/captures/demo-bravio-lap.png")}
 .s-vega{background-image:url("../../../assets/captures/demo-vega-lap.png")}
 .s-claudia{background-image:url("../../../assets/captures/demo-claudia-lap.png")}
-/* Duelo de contacto: bandas bajas para ver el botón de WhatsApp y el chat abierto */
-.s-vega-low{background-image:url("../../../assets/captures/demo-vega-wa.png");background-position:0 -392px}
-.s-equilibrio-chat{background-image:url("../../../assets/captures/demo-equilibrio-chat-lap.png");background-position:0 -100px}
-
-.note{margin-top:20px;font-size:27px;font-weight:600;line-height:1.32;color:var(--muted)}
+/* Duelo de contacto: banda que deja ver ENTEROS el botón de WhatsApp y el chat */
+.s-vega-wa{background-image:url("../../../assets/captures/demo-vega-wa.png");background-position:0 -94px}
+.s-equilibrio-chat{background-image:url("../../../assets/captures/demo-equilibrio-chat-tall.png");background-position:0 -94px}
 
 /* ── Gag veraniego: dos fotos, mismo marco ───────────────── */
 .treats{display:flex;flex-direction:column;justify-content:center;height:100%;padding-bottom:120px}
