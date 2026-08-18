@@ -49,8 +49,11 @@ html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe 
 .s-vega{background-image:url("../../../assets/captures/demo-vega-lap.png")}
 .s-claudia{background-image:url("../../../assets/captures/demo-claudia-lap.png")}
 /* Duelo de contacto: banda que deja ver ENTEROS el botón de WhatsApp y el chat */
-.s-vega-wa{background-image:url("../../../assets/captures/demo-vega-wa.png");background-position:0 -94px}
-.s-equilibrio-chat{background-image:url("../../../assets/captures/demo-equilibrio-chat-tall.png");background-position:0 -94px}
+.zoom .shot{height:380px}
+.s-vega-wa{background-image:url("../../../assets/captures/demo-vega-wa.png");background-size:1200px auto;background-position:-38px -619px}
+.s-equilibrio-chat{background-image:url("../../../assets/captures/demo-equilibrio-chat-tall.png");background-size:1669px auto;background-position:-1069px -261px}
+
+.note{margin-top:30px;font-size:28px;font-weight:600;line-height:1.32;color:var(--muted)}
 
 /* ── Gag veraniego: dos fotos, mismo marco ───────────────── */
 .treats{display:flex;flex-direction:column;justify-content:center;height:100%;padding-bottom:120px}
