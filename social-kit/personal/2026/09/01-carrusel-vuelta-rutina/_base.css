@@ -1,5 +1,5 @@
-/* Carrusel "Septiembre: pon tu web a punto" · 1080×1350 · educativo + estacional (vuelta).
-   Portada+cierre verdes, checks en crema. Solo Inter, acento por color. */
+/* Carrusel "Volver a la rutina tras el verano" · 1080×1350 · personal/consejo (no-web).
+   Portada+cierre verdes, consejos en crema. Solo Inter, acento por color. */
 :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
