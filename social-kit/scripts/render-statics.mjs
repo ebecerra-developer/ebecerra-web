@@ -12,6 +12,20 @@ import fs from "node:fs";
 const ROOT = path.resolve("..");
 
 const JOBS = [
+  // ── 2026-09-01 · Carrusel "Septiembre: pon tu web a punto" · 7 slides 1080×1350 ──
+  ...[1,2,3,4,5,6,7].map((n) => ({
+    html: `personal/2026/09/01-carrusel-septiembre-web-a-punto/slide-${n}.html`,
+    out:  `personal/2026/09/01-carrusel-septiembre-web-a-punto/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
+  // ── 2026-09-02 · Post diferenciación "no lo necesitas" · 1080×1350 ──
+  {
+    html: `personal/2026/09/02-post-no-lo-necesitas/index.html`,
+    out:  `personal/2026/09/02-post-no-lo-necesitas/final.png`,
+    w: 1080, h: 1350,
+  },
+
   // ── 0001 · Post Lo que NO hago (1080×1350) ───────────────────────────
   {
     html: "personal/2026/05/0001-post-lo-que-no-hago/index.html",

@@ -1,0 +1,41 @@
+/* Carrusel "Septiembre: pon tu web a punto" · 1080×1350 · educativo + estacional (vuelta).
+   Portada+cierre verdes, checks en crema. Solo Inter, acento por color. */
+:root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;padding:96px 84px}
+
+.on-green{background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+.on-cream{background:var(--cream)}
+
+.sig{position:absolute;left:84px;bottom:52px;display:flex;align-items:center;gap:13px;font-weight:700;font-size:26px}
+.sig .dot{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:19px}
+.on-green .sig{color:var(--cream)}
+.on-green .sig .dot{background:var(--cream);color:var(--green)}
+.on-cream .sig{color:var(--green)}
+.on-cream .sig .dot{background:var(--green);color:var(--cream)}
+
+/* Portada */
+.cover{display:flex;flex-direction:column;justify-content:center}
+.cover .k{font-size:30px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green-light);margin-bottom:32px}
+.cover h1{font-size:90px;font-weight:900;line-height:1.02;letter-spacing:-.04em;color:var(--cream)}
+.cover h1 em{font-style:normal;color:var(--green-light)}
+.cover .sub{margin-top:34px;font-size:36px;font-weight:600;color:rgba(250,246,238,.82);line-height:1.32}
+.swipe{position:absolute;right:84px;bottom:54px;display:flex;align-items:center;gap:12px;font-size:29px;font-weight:800;color:var(--green-light)}
+.swipe svg{width:34px;height:34px;stroke:var(--green-light)}
+
+/* Slide de check */
+.item{display:flex;flex-direction:column;justify-content:center}
+.item .ghost{position:absolute;top:80px;right:84px;font-size:190px;font-weight:900;line-height:1;color:rgba(4,120,87,.09);letter-spacing:-.04em}
+.item .ck{width:96px;height:96px;border-radius:50%;background:rgba(4,120,87,.12);display:flex;align-items:center;justify-content:center;margin-bottom:38px}
+.item .ck svg{width:52px;height:52px;stroke:var(--green);stroke-width:3.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.item .t{font-size:66px;font-weight:900;line-height:1.05;letter-spacing:-.03em;color:var(--ink)}
+.item .t em{font-style:normal;color:var(--green)}
+.item .d{margin-top:26px;font-size:44px;font-weight:600;line-height:1.22;letter-spacing:-.01em;color:#4a5852;max-width:850px}
+.item .d b{font-weight:800;color:var(--green)}
+
+/* Cierre */
+.end{display:flex;flex-direction:column;justify-content:center}
+.end .big{font-size:82px;font-weight:900;line-height:1.05;letter-spacing:-.035em;color:var(--cream)}
+.end .big em{font-style:normal;color:var(--green-light)}
+.end .sub{margin-top:30px;font-size:40px;font-weight:600;color:rgba(250,246,238,.86);line-height:1.32}
