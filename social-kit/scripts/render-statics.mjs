@@ -26,6 +26,13 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-09-06 · Post interacción "ponle nota a tu web 1-10" · 1080×1350 ──
+  {
+    html: `personal/2026/09/06-post-nota-a-tu-web/index.html`,
+    out:  `personal/2026/09/06-post-nota-a-tu-web/final.png`,
+    w: 1080, h: 1350,
+  },
+
   // ── 0001 · Post Lo que NO hago (1080×1350) ───────────────────────────
   {
     html: "personal/2026/05/0001-post-lo-que-no-hago/index.html",

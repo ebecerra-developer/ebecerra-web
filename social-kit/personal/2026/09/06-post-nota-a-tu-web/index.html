@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post interacción "ponle nota a tu web del 1 al 10" · 1080×1350 · comment-bait.
+     Escala visual 1-10. Fondo verde de marca. Solo Inter, acento por color. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1350px;overflow:hidden;padding:96px 84px;display:flex;flex-direction:column;justify-content:center;
+    background:radial-gradient(120% 80% at 30% 14%,#058a63 0%,#047857 52%,#02583c 100%)}
+
+  .kick{align-self:flex-start;display:inline-flex;align-items:center;gap:12px;background:rgba(3,40,26,.4);
+    border:1px solid rgba(110,231,183,.3);color:var(--green-light);font-size:26px;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;padding:12px 26px;border-radius:999px;margin-bottom:42px}
+  .h1{font-size:78px;font-weight:900;line-height:1.05;letter-spacing:-.035em;color:var(--cream)}
+  .h1 em{font-style:normal;color:var(--green-light)}
+
+  .scale{margin-top:64px;display:flex;justify-content:space-between;align-items:center}
+  .num{width:78px;height:78px;border-radius:50%;border:2px solid rgba(110,231,183,.4);display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:var(--cream)}
+  .num.hi{background:var(--green-light);border-color:var(--green-light);color:#04402b}
+
+  .anchors{margin-top:34px;display:flex;justify-content:space-between;gap:40px}
+  .anchors .a{font-size:29px;font-weight:600;color:rgba(250,246,238,.7);line-height:1.28;max-width:400px}
+  .anchors .a.r{text-align:right}
+  .anchors .a b{color:var(--green-light);font-weight:800}
+
+  .cta{margin-top:64px;font-size:40px;font-weight:800;color:var(--cream);line-height:1.3}
+  .cta em{font-style:normal;color:var(--green-light)}
+
+  .chip{position:absolute;bottom:56px;left:84px;display:flex;align-items:center;gap:13px;font-weight:700;font-size:27px;color:var(--cream)}
+  .chip .dot{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="kick">✦ Autoexamen exprés</div>
+    <div class="h1">Del 1 al 10, ¿qué nota le pones a <em>tu web</em>?</div>
+
+    <div class="scale">
+      <div class="num hi">1</div>
+      <div class="num">2</div>
+      <div class="num">3</div>
+      <div class="num">4</div>
+      <div class="num">5</div>
+      <div class="num">6</div>
+      <div class="num">7</div>
+      <div class="num">8</div>
+      <div class="num">9</div>
+      <div class="num hi">10</div>
+    </div>
+
+    <div class="anchors">
+      <div class="a"><b>1</b> · No tengo, o me da un poco de apuro enseñarla</div>
+      <div class="a r"><b>10</b> · Me trae clientes casi sola</div>
+    </div>
+
+    <div class="cta">Comenta tu número aquí abajo. <em>Y si te apetece, por qué.</em></div>
+
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+  </div>
+</body>
+</html>
