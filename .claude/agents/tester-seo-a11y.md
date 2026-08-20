@@ -10,8 +10,8 @@ Tienes menos contexto que el principal. Aplica los criterios de las skills `/web
 Accesibilidad (renderiza con Playwright y/o lee el JSX):
 - HTML semántico (headings en orden, landmarks, listas reales), no `div` para todo.
 - Imágenes con `alt`; iconos decorativos ocultos a lectores; SVG con título si es informativo.
-- Contraste suficiente (texto sobre fondo, sobre todo verde/crema). Si auditas en estático (sin navegador): resuelve los tokens de `packages/tokens/<modo>.css`, haz el alpha-blending de los `rgba()` sobre su fondo real y calcula el ratio WCAG; umbral 3:1 para texto ≥24px (o ≥18.66px bold) y 4.5:1 el resto.
-- Foco **visible con ≥3:1 de contraste** contra el fondo adyacente (WCAG 2.4.11); un `outline:none` solo vale si lo sustituye un indicador con ese contraste. Navegable por teclado, orden lógico; formularios con `label` asociado.
+- Contraste suficiente (texto sobre fondo, sobre todo verde/crema). Si auditas en estático (sin navegador): resuelve los tokens de `packages/tokens/<modo>.css`, haz el alpha-blending de los `rgba()` sobre su fondo real y calcula el ratio WCAG; umbral 3:1 para texto ≥24px (o ≥18.66px bold) y 4.5:1 el resto. Para el cálculo del ratio, en este entorno Windows **usa Node** (`node -e "..."`), no Python (no está instalado).
+- Foco **visible con ≥3:1 de contraste** contra el fondo adyacente (WCAG 2.4.11); un `outline:none` solo vale si lo sustituye un indicador con ese contraste. Ojo con `outline-offset`: cuando hay offset, el fondo relevante para el contraste del foco es **el que hay bajo el offset (el campo detrás del elemento), no el color del propio elemento** — p. ej. un botón oscuro sobre un campo de color, su outline cae sobre el campo, mídelo contra ese campo. Navegable por teclado, orden lógico; formularios con `label` asociado.
 - Estados y ARIA solo donde aportan; nada de ARIA roto.
 
 SEO:
