@@ -1,7 +1,7 @@
-# 03 sep · REEL · Humor auto-deprecante — «¿Es solo una webcita sencilla?»
+# 10 sep · REEL · Humor auto-deprecante — «¿Es solo una webcita sencilla?»
 
 - **Tipo**: reel 1080×1920 (9:16) · animado (titular → espiral de pensamientos → cierre) · 16 s
-- **Fecha objetivo**: 3 sep 2026 (jueves) · **Estado**: lista
+- **Fecha objetivo**: 10 sep 2026 (jueves) · **Estado**: lista · *(movido del jue 3 al 10 para dejar sitio al reel de verano pospuesto)*
 - **Categoría**: humor / relatable (pilar nº1) — auto-deprecante (el chiste es su cabeza, no el cliente)
 - **Outputs**: `final.mp4`, `poster.png`
 - **Objetivo**: interacción (relatable para quien curra algo con mimo) + posicionar de refilón que "sencillo" tiene su trabajo. Sin señalar al cliente.

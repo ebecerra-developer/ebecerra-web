@@ -1,7 +1,7 @@
-# 27 · REEL · Curiosidad de verano — de dónde viene «surfear» por internet
+# 03 sep · REEL · Curiosidad de verano — de dónde viene «surfear» por internet
 
 - **Tipo**: reel 1080×1920 · 18,5 s (animación 16 s + hold final)
-- **Fecha objetivo**: 27 ago 2026 (jueves) · **Estado**: lista
+- **Fecha objetivo**: 3 sep 2026 (jueves) · **Estado**: lista · *(originalmente jue 27 ago; se pospuso al no subirse ese día)*
 - **Categoría**: educativo / curiosidades, en tono distendido de final de agosto
 - **Outputs**: `final.mp4`, `poster.png`
 - **Objetivo**: retención (la serie de curiosidades es lo que mejor aguanta) + comentario ligero de verano. Cero venta.
