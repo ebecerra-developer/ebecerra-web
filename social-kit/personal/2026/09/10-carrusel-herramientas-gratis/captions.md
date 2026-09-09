@@ -14,7 +14,7 @@
 4. **3 · Ficha de Google** (Google): tu sitio en el mapa; horarios, fotos y reseñas. Gratis y potente.
 5. **4 · Metricool** (Redes): programa tus publicaciones y mira qué funciona, todo en uno.
 6. **5 · Notion** (Orden): apunta tareas, clientes e ideas en un sitio y deja la cabeza libre.
-7. **Cierre** (verde): «Ninguna cobra por empezar. Prueba y quédate **las que te sirvan**.» + comment-bait.
+7. **Cierre** (verde): «¿Conocías **todas** estas?» + interacción («dime cuáles usabas y cuál te descubre algo; ¿se me escapa alguna?»).
 
 ## Caption (feed)
 
@@ -42,7 +42,7 @@ Ninguna te cobra por probarla. Empieza por una, la que más falta te haga.
 4. Categoría «Google», «Ficha de Google»: «Tu sitio en el mapa: horarios, fotos y reseñas. Gratis y muy potente».
 5. Categoría «Redes», «Metricool»: «Programa tus publicaciones y mira qué funciona, todo en un sitio».
 6. Categoría «Orden», «Notion»: «Apunta tareas, clientes e ideas en un sitio y deja la cabeza libre».
-7. Cierre sobre fondo verde, como la portada: «Ninguna cobra por empezar. Prueba y quédate las que te sirvan» y la bajada «¿Cuál usas ya? ¿Y cuál me recomiendas tú? Te leo en los comentarios».
+7. Cierre sobre fondo verde, como la portada: «¿Conocías todas estas?» y la bajada «Dime cuáles ya usabas y cuál te descubre algo. ¿Se me escapa alguna buena?».
 
 ## Comentario fijado
 
