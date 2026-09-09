@@ -47,10 +47,10 @@ const JOBS = [
     w: 1080, h: 1350,
   })),
 
-  // ── 2026-09-13 · Post humor no-web "mil gorros" · 1080×1350 ──
+  // ── 2026-09-13 · Post humor "webs de los 2000" (nostalgia) · 1080×1350 ──
   {
-    html: `personal/2026/09/13-post-mil-gorros/index.html`,
-    out:  `personal/2026/09/13-post-mil-gorros/final.png`,
+    html: `personal/2026/09/13-post-webs-de-antes/index.html`,
+    out:  `personal/2026/09/13-post-webs-de-antes/final.png`,
     w: 1080, h: 1350,
   },
 
