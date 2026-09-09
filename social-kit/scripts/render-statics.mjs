@@ -33,10 +33,10 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
-  // ── 2026-09-09 · Post consejo NO-web "WhatsApp Business" · 1080×1350 ──
+  // ── 2026-09-09 · Post consejo NO-web "desconectar / no estar 24-7" · 1080×1350 ──
   {
-    html: `personal/2026/09/09-post-whatsapp-business/index.html`,
-    out:  `personal/2026/09/09-post-whatsapp-business/final.png`,
+    html: `personal/2026/09/09-post-desconectar/index.html`,
+    out:  `personal/2026/09/09-post-desconectar/final.png`,
     w: 1080, h: 1350,
   },
 
