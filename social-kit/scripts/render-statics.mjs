@@ -33,6 +33,13 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-09-09 · Post consejo NO-web "WhatsApp Business" · 1080×1350 ──
+  {
+    html: `personal/2026/09/09-post-whatsapp-business/index.html`,
+    out:  `personal/2026/09/09-post-whatsapp-business/final.png`,
+    w: 1080, h: 1350,
+  },
+
   // ── 0001 · Post Lo que NO hago (1080×1350) ───────────────────────────
   {
     html: "personal/2026/05/0001-post-lo-que-no-hago/index.html",
