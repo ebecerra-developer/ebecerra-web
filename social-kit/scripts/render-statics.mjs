@@ -40,6 +40,20 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-09-10 · Carrusel "5 apps gratis para el negocio" (no-web) · 7 slides 1080×1350 ──
+  ...[1,2,3,4,5,6,7].map((n) => ({
+    html: `personal/2026/09/10-carrusel-herramientas-gratis/slide-${n}.html`,
+    out:  `personal/2026/09/10-carrusel-herramientas-gratis/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
+  // ── 2026-09-13 · Post humor no-web "mil gorros" · 1080×1350 ──
+  {
+    html: `personal/2026/09/13-post-mil-gorros/index.html`,
+    out:  `personal/2026/09/13-post-mil-gorros/final.png`,
+    w: 1080, h: 1350,
+  },
+
   // ── 0001 · Post Lo que NO hago (1080×1350) ───────────────────────────
   {
     html: "personal/2026/05/0001-post-lo-que-no-hago/index.html",
