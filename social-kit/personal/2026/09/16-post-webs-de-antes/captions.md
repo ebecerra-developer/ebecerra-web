@@ -1,7 +1,7 @@
-# 13 sep · POST · Humor/nostalgia — Las webs de los 2000
+# 16 sep · POST · Humor/nostalgia — Las webs de los 2000
 
 - **Tipo**: post 1080×1350 (4:5) · estático · fondo verde
-- **Fecha objetivo**: 13 sep 2026 (domingo) · **Estado**: lista
+- **Fecha objetivo**: 16 sep 2026 (miércoles) · **Estado**: publicado · *(estaba previsto dom 13; se subió el mié 16)*
 - **Categoría**: humor / nostalgia — específico del mundo web (su nicho), identificación alta, invita a sumar recuerdos
 - **Outputs**: `final.png`
 - **Objetivo**: gracia + identificación + retención (lista de recuerdos reconocibles) + interacción genuina (la gente añade los suyos). Reactivar alcance. Sustituye al post "mil gorros" (pelota y genérico).
