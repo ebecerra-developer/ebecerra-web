@@ -8,7 +8,7 @@
 
 ## Guion visual (~14s)
 
-0. **Titular (0-2,6s)**: verde, «Abres el correo con ilusión. **Craso error.**» (kicker "Bandeja de entrada"), micro-zoom.
+0. **Titular (0-2,6s)**: verde, «Abres el correo con ilusión. **Iluso de mí.**» (kicker "Bandeja de entrada"), micro-zoom.
 1. **Bandeja (2,7-10s)**: «Lo que entra de verdad:» y van cayendo correos: Agencia SEO «tu web no sale en Google», Una marca «colaboración a cambio de visibilidad», Administración (?) «Factura_pendiente_2026.zip», Gurú del marketing «5 secretos para facturar el triple»… y al final, resaltado en verde, Un cliente «Me han hablado de ti. ¿Nos vemos?».
 2. **Cierre (10,2-14s)**: «Aguantas cuatro… por **el quinto**.» + pill «¿El peor que te ha llegado?».
 
@@ -28,7 +28,7 @@ Y de vez en cuando, entre todo ese ruido, cae EL correo: el de un cliente de ver
 
 ## Alt text
 
-Reel vertical sobre fondo verde con la firma @ebecerra.es arriba a la izquierda. Titular «Abres el correo con ilusión. Craso error.». Después, bajo «Lo que entra de verdad:», van apareciendo correos tipo bandeja de entrada: «Agencia SEO — Tu web no sale en Google (te adjunto oferta)», «Una marca — Colaboración a cambio de visibilidad», «Administración (?) — Factura_pendiente_2026.zip», «Gurú del marketing — 5 secretos para facturar el triple» y, resaltado en verde, «Un cliente — Me han hablado de ti. ¿Nos vemos?». Cierra con «Aguantas cuatro… por el quinto» y una píldora «¿El peor que te ha llegado?».
+Reel vertical sobre fondo verde con la firma @ebecerra.es arriba a la izquierda. Titular «Abres el correo con ilusión. Iluso de mí.». Después, bajo «Lo que entra de verdad:», van apareciendo correos tipo bandeja de entrada: «Agencia SEO — Tu web no sale en Google (te adjunto oferta)», «Una marca — Colaboración a cambio de visibilidad», «Administración (?) — Factura_pendiente_2026.zip», «Gurú del marketing — 5 secretos para facturar el triple» y, resaltado en verde, «Un cliente — Me han hablado de ti. ¿Nos vemos?». Cierra con «Aguantas cuatro… por el quinto» y una píldora «¿El peor que te ha llegado?».
 
 ## Comentario fijado
 
