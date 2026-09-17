@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel humor/relatable "El correo de un autónomo": entran spam (agencia SEO, colaboración
+     por visibilidad, factura .zip, gurú) y al final el bueno = un cliente real. Compartible.
+     Titular verde + micro-zoom. Movimiento desde frame 1. GSAP seek-friendly. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .chip{position:absolute;top:54px;left:54px;z-index:250;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.5);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 96px;opacity:0}
+  .k{font-size:31px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:36px}
+
+  /* Titular */
+  .title h1{font-size:86px;font-weight:900;line-height:1.06;letter-spacing:-.035em;color:var(--cream)}
+  .title h1 em{font-style:normal;color:var(--green-light);text-shadow:0 0 40px rgba(110,231,183,.45)}
+
+  /* Bandeja */
+  .inbox{justify-content:flex-start;padding-top:210px}
+  .inbox .kk{font-size:34px;font-weight:800;letter-spacing:.06em;color:var(--green-light);margin-bottom:46px}
+  .mail{width:888px;background:var(--cream);color:var(--ink);border-radius:20px;padding:26px 32px;margin-bottom:22px;text-align:left;box-shadow:0 16px 40px -20px rgba(2,16,10,.7);opacity:0}
+  .mail .from{font-size:34px;font-weight:800;margin-bottom:8px}
+  .mail .subj{font-size:32px;font-weight:500;color:#5a6660;line-height:1.2}
+  .mail.good{background:var(--green-light)}
+  .mail.good .from{color:#04402b}
+  .mail.good .subj{color:#0b3a2a;font-weight:700}
+
+  /* Cierre */
+  .end .big{font-size:92px;font-weight:900;line-height:1.06;letter-spacing:-.035em;color:var(--cream)}
+  .end .big em{font-style:normal;color:var(--green-light)}
+  .end .q2{margin-top:52px;display:inline-block;background:var(--cream);color:var(--green);font-size:42px;font-weight:800;padding:22px 48px;border-radius:999px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <!-- Titular -->
+    <div class="scene title" id="s0">
+      <div class="k">Bandeja de entrada</div>
+      <h1>Abres el correo con ilusión. <em>Craso error.</em></h1>
+    </div>
+
+    <!-- Bandeja -->
+    <div class="scene inbox" id="s1">
+      <div class="kk">Lo que entra de verdad:</div>
+      <div class="mail" id="m1"><div class="from">Agencia SEO</div><div class="subj">«Tu web no sale en Google» (te adjunto oferta)</div></div>
+      <div class="mail" id="m2"><div class="from">Una marca</div><div class="subj">«Colaboración a cambio de visibilidad»</div></div>
+      <div class="mail" id="m3"><div class="from">Administración (?)</div><div class="subj">Factura_pendiente_2026.zip</div></div>
+      <div class="mail" id="m4"><div class="from">Gurú del marketing</div><div class="subj">«5 secretos para facturar el triple»</div></div>
+      <div class="mail good" id="m5"><div class="from">Un cliente</div><div class="subj">«Me han hablado de ti. ¿Nos vemos?»</div></div>
+    </div>
+
+    <!-- Cierre -->
+    <div class="scene end" id="s2">
+      <div class="big">Aguantas cuatro… por <em>el quinto</em>.</div>
+      <div class="q2">¿El peor que te ha llegado?</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl;
+
+    gsap.set(["#s1","#s2"], { opacity: 0 });
+    gsap.set(["#m1","#m2","#m3","#m4","#m5"], { opacity: 0 });
+    gsap.set("#s0", { scale: 1.06, opacity: 1 });
+
+    // Titular (0–2.6) micro-zoom
+    tl.to("#s0", { scale: 1, duration: 1.0, ease: "power2.out" }, 0);
+    tl.to("#s0", { opacity: 0, scale: 0.99, duration: 0.4, ...OUT }, 2.3);
+
+    // Bandeja (2.7–10.4): entran los 4 spam y luego el bueno
+    tl.to("#s1", { opacity: 1, duration: 0.3 }, 2.7);
+    const spam = [["#m1",3.0],["#m2",3.5],["#m3",4.0],["#m4",4.5]];
+    spam.forEach(([id,t]) => {
+      tl.fromTo(id, { opacity: 0, y: 28, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.34, ease: "power3.out" }, t);
+    });
+    // el bueno, con más énfasis tras un pequeño respiro
+    tl.fromTo("#m5", { opacity: 0, y: 34, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 5.6);
+    tl.to("#s1", { opacity: 0, duration: 0.4, ...OUT }, 10.0);
+
+    // Cierre (10.2–14)
+    tl.to("#s2", { opacity: 1, duration: 0.5 }, 10.2);
+    tl.fromTo("#s2 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" }, 10.3);
+    tl.fromTo("#s2 .q2", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 10.9);
+  </script>
+</body>
+</html>
