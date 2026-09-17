@@ -54,6 +54,13 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
+  // ── 2026-09-20 · Post consejo "pedir reseñas en caliente" · 1080×1350 ──
+  {
+    html: `personal/2026/09/20-post-pedir-resenas/index.html`,
+    out:  `personal/2026/09/20-post-pedir-resenas/final.png`,
+    w: 1080, h: 1350,
+  },
+
   // ── 0001 · Post Lo que NO hago (1080×1350) ───────────────────────────
   {
     html: "personal/2026/05/0001-post-lo-que-no-hago/index.html",
