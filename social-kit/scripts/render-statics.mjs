@@ -54,10 +54,11 @@ const JOBS = [
     w: 1080, h: 1350,
   },
 
-  // ── 2026-09-20 · Post consejo "pedir reseñas en caliente" · 1080×1350 ──
+
+  // ── 2026-09-23 · Post opinión "la mejor reseña es la que llega sin pedirla" · 1080×1350 ──
   {
-    html: `personal/2026/09/20-post-pedir-resenas/index.html`,
-    out:  `personal/2026/09/20-post-pedir-resenas/final.png`,
+    html: `personal/2026/09/23-post-resena-sin-pedirla/index.html`,
+    out:  `personal/2026/09/23-post-resena-sin-pedirla/final.png`,
     w: 1080, h: 1350,
   },
 
