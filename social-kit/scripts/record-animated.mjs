@@ -18,6 +18,7 @@ const ROOT = path.resolve("..");
 // El recorder solo necesita la carpeta + duración. html/out/poster se infieren.
 
 const TARGETS = [
+  { name: "24-reel-autonomo-traducido", folder: "personal/2026/09/24-reel-autonomo-traducido", duration: 17 },
   { name: "17-reel-correo-autonomo", folder: "personal/2026/09/17-reel-correo-autonomo", duration: 14 },
   { name: "08-reel-webcita-sencilla", folder: "personal/2026/09/08-reel-webcita-sencilla", duration: 16 },
   // Reel curiosidad de verano: de dónde viene lo de "surfear" por internet (18,5s con hold final)
