@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Post anécdota + consejo del oficio: el "debugging del patito de goma".
+     Explicar un problema en voz alta te hace encontrar la solución tú solo. Fondo verde. Solo Inter. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1350px;overflow:hidden;padding:92px 88px;display:flex;flex-direction:column;justify-content:center;
+    background:radial-gradient(120% 80% at 30% 14%,#058a63 0%,#047857 52%,#02583c 100%)}
+
+  .kick{align-self:flex-start;display:inline-flex;align-items:center;gap:12px;background:rgba(3,40,26,.4);
+    border:1px solid rgba(110,231,183,.3);color:var(--green-light);font-size:26px;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;padding:12px 26px;border-radius:999px;margin-bottom:40px}
+
+  .head{display:flex;align-items:flex-start;gap:30px;margin-bottom:12px}
+  .head .duck{flex:none;margin-top:6px}
+  .h1{font-size:66px;font-weight:900;line-height:1.08;letter-spacing:-.035em;color:var(--cream)}
+  .h1 em{font-style:normal;color:var(--green-light)}
+
+  .body{margin-top:40px;font-size:41px;font-weight:500;line-height:1.36;color:rgba(250,246,238,.88)}
+  .body b{font-weight:800;color:var(--cream)}
+  .body p+p{margin-top:28px}
+
+  .cta{margin-top:46px;font-size:36px;font-weight:700;color:var(--green-light);line-height:1.3}
+
+  .chip{position:absolute;bottom:56px;left:88px;display:flex;align-items:center;gap:13px;font-weight:700;font-size:27px;color:var(--cream)}
+  .chip .dot{width:44px;height:44px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="kick">✦ Truco del oficio</div>
+
+    <div class="head">
+      <span class="duck">
+        <svg viewBox="0 0 30 26" width="128" height="111">
+          <ellipse cx="16" cy="16.5" rx="9.5" ry="6.5" fill="#FAF6EE"/>
+          <path d="M22 13c3.5-.4 5.5 1.2 5.5 4.2 0 .6-.8.7-1 .1-.6-1.6-1.9-2.3-3.4-2.2" fill="#FAF6EE"/>
+          <circle cx="9.5" cy="9" r="5" fill="#FAF6EE"/>
+          <path d="M5 7.6 0.8 9.2 5 10.9z" fill="#6EE7B7"/>
+          <circle cx="9" cy="8" r="1.1" fill="#047857"/>
+          <path d="M11 16.5c2.2 1.4 6.5 1.4 9 0" fill="none" stroke="#047857" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+        </svg>
+      </span>
+      <div class="h1">Los programadores le cuentan sus problemas a un <em>patito de goma</em>.</div>
+    </div>
+
+    <div class="body">
+      <p>Suena a broma, pero tiene nombre y todo: cuando te atascas, le explicas el problema <b>en voz alta</b>, paso a paso, a un patito de goma.</p>
+      <p>Y a mitad de la explicación… caes tú solo en dónde estaba el fallo. No es magia: es que <b>poner un lío en palabras te obliga a ordenarlo</b>.</p>
+    </div>
+
+    <div class="cta">Funciona con todo, no solo con código. La próxima vez que estés atascado, cuéntaselo a alguien (o a un patito).</div>
+
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+  </div>
+</body>
+</html>

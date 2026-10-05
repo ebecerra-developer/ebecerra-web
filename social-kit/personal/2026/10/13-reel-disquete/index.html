@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  /* Reel curiosidad "El icono de guardar es un disquete":
+     seguimos usando dibujos de objetos que ya no usamos (disquete, teléfono de colgar, sobre).
+     3 iconos SVG + cierre. Titular verde + micro-zoom. GSAP seek-friendly. */
+  :root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+  .chip{position:absolute;top:54px;left:54px;z-index:250;display:flex;align-items:center;gap:12px;background:rgba(2,40,26,.5);padding:11px 24px 11px 11px;border-radius:999px;font-weight:700;font-size:25px;color:var(--cream)}
+  .chip .dot{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--green);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 104px;opacity:0}
+  .k{font-size:31px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:36px}
+
+  /* Titular */
+  .title h1{font-size:84px;font-weight:900;line-height:1.06;letter-spacing:-.035em;color:var(--cream)}
+  .title h1 em{font-style:normal;color:var(--green-light);text-shadow:0 0 40px rgba(110,231,183,.45)}
+
+  /* Beat: icono + frase */
+  .beat .icon{margin-bottom:56px}
+  .beat .icon svg{filter:drop-shadow(0 12px 32px rgba(2,40,26,.4))}
+  .beat .line{font-size:70px;font-weight:900;line-height:1.14;letter-spacing:-.03em;color:var(--cream);max-width:840px}
+  .beat .line em{font-style:normal;color:var(--green-light)}
+  .beat .sub{margin-top:30px;font-size:44px;font-weight:600;line-height:1.25;color:rgba(250,246,238,.72)}
+
+  /* Cierre */
+  .end .big{font-size:80px;font-weight:900;line-height:1.1;letter-spacing:-.035em;color:var(--cream)}
+  .end .big em{font-style:normal;color:var(--green-light)}
+  .end .q2{margin-top:52px;display:inline-block;background:var(--cream);color:var(--green);font-size:44px;font-weight:800;padding:24px 50px;border-radius:999px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="chip"><span class="dot">eB</span>@ebecerra.es</div>
+
+    <!-- Titular -->
+    <div class="scene title" id="s0">
+      <div class="k">Curiosidad</div>
+      <h1>Guardas con el dibujo de algo que <em>ya no existe</em>.</h1>
+    </div>
+
+    <!-- Beat 1: disquete -->
+    <div class="scene beat" id="s1">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" width="230" height="230">
+          <path fill="#FAF6EE" d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
+          <rect x="7" y="3" width="7" height="5" rx="0.6" fill="#047857"/>
+          <rect x="12" y="4" width="1.6" height="3" rx="0.4" fill="#FAF6EE"/>
+          <rect x="7" y="13" width="10" height="6" rx="0.8" fill="#047857"/>
+        </svg>
+      </div>
+      <div class="line">El icono de <em>guardar</em> sigue siendo un disquete.</div>
+      <div class="sub">¿Cuándo metiste uno por última vez?</div>
+    </div>
+    <!-- Beat 2: teléfono -->
+    <div class="scene beat" id="s2">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" width="222" height="222">
+          <path fill="#FAF6EE" d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.4.6 3.6.6.6 0 1 .5 1 1V20c0 .6-.4 1-1 1C10.1 21 3 13.9 3 5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/>
+        </svg>
+      </div>
+      <div class="line">El de <em>llamar</em>, un teléfono de los de colgar el auricular.</div>
+    </div>
+    <!-- Beat 3: sobre -->
+    <div class="scene beat" id="s3">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" width="238" height="238" fill="none" stroke="#FAF6EE" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
+          <rect x="3" y="5" width="18" height="14" rx="1.8"/>
+          <path d="M3.5 6.5 12 13l8.5-6.5"/>
+        </svg>
+      </div>
+      <div class="line">El del <em>correo</em>, un sobre de carta de toda la vida.</div>
+    </div>
+
+    <!-- Cierre -->
+    <div class="scene end" id="s4">
+      <div class="big">Dibujos de cosas que ya casi no usamos… y nos <em>entendemos igual</em>.</div>
+      <div class="q2">¿Cuál no habías pensado?</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    const OUT = { immediateRender: false };
+    window.__tl = tl;
+
+    gsap.set(["#s1","#s2","#s3","#s4"], { opacity: 0 });
+    gsap.set("#s0", { scale: 1.06, opacity: 1 });
+
+    // Titular (0–2.6) micro-zoom
+    tl.to("#s0", { scale: 1, duration: 1.0, ease: "power2.out" }, 0);
+    tl.to("#s0", { opacity: 0, scale: 0.99, duration: 0.4, ...OUT }, 2.3);
+
+    // Beats: icono entra, luego frase
+    const beats = [["#s1",2.8],["#s2",5.9],["#s3",9.0]];
+    beats.forEach(([s,at]) => {
+      tl.to(s, { opacity: 1, duration: 0.3 }, at);
+      tl.fromTo(s + " .icon", { opacity: 0, scale: 0.7, y: 10 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, at + 0.1);
+      tl.fromTo(s + " .line", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at + 0.5);
+      if (document.querySelector(s + " .sub")) {
+        tl.fromTo(s + " .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at + 0.9);
+      }
+      tl.to(s, { opacity: 0, duration: 0.3, ...OUT }, at + 2.8);
+    });
+
+    // Cierre (12.4–16.5)
+    tl.to("#s4", { opacity: 1, duration: 0.5 }, 12.4);
+    tl.fromTo("#s4 .big", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" }, 12.5);
+    tl.fromTo("#s4 .q2", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 13.1);
+  </script>
+</body>
+</html>

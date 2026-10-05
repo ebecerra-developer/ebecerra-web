@@ -12,6 +12,41 @@ import fs from "node:fs";
 const ROOT = path.resolve("..");
 
 const JOBS = [
+  // ── 2026-10-06 · Carrusel "Webs con truco" (interacciones inusuales + guiño demos) · 7 slides 1080×1350 ──
+  ...[1,2,3,4,5,6,7].map((n) => ({
+    html: `personal/2026/10/06-carrusel-webs-raras/slide-${n}.html`,
+    out:  `personal/2026/10/06-carrusel-webs-raras/slide-${n}.png`,
+    w: 1080, h: 1350,
+  })),
+
+  // ── 2026-10-07 · Post humor informático "el archivo definitivo nunca es el definitivo" · 1080×1350 ──
+  {
+    html: `personal/2026/10/07-post-archivo-definitivo/index.html`,
+    out:  `personal/2026/10/07-post-archivo-definitivo/final.png`,
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-10-11 · Post curiosidad "por qué el correo basura se llama spam" (Monty Python) · 1080×1350 ──
+  {
+    html: `personal/2026/10/11-post-curiosidad-spam/index.html`,
+    out:  `personal/2026/10/11-post-curiosidad-spam/final.png`,
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-10-14 · Post humor digital "2.000 capturas y nunca encuentras la que buscas" · 1080×1350 ──
+  {
+    html: `personal/2026/10/14-post-capturas/index.html`,
+    out:  `personal/2026/10/14-post-capturas/final.png`,
+    w: 1080, h: 1350,
+  },
+
+  // ── 2026-10-18 · Post anécdota+consejo "el patito de goma" (rubber duck debugging) · 1080×1350 ──
+  {
+    html: `personal/2026/10/18-post-patito-goma/index.html`,
+    out:  `personal/2026/10/18-post-patito-goma/final.png`,
+    w: 1080, h: 1350,
+  },
+
   // ── 2026-09-01 · Carrusel "Volver a la rutina tras el verano" · 7 slides 1080×1350 ──
   ...[1,2,3,4,5,6,7].map((n) => ({
     html: `personal/2026/09/01-carrusel-vuelta-rutina/slide-${n}.html`,

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<link rel="stylesheet" href="_base.css" /></head>
+<body>
+  <div class="slide on-cream step">
+    <div class="num">3</div>
+    <div class="title">Cada scroll pasa <em>una escena</em></div>
+    <div class="desc">No baja poco a poco: salta de una pantalla completa a la siguiente, como diapositivas.</div>
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i><span class="url">una-escena-cada-vez.com</span></div>
+      <div class="canvas">
+        <svg width="100%" height="452" viewBox="0 0 912 452" fill="none">
+          <!-- escena actual (completa) -->
+          <rect x="40" y="34" width="690" height="300" rx="14" fill="#c9e9d8"/>
+          <text x="385" y="202" font-family="Inter" font-size="46" font-weight="900" fill="#047857" text-anchor="middle">Escena 1</text>
+          <!-- siguiente escena asomando -->
+          <rect x="40" y="352" width="690" height="74" rx="14" fill="#e4f2ea"/>
+          <text x="385" y="400" font-family="Inter" font-size="34" font-weight="800" fill="#5a8d79" text-anchor="middle">Escena 2</text>
+          <!-- indicador de secciones -->
+          <circle cx="836" cy="120" r="12" fill="#047857"/>
+          <circle cx="836" cy="170" r="11" stroke="#9fc7b5" stroke-width="4"/>
+          <circle cx="836" cy="218" r="11" stroke="#9fc7b5" stroke-width="4"/>
+          <!-- flecha de salto -->
+          <g stroke="#0e2a1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M836 268 V 332"/>
+            <path d="M812 308 l24 26 24 -26"/>
+          </g>
+        </svg>
+        <div class="tag" style="top:30px;right:34px">salto completo</div>
+      </div>
+    </div>
+    <div class="sig"><span class="dot">eB</span>@ebecerra.es</div>
+  </div>
+</body></html>

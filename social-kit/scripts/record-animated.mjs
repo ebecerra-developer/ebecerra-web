@@ -18,6 +18,14 @@ const ROOT = path.resolve("..");
 // El recorder solo necesita la carpeta + duración. html/out/poster se infieren.
 
 const TARGETS = [
+  // ── Tanda octubre 2026 (vacaciones) ──
+  // Reel humor informático "los duendes de la informática" (funciona solo / se arregla de noche / nadie ha tocado nada)
+  { name: "08-reel-duendes", folder: "personal/2026/10/08-reel-duendes", duration: 16 },
+  // Reel curiosidad "el icono de guardar es un disquete" (3 iconos SVG de objetos que ya no usamos)
+  { name: "13-reel-disquete", folder: "personal/2026/10/13-reel-disquete", duration: 16.5 },
+  // Reel nostalgia "cómo encontrábamos un negocio antes de Google" (páginas amarillas / boca a boca / corcho del bar)
+  { name: "15-reel-paginas-amarillas", folder: "personal/2026/10/15-reel-paginas-amarillas", duration: 16 },
+
   { name: "24-reel-autonomo-traducido", folder: "personal/2026/09/24-reel-autonomo-traducido", duration: 17 },
   { name: "17-reel-correo-autonomo", folder: "personal/2026/09/17-reel-correo-autonomo", duration: 14 },
   { name: "08-reel-webcita-sencilla", folder: "personal/2026/09/08-reel-webcita-sencilla", duration: 16 },

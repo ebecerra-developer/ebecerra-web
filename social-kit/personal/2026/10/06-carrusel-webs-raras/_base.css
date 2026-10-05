@@ -1,0 +1,59 @@
+/* Carrusel "Webs con truco" · 1080×1350 (4:5) · interacciones inusuales que te encuentras en algunas webs
+   (cursor raro, scroll horizontal, scroll por escenas, scroll 3D hacia dentro) + guiño a las demos.
+   Portada y cierre verdes, pasos en crema. Solo Inter, acento por color, sin emojis. */
+:root{--green:#047857;--green-light:#6EE7B7;--cream:#FAF6EE;--ink:#0e2a1f;--muted:#6f7a72}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1350px;overflow:hidden;font-family:"Inter","Segoe UI Emoji",sans-serif;-webkit-font-smoothing:antialiased}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;padding:82px 84px}
+
+.on-green{background:radial-gradient(120% 80% at 30% 16%,#058a63 0%,#047857 52%,#02583c 100%)}
+.on-cream{background:var(--cream)}
+
+.sig{position:absolute;left:84px;bottom:52px;display:flex;align-items:center;gap:13px;font-weight:700;font-size:26px}
+.sig .dot{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:19px}
+.on-green .sig{color:var(--cream)}
+.on-green .sig .dot{background:var(--cream);color:var(--green)}
+.on-cream .sig{color:var(--green)}
+.on-cream .sig .dot{background:var(--green);color:var(--cream)}
+
+/* ── Portada ─────────────────────────────────────────────── */
+.cover{display:flex;flex-direction:column;justify-content:center;height:100%}
+.cover .k{font-size:30px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green-light);margin-bottom:32px}
+.cover h1{font-size:92px;font-weight:900;line-height:1.02;letter-spacing:-.04em;color:var(--cream)}
+.cover h1 em{font-style:normal;color:var(--green-light)}
+.cover .sub{margin-top:36px;font-size:37px;font-weight:600;color:rgba(250,246,238,.84);line-height:1.32}
+.swipe{position:absolute;right:84px;bottom:54px;display:flex;align-items:center;gap:12px;font-size:29px;font-weight:800;color:var(--green-light)}
+.swipe svg{width:34px;height:34px;stroke:var(--green-light);stroke-width:2.6;fill:none}
+
+/* ── Paso (interacción) ──────────────────────────────────── */
+.step{display:flex;flex-direction:column}
+.step .num{font-size:34px;font-weight:900;color:var(--green);background:var(--green-light);width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:28px;flex:none}
+.step .title{font-size:62px;font-weight:900;letter-spacing:-.035em;line-height:1.04;color:var(--ink)}
+.step .title em{font-style:normal;color:var(--green)}
+.step .desc{margin-top:22px;font-size:34px;font-weight:600;line-height:1.3;color:var(--muted);max-width:860px}
+
+/* Ventana de navegador que contiene la visualización */
+.win{margin-top:44px;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #e6e0d2;box-shadow:0 26px 54px -26px rgba(2,40,26,.5)}
+.win .bar{height:52px;background:#efeade;display:flex;align-items:center;gap:9px;padding:0 20px}
+.win .bar i{width:13px;height:13px;border-radius:50%;background:#d3ccbc;display:block;flex:none}
+.win .bar .url{margin-left:16px;background:#fff;border-radius:999px;padding:6px 20px;font-size:21px;font-weight:600;color:#9c968a}
+.canvas{position:relative;height:452px;background:#fbfaf6;overflow:hidden}
+.canvas svg{display:block}
+
+/* Etiqueta flotante sobre el canvas */
+.tag{position:absolute;background:var(--green);color:var(--cream);font-size:25px;font-weight:800;padding:10px 22px;border-radius:999px;letter-spacing:-.01em;box-shadow:0 10px 22px -10px rgba(2,40,26,.55)}
+
+/* ── Cierre ──────────────────────────────────────────────── */
+.end{display:flex;flex-direction:column;justify-content:center;height:100%}
+.end .k{font-size:30px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green-light);margin-bottom:30px}
+.end h2{font-size:82px;font-weight:900;line-height:1.05;letter-spacing:-.04em;color:var(--cream)}
+.end h2 em{font-style:normal;color:var(--green-light)}
+.end .sub{margin-top:34px;font-size:36px;font-weight:600;color:rgba(250,246,238,.84);line-height:1.34}
+
+/* Guiño demos */
+.demo-cta{display:flex;flex-direction:column;justify-content:center;height:100%}
+.demo-cta .k{font-size:30px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--green-light);margin-bottom:30px}
+.demo-cta h2{font-size:78px;font-weight:900;line-height:1.05;letter-spacing:-.04em;color:var(--cream)}
+.demo-cta h2 em{font-style:normal;color:var(--green-light)}
+.demo-cta .sub{margin-top:32px;font-size:36px;font-weight:600;color:rgba(250,246,238,.84);line-height:1.34}
+.demo-cta .link{margin-top:40px;display:inline-flex;align-self:flex-start;align-items:center;gap:14px;background:var(--cream);color:var(--green);font-size:38px;font-weight:800;padding:20px 40px;border-radius:999px}
